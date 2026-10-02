@@ -53,14 +53,16 @@ def create_server(application, port=0):
             path = urlsplit(self.path).path
             if path == "/api/bootstrap":
                 self.respond(200, {"token": token, "catalog": application.catalog(), "characters": application.list()})
+            elif path == "/api/coverage":
+                self.respond(200, application.coverage())
             elif path.startswith("/api/characters/"):
                 try:
                     self.respond(200, application.get(path.rsplit("/", 1)[-1]))
                 except KeyError:
                     self.respond(404, {"error": "Character not found"})
-            elif path in ("/", "/app.js", "/style.css"):
+            elif path in ("/", "/app.js", "/style.css", "/coverage.css"):
                 filename = "index.html" if path == "/" else path[1:]
-                content_type = {"index.html": "text/html", "app.js": "text/javascript", "style.css": "text/css"}[filename]
+                content_type = {"index.html": "text/html", "app.js": "text/javascript", "style.css": "text/css", "coverage.css": "text/css"}[filename]
                 self.respond(200, (assets / filename).read_bytes(), f"{content_type}; charset=utf-8")
             else:
                 self.respond(404, {"error": "Not found"})

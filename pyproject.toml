@@ -9,4 +9,4 @@ description = "Offline Palladium character creation and advancement"
 requires-python = ">=3.11"
 
 [tool.setuptools.package-data]
-characters_unlimited = ["web/*", "packs/*.json"]
+characters_unlimited = ["web/*", "packs/*.json", "data/*.json"]

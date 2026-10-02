@@ -1,3 +1,4 @@
 * text=auto eol=lf
 *.jpg binary
 *.pdf binary
+characters_unlimited/data/*.json linguist-generated=true

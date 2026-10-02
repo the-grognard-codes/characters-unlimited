@@ -7,6 +7,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from .storage import CharacterStore, SaveConflict
+from .coverage import SourceInventory
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -21,6 +22,9 @@ class CharacterApplication:
 
     def catalog(self):
         return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}], "packs": [self.pack]}
+
+    def coverage(self):
+        return SourceInventory.load()
 
     def create(self, name="", race="human", character_class="vagabond", notes=""):
         racial_rules = next((item for item in self.pack["races"] if item["id"] == race), None)

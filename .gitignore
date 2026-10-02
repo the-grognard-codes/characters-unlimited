@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+build/
+dist/
+.coverage
+.mypy_cache/
+*.egg-info/
+tmp/
+sources-markdown/
+sources-pdf/
+reports/ocr-review/
+character-sheets/*.pdf
+local-data/

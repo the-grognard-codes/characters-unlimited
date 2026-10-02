@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Characters Unlimited</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<aside><div class="brand">CU<span>CHARACTERS<br>UNLIMITED</span></div><p class="eyebrow">YOUR CHARACTERS</p><button id="new-character" class="primary">+ New character</button><nav id="library" aria-label="Saved characters"></nav><div class="offline"><span>●</span> LOCAL · OFFLINE · YOURS</div></aside>
+<main>
+<header><div><p class="eyebrow">THE CHARACTER WORKSHOP</p><h1>Every adventure starts here.</h1></div><span id="save-status" role="status">Saved on this PC</span></header>
+<div id="error" role="alert" hidden></div>
+<section id="welcome"><div class="intro"><p class="eyebrow">BUILD YOUR NEXT STORY</p><h2>A character worth<br>bringing to the table.</h2><p>Roll the attributes. Find the person behind them.<br>Your work stays on your computer.</p><button id="start" class="primary">Create a Rifts character →</button></div><div class="hero-mark" aria-hidden="true">I.Q.<br><strong>3D6</strong><br><span>IMAGINATION INCLUDED</span></div></section>
+<section id="builder" hidden>
+<div class="steps"><span class="active">01 Identity</span><span class="active">02 Attributes</span><span>03 Skills</span><span>04 Equipment</span><span>05 Review</span></div>
+<div class="workspace"><div><section class="panel"><div class="section-title"><h2>Identity</h2><span class="tag">RIFTS · ULTIMATE EDITION</span></div><label>Character name<input id="name" autocomplete="off" placeholder="A name for your next adventure"></label><div class="two-column"><label>Race<select id="race"></select></label><label>Occupational character class<select id="character-class"></select></label></div><label>Character notes<textarea id="notes" rows="4" placeholder="Background, personality, unfinished ideas…"></textarea></label></section>
+<section class="panel"><div class="section-title"><h2>Attributes</h2><span class="tag">INITIAL ROLLS</span></div><div id="attributes" class="attribute-grid"></div><p class="help">Select an attribute to inspect its dice and rule source.</p></section></div>
+<section class="panel summary"><p class="eyebrow">CHARACTER AT A GLANCE</p><h2 id="summary-name">Unnamed adventurer</h2><p>Human · Vagabond · Level 1</p><hr><h3>Still to finish</h3><ul id="completion"></ul><h3>Available now</h3><p class="help">Identity, initial attributes, notes, and local saves. Additional rules arrive in the next slices.</p></section></div>
+</section></main>
+<dialog id="new-dialog"><form id="create-form"><p class="eyebrow">A NEW ADVENTURE</p><h2>Create a character</h2><label>Name<input name="name" placeholder="Optional character name"></label><p class="help">Rifts Ultimate Edition · Human · Vagabond<br>Initial attributes follow the core book.</p><div class="actions"><button type="button" id="cancel">Cancel</button><button type="submit" class="primary">Roll &amp; create</button></div></form></dialog>
+</body></html>

@@ -9,8 +9,14 @@ Read completed Markdown from the rpg-docling-pipeline project and use its origin
 ## Slices
 
 - 01: Complete, merged in PR #1. Local Rifts Human/Vagabond identity, initial attributes, notes, transactional saves, and reopen path work. Type checking, four application workflow tests, Python/JavaScript syntax checks, and narrow/desktop browser checks pass. Windows GitHub CI also passes.
-- 02: In progress, split into 02A (source fingerprints and provisional candidate browser) and 02B (complete option audit and bounded content tickets). The scan finds 7,053 section candidates in all 13 books; zero candidates are claimed fully automated. Classifying headings is not a completed corpus audit.
-- 03–24 and corpus content batches: Not complete.
+- 02: In progress, split into 02A (complete, merged in PR #2) and 02B (complete option audit and bounded content tickets). The scan finds 7,053 section candidates in all 13 books; zero candidates are claimed fully automated. Classifying headings is not a completed corpus audit.
+- 03: Draft normal-attribute creation, separate game catalogs, and game-aware identity/save support are prepared on `codex/03-heroes-character`. Heroes Unlimited exceptional-die interpretation awaits the user's ruling; the original PDF (printed page 15) confirms the uncapped wording. Do not publish this slice as complete before resolving that rule. Its owned draft files are preserved in a named Git stash while independent Rifts work proceeds.
+- 04: Rifts generation options can proceed independently as 04A; the full two-game slice remains dependent on 03.
+- 05–24 and corpus content batches: Not complete.
+
+## Pending source ruling
+
+Heroes Unlimited Second Edition adds a die to an initial 16–18 and says to roll again on another six without stating a terminal cap; Rifts explicitly caps at two bonus dice. An asynchronous question asks the user to choose repeated bonus sixes or a two-bonus-die cap. The original PDF page was visually inspected; do not infer approval from elapsed time or silently copy the Rifts cap.
 
 ## Retrospective
 

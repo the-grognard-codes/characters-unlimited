@@ -2,14 +2,22 @@
 
 import json
 import secrets
+from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
+from .generation import generation_settings, roll_attribute
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
+
+
+def require_revision(revision):
+    if type(revision) is not int or revision < 0:
+        raise ValueError("A nonnegative saved revision is required")
+    return revision
 
 
 class CharacterApplication:
@@ -26,39 +34,27 @@ class CharacterApplication:
     def coverage(self):
         return SourceInventory.load()
 
-    def create(self, name="", race="human", character_class="vagabond", notes=""):
+    def create(self, name="", race="human", character_class="vagabond", notes="", generation=None):
         racial_rules = next((item for item in self.pack["races"] if item["id"] == race), None)
         selected_class = next((item for item in self.pack["classes"] if item["id"] == character_class), None)
         if racial_rules is None or selected_class is None:
             raise ValueError("Select an available race and class")
         if not isinstance(name, str) or not isinstance(notes, str):
             raise ValueError("Name and notes must be text")
+        settings = generation_settings(generation)
         character = {
             "id": str(uuid4()), "format_version": 1, "game": "rifts",
             "name": name, "notes": notes, "race": race, "character_class": character_class,
             "rules": {"id": self.pack["id"], "version": self.pack["version"]},
-            "level": 1, "revision": 0, "attributes": {},
+            "level": 1, "revision": 0, "attributes": {}, "generation": settings,
             "completion": ["Skills are not yet complete", "Equipment and resources are not yet complete"],
             "automation_gaps": selected_class["automation_gaps"],
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         for attribute in ATTRIBUTES:
             formula = racial_rules["attributes"]
-            rolls = [self.die(formula["sides"]) for _ in range(formula["count"])]
-            total = sum(rolls) + formula["constant"]
-            bonus_rolls = []
-            exceptional = formula["exceptional"]
-            if total in exceptional["thresholds"]:
-                for _ in range(exceptional["max_bonus_dice"]):
-                    bonus = self.die(formula["sides"])
-                    bonus_rolls.append(bonus)
-                    total += bonus
-                    if bonus != formula["sides"]:
-                        break
-            character["attributes"][attribute] = {
-                "base": total, "value": total, "rolls": rolls, "bonus_rolls": bonus_rolls,
-                "explanation": {"formula": "3D6; eligible initial totals add exceptional dice", "source": self.pack["source"]},
-            }
+            character["attributes"][attribute] = roll_attribute(formula, settings, self.die, self.pack["source"])
+        character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
         self.store.put(character)
         return character
 
@@ -75,6 +71,42 @@ class CharacterApplication:
                 if not isinstance(value, str):
                     raise ValueError(f"{key} must be text")
                 changes[key] = value
-        if type(revision) is not int or revision < 0:
-            raise ValueError("A nonnegative saved revision is required")
-        return self.store.update(identifier, changes, revision)
+        return self.store.update(identifier, changes, require_revision(revision))
+
+    def reroll(self, identifier, *, revision, attribute=None, generation=None):
+        require_revision(revision)
+        character = self.get(identifier)
+        if attribute is not None and attribute not in ATTRIBUTES:
+            raise ValueError("Select a known attribute")
+        settings = generation_settings(generation if generation is not None else character.get("generation"))
+        racial_rules = next(item for item in self.pack["races"] if item["id"] == character["race"])
+        attributes = deepcopy(character["attributes"])
+        results = {}
+        for name in (ATTRIBUTES if attribute is None else (attribute,)):
+            formula = racial_rules["attributes"]
+            result = roll_attribute(formula, settings, self.die, self.pack["source"])
+            previous = attributes[name]
+            result["adjustment"] = previous.get("adjustment", 0)
+            result["fixed"] = previous.get("fixed")
+            result["value"] = result["fixed"] if result["fixed"] is not None else result["base"] + result["adjustment"]
+            attributes[name] = result
+            results[name] = deepcopy(result)
+        history = character.get("roll_history", [{"kind": "previous", "at": None, "attributes": deepcopy(character["attributes"])}])
+        history.append({"kind": "reroll", "at": datetime.now(timezone.utc).isoformat(), "generation": settings, "attributes": results})
+        return self.store.update(identifier, {"attributes": attributes, "generation": settings, "roll_history": history}, revision)
+
+    def set_attribute(self, identifier, *, revision, attribute, mode, value=None):
+        require_revision(revision)
+        character = self.get(identifier)
+        if attribute not in ATTRIBUTES:
+            raise ValueError("Select a known attribute")
+        if mode not in ("fixed", "adjustment", "calculated"):
+            raise ValueError("Select fixed, adjustment, or calculated")
+        if mode != "calculated" and type(value) is not int:
+            raise ValueError("Attribute values must be whole numbers")
+        attributes = deepcopy(character["attributes"])
+        result = attributes[attribute]
+        result["fixed"] = value if mode == "fixed" else None
+        result["adjustment"] = value if mode == "adjustment" else 0
+        result["value"] = result["fixed"] if result["fixed"] is not None else result["base"] + result["adjustment"]
+        return self.store.update(identifier, {"attributes": attributes}, revision)

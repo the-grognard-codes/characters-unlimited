@@ -4,9 +4,11 @@
 
 **Blocked by:** 01
 
-**Status:** in-progress
+**Status:** done
 
 - [x] All 13 source books have SHA-256 identities and Markdown section locations; matching original PDFs are recorded.
 - [x] Candidate sections are searchable in the application and remain explicitly unreviewed.
 - [x] Extraction does not claim full coverage or mark candidates as mechanically implemented.
-- [ ] Workflow checks, type checks, browser validation, review, and PR merge are recorded.
+- [x] Workflow checks, type checks, browser validation, review, and PR merge are recorded.
+
+Merged: https://github.com/the-grognard-codes/characters-unlimited/pull/2

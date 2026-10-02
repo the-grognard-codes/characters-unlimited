@@ -10,8 +10,8 @@ async function request(path, data) {
 function showError(error) { $('error').textContent = error.message; $('error').hidden = false; $('save-status').textContent = 'Check the message below'; }
 function lockNavigation(busy) {
   navigationBusy = busy;
-  ['name', 'notes', 'new-character', 'source-coverage'].forEach(id => $(id).disabled = busy);
-  document.querySelectorAll('#library button').forEach(button => button.disabled = busy);
+  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history'].forEach(id => $(id).disabled = busy);
+  document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
 }
 function library() {
   $('library').replaceChildren();
@@ -31,20 +31,31 @@ function library() {
   });
 }
 function render(character) {
+  const expanded = new Set([...document.querySelectorAll('.attribute[open]')].map(element => element.dataset.attribute));
   current = character;
   characters = [character, ...characters.filter(item => item.id !== character.id)];
   $('welcome').hidden = true; $('builder').hidden = false; $('error').hidden = true;
   $('coverage').hidden = true;
   $('name').value = character.name; $('notes').value = character.notes;
   $('summary-name').textContent = character.name || 'Unnamed adventurer';
+  $('reroll-ones').checked = character.generation?.reroll_ones || false;
+  $('extra-die').checked = character.generation?.extra_die || false;
   $('attributes').replaceChildren();
   Object.entries(character.attributes).forEach(([name, attribute]) => {
-    const detail = document.createElement('details'); detail.className = 'attribute';
+    const detail = document.createElement('details'); detail.className = 'attribute'; detail.dataset.attribute = name; detail.open = expanded.has(name);
     const heading = document.createElement('summary'); heading.textContent = name;
     const value = document.createElement('strong'); value.textContent = attribute.value; heading.append(value);
     const explanation = document.createElement('p');
-    explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
-    detail.append(heading, explanation); $('attributes').append(detail);
+    explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
+    const edit = document.createElement('button'); edit.textContent = `Edit ${name}`; edit.disabled = navigationBusy;
+    edit.onclick = () => {
+      $('attribute-title').textContent = `Edit ${name}`; $('editing-attribute').value = name;
+      $('attribute-mode').value = attribute.fixed != null ? 'fixed' : attribute.adjustment ? 'adjustment' : 'calculated';
+      updateAttributeMode(); $('attribute-error').hidden = true; $('attribute-dialog').showModal();
+    };
+    const reroll = document.createElement('button'); reroll.textContent = `Reroll ${name}`; reroll.disabled = navigationBusy;
+    reroll.onclick = () => characterAction('reroll', {attribute:name, generation:rollSettings()}).catch(showError);
+    detail.append(heading, explanation, edit, reroll); $('attributes').append(detail);
   });
   $('completion').replaceChildren(...character.completion.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   $('save-status').textContent = 'Saved on this PC'; library();
@@ -71,6 +82,49 @@ window.addEventListener('beforeunload', event => { if (current && ($('name').val
 const start = async () => { try { await flushSave(); $('new-dialog').showModal(); } catch(error) { showError(error); } };
 $('start').onclick = start; $('new-character').onclick = start;
 $('cancel').onclick = () => $('new-dialog').close();
+function rollSettings() { return {reroll_ones:$('reroll-ones').checked, extra_die:$('extra-die').checked}; }
+async function characterAction(action, data) {
+  if (navigationBusy) return;
+  lockNavigation(true);
+  try { await flushSave(); render(await request(`/api/characters/${current.id}/${action}`, {...data, revision:current.revision ?? 0})); }
+  finally { lockNavigation(false); }
+}
+$('reroll-all').onclick = () => characterAction('reroll', {generation:rollSettings()}).catch(showError);
+function updateAttributeMode() {
+  const mode = $('attribute-mode').value;
+  const attribute = current.attributes[$('editing-attribute').value];
+  $('attribute-value').value = mode === 'adjustment' ? attribute.adjustment || 0 : attribute.value;
+  const calculated = mode === 'calculated';
+  $('attribute-value').disabled = calculated; $('attribute-value').required = !calculated;
+}
+$('attribute-mode').onchange = updateAttributeMode;
+$('attribute-cancel').onclick = () => $('attribute-dialog').close();
+$('attribute-form').onsubmit = async event => {
+  event.preventDefault(); const button = event.submitter; button.disabled = true;
+  try {
+    const mode = $('attribute-mode').value;
+    const value = mode === 'calculated' ? null : Number($('attribute-value').value);
+    if (value !== null && !Number.isSafeInteger(value)) throw new Error('Enter a whole number within the supported numeric range');
+    await characterAction('attribute', {attribute:$('editing-attribute').value, mode, value});
+    $('attribute-dialog').close();
+  } catch(error) { $('attribute-error').textContent = error.message; $('attribute-error').hidden = false; }
+  finally { button.disabled = false; }
+};
+$('roll-history').onclick = () => {
+  $('history-events').replaceChildren(...(current.roll_history || []).map(event => {
+    const entry = document.createElement('details'); const title = document.createElement('summary');
+    title.textContent = `${event.kind} · ${event.at ? new Date(event.at).toLocaleString() : 'Earlier saved rolls'}`;
+    entry.append(title);
+    for (const [name, value] of Object.entries(event.attributes)) {
+      const settings = value.generation || event.generation;
+      const options = settings ? ` · reroll ones: ${settings.reroll_ones ? 'yes' : 'no'} · extra die: ${settings.extra_die ? 'yes' : 'no'}` : '';
+      const text = document.createElement('p'); text.className = 'help'; text.textContent = `${name}: base ${value.base} · dice ${value.rolls.join(', ')}${value.discarded?.length ? ' · dropped ' + value.discarded.join(', ') : ''}${value.bonus_rolls.length ? ' · exceptional ' + value.bonus_rolls.join(', ') : ''}${value.rerolls?.length ? ' · rerolled ones ' + value.rerolls.map(item => item.rolls.join(' → ')).join('; ') : ''}${options}`; entry.append(text);
+    }
+    return entry;
+  }));
+  $('history-dialog').showModal();
+};
+$('history-close').onclick = () => $('history-dialog').close();
 function renderCoverageCandidates() {
   const query = $('coverage-search').value.toLowerCase();
   const matches = coverage.candidates.filter(item => `${item.title} ${item.book_id}`.toLowerCase().includes(query));
@@ -105,7 +159,7 @@ $('source-coverage').onclick = async () => {
     })); renderCoverageCandidates();
   } catch(error) { showError(error); } finally { lockNavigation(false); }
 };
-$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name')})); $('new-dialog').close(); event.target.reset(); } catch(error) { showError(error); } finally { button.disabled = false; } };
+$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
 request('/api/bootstrap').then(result => {
   token = result.token; characters = result.characters;
   const pack = result.catalog.packs[0];

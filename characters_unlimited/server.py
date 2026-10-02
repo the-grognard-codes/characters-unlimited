@@ -60,9 +60,9 @@ def create_server(application, port=0):
                     self.respond(200, application.get(path.rsplit("/", 1)[-1]))
                 except KeyError:
                     self.respond(404, {"error": "Character not found"})
-            elif path in ("/", "/app.js", "/style.css", "/coverage.css"):
+            elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css"):
                 filename = "index.html" if path == "/" else path[1:]
-                content_type = {"index.html": "text/html", "app.js": "text/javascript", "style.css": "text/css", "coverage.css": "text/css"}[filename]
+                content_type = "text/html" if filename == "index.html" else "text/javascript" if filename.endswith(".js") else "text/css"
                 self.respond(200, (assets / filename).read_bytes(), f"{content_type}; charset=utf-8")
             else:
                 self.respond(404, {"error": "Not found"})
@@ -81,7 +81,15 @@ def create_server(application, port=0):
                 if path == "/api/characters":
                     self.respond(201, application.create(**data))
                 elif path.startswith("/api/characters/"):
-                    self.respond(200, application.edit(path.rsplit("/", 1)[-1], **data))
+                    parts = path.strip("/").split("/")
+                    if len(parts) == 3:
+                        self.respond(200, application.edit(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == "reroll":
+                        self.respond(200, application.reroll(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == "attribute":
+                        self.respond(200, application.set_attribute(parts[2], **data))
+                    else:
+                        self.respond(404, {"error": "Not found"})
                 else:
                     self.respond(404, {"error": "Not found"})
             except SaveConflict as error:

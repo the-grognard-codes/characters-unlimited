@@ -4,11 +4,13 @@
 
 **Blocked by:** None
 
-**Status:** in-progress
+**Status:** done
 
 - [x] The behavior described above works through the character application or maintainer interface and UI.
 - [x] Source-grounded expected results and affected workflow checks pass.
 - [x] Slice self-review and standards/spec review have no unresolved blocking findings.
-- [ ] Scoped changes are committed, the pull request is opened, and the merge is recorded.
+- [x] Scoped changes are committed, the pull request is opened, and the merge is recorded.
+
+Merged: https://github.com/the-grognard-codes/characters-unlimited/pull/1
 
 Scope is defined by this delivery and the approved character-creator specification. Representative paths do not close remaining corpus coverage.

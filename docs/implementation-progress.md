@@ -8,8 +8,9 @@ Read completed Markdown from the rpg-docling-pipeline project and use its origin
 
 ## Slices
 
-- 01: Implemented and validated; awaiting PR merge. Local Rifts Human/Vagabond identity, initial attributes, notes, transactional saves, and reopen path work. Type checking, four application workflow tests, Python/JavaScript syntax checks, and narrow/desktop browser creation/autosave/reopen checks pass. Review findings about stale saves, omitted revisions, and navigation races were repaired.
-- 02–24 and corpus content batches: Not complete.
+- 01: Complete, merged in PR #1. Local Rifts Human/Vagabond identity, initial attributes, notes, transactional saves, and reopen path work. Type checking, four application workflow tests, Python/JavaScript syntax checks, and narrow/desktop browser checks pass. Windows GitHub CI also passes.
+- 02: In progress, split into 02A (source fingerprints and provisional candidate browser) and 02B (complete option audit and bounded content tickets). The scan finds 7,053 section candidates in all 13 books; zero candidates are claimed fully automated. Classifying headings is not a completed corpus audit.
+- 03–24 and corpus content batches: Not complete.
 
 ## Retrospective
 

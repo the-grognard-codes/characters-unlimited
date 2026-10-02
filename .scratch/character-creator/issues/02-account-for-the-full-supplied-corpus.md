@@ -4,7 +4,9 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** in-progress
+
+This slice is split into 02A (source fingerprinting and candidate browser) and 02B (complete option audit and named content batches). Heading extraction alone cannot close the parent slice.
 
 - [ ] The behavior described above works through the character application or maintainer interface and UI.
 - [ ] Source-grounded expected results and affected workflow checks pass.

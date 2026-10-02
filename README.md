@@ -33,3 +33,13 @@ node --check characters_unlimited/web/app.js
 The final Windows package will bundle its runtime; requiring Python is a development-only limitation of the first slice.
 
 See [the specification](docs/character-creator-spec.md), [ticket plan](docs/character-creator-ticket-plan.md), and [design decisions](docs/design-interview.md). Book transcriptions and reference PDFs remain local inputs and are not committed with the application.
+
+## Source inventory
+
+The Book sources & coverage view searches provisional section candidates and displays source/PDF fingerprints. It never counts a heading as an implemented character option. Rebuild its metadata from completed pipeline outputs:
+
+```powershell
+python -m characters_unlimited.coverage <processed-markdown-directory> --pdf-directory <original-pdf-directory>
+```
+
+The inventory contains names and locations rather than the books' full text. A complete option audit must also inspect prose and tables and resolve duplicate headings, aliases, missing references, and uncertain passages before source coverage is closed.

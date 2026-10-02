@@ -57,7 +57,8 @@ def create_server(application, port=0):
                 self.respond(200, application.coverage())
             elif path.startswith("/api/characters/"):
                 try:
-                    self.respond(200, application.get(path.rsplit("/", 1)[-1]))
+                    parts = path.strip('/').split('/')
+                    self.respond(200, application.skill_view(parts[2]) if len(parts) == 4 and parts[3] == 'skills' else application.get(path.rsplit("/", 1)[-1]))
                 except KeyError:
                     self.respond(404, {"error": "Character not found"})
             elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css"):
@@ -88,6 +89,8 @@ def create_server(application, port=0):
                         self.respond(200, application.reroll(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "attribute":
                         self.respond(200, application.set_attribute(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == "skills":
+                        self.respond(200, application.select_skills(parts[2], **data))
                     else:
                         self.respond(404, {"error": "Not found"})
                 else:

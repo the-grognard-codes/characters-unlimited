@@ -10,6 +10,7 @@ from uuid import uuid4
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute
+from .skills import validate_selections, project_skills, PACK as SKILL_PACK
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -63,6 +64,15 @@ class CharacterApplication:
 
     def list(self):
         return self.store.list()
+
+    def skill_view(self, identifier):
+        return project_skills(self.get(identifier))
+
+    def select_skills(self, identifier, *, revision, selections):
+        character = self.get(identifier)
+        packs = character.get('additional_rule_packs', {})
+        packs[SKILL_PACK['id']] = SKILL_PACK['version']
+        return self.store.update(identifier, {'skill_selections': validate_selections(selections), 'additional_rule_packs': packs}, require_revision(revision))
 
     def edit(self, identifier, *, name=None, notes=None, revision=None):
         changes = {}

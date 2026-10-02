@@ -12,6 +12,7 @@ function lockNavigation(busy) {
   navigationBusy = busy;
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = busy || !skillsReady);
 }
 function library() {
   $('library').replaceChildren();
@@ -59,7 +60,41 @@ function render(character) {
   });
   $('completion').replaceChildren(...character.completion.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   $('save-status').textContent = 'Saved on this PC'; library();
+  loadSkills(character).catch(showError);
 }
+let skillsReady = false, skillLoadSequence = 0;
+async function loadSkills(character) {
+  const sequence = ++skillLoadSequence;
+  skillsReady = false;
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = true);
+  const view = await request(`/api/characters/${character.id}/skills`);
+  if (current.id !== character.id || sequence !== skillLoadSequence) return;
+  $('skill-choice').replaceChildren(...view.catalog.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
+  $('skill-counts').textContent = Object.entries(view.remaining).map(([pool, count]) => `${pool}: ${count} remaining`).join(' · ');
+  $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
+    const row = document.createElement('details'); const heading = document.createElement('summary');
+    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.percentage}% · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
+    const explanation = document.createElement('p'); explanation.className = 'help';
+    explanation.textContent = Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ') + ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
+    row.append(heading, explanation);
+    if (!skill.grant) {
+      const remove = document.createElement('button'); remove.textContent = 'Remove selection';
+      remove.onclick = () => characterAction('skills', {selections:(current.skill_selections || []).filter((item, position) => position !== index - view.grants.length)}).catch(showError);
+      row.append(remove);
+    }
+    return row;
+  }));
+  for (const [id, items] of [['skill-warnings', view.warnings], ['skill-gaps', [...view.gaps, ...view.sources]]]) {
+    $(id).replaceChildren(...items.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
+  }
+  skillsReady = true;
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = navigationBusy);
+}
+$('skill-form').onsubmit = async event => {
+  event.preventDefault();
+  if (!skillsReady || navigationBusy) return;
+  await characterAction('skills', {selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool:$('skill-pool').value, specialty:$('skill-specialty').value}]}).catch(showError);
+};
 async function flushSave() {
   clearTimeout(saveTimer);
   if (savePromise) return savePromise;

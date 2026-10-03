@@ -1,6 +1,6 @@
 # 02A3: Preserve independently verified PDF gaps
 
-**Status:** in-progress
+**Status:** done (merged in PR #22)
 
 The Underseas original skips printed page 131 between PDF pages 130 and 131. Ticonderoga systems and continuing text cannot be ingested completely. Record this independently verified gap without changing the source workstream's files. Bind the record to both source hashes, reconcile it into coverage and CLI rescans using an explicit registry input, reject stale evidence, and keep affected candidates blocked. Reconciliation must be idempotent and preserve unrelated metadata and the existing Destroyer Borg gap.
 

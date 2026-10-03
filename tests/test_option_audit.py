@@ -7,10 +7,39 @@ from characters_unlimited.coverage import SourceInventory
 
 
 class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
+    def test_supplement_identities_keep_source_aliases_and_shared_paths(self):
+        with tempfile.TemporaryDirectory() as directory:
+            view = CharacterApplication(directory).coverage()
+            options = {entry['id']:entry for entry in view['options']}
+            self.assertEqual(view['summary']['identity_confirmed'], 129)
+            self.assertEqual(view['summary']['unassigned_options'], 128)
+            self.assertEqual(options['sa1-ewaipanomas']['source']['printed_pages'], [102])
+            self.assertEqual(options['sa1-shaydor-spherians']['source']['pdf_pages'], [104])
+            self.assertIn('Amazon R.C.G', options['sa1-amazon']['aliases'])
+            self.assertNotEqual(options['sa1-mutant-cat']['candidate_ids'], options['sa1-felinoid']['candidate_ids'])
+            self.assertEqual(options['sa1-aunyain']['dependencies'], ['sa1-totem-warrior'])
+            self.assertEqual(options['sa1-werepanther']['candidate_ids'], ['bbdd60a62fb5960464f4'])
+            self.assertEqual(options['underseas-dolphin-pneuma-biform']['dependencies'], ['underseas-whale-singer'])
+            self.assertTrue(any('does not require' in note for note in options['underseas-dolphin-pneuma-biform']['findings']))
+            self.assertEqual(options['underseas-rurlel-warrior']['dependencies'], ['underseas-rurlel'])
+            self.assertEqual(options['underseas-naut-yll-soldier']['dependencies'], ['underseas-naut-yll'])
+            self.assertEqual(options['underseas-naut-yll-koral-shaper']['source']['pdf_pages'], [149])
+            self.assertIn('Ocean Mage', options['underseas-ocean-wizard']['aliases'])
+            self.assertEqual(options['underseas-horune-pirate']['source']['pdf_pages'], [163])
+            self.assertEqual(options['underseas-salvage-expert']['source']['pdf_pages'], [132])
+            self.assertIn('NPC', ' '.join(options['underseas-servants-of-the-deep']['findings']))
+            for prefix in ('sa1-', 'underseas-'):
+                for entry in options.values():
+                    if entry['id'].startswith(prefix):
+                        self.assertEqual(entry['mechanical_review'], 'pending')
+                        self.assertEqual(entry['automation'], 'not-implemented')
+            self.assertEqual(view['summary']['source_gaps'], 2)
+            self.assertEqual(view['summary']['mechanically_reviewed'], 0)
+
     def test_coverage_distinguishes_confirmed_identities_from_mechanical_acceptance(self):
         with tempfile.TemporaryDirectory() as directory:
             view = CharacterApplication(directory).coverage()
-            self.assertEqual(view['summary']['identity_confirmed'], 67)
+            self.assertEqual(view['summary']['identity_confirmed'], 129)
             self.assertEqual(view['summary']['fully_automated'], 0)
             self.assertEqual(view['summary']['books_reviewed'], 0)
             vagabond = next(entry for entry in view['options'] if entry['id'] == 'rue-vagabond')
@@ -34,7 +63,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-experiment']['source']['pdf_pages'], [21])
             self.assertEqual(options['hu2-mega-hero']['kind'], 'rule')
             self.assertTrue(any('modifier' in finding for finding in options['hu2-mega-hero']['findings']))
-            self.assertEqual(view['summary']['unassigned_options'], 66)
+            self.assertEqual(view['summary']['unassigned_options'], 128)
             self.assertEqual(CharacterApplication(directory).catalog()['games'], [{'id':'rifts','name':'Rifts Ultimate Edition'}])
 
     def test_heroes_named_paths_link_to_categories_and_shared_robot_rules(self):
@@ -49,7 +78,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-robot-construction']['kind'], 'construction')
             self.assertEqual(options['hu2-special-stage-magician']['automation'], 'not-implemented')
             self.assertEqual(options['hu2-hardware-super-vehicle']['mechanical_review'], 'pending')
-            self.assertEqual(view['summary']['canonical_options'], 67)
+            self.assertEqual(view['summary']['canonical_options'], 129)
             self.assertEqual(view['summary']['fully_automated'], 0)
 
     def test_dependency_links_cannot_join_games_or_reference_missing_entries(self):

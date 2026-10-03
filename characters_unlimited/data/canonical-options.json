@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 67 source-bound entries: listed Rifts classes and racial paths, Heroes Unlimited categories/modifiers, named Hardware and Special Training paths, robot types and shared construction rules. This is still a partial identity audit, not full corpus coverage.",
-    "Racial choices, breed/path variants, Heroes subpaths, supporting mechanical entries and all supplement identities remain to be audited. Identity evidence does not certify numerical rules.",
+    "Identity audit currently covers 129 source-bound entries across the core games, South America 1 and Underseas, including 62 supplement identities and supporting path families. This is still a partial identity audit, not full corpus coverage.",
+    "Remaining core child paths, supplement subpaths, other supplied books and supporting mechanical entries remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics."
   ],
   "entries": [
@@ -2156,6 +2156,2035 @@
       "findings": [
         "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
         "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "sa1-anti-monster",
+      "name": "Anti-Monster",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Anti-Monster O.C.C."
+      ],
+      "candidate_ids": [
+        "ebe42412ddd10ca99c3a",
+        "756decf7e975c6712135"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          34
+        ],
+        "pdf_pages": [
+          35
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated introduction and rules headings describe one identity.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-sailor",
+      "name": "Sailor",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Sailor O.C.C."
+      ],
+      "candidate_ids": [
+        "a82f4334d28a77005b11"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          46
+        ],
+        "pdf_pages": [
+          47
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Underwater and nautical skills require separate mechanical review.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-pirate",
+      "name": "Pirate",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Pirate O.C.C."
+      ],
+      "candidate_ids": [
+        "493d96bfac093358804a"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          47
+        ],
+        "pdf_pages": [
+          48
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Nautical class, skill and equipment dependencies remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-voodoo-priest",
+      "name": "Voodoo Priest",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Voodoo Priest O.C.C."
+      ],
+      "candidate_ids": [
+        "7b6fb4bc5637ef316a69"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          51
+        ],
+        "pdf_pages": [
+          52
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Loa, magic and summoning paths need dedicated content review.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-jungle-elf",
+      "name": "Jungle Elf",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Jungle Elf R.C.C."
+      ],
+      "candidate_ids": [
+        "07240e901df814e4b52a"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          57
+        ],
+        "pdf_pages": [
+          58
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Racial abilities and allowable occupations remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-biomancer",
+      "name": "Biomancer",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "The Biomancer O.C.C."
+      ],
+      "candidate_ids": [
+        "fdc3bf89fe509298cb78",
+        "1ceb5c9f43d32f65d54c"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          61
+        ],
+        "pdf_pages": [
+          62
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated introduction/rules headings are one identity; Biomancy spells and bio-weapons remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-lizard-men",
+      "name": "Lizard Men",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Lizard Men R.C.C."
+      ],
+      "candidate_ids": [
+        "6450f370c958577f4493"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          79
+        ],
+        "pdf_pages": [
+          80
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character race; occupational and racial mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-amazon",
+      "name": "Amazon",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Amazon R.C.G"
+      ],
+      "candidate_ids": [
+        "ef2db367dda75d157bda"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          97
+        ],
+        "pdf_pages": [
+          98
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "The original body heading says R.C.G.; contents and the racial section identify R.C.C. Lesser psionic selections remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-atlantean-monster-hunter",
+      "name": "Atlantean Monster Hunter",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Atlantean Monster Hunter O.C.C."
+      ],
+      "candidate_ids": [
+        "35210770300f80cae3fd"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          99
+        ],
+        "pdf_pages": [
+          100
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "True Atlantean and monster-shaping tattoo dependencies require separate review.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-ewaipanomas",
+      "name": "Ewaipanomas",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Headless Men of the Amazon"
+      ],
+      "candidate_ids": [
+        "5fc926e8a0da120c3ffc"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          102
+        ],
+        "pdf_pages": [
+          103
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character path. Earth Warlock, Stone Master and other O.C.C. branches require named content review.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-shaydor-spherians",
+      "name": "Shaydor Spherians",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Shaydor Spherians R.C.C."
+      ],
+      "candidate_ids": [
+        "d758f8e9843add871d48"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          103
+        ],
+        "pdf_pages": [
+          104
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Shared racial text refers to Atlantis. Healer, sensitive, explorer and warrior psionic orientations remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-mutant-cat",
+      "name": "Mutant Cat",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Mutant Cat R.C.C."
+      ],
+      "candidate_ids": [
+        "ac960ea0f5dccc302950"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          107
+        ],
+        "pdf_pages": [
+          108
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Generic custom mutant-cat umbrella, distinct from Felinoid; external mutant-animal creation dependencies remain unresolved within Rifts.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-felinoid",
+      "name": "Felinoid",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Jaguar Mutants"
+      ],
+      "candidate_ids": [
+        "2e6b7eb42009c3b13f70",
+        "a2771c2b612d52d1f6db"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          107
+        ],
+        "pdf_pages": [
+          108
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Distinct jaguar-mutant population with allowed O.C.C. paths and seven feline strains; full variant/mechanical review remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-flying-tiger",
+      "name": "Flying Tiger",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Flying Tiger R.C.C."
+      ],
+      "candidate_ids": [
+        "39e92165e8bba581ca0f"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          109
+        ],
+        "pdf_pages": [
+          110
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character racial path; flight and occupation rules remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-flame-panther",
+      "name": "Flame Panther",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Panther R.C.C."
+      ],
+      "candidate_ids": [
+        "cec4366a883ad3c330b5"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          111
+        ],
+        "pdf_pages": [
+          112
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Original contents says Flame Panther; shortened Panther spelling in the Markdown is retained as a transcription search alias.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-hunter-cat",
+      "name": "Hunter Cat",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Hunter Cat R.C.C."
+      ],
+      "candidate_ids": [
+        "6eb02cbb7fd2ab5cdb49"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          113
+        ],
+        "pdf_pages": [
+          114
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character path; natural combat and skill choices remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-oracle-cat",
+      "name": "Oracle Cat",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Oracle Cat R.C.C."
+      ],
+      "candidate_ids": [
+        "4ec4c6eba7f3ef92c717"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          114
+        ],
+        "pdf_pages": [
+          115
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Divine Oracle priest variation and its external magic dependencies remain unresolved.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-sekhmet",
+      "name": "Sekhmet",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "The Sekhmet"
+      ],
+      "candidate_ids": [
+        "c6b4b163ef75bb2fb77e"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          116
+        ],
+        "pdf_pages": [
+          117
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character path with distinct magic and combat dependencies.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-werejaguar",
+      "name": "Werejaguar",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Jaguar People"
+      ],
+      "candidate_ids": [
+        "bbdd60a62fb5960464f4",
+        "847f5058f57cdda2df98"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          117
+        ],
+        "pdf_pages": [
+          118
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Paired Werejaguars and Werepanthers section contains distinct paths; Conversion Book One/Vampire Kingdoms references remain unresolved.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-werepanther",
+      "name": "Werepanther",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Werejaguars & Werepanthers"
+      ],
+      "candidate_ids": [
+        "bbdd60a62fb5960464f4"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          117
+        ],
+        "pdf_pages": [
+          118
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Paired source section is shared with Werejaguar, not a second copy of that identity; individual variant details remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-gatherer",
+      "name": "Gatherer",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "The Gatherers",
+        "Minions of Inix"
+      ],
+      "candidate_ids": [
+        "fd6c0f4c2d5f785d2a72"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          134
+        ],
+        "pdf_pages": [
+          135
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Source discourages PCs but describes an exceptional player path. Record guidance without an administrative permission gate; mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-pogtalian-dragon-slayer",
+      "name": "Pogtalian Dragon Slayer",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Pogtalian Dragon Slayers"
+      ],
+      "candidate_ids": [
+        "d9a1b31617cfb7867e82"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          135
+        ],
+        "pdf_pages": [
+          136
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Source explicitly permits possible player characters; giant, energy-aura and skill rules remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-pincer-warrior",
+      "name": "Pincer Warrior",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "The Pincer Warriors"
+      ],
+      "candidate_ids": [
+        "11e14793751c42e9c81c"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          136
+        ],
+        "pdf_pages": [
+          137
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Source discourages PCs but describes an exceptional player path. No administrative permission gate is introduced; mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-grimbor",
+      "name": "Grimbor Ape-Man",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Grimbor Ape-Men"
+      ],
+      "candidate_ids": [
+        "da47552fe4b86c8ff130"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          138
+        ],
+        "pdf_pages": [
+          139
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Explicit optional player-character race; racial/occupation dependencies remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-tribal-shaman",
+      "name": "Tribal Shaman",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Tribal Shaman O.C.C."
+      ],
+      "candidate_ids": [
+        "ccf7cd5a5ae1416128dc"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          145
+        ],
+        "pdf_pages": [
+          146
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Shaman magic, tribal skills and source dependencies require dedicated review.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-totem-warrior",
+      "name": "Totem Warrior",
+      "kind": "occ",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Totem Warrior O.C.C."
+      ],
+      "candidate_ids": [
+        "7acbbc4b0fd0dc71d948"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          146
+        ],
+        "pdf_pages": [
+          147
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Totem branches, transformation and advancement remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "sa1-aunyain",
+      "name": "Aunyain",
+      "kind": "race",
+      "book_id": "rifts-world-book-06-south-america-1",
+      "aliases": [
+        "Tusked Magicians"
+      ],
+      "candidate_ids": [
+        "cb9455e229d4faa1689d"
+      ],
+      "source": {
+        "markdown_sha256": "b8f71765a24356efbb26ea8d4feaae1232bc506a40f7017f913f702a0c107edc",
+        "pdf_sha256": "d6f35f974094d54e5d00ac2a0de296bc63bdbb891e8a1ce84d71bb82b1ace016",
+        "printed_pages": [
+          152
+        ],
+        "pdf_pages": [
+          153
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa1-totem-warrior"
+      ],
+      "findings": [
+        "Transformed humans with R.C.C. skills borrowing Totem Warrior; player-character guidance is not explicit and remains unresolved.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-rurlel",
+      "name": "Rurlel Eel People",
+      "kind": "race",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Rurlel Eelman"
+      ],
+      "candidate_ids": [
+        "ddf070a27683a05f6ad4"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          37
+        ],
+        "pdf_pages": [
+          37
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character race distinct from its usual Warrior skill path; ten-percent Ocean Wizard alternative remains to review.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-rurlel-warrior",
+      "name": "Rurlel Warrior",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Rurlel Warrior R.C.C."
+      ],
+      "candidate_ids": [
+        "65b2fd6c30583ee1da27"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          38
+        ],
+        "pdf_pages": [
+          38
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-rurlel"
+      ],
+      "findings": [
+        "Shared Rurlel race rules plus the ordinary warrior skill path; Ocean Wizard alternative remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-dragon-ray",
+      "name": "Dragon Ray",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Dragon Ray R.C.C."
+      ],
+      "candidate_ids": [
+        "7229d35e64383c4922c7",
+        "ddf7e1f9abe64190d315"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          20
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Source permits an optional player character; magic O.C.C. choices halve related selections. Mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-gene-splicer-mutants",
+      "name": "Gene-Splicer Mutants",
+      "kind": "option-family",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Gene Splicer Mutants"
+      ],
+      "candidate_ids": [
+        "1c8bb8bbcbe46525f1b3",
+        "175a123a8f1c63cd9bb6",
+        "e5a81649d97c71dcd03d"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          38
+        ],
+        "pdf_pages": [
+          38
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Generated mutant-family tables and shared experience grouping, not a fixed racial stat block. Construction review remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-devil-shark",
+      "name": "Devil Shark",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Devil Shark R.C.C."
+      ],
+      "candidate_ids": [
+        "35b1789aa7d7d822c825"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          45
+        ],
+        "pdf_pages": [
+          45
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Lord of the Deep minion; source does not mark it optional PC. Transformation differs from Monster Naut'Yll; mechanical review remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-monster-naut-yll",
+      "name": "Monster Naut'Yll",
+      "kind": "race",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Monster Naut’Yll"
+      ],
+      "candidate_ids": [
+        "6048dab4695e82cdd4f9"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          45
+        ],
+        "pdf_pages": [
+          45
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-naut-yll"
+      ],
+      "findings": [
+        "Distinct Naut'Yll/barracuda transformation minion; PC guidance and mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-psiren",
+      "name": "Psiren",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Psiren R.C.C."
+      ],
+      "candidate_ids": [
+        "f68c2dfd3f19f7951c1c"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          46
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Lord of the Deep minion; player-character guidance is not explicit and remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-sea-doppleganger",
+      "name": "Sea Doppleganger",
+      "kind": "race",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Sea Doppelganger"
+      ],
+      "candidate_ids": [
+        "5d39cc5dcaf713c3b2a1"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          46
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Original labels a non-allied NPC monster; transformation template is recorded separately from player-character options.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-servants-of-the-deep",
+      "name": "Servants of the Deep",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "NPC Villain R.C.C."
+      ],
+      "candidate_ids": [
+        "cfb2870f3ef42500e446"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          47
+        ],
+        "pdf_pages": [
+          47
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Original explicitly labels an NPC villain class; mechanics and player-path treatment remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-sea-inquisitor",
+      "name": "Sea Inquisitor",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Sea Inquisitioner"
+      ],
+      "candidate_ids": [
+        "b9ac1c88a88f1b0fe484"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          48
+        ],
+        "pdf_pages": [
+          48
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Experience table spelling Sea Inquisitioner is an alias, not a second class.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-dolphin-pneuma-biform",
+      "name": "Dolphin Pneuma-Biform",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Pneuma Biform: Dolphin"
+      ],
+      "candidate_ids": [
+        "9d75b9d3afa471804853",
+        "adde3f393d05c495ab43"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          51
+        ],
+        "pdf_pages": [
+          51
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-whale-singer"
+      ],
+      "findings": [
+        "Reversed headings are one identity; Whale Singer and external Conversion Book One bi-form rules remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability.",
+        "The Whale Singer link identifies shared spellsong rule definitions; it does not require choosing the Whale Singer O.C.C."
+      ]
+    },
+    {
+      "id": "underseas-killer-whale-pneuma-biform",
+      "name": "Killer Whale Pneuma-Biform",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Pneuma Biform: Orca"
+      ],
+      "candidate_ids": [
+        "ed930d4195a64bf21d01",
+        "50eef872419105bd3d6f"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          53
+        ],
+        "pdf_pages": [
+          53
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-whale-singer"
+      ],
+      "findings": [
+        "Reversed headings are one identity; Whale Singer and external bi-form rules remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability.",
+        "The Whale Singer link identifies shared spellsong rule definitions; it does not require choosing the Whale Singer O.C.C."
+      ]
+    },
+    {
+      "id": "underseas-whale-pneuma-biform",
+      "name": "Whale Pneuma-Biform",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Pneuma Biform: Whale"
+      ],
+      "candidate_ids": [
+        "16e1d71570a6ccd4a163",
+        "57e7c8856c06cf4c4bb8"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          55
+        ],
+        "pdf_pages": [
+          55
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-whale-singer"
+      ],
+      "findings": [
+        "Reversed headings are one identity; Whale Singer and external bi-form rules remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability.",
+        "The Whale Singer link identifies shared spellsong rule definitions; it does not require choosing the Whale Singer O.C.C."
+      ]
+    },
+    {
+      "id": "underseas-whale-singer",
+      "name": "Whale Singer",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Whale Singer O.C.C."
+      ],
+      "candidate_ids": [
+        "6e18e329042e2c3dd09e"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          56
+        ],
+        "pdf_pages": [
+          56
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Three species-bi-form branches, spell songs and magical dependencies remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-ocean-wizard",
+      "name": "Ocean Wizard",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Ocean Mage"
+      ],
+      "candidate_ids": [
+        "3206bed9e0b68ab44601"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          60
+        ],
+        "pdf_pages": [
+          60
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Ocean Mage in the experience table is an alias; ocean magic and species eligibility remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-sea-druid",
+      "name": "Sea Druid",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Sea Druid O.C.C."
+      ],
+      "candidate_ids": [
+        "6b7369fab35146b814f6"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          61
+        ],
+        "pdf_pages": [
+          61
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Human/surface-dweller eligibility and totem sea-creature choices remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-dolphin",
+      "name": "Dolphin",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Dolphin R.C.C."
+      ],
+      "candidate_ids": [
+        "9cb63fa9f5f679232d4c"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          77
+        ],
+        "pdf_pages": [
+          77
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Natural cetacean racial path distinct from its pneuma-bi-form branch.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-killer-whale",
+      "name": "Killer Whale",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Orca"
+      ],
+      "candidate_ids": [
+        "cefac22ae6136055a1f8",
+        "427be6e95bac499e101c"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          85
+        ],
+        "pdf_pages": [
+          85
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated intro/stat headings represent one identity, distinct from pneuma-bi-form.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-sperm-whale",
+      "name": "Sperm Whale",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Sperm Whale R.C.C."
+      ],
+      "candidate_ids": [
+        "182f2744ed9bf9fc2f88",
+        "da6e0508124c4c1faeff"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          88
+        ],
+        "pdf_pages": [
+          88
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated intro/stat headings represent one identity; natural combat and racial advancement remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-humpback-whale",
+      "name": "Humpback Whale",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Humpback Whale R.C.C."
+      ],
+      "candidate_ids": [
+        "05827387e436c79091b1",
+        "6f5c5b139f148da907bf"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          90
+        ],
+        "pdf_pages": [
+          90
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated intro/stat headings represent one identity; natural combat and racial advancement remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-tritonian-paths",
+      "name": "Tritonian occupations and racial paths",
+      "kind": "rule",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Tritonian O.C.C.s & R.C.C.s"
+      ],
+      "candidate_ids": [
+        "06dc0cd8938b84333ebf"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          96
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Shared setting/path eligibility includes imported races and classes; numeric acceptance remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-sea-wolf",
+      "name": "Tritonian Sea Wolf",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Sea Wolf"
+      ],
+      "candidate_ids": [
+        "aeee33455756ad21a9e7"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          96
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-tritonian-paths"
+      ],
+      "findings": [
+        "Tritonian nautical/security class; underwater skills and equipment remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-scientist",
+      "name": "Tritonian Scientist",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Scientist O.C.C."
+      ],
+      "candidate_ids": [
+        "4a6f4e17da572d779969"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          97
+        ],
+        "pdf_pages": [
+          97
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-tritonian-paths"
+      ],
+      "findings": [
+        "Tritonian scientist class; specialization and underwater rules remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-amphib",
+      "name": "Amphib",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Amphib R.C.C."
+      ],
+      "candidate_ids": [
+        "615abf12440a1e601daa"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          98
+        ],
+        "pdf_pages": [
+          98
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-tritonian-paths"
+      ],
+      "findings": [
+        "Genetically altered aquatic racial path; mutation variation and skills remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-navy-seaman",
+      "name": "Navy Seaman",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Navy Seaman O.C.C."
+      ],
+      "candidate_ids": [
+        "013a9d6f81955b1b98c5"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          111
+        ],
+        "pdf_pages": [
+          111
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Major/minor Navy specialty count differs between passages and requires original mechanical review before accepting allowances.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-marine",
+      "name": "Marine",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Navy Marine"
+      ],
+      "candidate_ids": [
+        "415a16c4c9075d5cf450"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          112
+        ],
+        "pdf_pages": [
+          112
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Special-forces equipment references do not establish a separate O.C.C. identity.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-sea-titan",
+      "name": "Sea Titan",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Sea Titan R.C.C."
+      ],
+      "candidate_ids": [
+        "b4cb206ede80aa97ccc9",
+        "76c42a4feba6f3fa905c"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          113
+        ],
+        "pdf_pages": [
+          113
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated intro/stat headings are one identity; exceptional racial mechanics and equipment remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-salvage-expert",
+      "name": "Salvage Expert",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Salvage Expert O.C.C."
+      ],
+      "candidate_ids": [
+        "d952cd77fb52db5bfd27"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          133
+        ],
+        "pdf_pages": [
+          132
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Printed page 133 maps to PDF page 132 after the missing printed 131; salvage and underwater mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-naut-yll",
+      "name": "Naut'Yll",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Naut’Yll",
+        "Naut'YII"
+      ],
+      "candidate_ids": [
+        "c45c0abaf45639aad002"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          148
+        ],
+        "pdf_pages": [
+          147
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "General race R.C.C. template precedes occupational branches. Markdown capital-I typography is an alias; magic/psionic occupations remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-naut-yll-soldier",
+      "name": "Naut'Yll Soldier",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Naut’Yll Soldier R.C.C."
+      ],
+      "candidate_ids": [
+        "55643469edf3615e587d"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          149
+        ],
+        "pdf_pages": [
+          148
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-naut-yll"
+      ],
+      "findings": [
+        "Contents says R.C.C., body uses O.C.C. skills/bonuses. Preserve the discrepancy; mechanical class-model review remains pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-naut-yll-devastator",
+      "name": "Naut'Yll Devastator",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Naut'Yll Devastators"
+      ],
+      "candidate_ids": [
+        "038d9df73ff4b74baa4e"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          150
+        ],
+        "pdf_pages": [
+          149
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-naut-yll"
+      ],
+      "findings": [
+        "Magic and psionic branches retain military skills; complete branching mechanics remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-naut-yll-koral-shaper",
+      "name": "Naut'Yll Koral Shaper",
+      "kind": "occ",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Naut’Yll Koral Shaper R.C.C."
+      ],
+      "candidate_ids": [
+        "2cc99a18e293e1522341"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          150
+        ],
+        "pdf_pages": [
+          149
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "underseas-naut-yll"
+      ],
+      "findings": [
+        "Contents says R.C.C., body uses O.C.C. abilities/skills. Preserve the discrepancy; Korallyte construction and spell dependencies remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-kreel-lok",
+      "name": "Kreel-Lok Nomad",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Kreel-Lok Warrior",
+        "Kreel-Lok Nomad/Warrior"
+      ],
+      "candidate_ids": [
+        "f6e958d99fd2c22c675e"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          152
+        ],
+        "pdf_pages": [
+          151
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player-character racial path with occupation distributions; shared imported O.C.C. dependencies remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-horune-pirate",
+      "name": "Horune Pirate",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Horune Pirate R.C.C."
+      ],
+      "candidate_ids": [
+        "9be38c4bf8db6855d28a",
+        "8466f0a3b2a3723f08dd"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          164
+        ],
+        "pdf_pages": [
+          163
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Explicit optional player-character race with dream-ship and piracy dependencies remaining pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "underseas-imported-paths",
+      "name": "Other undersea O.C.C.s and R.C.C.s",
+      "kind": "rule",
+      "book_id": "rifts-world-book-07-underseas",
+      "aliases": [
+        "Other O.C.C.s & R.C.C.s"
+      ],
+      "candidate_ids": [
+        "bdabd2af45fcb63d66e5"
+      ],
+      "source": {
+        "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+        "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+        "printed_pages": [
+          214
+        ],
+        "pdf_pages": [
+          213
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Imports True Atlantean, warlocks, temporal raider, knight, crazy, line walker, techno-wizard, wilderness scout, mind bender and dragon paths; unresolved external/source mappings remain pending.",
+        "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
       ]
     }
   ]

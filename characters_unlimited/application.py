@@ -20,7 +20,7 @@ from .education import education_selection, validate_education, project_educatio
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical
 from .resources import acquire_resources, project_resources, update_resource
-from .equipment import validate_inventory, purchase_inventory, project_equipment, compare_equipment_views
+from .equipment import validate_inventory, purchase_inventory, split_inventory, reload_inventory, project_equipment, compare_equipment_views
 from .starting_funds import acquire_starting_funds
 from .starting_gear import acquire_starting_gear
 
@@ -132,6 +132,26 @@ class CharacterApplication:
                                        pack,item_id,quantity,str(uuid4()),unit_cost=unit_cost)
         pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
         return self.store.update(identifier,{'equipment':inventory,'additional_rule_packs':pins},revision)
+
+    def split_equipment(self, identifier, *, revision, possession_id):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before splitting a possession.')
+        pack = self.character_equipment_pack(character)
+        inventory = split_inventory(character.get('equipment', {'credits': 0, 'items': []}),
+                                    pack, possession_id, str(uuid4()))
+        return self.store.update(identifier, {'equipment': inventory}, revision)
+
+    def reload_weapon(self, identifier, *, revision, weapon_possession_id, clip_possession_id):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before reloading.')
+        pack = self.character_equipment_pack(character)
+        inventory = reload_inventory(character.get('equipment', {'credits': 0, 'items': []}),
+                                     pack, weapon_possession_id, clip_possession_id)
+        return self.store.update(identifier, {'equipment': inventory}, revision)
 
     def character_education_pack(self, character):
         return self._character_heroes_pack(character, 'heroes-education')

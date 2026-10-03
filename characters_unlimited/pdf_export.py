@@ -256,11 +256,12 @@ def fill_equipment(page, equipment, values):
                                        '' if melee else str(item['shots'])+'/'+str(item['capacity']),damage,
                                        ('' if melee else 'Standard E-Clip; ')+str(item['quantity'])+' item(s), '+item['location']]):
             cell(*position,value)
-    personal_gear = [item for item in equipment['items'] if item['category']=='gear']
+    personal_gear = [item for item in equipment['items'] if item['category'] in ('gear', 'ammunition')]
     gear_rows = [202.44,193.44,185.52,177,168,159.48,150.96,143.04,134.52,125.52,
                  117,108.96,100.44,91.44,83.04,75,66.48,57.48,48.96,40.44]
     for item, y in zip(personal_gear,gear_rows):
-        cell(36.48,y,item['name']+' x'+str(item['quantity'])+'; '+item['location'])
+        cell(36.48,y,item['name']+' x'+str(item['quantity'])+'; '+item['location']+
+             ('; '+str(item['shots'])+'/'+str(item['capacity'])+' shots' if item['category']=='ammunition' else ''))
     armor = equipment['armor']
     if len(armor)==1 and armor[0]['quantity']==1:
         item = armor[0]
@@ -343,6 +344,8 @@ def export_rifts_sheet(character, core, skills, combat):
                 else:
                     sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
                                     ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'.')
+            elif item['category'] == 'ammunition':
+                sheet_notes += ' '+str(item['shots'])+'/'+str(item['capacity'])+' shots per clip with reviewed compatible weapons: '+', '.join(item['compatible_weapons'])+'.'
             elif item['category'] == 'armor':
                 sheet_notes += ' '+', '.join(name.replace('_',' ')+' '+str(value)+' M.D.C.' for name,value in item['locations'].items())+'.'
                 sheet_notes += ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.'

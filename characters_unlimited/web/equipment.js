@@ -6,6 +6,7 @@ function setEquipmentBusy() {
   });
   const selected = equipmentView?.catalog.find(item => item.id === $('equipment-choice').value);
   $('purchase-equipment').disabled = navigationBusy || !equipmentReady || (selected?.cost_credits == null && !selected?.cost_credits_range);
+  $('reload-weapon').disabled = navigationBusy || !equipmentReady || !$('reload-weapon-choice').value || !$('reload-clip-choice').value;
 }
 async function loadEquipment(character) {
   const sequence = ++equipmentSequence;
@@ -40,6 +41,11 @@ async function loadEquipment(character) {
     const row = document.createElement('li'); row.textContent = message; return row;
   }));
   filterEquipmentCatalog();
+  const reloadable = view.items.filter(item => item.category === 'weapon' && item.weapon_kind !== 'melee' && item.location === 'carried' && item.quantity === 1);
+  $('reload-weapon-choice').replaceChildren(...reloadable.map(item => {
+    const option = document.createElement('option'); option.value = item.id; option.textContent = `${item.name} · ${item.shots}/${item.capacity} shots`; return option;
+  }));
+  filterReloadClips();
   $('equipment-list').replaceChildren(...view.items.map(item => {
     const row = document.createElement('details'), heading = document.createElement('summary');
     heading.textContent = `${item.name} × ${item.quantity} · ${item.location}${item.equipped ? ' · equipped' : ''}`;
@@ -66,6 +72,11 @@ async function loadEquipment(character) {
     const save = document.createElement('button'); save.type = 'submit'; save.textContent = 'Save possession';
     const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Remove possession';
     form.append(save,remove);
+    if (item.quantity > 1) {
+      const split = document.createElement('button'); split.type = 'button'; split.textContent = 'Separate one item into its own row';
+      split.onclick = () => characterAction('split-equipment',{possession_id:item.id}).catch(showError);
+      form.append(split);
+    }
     form.onsubmit = event => {
       event.preventDefault();
       const inventory = structuredClone(equipmentView.inventory);
@@ -128,7 +139,20 @@ function filterEquipmentCatalog() {
   $('equipment-price-guidance').textContent = range ? `Choose a price per item within the source range (${range.min}–${range.max} credits).` : selected?.cost_credits == null ? 'This item has no reviewed purchase price. Use its class starting grant to add it without a purchase.' : '';
   setEquipmentBusy();
 }
+function filterReloadClips() {
+  const weapon = equipmentView?.items.find(item => item.id === $('reload-weapon-choice').value);
+  const clips = equipmentView?.items.filter(item => item.category === 'ammunition' && item.location === 'carried' && item.quantity === 1 && item.compatible_weapons.includes(weapon?.item_id)) || [];
+  $('reload-clip-choice').replaceChildren(...clips.map(item => {
+    const option = document.createElement('option'); option.value = item.id; option.textContent = `${item.name} · ${item.shots}/${item.capacity} shots`; return option;
+  }));
+  setEquipmentBusy();
+}
 function wireEquipmentEvents() {
+  $('reload-weapon-choice').onchange = filterReloadClips;
+  $('equipment-reload-form').onsubmit = event => {
+    event.preventDefault();
+    characterAction('reload-weapon',{weapon_possession_id:$('reload-weapon-choice').value,clip_possession_id:$('reload-clip-choice').value}).catch(showError);
+  };
   $('grant-starting-gear').onclick = () => characterAction('starting-gear',{}).catch(showError);
   $('equipment-choice').onchange = filterEquipmentCatalog;
   $('generate-starting-funds').onclick = () => characterAction('starting-funds',{}).catch(showError);

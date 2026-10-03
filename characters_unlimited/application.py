@@ -17,7 +17,7 @@ from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
 from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
-from .heroes_programs import validate_program_selections, project_programs
+from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -147,6 +147,18 @@ class CharacterApplication:
         if character['game'] != 'rifts':
             raise ValueError('Heroes Unlimited education and skill rules remain unfinished')
         return self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills'])
+
+    def select_hero_secondary(self, identifier, *, revision, selections):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting Secondary skills.')
+        pack = self._character_heroes_pack(character,'heroes-program-skills')
+        selections = validate_secondary_selections(selections,pack)
+        if 'education' not in character:
+            raise ValueError('Choose education before saving Secondary skills')
+        pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
+        return self.store.update(identifier,{'hero_secondary_selections':selections,'additional_rule_packs':pins},revision)
 
     def export_character(self, identifier):
         return export_bundle(self.get(identifier), self.rule_archive.definitions())

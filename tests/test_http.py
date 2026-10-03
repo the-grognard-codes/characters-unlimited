@@ -45,7 +45,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.2.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.3.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -87,6 +87,23 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(next(item for item in view['skills'] if item['id']=='paramedic')['percentage'],40)
                 self.assertTrue(any('Medical Assistant is outside' in message for message in view['warnings']))
                 self.assertEqual(saved['hero_program_selections'],[{'slot':0,'program':'medical-assistant'}])
+                secondary_path = base+'/api/characters/'+hero['id']+'/hero-secondary'
+                secondary_payload = json.dumps({'revision':saved['revision'],'selections':['research']}).encode()
+                with self.assertRaises(HTTPError) as denied:
+                    urlopen(Request(secondary_path,data=secondary_payload),timeout=5)
+                self.assertEqual(denied.exception.code,403)
+                denied.exception.close()
+                with urlopen(Request(secondary_path,data=secondary_payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path,timeout=5) as response:
+                    view = json.load(response)
+                self.assertEqual(view['secondary']['remaining'],9)
+                self.assertEqual(next(item for item in view['skills'] if item['id']=='research')['percentage'],50)
+                with self.assertRaises(HTTPError) as stale:
+                    urlopen(Request(secondary_path,data=secondary_payload,headers=headers),timeout=5)
+                self.assertEqual(stale.exception.code,409)
+                stale.exception.close()
+                self.assertEqual(app.get(hero['id']),saved)
             finally:
                 server.shutdown(); server.server_close(); worker.join(timeout=5)
 

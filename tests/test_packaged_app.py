@@ -79,8 +79,13 @@ class PackagedApplicationTests(unittest.TestCase):
                                {'revision':0,'method':'choose','education_id':'military-specialist'}, token)
                 education = request('/api/characters/' + hero['id'] + '/education')
                 self.assertEqual(education['outcome']['secondary_count'], 5)
+                hero = request('/api/characters/' + hero['id'] + '/hero-programs',
+                               {'revision':hero['revision'],'selections':[{'slot':4,'program':'business'}]}, token)
+                programs = request('/api/characters/' + hero['id'] + '/hero-programs')
+                self.assertEqual(next(item for item in programs['skills'] if item['id'] == 'research')['contributions']['education'], 10)
                 hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
                 self.assertEqual(hero_imported['education'], hero['education'])
+                self.assertEqual(hero_imported['hero_program_selections'], hero['hero_program_selections'])
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:

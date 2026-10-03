@@ -74,3 +74,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 02B8: Complete, merged in PR #31; all 114 local checks, both review axes and both Windows frozen-build checks pass. Forty-four Aliens Unlimited racial/branch identities from six original body groups bring the partial catalog to 315. Original offsets, singular/plural aliases and variant/class relationships are retained. No numerical acceptance or automatic builder activation is certified.
 
 - 02B9: In progress. Sixty-nine additional Aliens profiles, branches, generation/shared rules and monster identities bring the partial catalog to 384. Source count reconciliation, supporting mechanical entries, numerical review and content tickets remain pending.
+
+
+06B in progress: Business program selections and six clearly defined skill percentages (five program grants plus universal Pilot Automobile; Mathematics merges once) through education, I.Q., saves, portable data and browser projection. Parent 06 remains open for the remaining programs and skill choices. 02B9 merged in PR #32 after both Windows builds passed.

@@ -1,0 +1,294 @@
+{
+  "id": "heroes-program-skills",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "schema_version": 1,
+  "name": "Heroes Business and universal skill definitions",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      15,
+      45,
+      46,
+      48,
+      56,
+      59,
+      60
+    ],
+    "pdf_pages": [
+      16,
+      46,
+      47,
+      49,
+      57,
+      60,
+      61
+    ],
+    "section": "Business program, universal skills, proficiency and I.Q. chart",
+    "candidate_ids": [
+      "434a46446c6eaa474c6d",
+      "a58c1581b0b40748045a",
+      "5ad856c28b8b10feadd2",
+      "1a76bf3bd8c875d13eff"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "intelligence": {
+    "bonuses": {
+      "16": 2,
+      "17": 3,
+      "18": 4,
+      "19": 5,
+      "20": 6,
+      "21": 7,
+      "22": 8,
+      "23": 9,
+      "24": 10,
+      "25": 11,
+      "26": 12,
+      "27": 13,
+      "28": 14,
+      "29": 15,
+      "30": 16
+    },
+    "source": {
+      "book": "Heroes Unlimited - RPG - 2E",
+      "pages": [
+        15
+      ],
+      "pdf_pages": [
+        16
+      ],
+      "section": "Attribute Bonus Chart",
+      "candidate_ids": [
+        "434a46446c6eaa474c6d"
+      ]
+    }
+  },
+  "programs": [
+    {
+      "id": "business",
+      "name": "Business",
+      "skill_ids": [
+        "research",
+        "mathematics-basic",
+        "computer-operation",
+        "business-finance",
+        "law-general"
+      ],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          46
+        ],
+        "pdf_pages": [
+          47
+        ],
+        "section": "Business Program",
+        "candidate_ids": [
+          "5ad856c28b8b10feadd2"
+        ]
+      },
+      "eligible_slots": {
+        "street-schooled": [],
+        "high-school": [
+          0,
+          1
+        ],
+        "military": [
+          2
+        ],
+        "trade-school": [
+          0,
+          1
+        ],
+        "college-one": [
+          0,
+          1
+        ],
+        "college-two": [
+          0,
+          1
+        ],
+        "college-three": [
+          0,
+          1,
+          2
+        ],
+        "college-four": [
+          0,
+          1,
+          2
+        ],
+        "military-specialist": [
+          4
+        ],
+        "bachelors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "masters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "doctorate": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  ],
+  "universal_skill_ids": [
+    "pilot-automobile",
+    "mathematics-basic"
+  ],
+  "skills": [
+    {
+      "id": "pilot-automobile",
+      "name": "Pilot Automobile",
+      "category": "Pilot, Basic",
+      "base": 60,
+      "per_level": 2,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          56
+        ],
+        "pdf_pages": [
+          57
+        ],
+        "section": "Pilot, Basic",
+        "candidate_ids": [
+          "29c529c997172bafa9af"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "mathematics-basic",
+      "name": "Mathematics: Basic",
+      "category": "Science",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59
+        ],
+        "pdf_pages": [
+          60
+        ],
+        "section": "Science",
+        "candidate_ids": [
+          "541d3dcc41d904060382"
+        ]
+      },
+      "prerequisites": [
+        "Literacy"
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "category": "Technical",
+      "base": 50,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "computer-operation",
+      "name": "Computer Operation",
+      "category": "Technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": [
+        "Literacy"
+      ]
+    },
+    {
+      "id": "business-finance",
+      "name": "Business & Finance",
+      "category": "Technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59,
+          60
+        ],
+        "pdf_pages": [
+          60,
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "law-general",
+      "name": "Law (general)",
+      "category": "Technical",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": []
+    }
+  ],
+  "guidance": [
+    "Business grants are counted once. Universal Basic Mathematics receives its scholastic bonus once when selected in Business; this duplicate-grant reconciliation is an explicit implementation interpretation.",
+    "Only Business and two universal skill percentages are automated here. Remaining programs, Secondary choices, repeat-program category choices, Street literacy trades and advancement remain unfinished.",
+    "Universal Speak Native Language (+25%) and Read/Write Native Language (+20%) remain source guidance. Native speaking base is unspecified; educated native literacy is 98%, and Street Schooled literacy is 30% +2% per level unless trading a skill. Their arithmetic interaction remains pending.",
+    "Education bonuses apply once to scholastic skills; I.Q. bonuses apply once to all supported skills. Ordinary proficiency is capped at 98%."
+  ]
+}

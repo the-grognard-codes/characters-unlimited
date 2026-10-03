@@ -1,6 +1,6 @@
 # Characters Unlimited
 
-An offline Windows character workshop for Rifts Ultimate Edition and Heroes Unlimited Second Edition. Work is being delivered in the approved slices; the current build supports the initial Rifts Human/Vagabond attribute path, identity, notes, and local saves. Class mechanics and the remaining catalogs are not yet implemented.
+An offline Windows character workshop for Rifts Ultimate Edition and Heroes Unlimited Second Edition. Work is being delivered in the approved slices; the current build supports the initial Rifts Human/Vagabond attribute path, identity, notes, and local saves. Reviewed domestic and several required Vagabond skills are available; combat, remaining class mechanics, and the other catalogs are still pending.
 
 ## Development
 
@@ -40,7 +40,7 @@ Use **Duplicate** for an independent character copy. **Export portable save** do
 
 See [the specification](docs/character-creator-spec.md), [ticket plan](docs/character-creator-ticket-plan.md), and [design decisions](docs/design-interview.md). Book transcriptions and reference PDFs remain local inputs and are not committed with the application.
 
-**Review rule updates** shows the domestic skill version, before/after percentages, selection counts, sources, and remaining gaps. Existing characters keep their saved versions until **Apply reviewed update** is selected. Applying creates a before-update database backup and displays its path; use the restoration procedure above if needed. New characters use domestic 1.1.0, including the reviewed I.Q. bonus. Other attribute effects, remaining skill categories, and broader rule upgrades are still pending.
+**Review rule updates** shows the domestic skill version, before/after percentages, selection counts, sources, and remaining gaps. Existing characters keep their saved versions until **Apply reviewed update** is selected. Applying creates a before-update database backup and displays its path; use the restoration procedure above if needed. New characters use domestic 1.2.0, including the reviewed I.Q. bonus and required language, pilot, and repair/horsemanship choices. Choices autosave; missing, duplicate, or excess language choices remain visible. Other attribute effects, remaining skill categories, and broader rule upgrades are still pending.
 
 ## Source inventory
 

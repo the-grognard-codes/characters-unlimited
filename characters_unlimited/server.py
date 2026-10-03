@@ -103,6 +103,8 @@ def create_server(application, port=0):
                         self.respond(200, application.set_attribute(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "skills":
                         self.respond(200, application.select_skills(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'required-skills':
+                        self.respond(200, application.select_required_skills(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'duplicate':
                         self.respond(201, application.duplicate(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'rule-preview':

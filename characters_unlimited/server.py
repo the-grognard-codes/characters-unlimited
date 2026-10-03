@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import secrets
+import sqlite3
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -58,9 +59,16 @@ def create_server(application, port=0):
             elif path.startswith("/api/characters/"):
                 try:
                     parts = path.strip('/').split('/')
-                    self.respond(200, application.skill_view(parts[2]) if len(parts) == 4 and parts[3] == 'skills' else application.get(path.rsplit("/", 1)[-1]))
+                    if len(parts) == 4 and parts[3] == 'skills':
+                        self.respond(200, application.skill_view(parts[2]))
+                    elif len(parts) == 4 and parts[3] == 'export':
+                        self.respond(200, application.export_character(parts[2]))
+                    else:
+                        self.respond(200, application.get(path.rsplit("/", 1)[-1]))
                 except KeyError:
                     self.respond(404, {"error": "Character not found"})
+                except ValueError as error:
+                    self.respond(400, {"error": str(error)})
             elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css"):
                 filename = "index.html" if path == "/" else path[1:]
                 content_type = "text/html" if filename == "index.html" else "text/javascript" if filename.endswith(".js") else "text/css"
@@ -73,14 +81,18 @@ def create_server(application, port=0):
                 return
             try:
                 length = int(self.headers.get("Content-Length", "0"))
-                if not 0 < length <= 1_000_000:
-                    raise ValueError("Request size must be between 1 and 1000000 bytes")
+                if not 0 < length <= 12_000_000:
+                    raise ValueError("Request size must be between 1 and 12000000 bytes")
                 data = json.loads(self.rfile.read(length))
                 if not isinstance(data, dict):
                     raise ValueError("Request must be an object")
                 path = urlsplit(self.path).path
                 if path == "/api/characters":
                     self.respond(201, application.create(**data))
+                elif path == '/api/import':
+                    self.respond(201, application.import_character(data.get('bundle')))
+                elif path == '/api/backups':
+                    self.respond(201, application.backup())
                 elif path.startswith("/api/characters/"):
                     parts = path.strip("/").split("/")
                     if len(parts) == 3:
@@ -91,6 +103,8 @@ def create_server(application, port=0):
                         self.respond(200, application.set_attribute(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "skills":
                         self.respond(200, application.select_skills(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'duplicate':
+                        self.respond(201, application.duplicate(parts[2]))
                     else:
                         self.respond(404, {"error": "Not found"})
                 else:
@@ -101,6 +115,8 @@ def create_server(application, port=0):
                 self.respond(400, {"error": str(error)})
             except KeyError:
                 self.respond(404, {"error": "Character not found"})
+            except (OSError, RecursionError, sqlite3.Error):
+                self.respond(400, {"error": "The local file operation could not complete. Existing saves and backups remain available."})
 
     return ThreadingHTTPServer(("127.0.0.1", port), Handler)
 

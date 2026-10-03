@@ -10,7 +10,7 @@ async function request(path, data) {
 function showError(error) { $('error').textContent = error.message; $('error').hidden = false; $('save-status').textContent = 'Check the message below'; }
 function lockNavigation(busy) {
   navigationBusy = busy;
-  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history'].forEach(id => $(id).disabled = busy);
+  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = busy || !skillsReady);
 }
@@ -95,6 +95,39 @@ $('skill-form').onsubmit = async event => {
   if (!skillsReady || navigationBusy) return;
   await characterAction('skills', {selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool:$('skill-pool').value, specialty:$('skill-specialty').value}]}).catch(showError);
 };
+async function transfer(action) {
+  if (navigationBusy) return;
+  lockNavigation(true); $('transfer-status').textContent = '';
+  try { await flushSave(); await action(); }
+  catch(error) { showError(error); }
+  finally { lockNavigation(false); }
+}
+$('duplicate-character').onclick = () => transfer(async () => {
+  render(await request(`/api/characters/${current.id}/duplicate`, {}));
+  $('transfer-status').textContent = 'Independent copy saved on this PC.';
+});
+$('export-character').onclick = () => transfer(async () => {
+  const bundle = await request(`/api/characters/${current.id}/export`);
+  const url = URL.createObjectURL(new Blob([JSON.stringify(bundle)], {type:'application/json'}));
+  const link = document.createElement('a'); link.href = url; link.download = `characters-unlimited-${current.id}.json`;
+  document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  $('transfer-status').textContent = 'Portable save download requested. It includes the exact supported rule definitions.';
+});
+$('backup-characters').onclick = () => transfer(async () => {
+  const backup = await request('/api/backups', {});
+  $('transfer-status').textContent = `Backup saved: ${backup.path}`;
+});
+$('import-character').onclick = () => $('import-file').click();
+$('import-file').onchange = () => transfer(async () => {
+  const file = $('import-file').files[0]; $('import-file').value = '';
+  if (!file) return;
+  if (file.size > 12_000_000) throw new Error('Choose a portable JSON save below 12 MB.');
+  let bundle;
+  try { bundle = JSON.parse(await file.text()); }
+  catch { throw new Error('This file is not valid JSON. Choose a portable character save.'); }
+  render(await request('/api/import', {bundle}));
+  $('transfer-status').textContent = 'Portable save imported as a new character. Existing characters were retained.';
+});
 async function flushSave() {
   clearTimeout(saveTimer);
   if (savePromise) return savePromise;

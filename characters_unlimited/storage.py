@@ -2,6 +2,8 @@
 
 import json
 import sqlite3
+import os
+import tempfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -47,6 +49,29 @@ class CharacterStore:
         if row is None:
             raise KeyError("Character not found")
         return json.loads(row[0])
+
+    def backup(self):
+        directory = self.directory / 'backups'
+        directory.mkdir(exist_ok=True)
+        descriptor, filename = tempfile.mkstemp(prefix='backup-', suffix='.tmp', dir=directory)
+        os.close(descriptor)
+        temporary = Path(filename)
+        destination = directory / (temporary.stem + '.sqlite3')
+        try:
+            target = sqlite3.connect(temporary)
+            try:
+                with self.connect() as connection:
+                    connection.backup(target)
+                if target.execute('PRAGMA integrity_check').fetchone()[0] != 'ok':
+                    raise ValueError('The backup did not pass its integrity check')
+            finally:
+                target.close()
+            with temporary.open('r+b') as saved:
+                os.fsync(saved.fileno())
+            os.replace(temporary, destination)
+            return destination
+        finally:
+            temporary.unlink(missing_ok=True)
 
     def list(self) -> list[dict]:
         with self.connect() as connection:

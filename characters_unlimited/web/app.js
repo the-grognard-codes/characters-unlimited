@@ -136,7 +136,7 @@ async function loadSkills(character) {
   }
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
-    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.kind === 'physical' ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
+    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.percentage == null ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
     const explanation = document.createElement('p'); explanation.className = 'help';
     explanation.textContent = skill.kind === 'physical'
       ? Object.entries(skill.effects).flatMap(([group, effects]) => Object.entries(effects).map(([name, effect]) => {
@@ -148,8 +148,9 @@ async function loadSkills(character) {
           return `${name.replaceAll('_', ' ')} +${value}${dice}${pending}`;
         })).join(' · ')
       : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
+    if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
-    if (view.intelligence_source && skill.kind !== 'physical') explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
+    if (view.intelligence_source && skill.percentage != null) explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
     if (skill.uncapped_percentage > 98) explanation.textContent += ` · Capped at 98% from ${skill.uncapped_percentage}% (Ultimate Edition, p. 301).`;
     for (const check of skill.additional_checks || []) {
       const total = Object.entries(check.contributions).map(([name,amount]) => `${name.replaceAll('_',' ')} ${amount}%`).join(' + ');
@@ -160,7 +161,9 @@ async function loadSkills(character) {
     row.append(heading, explanation);
     for (const activity of skill.activities || []) {
       const details = document.createElement('p'); details.className = 'help';
-      details.textContent = activity.miles == null ? activity.guidance
+      details.textContent = 'yards_per_melee' in activity ? (activity.yards_per_melee == null ? activity.guidance
+        : `${activity.name}: ${activity.yards_per_melee.toLocaleString()} yards / ${activity.meters_per_melee.toLocaleString()} meters per melee for ${activity.minutes.toLocaleString()} minutes. ${activity.guidance}`)
+        : activity.miles == null ? activity.guidance
         : `${activity.name}: Spd ${activity.speed_attribute.toLocaleString()} · ${activity.miles.toLocaleString(undefined,{maximumFractionDigits:3})} miles / ${activity.kilometers.toLocaleString(undefined,{maximumFractionDigits:3})} km. ${activity.guidance}`;
       row.append(details);
     }

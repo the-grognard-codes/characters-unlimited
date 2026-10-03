@@ -52,11 +52,13 @@ def compare_skill_views(before, after):
                                 'specialty':skill.get('specialty',''), 'percentage':value['value'] if isinstance(value,dict) else value,
                                 'unit':''}
                     for activity in skill.get('activities', []):
-                        for field,unit in (('speed_attribute','Spd'),('miles','miles'),('kilometers','km')):
+                        fields = (('yards_per_melee','yards/melee'),('meters_per_melee','meters/melee'),('minutes','minutes')) if 'yards_per_melee' in activity else (('speed_attribute','Spd'),('miles','miles'),('kilometers','km'))
+                        for field,unit in fields:
                             result[(*identity,occurrence,'activity:'+activity['id']+':'+field)] = {
                                 'name':skill['name']+' — '+activity['name'],
                                 'specialty':skill.get('specialty',''), 'percentage':activity[field], 'unit':unit}
-                    continue
+                    if 'percentage' not in skill:
+                        continue
                 result[(*identity, occurrence, 'primary')] = skill
                 for check in skill.get('additional_checks', []):
                     result[(*identity, occurrence, 'check:' + check['name'])] = {
@@ -114,7 +116,7 @@ def project_skills(character, pack=PACK):
         if needs_specialty(definition) and not item.get('specialty'):
             warnings.append(f"Choose the specialty for each {definition['name']} selection.")
         policy = selection_policy(definition, item['pool'], pack)
-        if definition.get('kind') == 'physical':
+        if definition.get('kind') == 'physical' and 'base' not in definition:
             selected.append({**physical_entries[definition['id']], **item, 'quality':'trained'})
             continue
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
@@ -129,7 +131,8 @@ def project_skills(character, pack=PACK):
             quality = 'professional' if item['pool'] != 'secondary' or repeated else 'amateur'
         elif definition.get('quality_by_pool'):
             quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
-        selected.append({**definition, **item, **project_proficiency(definition, contributions), 'quality': quality})
+        effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
+        selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions), 'quality': quality})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     remaining['related'] -= combat_skill_cost(character, pack)
     for pool, count in remaining.items():

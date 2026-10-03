@@ -94,7 +94,8 @@ class PackagedApplicationTests(unittest.TestCase):
                                         {'skill_id':'body-building','pool':'related'},
                                         {'skill_id':'physical-labor','pool':'related'},
                                         {'skill_id':'running','pool':'related'},
-                                        {'skill_id':'boxing','pool':'related'}]},token)
+                                        {'skill_id':'boxing','pool':'related'},
+                                        {'skill_id':'swimming','pool':'secondary'}]},token)
                 endurance = request('/api/characters/'+identifier+'/skills')
                 self.assertEqual(endurance['combat']['totals']['attacks']['value'],5)
                 self.assertEqual(endurance['combat']['totals']['parry']['contributions']['Boxing'],2)
@@ -102,6 +103,12 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(len(character['physical_acquisitions']['boxing']['rolls']['resource:SDC']),3)
                 running = next(skill for skill in endurance['selected'] if skill['id']=='running')
                 self.assertEqual(running['activities'][0]['miles'],character['attributes']['PE']['value']*0.5)
+                swimming = next(skill for skill in endurance['selected'] if skill['id']=='swimming')
+                self.assertEqual(swimming['per_level'],5)
+                self.assertEqual(swimming['contributions']['base'],50)
+                self.assertEqual(swimming['activities'][0]['yards_per_melee'],character['attributes']['PS']['value']*3)
+                self.assertEqual(swimming['activities'][0]['minutes'],character['attributes']['PE']['value'])
+                self.assertEqual(character['physical_acquisitions']['swimming']['rolls'],{})
                 self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],resource_view['resources']['HP']['value'])
                 character = request('/api/characters/'+identifier+'/equipment',
                     {'revision':character['revision'],'inventory':{'credits':50000,'items':[]}},token)

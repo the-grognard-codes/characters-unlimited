@@ -47,3 +47,9 @@ Rifts skills 2.2.0 adds Physical Labor and Running through the recorded Physical
 Activities are derived rather than saved acquisitions. Explicit numerical updates show separate speed, mile and kilometer rows in the reviewed preview and preserve source dice. Their values appear in builder explanations and editable PDF notes. Running is eligible Secondary under the original p. 300 list; Physical Labor is an eligible Related choice and remains a retained exception in Secondary.
 
 Boxing uses the fixed Physical `combat.attacks` contribution, added once to the selected hand-to-hand attacks per melee. Its natural-20 knockout condition is retained in source notes; encounter durations are not rolled during acquisition. Physical notes also appear in editable PDF continuation fields.
+
+## Physical skills with percentile checks
+
+Skills2.4.0 adds Swimming as kindPhysical with base/per_level and separate conditional checks. Physical definitions without base retain their effect-only projection; those with base add ordinary proficiency contributions and any additional checks. Recorded empty acquisitions consume no dice; duplicates do not add proficiency/effects. Comparisons include both Physical activities and percentage/check rows.
+
+`activities.swimming` declares yards/meters per effectiveP.S. and minutes per effectiveP.E. The source coefficients are3/3/1. Limits are absent for nonpositive attributes or results outside browser-safe integer representation. UI and PDF show these units independently from Running's mile/km records. Storm and non-powered MDC armor checks are conditional examples; afloat/buoyancy and combined armor/context adjudication remain visible rather than automatically resolved.

@@ -1,0 +1,15 @@
+# 02B10 validation
+
+This slice accepts source-bound identities, not numerical mechanics. Powers Unlimited 1 contributes 125 Minor powers, 45 Major powers, 21 body-listed psionic powers and three section groups. Prefix families remain evidence notes rather than invented creation categories. Heroes core Animal Abilities, Adhesion and Flight: Glide provide shared source links for the Powers Unlimited 3 variants; a link does not impose an additional mandatory character choice.
+
+Original Aliens Unlimited introduction, index and optional Tables A/B were inspected independently. The introduction says 84, the index lists 85 primary profiles, and the optional tables contain 84 rows while omitting Atorians and naming Mantis instead of indexed Manteze. No confirmed counting convention or alias resolves those differences. Original Table A reads Photin 77–79; its Markdown OCR error stays an ingestion finding. Exact table and index candidates are linked without changing source text.
+
+The Powers Unlimited 3 public coverage tracer first failed because the Animal Abilities extension was absent. It requires ten new power variants beneath the shared power, exact original body locators, Contents-only identity evidence for powers whose body pages are missing, and unchanged pending mechanical/automation states. Source fingerprints stay unchanged; missing pages use the separate verified-gap overlay and blocked recovery tickets.
+
+Local checks, browser evidence, independent review reports and Windows build results are recorded below before this slice is merged. Full supporting-rule coverage, all mechanical/dependency acceptance and named content-ticket fan-out remain open under parent 02.
+
+All thirteen original PDF and corrected Markdown SHA-256 fingerprints match the active inventory. The initial snapshot remains unchanged. Focused coverage and canonical-audit workflows pass. Full validation passes 126 tests (one frozen-only skip), mypy over 42 files, Python compilation and all browser JavaScript syntax checks. The active catalog has 718 identities, 717 awaiting content tickets, zero mechanically reviewed/fully automated entries and four source gaps. No original books or provisional inventory were rewritten.
+
+Edge verifies the totals, PU1 Abnormal Energy Sense printed 9/PDF 11, the `Bat (New)` alias and shared dependencies, and Energy Conversion using only original Contents printed 4/PDF 6 with blocked body mechanics. Both browser captures were visually inspected: [Animal variant](02b10-animal-variant.png) and [missing power](02b10-missing-power.png). Exact evidence reports cover [PU1](02b10-pu1-source-locators.md), [PU3](02b10-pu3-source-locators.md), [HU2 shared parents](02b10-hu2-shared-parents.md), [Alien count reconciliation](02b10-aliens-count-reconciliation.md) and [PDF pagination integrity](02b10-pdf-integrity.md).
+
+[Independent Standards and Spec reviews](02b10-review.md) both approve with zero findings. Windows frozen-build CI checks must pass before merge.

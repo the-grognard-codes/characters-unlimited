@@ -11,6 +11,32 @@ from characters_unlimited.coverage import SourceInventory
 
 
 class CoverageWorkflowTests(unittest.TestCase):
+    def test_mercenaries_missing_folio_keeps_the_adjacent_npc_candidate_unaffected(self):
+        inventory = SourceInventory.load()
+        book = next(item for item in inventory['books'] if item['id']=='rifts-mercenaries')
+        self.assertEqual(len(book['source_gaps']), 1)
+        self.assertIn('printed page 40', book['source_gaps'][0]['description'])
+        self.assertIn('duplicate', book['source_gaps'][0]['description'])
+        self.assertEqual(book['source_gaps'][0]['line'], 1907)
+        self.assertEqual(book['source_gaps'][0]['end_line'], 1922)
+        affected = next(item for item in inventory['candidates'] if item['id']=='9ea851e298d172de986a')
+        general = next(item for item in inventory['candidates'] if item['id']=='337a87e55ecab606f49a')
+        self.assertEqual(affected['status'], 'source-gap')
+        self.assertEqual(general['status'], 'needs-review')
+
+    def test_powers_unlimited_three_missing_pages_mark_only_the_orphan_continuation(self):
+        inventory = SourceInventory.load()
+        book = next(item for item in inventory['books'] if item['id']=='heroes-unlimited-powers-unlimited-3')
+        self.assertEqual(len(book['source_gaps']), 1)
+        self.assertEqual(book['source_gaps'][0]['line'], 3397)
+        self.assertEqual(book['source_gaps'][0]['end_line'], 3452)
+        self.assertIn('60–61', book['source_gaps'][0]['description'])
+        self.assertIn('printed 59', book['source_gaps'][0]['description'])
+        self.assertIn('printed 62', book['source_gaps'][0]['description'])
+        candidate = next(item for item in inventory['candidates'] if item['id']=='4850346f206a490d3a94')
+        self.assertEqual(candidate['status'], 'source-gap')
+        self.assertEqual(inventory['summary']['mechanically_reviewed'], 0)
+
     def test_verified_locator_correction_replaces_the_same_gap_without_double_counting(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / 'Rifts - Damaged.md'
@@ -31,7 +57,7 @@ class CoverageWorkflowTests(unittest.TestCase):
             self.assertEqual(SourceInventory.with_verified_gaps(revised, [record]), revised)
             self.assertIn('107', source.read_text(encoding='utf-8'))
         active = SourceInventory.load()
-        self.assertEqual(active['summary']['source_gaps'], 2)
+        self.assertEqual(active['summary']['source_gaps'], 4)
         damaged = next(book for book in active['books'] if book['id']=='rifts-world-book-09-south-america-2')
         self.assertIn('printed page 108', damaged['source_gaps'][0]['description'])
 
@@ -80,7 +106,7 @@ class CoverageWorkflowTests(unittest.TestCase):
 
     def test_underseas_missing_page_is_visible_without_certifying_mechanics(self):
         inventory = SourceInventory.load()
-        self.assertEqual(inventory['summary']['source_gaps'], 2)
+        self.assertEqual(inventory['summary']['source_gaps'], 4)
         carrier = next(item for item in inventory['candidates'] if item['id']=='061b098337365482e80c')
         self.assertEqual(carrier['status'], 'source-gap')
         self.assertIn('131', carrier['source_gaps'][0]['description'])

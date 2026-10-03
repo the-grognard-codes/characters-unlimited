@@ -1,6 +1,6 @@
 # Characters Unlimited
 
-An offline Windows character workshop for Rifts Ultimate Edition and Heroes Unlimited Second Edition. Work is being delivered in the approved slices; the current build supports the initial Rifts Human/Vagabond attribute path, identity, notes, and local saves. Reviewed domestic, Communications, Science, Technical and several required Vagabond skills are available, with representative level-one hand-to-hand and weapon proficiency explanations. Remaining class mechanics, equipment and the other catalogs are still pending.
+An offline Windows character workshop for Rifts Ultimate Edition and Heroes Unlimited Second Edition. Work is being delivered in the approved slices; the current build supports initial Rifts Human/Vagabond and Heroes Human-origin Mutant attributes, identity, notes, local saves and portable files. Reviewed domestic, Communications, Science, Technical and several required Vagabond skills are available, with representative level-one hand-to-hand and weapon proficiency explanations. Remaining class mechanics, equipment and the other catalogs are still pending.
 
 ## Development
 
@@ -63,3 +63,5 @@ PDFs embed the bundled, licensed Droid Sans Fallback font for Unicode editing. I
 ## Early Windows package
 
 Run `scripts/build-windows.ps1` on Windows to build `dist/CharactersUnlimited/CharactersUnlimited.exe`. Unzip or copy the entire folder, then double-click the executable; the desktop controller opens the workshop and stops the local application. Player PCs need no Python or Node installation. This package covers the current implemented path; full content and release acceptance remain pending. See [package instructions](docs/windows-package.md).
+
+Heroes Unlimited Revised Second Edition now has a basic Human-origin Mutant creation path: initial attributes with its repeated-six exceptional method and normal mortal ceilings, house rules, notes, manual values, local saves and portable export/import. Education, powers, skills, combat, equipment, advancement and the editable Heroes sheet remain unfinished; the builder shows those gaps. Rifts choices and calculations stay separate.

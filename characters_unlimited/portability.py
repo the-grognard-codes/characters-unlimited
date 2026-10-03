@@ -4,7 +4,7 @@ import json
 from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
-from .generation import roll_attribute, generation_settings
+from .generation import roll_attribute, generation_settings, racial_formula
 from .attribute_modifiers import attribute_value
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
@@ -25,17 +25,20 @@ def integer(value):
     return type(value) is int and abs(value) <= 9_007_199_254_740_991
 
 
-def validate_attributes(attributes):
+def validate_attributes(attributes, race):
     if not isinstance(attributes, dict) or set(attributes) - set(ATTRIBUTES):
         raise ValueError('Invalid attribute names')
-    for value in attributes.values():
+    for name, value in attributes.items():
+        formula = racial_formula(race, name)
+        if not isinstance(value, dict) or value.get("cap") != formula.get("cap") or ("cap" in value and not integer(value["cap"])):
+            raise ValueError("Attribute ceiling must match the pinned racial rule")
         if not isinstance(value, dict) or not integer(value.get('base')) or not integer(value.get('value')):
             raise ValueError('Attribute values must be supported whole numbers')
         if not integer(value.get('adjustment', 0)) or (value.get('fixed') is not None and not integer(value['fixed'])):
             raise ValueError('Invalid manual attribute value')
         for key in ('rolls', 'bonus_rolls', 'original_rolls', 'kept', 'discarded'):
             rolls = value.get(key, None if key in ('rolls', 'bonus_rolls') else [])
-            if not isinstance(rolls, list) or len(rolls) > 2000 or any(not integer(die) for die in rolls):
+            if not isinstance(rolls, list) or len(rolls) > 10000 or any(not integer(die) for die in rolls):
                 raise ValueError('Invalid attribute dice')
         explanation = value.get('explanation')
         source = explanation.get('source') if isinstance(explanation, dict) else None
@@ -60,14 +63,14 @@ def validate_attributes(attributes):
         expected_value = attribute_value(value)
         if value['value'] != expected_value:
             raise ValueError('Attribute value does not match its fixed value or adjusted base')
-        validate_recorded_roll(value)
+        validate_recorded_roll(value, formula)
 
 
-def validate_recorded_roll(value):
-    formula = {'count': 3, 'sides': 6, 'constant': 0, 'exceptional': {'thresholds': [16, 17, 18], 'max_bonus_dice': 2}}
+def validate_recorded_roll(value, formula):
+    # Replay the exact accepted racial formula rather than inferring rules from dice.
     settings = value.get('generation', {'reroll_ones': False, 'extra_die': False})
     originals = value.get('original_rolls', value['rolls'])
-    if len(originals) != 3 + int(settings['extra_die']):
+    if len(originals) != formula['count'] + int(settings['extra_die'] and formula['count'] > 0):
         raise ValueError('Recorded dice do not match the racial attribute pool')
     rerolls = {item['index']: item['rolls'] for item in value.get('rerolls', [])}
     if len(rerolls) != len(value.get('rerolls', [])) or set(rerolls) - set(range(len(originals))):
@@ -96,10 +99,10 @@ def validate_generation(value):
         raise ValueError('Invalid generation options')
 
 
-def validate_character(character):
+def validate_character(character, core):
     if not isinstance(character, dict) or type(character.get('format_version')) is not int or character['format_version'] != 1:
         raise ValueError('Unsupported character format version')
-    if character.get('game') != 'rifts' or character.get('race') != 'human' or character.get('character_class') != 'vagabond':
+    if character.get('game') != core['game'] or not any(r['id'] == character.get('race') for r in core['races']) or not any(c['id'] == character.get('character_class') for c in core['classes']):
         raise ValueError('This application version cannot reopen that game or character option')
     try:
         UUID(character['id'])
@@ -116,7 +119,8 @@ def validate_character(character):
     attributes = character.get('attributes')
     if not isinstance(attributes, dict):
         raise ValueError('Attribute records are missing')
-    validate_attributes(attributes)
+    race = next(r for r in core["races"] if r["id"] == character["race"])
+    validate_attributes(attributes, race)
     if set(attributes) != set(ATTRIBUTES):
         raise ValueError('The character must retain all eight attribute records')
     if 'generation' in character:
@@ -132,7 +136,7 @@ def validate_character(character):
                 datetime.fromisoformat(event['at'])
             except (TypeError, ValueError) as error:
                 raise ValueError('Invalid roll history date') from error
-        validate_attributes(event.get('attributes'))
+        validate_attributes(event.get('attributes'), race)
         if 'generation' in event:
             validate_generation(event['generation'])
 
@@ -158,8 +162,10 @@ def pinned_packs(character, packs):
 
 
 def export_bundle(character, packs):
-    validate_character(character)
-    validate_sources(character, packs)
+    expected = pinned_packs(character, packs)
+    core = primary_pack(character, expected)
+    validate_character(character, core)
+    validate_sources(character, expected)
     bundle = {'format': 'characters-unlimited', 'bundle_version': 1,
               'character': deepcopy(character), 'rule_packs': pinned_packs(character, packs)}
     canonical(bundle)
@@ -173,12 +179,11 @@ def import_bundle(bundle, packs):
     character = bundle.get('character')
     if not isinstance(character, dict):
         raise ValueError('The character record is missing')
-    validate_character(character)
     expected = pinned_packs(character, packs)
+    core = primary_pack(character, expected)
+    validate_character(character, core)
     validate_sources(character, expected)
-    if character['rules']['id'] != 'rifts-core':
-        raise ValueError('The primary rule pack must match the selected game')
-    if 'rifts-domestic-skills' not in character.get('additional_rule_packs', {}):
+    if character['game'] == 'rifts' and 'rifts-domestic-skills' not in character.get('additional_rule_packs', {}):
         raise ValueError('The skill projection must retain its rule version pin')
     supplied = bundle.get('rule_packs')
     if not isinstance(supplied, list) or len(supplied) != len(expected):
@@ -189,10 +194,17 @@ def import_bundle(bundle, packs):
     return fresh_copy(character)
 
 
+def primary_pack(character, packs):
+    primary = character['rules']
+    core = next((pack for pack in packs if pack['id'] == primary['id'] and pack['version'] == primary['version']), None)
+    expected_id = {'rifts': 'rifts-core', 'heroes-unlimited': 'heroes-core'}.get(character.get('game'))
+    if core is None or core['id'] != expected_id or core.get('game') != character.get('game') or any(pack.get('game') != character['game'] for pack in packs):
+        raise ValueError('The pinned rule definitions must match the selected game')
+    return core
+
+
 def validate_sources(character, packs):
-    core = next((pack for pack in packs if pack['id'] == 'rifts-core' and pack['version'] == character['rules']['version']), None)
-    if core is None:
-        raise ValueError('The generated attribute rule source is unavailable')
+    core = primary_pack(character, packs)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', []))]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     for attributes in records:

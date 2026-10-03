@@ -30,7 +30,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
                     self.assertEqual(entry['automation'], 'not-implemented')
                     self.assertEqual(entry['mechanical_review'], 'pending')
             self.assertEqual(len([entry for entry in options.values() if entry['id'].startswith('pu2-')]), 47)
-            self.assertEqual(CharacterApplication(directory).catalog()['games'], [{'id':'rifts','name':'Rifts Ultimate Edition'}])
+            self.assertEqual([pack['classes'][0]['id'] for pack in CharacterApplication(directory).catalog()['packs']], ['vagabond', 'mutant'])
 
     def test_mercenary_and_sa2_paths_keep_heritages_offsets_and_blocked_evidence(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -144,7 +144,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-mega-hero']['kind'], 'rule')
             self.assertTrue(any('modifier' in finding for finding in options['hu2-mega-hero']['findings']))
             self.assertEqual(view['summary']['unassigned_options'], 270)
-            self.assertEqual(CharacterApplication(directory).catalog()['games'], [{'id':'rifts','name':'Rifts Ultimate Edition'}])
+            self.assertEqual([pack['classes'][0]['id'] for pack in CharacterApplication(directory).catalog()['packs']], ['vagabond', 'mutant'])
 
     def test_heroes_named_paths_link_to_categories_and_shared_robot_rules(self):
         with tempfile.TemporaryDirectory() as directory:

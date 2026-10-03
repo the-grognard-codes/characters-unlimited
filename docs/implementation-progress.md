@@ -13,7 +13,7 @@ South America 2 PDF page 108 / printed page 108 has confirmed damage obscuring D
 - 01: Complete, merged in PR #1. Local Rifts Human/Vagabond identity, initial attributes, notes, transactional saves, and reopen path work. Type checking, four application workflow tests, Python/JavaScript syntax checks, and narrow/desktop browser checks pass. Windows GitHub CI also passes.
 - 02: In progress, split into 02A (complete, merged in PR #2) and 02B (complete option audit and bounded content tickets). The scan finds 7,053 section candidates in all 13 books; zero candidates are claimed fully automated. Classifying headings is not a completed corpus audit.
 - 02A2: Complete, merged in PR #6. Preserves the initial manifest and fingerprints corrected copies with 7,065 provisional candidates and one marked source gap. All 25 checks, both reviews, browser checks, and Windows CI pass. Parent 02B remains open.
-- 03: Draft normal-attribute creation, separate game catalogs, and game-aware identity/save support are prepared on `codex/03-heroes-character`. Heroes Unlimited exceptional-die interpretation awaits the user's ruling; the original PDF (printed page 15) confirms the uncapped wording. Do not publish this slice as complete before resolving that rule. Its owned draft files are preserved in a named Git stash while independent Rifts work proceeds.
+- 03: In progress. The original Heroes printed p. 15 / PDF p. 16 verifies repeated exceptional sixes without a rule cap. Implement that book method with the existing operational draw guard, rather than substituting the Rifts cap. The earlier optional interpretation question has no answer; this decision follows source wording and the approved game-specific rules requirement, not inferred approval. The older draft remains preserved in its stash.
 - 04: Rifts generation options are complete as 04A, merged in PR #3. Ten workflow tests, browser verification, independent reviews, and Windows CI pass. The full two-game slice remains dependent on 03.
 - 05: In progress. Named slice 05A is merged in PR #4 and covers domestic selections and their percentage/quality rules. Sixteen checks, browser verification, independent reviews, and Windows CI pass. Remaining categories, required choices, I.Q. modifiers, and prerequisites are tracked as the follow-on 05B. Parent 05 stays open.
 - 06–24 and corpus content batches: Not complete.
@@ -39,9 +39,9 @@ South America 2 PDF page 108 / printed page 108 has confirmed damage obscuring D
 
 - 02B3: Complete, merged in PR #17; both Windows CI checks pass. Sixteen source-bound Heroes Unlimited identities add four Hardware specializations, Super Vehicle construction, five Special Training paths, four robot types and two shared robot rules. There are 67 identities, zero mechanically reviewed entries, and 66 unassigned identities. All 79 local checks and browser alias/dependency validation pass. Both review axes approve; publication is complete. Evidence: docs/evidence/02b3-validation.md.
 
-## Pending source ruling
+## Heroes exceptional-die interpretation
 
-Heroes Unlimited Second Edition adds a die to an initial 16–18 and says to roll again on another six without stating a terminal cap; Rifts explicitly caps at two bonus dice. An asynchronous question asks the user to choose repeated bonus sixes or a two-bonus-die cap. The original PDF page was visually inspected; do not infer approval from elapsed time or silently copy the Rifts cap.
+Original printed p. 15 / PDF p. 16 says to roll again on another six, without a terminal cap. The implementation uses that repeated-six interpretation. The draw guard rejects a broken/nonterminating dice source atomically and does not silently truncate a valid roll chain. Independent review and deterministic regressions must verify this behavior.
 
 ## Retrospective
 
@@ -65,4 +65,4 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 02B6: Complete, merged in PR #26; all 99 local checks, both reviews and both Windows frozen-build checks pass. Fifty-five Mercenaries/Merc Ops/South America 2 creation identities bring the catalog to 224 across all eight supplied Rifts books. Complete core child paths, NPC-profile racial reconciliation, remaining Heroes books and mechanical/dependency review remain pending.
 
-- 02B7: In progress. Forty-seven Powers Unlimited 2 categories, named creation branches, genetic construction and power identities bring the partial catalog to 271. Numerical acceptance and supporting mechanical fan-out remain pending.
+- 02B7: Complete, merged in PR #27; all 100 local checks and both Windows frozen-build checks pass. Both review axes approve after alias/dependency and documentation repairs; final additive data received self-review because the Standards reviewer reached its thread limit. Forty-seven Powers Unlimited 2 categories, named creation branches, genetic construction and power identities bring the partial catalog to 271. Numerical acceptance and supporting mechanical fan-out remain pending.

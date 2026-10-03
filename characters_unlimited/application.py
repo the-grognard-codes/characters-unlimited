@@ -9,7 +9,7 @@ from uuid import uuid4
 
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
-from .generation import generation_settings, roll_attribute
+from .generation import generation_settings, roll_attribute, racial_formula
 from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
@@ -31,36 +31,42 @@ class CharacterApplication:
         self.die = die or (lambda sides: secrets.randbelow(sides) + 1)
         self.rule_archive = rule_archive if rule_archive is not None else RuleArchive.load()
         self.pack = self.rule_archive.active('rifts-core')
+        self.heroes_pack = self.rule_archive.active('heroes-core')
         self.skill_pack = self.rule_archive.active('rifts-domestic-skills')
         self.store = CharacterStore(directory)
 
     def catalog(self):
-        return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}], "packs": [deepcopy(self.pack)]}
+        return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}, {"id": "heroes-unlimited", "name": self.heroes_pack["name"]}], "packs": [deepcopy(self.pack), deepcopy(self.heroes_pack)]}
 
     def coverage(self):
         return SourceInventory.load()
 
-    def create(self, name="", race="human", character_class="vagabond", notes="", generation=None):
-        racial_rules = next((item for item in self.pack["races"] if item["id"] == race), None)
-        selected_class = next((item for item in self.pack["classes"] if item["id"] == character_class), None)
+    def create(self, name="", race="human", character_class=None, notes="", generation=None, game="rifts"):
+        pack = {"rifts": self.pack, "heroes-unlimited": self.heroes_pack}.get(game)
+        if pack is None:
+            raise ValueError("Select an available game")
+        if character_class is None:
+            character_class = pack["classes"][0]["id"]
+        racial_rules = next((item for item in pack["races"] if item["id"] == race), None)
+        selected_class = next((item for item in pack["classes"] if item["id"] == character_class), None)
         if racial_rules is None or selected_class is None:
-            raise ValueError("Select an available race and class")
+            raise ValueError("Select an available race and class from the selected game")
         if not isinstance(name, str) or not isinstance(notes, str):
             raise ValueError("Name and notes must be text")
         settings = generation_settings(generation)
         character = {
-            "id": str(uuid4()), "format_version": 1, "game": "rifts",
+            "id": str(uuid4()), "format_version": 1, "game": game,
             "name": name, "notes": notes, "race": race, "character_class": character_class,
-            "rules": {"id": self.pack["id"], "version": self.pack["version"]},
-            "additional_rule_packs": {self.skill_pack['id']: self.skill_pack['version']},
+            "rules": {"id": pack["id"], "version": pack["version"]},
+            "additional_rule_packs": {self.skill_pack['id']: self.skill_pack['version']} if game == 'rifts' else {},
             "level": 1, "revision": 0, "attributes": {}, "generation": settings,
             "completion": ["Skills are not yet complete", "Equipment and resources are not yet complete"],
             "automation_gaps": selected_class["automation_gaps"],
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         for attribute in ATTRIBUTES:
-            formula = racial_rules["attributes"]
-            character["attributes"][attribute] = roll_attribute(formula, settings, self.die, self.pack["source"])
+            formula = racial_formula(racial_rules, attribute)
+            character["attributes"][attribute] = roll_attribute(formula, settings, self.die, pack["source"])
         roll_class_modifiers(character['attributes'], selected_class, self.die)
         character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
         self.store.put(character)
@@ -69,7 +75,8 @@ class CharacterApplication:
     def get(self, identifier):
         character = self.store.get(identifier)
         # Earlier builds already projected this exact domestic pack without a pin.
-        character.setdefault('additional_rule_packs', {}).setdefault('rifts-domestic-skills', '1.0.0')
+        if character['game'] == 'rifts':
+            character.setdefault('additional_rule_packs', {}).setdefault('rifts-domestic-skills', '1.0.0')
         pinned_packs(character, self.rule_archive.definitions())
         return character
 
@@ -91,6 +98,8 @@ class CharacterApplication:
         return self.store.update(identifier, {'combat_choices': choices}, require_revision(revision))
 
     def character_skill_pack(self, character):
+        if character['game'] != 'rifts':
+            raise ValueError('Heroes Unlimited education and skill rules remain unfinished')
         return self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills'])
 
     def export_character(self, identifier):
@@ -100,6 +109,8 @@ class CharacterApplication:
         from .pdf_export import export_rifts_sheet
 
         character = self.get(identifier)
+        if character['game'] != 'rifts':
+            raise ValueError('Heroes Unlimited editable PDF remains unfinished')
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
         return export_rifts_sheet(character, core, project_skills(character, pack), project_combat(character, pack))
@@ -190,7 +201,7 @@ class CharacterApplication:
         attributes = deepcopy(character["attributes"])
         results = {}
         for name in (ATTRIBUTES if attribute is None else (attribute,)):
-            formula = racial_rules["attributes"]
+            formula = racial_formula(racial_rules, name)
             result = roll_attribute(formula, settings, self.die, pack["source"])
             previous = attributes[name]
             result["adjustment"] = previous.get("adjustment", 0)

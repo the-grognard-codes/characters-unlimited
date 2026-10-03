@@ -4,7 +4,7 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** in-progress
 
 - [ ] The behavior described above works through the character application or maintainer interface and UI.
 - [ ] Source-grounded expected results and affected workflow checks pass.

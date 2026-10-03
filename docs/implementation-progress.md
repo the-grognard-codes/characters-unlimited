@@ -12,11 +12,13 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 
 - 01: Complete, merged in PR #1. Local Rifts Human/Vagabond identity, initial attributes, notes, transactional saves, and reopen path work. Type checking, four application workflow tests, Python/JavaScript syntax checks, and narrow/desktop browser checks pass. Windows GitHub CI also passes.
 - 02: In progress, split into 02A (complete, merged in PR #2) and 02B (complete option audit and bounded content tickets). The scan finds 7,053 section candidates in all 13 books; zero candidates are claimed fully automated. Classifying headings is not a completed corpus audit.
+- 02A2: Complete, merged in PR #6. Preserves the initial manifest and fingerprints corrected copies with 7,065 provisional candidates and one marked source gap. All 25 checks, both reviews, browser checks, and Windows CI pass. Parent 02B remains open.
 - 03: Draft normal-attribute creation, separate game catalogs, and game-aware identity/save support are prepared on `codex/03-heroes-character`. Heroes Unlimited exceptional-die interpretation awaits the user's ruling; the original PDF (printed page 15) confirms the uncapped wording. Do not publish this slice as complete before resolving that rule. Its owned draft files are preserved in a named Git stash while independent Rifts work proceeds.
 - 04: Rifts generation options are complete as 04A, merged in PR #3. Ten workflow tests, browser verification, independent reviews, and Windows CI pass. The full two-game slice remains dependent on 03.
 - 05: In progress. Named slice 05A is merged in PR #4 and covers domestic selections and their percentage/quality rules. Sixteen checks, browser verification, independent reviews, and Windows CI pass. Remaining categories, required choices, I.Q. modifiers, and prerequisites are tracked as the follow-on 05B. Parent 05 stays open.
 - 06–24 and corpus content batches: Not complete.
 - 18: Split into 18A (portable Rifts saves, independent duplicates, exact supported rules, and atomic backups) and 18B (accepted-version archives and explicit upgrade previews). 18A is complete and merged in PR #5; 23 checks, browser validation, both reviews, and Windows CI pass. Parent 18 stays open.
+- 18B1: Accepted archive foundation is under review. Exact saved versions govern generation, skills, and portable definitions; changing a default does not change a saved pin. Full 18B upgrade previews and both-game support remain pending.
 
 ## Pending source ruling
 

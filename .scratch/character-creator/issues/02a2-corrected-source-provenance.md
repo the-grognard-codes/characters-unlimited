@@ -1,6 +1,6 @@
 # 02A2: Corrected source provenance and source-gap visibility
 
-**Status:** in-progress
+**Status:** complete — merged in PR #6
 
 **Blocked by:** 02A
 

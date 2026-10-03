@@ -1,6 +1,5 @@
 """Player-facing character workflows; all derived results enter through this seam."""
 
-import json
 import secrets
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -10,8 +9,9 @@ from uuid import uuid4
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute
-from .skills import validate_selections, project_skills, PACK as SKILL_PACK
+from .skills import validate_selections, project_skills
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs
+from .rules import RuleArchive
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -23,15 +23,15 @@ def require_revision(revision):
 
 
 class CharacterApplication:
-    def __init__(self, directory: str | Path, die=None):
-        self.store = CharacterStore(directory)
+    def __init__(self, directory: str | Path, die=None, rule_archive=None):
         self.die = die or (lambda sides: secrets.randbelow(sides) + 1)
-        self.pack = json.loads(
-            (Path(__file__).parent / "packs" / "rifts-core.json").read_text(encoding="utf-8")
-        )
+        self.rule_archive = rule_archive if rule_archive is not None else RuleArchive.load()
+        self.pack = self.rule_archive.active('rifts-core')
+        self.skill_pack = self.rule_archive.active('rifts-domestic-skills')
+        self.store = CharacterStore(directory)
 
     def catalog(self):
-        return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}], "packs": [self.pack]}
+        return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}], "packs": [deepcopy(self.pack)]}
 
     def coverage(self):
         return SourceInventory.load()
@@ -48,7 +48,7 @@ class CharacterApplication:
             "id": str(uuid4()), "format_version": 1, "game": "rifts",
             "name": name, "notes": notes, "race": race, "character_class": character_class,
             "rules": {"id": self.pack["id"], "version": self.pack["version"]},
-            "additional_rule_packs": {SKILL_PACK['id']: SKILL_PACK['version']},
+            "additional_rule_packs": {self.skill_pack['id']: self.skill_pack['version']},
             "level": 1, "revision": 0, "attributes": {}, "generation": settings,
             "completion": ["Skills are not yet complete", "Equipment and resources are not yet complete"],
             "automation_gaps": selected_class["automation_gaps"],
@@ -65,22 +65,26 @@ class CharacterApplication:
         character = self.store.get(identifier)
         # Earlier builds already projected this exact domestic pack without a pin.
         character.setdefault('additional_rule_packs', {}).setdefault('rifts-domestic-skills', '1.0.0')
-        pinned_packs(character, [self.pack, SKILL_PACK])
+        pinned_packs(character, self.rule_archive.definitions())
         return character
 
     def list(self):
         return self.store.list()
 
     def skill_view(self, identifier):
-        return project_skills(self.get(identifier))
+        character = self.get(identifier)
+        return project_skills(character, self.character_skill_pack(character))
+
+    def character_skill_pack(self, character):
+        return self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills'])
 
     def export_character(self, identifier):
-        return export_bundle(self.get(identifier), [self.pack, SKILL_PACK])
+        return export_bundle(self.get(identifier), self.rule_archive.definitions())
 
     def import_character(self, bundle):
-        character = import_bundle(bundle, [self.pack, SKILL_PACK])
+        character = import_bundle(bundle, self.rule_archive.definitions())
         if 'skill_selections' in character:
-            character['skill_selections'] = validate_selections(character['skill_selections'])
+            character['skill_selections'] = validate_selections(character['skill_selections'], self.character_skill_pack(character))
         self.store.put(character)
         return character
 
@@ -97,8 +101,7 @@ class CharacterApplication:
     def select_skills(self, identifier, *, revision, selections):
         character = self.get(identifier)
         packs = character.get('additional_rule_packs', {})
-        packs[SKILL_PACK['id']] = SKILL_PACK['version']
-        return self.store.update(identifier, {'skill_selections': validate_selections(selections), 'additional_rule_packs': packs}, require_revision(revision))
+        return self.store.update(identifier, {'skill_selections': validate_selections(selections, self.character_skill_pack(character)), 'additional_rule_packs': packs}, require_revision(revision))
 
     def edit(self, identifier, *, name=None, notes=None, revision=None):
         changes = {}
@@ -115,12 +118,13 @@ class CharacterApplication:
         if attribute is not None and attribute not in ATTRIBUTES:
             raise ValueError("Select a known attribute")
         settings = generation_settings(generation if generation is not None else character.get("generation"))
-        racial_rules = next(item for item in self.pack["races"] if item["id"] == character["race"])
+        pack = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
+        racial_rules = next(item for item in pack["races"] if item["id"] == character["race"])
         attributes = deepcopy(character["attributes"])
         results = {}
         for name in (ATTRIBUTES if attribute is None else (attribute,)):
             formula = racial_rules["attributes"]
-            result = roll_attribute(formula, settings, self.die, self.pack["source"])
+            result = roll_attribute(formula, settings, self.die, pack["source"])
             previous = attributes[name]
             result["adjustment"] = previous.get("adjustment", 0)
             result["fixed"] = previous.get("fixed")

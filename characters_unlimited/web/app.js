@@ -135,6 +135,7 @@ async function loadSkills(character) {
     if (skill.uncapped_percentage > 98) explanation.textContent += ` · Capped at 98% from ${skill.uncapped_percentage}% (Ultimate Edition, p. 301).`;
     for (const check of skill.additional_checks || []) {
       const total = Object.entries(check.contributions).map(([name,amount]) => `${name.replaceAll('_',' ')} ${amount}%`).join(' + ');
+      if (check.multiplier != null && check.multiplier !== 1) explanation.textContent += ` · ${check.name} uses normal proficiency ${check.normal_percentage}% × ${check.multiplier}.`;
       explanation.textContent += ` · ${check.name}: ${check.percentage}% (${total}${check.uncapped_percentage > 98 ? '; capped at 98%' : ''})`;
     }
     if (skill.notes) explanation.textContent += ' · ' + skill.notes.join(' ');

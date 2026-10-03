@@ -160,16 +160,16 @@ def fill_skills(page, rows, left, values):
     slot = 0
     for row in rows:
         label = row['name'] + (' - ' + row['specialty'] if row.get('specialty') else '')
-        for name, percentage in [(label, row['percentage']),
-                                 *[(label + ': ' + check['name'], check['percentage'])
+        for name, percentage, rate in [(label, row['percentage'], row['per_level']),
+                                 *[(label + ': ' + check['name'], check['percentage'], check.get('per_level', row['per_level']))
                                    for check in row.get('additional_checks', [])]]:
             if slot < len(names) and stringWidth(name, 'Helvetica', 7) <= 132:
                 values[names[slot]['/T']] = name
-                values[rates[slot]['/T']] = str(row['per_level'])
+                values[rates[slot]['/T']] = str(rate)
                 values[percentages[slot]['/T']] = str(percentage)
                 slot += 1
             else:
-                overflow.extend(wrap_lines(f'{name}: {percentage}% (+{row["per_level"]}% per level)', 530))
+                overflow.extend(wrap_lines(f'{name}: {percentage}% (+{rate}% per level)', 530))
     return overflow
 
 

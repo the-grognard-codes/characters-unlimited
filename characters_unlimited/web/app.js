@@ -50,6 +50,11 @@ function render(character) {
     const value = document.createElement('strong'); value.textContent = attribute.value; heading.append(value);
     const explanation = document.createElement('p');
     explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
+    for (const modifier of attribute.modifiers || []) {
+      explanation.textContent += ` · O.C.C. bonus: +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifier.source.book}, pp. ${modifier.source.pages.join(', ')}`;
+    }
+    if (attribute.fixed != null) explanation.textContent += ` · Fixed total: ${attribute.fixed}; calculated contributions remain recorded.`;
+    else if (attribute.adjustment) explanation.textContent += ` · Player adjustment: ${attribute.adjustment}.`;
     const edit = document.createElement('button'); edit.textContent = `Edit ${name}`; edit.disabled = navigationBusy;
     edit.onclick = () => {
       $('attribute-title').textContent = `Edit ${name}`; $('editing-attribute').value = name;
@@ -278,7 +283,10 @@ $('roll-history').onclick = () => {
     for (const [name, value] of Object.entries(event.attributes)) {
       const settings = value.generation || event.generation;
       const options = settings ? ` · reroll ones: ${settings.reroll_ones ? 'yes' : 'no'} · extra die: ${settings.extra_die ? 'yes' : 'no'}` : '';
-      const text = document.createElement('p'); text.className = 'help'; text.textContent = `${name}: base ${value.base} · dice ${value.rolls.join(', ')}${value.discarded?.length ? ' · dropped ' + value.discarded.join(', ') : ''}${value.bonus_rolls.length ? ' · exceptional ' + value.bonus_rolls.join(', ') : ''}${value.rerolls?.length ? ' · rerolled ones ' + value.rerolls.map(item => item.rolls.join(' → ')).join('; ') : ''}${options}`; entry.append(text);
+        const text = document.createElement('p'); text.className = 'help'; text.textContent = `${name}: base ${value.base} · dice ${value.rolls.join(', ')}${value.discarded?.length ? ' · dropped ' + value.discarded.join(', ') : ''}${value.bonus_rolls.length ? ' · exceptional ' + value.bonus_rolls.join(', ') : ''}${value.rerolls?.length ? ' · rerolled ones ' + value.rerolls.map(item => item.rolls.join(' → ')).join('; ') : ''}${options}`; entry.append(text);
+        for (const modifier of value.modifiers || []) {
+          text.textContent += ` · O.C.C. contribution +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(', ') + ')' : ''}`;
+        }
     }
     return entry;
   }));

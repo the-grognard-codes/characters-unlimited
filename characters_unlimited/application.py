@@ -15,6 +15,7 @@ from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs,
 from .rules import RuleArchive
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
+from .attribute_modifiers import attribute_value, roll_class_modifiers
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -60,6 +61,7 @@ class CharacterApplication:
         for attribute in ATTRIBUTES:
             formula = racial_rules["attributes"]
             character["attributes"][attribute] = roll_attribute(formula, settings, self.die, self.pack["source"])
+        roll_class_modifiers(character['attributes'], selected_class, self.die)
         character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
         self.store.put(character)
         return character
@@ -185,7 +187,9 @@ class CharacterApplication:
             previous = attributes[name]
             result["adjustment"] = previous.get("adjustment", 0)
             result["fixed"] = previous.get("fixed")
-            result["value"] = result["fixed"] if result["fixed"] is not None else result["base"] + result["adjustment"]
+            if 'modifiers' in previous:
+                result['modifiers'] = deepcopy(previous['modifiers'])
+            result["value"] = attribute_value(result)
             attributes[name] = result
             results[name] = deepcopy(result)
         history = character.get("roll_history", [{"kind": "previous", "at": None, "attributes": deepcopy(character["attributes"])}])
@@ -205,5 +209,5 @@ class CharacterApplication:
         result = attributes[attribute]
         result["fixed"] = value if mode == "fixed" else None
         result["adjustment"] = value if mode == "adjustment" else 0
-        result["value"] = result["fixed"] if result["fixed"] is not None else result["base"] + result["adjustment"]
+        result["value"] = attribute_value(result)
         return self.store.update(identifier, {"attributes": attributes}, revision)

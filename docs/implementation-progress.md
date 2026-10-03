@@ -31,7 +31,9 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 
 - 05B4: Complete, merged in PR #13; both Windows CI runs pass. Fourteen reviewed Technical choices bring the selected catalog to 32. Both History checks, subject specialties, literacy prerequisite guidance, Art quality and Research synergies pass 59 local checks and browser verification. Standards approves; Spec caught an Art quality edge case, now repaired with a regression. Targeted Spec re-review approves; both reviews approve after the Art repair.
 
-- 07A: Ready for publication. Representative level-one Rifts combat training, action costs and explained melee/firearm bonuses pass 66 checks and browser verification. Both review axes approve after repairing required energy-weapon eligibility, Assassin alignment guidance and the extra-training warning. Parent 07 remains open; the UI identifies the remaining mechanics. Merge and Windows CI are still pending.
+- 07A: Complete, merged in PR #14; both Windows checks pass. Representative level-one Rifts combat training, action costs and explained melee/firearm bonuses pass 66 checks and browser verification. Both review axes approve after repairing required energy-weapon eligibility, Assassin alignment guidance and the extra-training warning. Parent 07 remains open; the UI identifies the remaining mechanics.
+
+- 04B: In progress. New Vagabonds record +1D4 M.A., +1 P.S. and +2 P.E. separately under primary 1.1.0. Rerolls preserve class dice, manual fixed/additive modes apply correctly and portable validation rejects altered contributions. All 71 checks and browser explanation/reroll verification pass; both review axes approve after repairing guidance for older skill pins; publication is pending. Earlier primary versions remain unchanged, with random primary-upgrade support still pending.
 
 ## Pending source ruling
 

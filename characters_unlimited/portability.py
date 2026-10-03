@@ -4,7 +4,8 @@ import json
 from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
-from .generation import roll_attribute
+from .generation import roll_attribute, generation_settings
+from .attribute_modifiers import attribute_value
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -48,7 +49,15 @@ def validate_attributes(attributes):
         for reroll in rerolls:
             if not isinstance(reroll, dict) or not integer(reroll.get('index')) or not isinstance(reroll.get('rolls'), list) or any(not integer(die) for die in reroll['rolls']):
                 raise ValueError('Invalid reroll history')
-        expected_value = value.get('fixed') if value.get('fixed') is not None else value['base'] + value.get('adjustment', 0)
+        modifiers = value.get('modifiers', [])
+        if not isinstance(modifiers, list) or len(modifiers) > 100:
+            raise ValueError('Invalid attribute modifiers')
+        for modifier in modifiers:
+            if not isinstance(modifier, dict) or set(modifier) != {'id', 'value', 'rolls', 'source'} or not isinstance(modifier['id'], str) or not integer(modifier['value']):
+                raise ValueError('Invalid attribute modifier')
+            if not isinstance(modifier['rolls'], list) or any(not integer(roll) for roll in modifier['rolls']) or not isinstance(modifier['source'], dict):
+                raise ValueError('Invalid attribute modifier rolls or source')
+        expected_value = attribute_value(value)
         if value['value'] != expected_value:
             raise ValueError('Attribute value does not match its fixed value or adjusted base')
         validate_recorded_roll(value)
@@ -185,10 +194,26 @@ def validate_sources(character, packs):
     if core is None:
         raise ValueError('The generated attribute rule source is unavailable')
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', []))]
+    selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     for attributes in records:
-        for value in attributes.values():
+        for name, value in attributes.items():
             if canonical(value['explanation']['source']) != canonical(core['source']):
                 raise ValueError('Generated attribute sources must match the pinned rule definition')
+            formula = selected_class.get('attribute_bonuses', {}).get(name)
+            modifiers = value.get('modifiers', [])
+            if formula is None:
+                if modifiers:
+                    raise ValueError('Attribute modifiers are unavailable in this pinned rule version')
+                continue
+            if len(modifiers) != 1:
+                raise ValueError('The recorded class attribute contribution is required exactly once')
+            modifier = modifiers[0]
+            rolls = iter(modifier['rolls'])
+            source = selected_class['attribute_bonus_source']
+            result = roll_attribute(formula, generation_settings(), lambda sides: next(rolls, 0), source)
+            expected = {'id': 'class:' + selected_class['id'], 'value': result['base'], 'rolls': result['rolls'], 'source': source}
+            if next(rolls, None) is not None or canonical(modifier) != canonical(expected):
+                raise ValueError('Recorded class attribute contribution does not match the pinned rules')
 
 
 def fresh_copy(character):

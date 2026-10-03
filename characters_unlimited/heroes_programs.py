@@ -30,13 +30,13 @@ def project_programs(character, pack, education_pack):
         program = next(item for item in pack['programs'] if item['id'] == selection['program'])
         slot = slots[selection['slot']] if selection['slot'] < len(slots) else None
         if selection['program'] in seen_programs:
-            warnings.append('Repeated Business program retained. Its four remaining-category choices are not yet implemented; grants occur once with the highest eligible bonus, without adding bonuses together.')
+            warnings.append(f"Repeated {program['name']} program retained. Its four remaining-category choices are not yet implemented; grants occur once with the highest eligible bonus, without adding bonuses together.")
         seen_programs.add(selection['program'])
         eligible_slots = program['eligible_slots'].get(outcome['id'], []) if outcome else []
         valid = slot is not None and selection['slot'] in eligible_slots and selection['slot'] not in seen_slots
         seen_slots.add(selection['slot'])
         if not valid:
-            warnings.append('Business is outside an eligible education slot. Choice retained with no scholastic bonus.')
+            warnings.append(f"{program['name']} is outside an eligible education slot. Choice retained with no scholastic bonus.")
         bonus = slot['bonus'] if valid and slot is not None and slot['bonus'] is not None else 0
         for identifier in program['skill_ids']:
             bonuses[identifier] = max(bonuses.get(identifier, 0), bonus)

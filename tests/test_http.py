@@ -45,7 +45,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.1.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.2.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -79,6 +79,14 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(conflict.exception.code, 409)
                 conflict.exception.close()
                 self.assertEqual(app.get(hero['id']), saved)
+                payload = json.dumps({'revision':saved['revision'],'selections':[{'slot':0,'program':'medical-assistant'}]}).encode()
+                with urlopen(Request(path,data=payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path,timeout=5) as response:
+                    view = json.load(response)
+                self.assertEqual(next(item for item in view['skills'] if item['id']=='paramedic')['percentage'],40)
+                self.assertTrue(any('Medical Assistant is outside' in message for message in view['warnings']))
+                self.assertEqual(saved['hero_program_selections'],[{'slot':0,'program':'medical-assistant'}])
             finally:
                 server.shutdown(); server.server_close(); worker.join(timeout=5)
 

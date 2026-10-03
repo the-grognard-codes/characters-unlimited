@@ -11,6 +11,7 @@ async function request(path, data) {
 function showError(error) { $('error').textContent = error.message; $('error').hidden = false; $('save-status').textContent = 'Check the message below'; }
 function lockNavigation(busy) {
   navigationBusy = busy;
+  setEducationBusy();
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
   if (current?.game === 'heroes-unlimited') { $('preview-rule-update').disabled = true; $('export-pdf').disabled = true; }
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
@@ -51,6 +52,7 @@ function render(character) {
   $('skill-form').closest('section').hidden = heroes;
   $('combat-controls').closest('section').hidden = heroes;
   $('heroes-pending').hidden = !heroes;
+  $('education-panel').hidden = !heroes;
   $('export-pdf').disabled = heroes || navigationBusy;
   $('preview-rule-update').disabled = heroes || navigationBusy;
   $('name').value = character.name; $('notes').value = character.notes;
@@ -83,8 +85,8 @@ function render(character) {
   });
   $('completion').replaceChildren(...character.completion.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   $('save-status').textContent = 'Saved on this PC'; library();
-  if (heroes) { ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; }
-  else loadSkills(character).catch(showError);
+  if (heroes) { ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; loadEducation(character).catch(showError); }
+  else { ++educationLoadSequence; educationReady = false; loadSkills(character).catch(showError); }
 }
 let skillsReady = false, skillLoadSequence = 0, skillCatalog = [];
 function filterSkillChoices() {
@@ -154,6 +156,7 @@ async function loadSkills(character) {
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = navigationBusy);
 }
 wireCombatEvents();
+wireEducationEvents();
 function readRequiredChoices() {
   return {native_language:$('required-native').value.trim(), pilot:$('required-pilot').value, repair:$('required-repair').value,
     other_languages:$('required-languages').value.trim() ? $('required-languages').value.split(/\r?\n/).map(value => value.trim()) : []};

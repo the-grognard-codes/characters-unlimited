@@ -1,6 +1,6 @@
 # 05B7: Reviewed Medical selections and context checks
 
-**Status:** in-progress
+**Status:** done — merged in PR #29; both Windows frozen-build checks passed.
 
 Add ten reviewed Medical definitions alongside existing First Aid: Animal Husbandry, Brewing: Medicinal, Field Surgery, Forensics, Holistic Medicine, Paramedic, Medical Doctor, Pathology, Psychology and Veterinary Science. Preserve primary/secondary proficiency checks, mutual Brewing/Holistic bonuses, Doctor/Field Surgery and Pathology/Forensics bonuses, prerequisites and pool restrictions. Secondary Medical permits only Animal Husbandry and First Aid; Vagabond related permits First Aid only.
 

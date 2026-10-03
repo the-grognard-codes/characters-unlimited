@@ -72,6 +72,15 @@ class PackagedApplicationTests(unittest.TestCase):
                 assert fields is not None
                 self.assertEqual(fields['NAME']['/V'], 'Packaged Rowan')
                 self.assertTrue(reader.pages[0].get('/Annots'))
+                with urlopen(url + '/education.js', timeout=15) as script:
+                    self.assertIn(b'loadEducation', script.read())
+                hero = request('/api/characters', {'name':'Packaged Beacon','game':'heroes-unlimited'}, token)
+                hero = request('/api/characters/' + hero['id'] + '/education',
+                               {'revision':0,'method':'choose','education_id':'military-specialist'}, token)
+                education = request('/api/characters/' + hero['id'] + '/education')
+                self.assertEqual(education['outcome']['secondary_count'], 5)
+                hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
+                self.assertEqual(hero_imported['education'], hero['education'])
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:
@@ -94,6 +103,7 @@ class PackagedApplicationTests(unittest.TestCase):
             process, bootstrap = launch()
             try:
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
-                self.assertEqual(len(bootstrap['characters']), 2)
+                self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
+                self.assertEqual(len(bootstrap['characters']), 4)
             finally:
                 process.terminate(); process.wait(timeout=10)

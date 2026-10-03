@@ -295,6 +295,8 @@ def export_rifts_sheet(character, core, skills, combat):
                 rolls = effect.get('rolls',[]) if isinstance(effect,dict) else []
                 effects.append(f'{label} +{value}'+(' (dice '+', '.join(map(str,rolls))+')' if rolls else ''))
         sheet_notes += '\n'+skill['name']+': '+'; '.join(effects)+'. '+skill['source']['book']+', p. '+', '.join(map(str,skill['source']['pages']))+'.'
+        if skill.get('notes'):
+            sheet_notes += ' ' + ' '.join(skill['notes'])
         for activity in skill.get('activities', []):
             sheet_notes += '\n'+activity['name']+': '
             if activity['miles'] is None:

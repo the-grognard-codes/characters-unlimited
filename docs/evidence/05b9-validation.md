@@ -10,4 +10,4 @@ In Edge, Physical Labor was selected as Related and Running as Secondary. Physic
 
 The editable Rifts export was rendered with form initialization. Page 1 preserves reference artwork, displays current P.E. 20, HP 21 and S.D.C. 49, and places Physical Labor/Running in their respective skill pools with blank percentage cells. Page 3 explains bonuses, source dice and both Running limits without clipped text. Pages 1 and 3 were visually inspected; the unchanged original page 2 is preserved. Original source-page renders remain local evidence only.
 
-Independent Spec review and its boundary-repair review report no defect. Windows frozen-build results will be recorded before marking the slice complete. Other Physical skills, universal movement, broader combat/equipment and advancement remain unfinished.
+Independent Spec review and its boundary-repair review report no defect. Both Windows frozen builds pass (37140977644 and 37140986731), including import/reopen without developer tools. Merged in PR #44. Other Physical skills, universal movement, broader combat/equipment and advancement remain unfinished.

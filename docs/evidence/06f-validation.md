@@ -9,3 +9,5 @@ Protected HTTP selects Computer/Radio Basic at High School 50%, zero remaining c
 Edge selected Computer with one choice remaining, added Radio Basic at 52%, removed it back to one remaining, selected Repair at 32%, then reopened it with zero remaining. Procedure, actual Repair and the explicitly conditional −40% Programming check all display their values. [Choice capture](06f-computer-choice.png) and [check capture](06f-computer-checks.png) were visually inspected.
 
 Other program/category catalogs, repeat entitlements, native language arithmetic, Street trades, advancement and parent 06 remain open. Technical/Science interpretation was asked asynchronously; Computer uses explicit alternatives independently of that answer.
+
+Both Windows checks passed (runs 37127187961 and 37127208212), including frozen program/group save/import/reopen without Python or Node on PATH. PR #38 merged as ad38cdb.

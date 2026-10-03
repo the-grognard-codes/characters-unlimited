@@ -64,6 +64,7 @@ async function loadEducation(character) {
       const section = document.createElement('div'); section.className = 'help';
       const description = document.createElement('p');
       description.textContent = `${group.name}: ${group.entered} entered, ${group.credited} distinct eligible, ${group.count} required, ${group.remaining} remaining.${choiceView.repeat ? ' Repeat entitlement pending; these retained first-program choices add no new group education bonus.' : ''}`;
+      if (group.guidance) description.textContent += ' ' + group.guidance;
       section.append(description);
       const select = document.createElement('select');
       select.setAttribute('aria-label',`${group.name} for program ${index + 1}`);
@@ -92,7 +93,8 @@ async function loadEducation(character) {
   }));
   $('hero-program-skills').replaceChildren(...programs.skills.map(skill => {
     const item = educationLine(`${skill.name}${skill.primary_check_name ? ' — ' + skill.primary_check_name : ''}: ${skill.percentage}% (+${skill.per_level}% per level) · base ${skill.contributions.base}, education +${skill.contributions.education}, I.Q. +${skill.contributions.intelligence}`);
-    const detail = document.createElement('small'); detail.textContent = ` ${skill.category}; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}${skill.prerequisites.length ? '; requires ' + skill.prerequisites.join(', ') : ''}${skill.secondary_selected ? '; selected as Secondary (no added education bonus)' : ''}`;
+    const synergies = Object.entries(skill.contributions).filter(([name]) => !['base','education','intelligence'].includes(name)).map(([name,amount]) => `${name} +${amount}%`).join(', ');
+    const detail = document.createElement('small'); detail.textContent = ` ${skill.category}; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}${skill.prerequisites.length ? '; requires ' + skill.prerequisites.join(', ') : ''}${synergies ? '; ' + synergies : ''}${skill.secondary_selected ? '; selected as Secondary (no added education bonus)' : ''}`;
     item.append(detail); return item;
   }));
   for (const skill of programs.skills) {

@@ -1,6 +1,6 @@
 # 06F — Heroes Computer program choices
 
-**Status:** in-progress. Parent 06 remains open.
+**Status:** done, merged in PR #38 after both Windows frozen checks passed. Parent 06 remains open.
 
 Add the Computer program (original printed 46/PDF 47): Basic Electronics, Computer Operation, Computer Programming and one choice of Computer Repair or a Radio skill. The explicit alternatives are Computer Repair, Radio Basic, Radio Scramblers and Radio Satellite. It is eligible for High School and ordinary unrestricted slots. Verify six new definitions against original printed50/51/60 (PDF51/52/61), including Computer Repair procedure/actual checks and the non-hacker Computer Programming penalty. Technical/Science initial category interpretations remain pending.
 

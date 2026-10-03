@@ -1,7 +1,8 @@
 """Reviewed Vagabond grants and required choices, independent of browser state."""
 
 from typing import Any
-from .skill_choices import needs_specialty
+from .skill_choices import learned_selection_ids
+from .proficiency import synergy_contributions, project_proficiency
 
 def validate_required_choices(choices, pack):
     if 'required' not in pack:
@@ -54,25 +55,14 @@ def project_required_skills(character, pack, intelligence):
         if choices[name]:
             definitions.append((next(item for item in rules[name]['options'] if item['id'] == choices[name]), ''))
     available = {definition['id'] for definition, _ in definitions}
-    specialty_ids = {skill['id'] for skill in pack['skills'] if needs_specialty(skill)}
-    available.update(item['skill_id'] for item in character.get('skill_selections', [])
-                     if item['skill_id'] not in specialty_ids or item.get('specialty'))
+    available.update(learned_selection_ids(character.get('skill_selections', []), pack))
     grants = []
     for definition, specialty in definitions:
         contributions = {'base': definition['base'], 'class': definition['class_bonus'], 'intelligence': intelligence}
         if 'class_ability' in definition:
             contributions['class_ability'] = definition['class_ability']
-        for synergy in definition.get('synergies', []):
-            if available.intersection(synergy.get('any_of', [synergy.get('skill_id')])):
-                contributions[synergy['name']] = synergy['amount']
-        uncapped = sum(contributions.values())
-        checks = []
-        for check in definition.get('additional_checks', []):
-            check_contributions = {**contributions, 'base': check['base']}
-            value = sum(check_contributions.values())
-            checks.append({'name': check['name'], 'percentage': min(98, value), 'uncapped_percentage': value, 'contributions': check_contributions})
-        grants.append({**definition, 'specialty': specialty, 'percentage': min(98, uncapped),
-                       'uncapped_percentage': uncapped, 'contributions': contributions, 'additional_checks': checks, 'quality': 'trained'})
+        contributions.update(synergy_contributions(definition, available))
+        grants.append({**definition, 'specialty': specialty, **project_proficiency(definition, contributions), 'quality': 'trained'})
     remaining = {'native_language': int(not native), 'other_languages': rules['other_languages']['count'] - len(unique),
                  'pilot': int(not choices['pilot']), 'repair': int(not choices['repair'])}
     if remaining['other_languages'] < 0:

@@ -1,6 +1,6 @@
 # 05B3: Reviewed noncombat category choices
 
-**Status:** in-progress
+**Status:** done (PR #12, merged)
 
 **Dependencies:** 05B2 (complete)
 

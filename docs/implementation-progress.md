@@ -27,7 +27,9 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 
 - 02B2: Complete, merged in PR #11; 49 checks, both reviews, browser verification and Windows CI pass. Canonical source identities expand to 51 entries across the games, with explicit shared hatchling and Psi-Stalker links. No numerical acceptance or builder activation is claimed.
 
-- 05B3: In progress. Nine reviewed noncombat choices expand the catalog to 18; category-specific bonuses, prerequisites, language specialties and once-only Barter family synergies pass 53 local checks. Browser category selection and explained Barter totals pass; the Spec review approves, and the Standards review identified duplicate specialty detection, now consolidated. Publication is pending. Parent 05B remains open.
+- 05B3: Complete, merged in PR #12; both Windows CI runs pass. Nine reviewed noncombat choices expand the catalog to 18; category-specific bonuses, prerequisites, language specialties and once-only Barter family synergies pass 53 local checks. Browser category selection and explained Barter totals pass; the Spec review approves, and the Standards review identified duplicate specialty detection, now consolidated. Both reviews approve after consolidating specialty detection. Parent 05B remains open.
+
+- 05B4: In progress. Fourteen reviewed Technical choices bring the selected catalog to 32. Both History checks, subject specialties, literacy prerequisite guidance, Art quality and Research synergies pass 59 local checks and browser verification. Standards approves; Spec caught an Art quality edge case, now repaired with a regression. Targeted Spec re-review approves; publication is pending.
 
 ## Pending source ruling
 

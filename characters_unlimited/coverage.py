@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import TypedDict
 from uuid import uuid4
+from copy import deepcopy
 from .option_audit import audited_coverage
 
 
@@ -20,6 +21,47 @@ class SourceGap(TypedDict):
 
 
 class SourceInventory:
+    @staticmethod
+    def with_verified_gaps(inventory, records):
+        """Reconcile PDF findings with exact source fingerprints without editing books."""
+        if not isinstance(records, list):
+            raise ValueError('Verified source gaps must be a list')
+        result = deepcopy(inventory)
+        books = {book['id']: book for book in result['books']}
+        for record in records:
+            if not isinstance(record, dict):
+                raise ValueError('Verified source gap must be a record')
+            if not isinstance(record.get('book_id'), str):
+                raise ValueError('Verified source gap book identity must be text')
+            book = books.get(record['book_id'])
+            if (book is None or not book.get('pdf_sha256')
+                    or record.get('markdown_sha256') != book['sha256']
+                    or record.get('pdf_sha256') != book['pdf_sha256']):
+                raise ValueError('Verified gap source changed or is unavailable; re-review its evidence')
+            gap = record.get('gap')
+            if (not isinstance(gap, dict) or type(gap.get('line')) is not int
+                    or type(gap.get('end_line')) is not int or gap['line'] < 1
+                    or gap['end_line'] < gap['line'] or not isinstance(gap.get('description'), str)
+                    or not gap['description'].strip()):
+                raise ValueError('Verified source gap needs a positive line range and description')
+            last_line = max((candidate['end_line'] for candidate in result['candidates']
+                             if candidate['book_id'] == book['id']), default=0)
+            if gap['end_line'] > last_line:
+                raise ValueError('Verified source gap range exceeds the scanned book')
+            affected = [candidate for candidate in result['candidates']
+                        if candidate['book_id'] == book['id']
+                        and candidate['line'] <= gap['end_line'] and candidate['end_line'] >= gap['line']]
+            if not affected:
+                raise ValueError('Verified source gap range has no matching candidate')
+            if gap not in book['source_gaps']:
+                book['source_gaps'].append(deepcopy(gap))
+            for candidate in affected:
+                candidate['status'] = 'source-gap'
+                if gap not in candidate['source_gaps']:
+                    candidate['source_gaps'].append(deepcopy(gap))
+        result['summary']['source_gaps'] = sum(len(book['source_gaps']) for book in result['books'])
+        return result
+
     @staticmethod
     def scan(markdown_directory: str | Path, pdf_directory: str | Path | None = None) -> dict:
         directory = Path(markdown_directory)
@@ -110,6 +152,8 @@ class SourceInventory:
                 {"books": [], "candidates": [], "summary": {"books": 0, "candidates": 0, "fully_automated": 0, "books_reviewed": 0}},
                 {"schema_version": 1, "entries": [], "findings": ["Source inventory is unavailable."]})
         inventory = json.loads(target.read_text(encoding="utf-8"))
+        verified_gaps = json.loads((target.parent / 'verified-source-gaps.json').read_text(encoding='utf-8'))
+        inventory = SourceInventory.with_verified_gaps(inventory, verified_gaps)
         catalog = json.loads((target.parent / 'canonical-options.json').read_text(encoding='utf-8'))
         return SourceInventory.with_catalog(inventory, catalog)
 
@@ -119,8 +163,11 @@ def main():
     parser.add_argument("markdown_directory", type=Path)
     parser.add_argument("--pdf-directory", type=Path)
     parser.add_argument("--output", type=Path, default=Path(__file__).parent / "data" / "source-inventory.json")
+    parser.add_argument('--verified-gaps', type=Path, help='Reconcile independently reviewed PDF gaps for this source set')
     args = parser.parse_args()
     inventory = SourceInventory.scan(args.markdown_directory, args.pdf_directory)
+    if args.verified_gaps:
+        inventory = SourceInventory.with_verified_gaps(inventory, json.loads(args.verified_gaps.read_text(encoding='utf-8')))
     SourceInventory.save(inventory, args.output)
     print(json.dumps(inventory["summary"]))
 

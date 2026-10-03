@@ -1,0 +1,19 @@
+[
+  {
+    "book_id": "rifts-world-book-07-underseas",
+    "markdown_sha256": "09634724df59940cd49494f1d78ba1d06a7737cdf8156c4979e811246d287b53",
+    "pdf_sha256": "afda49747930bb064fd006f79ae022a60eafdc75e0e8a6dfae08feda472e3d8d",
+    "printed_pages": [
+      131
+    ],
+    "pdf_neighbor_pages": [
+      130,
+      131
+    ],
+    "gap": {
+      "line": 8462,
+      "end_line": 8588,
+      "description": "Printed page 131 is missing between supplied PDF pages 130 (printed 130) and 131 (printed 132). Ticonderoga weapon systems and continuing text are incomplete; recover an intact same-edition page before mechanical ingestion. See ticket 02C2."
+    }
+  }
+]

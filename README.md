@@ -47,10 +47,10 @@ See [the specification](docs/character-creator-spec.md), [ticket plan](docs/char
 The Book sources & coverage view searches provisional section candidates and displays source/PDF fingerprints. It never counts a heading as an implemented character option. Rebuild its metadata from completed pipeline outputs:
 
 ```powershell
-python -m characters_unlimited.coverage <processed-markdown-directory> --pdf-directory <original-pdf-directory>
+python -m characters_unlimited.coverage <processed-markdown-directory> --pdf-directory <original-pdf-directory> --verified-gaps characters_unlimited/data/verified-source-gaps.json
 ```
 
-The inventory contains names and locations rather than the books' full text. A complete option audit must also inspect prose and tables and resolve duplicate headings, aliases, missing references, and uncertain passages before source coverage is closed.
+The inventory contains names and locations rather than the books' full text. Independently inspected PDF gaps are stored in `characters_unlimited/data/verified-source-gaps.json` and reconciled into the active view and CLI rescans using `--verified-gaps`. Custom scans can omit that option. Changed Markdown/PDF hashes require renewed evidence; the rebuild fails rather than carrying a stale gap forward. Use the full supplied source set when rebuilding the bundled inventory. A complete option audit must also inspect prose and tables and resolve duplicate headings, aliases, missing references, and uncertain passages before source coverage is closed.
 
 The coverage view also searches confirmed canonical option identities and their aliases. Identity confirmation is separate from mechanical review and automation. Current records cover 67 core identities across the games, including O.C.C.s, hatchlings, categories, optional modifiers and named Hardware/training/robot paths; remaining options and content-ticket assignments are tracked as open findings. See [the canonical audit contract](docs/canonical-option-audit.md).
 

@@ -1,6 +1,6 @@
 # 02B4: South America 1 and Underseas identity audit
 
-**Status:** in-progress
+**Status:** done — merged in PR #23; both Windows checks pass
 
 Add 62 source-bound identities to the existing 67: South America 1 O.C.C./R.C.C./race headings and Underseas racial, occupational, generated and shared setting paths. Preserve repeated-heading aliases without duplicate identities; keep distinct Werejaguar/Werepanther, Mutant Cat/Felinoid and Devil Shark/Monster Naut'Yll entries. Link shared race/class and bi-form/Whale Singer dependencies inside Rifts. Record NPC/conditional-PC guidance as evidence without introducing administrative permission gates.
 

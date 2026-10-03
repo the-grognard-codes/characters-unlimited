@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 129 source-bound entries across the core games, South America 1 and Underseas, including 62 supplement identities and supporting path families. This is still a partial identity audit, not full corpus coverage.",
+    "Identity audit currently covers 169 source-bound entries across the core games, South America 1, Underseas, Atlantis and Splynn Dimensional Market. This remains a partial identity audit, not full corpus coverage.",
     "Remaining core child paths, supplement subpaths, other supplied books and supporting mechanical entries remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics."
   ],
@@ -4185,6 +4185,1300 @@
       "findings": [
         "Imports True Atlantean, warlocks, temporal raider, knight, crazy, line walker, techno-wizard, wilderness scout, mind bender and dragon paths; unresolved external/source mappings remain pending.",
         "Identity evidence does not accept numerical mechanics, complete dependencies or builder availability."
+      ]
+    },
+    {
+      "id": "atlantis-true-atlantean",
+      "name": "True Atlantean",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "d550fff9c893e9da5f32"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          15
+        ],
+        "pdf_pages": [
+          16
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Base RCC; shared by Atlantean OCC choices.",
+        "Referenced source support: Atlantean abilities; tattoo rules. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-nomad",
+      "name": "Atlantean Nomad",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "True Atlantean Adventurer",
+        "Atlantean Vagabond"
+      ],
+      "candidate_ids": [
+        "f0303ca8bdf4a77097b3"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          17
+        ],
+        "pdf_pages": [
+          18
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "atlantis-true-atlantean"
+      ],
+      "findings": [
+        "Subhead calls this “True Atlantean Adventurer”; quick-find calls it “Vagabond”.",
+        "Referenced source support: Inherits True Atlantean RCC. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-undead-slayer",
+      "name": "Undead Slayer",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "d870bcd48b424512cba6",
+        "c4872bcf1be5ff114f7d"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          17,
+          97
+        ],
+        "pdf_pages": [
+          18,
+          98
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "atlantis-true-atlantean"
+      ],
+      "findings": [
+        "Same path: p.17 overview and p.97 full build.",
+        "Referenced source support: Tattoo magic/P.P.E.; Atlantean traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-conservator",
+      "name": "Conservator",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "Splugorth Conservator",
+        "Bio-Borg Conservator"
+      ],
+      "candidate_ids": [
+        "1d22a7f5435db3156044"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          45
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional PC notation.",
+        "Referenced source support: Bio-wizard augmentation. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-overlord",
+      "name": "Splugorth Overlord",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "2efd44bfb8eac07bab29"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          47
+        ],
+        "pdf_pages": [
+          48
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional PC notation.",
+        "Referenced source support: Bio-wizard augmentation. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-powerlord",
+      "name": "Splugorth Powerlord",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "571e6332be9e06bd8a69"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          48
+        ],
+        "pdf_pages": [
+          49
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional PC notation.",
+        "Referenced source support: Bio-wizard augmentation. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-blind-warrior-woman",
+      "name": "Blind Warrior Woman",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "Blind Warrior Women"
+      ],
+      "candidate_ids": [
+        "6cd941b9deeb0abaea63"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          50,
+          51
+        ],
+        "pdf_pages": [
+          51,
+          52
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Quick-find describes rogue option.",
+        "Referenced source support: None identified here. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-kittani-warrior",
+      "name": "Kittani Warrior",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "c930a14a9710be936e26",
+        "db1de3f37b06ab0935fb"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          52
+        ],
+        "pdf_pages": [
+          53
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Separate explicit “Optional player character” marker.",
+        "Referenced source support: Kittani species/race traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "Original contents label Kittani paths O.C.C.; corresponding body headings use R.C.C. Preserve the discrepancy for mechanical class-model review."
+      ]
+    },
+    {
+      "id": "atlantis-kittani-mechanic",
+      "name": "Kittani Field Mechanic/Scientist",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "Kittani Mechanic/Scientist"
+      ],
+      "candidate_ids": [
+        "e71f8d75a52c4ef1126c",
+        "ff190d791ab0a7dd776a",
+        "de1c3887053578841b9d"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Mechanic/Scientist” heading; marker expands it to “Field Mechanic/Scientist”.",
+        "Referenced source support: Kittani species/race traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "Original contents label Kittani paths O.C.C.; corresponding body headings use R.C.C. Preserve the discrepancy for mechanical class-model review."
+      ]
+    },
+    {
+      "id": "atlantis-kittani-espionage",
+      "name": "Kittani Espionage Agent",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "ae349f7332ffa4d051cf",
+        "677d877b6e17b5ae0452",
+        "9f004f3c9b957f206581"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Espionage Agent” follows the optional-PC marker; last ID is its skills heading.",
+        "Referenced source support: Kittani species/race traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "Original contents label Kittani paths O.C.C.; corresponding body headings use R.C.C. Preserve the discrepancy for mechanical class-model review."
+      ]
+    },
+    {
+      "id": "atlantis-murvoma-metztla",
+      "name": "Murvoma Metztla",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "f903bcbd7d1199b7ca00"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Quick-find marks rogue option.",
+        "Referenced source support: Metztla species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-sunaj-assassin",
+      "name": "Sunaj Assassin",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "A Secret Tattooed Man"
+      ],
+      "candidate_ids": [
+        "b35d66321b9482cbab73"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          64
+        ],
+        "pdf_pages": [
+          65
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“A Secret Tattooed Man” is descriptive alias at line 3161.",
+        "Referenced source support: Tattoo magic/P.P.E.. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-adarok",
+      "name": "Adarok Adventurer",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "b64995191a73b9829698",
+        "d35c186925806741969c"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          69
+        ],
+        "pdf_pages": [
+          70
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player character and monster; RCC says limited skills.",
+        "Referenced source support: Adarok species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-erta",
+      "name": "Erta",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "517b415ef5066d4e59aa",
+        "b96158c4398af37dfce1"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          71
+        ],
+        "pdf_pages": [
+          72
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional player character and monster; RCC says limited skills.",
+        "Referenced source support: Erta species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-hawrk-duhk",
+      "name": "Hawrk-duhk Adventurer",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "0d5d8b9ffe0b9455a7b2",
+        "5d2235527dfc9a6a2177",
+        "2825a0c17bf2255866d9"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          74
+        ],
+        "pdf_pages": [
+          75
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Species RCC + optional-PC marker + limited-skill Adventurer path.",
+        "Referenced source support: Hawrkin traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-hawrk-ka",
+      "name": "Hawrk-ka Hunter",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "b155189e9671ef0c55c2",
+        "a68cf272a7ebda6eaea0",
+        "e0b40a06639ca809d9b4"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          75
+        ],
+        "pdf_pages": [
+          76
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Species RCC + optional-PC marker + limited-skill Hunter path.",
+        "Referenced source support: Hawrkin traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-hawrk-ohl",
+      "name": "Hawrk-ohl Hunter",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "2be42c5539231d063e55",
+        "e5792af12a1ba132dcba",
+        "b060a70819042dae149b"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          76
+        ],
+        "pdf_pages": [
+          77
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Species RCC + optional-PC marker + limited-skill Hunter path.",
+        "Referenced source support: Hawrkin traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-shaydor-spherian",
+      "name": "Shaydor Spherian",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "7bdef013b32bd5665841",
+        "d1246512b20cf5a7a2e0"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          77
+        ],
+        "pdf_pages": [
+          78
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Species/RCC; quick-find lists Spherian.",
+        "Referenced source support: Shaydor species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-shaydor-intel",
+      "name": "Shaydor Intel Stilt-People",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "Shaydor Intel",
+        "Stilt-People"
+      ],
+      "candidate_ids": [
+        "574f4334fecbaf7ca3ec",
+        "ddf7b334324233bf5a0f",
+        "0b70b6053f95565503bb"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          79
+        ],
+        "pdf_pages": [
+          80
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Intel branch of Shaydor; optional PC/monster.",
+        "Referenced source support: Shaydor species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-zembahk",
+      "name": "Zembahk Adventurer",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "1708f03cfd2b64d49e58",
+        "a2d0fdbc960cba2f70e2",
+        "1405a97a1f67b166b9b2"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          82
+        ],
+        "pdf_pages": [
+          83
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Base Zembahk + optional-PC marker + limited-skill Adventurer.",
+        "Referenced source support: Zembahk species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-tattooed-man",
+      "name": "Tattooed Man",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "T-Man",
+        "Typical Tattooed Man"
+      ],
+      "candidate_ids": [
+        "b21a9b30b72b9faa54e4"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          93
+        ],
+        "pdf_pages": [
+          94
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Typical T-Man; multiple races.",
+        "Referenced source support: Tattoo magic/P.P.E.. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-t-monster-man",
+      "name": "T-Monster Man",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "T-Monster Men"
+      ],
+      "candidate_ids": [
+        "c24105745e5b3072ef26"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "atlantis-tattooed-man"
+      ],
+      "findings": [
+        "Human and ogre skill variants are sub-branches, not separate OCCs.",
+        "Referenced source support: Tattoo magic/P.P.E.; race-specific skills. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-maxi-man",
+      "name": "Maxi-Man",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [
+        "Elite Tattooed Man"
+      ],
+      "candidate_ids": [
+        "01fd1188cb4b14461392"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "atlantis-tattooed-man"
+      ],
+      "findings": [
+        "Elite Tattooed Man branch.",
+        "Referenced source support: Tattoo magic/P.P.E.. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "atlantis-stone-master",
+      "name": "Stone Master",
+      "kind": "occ",
+      "book_id": "rifts-world-book-02-atlantis",
+      "aliases": [],
+      "candidate_ids": [
+        "ef35de32c97b77a5fc41"
+      ],
+      "source": {
+        "markdown_sha256": "8d079c92733d0c51affe6f91891c46db6306d8d0f1447d52cc311f57fa685e7e",
+        "pdf_sha256": "2a31a69f8937ca960e7377121afc33180b13ef32f1cf37122735064b5bae23cb",
+        "printed_pages": [
+          99
+        ],
+        "pdf_pages": [
+          100
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Stone Magic & The Stone Masters O.C.C.”.",
+        "Referenced source support: Stone Magic subsystem. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "Stone Master is applicable to all races in the body; it is not restricted to True Atlanteans."
+      ]
+    },
+    {
+      "id": "splynn-kryygorth-hunter",
+      "name": "Kryygorth Hunter",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "3f1a846ca8fbc6564bda",
+        "3b572d7b42ce55851f50"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          73
+        ],
+        "pdf_pages": [
+          74
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "NPC villain/predator and explicitly optional PC.",
+        "Referenced source support: Kryygorth species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-kryygorth-lesson",
+      "name": "Kryygorth’s Lesson",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "6ebca7941b2438fbad57"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          75
+        ],
+        "pdf_pages": [
+          76
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Emancipated Lessons are the PC branch.",
+        "Referenced source support: Kryygorth transformation/lesson rules. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-kryygorth-pegasus",
+      "name": "Kryygorth Pegasus",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "87268bd80aee2b66e80f"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          77
+        ],
+        "pdf_pages": [
+          78
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Separate listed RCC; PC status not explicit in locator checked.",
+        "Referenced source support: Kryygorth species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-octoman",
+      "name": "Octoman",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "a04974f65a092729bf04",
+        "c414e6c83a8f96e94592"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          80
+        ],
+        "pdf_pages": [
+          81
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "NPC villain and optional PC marker.",
+        "Referenced source support: Octoman species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-nurilian",
+      "name": "Nurilian Plant-People",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [
+        "Plant-People"
+      ],
+      "candidate_ids": [
+        "a6b82021f85ee6c4cae3",
+        "caaae1b99c418045eaea",
+        "e80424778a8d0e9736e3"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          82
+        ],
+        "pdf_pages": [
+          83
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Nurilian Plant-People” in prose; “Plant-People R.C.C.” in stat heading.",
+        "Referenced source support: Plant-dependent regeneration/abilities. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-pythonan",
+      "name": "Pythonan",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "bbedaf72c7ed1c3e37c6",
+        "278eac5557a9fcd4f861"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          85
+        ],
+        "pdf_pages": [
+          86
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "NPC villain and optional PC marker.",
+        "Referenced source support: Pythonan species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-pythonan-scholar-artist",
+      "name": "Pythonan Scholar/Philosopher or Artist",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "9b07a73c9879003e666e"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          85
+        ],
+        "pdf_pages": [
+          86
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "splynn-pythonan"
+      ],
+      "findings": [
+        "Listed occupational subpath of Pythonan; not separate race.",
+        "Referenced source support: Pythonan RCC skill adjustments. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "Scholar/Philosopher and Artist use a shared heading with different skill bonuses. Named branch and specialty fan-out remains pending."
+      ]
+    },
+    {
+      "id": "splynn-rulian-translator",
+      "name": "Rulian Translator",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [
+        "Translator/Interpreter",
+        "Rulian Interpreter"
+      ],
+      "candidate_ids": [
+        "da63991074ca1d5893bc",
+        "9b26fa290652fd388751"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          87
+        ],
+        "pdf_pages": [
+          88
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Translator/Interpreter” is alias/description for same path, not a second class.",
+        "Referenced source support: Natural language/psionic abilities. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-staphra-warrior",
+      "name": "Staphra Warrior",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "50e6e408386bb08a47c9",
+        "a9106e800cca996d6dd2",
+        "7a90c50c0d086b1699e3"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          92
+        ],
+        "pdf_pages": [
+          93
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“The Staphra” species section; Warrior RCC with explicit optional-PC marker.",
+        "Referenced source support: Staphra species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-staphra-warlord",
+      "name": "Staphra Warlord",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "a6e23fe4a82d208b03f1",
+        "5f63cc84a061974c24c2"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          93
+        ],
+        "pdf_pages": [
+          94
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "splynn-staphra-warrior"
+      ],
+      "findings": [
+        "Warlord branch; optional-PC marker at line 2947.",
+        "Referenced source support: Warlord abilities; Staphra species traits. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-staphra-mystic",
+      "name": "Staphra Mystic",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "5aaa8f5a7713a032411b",
+        "6a141720ee8a75bbc36a",
+        "d24e23d5ea9b122c3f99"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Duplicate Markdown headings: first lore, second stats; one identity, not two variants.",
+        "Referenced source support: Mystic/psionic abilities. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "Lore and statistics repeat the same Staphra Mystic heading; these are one identity."
+      ]
+    },
+    {
+      "id": "splynn-were-dragon",
+      "name": "Were-Dragon",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "9b302a143b48fc6c2e08",
+        "2a217d0a099faa681b79",
+        "85b25a268dc3b71c332a"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          97
+        ],
+        "pdf_pages": [
+          98
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Slave NPC or optional PC marker.",
+        "Referenced source support: Metamorphosis rules. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-monster-were-dragon",
+      "name": "Monster Were-Dragon",
+      "kind": "rule",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [
+        "Monster Were-Dragon Abilities"
+      ],
+      "candidate_ids": [
+        "2252eca99bb17c73546a"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          98
+        ],
+        "pdf_pages": [
+          99
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "splynn-were-dragon"
+      ],
+      "findings": [
+        "Monster form of Were-Dragon, not separate race.",
+        "Referenced source support: Were-Dragon metamorphosis. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "This is the monster form of the Were-Dragon, not another selectable race or independent R.C.C."
+      ]
+    },
+    {
+      "id": "splynn-tattooed-archer",
+      "name": "Tattooed Archer",
+      "kind": "occ",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [
+        "T-Archer"
+      ],
+      "candidate_ids": [
+        "5f459196a87595502433",
+        "3dac7cf8e3ca2171ea16"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          108
+        ],
+        "pdf_pages": [
+          109
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "T-Archer alias; optional PC template.",
+        "Referenced source support: New magic-arrow tattoos and Tattoo Magic. Complete mechanics, constraints, advancement, equipment and dependency review remain pending."
+      ]
+    },
+    {
+      "id": "splynn-true-bio-borg",
+      "name": "True Bio-Borg",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [
+        "Elite Bio-Borg",
+        "Full Bio-Borg"
+      ],
+      "candidate_ids": [
+        "23283713aa2919058882"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          157
+        ],
+        "pdf_pages": [
+          158
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Elite,” “True,” and “Full” Bio-Borg are names for this identity.",
+        "Referenced source support: Bio-wizard transmutation/augmentation. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "The shared Partial & Full Bio-Borg R.C.C. section must be reconciled with True Bio-Borg creation rules and race eligibility during mechanical review."
+      ]
+    },
+    {
+      "id": "splynn-partial-bio-borg",
+      "name": "Partial Bio-Borg",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-21-splynn-dimensional-market",
+      "aliases": [],
+      "candidate_ids": [
+        "63b659907caecff0daa3"
+      ],
+      "source": {
+        "markdown_sha256": "6c62290ff0cac5c45242bd0c01326db11d7d603d06b51e3e6020f25cf07da3bb",
+        "pdf_sha256": "1220340b4f1b0ea6ca296d2081030215740050a4ecacde05d39f232746f3b770",
+        "printed_pages": [
+          157
+        ],
+        "pdf_pages": [
+          158
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Partial conversion branch; source limits eligible kinds of beings.",
+        "Referenced source support: Bio-wizard augmentation. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
+        "The shared Partial & Full Bio-Borg R.C.C. section must be reconciled with True Bio-Borg creation rules and race eligibility during mechanical review."
       ]
     }
   ]

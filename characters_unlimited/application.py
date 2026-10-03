@@ -23,6 +23,7 @@ from .resources import acquire_resources, project_resources, update_resource
 from .equipment import validate_inventory, purchase_inventory, split_inventory, reload_inventory, project_equipment, compare_equipment_views
 from .starting_funds import acquire_starting_funds
 from .starting_gear import acquire_starting_gear
+from .starting_choices import acquire_starting_choices
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -306,6 +307,8 @@ class CharacterApplication:
                 raise ValueError('This update changes recorded starting funds rules. History migration is not yet supported; current rules remain intact.')
             if 'starting_gear' in character and canonical(previous_equipment.get('starting_gear')) != canonical(target_equipment.get('starting_gear')):
                 raise ValueError('This update changes recorded starting gear rules. Receipt migration is not yet supported; current rules remain intact.')
+            if 'starting_choices' in character and canonical(previous_equipment.get('starting_choices')) != canonical(target_equipment.get('starting_choices')):
+                raise ValueError('This update changes recorded starting equipment choice rules. Receipt migration is not yet supported; current rules remain intact.')
             try:
                 validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), target_equipment)
             except ValueError as error:
@@ -378,6 +381,18 @@ class CharacterApplication:
         validate_inventory(changes['equipment'], pack)
         pins = dict(character['additional_rule_packs'])
         pins[pack['id']] = pack['version']
+        return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)
+
+    def grant_starting_choices(self, identifier, *, revision, choices):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before adding starting equipment choices.')
+        pack = self.character_equipment_pack(character)
+        validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
+        changes = acquire_starting_choices(character, pack, choices, lambda: str(uuid4()))
+        validate_inventory(changes['equipment'], pack)
+        pins = {**character['additional_rule_packs'], pack['id']: pack['version']}
         return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)
 
     def grant_starting_gear(self, identifier, *, revision):

@@ -3,6 +3,7 @@
 from copy import deepcopy
 from .starting_funds import project_starting_funds
 from .starting_gear import project_starting_gear
+from .starting_choices import project_starting_choices
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -318,13 +319,23 @@ def project_equipment(character, pack, combat):
         guidance.append('Held knife damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
     if any(item.get('category') == 'ammunition' for item in definitions.values()):
         guidance.append('Reload by swapping the remaining shots in one carried gun and one compatible carried clip. Split grouped gun or clip rows into individual possessions first.')
+    funds = project_starting_funds(character, pack)
+    gear = project_starting_gear(character, pack)
+    starting = project_starting_choices(character, pack)
+    if starting['supported']:
+        # Historical pack guidance remains immutable; show the currently available path.
+        funds['guidance'] = [note for note in funds['guidance']
+                             if note != 'The rest of the Vagabond starting equipment is not yet implemented.']
+        gear['guidance'] = [note for note in gear['guidance']
+                            if note != 'Knife, armor, gun, spare clip and transport choices remain pending.']
     return {
         'catalog': deepcopy(pack['items']), 'inventory': inventory, 'items': selected,
         'attacks': attacks, 'melee_attacks': melee_attacks,
         'armor': armor, 'carried_weight_lbs': carried_weight,
         'warnings': warnings, 'guidance': guidance, 'sources': sources,
-        'starting_funds': project_starting_funds(character, pack),
-        'starting_gear': project_starting_gear(character, pack),
+        'starting_funds': funds,
+        'starting_gear': gear,
+        'starting_choices': starting,
         'carried_weight_complete': unknown_weight_quantity == 0,
         'unknown_carried_weight_quantity': unknown_weight_quantity,
     }
@@ -340,6 +351,7 @@ def compare_equipment_views(before, after):
     add('Carried weight (lb)', before['carried_weight_lbs'], after['carried_weight_lbs'])
     add('Starting funds rules', before['starting_funds']['definitions'], after['starting_funds']['definitions'])
     add('Starting personal gear rules', before['starting_gear']['definitions'], after['starting_gear']['definitions'])
+    add('Starting equipment choice rules', before['starting_choices']['definitions'], after['starting_choices']['definitions'])
     add('Carried items with unspecified weight', before['unknown_carried_weight_quantity'], after['unknown_carried_weight_quantity'])
     old_catalog = {item['id']: item for item in before['catalog']}
     new_catalog = {item['id']: item for item in after['catalog']}

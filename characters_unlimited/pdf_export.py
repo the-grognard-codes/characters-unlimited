@@ -107,6 +107,13 @@ def independent_fields(writer):
                 widget[NameObject('/T')] = TextStringObject(f'page{page_number}.cell{index}')
                 widget.pop('/Parent', None)
             widget.pop('/Kids', None)
+            rect = widget.get('/Rect', [])
+            if (page_number == 1 and len(rect) == 4
+                    and abs(float(rect[0])-533.018) < .2 and abs(float(rect[1])-322.582) < .2):
+                # The reference mistakenly defines the numeric Prowl penalty as a checkbox.
+                widget[NameObject('/FT')] = NameObject('/Tx')
+                widget[NameObject('/Ff')] = NumberObject(0)
+                widget.pop('/AS', None)
             if widget.get('/FT') == '/Tx':
                 # Siblings also share appearance streams in the reference. Regenerate
                 # each filled cell independently, with readable black text.
@@ -269,6 +276,7 @@ def fill_equipment(page, equipment, values):
                        'WEIGHT 1':str(item['weight_lbs'])+' lb',
                        'undefined_7':str(item['locations']['main_body']),
                        'undefined_8':str(item['locations']['main_body'])})
+        cell(533.018,322.582,item['movement_penalty'])
 
 
 def export_rifts_sheet(character, core, skills, combat):
@@ -327,6 +335,13 @@ def export_rifts_sheet(character, core, skills, combat):
                             ', p. '+', '.join(map(str,record['source']['pages']))+'.')
         if equipment['starting_funds']['generated']:
             sheet_notes += '\nStarting saleable goods remain goods value; they are not added to current credits automatically.'
+        if equipment['starting_choices']['generated']:
+            starting = equipment['starting_choices']
+            names = {item['id']: item['name'] for item in equipment['catalog']}
+            sheet_notes += '\nOriginal free starting equipment choices: '+ '; '.join(
+                names[grant['item_id']]+' x'+str(grant['quantity']) for grant in starting['grants'])+'.'
+            sheet_notes += ' '+starting['source']['book']+', p. '+', '.join(map(str,starting['source']['pages']))+'.'
+            sheet_notes += ' '+' '.join(starting['guidance'])
         if equipment['starting_gear']['generated']:
             gear = equipment['starting_gear']
             names = {item['id']: item['name'] for item in equipment['catalog']}

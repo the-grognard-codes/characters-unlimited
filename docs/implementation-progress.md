@@ -112,4 +112,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08C1: Ordinary large/small knives, source purchase ranges and held-knife melee projection implemented under equipment 1.3.0; complete in PR #50, squash 045866f, after both Windows checks passed (37150187267 and 37150183497). All 188 local checks pass, with browser/PDF validation and review approvals. Full starting choices and parent 08 remain open.
 
-- 08C2: Standard short E-Clips with source price ranges, scoped compatibility, ammunition-preserving exchanges and quantity-preserving split UI implemented under equipment 1.4.0; publication pending. All 191 local checks pass. Other ammunition/recharge, class starting choices and parent 08 remain open.
+- 08C2: Standard short E-Clips with source price ranges, scoped compatibility, ammunition-preserving exchanges and quantity-preserving split UI implemented under equipment 1.4.0; complete in PR #51 as5b4fa49 after Windows checks37151425759/37151429347 passed. All 191 local checks pass. Other ammunition/recharge, class starting choices and parent 08 remain open.
+
+- 08B3A: Representative free Vagabond armor/gun/knife/transport/spare-clip choices implemented under equipment1.5.0, with original receipt retention and explicit missing transport/broader catalog mechanics. Publication pending; parent08 stays open.

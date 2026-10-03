@@ -1,6 +1,6 @@
 # 02B7: Powers Unlimited 2 creation identities
 
-**Status:** in-progress
+**Status:** done
 
 Add 47 source-bound identities: ten categories, Minor Hero as a modifier rule, genetic construction, eight Empowered compensation branches, four Gestalt types, three Supersoldier alternatives, sixteen Immortal archetypes and four powers. Preserve shared candidates, aliases, same-game dependencies and original printed/PDF pages (+1). Normalize the Brain Impant transcription alias from original contents. Distinguish modifier rules from independently generated categories.
 

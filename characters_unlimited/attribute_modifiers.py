@@ -6,7 +6,10 @@ from .generation import roll_attribute, generation_settings
 def attribute_value(record):
     if record.get('fixed') is not None:
         return record['fixed']
-    return record['base'] + sum(item['value'] for item in record.get('modifiers', [])) + record.get('adjustment', 0)
+    calculated = record['base'] + sum(item['value'] for item in record.get('modifiers', []))
+    if 'cap' in record:
+        calculated = min(calculated, record['cap'])
+    return calculated + record.get('adjustment', 0)
 
 
 def roll_class_modifiers(attributes, selected_class, die):

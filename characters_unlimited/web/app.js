@@ -1,5 +1,5 @@
 'use strict';
-let token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
+let gamePacks = [], token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
 let requiredFormCharacter, requiredDirtyFlag = false;
 const $ = id => document.getElementById(id);
 async function request(path, data) {
@@ -12,6 +12,7 @@ function showError(error) { $('error').textContent = error.message; $('error').h
 function lockNavigation(busy) {
   navigationBusy = busy;
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
+  if (current?.game === 'heroes-unlimited') { $('preview-rule-update').disabled = true; $('export-pdf').disabled = true; }
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
 }
@@ -38,6 +39,20 @@ function render(character) {
   characters = [character, ...characters.filter(item => item.id !== character.id)];
   $('welcome').hidden = true; $('builder').hidden = false; $('error').hidden = true;
   $('coverage').hidden = true;
+  const pack = gamePacks.find(entry => entry.game === character.game);
+  const heroes = character.game === 'heroes-unlimited';
+  $('game-title').textContent = heroes ? 'HEROES UNLIMITED · REVISED SECOND EDITION' : 'RIFTS · ULTIMATE EDITION';
+  $('class-label').textContent = pack.class_label || 'Occupational character class';
+  for (const [element, entries, selected] of [[$('race'),pack.races,character.race],[$('character-class'),pack.classes,character.character_class]]) {
+    element.replaceChildren(...entries.map(entry => { const option = document.createElement('option'); option.value = entry.id; option.textContent = entry.name; return option; }));
+    element.value = selected; element.disabled = true;
+  }
+  $('summary-identity').textContent = `${pack.races.find(entry => entry.id === character.race).name} · ${pack.classes.find(entry => entry.id === character.character_class).name} · Level ${character.level}`;
+  $('skill-form').closest('section').hidden = heroes;
+  $('combat-controls').closest('section').hidden = heroes;
+  $('heroes-pending').hidden = !heroes;
+  $('export-pdf').disabled = heroes || navigationBusy;
+  $('preview-rule-update').disabled = heroes || navigationBusy;
   $('name').value = character.name; $('notes').value = character.notes;
   $('summary-name').textContent = character.name || 'Unnamed adventurer';
   $('rule-versions').textContent = `Rules: ${character.rules.id} ${character.rules.version} · ` + Object.entries(character.additional_rule_packs || {}).map(([id, version]) => `${id} ${version}`).join(' · ');
@@ -53,6 +68,7 @@ function render(character) {
     for (const modifier of attribute.modifiers || []) {
       explanation.textContent += ` · O.C.C. bonus: +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifier.source.book}, pp. ${modifier.source.pages.join(', ')}`;
     }
+    if (attribute.cap != null) explanation.textContent += ` · Normal automatic ceiling: ${attribute.cap}; full raw total retained. Manual values remain available.`;
     if (attribute.fixed != null) explanation.textContent += ` · Fixed total: ${attribute.fixed}; calculated contributions remain recorded.`;
     else if (attribute.adjustment) explanation.textContent += ` · Player adjustment: ${attribute.adjustment}.`;
     const edit = document.createElement('button'); edit.textContent = `Edit ${name}`; edit.disabled = navigationBusy;
@@ -67,7 +83,8 @@ function render(character) {
   });
   $('completion').replaceChildren(...character.completion.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   $('save-status').textContent = 'Saved on this PC'; library();
-  loadSkills(character).catch(showError);
+  if (heroes) { ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; }
+  else loadSkills(character).catch(showError);
 }
 let skillsReady = false, skillLoadSequence = 0, skillCatalog = [];
 function filterSkillChoices() {
@@ -387,13 +404,14 @@ $('pdf-export-download').onclick = async () => {
     $('pdf-export-error').textContent = error.message; $('pdf-export-error').hidden = false;
   } finally { button.disabled = false; }
 };
-$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
+$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), game:$('new-game').value, generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
+function updateNewIdentity() {
+  const pack = gamePacks.find(entry => entry.game === $('new-game').value);
+  $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${pack.races[0].name} · ${pack.classes[0].name}. Initial attributes follow the core book. Other creation paths remain unfinished.`;
+}
+$('new-game').onchange = updateNewIdentity;
 request('/api/bootstrap').then(result => {
-  token = result.token; characters = result.characters;
-  const pack = result.catalog.packs[0];
-  for (const [element, entries] of [[$('race'),pack.races],[$('character-class'),pack.classes]]) {
-    entries.forEach(entry => { const option = document.createElement('option'); option.value = entry.id; option.textContent = entry.name; element.append(option); });
-    element.disabled = true;
-  }
-  library();
+  token = result.token; characters = result.characters; gamePacks = result.catalog.packs;
+  $('new-game').replaceChildren(...result.catalog.games.map(game => { const option = document.createElement('option'); option.value = game.id; option.textContent = game.name; return option; }));
+  updateNewIdentity(); library();
 }).catch(showError);

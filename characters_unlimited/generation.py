@@ -12,6 +12,14 @@ def generation_settings(value=None):
     return settings
 
 
+def racial_formula(race, attribute):
+    formula = dict(race['attributes'])
+    cap = race.get('attribute_caps', {}).get(attribute)
+    if cap is not None:
+        formula['cap'] = cap
+    return formula
+
+
 def roll_attribute(formula, settings, die, source):
     count, sides, constant = formula["count"], formula["sides"], formula.get("constant", 0)
     if type(count) is not int or not 0 <= count <= 1000 or type(sides) is not int or not 1 <= sides <= 1000 or type(constant) is not int:
@@ -46,17 +54,19 @@ def roll_attribute(formula, settings, die, source):
     if settings["extra_die"] and count:
         discarded.append(kept.pop(kept.index(min(kept))))
     total = sum(kept) + constant
-    bonus_rolls = []
+    bonus_rolls: list[int] = []
     exceptional = formula.get("exceptional")
     if exceptional and total in exceptional["thresholds"]:
-        for _ in range(exceptional["max_bonus_dice"]):
+        limit = exceptional["max_bonus_dice"]
+        while limit is None or len(bonus_rolls) < limit:
             bonus = draw()
             bonus_rolls.append(bonus)
             total += bonus
             if bonus != sides:
                 break
     return {
-        "base": total, "value": total, "adjustment": 0, "fixed": None,
+        **({"cap": formula["cap"]} if "cap" in formula else {}),
+        "base": total, "value": min(total, formula["cap"]) if "cap" in formula else total, "adjustment": 0, "fixed": None,
         "rolls": pool, "original_rolls": originals, "kept": kept, "discarded": discarded,
         "rerolls": rerolls, "bonus_rolls": bonus_rolls,
         "generation": settings,

@@ -1,0 +1,64 @@
+{
+  "id": "heroes-core",
+  "name": "Heroes Unlimited Revised Second Edition",
+  "game": "heroes-unlimited",
+  "edition": "Revised Second Edition",
+  "version": "1.0.0",
+  "schema_version": 1,
+  "class_label": "Power category",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Step 1: The Eight Attributes & Attribute Bonuses",
+    "printed_page": 15,
+    "pdf_page": 16,
+    "markdown_lines": [
+      769,
+      775
+    ],
+    "printed_pages": [
+      15,
+      16
+    ],
+    "pdf_pages": [
+      16,
+      17
+    ]
+  },
+  "races": [
+    {
+      "id": "human",
+      "name": "Human origin",
+      "attributes": {
+        "count": 3,
+        "sides": 6,
+        "constant": 0,
+        "exceptional": {
+          "thresholds": [
+            16,
+            17,
+            18
+          ],
+          "max_bonus_dice": null
+        }
+      },
+      "attribute_caps": {
+        "IQ": 30,
+        "ME": 30,
+        "MA": 30,
+        "PB": 30,
+        "PS": 40,
+        "PP": 50
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "mutant",
+      "name": "Mutant",
+      "automation_gaps": [
+        "Education, skills, powers, category modifiers, resources, equipment, PDF and advancement remain unfinished.",
+        "God/alien and power-specific exceptions to normal mortal attribute ceilings remain unimplemented; manual values remain available."
+      ]
+    }
+  ]
+}

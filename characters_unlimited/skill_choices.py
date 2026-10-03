@@ -5,11 +5,16 @@ def needs_specialty(definition):
     return definition.get('requires_specialty', definition['id'] == 'instrument')
 
 
+def specialty_key(value):
+    return ' '.join(value.split()).casefold()
+
+
 def selection_policy(definition, pool, pack):
     if 'selection_rules' not in pack:
         return {'allowed': True, 'bonus': pack['pools'][pool]['bonus']}
     rule = pack['selection_rules'][pool].get(definition.get('category', 'domestic'), {})
     allowed = rule.get('allow') == 'any' or definition['id'] in rule.get('allow', [])
+    allowed = allowed and definition['id'] not in rule.get('exclude', [])
     return {'allowed': allowed, 'bonus': rule.get('bonus', 0) if allowed else 0}
 
 
@@ -19,14 +24,24 @@ def learned_selection_ids(selections, pack):
             if not needs_specialty(known[item['skill_id']]) or item.get('specialty')}
 
 
-def choice_guidance(selections, pack):
+def choice_guidance(selections, pack, granted=()):
     known = {definition['id']: definition for definition in pack['skills']}
     available = learned_selection_ids(selections, pack)
+    granted_ids = {item['id'] for item in granted}
+    available.update(granted_ids)
+    granted_languages = {specialty_key(item['specialty']) for item in granted
+                         if item['id'] in ('native-language', 'other-language') and item.get('specialty')}
     warnings = []
     for item in selections:
         definition = known[item['skill_id']]
         if not selection_policy(definition, item['pool'], pack)['allowed']:
             warnings.append(f"{definition['name']}: not available in the {item['pool']} pool under these rules; the choice is retained without an O.C.C. bonus.")
+        if definition['id'] in granted_ids and not needs_specialty(definition):
+            warnings.append(f"{definition['name']}: already granted by the O.C.C.; the extra choice is retained without another proficiency bonus.")
+        if definition['id'] == 'language-other' and specialty_key(item.get('specialty', '')) in granted_languages:
+            warnings.append(f"{definition['name']} — {item['specialty']}: already granted; the retained choice does not create another language proficiency.")
+        for dependency in definition.get('pending_prerequisites', []):
+            warnings.append(f"{definition['name']}: pending prerequisite — {dependency}")
         for alternatives in definition.get('prerequisites', []):
             if not available.intersection(alternatives):
                 labels = ' or '.join(known[identifier]['name'] for identifier in alternatives)

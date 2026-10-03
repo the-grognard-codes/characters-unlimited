@@ -4,6 +4,7 @@ from collections import Counter
 import json
 from pathlib import Path
 from .required_skills import project_required_skills
+from .skill_choices import needs_specialty, selection_policy, choice_guidance
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -13,7 +14,7 @@ POOLS = PACK['pools']
 def validate_selections(selections, pack=PACK):
     if not isinstance(selections, list) or len(selections) > 1000:
         raise ValueError("Provide a skill selection list with at most 1000 entries")
-    known = {skill['id'] for skill in pack['skills']}
+    known = {skill['id']: skill for skill in pack['skills']}
     result = []
     for item in selections:
         if not isinstance(item, dict) or not isinstance(item.get('skill_id'), str) or not isinstance(item.get('pool'), str) or item['skill_id'] not in known or item['pool'] not in pack['pools']:
@@ -21,12 +22,13 @@ def validate_selections(selections, pack=PACK):
         specialty = item.get('specialty', '')
         if not isinstance(specialty, str):
             raise ValueError("Skill specialty must be text")
-        result.append({'skill_id': item['skill_id'], 'pool': item['pool'], 'specialty': specialty.strip() if item['skill_id'] == 'instrument' else ''})
+        result.append({'skill_id': item['skill_id'], 'pool': item['pool'], 'specialty': specialty.strip() if needs_specialty(known[item['skill_id']]) else ''})
     return result
 
 
-def skill_key(item):
-    specialty = ' '.join(item.get('specialty', '').split()).casefold() if item['skill_id'] == 'instrument' else ''
+def skill_key(item, pack=PACK):
+    definition = next(skill for skill in pack['skills'] if skill['id'] == item['skill_id'])
+    specialty = ' '.join(item.get('specialty', '').split()).casefold() if needs_specialty(definition) else ''
     return (item['skill_id'], specialty)
 
 
@@ -66,26 +68,31 @@ def project_skills(character, pack=PACK):
             intelligence += ((iq - 30) // rule['step']) * rule['bonus']
     selections = character.get('skill_selections', [])
     counts = Counter(item['pool'] for item in selections)
-    occurrences = Counter(skill_key(item) for item in selections if skill_key(item) != ('instrument', ''))
+    occurrences = Counter(skill_key(item, pack) for item in selections if skill_key(item, pack) != ('instrument', ''))
     occurrences[('cook', '')] += 1
     bonuses = {('cook', ''): 15}
     for item in selections:
-        key = skill_key(item)
-        bonuses[key] = max(bonuses.get(key, 0), pools[item['pool']]['bonus'])
-    warnings = []
+        key = skill_key(item, pack)
+        definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
+        bonuses[key] = max(bonuses.get(key, 0), selection_policy(definition, item['pool'], pack)['bonus'])
+    warnings = choice_guidance(selections, pack)
     selected = []
     for item in selections:
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
-        key = skill_key(item)
-        repeated = occurrences[key] >= 2
-        if occurrences[key] > 2:
+        key = skill_key(item, pack)
+        is_domestic = definition.get('category', 'domestic') == 'domestic'
+        repeated = is_domestic and occurrences[key] >= 2
+        if is_domestic and occurrences[key] > 2:
             warnings.append(f"{definition['name']}: more than two selections; the repeated-skill bonus applies once.")
-        if item['skill_id'] == 'instrument' and not item.get('specialty'):
-            warnings.append("Choose the instrument for each Play Musical Instrument selection.")
-        bonus = pools[item['pool']]['bonus'] if key == ('instrument', '') else bonuses[key]
+        if not is_domestic and occurrences[key] > 1:
+            warnings.append(f"{definition['name']}: duplicate selections are retained without another proficiency bonus.")
+        if needs_specialty(definition) and not item.get('specialty'):
+            warnings.append(f"Choose the specialty for each {definition['name']} selection.")
+        policy = selection_policy(definition, item['pool'], pack)
+        bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
         uncapped = definition['base'] + bonus + (10 if repeated else 0) + intelligence
         selected.append({**definition, **item, 'percentage': min(98, uncapped), 'uncapped_percentage': uncapped,
-                         'quality': 'professional' if item['pool'] != 'secondary' or repeated else 'amateur',
+                         'quality': ('professional' if item['pool'] != 'secondary' or repeated else 'amateur') if is_domestic else 'trained',
                          'contributions': {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated else 0, 'intelligence': intelligence}})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool, count in remaining.items():
@@ -107,7 +114,7 @@ def project_skills(character, pack=PACK):
     required = project_required_skills(character, pack, intelligence)
     if required['catalog']:
         gaps[0] = 'Begging interpretation, weapon/hand-to-hand choices, other categories and prerequisites are pending.'
-        gaps.append('Barter literacy/mathematics synergies and conditional repair/horsemanship effects are pending.')
+        gaps.append('Conditional repair/horsemanship effects are pending.' if 'selection_rules' in pack else 'Barter literacy/mathematics synergies and conditional repair/horsemanship effects are pending.')
         sources.append('Required choices and Eyeball a Fella bonuses: p. 97; Streetwise adds 10% to I.D. Undercover Agents, p. 321.')
     return {'catalog': domestic, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
              'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence}}, *required['grants']], 'selected': selected, 'remaining': remaining,

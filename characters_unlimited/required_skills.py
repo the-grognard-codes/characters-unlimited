@@ -1,6 +1,7 @@
 """Reviewed Vagabond grants and required choices, independent of browser state."""
 
 from typing import Any
+from .skill_choices import needs_specialty
 
 def validate_required_choices(choices, pack):
     if 'required' not in pack:
@@ -53,13 +54,16 @@ def project_required_skills(character, pack, intelligence):
         if choices[name]:
             definitions.append((next(item for item in rules[name]['options'] if item['id'] == choices[name]), ''))
     available = {definition['id'] for definition, _ in definitions}
+    specialty_ids = {skill['id'] for skill in pack['skills'] if needs_specialty(skill)}
+    available.update(item['skill_id'] for item in character.get('skill_selections', [])
+                     if item['skill_id'] not in specialty_ids or item.get('specialty'))
     grants = []
     for definition, specialty in definitions:
         contributions = {'base': definition['base'], 'class': definition['class_bonus'], 'intelligence': intelligence}
         if 'class_ability' in definition:
             contributions['class_ability'] = definition['class_ability']
         for synergy in definition.get('synergies', []):
-            if synergy['skill_id'] in available:
+            if available.intersection(synergy.get('any_of', [synergy.get('skill_id')])):
                 contributions[synergy['name']] = synergy['amount']
         uncapped = sum(contributions.values())
         checks = []

@@ -64,14 +64,27 @@ function render(character) {
   $('save-status').textContent = 'Saved on this PC'; library();
   loadSkills(character).catch(showError);
 }
-let skillsReady = false, skillLoadSequence = 0;
+let skillsReady = false, skillLoadSequence = 0, skillCatalog = [];
+function filterSkillChoices() {
+  const previous = $('skill-choice').value;
+  const category = $('skill-category').value;
+  const matches = skillCatalog.filter(skill => !category || (skill.category || 'domestic') === category);
+  $('skill-choice').replaceChildren(...matches.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
+  if (matches.some(skill => skill.id === previous)) $('skill-choice').value = previous;
+}
+$('skill-category').onchange = filterSkillChoices;
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
   skillsReady = false;
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = true);
   const view = await request(`/api/characters/${character.id}/skills`);
   if (current.id !== character.id || sequence !== skillLoadSequence) return;
-  $('skill-choice').replaceChildren(...view.catalog.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
+  skillCatalog = view.catalog;
+  const category = $('skill-category').value;
+  const categories = ['', ...new Set(view.catalog.map(skill => skill.category || 'domestic'))];
+  $('skill-category').replaceChildren(...categories.map(value => { const option = document.createElement('option'); option.value = value; option.textContent = value ? value[0].toUpperCase() + value.slice(1) : 'All reviewed categories'; return option; }));
+  if (categories.includes(category)) $('skill-category').value = category;
+  filterSkillChoices();
   $('skill-counts').textContent = Object.entries(view.remaining).map(([pool, count]) => `${pool}: ${count} remaining`).join(' · ');
   $('required-skill-form').hidden = !view.required_catalog;
   $('required-skill-counts').hidden = !view.required_catalog;

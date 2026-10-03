@@ -232,7 +232,7 @@ def fill_values(writer, values):
 
 
 def fill_equipment(page, equipment, values):
-    """Map the reviewed possessions to the original weapon and armor rectangles."""
+    """Map current possessions to verified weapon, armor and personal gear rectangles."""
     def cell(x, y, value):
         matches = [ref.get_object() for ref in page.get('/Annots',[])
                    if ref.get_object().get('/FT') == '/Tx'
@@ -250,6 +250,11 @@ def fill_equipment(page, equipment, values):
                                        str(item['shots'])+'/'+str(item['capacity']),item['damage'],
                                        'Standard E-Clip; '+str(item['quantity'])+' item(s), '+item['location']]):
             cell(*position,value)
+    personal_gear = [item for item in equipment['items'] if item['category']=='gear']
+    gear_rows = [202.44,193.44,185.52,177,168,159.48,150.96,143.04,134.52,125.52,
+                 117,108.96,100.44,91.44,83.04,75,66.48,57.48,48.96,40.44]
+    for item, y in zip(personal_gear,gear_rows):
+        cell(36.48,y,item['name']+' x'+str(item['quantity'])+'; '+item['location'])
     armor = equipment['armor']
     if len(armor)==1 and armor[0]['quantity']==1:
         item = armor[0]
@@ -304,7 +309,10 @@ def export_rifts_sheet(character, core, skills, combat):
     equipment = skills.get('equipment')
     if equipment is not None:
         fill_equipment(writer.pages[0],equipment,values)
-        sheet_notes += '\nCurrent credits: '+str(equipment['inventory']['credits'])+'. Carried weight: '+str(equipment['carried_weight_lbs'])+' lb.'
+        weight_label = 'Carried weight' if equipment['carried_weight_complete'] else 'Known carried weight'
+        sheet_notes += '\nCurrent credits: '+str(equipment['inventory']['credits'])+'. '+weight_label+': '+str(equipment['carried_weight_lbs'])+' lb.'
+        if not equipment['carried_weight_complete']:
+            sheet_notes += '\n'+str(equipment['unknown_carried_weight_quantity'])+' carried item(s) have unspecified weight; the weight total is incomplete.'
         for identifier, record in equipment['starting_funds']['funds'].items():
             definition = next(item for item in equipment['starting_funds']['definitions'] if item['id']==identifier)
             sheet_notes += ('\n'+definition['name']+': '+str(record['value'])+' credits = ('+
@@ -312,15 +320,21 @@ def export_rifts_sheet(character, core, skills, combat):
                             ', p. '+', '.join(map(str,record['source']['pages']))+'.')
         if equipment['starting_funds']['generated']:
             sheet_notes += '\nStarting saleable goods remain goods value; they are not added to current credits automatically.'
+        if equipment['starting_gear']['generated']:
+            gear = equipment['starting_gear']
+            names = {item['id']: item['name'] for item in equipment['catalog']}
+            sheet_notes += '\nOriginal personal starting gear grant: '+ '; '.join(
+                names[grant['item_id']]+' x'+str(grant['quantity']) for grant in gear['grants'])+'.'
+            sheet_notes += ' '+gear['source']['book']+', p. '+', '.join(map(str,gear['source']['pages']))+'. Current possessions may be edited or removed; the original grant is retained.'
         for item in equipment['items']:
             sheet_notes += ('\n'+item['name']+' x'+str(item['quantity'])+'; '+item['location']+
                             ('; equipped' if item['equipped'] else '; unequipped')+
-                            '; '+str(item['weight_lbs'])+' lb each. '+item['source']['book']+
+                              '; '+('weight unspecified' if item['weight_lbs'] is None else str(item['weight_lbs'])+' lb each')+'. '+item['source']['book']+
                             ', p. '+', '.join(map(str,item['source']['pages']))+'.')
             if item['category']=='weapon':
                 sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
                                 ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'.')
-            else:
+            elif item['category'] == 'armor':
                 sheet_notes += ' '+', '.join(name.replace('_',' ')+' '+str(value)+' M.D.C.' for name,value in item['locations'].items())+'.'
                 sheet_notes += ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.'
         for attack in equipment['attacks']:

@@ -4,6 +4,8 @@ function setEquipmentBusy() {
   document.querySelectorAll('#equipment-panel input, #equipment-panel select, #equipment-panel button').forEach(element => {
     element.disabled = navigationBusy || !equipmentReady;
   });
+  const selected = equipmentView?.catalog.find(item => item.id === $('equipment-choice').value);
+  $('purchase-equipment').disabled = navigationBusy || !equipmentReady || selected?.cost_credits == null;
 }
 async function loadEquipment(character) {
   const sequence = ++equipmentSequence;
@@ -12,6 +14,16 @@ async function loadEquipment(character) {
   const view = await request(`/api/characters/${character.id}/equipment`);
   if (current.id !== character.id || sequence !== equipmentSequence) return;
   equipmentView = view;
+  const gear = view.starting_gear;
+  $('grant-starting-gear').hidden = !gear.supported || gear.generated;
+  $('starting-gear-guidance').textContent = gear.guidance.join(' ');
+  $('starting-gear-status').textContent = gear.generated ? `Original personal gear grant recorded (${gear.grants.length} rows). Edited or removed possessions do not regenerate.` : '';
+  $('starting-gear-receipt').hidden = !gear.generated;
+  $('starting-gear-grants').replaceChildren(...gear.grants.map(grant => {
+    const row = document.createElement('li');
+    row.textContent = `${view.catalog.find(item => item.id === grant.item_id).name} × ${grant.quantity}`; return row;
+  }));
+  $('starting-gear-source').textContent = gear.generated ? `${gear.source.book}, p. ${gear.source.pages.join(', ')}. This is the original grant; current possessions are listed below.` : '';
   const funds = view.starting_funds;
   $('generate-starting-funds').hidden = !funds.supported || funds.generated;
   $('starting-funds-guidance').textContent = funds.guidance.join(' ');
@@ -22,7 +34,7 @@ async function loadEquipment(character) {
     return row;
   }));
   $('equipment-credits').value = view.inventory.credits;
-  $('equipment-weight').textContent = `Carried weight: ${view.carried_weight_lbs.toLocaleString()} lb. Reviewed items only; an encumbrance limit is not yet calculated.`;
+  $('equipment-weight').textContent = `${view.carried_weight_complete ? 'Carried weight' : 'Known carried weight'}: ${view.carried_weight_lbs.toLocaleString()} lb.${view.carried_weight_complete ? '' : ` ${view.unknown_carried_weight_quantity} carried item(s) have unspecified weight.`} Reviewed items only; an encumbrance limit is not yet calculated.`;
   $('equipment-guidance').textContent = view.guidance.join(' ');
   $('equipment-warnings').replaceChildren(...view.warnings.map(message => {
     const row = document.createElement('li'); row.textContent = message; return row;
@@ -32,7 +44,7 @@ async function loadEquipment(character) {
     const row = document.createElement('details'), heading = document.createElement('summary');
     heading.textContent = `${item.name} × ${item.quantity} · ${item.location}${item.equipped ? ' · equipped' : ''}`;
     const source = document.createElement('p'); source.className = 'help';
-    source.textContent = `${item.source.book}, pp. ${item.source.pages.join(', ')} · ${item.weight_lbs} lb each`;
+    source.textContent = `${item.source.book}, pp. ${item.source.pages.join(', ')} · ${item.weight_lbs == null ? 'weight unspecified' : item.weight_lbs + ' lb each'}${item.cost_credits == null ? ' · purchase price unspecified' : ''}`;
     const form = document.createElement('form');
     const input = (text,type,value) => {
       const label = document.createElement('label'), field = document.createElement('input');
@@ -95,11 +107,16 @@ function filterEquipmentCatalog() {
   const entries = equipmentView.catalog.filter(item => !category || item.category === category);
   $('equipment-choice').replaceChildren(...entries.map(item => {
     const option = document.createElement('option'); option.value = item.id;
-    option.textContent = `${item.name} · ${item.cost_credits.toLocaleString()} credits`; return option;
+    option.textContent = `${item.name} · ${item.cost_credits == null ? 'purchase price unspecified' : item.cost_credits.toLocaleString() + ' credits'}`; return option;
   }));
   if (entries.some(item => item.id === previous)) $('equipment-choice').value = previous;
+  const selected = entries.find(item => item.id === $('equipment-choice').value);
+  $('equipment-price-guidance').textContent = selected?.cost_credits == null ? 'This item has no reviewed purchase price. Use its class starting grant to add it without a purchase.' : '';
+  setEquipmentBusy();
 }
 function wireEquipmentEvents() {
+  $('grant-starting-gear').onclick = () => characterAction('starting-gear',{}).catch(showError);
+  $('equipment-choice').onchange = filterEquipmentCatalog;
   $('generate-starting-funds').onclick = () => characterAction('starting-funds',{}).catch(showError);
   $('equipment-category').onchange = filterEquipmentCatalog;
   $('equipment-funds-form').onsubmit = event => {

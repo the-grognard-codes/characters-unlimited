@@ -1,6 +1,6 @@
 # 06A: Roll, choose and retain Heroes education outcomes
 
-**Status:** in-progress
+**Status:** done — merged in PR #30; both Windows frozen-build checks passed.
 
 Players on the basic Heroes Human-origin Mutant path can choose or roll any of the twelve educational levels. Retain original percentile values, previous outcomes and exact accepted education rule pins. Show source program slots and their distinct bonuses, Secondary allowances, Street Schooled allowances and literacy guidance. Manual choice uses the honor system. Rifts remains separate.
 

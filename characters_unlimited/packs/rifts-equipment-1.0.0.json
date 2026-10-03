@@ -1,0 +1,98 @@
+{
+  "id": "rifts-equipment",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.0.0",
+  "schema_version": 1,
+  "name": "Reviewed Rifts Equipment",
+  "currency": "credits",
+  "source_fingerprints": {
+    "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+    "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c"
+  },
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "pages": [267, 268, 269],
+    "pdf_pages": [270, 271, 272],
+    "section": "Weapons and Body Armor",
+    "candidate_ids": [
+      "75af68e659ce2c3e7d24",
+      "aceb60f33074cf592e94",
+      "b7db76a3325aa1ad13bb",
+      "3a5a7404a4d969496b7d"
+    ]
+  },
+  "items": [
+    {
+      "id": "wilks-320",
+      "name": "Wilk's 320 Laser Pistol",
+      "category": "weapon",
+      "cost_credits": 11000,
+      "weight_lbs": 2,
+      "damage": "1D6 M.D.",
+      "range_feet": 1000,
+      "range_meters": 305,
+      "capacity": 20,
+      "aimed_bonus": 2,
+      "proficiency": "energy-pistol",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [268],
+        "pdf_pages": [271],
+        "section": "Wilk's 320 Laser Pistol",
+        "candidate_ids": ["b7db76a3325aa1ad13bb"]
+      }
+    },
+    {
+      "id": "wilks-447",
+      "name": "Wilk's 447 Laser Rifle",
+      "category": "weapon",
+      "cost_credits": 18000,
+      "weight_lbs": 5,
+      "damage": "3D6 M.D.",
+      "range_feet": 2000,
+      "range_meters": 610,
+      "capacity": 20,
+      "aimed_bonus": 1,
+      "proficiency": "energy-rifle",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [269],
+        "pdf_pages": [272],
+        "section": "Wilk's 447 Laser Rifle",
+        "candidate_ids": ["3a5a7404a4d969496b7d"]
+      }
+    },
+    {
+      "id": "plastic-man",
+      "name": "Plastic-Man Full Environmental Body Armor",
+      "sheet_name": "Plastic-Man",
+      "category": "armor",
+      "cost_credits": 18000,
+      "weight_lbs": 13,
+      "locations": {
+        "main_body": 35,
+        "helmet": 30,
+        "left_arm": 15,
+        "right_arm": 15,
+        "left_leg": 22,
+        "right_leg": 22
+      },
+      "movement_penalty": -10,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [268],
+        "pdf_pages": [271],
+        "section": "Plastic-Man — Full Environmental Body Armor",
+        "candidate_ids": ["aceb60f33074cf592e94"]
+      },
+      "movement_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [267],
+        "pdf_pages": [270],
+        "section": "All environmental body armor have the following properties",
+        "candidate_ids": ["75af68e659ce2c3e7d24"]
+      }
+    }
+  ]
+}

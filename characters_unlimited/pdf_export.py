@@ -231,6 +231,34 @@ def fill_values(writer, values):
                 unicode_appearance(writer, widget, value)
 
 
+def fill_equipment(page, equipment, values):
+    """Map the reviewed possessions to the original weapon and armor rectangles."""
+    def cell(x, y, value):
+        matches = [ref.get_object() for ref in page.get('/Annots',[])
+                   if ref.get_object().get('/FT') == '/Tx'
+                   and abs(float(ref.get_object()['/Rect'][0])-x)<.2
+                   and abs(float(ref.get_object()['/Rect'][1])-y)<.2]
+        if len(matches)!=1:
+            raise ValueError('The Rifts equipment rectangle changed; review its field mapping')
+        values[matches[0]['/T']] = str(value)
+    weapons = [item for item in equipment['items'] if item['category']=='weapon']
+    rectangles = [((37.92,345.458),(121.637,345.578),(148.146,345.578),(179.455,345.578),(61.20,336.85)),
+                  ((37.451,328.658),(121.168,328.778),(147.677,328.778),(178.986,328.778),(60.731,320.05)),
+                  ((37.451,311.64),(121.168,311.759),(147.677,311.759),(178.986,311.76),(60.731,303.032))]
+    for item, cells in zip(weapons,rectangles):
+        for position, value in zip(cells,[item['name'],str(item['range_feet'])+' ft',
+                                       str(item['shots'])+'/'+str(item['capacity']),item['damage'],
+                                       'Standard E-Clip; '+str(item['quantity'])+' item(s), '+item['location']]):
+            cell(*position,value)
+    armor = equipment['armor']
+    if len(armor)==1 and armor[0]['quantity']==1:
+        item = armor[0]
+        values.update({'ARMOR':item.get('sheet_name',item['name']),'COST':str(item['cost_credits']),
+                       'WEIGHT 1':str(item['weight_lbs'])+' lb',
+                       'undefined_7':str(item['locations']['main_body']),
+                       'undefined_8':str(item['locations']['main_body'])})
+
+
 def export_rifts_sheet(character, core, skills, combat):
     writer = PdfWriter()
     writer.clone_document_from_reader(PdfReader(TEMPLATE))
@@ -273,6 +301,27 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    equipment = skills.get('equipment')
+    if equipment is not None:
+        fill_equipment(writer.pages[0],equipment,values)
+        sheet_notes += '\nCurrent credits: '+str(equipment['inventory']['credits'])+'. Carried weight: '+str(equipment['carried_weight_lbs'])+' lb.'
+        for item in equipment['items']:
+            sheet_notes += ('\n'+item['name']+' x'+str(item['quantity'])+'; '+item['location']+
+                            ('; equipped' if item['equipped'] else '; unequipped')+
+                            '; '+str(item['weight_lbs'])+' lb each. '+item['source']['book']+
+                            ', p. '+', '.join(map(str,item['source']['pages']))+'.')
+            if item['category']=='weapon':
+                sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
+                                ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'.')
+            else:
+                sheet_notes += ' '+', '.join(name.replace('_',' ')+' '+str(value)+' M.D.C.' for name,value in item['locations'].items())+'.'
+                sheet_notes += ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.'
+        for attack in equipment['attacks']:
+            sheet_notes += '\n'+attack['name']+': '+ '; '.join(
+                context+' strike '+(str(attack[context]['value']) if attack[context]['value'] is not None else 'pending')+
+                ' ('+', '.join(name.replace('_',' ')+' '+str(value) for name,value in attack[context]['contributions'].items())+
+                '); '+str(attack[context]['actions'])+' action(s)' for context in ('single','aimed'))+'.'
+        sheet_notes += '\n'+' '.join([*equipment['warnings'],*equipment['guidance']])
     for identifier,result in resources.items():
         if result['value'] is None:
             continue

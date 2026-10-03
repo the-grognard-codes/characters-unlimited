@@ -17,6 +17,7 @@ function lockNavigation(busy) {
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
   setResourcesBusy();
+  setEquipmentBusy();
 }
 function library() {
   $('library').replaceChildren();
@@ -44,6 +45,8 @@ function render(character) {
   const pack = gamePacks.find(entry => entry.game === character.game);
   const heroes = character.game === 'heroes-unlimited';
   $('resources-panel').hidden = heroes;
+  $('equipment-panel').hidden = heroes;
+  loadEquipment(character).catch(showError);
   $('game-title').textContent = heroes ? 'HEROES UNLIMITED · REVISED SECOND EDITION' : 'RIFTS · ULTIMATE EDITION';
   $('class-label').textContent = pack.class_label || 'Occupational character class';
   for (const [element, entries, selected] of [[$('race'),pack.races,character.race],[$('character-class'),pack.classes,character.character_class]]) {
@@ -439,6 +442,7 @@ function updateNewIdentity() {
 }
 $('new-game').onchange = updateNewIdentity;
 wireResourcesEvents();
+wireEquipmentEvents();
 request('/api/bootstrap').then(result => {
   token = result.token; characters = result.characters; gamePacks = result.catalog.packs;
   $('new-game').replaceChildren(...result.catalog.games.map(game => { const option = document.createElement('option'); option.value = game.id; option.textContent = game.name; return option; }));

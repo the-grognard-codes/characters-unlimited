@@ -20,6 +20,7 @@ from .education import education_selection, validate_education, project_educatio
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical
 from .resources import acquire_resources, project_resources, update_resource
+from .equipment import validate_inventory, purchase_inventory, project_equipment
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -96,6 +97,39 @@ class CharacterApplication:
     def combat_view(self, identifier):
         character = self.get(identifier)
         return project_combat(character, self.character_skill_pack(character))
+
+    def character_equipment_pack(self, character):
+        if character['game'] != 'rifts':
+            raise ValueError('Heroes Unlimited equipment remains unfinished')
+        version = character.get('additional_rule_packs',{}).get('rifts-equipment')
+        return (self.rule_archive.resolve('rifts-equipment',version) if version is not None
+                else self.rule_archive.active('rifts-equipment'))
+
+    def equipment_view(self, identifier):
+        character = self.get(identifier)
+        return project_equipment(character,self.character_equipment_pack(character),
+                                 project_combat(character,self.character_skill_pack(character)))
+
+    def set_equipment(self, identifier, *, revision, inventory):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before editing equipment.')
+        pack = self.character_equipment_pack(character)
+        inventory = validate_inventory(inventory,pack)
+        pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
+        return self.store.update(identifier,{'equipment':inventory,'additional_rule_packs':pins},revision)
+
+    def purchase_equipment(self, identifier, *, revision, item_id, quantity=1):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before purchasing equipment.')
+        pack = self.character_equipment_pack(character)
+        inventory = purchase_inventory(character.get('equipment',{'credits':0,'items':[]}),
+                                       pack,item_id,quantity,str(uuid4()))
+        pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
+        return self.store.update(identifier,{'equipment':inventory,'additional_rule_packs':pins},revision)
 
     def character_education_pack(self, character):
         return self._character_heroes_pack(character, 'heroes-education')
@@ -174,8 +208,11 @@ class CharacterApplication:
             raise ValueError('Heroes Unlimited editable PDF remains unfinished')
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
+        combat = project_combat(character,pack)
         return export_rifts_sheet(character, core, {**project_skills(character, pack),
-            'resources':project_resources(character,pack)}, project_combat(character, pack))
+            'resources':project_resources(character,pack),
+            'equipment':project_equipment(character,self.character_equipment_pack(character),combat)
+                        if 'equipment' in character else None}, combat)
 
     def import_character(self, bundle):
         character = import_bundle(bundle, self.rule_archive.definitions())

@@ -103,11 +103,29 @@ class PackagedApplicationTests(unittest.TestCase):
                 running = next(skill for skill in endurance['selected'] if skill['id']=='running')
                 self.assertEqual(running['activities'][0]['miles'],character['attributes']['PE']['value']*0.5)
                 self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],resource_view['resources']['HP']['value'])
+                character = request('/api/characters/'+identifier+'/equipment',
+                    {'revision':character['revision'],'inventory':{'credits':50000,'items':[]}},token)
+                for item_id in ('wilks-320','plastic-man'):
+                    character = request('/api/characters/'+identifier+'/purchase-equipment',
+                        {'revision':character['revision'],'item_id':item_id,'quantity':1},token)
+                inventory = character['equipment']
+                for item in inventory['items']: item['equipped']=True
+                character = request('/api/characters/'+identifier+'/equipment',
+                    {'revision':character['revision'],'inventory':inventory},token)
+                character = request('/api/characters/'+identifier+'/combat',
+                    {'revision':character['revision'],'choices':{'hand_to_hand':'basic','ancient':[],
+                     'modern':['energy-pistol']}},token)
+                gear = request('/api/characters/'+identifier+'/equipment')
+                self.assertEqual(gear['inventory']['credits'],21000)
+                self.assertEqual(gear['carried_weight_lbs'],15)
+                self.assertEqual(gear['attacks'][0]['aimed']['contributions']['weapon_aimed_bonus'],2)
+                self.assertEqual(gear['armor'][0]['locations']['main_body'],35)
                 portable = request('/api/characters/' + identifier + '/export')
                 imported = request('/api/import', {'bundle':portable}, token)
                 self.assertNotEqual(imported['id'], identifier)
                 self.assertEqual(imported['physical_acquisitions'],character['physical_acquisitions'])
                 self.assertEqual(imported['resources'],character['resources'])
+                self.assertEqual(imported['equipment'],character['equipment'])
                 reader = PdfReader(BytesIO(request('/api/characters/' + identifier + '/pdf')))
                 fields = reader.get_fields()
                 assert fields is not None

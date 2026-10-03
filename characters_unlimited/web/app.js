@@ -10,7 +10,7 @@ async function request(path, data) {
 function showError(error) { $('error').textContent = error.message; $('error').hidden = false; $('save-status').textContent = 'Check the message below'; }
 function lockNavigation(busy) {
   navigationBusy = busy;
-  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character'].forEach(id => $(id).disabled = busy);
+  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = busy || !skillsReady);
 }
@@ -39,6 +39,7 @@ function render(character) {
   $('coverage').hidden = true;
   $('name').value = character.name; $('notes').value = character.notes;
   $('summary-name').textContent = character.name || 'Unnamed adventurer';
+  $('rule-versions').textContent = `Rules: ${character.rules.id} ${character.rules.version} · ` + Object.entries(character.additional_rule_packs || {}).map(([id, version]) => `${id} ${version}`).join(' · ');
   $('reroll-ones').checked = character.generation?.reroll_ones || false;
   $('extra-die').checked = character.generation?.extra_die || false;
   $('attributes').replaceChildren();
@@ -76,6 +77,8 @@ async function loadSkills(character) {
     heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.percentage}% · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
     const explanation = document.createElement('p'); explanation.className = 'help';
     explanation.textContent = Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ') + ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
+    if (view.intelligence_source) explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
+    if (skill.uncapped_percentage > 98) explanation.textContent += ` · Capped at 98% from ${skill.uncapped_percentage}% (Ultimate Edition, p. 301).`;
     row.append(heading, explanation);
     if (!skill.grant) {
       const remove = document.createElement('button'); remove.textContent = 'Remove selection';
@@ -94,6 +97,37 @@ $('skill-form').onsubmit = async event => {
   event.preventDefault();
   if (!skillsReady || navigationBusy) return;
   await characterAction('skills', {selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool:$('skill-pool').value, specialty:$('skill-specialty').value}]}).catch(showError);
+};
+let rulePreview;
+$('preview-rule-update').onclick = async () => {
+  if (navigationBusy || !current) return;
+  lockNavigation(true);
+  try {
+    await flushSave();
+    const preview = await request(`/api/characters/${current.id}/rule-preview`, {});
+    rulePreview = {...preview, characterId:current.id};
+    $('rule-error').hidden = true;
+    $('rule-update-summary').textContent = preview.changes.length ? preview.changes.map(change => `${change.pack_id}: ${change.from} → ${change.to}`).join(' · ') : 'This character already uses the active domestic skill rules.';
+    $('rule-update-scope').textContent = preview.scope + ' A backup of all characters is created before applying.';
+    $('rule-update-skills').replaceChildren(...preview.skills.map(skill => {
+      const row = document.createElement('li'); row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before}% → ${skill.after}%`; return row;
+    }));
+    $('rule-update-counts').textContent = Object.keys(preview.before_remaining).map(pool => `${pool} remaining: ${preview.before_remaining[pool]} → ${preview.after_remaining[pool]}`).join(' · ');
+    $('rule-update-findings').replaceChildren(...[...preview.gaps, ...preview.sources].map(message => { const row = document.createElement('li'); row.textContent = message; return row; }));
+    $('apply-rule-update').disabled = !preview.changes.length;
+    $('rule-update-dialog').showModal();
+  } catch (error) { showError(error); } finally { lockNavigation(false); }
+};
+$('cancel-rule-update').onclick = () => $('rule-update-dialog').close();
+$('apply-rule-update').onclick = async () => {
+  if (navigationBusy || !rulePreview?.changes.length) return;
+  lockNavigation(true); $('apply-rule-update').disabled = true; $('cancel-rule-update').disabled = true;
+  try {
+    const result = await request(`/api/characters/${rulePreview.characterId}/rule-upgrade`, {revision:rulePreview.revision, token:rulePreview.token});
+    render(result.character); $('rule-update-dialog').close();
+    $('transfer-status').textContent = `Rules updated. Before-update backup: ${result.backup.path}`;
+  } catch (error) { $('rule-error').textContent = error.message; $('rule-error').hidden = false; }
+  finally { lockNavigation(false); $('apply-rule-update').disabled = false; $('cancel-rule-update').disabled = false; }
 };
 async function transfer(action) {
   if (navigationBusy) return;

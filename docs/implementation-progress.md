@@ -18,7 +18,8 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 - 05: In progress. Named slice 05A is merged in PR #4 and covers domestic selections and their percentage/quality rules. Sixteen checks, browser verification, independent reviews, and Windows CI pass. Remaining categories, required choices, I.Q. modifiers, and prerequisites are tracked as the follow-on 05B. Parent 05 stays open.
 - 06–24 and corpus content batches: Not complete.
 - 18: Split into 18A (portable Rifts saves, independent duplicates, exact supported rules, and atomic backups) and 18B (accepted-version archives and explicit upgrade previews). 18A is complete and merged in PR #5; 23 checks, browser validation, both reviews, and Windows CI pass. Parent 18 stays open.
-- 18B1: Accepted archive foundation is under review. Exact saved versions govern generation, skills, and portable definitions; changing a default does not change a saved pin. Full 18B upgrade previews and both-game support remain pending.
+- 18B1: Complete, merged in PR #7. Exact saved versions govern generation, skills, and portable definitions; changing a default does not change a saved pin. All 30 checks, both reviews, browser reopening, and Windows CI pass.
+- 05B1 / 18B2: I.Q. bonus chart and domestic-only explicit correction are under review. Version 1.1.0 applies the bonus once, including beyond-30 intervals; 1.0.0 stays accepted for older saves. Preview/cancel/apply, pre-update backups, stale/failure handling, and portable pins pass 34 checks and browser verification. Other 05B and full 18B cases remain pending.
 
 ## Pending source ruling
 

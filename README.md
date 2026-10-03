@@ -40,6 +40,8 @@ Use **Duplicate** for an independent character copy. **Export portable save** do
 
 See [the specification](docs/character-creator-spec.md), [ticket plan](docs/character-creator-ticket-plan.md), and [design decisions](docs/design-interview.md). Book transcriptions and reference PDFs remain local inputs and are not committed with the application.
 
+**Review rule updates** shows the domestic skill version, before/after percentages, selection counts, sources, and remaining gaps. Existing characters keep their saved versions until **Apply reviewed update** is selected. Applying creates a before-update database backup and displays its path; use the restoration procedure above if needed. New characters use domestic 1.1.0, including the reviewed I.Q. bonus. Other attribute effects, remaining skill categories, and broader rule upgrades are still pending.
+
 ## Source inventory
 
 The Book sources & coverage view searches provisional section candidates and displays source/PDF fingerprints. It never counts a heading as an implemented character option. Rebuild its metadata from completed pipeline outputs:

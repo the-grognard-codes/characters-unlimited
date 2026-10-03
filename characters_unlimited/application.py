@@ -1,6 +1,7 @@
 """Player-facing character workflows; all derived results enter through this seam."""
 
 import secrets
+import hashlib
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
@@ -10,7 +11,7 @@ from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute
 from .skills import validate_selections, project_skills
-from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs
+from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
@@ -97,6 +98,40 @@ class CharacterApplication:
     def backup(self):
         path = self.store.backup()
         return {'path': str(path.resolve()), 'filename': path.name}
+
+    def preview_rule_upgrade(self, identifier):
+        character = self.get(identifier)
+        previous = self.character_skill_pack(character)
+        target = self.rule_archive.active('rifts-domestic-skills')
+        changes = [] if previous['version'] == target['version'] else [
+            {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
+        # This explicit upgrade handler changes domestic definitions only.
+        validate_selections(character.get('skill_selections', []), target)
+        before = project_skills(character, previous)
+        after = project_skills(character, target)
+        preview = {'revision': character['revision'], 'changes': changes,
+                   'skills': [{'name': skill['name'], 'specialty': skill.get('specialty', ''),
+                               'before': skill['percentage'], 'after': following['percentage']}
+                              for skill, following in zip(before['grants'] + before['selected'], after['grants'] + after['selected'])],
+                   'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
+                   'gaps': after['gaps'], 'sources': after['sources'],
+                   'scope': 'Domestic skill definitions only. Attributes and their recorded dice stay unchanged.'}
+        preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'target': target})).hexdigest()
+        return preview
+
+    def apply_rule_upgrade(self, identifier, *, revision, token):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed after the preview. Reopen it and preview the update again.')
+        preview = self.preview_rule_upgrade(identifier)
+        if not preview['changes'] or not isinstance(token, str) or not secrets.compare_digest(token, preview['token']):
+            raise ValueError('The rule update preview is unavailable or changed. Preview it again before applying.')
+        backup = self.backup()
+        pins = dict(character['additional_rule_packs'])
+        pins['rifts-domestic-skills'] = preview['changes'][0]['to']
+        updated = self.store.update(identifier, {'additional_rule_packs': pins}, revision)
+        return {'character': updated, 'backup': backup}
 
     def select_skills(self, identifier, *, revision, selections):
         character = self.get(identifier)

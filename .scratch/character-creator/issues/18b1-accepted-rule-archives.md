@@ -1,6 +1,6 @@
 # 18B1: Resolve accepted rules by immutable version
 
-**Status:** in-progress
+**Status:** complete — merged in PR #7
 
 **Blocked by:** 18A
 

@@ -51,6 +51,11 @@ def compare_skill_views(before, after):
                                 'name':skill['name']+' — '+name.replace('_',' '),
                                 'specialty':skill.get('specialty',''), 'percentage':value['value'] if isinstance(value,dict) else value,
                                 'unit':''}
+                    for activity in skill.get('activities', []):
+                        for field,unit in (('speed_attribute','Spd'),('miles','miles'),('kilometers','km')):
+                            result[(*identity,occurrence,'activity:'+activity['id']+':'+field)] = {
+                                'name':skill['name']+' — '+activity['name'],
+                                'specialty':skill.get('specialty',''), 'percentage':activity[field], 'unit':unit}
                     continue
                 result[(*identity, occurrence, 'primary')] = skill
                 for check in skill.get('additional_checks', []):
@@ -142,7 +147,7 @@ def project_skills(character, pack=PACK):
     sources = ['Vagabond O.C.C. allowances and bonuses: Ultimate Edition pp. 97–98.',
                'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.']
     if any(skill.get('kind') == 'physical' for skill in domestic):
-        sources.append('Athletics and Body Building bonuses accumulate once per skill: p. 316. Gun-dodge restrictions: p. 361.')
+        sources.append('Reviewed Physical bonuses accumulate once per skill: p. 316. Gun-dodge restrictions: p. 361.')
         gaps.append('Other Physical skills are pending. Starting S.D.C. is generated separately.' if 'resources' in pack
                     else 'Physical S.D.C. bonuses are recorded; starting S.D.C. totals and other Physical skills are pending.')
     if intelligence_rule:

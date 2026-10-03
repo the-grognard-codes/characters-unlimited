@@ -4,7 +4,7 @@
 
 **Blocked by:** 02A
 
-**Status:** in-progress; identity batches are merged, complete supporting-rule/dependency audit and named content-ticket fan-out remain open.
+**Status:** in-progress; identity batches are merged, the current 718 identities have bounded owners through 02B11/PR #43; complete supporting-rule/dependency audit and further discovered entries remain open.
 
 - [ ] Every supplied O.C.C., R.C.C., race, power category, construction path, and supporting mechanical entry is accounted for; heading-only extraction is insufficient.
 - [ ] Aliases, contents/index repeats, and non-rule sections are distinguished from canonical entries with evidence.

@@ -156,6 +156,12 @@ async function loadSkills(character) {
     }
     if (skill.notes) explanation.textContent += ' · ' + skill.notes.join(' ');
     row.append(heading, explanation);
+    for (const activity of skill.activities || []) {
+      const details = document.createElement('p'); details.className = 'help';
+      details.textContent = activity.miles == null ? activity.guidance
+        : `${activity.name}: Spd ${activity.speed_attribute.toLocaleString()} · ${activity.miles.toLocaleString(undefined,{maximumFractionDigits:3})} miles / ${activity.kilometers.toLocaleString(undefined,{maximumFractionDigits:3})} km. ${activity.guidance}`;
+      row.append(details);
+    }
     if (!skill.grant) {
       const remove = document.createElement('button'); remove.textContent = 'Remove selection';
       remove.onclick = () => characterAction('skills', {selections:(current.skill_selections || []).filter((item, position) => position !== index - view.grants.length)}).catch(showError);

@@ -1,12 +1,13 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 271 source-bound entries across the core games and all eight supplied Rifts books. This remains a partial identity audit, not full corpus coverage or mechanical acceptance.",
+    "Identity audit currently covers 315 source-bound entries across the core games and all eight supplied Rifts books, with the first six Aliens Unlimited racial groups. This remains a partial identity audit, not full corpus coverage or mechanical acceptance.",
     "Remaining core child paths, supplement subpaths, other supplied books and supporting mechanical entries remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics.",
     "Mercenary NPC profiles include referenced Uteni, Dysasha, Raksasha, Brodkil, tattooed/witch/psionic paths and Dog Pack Wolf examples. Profile-to-existing-option reconciliation and full racial/template evidence remain pending; named personnel are not invented independent O.C.C.s.",
     "Remaining South America 2 occupation adaptations, heritage variants and referenced magic/augmentation systems need full dependency and named content-ticket review. Destroyer Borg remains blocked by the verified damaged page.",
-    "Powers Unlimited 2 category and named creation-branch identities are audited. Its genetic options, mental disciplines, weapon specialties, powers and other supporting mechanics still need complete dependency review and content-ticket fan-out; remaining Heroes books stay pending."
+    "Powers Unlimited 2 category and named creation-branch identities are audited. Its genetic options, mental disciplines, weapon specialties, powers and other supporting mechanics still need complete dependency review and content-ticket fan-out; remaining Heroes books stay pending.",
+    "Aliens Unlimited amphibian, aquatic, ape, avian, canine and feline identities are confirmed against original body headings and footers (PDF = printed +1). Darkith and Wardions retain parent relationships; remaining racial groups, generation systems, supporting mechanics and named content-ticket fan-out stay pending."
   ],
   "entries": [
     {
@@ -8670,6 +8671,1381 @@
       "dependencies": [],
       "findings": [
         "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "au-axolotl",
+      "name": "Axolotl",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "05d3df3c11b015ba40c2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-caecil",
+      "name": "Caecil",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "004dc3f507601c2cacfb"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          52
+        ],
+        "pdf_pages": [
+          53
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-cameroon",
+      "name": "Cameroon",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "30fe87bd8675cdd83fe3"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-darkith",
+      "name": "Darkith",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "The Darkith"
+      ],
+      "candidate_ids": [
+        "6831ea5159e988d9a340"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-cameroon"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this cameroon named variant/subentry. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending.",
+        "Named Cameroon variant; shared racial rules and variant differences need mechanical reconciliation."
+      ]
+    },
+    {
+      "id": "au-deurycans",
+      "name": "Deurycans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "5f4bc90846d2722fd5b5"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          54
+        ],
+        "pdf_pages": [
+          55
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-mantella",
+      "name": "Mantella",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "42db369dec1f3e15c6eb"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          55
+        ],
+        "pdf_pages": [
+          56
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-sorinam",
+      "name": "Sorinam",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "9002426c61fea06bbdcf"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          56
+        ],
+        "pdf_pages": [
+          57
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-xenopus",
+      "name": "Xenopus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "78bc315ef294e22f13aa"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          57
+        ],
+        "pdf_pages": [
+          58
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this amphibian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-cherion",
+      "name": "Cherion",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "e660a3482e3149b8c601"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race; begins on section-opening page. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-errasa",
+      "name": "Errasa",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "eb50e9479372e4535199"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          59
+        ],
+        "pdf_pages": [
+          60
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-inennsi",
+      "name": "Inennsi",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d40e3bb7356110b9efb9"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-nattereris",
+      "name": "Nattereris",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Nattereri"
+      ],
+      "candidate_ids": [
+        "369ad579e7bf71b5d334"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          61
+        ],
+        "pdf_pages": [
+          62
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race; separate later stat heading uses singular “nattereri”. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-salar",
+      "name": "Salar",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "531ff8cd2158ce12a739"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          63
+        ],
+        "pdf_pages": [
+          64
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-salvelinus",
+      "name": "Salvelinus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "eebe94890eb3e5375d0e"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          64
+        ],
+        "pdf_pages": [
+          65
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-tinalis",
+      "name": "Tinalis",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "0e3396c1f5a12a3c4960"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          65
+        ],
+        "pdf_pages": [
+          66
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this aquatic race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-anubios",
+      "name": "Anubios",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "16560a037dec2ddcb9fc"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          66
+        ],
+        "pdf_pages": [
+          67
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-capucis",
+      "name": "Capucis",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "6d98441a064f237f21c4"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          67
+        ],
+        "pdf_pages": [
+          68
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-cebus",
+      "name": "Cebus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "318b10efc292ce9fbdda"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          68
+        ],
+        "pdf_pages": [
+          69
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-dyteens",
+      "name": "Dyteens",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Dyteen"
+      ],
+      "candidate_ids": [
+        "5440dbb310aff8c9ccf4"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          69
+        ],
+        "pdf_pages": [
+          70
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-maeus",
+      "name": "Maeus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "fab0f385cafa8d7ef9c2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          70
+        ],
+        "pdf_pages": [
+          71
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-thropo",
+      "name": "Thropo",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "3c4114caa268e5652bc6"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          71
+        ],
+        "pdf_pages": [
+          72
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-trogolo",
+      "name": "Trogolo",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "a4f5b597b4642edf77e2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          72
+        ],
+        "pdf_pages": [
+          73
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this ape race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-elecians",
+      "name": "Elecians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d417f0ad1954a4d1c89f"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          73
+        ],
+        "pdf_pages": [
+          74
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-gallopas",
+      "name": "Gallopas",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "870ded18e3d25fbc0a9b"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          74
+        ],
+        "pdf_pages": [
+          75
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-gymoy",
+      "name": "Gymoy",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "caa8d845afcb8a563302"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          75
+        ],
+        "pdf_pages": [
+          76
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-struthios",
+      "name": "Struthios",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "de13f9e776c2d1111f1f"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          76
+        ],
+        "pdf_pages": [
+          77
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-tagonicans",
+      "name": "Tagonicans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d8ea93ec90263f497808"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          78
+        ],
+        "pdf_pages": [
+          79
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending.",
+        "Tagoniglomerate is political affiliation, not a separate race or alias."
+      ]
+    },
+    {
+      "id": "au-threskians",
+      "name": "Threskians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "a3eaea0c4ad3747b23ae"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          78
+        ],
+        "pdf_pages": [
+          79
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-timneh",
+      "name": "Timneh",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Timnehs"
+      ],
+      "candidate_ids": [
+        "ade70b6c0c867356a6f6"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          79
+        ],
+        "pdf_pages": [
+          80
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this avian race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-canis",
+      "name": "Canis",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "bd3b0fbf80c61cbd0408"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          80
+        ],
+        "pdf_pages": [
+          81
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-dergins",
+      "name": "Dergins",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "f56376f97729d55ffb43"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          82
+        ],
+        "pdf_pages": [
+          83
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-wardions",
+      "name": "Wardions",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "21b67b4c94bcbe85ca81"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          83
+        ],
+        "pdf_pages": [
+          84
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-dergins"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this named warrior-class branch of dergins. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending.",
+        "Named warrior-class branch inside the Dergins profile, not an independently headed species; shares Dergin traits. Its distinct occupation rules need review."
+      ]
+    },
+    {
+      "id": "au-latran",
+      "name": "Latran",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "baa116508e9fede1ad38"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          84
+        ],
+        "pdf_pages": [
+          85
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-lupis",
+      "name": "Lupis",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "15c333c1887f748a81ca"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          85
+        ],
+        "pdf_pages": [
+          86
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-toyoc",
+      "name": "Toyoc",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "e38229f9f882fcd1ee58"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          86
+        ],
+        "pdf_pages": [
+          87
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-vulpese",
+      "name": "Vulpese",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "e58fb3e8bf83f039a29f"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          87
+        ],
+        "pdf_pages": [
+          88
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-wulf",
+      "name": "Wulf",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "fe10e5103cdf65c27722"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          88
+        ],
+        "pdf_pages": [
+          89
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this canine race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-altaicans",
+      "name": "Altaicans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "fecc839cef558c383b75"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          89
+        ],
+        "pdf_pages": [
+          90
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-concol",
+      "name": "Concol",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "e0a452425046e38336c6"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          90
+        ],
+        "pdf_pages": [
+          91
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-felias",
+      "name": "Felias",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "2dce72b5c2171abd43f3"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          91
+        ],
+        "pdf_pages": [
+          92
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-giris",
+      "name": "Giris",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "c369df042568cf8ffe5e"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          93
+        ],
+        "pdf_pages": [
+          94
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-linx",
+      "name": "Linx",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "01b3bded3c245517846f"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          94
+        ],
+        "pdf_pages": [
+          95
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-pantherans",
+      "name": "Pantherans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d6cb3dbc41acc3b13f38"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-pume",
+      "name": "Pume",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "96f81d5cef611e502fb4"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          96
+        ],
+        "pdf_pages": [
+          97
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
       ]
     }
   ]

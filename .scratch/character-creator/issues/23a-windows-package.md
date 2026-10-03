@@ -1,6 +1,8 @@
 # 23A: Early self-contained Windows package
 
-**Status:** in-progress
+**Status:** done
+
+Merged in PR #20 after both reviews and Windows frozen-build CI passed. Final controller visual/interaction acceptance remains with parent 23.
 
 **Dependencies:** Current local application and editable Rifts export. Parent 23 stays open for Heroes Unlimited, advancement, complete coverage and final offline release acceptance.
 

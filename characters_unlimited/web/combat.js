@@ -1,10 +1,10 @@
 "use strict";
 let combatView;
 function combatValue(result) {
-  return result.value == null ? 'pending' : (result.value > 0 ? '+' : '') + result.value;
+  return result.value == null ? 'pending' : (result.value > 0 ? '+' : '') + result.value + (result.unit || '');
 }
 function combatExplanation(result) {
-  const terms = Object.entries(result.contributions).map(([name,value]) => `${name.replaceAll('_',' ')} ${value > 0 ? '+' : ''}${value}`);
+  const terms = Object.entries(result.contributions).map(([name,value]) => `${name.replaceAll('_',' ')} ${value > 0 ? '+' : ''}${value}${result.unit || ''}`);
   const references = (result.sources || []).map(source => `${source.book}, pp. ${source.pages.join(', ')}`);
   return [...terms, ...references].join(' · ');
 }
@@ -37,6 +37,9 @@ function renderCombat(view) {
     });
   }
   $('combat-totals').replaceChildren(...Object.entries(view.totals).map(([name,result])=>combatRow(name.replaceAll('_',' '),result)));
+  $('saving-section').hidden = !Object.keys(view.saving_bonuses || {}).length;
+  $('saving-bonuses').replaceChildren(...Object.values(view.saving_bonuses || {}).map(result=>combatRow(result.name,result)));
+  $('saving-notes').textContent = (view.saving_notes || []).join(' ');
   const attacks=[];
   view.unarmed.forEach(item => { const row=document.createElement('p'); row.textContent=`${item.name}: ${item.damage} · ${item.actions} action(s)`; attacks.push(row); });
   view.melee.forEach(item => { attacks.push(combatRow(item.name+' melee strike',item.strike),combatRow(item.name+' melee parry',item.parry)); });

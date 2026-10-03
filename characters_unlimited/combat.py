@@ -1,6 +1,7 @@
 """Reviewed level-one ordinary-human combat, with missing mechanics left absent."""
 
 from collections import Counter
+from .saving_bonuses import project_saving_bonuses
 from typing import Any
 
 
@@ -35,8 +36,9 @@ def total(contributions, *, missing=False, actions=1):
 
 
 def project_combat(character, pack):
+    saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
     rules = pack.get('combat')
-    gaps = ['Physical skills, remaining proficiencies, equipment attacks, saving throws, enhanced strength types and combat advancement are pending.']
+    gaps = ['Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
     if character['rules']['version'] == '1.0.0':
         gaps.insert(0, 'This saved primary rule version has no class attribute bonuses; combat uses the attributes currently displayed. An explicit primary-rule upgrade remains pending.')
     if not rules:
@@ -115,6 +117,7 @@ def project_combat(character, pack):
              'Power punch uses two actions and doubles base dice before adding the normal-human strength bonus.',
              'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.']
     return {'catalog':rules,'choices':choices,'totals':totals,'melee':melee,'shooting':shooting,'unarmed':unarmed,
+            'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
             'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':hand['cost']}
 
 
@@ -127,6 +130,9 @@ def compare_combat_views(before, after):
                     result[(group,item['id'],stat)]={'name':item['name']+' — '+stat, 'value':item[stat]['value']}
         for item in view['unarmed']:
             result[('unarmed',item['id'])]={'name':item['name']+' damage', 'value':item['damage']}
+        for identifier, bonus in view.get('saving_bonuses', {}).items():
+            result[('saving', identifier)] = {'name': bonus['name'] + ' (attribute bonus)' + bonus['unit'],
+                                             'value': bonus['value']}
         return result
     previous,following=index(before),index(after)
     return [{'name':following.get(key,previous.get(key))['name'],

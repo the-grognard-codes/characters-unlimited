@@ -4,7 +4,7 @@ from copy import deepcopy
 from collections import Counter
 
 from .education import project_education
-from .proficiency import project_proficiency
+from .proficiency import project_proficiency, synergy_contributions
 
 
 def validate_program_selections(selections, pack):
@@ -42,7 +42,8 @@ def program_choice_view(selection, program, warnings):
     groups = []
     for definition in program.get('choice_groups',[]):
         choices = selection.get('choices',{}).get(definition['id'],[])
-        eligible = set(choices).intersection(definition['skill_ids'])
+        unresolved = set(choices).intersection(definition.get('unresolved_skill_ids',[]))
+        eligible = set(choices).intersection(definition['skill_ids'])-unresolved
         remaining = definition['count']-len(eligible)
         label = f"{program['name']} slot {selection['slot']+1} — {definition['name']}"
         if remaining:
@@ -51,6 +52,8 @@ def program_choice_view(selection, program, warnings):
             warnings.append(f'{label}: repeated choices retained; duplicates do not fill another distinct choice.')
         if set(choices)-set(definition['skill_ids']):
             warnings.append(f'{label}: outside-group choices retained with no group education bonus.')
+        if unresolved:
+            warnings.append(f'{label}: duplicate fixed-grant choice credit is pending interpretation. Fixed grants remain intact; the extra entitlement is not certified.')
         groups.append({**deepcopy(definition),'selections':deepcopy(choices),'entered':len(choices),
                        'credited':len(eligible),'remaining':remaining})
     return groups
@@ -116,7 +119,8 @@ def project_programs(character, pack, education_pack):
     for definition in pack['skills']:
         if definition['id'] not in bonuses:
             continue
-        contributions = {'base':definition['base'], 'education':bonuses[definition['id']], 'intelligence':intelligence}
+        contributions = {'base':definition['base'], 'education':bonuses[definition['id']], 'intelligence':intelligence,
+                         **synergy_contributions(definition,set(bonuses))}
         skills.append({**deepcopy(definition), **project_proficiency(definition, contributions),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),

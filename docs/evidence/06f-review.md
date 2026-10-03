@@ -15,3 +15,5 @@ Computer eligibility, three fixed grants and one explicit Repair/Radio alternati
 Frozen Windows CI remains a pending acceptance check before merge.
 
 Standards: 0 findings. Spec: 1 pending verification item (Windows frozen operation), no implementation findings.
+
+The pending verification item is closed: both Windows frozen checks passed before PR #38 merged. Final Standards: 0 findings. Final Spec: 0 findings.

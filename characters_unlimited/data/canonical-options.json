@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 30 listed Rifts O.C.C.s, two Psi-Stalker paths, six dragon hatchlings and their shared rules, ten Heroes Unlimited power categories and two optional modifiers. It does not complete either core book or the 13-book corpus.",
+    "Identity audit currently covers 67 source-bound entries: listed Rifts classes and racial paths, Heroes Unlimited categories/modifiers, named Hardware and Special Training paths, robot types and shared construction rules. This is still a partial identity audit, not full corpus coverage.",
     "Racial choices, breed/path variants, Heroes subpaths, supporting mechanical entries and all supplement identities remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics."
   ],
@@ -1563,6 +1563,599 @@
       "findings": [
         "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
         "Optional personality and power modifier with category-specific applicability; it is not a separate roll on the ten-category table."
+      ]
+    },
+    {
+      "id": "hu2-hardware-electrical",
+      "name": "Hardware: Electrical Genius",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Electrical Genius"
+      ],
+      "candidate_ids": [
+        "b9d7adee123ca8629f56"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          4,
+          122
+        ],
+        "pdf_pages": [
+          5,
+          123
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-hardware"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-hardware-mechanical",
+      "name": "Hardware: Mechanical Genius",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Mechanical Genius"
+      ],
+      "candidate_ids": [
+        "20b471a312ce6cb1a0fa"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          4,
+          125
+        ],
+        "pdf_pages": [
+          5,
+          126
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-hardware"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-hardware-analytical",
+      "name": "Hardware: Analytical Genius",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Analytical Genius"
+      ],
+      "candidate_ids": [
+        "5bf562bbafb9674f6aa5"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          4,
+          128
+        ],
+        "pdf_pages": [
+          5,
+          129
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-hardware"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-hardware-weapons",
+      "name": "Hardware: Weapons Expert",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Weapons Expert"
+      ],
+      "candidate_ids": [
+        "4583d127fd30a2ab7c9a"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          4,
+          130
+        ],
+        "pdf_pages": [
+          5,
+          131
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-hardware"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-hardware-super-vehicle",
+      "name": "Hardware: Building the Super Vehicle",
+      "kind": "construction",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Super Vehicle",
+        "Super-Vehicles"
+      ],
+      "candidate_ids": [
+        "5ccf9338d68d74bb51d4"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          4,
+          136
+        ],
+        "pdf_pages": [
+          5,
+          137
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-hardware"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path.",
+        "Construction eligibility across Hardware specializations and adjacent vehicle-building rules remains unreviewed; no Mechanical Genius inheritance is assumed."
+      ]
+    },
+    {
+      "id": "hu2-special-ancient-master",
+      "name": "Ancient Master",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "The Ancient Master"
+      ],
+      "candidate_ids": [
+        "6ec525ccca52c6994a8e"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          211
+        ],
+        "pdf_pages": [
+          212
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-special-training"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-special-hunter",
+      "name": "Hunter/Vigilante",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Hunter",
+        "Manhunter",
+        "Vigilante",
+        "Hunter/Manhunter/Vigilante"
+      ],
+      "candidate_ids": [
+        "287afa39f5e6c770e3ba"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          211,
+          214
+        ],
+        "pdf_pages": [
+          212,
+          215
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-special-training"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-special-secret-operative",
+      "name": "Secret Operative",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Spy",
+        "Secret Operative/Spy",
+        "The Secret Operative"
+      ],
+      "candidate_ids": [
+        "909f9a5b88f72fd9a948"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          211,
+          216
+        ],
+        "pdf_pages": [
+          212,
+          217
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-special-training"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-special-stage-magician",
+      "name": "Stage Magician",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Master of Illusion",
+        "Stage Magician/Master of Illusion"
+      ],
+      "candidate_ids": [
+        "e1727db218a91b5b5026"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          211,
+          219
+        ],
+        "pdf_pages": [
+          212,
+          220
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-special-training"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-special-super-sleuth",
+      "name": "Super Sleuth",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Detective",
+        "Super Sleuth/Detective",
+        "The Super Sleuth"
+      ],
+      "candidate_ids": [
+        "4d3e93e86af4a9479dcc"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          211,
+          221
+        ],
+        "pdf_pages": [
+          212,
+          222
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-special-training"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-robot-body-types",
+      "name": "The Four Robot Types",
+      "kind": "rule",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Selecting a Robot Body"
+      ],
+      "candidate_ids": [
+        "0a9cf44f7315776e8d15"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          194
+        ],
+        "pdf_pages": [
+          195
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-robotics"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-robot-construction",
+      "name": "Robot Construction",
+      "kind": "construction",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Step Six: Robot Construction"
+      ],
+      "candidate_ids": [
+        "6e46740c526dc9e1985d"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          200
+        ],
+        "pdf_pages": [
+          201
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-robotics"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-robot-vehicle",
+      "name": "Type 1: Robot Vehicle",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Robot Vehicle"
+      ],
+      "candidate_ids": [
+        "3e7c322268c7c6ae0663"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          194
+        ],
+        "pdf_pages": [
+          195
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-robotics",
+        "hu2-robot-body-types",
+        "hu2-robot-construction"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-robot-true",
+      "name": "Type 2: True Robot",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "True Robot",
+        "True Robot/Machine Body"
+      ],
+      "candidate_ids": [
+        "3eed5b383d503a5dd83a"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          194,
+          196
+        ],
+        "pdf_pages": [
+          195,
+          197
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-robotics",
+        "hu2-robot-body-types",
+        "hu2-robot-construction"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
+      ]
+    },
+    {
+      "id": "hu2-robot-exoskeleton",
+      "name": "Type 3: Exoskeleton",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Exoskeleton",
+        "Robot Suit",
+        "Power Armor"
+      ],
+      "candidate_ids": [
+        "cc9d13035d2a9e548819"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          194,
+          196,
+          197
+        ],
+        "pdf_pages": [
+          195,
+          197,
+          198
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-robotics",
+        "hu2-robot-body-types",
+        "hu2-robot-construction",
+        "hu2-robot-vehicle"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path.",
+        "Page 197 explicitly reuses Type 1 robot-pilot rules; this source link does not certify their numerical implementation."
+      ]
+    },
+    {
+      "id": "hu2-robot-android",
+      "name": "Type 4: Android",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [
+        "Android"
+      ],
+      "candidate_ids": [
+        "680fb93333c9003d04a6"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          194,
+          197
+        ],
+        "pdf_pages": [
+          195,
+          198
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-robotics",
+        "hu2-robot-body-types",
+        "hu2-robot-construction"
+      ],
+      "findings": [
+        "Source identity confirmed; complete numerical mechanics, equipment, advancement and dependency review remain pending.",
+        "Named content-ticket assignment is pending the complete 13-book audit; this identity is not a selectable automated character path."
       ]
     }
   ]

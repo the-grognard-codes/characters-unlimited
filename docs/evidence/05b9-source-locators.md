@@ -1,0 +1,9 @@
+# 05B9 source evidence
+
+Original Ultimate Edition printed p. 317 / physical PDF p. 320 was rendered and visually inspected. Physical Labor adds P.S. +2, P.E. +1 and S.D.C. +2D8. Running adds P.E. +1, Spd +4D4 and S.D.C. +1D6. The Running routine permits half a mile (0.8 km) per P.E. at half speed, with one third of that distance at maximum speed. These are routine distance limits; universal movement conversion, elapsed time and other endurance contexts are outside this slice.
+
+Corrected Markdown candidate `0f582017f960a22d7a6d` (Physical Skills, lines 18355–18450) includes both definitions and the accumulation guidance on preceding printed p. 316 / PDF p. 319. Source Markdown SHA-256: `601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9`; original PDF SHA-256: `448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c`. No original book or transcription was modified.
+
+Related/Secondary eligibility uses the existing source-reviewed Physical category rules: Vagabond printed pp. 97–98 / PDF pp. 100–101 and Secondary printed p. 300 / PDF p. 303. Both are eligible Related choices. The original Secondary list explicitly includes Running and excludes Physical Labor; retained Physical Labor Secondary choices therefore require guidance. General accumulation and once-only acquisition reuse 05B8's reviewed contract. HP first-generation sequencing retains the user's accepted effective-P.E. interpretation under 07C.
+
+Independent example: racial P.E. 12 plus Vagabond +2, Physical Labor +1 and Running +1 gives P.E. 16. HP with D6=5 is 21 and retains P.E. 16 afterward. With racial Spd 12 and Running D4 faces 1,2,3,4, effective Spd is 22: half-speed Spd 11 and distance 8 miles / 12.8 km; maximum-speed Spd 22 and distance 8/3 miles / 12.8/3 km. Physical Labor D8 faces 2,3 and Running D6=1 add S.D.C. 6 to the separately generated general/class baseline.

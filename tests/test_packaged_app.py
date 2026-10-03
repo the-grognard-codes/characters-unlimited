@@ -88,6 +88,16 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(coverage['summary']['unassigned_options'],0)
                 self.assertEqual(coverage['summary']['mechanically_reviewed'],0)
                 self.assertTrue(coverage['content_tickets'])
+                character = request('/api/characters/'+identifier+'/skills',
+                                    {'revision':character['revision'],'selections':[
+                                        {'skill_id':'athletics','pool':'related'},
+                                        {'skill_id':'body-building','pool':'related'},
+                                        {'skill_id':'physical-labor','pool':'related'},
+                                        {'skill_id':'running','pool':'related'}]},token)
+                endurance = request('/api/characters/'+identifier+'/skills')
+                running = next(skill for skill in endurance['selected'] if skill['id']=='running')
+                self.assertEqual(running['activities'][0]['miles'],character['attributes']['PE']['value']*0.5)
+                self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],resource_view['resources']['HP']['value'])
                 portable = request('/api/characters/' + identifier + '/export')
                 imported = request('/api/import', {'bundle':portable}, token)
                 self.assertNotEqual(imported['id'], identifier)

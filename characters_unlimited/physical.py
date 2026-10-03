@@ -5,6 +5,11 @@ from copy import deepcopy
 from .attribute_modifiers import attribute_value
 
 
+# Activity decimals travel through JSON and browser numbers. Larger manual
+# attributes remain saved, but are not safely representable in this projection.
+MAX_ACTIVITY_ATTRIBUTE = 9_007_199_254_740_991
+
+
 def _definitions(pack):
     return {skill['id']: skill for skill in pack['skills'] if skill.get('kind') == 'physical'}
 
@@ -171,7 +176,33 @@ def project_physical(character, pack):
         for stat, bonus in effects['combat'].items():
             combat.setdefault(stat, {})[definition['name']] = bonus
         selection = next(item for item in character.get('skill_selections', []) if item['skill_id'] == identifier)
-        selected.append({**deepcopy(definition), **deepcopy(selection), 'effects': effects})
+        projected = {**deepcopy(definition), **deepcopy(selection), 'effects': effects}
+        if 'activities' in definition:
+            projected['activities'] = _running_activities(character, definition['activities'])
+        selected.append(projected)
         if source not in sources:
             sources.append(deepcopy(source))
     return {'selected': selected, 'resources': resources, 'combat': combat, 'sources': sources}
+
+
+def _running_activities(character, rules):
+    if not isinstance(rules, dict) or set(rules) != {'running'}:
+        raise ValueError('Unsupported Physical activity rules')
+    running = rules['running']
+    fields = {'half_speed_miles_per_pe','half_speed_kilometers_per_pe','maximum_speed_distance_divisor'}
+    if (not isinstance(running, dict) or set(running) != fields
+            or any(type(value) not in (int,float) or not 0 < value <= 1000
+                   for value in running.values())):
+        raise ValueError('Invalid Running activity rules')
+    pe = character['attributes']['PE']['value']
+    speed = character['attributes']['SPD']['value']
+    supported = 0 < pe <= MAX_ACTIVITY_ATTRIBUTE and 0 < speed <= MAX_ACTIVITY_ATTRIBUTE
+    return [{'id':identifier, 'name':name,
+             'speed_attribute':speed * fraction if supported else None,
+             'miles':pe * running['half_speed_miles_per_pe'] / divisor if supported else None,
+             'kilometers':pe * running['half_speed_kilometers_per_pe'] / divisor if supported else None,
+             'guidance':'Running routine limit from current effective P.E. and Spd.' if supported
+                        else 'Positive effective P.E. and Spd within the supported numeric range are needed to calculate Running limits.'}
+            for identifier,name,fraction,divisor in (
+                ('half-speed','Running at half speed',0.5,1),
+                ('maximum-speed','Running at maximum speed',1,running['maximum_speed_distance_divisor']))]

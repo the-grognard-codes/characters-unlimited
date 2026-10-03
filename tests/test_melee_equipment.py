@@ -112,7 +112,7 @@ class MeleeEquipmentWorkflowTests(unittest.TestCase):
             self.assertIsNone(app.equipment_view(character['id'])['melee_attacks'][0]['strike']['value'])
             character = app.set_attribute(character['id'], revision=character['revision'],
                 attribute='PS', mode='fixed', value=2)
-            self.assertIn('Pending', app.equipment_view(character['id'])['melee_attacks'][0]['damage'])
+            self.assertEqual(app.equipment_view(character['id'])['melee_attacks'][0]['damage'], '½ × (1D4) S.D.C.')
             inventory = deepcopy(character['equipment'])
             inventory['items'][0]['location'] = 'stored'
             character = app.set_equipment(character['id'], revision=character['revision'], inventory=inventory)

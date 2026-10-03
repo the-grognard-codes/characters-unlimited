@@ -187,6 +187,12 @@ def project_resources(character, pack):
             amounts['Level 2'] = advancement['hp_roll']
             rolls['Level 2'] = [advancement['hp_roll']]
             sources.append(deepcopy(advancement['source']))
+            for event in character.get('later_advancements', []):
+                if event['level'] <= character['level']:
+                    label = 'Level ' + str(event['level'])
+                    amounts[label] = event['hp_roll']
+                    rolls[label] = [event['hp_roll']]
+                    sources.append(deepcopy(event['source']))
         if identifier == 'SDC':
             for item in physical:
                 if item['resource'] != 'SDC':

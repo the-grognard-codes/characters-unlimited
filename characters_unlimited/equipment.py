@@ -187,8 +187,8 @@ def project_equipment(character, pack, combat):
     low_pp = (combat is None or combat.get('totals', {}).get('strike', {}).get('value') is None)
     choices = combat.get('choices', {}) if isinstance(combat, dict) else {}
     trained = set(choices.get('modern', []))
-    combat_catalog = (combat.get('catalog') or {}) if isinstance(combat, dict) else {}
-    weapon_proficiencies = {item['id']: item for item in combat_catalog.get('modern', [])}
+    reviewed_low_strength = bool(combat and (combat.get('catalog') or {}).get('reviewed_low_strength_melee'))
+    weapon_proficiencies = {item['id']: item for item in combat.get('shooting', [])} if isinstance(combat, dict) else {}
     melee_training = {item['id']: item for item in combat.get('melee', [])} if isinstance(combat, dict) else {}
     totals = combat.get('totals', {}) if isinstance(combat, dict) else {}
 
@@ -229,12 +229,12 @@ def project_equipment(character, pack, combat):
                     'pdf_pages': [282, 284], 'section': 'Normal human strength damage',
                 }]
                 normal_strength = (character.get('strength_type', 'normal') == 'normal'
-                                   and set(contributions) == {'normal_strength'}
+                                   and set(contributions).issubset({'normal_strength','hand_to_hand'})
                                    and type(normal_bonus) is int)
                 melee_guidance = ['Held-knife melee only; throwing and enhanced-strength rules remain pending.']
                 if low_pp:
                     melee_guidance.append('P.P. below 8 leaves strike and parry totals pending.')
-                if type(ps) is not int or ps <= 4:
+                if type(ps) is not int or ps < 1 or (ps <= 4 and not reviewed_low_strength):
                     damage = 'Pending low-strength melee damage'
                     melee_guidance.append('P.S. 4 or less needs a reviewed melee damage interpretation.')
                 elif not damage_total:
@@ -245,8 +245,12 @@ def project_equipment(character, pack, combat):
                     melee_guidance.append('Enhanced strength melee damage is not yet reviewed.')
                 else:
                     damage = definition['damage'].removesuffix(' S.D.C.')
-                    if normal_bonus:
-                        damage += ' + ' + str(normal_bonus)
+                    combined_bonus = sum(contributions.values()) if ps > 2 else 0
+                    if combined_bonus:
+                        damage += ' + ' + str(combined_bonus)
+                    if ps <= 4:
+                        damage = '½ × (' + damage + ')'
+                        melee_guidance.append('Physical damage is halved; rounding is not specified by this source.')
                     damage += ' S.D.C.'
                 melee_attacks.append({
                     'possession_id': possession['id'], 'item_id': definition['id'],
@@ -260,26 +264,27 @@ def project_equipment(character, pack, combat):
                 continue
             wp_id = definition['proficiency']
             has_wp = wp_id in trained and wp_id in weapon_proficiencies
-            wp_bonus = weapon_proficiencies[wp_id]['strike'] if has_wp else 0
+            training = weapon_proficiencies.get(wp_id, {})
+            shooting_contributions = deepcopy(training.get('single', {}).get('contributions', {'weapon_proficiency':0}))
             ammunition_guidance = ('No shots remain in this weapon.' if possession['shots'] == 0 else '')
             if not has_wp:
                 warnings.append(f"{definition['name']}: matching weapon proficiency is missing; aimed total is unavailable.")
             if ammunition_guidance:
                 warnings.append(f"{definition['name']}: {ammunition_guidance}")
             single = {
-                'value': None if low_pp or possession['shots'] == 0 else wp_bonus,
-                'contributions': {'weapon_proficiency': wp_bonus},
+                'value': None if low_pp or possession['shots'] == 0 else sum(shooting_contributions.values()),
+                'contributions': shooting_contributions,
                 'actions': 1,
-                'sources': [deepcopy(definition['source'])],
+                'sources': [*deepcopy(training.get('single', {}).get('sources', [])), deepcopy(definition['source'])],
             }
-            aimed_contributions = ({'weapon_proficiency': wp_bonus, 'aimed_shot': 2,
+            aimed_contributions = ({**shooting_contributions, 'aimed_shot': 2,
                                     'weapon_aimed_bonus': definition['aimed_bonus']} if has_wp else {})
             aimed = {
                 'value': None if low_pp or not has_wp or possession['shots'] == 0
                          else sum(aimed_contributions.values()),
                 'contributions': aimed_contributions,
                 'actions': 2,
-                'sources': [deepcopy(definition['source'])],
+                'sources': [*deepcopy(training.get('aimed', {}).get('sources', [])), deepcopy(definition['source'])],
             }
             attacks.append({
                 'possession_id': possession['id'], 'item_id': definition['id'],
@@ -316,7 +321,8 @@ def project_equipment(character, pack, combat):
     if unknown_weight_quantity:
         guidance.append('Some carried equipment has no source weight; the known carried weight is an incomplete total.')
     if melee_attacks:
-        guidance.append('Held knife damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
+        guidance.append('Held knife damage uses the reviewed normal-human strength and training contributions once. Throwing and enhanced strength remain pending.' if reviewed_low_strength else
+                        'Held knife damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
     if any(item.get('category') == 'ammunition' for item in definitions.values()):
         guidance.append('Reload by swapping the remaining shots in one carried gun and one compatible carried clip. Split grouped gun or clip rows into individual possessions first.')
     funds = project_starting_funds(character, pack)

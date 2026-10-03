@@ -191,6 +191,21 @@ class PackagedApplicationTests(unittest.TestCase):
                 character = request('/api/characters/'+identifier+'/advance',
                     {'revision':character['revision'],'method':'level','value':2},token)
                 self.assertEqual(character['advancement']['hp_roll'],advancement_die)
+                character = request('/api/characters/'+identifier+'/advance',
+                    {'revision':character['revision'],'method':'level','value':15},token)
+                self.assertEqual(character['level'],15)
+                later_dice = [event['hp_roll'] for event in character['later_advancements']]
+                self.assertEqual(len(later_dice),13)
+                self.assertTrue(all(1 <= face <= 6 for face in later_dice))
+                self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],
+                                 resource_view['resources']['HP']['value']+advancement_die+sum(later_dice))
+                restored = request('/api/characters/'+identifier+'/undo-advancement',
+                    {'revision':character['revision']},token)
+                character = restored['character']
+                self.assertEqual(character['level'],14)
+                character = request('/api/characters/'+identifier+'/advance',
+                    {'revision':character['revision'],'method':'level','value':15},token)
+                self.assertEqual([event['hp_roll'] for event in character['later_advancements']],later_dice)
                 with urlopen(url + '/education.js', timeout=15) as script:
                     self.assertIn(b'loadEducation', script.read())
                 with urlopen(url + '/resources.js',timeout=15) as script:
@@ -299,8 +314,9 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/'+identifier)['equipment'],character['equipment'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
-                self.assertEqual(len(bootstrap['characters']), 7)
-                self.assertEqual(request('/api/characters/'+identifier)['level'],2)
+                self.assertEqual(len(bootstrap['characters']), 8)
+                self.assertEqual(request('/api/characters/'+identifier)['level'],15)
                 self.assertEqual(request('/api/characters/'+identifier)['advancement']['hp_roll'],advancement_die)
+                self.assertEqual([event['hp_roll'] for event in request('/api/characters/'+identifier)['later_advancements']],later_dice)
             finally:
                 process.terminate(); process.wait(timeout=10)

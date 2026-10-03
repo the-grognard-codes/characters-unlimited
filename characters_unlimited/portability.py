@@ -15,7 +15,7 @@ from .equipment import validate_inventory
 from .starting_funds import validate_starting_funds
 from .starting_gear import validate_starting_gear
 from .starting_choices import validate_starting_choices
-from .advancement import validate_advancement, remember_learning
+from .advancement import validate_advancement, validate_later_advancements, remember_learning
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices
 
@@ -123,12 +123,13 @@ def validate_character(character, core):
     for key in ('name', 'notes'):
         if not isinstance(character.get(key), str):
             raise ValueError(f'{key} must be text')
-    if character.get('level') not in (1, 2) or type(character.get('level')) is not int:
-        raise ValueError('This application version supports levels one and two')
-    if character['level'] == 2 and character.get('game') != 'rifts':
+    if type(character.get('level')) is not int or not 1 <= character['level'] <= 15:
+        raise ValueError('Unsupported character level')
+    if character['level'] > 1 and character.get('game') != 'rifts':
         raise ValueError('Heroes Unlimited advancement remains pending')
-    if 'experience' in character and (type(character['experience']) is not int or
-            not (0 if character['level'] == 1 else 1876) <= character['experience'] <= (1875 if character['level'] == 1 else 3750)):
+    if 'experience' in character and (type(character['experience']) is not int or character['experience'] < 0):
+        raise ValueError('Experience must match a reviewed level range')
+    if character['game'] != 'rifts' and character.get('experience', 0) > 1875:
         raise ValueError('Experience must match a reviewed level range')
     for key in ('completion', 'automation_gaps'):
         if not isinstance(character.get(key), list) or any(not isinstance(item, str) for item in character[key]):
@@ -175,17 +176,30 @@ def pinned_packs(character, packs, *, include_history=True):
         if match is None:
             raise ValueError(f'Unsupported rule version: {identifier} {version}')
         result.append(deepcopy(match))
-    if include_history and isinstance(character.get('advancement'), dict):
-        before = character['advancement'].get('before')
-        if not isinstance(before, dict):
-            raise ValueError('Missing advancement snapshot')
-        for pack in pinned_packs(before, packs, include_history=False):
-            if not any(item['id'] == pack['id'] and item['version'] == pack['version'] for item in result):
-                result.append(pack)
+    if include_history:
+        snapshots: list = []
+        if isinstance(character.get('advancement'), dict):
+            initial = character['advancement'].get('before')
+            if not isinstance(initial, dict) or 'advancement' in initial or 'later_advancements' in initial:
+                raise ValueError('Invalid flat initial advancement snapshot')
+            snapshots.append(initial)
+        events = character.get('later_advancements', [])
+        if not isinstance(events, list) or len(events) > 13:
+            raise ValueError('Invalid later advancement history')
+        snapshots.extend(event.get('before') if isinstance(event, dict) else None for event in events)
+        for before in snapshots:
+            if not isinstance(before, dict):
+                raise ValueError('Missing advancement snapshot')
+            if 'later_advancements' in before:
+                raise ValueError('Later advancement snapshots must stay flat')
+            for pack in pinned_packs(before, packs):
+                if not any(item['id'] == pack['id'] and item['version'] == pack['version'] for item in result):
+                    result.append(pack)
     return result
 
 
 def export_bundle(character, packs):
+    canonical(character)
     expected = pinned_packs(character, packs)
     core = primary_pack(character, expected)
     validate_character(character, core)
@@ -227,7 +241,7 @@ def primary_pack(character, packs):
     return core
 
 
-def validate_sources(character, packs):
+def validate_sources(character, packs, *, history_frame=False):
     core = primary_pack(character, packs)
     if 'equipment' in character or 'starting_funds' in character or 'starting_gear' in character or 'starting_choices' in character:
         equipment_pack = next((item for item in packs if item['id']=='rifts-equipment'),None)
@@ -243,6 +257,7 @@ def validate_sources(character, packs):
     validate_resources(character,skill_pack or {})
     if skill_pack is not None:
         validate_advancement(character, skill_pack)
+        validate_later_advancements(character, skill_pack, history_frame=history_frame)
         validate_selections(character.get('skill_selections',[]),skill_pack)
         if 'required_skill_choices' in character:
             validate_required_choices(character['required_skill_choices'], skill_pack)
@@ -253,7 +268,7 @@ def validate_sources(character, packs):
             validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),skill_pack)
     elif 'physical_acquisitions' in character:
         raise ValueError('Physical skill acquisitions must retain their Rifts rule version')
-    elif 'advancement' in character or 'learning_levels' in character or character['level'] != 1:
+    elif 'advancement' in character or 'later_advancements' in character or 'learning_levels' in character or character['level'] != 1:
         raise ValueError('Advancement must retain its Rifts rule version')
     if 'advancement' in character:
         before = {**character['advancement']['before'], 'id': character['id'],
@@ -272,6 +287,15 @@ def validate_sources(character, packs):
                 validate_combat_choices(character.get('combat_choices', {}), skill_pack))
             if levels != expected:
                 raise ValueError('Every current skill must retain its learned-level record')
+    for event in character.get('later_advancements', []):
+        before = {**event['before'], 'id': character['id'], 'revision': 0,
+                  'updated_at': character['updated_at']}
+        historical = pinned_packs(before, packs)
+        old_skill_pack = next(item for item in historical if item['id'] == 'rifts-domestic-skills')
+        if canonical(event['source']) != canonical(old_skill_pack.get('higher_advancement', {}).get('source')):
+            raise ValueError('Later advancement source must match its pinned rules')
+        validate_character(before, primary_pack(before, historical))
+        validate_sources(before, historical, history_frame=True)
     if 'education' in character:
         pack = next((item for item in packs if item['id'] == 'heroes-education'), None)
         if character['game'] != 'heroes-unlimited' or pack is None:

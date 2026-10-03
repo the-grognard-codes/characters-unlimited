@@ -453,6 +453,12 @@ $('create-form').onsubmit = async event => { event.preventDefault(); const butto
 function updateNewIdentity() {
   const pack = gamePacks.find(entry => entry.game === $('new-game').value);
   const heroes = pack.game === 'heroes-unlimited';
+  $('new-level').replaceChildren(...Array.from({length:heroes ? 1 : 15}, (_, index) => {
+    const option = document.createElement('option');
+    option.value = index + 1;
+    option.textContent = index === 0 ? '1' : `${index + 1} (includes starting resources and each HP gain)`;
+    return option;
+  }));
   $('new-level').disabled = heroes;
   if (heroes) $('new-level').value = '1';
   $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${pack.races[0].name} · ${pack.classes[0].name}. Initial attributes follow the core book. Other creation paths remain unfinished.`;

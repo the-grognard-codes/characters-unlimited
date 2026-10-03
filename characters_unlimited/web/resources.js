@@ -65,6 +65,8 @@ function wireResourcesEvents() {
 }
 
 let advancementSupported = false;
+let advancementMaximumLevel = 2;
+let advancementMaximumXP = 3750;
 function setAdvancementBusy() {
   document.querySelectorAll('#advancement-panel input, #advancement-panel select, #advancement-panel button').forEach(element => {
     element.disabled = navigationBusy || !skillsReady || !advancementSupported;
@@ -72,12 +74,15 @@ function setAdvancementBusy() {
 }
 function renderAdvancement(view) {
   advancementSupported = view.supported;
-  $('advancement-status').textContent = `Level ${view.level} · ${view.xp} XP${view.hp_roll !== null ? ' · Recorded level-two HP die: ' + view.hp_roll : ''}`;
+  advancementMaximumLevel = view.max_level;
+  advancementMaximumXP = view.max_xp;
+  const dice = view.dice.map(roll => `L${roll.level}: ${roll.face}${roll.active ? '' : ' (retained for replay)'}`).join(', ');
+  $('advancement-status').textContent = `Level ${view.level} · ${view.xp} XP${dice ? ' · HP dice ' + dice : ''}`;
   $('advancement-guidance').textContent = view.guidance;
   $('undo-advancement').hidden = !view.active;
   $('advancement-method').value = 'xp';
   $('advancement-value').min = 0;
-  $('advancement-value').max = 3750;
+  $('advancement-value').max = advancementMaximumXP;
   $('advancement-value').value = view.xp;
   setAdvancementBusy();
 }
@@ -85,8 +90,8 @@ function wireAdvancementEvents() {
   $('advancement-method').onchange = () => {
     const direct = $('advancement-method').value === 'level';
     $('advancement-value').min = direct ? 2 : 0;
-    $('advancement-value').max = direct ? 2 : 3750;
-    $('advancement-value').value = direct ? 2 : current.experience ?? 0;
+    $('advancement-value').max = direct ? advancementMaximumLevel : advancementMaximumXP;
+    $('advancement-value').value = direct ? Math.min(current.level + 1, advancementMaximumLevel) : current.experience ?? 0;
   };
   $('advancement-form').onsubmit = async event => {
     event.preventDefault();

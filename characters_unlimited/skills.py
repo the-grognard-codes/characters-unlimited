@@ -137,10 +137,12 @@ def project_skills(character, pack=PACK):
         effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
         selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions), 'quality': quality})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
+    for pool in ('related', 'secondary'):
+        remaining[pool] += sum(level <= character['level'] for level in pack.get('higher_advancement', {}).get(pool + '_levels', []))
     remaining['related'] -= combat_skill_cost(character, pack)
     for pool, count in remaining.items():
         if count < 0:
-            warnings.append(f"{pool.title()}: {-count} selection(s) over the level-one allowance.")
+            warnings.append(f"{pool.title()}: {-count} selection(s) over the current level allowance.")
     repeat_cook = 10 if occurrences[('cook', '')] >= 2 else 0
     cook = next(skill for skill in domestic if skill['id'] == 'cook')
     cook_gain = (learning_age(character, 'skill', 'cook') - 1) * cook['per_level']
@@ -165,7 +167,8 @@ def project_skills(character, pack=PACK):
         gaps.append('Conditional repair/horsemanship effects are pending.' if 'selection_rules' in pack else 'Barter literacy/mathematics synergies and conditional repair/horsemanship effects are pending.')
         sources.append('Required choices and Eyeball a Fella bonuses: p. 97; Streetwise adds 10% to I.D. Undercover Agents, p. 321.')
     if 'advancement' in pack:
-        gaps[1] = 'Other attribute-related skill effects and progression after level two remain pending.'
+        gaps[1] = ('Other attribute-related skill effects and progression for other character paths remain pending.'
+                   if 'higher_advancement' in pack else 'Other attribute-related skill effects and progression after level two remain pending.')
         sources.append('Recorded learned levels determine proficiency growth; new skills begin at base: pp. 98, 300. First advancement and XP table: pp. 287, 295.')
     return {'catalog': domestic, 'physical':physical, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
              'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence, **({'advancement': cook_gain} if character['level'] > 1 else {})}}, *required['grants']], 'selected': selected, 'remaining': remaining,

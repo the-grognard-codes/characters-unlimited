@@ -14,3 +14,5 @@ The browser loaded an existing level15 Assassin pinned2.6.0, previewed new moves
 ![Native editable sheet](07b1-editable-sheet.png)
 
 Windows frozen validation is required before merge. Parent07, full attack resolution, enhanced strength, other styles and full-corpus acceptance remain open. Power Kick is a separate pending interpretation.
+
+Initial Windows run37162491385 failed in the new frozen assertion because the test requested nonexistent GET `/combat`; the public read interface is GET `/skills` → `combat`. Corrected the test endpoint; runtime behavior was unchanged. Required Windows checks are rerun on the repair before merge.

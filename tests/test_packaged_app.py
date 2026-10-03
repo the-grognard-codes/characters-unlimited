@@ -194,7 +194,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 character = request('/api/characters/'+identifier+'/advance',
                     {'revision':character['revision'],'method':'level','value':15},token)
                 self.assertEqual(character['level'],15)
-                combat = request('/api/characters/'+identifier+'/combat')
+                combat = request('/api/characters/'+identifier+'/skills')['combat']
                 self.assertEqual(combat['conditions']['critical']['natural_min'],19)
                 self.assertIn('knee', [move['id'] for move in combat['unarmed']])
                 fields = PdfReader(BytesIO(request('/api/characters/'+identifier+'/pdf'))).get_fields()

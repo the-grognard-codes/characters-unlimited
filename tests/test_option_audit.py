@@ -7,12 +7,39 @@ from characters_unlimited.coverage import SourceInventory
 
 
 class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
+    def test_mercenary_and_sa2_paths_keep_heritages_offsets_and_blocked_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            view = CharacterApplication(directory).coverage()
+            options = {entry['id']: entry for entry in view['options']}
+            self.assertEqual(view['summary']['canonical_options'], 224)
+            self.assertEqual(view['summary']['unassigned_options'], 223)
+            self.assertEqual(options['mercenaries-company-design']['kind'], 'construction')
+            self.assertEqual(options['mercenaries-bounty-hunter']['source']['pdf_pages'], [21])
+            self.assertIn('Special Forces Soldier', options['mercenaries-special-forces']['aliases'])
+            self.assertIn('optional', ' '.join(options['mercenaries-lost-ones']['findings']).lower())
+            self.assertEqual(options['merc-ops-auto-g']['source']['pdf_pages'], [49])
+            self.assertEqual(options['sa2-true-inca-inti']['dependencies'], ['sa2-true-inca'])
+            self.assertEqual(options['sa2-true-inca-inti']['source']['pdf_pages'], [21])
+            self.assertEqual(options['sa2-pucara-mind-mage']['dependencies'], ['sa2-pucara-red-giant'])
+            self.assertEqual(options['sa2-megaversal-ojahee-trooper']['dependencies'], ['sa2-ojahee'])
+            self.assertEqual(options['sa2-duelist']['dependencies'], ['sa2-amaki-stone-man'])
+            self.assertIn('Psi-Taur', options['sa2-equinoid']['aliases'])
+            self.assertIn('6251b651ff5b0a3fcdec', options['sa2-destroyer-borg']['candidate_ids'])
+            self.assertIn('blocked', ' '.join(options['sa2-destroyer-borg']['findings']).lower())
+            damaged = next(c for c in view['candidates'] if c['id']=='6251b651ff5b0a3fcdec')
+            self.assertEqual(damaged['status'], 'source-gap')
+            self.assertEqual(view['summary']['source_gaps'], 2)
+            for entry in options.values():
+                if entry['id'].startswith(('sa2-', 'mercenaries-', 'merc-ops-')):
+                    self.assertEqual(entry['mechanical_review'], 'pending')
+                    self.assertEqual(entry['automation'], 'not-implemented')
+
     def test_atlantis_splynn_identities_preserve_variants_and_source_rules(self):
         with tempfile.TemporaryDirectory() as directory:
             view = CharacterApplication(directory).coverage()
             options = {entry['id']: entry for entry in view['options']}
-            self.assertEqual(view['summary']['identity_confirmed'], 169)
-            self.assertEqual(view['summary']['unassigned_options'], 168)
+            self.assertEqual(view['summary']['identity_confirmed'], 224)
+            self.assertEqual(view['summary']['unassigned_options'], 223)
             self.assertEqual(options['atlantis-nomad']['dependencies'], ['atlantis-true-atlantean'])
             self.assertIn('True Atlantean Adventurer', options['atlantis-nomad']['aliases'])
             self.assertEqual(options['atlantis-undead-slayer']['source']['printed_pages'], [17, 97])
@@ -39,8 +66,8 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             view = CharacterApplication(directory).coverage()
             options = {entry['id']:entry for entry in view['options']}
-            self.assertEqual(view['summary']['identity_confirmed'], 169)
-            self.assertEqual(view['summary']['unassigned_options'], 168)
+            self.assertEqual(view['summary']['identity_confirmed'], 224)
+            self.assertEqual(view['summary']['unassigned_options'], 223)
             self.assertEqual(options['sa1-ewaipanomas']['source']['printed_pages'], [102])
             self.assertEqual(options['sa1-shaydor-spherians']['source']['pdf_pages'], [104])
             self.assertIn('Amazon R.C.G', options['sa1-amazon']['aliases'])
@@ -67,7 +94,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
     def test_coverage_distinguishes_confirmed_identities_from_mechanical_acceptance(self):
         with tempfile.TemporaryDirectory() as directory:
             view = CharacterApplication(directory).coverage()
-            self.assertEqual(view['summary']['identity_confirmed'], 169)
+            self.assertEqual(view['summary']['identity_confirmed'], 224)
             self.assertEqual(view['summary']['fully_automated'], 0)
             self.assertEqual(view['summary']['books_reviewed'], 0)
             vagabond = next(entry for entry in view['options'] if entry['id'] == 'rue-vagabond')
@@ -91,7 +118,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-experiment']['source']['pdf_pages'], [21])
             self.assertEqual(options['hu2-mega-hero']['kind'], 'rule')
             self.assertTrue(any('modifier' in finding for finding in options['hu2-mega-hero']['findings']))
-            self.assertEqual(view['summary']['unassigned_options'], 168)
+            self.assertEqual(view['summary']['unassigned_options'], 223)
             self.assertEqual(CharacterApplication(directory).catalog()['games'], [{'id':'rifts','name':'Rifts Ultimate Edition'}])
 
     def test_heroes_named_paths_link_to_categories_and_shared_robot_rules(self):
@@ -106,7 +133,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-robot-construction']['kind'], 'construction')
             self.assertEqual(options['hu2-special-stage-magician']['automation'], 'not-implemented')
             self.assertEqual(options['hu2-hardware-super-vehicle']['mechanical_review'], 'pending')
-            self.assertEqual(view['summary']['canonical_options'], 169)
+            self.assertEqual(view['summary']['canonical_options'], 224)
             self.assertEqual(view['summary']['fully_automated'], 0)
 
     def test_dependency_links_cannot_join_games_or_reference_missing_entries(self):

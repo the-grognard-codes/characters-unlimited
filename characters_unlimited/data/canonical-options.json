@@ -1,9 +1,11 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 169 source-bound entries across the core games, South America 1, Underseas, Atlantis and Splynn Dimensional Market. This remains a partial identity audit, not full corpus coverage.",
+    "Identity audit currently covers 224 source-bound entries across the core games and all eight supplied Rifts books. This remains a partial identity audit, not full corpus coverage or mechanical acceptance.",
     "Remaining core child paths, supplement subpaths, other supplied books and supporting mechanical entries remain to be audited. Identity evidence does not certify numerical rules.",
-    "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics."
+    "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics.",
+    "Mercenary NPC profiles include referenced Uteni, Dysasha, Raksasha, Brodkil, tattooed/witch/psionic paths and Dog Pack Wolf examples. Profile-to-existing-option reconciliation and full racial/template evidence remain pending; named personnel are not invented independent O.C.C.s.",
+    "Remaining South America 2 occupation adaptations, heritage variants and referenced magic/augmentation systems need full dependency and named content-ticket review. Destroyer Borg remains blocked by the verified damaged page."
   ],
   "entries": [
     {
@@ -5479,6 +5481,1713 @@
         "Partial conversion branch; source limits eligible kinds of beings.",
         "Referenced source support: Bio-wizard augmentation. Complete mechanics, constraints, advancement, equipment and dependency review remain pending.",
         "The shared Partial & Full Bio-Borg R.C.C. section must be reconciled with True Bio-Borg creation rules and race eligibility during mechanical review."
+      ]
+    },
+    {
+      "id": "sa2-true-inca",
+      "name": "True Inca",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "True Inca Demigod"
+      ],
+      "candidate_ids": [
+        "039efa10d67ec822700e",
+        "cbd413b69231884565aa"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          20
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-inca-soldier",
+      "name": "Inca Soldier",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "8d47e8745fd13ba152f3"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          20
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Named in the common occupations prose under the Empire section, with its own skill allowances. NPC-preferred guidance does not introduce a permission gate. Soldier specialist adaptations of Coalition classes remain pending separate reconciliation.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-inca-warrior",
+      "name": "Inca Warrior",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "213dca3ea4326221218b",
+        "4bb73fcb81b72bc30bc6"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          23
+        ],
+        "pdf_pages": [
+          23
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-inca-sun-priest",
+      "name": "Inca Sun-Priest",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "101f50ce033f87e95ff5",
+        "a591056446ab260c303c"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          24
+        ],
+        "pdf_pages": [
+          24
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-nazca-line-maker",
+      "name": "Nazca Line Maker",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "7df82db778418efd1f9f",
+        "047583d5a4cc370c00cb"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          26
+        ],
+        "pdf_pages": [
+          26
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-rune-warrior",
+      "name": "Rune Warrior",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Inca/Nazca Rune Warrior"
+      ],
+      "candidate_ids": [
+        "8c41f15f2a7d9d5f7f9e",
+        "9406df2b785ca0ab4126"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          28
+        ],
+        "pdf_pages": [
+          28
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-ancient",
+      "name": "Ancient Incan Undead",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "The Ancient",
+        "Incan Undead"
+      ],
+      "candidate_ids": [
+        "2b5a94e4b21c6e9859cd"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          48
+        ],
+        "pdf_pages": [
+          48
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "The source calls this undead race unsuitable for player characters. Preserve NPC guidance; no administrative access gate is introduced.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-pucara-red-giant",
+      "name": "Pucara Red Giant",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Pucara"
+      ],
+      "candidate_ids": [
+        "997cc0ddd8cbe51e0115"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          54
+        ],
+        "pdf_pages": [
+          54
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-pucara-mind-mage",
+      "name": "Pucara Mind Mage",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "ec13ddbc09e8f51a9cec"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          55
+        ],
+        "pdf_pages": [
+          55
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-pucara-red-giant"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-arkhon",
+      "name": "Arkhon",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "f31c61859811b8381505"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          71
+        ],
+        "pdf_pages": [
+          71
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-arkhon-spectral-hunter",
+      "name": "Arkhon Spectral Hunter",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "f57daec049aceb06af75"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          73
+        ],
+        "pdf_pages": [
+          73
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-arkhon"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-arkhon-esp-specialist",
+      "name": "Arkhon ESP Specialist",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "cf9744cbe4a5c69b6ca0"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          75
+        ],
+        "pdf_pages": [
+          75
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-arkhon"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-fallam",
+      "name": "Fallam",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "ec49909523960dd7a364"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          76
+        ],
+        "pdf_pages": [
+          76
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-fallam-battlemaster",
+      "name": "Fallam Battlemaster",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "1574330d0ae1fbe9820b"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          77
+        ],
+        "pdf_pages": [
+          77
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-fallam"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-dakir",
+      "name": "Dakir",
+      "kind": "race",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "65780e9d6947ead1f83c"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          100
+        ],
+        "pdf_pages": [
+          100
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Racial traits appear in the Megaversal Legion setting section; player generation eligibility and complete build support remain pending.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-megaversal-human-trooper",
+      "name": "Megaversal Trooper (Human)",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "fc5b280c18ab665d4b62"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          104
+        ],
+        "pdf_pages": [
+          104
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-ojahee",
+      "name": "Ojahee",
+      "kind": "race",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "a018c051e8741fe6a5a2"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          106
+        ],
+        "pdf_pages": [
+          106
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Base species traits are separated from the named Megaversal Trooper occupational build. The body labels the species R.C.C.; its final race/class model requires mechanical review.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-megaversal-ojahee-trooper",
+      "name": "Megaversal Trooper (Ojahee)",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Megaversal Trooper O.C.C./Ojahee R.C.C."
+      ],
+      "candidate_ids": [
+        "4c25c21974e4129e3900"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          106
+        ],
+        "pdf_pages": [
+          106
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-ojahee"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-destroyer-borg",
+      "name": "Destroyer 'Borg",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Destroyer Borg"
+      ],
+      "candidate_ids": [
+        "188f987f95b08dd7632d",
+        "6251b651ff5b0a3fcdec",
+        "f03c3279f2c96d9bab9a"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          107,
+          108,
+          109
+        ],
+        "pdf_pages": [
+          107,
+          108,
+          109
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "BLOCKED: supplied printed/PDF page 108 is damaged. Candidate 6251b651ff5b0a3fcdec retains the verified source gap; missing M.D.C. continuation and abilities 2–4 require an intact same-edition page (ticket 02C).",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-ojahee-cyborg",
+      "name": "Ojahee Cyborg",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Ojahee Borg",
+        "O'Borg"
+      ],
+      "candidate_ids": [
+        "c23b416ad4edc5d5b639",
+        "b028941f230de3754b16"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          109
+        ],
+        "pdf_pages": [
+          109
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-ojahee"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-men-rall",
+      "name": "Men-Rall Tech Master",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Tech Master"
+      ],
+      "candidate_ids": [
+        "3a59df9b9b3cb60b655b"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          111
+        ],
+        "pdf_pages": [
+          111
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-gaucho",
+      "name": "Gaucho",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "a386163602304f71447c"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          128
+        ],
+        "pdf_pages": [
+          128
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-plains-borg",
+      "name": "Plains 'Borg",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Plains Borg"
+      ],
+      "candidate_ids": [
+        "930921ccdfb0174b6e39"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          129
+        ],
+        "pdf_pages": [
+          129
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-ultra-crazy",
+      "name": "Ultra-Crazy",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "f9df3a451dca8b83dbe7"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          131
+        ],
+        "pdf_pages": [
+          131
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Techno-Wizard augmentation draws on Crazy/M.O.M. and magic rules; resolve external and core dependencies before mechanical acceptance.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-blood-rider",
+      "name": "Blood Rider",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "5e69b89c454eacd53b6a"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          133
+        ],
+        "pdf_pages": [
+          133
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-master-blood-rider",
+      "name": "Master Blood Rider",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "9593d624e5265da97b9b"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          135
+        ],
+        "pdf_pages": [
+          135
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-blood-lizard",
+      "name": "Blood Lizard",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "fe68a4b0c916050320bb"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          137
+        ],
+        "pdf_pages": [
+          137
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Mount/animal R.C.C. rather than an ordinary humanoid occupation; character applicability remains pending review.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-serpentoid",
+      "name": "Serpentoid",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "11b18bc17e1439b9a7f7"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          141
+        ],
+        "pdf_pages": [
+          141
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-mutant-capybara",
+      "name": "Mutant Capybara",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "4d1bd0c8db220ca713a5"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          142
+        ],
+        "pdf_pages": [
+          142
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-equinoid",
+      "name": "Equinoid",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Psi-Taur"
+      ],
+      "candidate_ids": [
+        "74979eab9e8fca98bcb0"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          144
+        ],
+        "pdf_pages": [
+          144
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-condoroid",
+      "name": "Condoroid",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "3765bb73d8b370d08f3b"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          146
+        ],
+        "pdf_pages": [
+          146
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-falconoid",
+      "name": "Falconoid",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "436a754976ec1203fb6a"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          148
+        ],
+        "pdf_pages": [
+          148
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-achilles-neo-human",
+      "name": "Achilles Neo-Human",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "96d4adc6b726cc0e530f"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          149
+        ],
+        "pdf_pages": [
+          149
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-amaki-stone-man",
+      "name": "Amaki Stone-Man",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "c5c5dd9d3e51a0fb5d08"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          154
+        ],
+        "pdf_pages": [
+          154
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-duelist",
+      "name": "Duelist",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Amaki Duelist"
+      ],
+      "candidate_ids": [
+        "5b7f771a1df8868ffdcc"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          155
+        ],
+        "pdf_pages": [
+          155
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-amaki-stone-man"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-gizmoteer",
+      "name": "Gizmoteer",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [
+        "Amaki Gizmoteer"
+      ],
+      "candidate_ids": [
+        "41b10f0f3c7c43bc186e"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          157
+        ],
+        "pdf_pages": [
+          157
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-amaki-stone-man"
+      ],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-larhold-barbarian",
+      "name": "Larhold Barbarian",
+      "kind": "rcc",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "1ef4e35fbe9bb3760772"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          185
+        ],
+        "pdf_pages": [
+          185
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-larhold-human-renegade",
+      "name": "Larhold Human Renegade",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "915faba3c75115a03b06"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          186
+        ],
+        "pdf_pages": [
+          186
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-larhold-shaman",
+      "name": "Larhold Shaman",
+      "kind": "occ",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "d491a373a905364b131a"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          188
+        ],
+        "pdf_pages": [
+          188
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-true-inca-viracocha",
+      "name": "True Inca: Viracocha heritage",
+      "kind": "rule",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "bb372185ff93ed0d3ced"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          21
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-true-inca"
+      ],
+      "findings": [
+        "Heritage-specific abilities inherit the shared True Inca R.C.C.; this rule choice is not another race or independent class.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-true-inca-inti",
+      "name": "True Inca: Inti heritage",
+      "kind": "rule",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "d9cfe2f4d6ce3a628178"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          21
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-true-inca"
+      ],
+      "findings": [
+        "Heritage-specific abilities inherit the shared True Inca R.C.C.; this rule choice is not another race or independent class.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-true-inca-pachamama",
+      "name": "True Inca: Pachamama heritage",
+      "kind": "rule",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "56515aee0f20788bed04"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          21
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-true-inca"
+      ],
+      "findings": [
+        "Heritage-specific abilities inherit the shared True Inca R.C.C.; this rule choice is not another race or independent class.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "sa2-true-inca-illapa",
+      "name": "True Inca: Illapa heritage",
+      "kind": "rule",
+      "book_id": "rifts-world-book-09-south-america-2",
+      "aliases": [],
+      "candidate_ids": [
+        "fc9e478cd2dc101ba335"
+      ],
+      "source": {
+        "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+        "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+        "printed_pages": [
+          21
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "sa2-true-inca"
+      ],
+      "findings": [
+        "Heritage-specific abilities inherit the shared True Inca R.C.C.; this rule choice is not another race or independent class.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-company-design",
+      "name": "Mercenary company design",
+      "kind": "construction",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "a62f21bc06675bcd4be2"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          9
+        ],
+        "pdf_pages": [
+          11
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Company feature selection and design.",
+        "Player and NPC company construction supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-bounty-hunter",
+      "name": "Bounty Hunter",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "50def0d876d380209d1c"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          19
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Special Forces Soldier, Master Assassin & Bounty Hunter” experience table is not a separate branch.",
+        "Core Rifts skill/combat rules; OCC supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-forger",
+      "name": "Forger",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "f8e53e031aff3a9741f6"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          21
+        ],
+        "pdf_pages": [
+          23
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Has specialized forgery abilities.",
+        "Rifts espionage skill referenced; class supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-freelance-spy",
+      "name": "Freelance Spy",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "77418e513e071fc98365"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          22
+        ],
+        "pdf_pages": [
+          24
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Base spy OCC.",
+        "Core Rifts skill/combat rules; OCC supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-master-assassin",
+      "name": "Master Assassin",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "2cbd09455519f8af6d04"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          23
+        ],
+        "pdf_pages": [
+          25
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Alignment restricted by source.",
+        "Core combat/assassin skills; OCC supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-safecracker",
+      "name": "Safecracker",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "fa28124dbf20d8362046"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          24
+        ],
+        "pdf_pages": [
+          26
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Criminal alignment restriction has a stated good-aligned justice/freedom-fighter exception.",
+        "Demolitions and mechanical skills; OCC supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-smuggler",
+      "name": "Smuggler",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "a06bc3cde64628997606"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          25
+        ],
+        "pdf_pages": [
+          27
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Source distinguishes criminal use from good/unprincipled aid to innocents.",
+        "Core skills; OCC supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-special-forces",
+      "name": "Special Forces",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [
+        "Special Forces Soldier"
+      ],
+      "candidate_ids": [
+        "6786de0cac22fdbbc6ea"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          26
+        ],
+        "pdf_pages": [
+          28
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "“Special Forces Soldier” is the same class in the experience table.",
+        "Core military/skill rules; OCC supplied here.",
+        "Coalition Military Specialist is a referenced equivalent, not a second new full O.C.C. in this book.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-super-spy",
+      "name": "Super-Spy",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [
+        "Super Spy"
+      ],
+      "candidate_ids": [
+        "4b52b9cd046bbea979eb"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          27
+        ],
+        "pdf_pages": [
+          29
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Edge selection: magical, cybernetic, psionic, or D-Bee/mutant powers.",
+        "Requires the corresponding magic/psychic/cybernetic/super-power source rules; core OCC supplied, option details partly external.",
+        "Magical, cybernetic, psionic and D-Bee/mutant edges require named branch fan-out and referenced source rules; their full dependency acceptance remains pending.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-professional-thief",
+      "name": "Professional Thief",
+      "kind": "occ",
+      "book_id": "rifts-mercenaries",
+      "aliases": [],
+      "candidate_ids": [
+        "4e8a2fa098c1583688f4"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          28
+        ],
+        "pdf_pages": [
+          30
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Good/unprincipled use is a source-stated exception to typical criminal alignment.",
+        "Core skills and hand-to-hand rules; OCC supplied here.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "mercenaries-lost-ones",
+      "name": "The Lost Ones",
+      "kind": "rcc",
+      "book_id": "rifts-mercenaries",
+      "aliases": [
+        "Lost One",
+        "Psionic Immortal"
+      ],
+      "candidate_ids": [
+        "0eabb5d0ccb39cf9557c"
+      ],
+      "source": {
+        "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+        "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+        "printed_pages": [
+          49,
+          50
+        ],
+        "pdf_pages": [
+          51,
+          52
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Optional-PC attributes are listed parenthetically under “The Dreamer Psionic Immortal”; one inventory heading covers both.",
+        "Psionic Immortal/RCC rules; source includes the optional build data.",
+        "The Dreamer is the named NPC example; parenthetical attributes supply an optional player R.C.C. template. Do not substitute the NPC fixed statistics for racial generation.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "merc-ops-auto-g",
+      "name": "Auto-G",
+      "kind": "rcc",
+      "book_id": "rifts-merc-ops",
+      "aliases": [],
+      "candidate_ids": [
+        "1ab1d2c8624ae86944f1",
+        "213bc3d17ad61dfa1c79",
+        "a70322a207700caa973b"
+      ],
+      "source": {
+        "markdown_sha256": "3845f8016b8249996fec22c9dc034a96880714c59397611109e4702a756fb1ba",
+        "pdf_sha256": "ec4560b9f595fa72fbcbee5fe0300b8b1bf2b2122fd2a621be077618e84647fd",
+        "printed_pages": [
+          48
+        ],
+        "pdf_pages": [
+          49
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Repeated Auto-G heading separates description, transformation rules, and build stats; form-copying is a branch of one RCC.",
+        "Requires target mortal-humanoid biology/abilities; source says copied forms do not grant the target’s skills, memories, or personality.",
+        "Description, transformation abilities and build statistics are repeated headings of one R.C.C.; copying a mortal form does not grant skills, memories or personality.",
+        "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
       ]
     }
   ]

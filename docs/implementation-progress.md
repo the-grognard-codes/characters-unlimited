@@ -61,4 +61,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 02B5: Complete, merged in PR #24; all 97 local checks, both review axes and both Windows frozen-build checks pass. Forty Atlantis/Splynn racial, occupational, form and conversion identities bring the catalog to 169; numerical rules, full dependency acceptance and named branch fan-out remain pending. Original contents and selected body headings resolve page and class-label discrepancies.
 
-- 02A4: In progress. Original South America 2 neighbor labels correct the damaged-page locator to printed/PDF page 108. Verified metadata replaces the same passage description without changing source hashes or counting another gap.
+- 02A4: Complete, merged in PR #25; all 98 checks, both review axes and both Windows package checks pass. Original South America 2 neighbor labels correct the damaged-page locator to printed/PDF page 108. Verified metadata replaces the same passage description without changing source hashes or counting another gap.
+
+- 02B6: In progress. Fifty-five Mercenaries/Merc Ops/South America 2 creation identities bring the catalog to 224 across all eight supplied Rifts books. Complete core child paths, NPC-profile racial reconciliation, remaining Heroes books and mechanical/dependency review remain pending.

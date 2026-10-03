@@ -9,3 +9,5 @@ Protected HTTP retains Secondary work while selecting Communications and project
 Edge added Optic Systems to the College One program: Video 37% became 42%, with the separate +5% contribution visible; removing the source restored 37%. Cryptography showed 37% normally and 7% after ten minutes; reload/reopen retained that choice and zero remaining. The [synergy capture](06g-communications-checks.png) and [context capture](06g-cryptography-context.png) were visually inspected.
 
 Duplicate fixed-grant choice credit was asked asynchronously and remains pending; retained choices do not certify that entitlement. Remaining programs, native-language arithmetic, repeat entitlements, advancement and the full corpus remain open.
+
+Both Windows frozen checks passed (runs 37128779464 and 37128788905) before PR #39 merged as 8589581. The pending verification item is closed. Final Standards: 0 findings; Spec: 0 findings.

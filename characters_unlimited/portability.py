@@ -14,6 +14,7 @@ from .skills import validate_selections
 from .equipment import validate_inventory
 from .starting_funds import validate_starting_funds
 from .starting_gear import validate_starting_gear
+from .starting_choices import validate_starting_choices
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -213,7 +214,7 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs):
     core = primary_pack(character, packs)
-    if 'equipment' in character or 'starting_funds' in character or 'starting_gear' in character:
+    if 'equipment' in character or 'starting_funds' in character or 'starting_gear' in character or 'starting_choices' in character:
         equipment_pack = next((item for item in packs if item['id']=='rifts-equipment'),None)
         if character['game'] != 'rifts' or equipment_pack is None:
             raise ValueError('Rifts equipment must retain its accepted rule version pin')
@@ -222,6 +223,7 @@ def validate_sources(character, packs):
         validate_inventory(character['equipment'],equipment_pack)
         validate_starting_funds(character,equipment_pack)
         validate_starting_gear(character,equipment_pack)
+        validate_starting_choices(character,equipment_pack)
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
     validate_resources(character,skill_pack or {})
     if skill_pack is not None:

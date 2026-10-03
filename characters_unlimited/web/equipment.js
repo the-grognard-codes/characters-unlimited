@@ -15,6 +15,21 @@ async function loadEquipment(character) {
   const view = await request(`/api/characters/${character.id}/equipment`);
   if (current.id !== character.id || sequence !== equipmentSequence) return;
   equipmentView = view;
+  const starting = view.starting_choices;
+  $('starting-choices-form').hidden = !starting.supported || starting.generated;
+  $('starting-choices-receipt').hidden = !starting.generated;
+  $('starting-choices-guidance').textContent = starting.guidance.join(' ');
+  for (const [kind,ids] of Object.entries(starting.definitions)) {
+    $('starting-choice-' + kind).replaceChildren(...ids.map(id => {
+      const option = document.createElement('option'); option.value = id;
+      option.textContent = view.catalog.find(item => item.id === id).name; return option;
+    }));
+  }
+  $('starting-choices-grants').replaceChildren(...starting.grants.map(grant => {
+    const row = document.createElement('li');
+    row.textContent = `${view.catalog.find(item => item.id === grant.item_id).name} × ${grant.quantity}`; return row;
+  }));
+  $('starting-choices-source').textContent = starting.generated ? `${starting.source.book}, p. ${starting.source.pages.join(', ')}. Original free grant; later inventory edits do not regenerate these items.` : '';
   const gear = view.starting_gear;
   $('grant-starting-gear').hidden = !gear.supported || gear.generated;
   $('starting-gear-guidance').textContent = gear.guidance.join(' ');
@@ -148,6 +163,11 @@ function filterReloadClips() {
   setEquipmentBusy();
 }
 function wireEquipmentEvents() {
+  $('starting-choices-form').onsubmit = event => {
+    event.preventDefault();
+    const choices = Object.fromEntries(['armor','gun','knife','transport'].map(kind => [kind,$('starting-choice-' + kind).value]));
+    characterAction('starting-choices',{choices}).catch(showError);
+  };
   $('reload-weapon-choice').onchange = filterReloadClips;
   $('equipment-reload-form').onsubmit = event => {
     event.preventDefault();

@@ -173,6 +173,25 @@ def fill_skills(page, rows, left, values):
     return overflow
 
 
+def fill_saving_bonuses(page, bonuses, values):
+    # The reference's saving cells have shared or generic names; use their
+    # original geometry after normalization instead of those ambiguous names.
+    cells = [('magic',134.6,720), ('magic',134.6,711.1), ('psionics',134.5,701.1),
+             ('poison',134.8,691.1), ('poison',159.4,690.8), ('drugs',134.8,681),
+             ('insanity',134.8,671), ('possession',140.5,660.5),
+             ('horror_factor',140.7,651), ('coma_death',140.5,641)]
+    for identifier, x, y in cells:
+        result = bonuses.get(identifier)
+        if not result or result['value'] is None:
+            continue
+        matches = [ref.get_object() for ref in page.get('/Annots', [])
+                   if abs(float(ref.get_object()['/Rect'][0])-x) < .2
+                   and abs(float(ref.get_object()['/Rect'][1])-y) < .2]
+        if len(matches) != 1:
+            raise ValueError('The Rifts saving rectangles changed; review the sheet mapping')
+        values[matches[0]['/T']] = f'{result["value"]:+d}'
+
+
 def append_continuation(writer, lines):
     if not lines:
         return
@@ -221,6 +240,8 @@ def export_rifts_sheet(character, core, skills, combat):
     values = {'NAME': character['name'], 'RACE': race, 'OCC': occupation,
               'EXPERIENCE LEVEL': str(character['level'])}
     values.update({name: str(value['value']) for name, value in character['attributes'].items()})
+    saving_bonuses = combat.get('saving_bonuses', {})
+    fill_saving_bonuses(writer.pages[0], saving_bonuses, values)
     labels = {'attacks': 'OF ATTACKS', 'initiative': 'INNITIATIVE', 'damage': 'DAMAGE',
               'strike': 'STRIKE', 'parry': 'PARR Y', 'dodge': 'DODGE',
               'roll_with_impact': 'ROLL', 'pull_punch': 'RESTR PUNCH'}
@@ -241,7 +262,16 @@ def export_rifts_sheet(character, core, skills, combat):
     overflow = fill_skills(writer.pages[0], rows, 220, values)
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
-    notes = wrap_lines(character['notes'], 172)
+    sheet_notes = character['notes']
+    if saving_bonuses:
+        sheet_notes += '\nSaving fields show attribute bonuses.'
+        additional = [f'{saving_bonuses[key]["name"]}: {saving_bonuses[key]["value"]:+d}'
+                      for key in ('disease', 'illusions') if saving_bonuses[key]['value'] is not None]
+        sheet_notes += '\n' + '; '.join(additional)
+        # Keep source exceptions and fatigue context with the editable values,
+        # including on continuation pages when the player's notes fill the sheet.
+        sheet_notes += '\n' + '\n'.join(combat.get('saving_notes', [])[1:])
+    notes = wrap_lines(sheet_notes.strip(), 172)
     for index, line in enumerate(notes[:7], 1):
         values[f'NOTES {index}'] = line
     if len(notes) > 7:

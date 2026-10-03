@@ -2,7 +2,7 @@
   "schema_version": 1,
   "active": {
     "rifts-core": "1.1.0",
-    "rifts-domestic-skills": "1.7.0"
+    "rifts-domestic-skills": "1.8.0"
   },
   "definitions": [
     {
@@ -64,6 +64,12 @@
       "version": "1.7.0",
       "filename": "rifts-domestic-skills-1.7.0.json",
       "sha256": "57115a61c8b5d6d7292e8e8fbdeffeb90381c1f7511bf3d3c270924e7da2189e"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "1.8.0",
+      "filename": "rifts-domestic-skills-1.8.0.json",
+      "sha256": "8fefbb1f940888f7dd1fe20d37b0c7337c7b723904010116bff59b358b26042a"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # 02B5: Atlantis and Splynn identity audit
 
-**Status:** in-progress
+**Status:** done — merged in PR #24; both Windows checks pass
 
 Add source-bound Atlantis and Splynn Dimensional Market race, O.C.C., R.C.C. and named construction identities. Preserve aliases and distinguish species from named occupations and construction branches. Verify original contents and body headings with correct printed/PDF locators. Record optional player-character and NPC guidance without permission gates. Known rule dependencies are source relationships; they do not imply mandatory simultaneous class choices.
 

@@ -15,5 +15,22 @@
       "end_line": 8588,
       "description": "Printed page 131 is missing between supplied PDF pages 130 (printed 130) and 131 (printed 132). Ticonderoga weapon systems and continuing text are incomplete; recover an intact same-edition page before mechanical ingestion. See ticket 02C2."
     }
+  },
+  {
+    "book_id": "rifts-world-book-09-south-america-2",
+    "markdown_sha256": "cba548a14485e57b31255ff8ccddf3a8364ffedb50b7cec234b3856e4daab3eb",
+    "pdf_sha256": "cd1aa3a3b4a6b85d017ac5b3d4870a7d2db4a23b7c9f0b80554b06bdd799bdc9",
+    "printed_pages": [
+      108
+    ],
+    "pdf_neighbor_pages": [
+      107,
+      109
+    ],
+    "gap": {
+      "line": 5439,
+      "end_line": 5439,
+      "description": "PDF page 108 / printed page 108 has an obscured lower half, between PDF/printed pages 107 and 109. Destroyer 'Borg M.D.C. continuation, abilities 2–4 and continuing text are incomplete. The original Markdown marker mislabels the printed page as 107; this verified locator corrects metadata without altering sources. Recover an intact same-edition page before mechanical ingestion. See ticket 02C."
+    }
   }
 ]

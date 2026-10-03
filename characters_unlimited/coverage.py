@@ -20,6 +20,15 @@ class SourceGap(TypedDict):
     description: str
 
 
+def record_verified_gap(gaps, gap):
+    """Verified evidence replaces an earlier description of the identical passage."""
+    for index, existing in enumerate(gaps):
+        if (existing['line'], existing['end_line']) == (gap['line'], gap['end_line']):
+            gaps[index] = deepcopy(gap)
+            return
+    gaps.append(deepcopy(gap))
+
+
 class SourceInventory:
     @staticmethod
     def with_verified_gaps(inventory, records):
@@ -53,12 +62,10 @@ class SourceInventory:
                         and candidate['line'] <= gap['end_line'] and candidate['end_line'] >= gap['line']]
             if not affected:
                 raise ValueError('Verified source gap range has no matching candidate')
-            if gap not in book['source_gaps']:
-                book['source_gaps'].append(deepcopy(gap))
+            record_verified_gap(book['source_gaps'], gap)
             for candidate in affected:
                 candidate['status'] = 'source-gap'
-                if gap not in candidate['source_gaps']:
-                    candidate['source_gaps'].append(deepcopy(gap))
+                record_verified_gap(candidate['source_gaps'], gap)
         result['summary']['source_gaps'] = sum(len(book['source_gaps']) for book in result['books'])
         return result
 

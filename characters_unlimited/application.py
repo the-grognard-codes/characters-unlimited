@@ -10,9 +10,10 @@ from uuid import uuid4
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute
-from .skills import validate_selections, project_skills
+from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
+from .required_skills import validate_required_choices
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -86,6 +87,8 @@ class CharacterApplication:
         character = import_bundle(bundle, self.rule_archive.definitions())
         if 'skill_selections' in character:
             character['skill_selections'] = validate_selections(character['skill_selections'], self.character_skill_pack(character))
+        if 'required_skill_choices' in character:
+            character['required_skill_choices'] = validate_required_choices(character['required_skill_choices'], self.character_skill_pack(character))
         self.store.put(character)
         return character
 
@@ -110,12 +113,11 @@ class CharacterApplication:
         before = project_skills(character, previous)
         after = project_skills(character, target)
         preview = {'revision': character['revision'], 'changes': changes,
-                   'skills': [{'name': skill['name'], 'specialty': skill.get('specialty', ''),
-                               'before': skill['percentage'], 'after': following['percentage']}
-                              for skill, following in zip(before['grants'] + before['selected'], after['grants'] + after['selected'])],
+                   'skills': compare_skill_views(before, after),
                    'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
+                   'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
                    'gaps': after['gaps'], 'sources': after['sources'],
-                   'scope': 'Domestic skill definitions only. Attributes and their recorded dice stay unchanged.'}
+                   'scope': 'Vagabond skill definitions. Attributes and their recorded dice stay unchanged.'}
         preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'target': target})).hexdigest()
         return preview
 
@@ -137,6 +139,11 @@ class CharacterApplication:
         character = self.get(identifier)
         packs = character.get('additional_rule_packs', {})
         return self.store.update(identifier, {'skill_selections': validate_selections(selections, self.character_skill_pack(character)), 'additional_rule_packs': packs}, require_revision(revision))
+
+    def select_required_skills(self, identifier, *, revision, choices):
+        character = self.get(identifier)
+        choices = validate_required_choices(choices, self.character_skill_pack(character))
+        return self.store.update(identifier, {'required_skill_choices': choices}, require_revision(revision))
 
     def edit(self, identifier, *, name=None, notes=None, revision=None):
         changes = {}

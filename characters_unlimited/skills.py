@@ -3,6 +3,7 @@
 from collections import Counter
 import json
 from pathlib import Path
+from .required_skills import project_required_skills
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -27,6 +28,30 @@ def validate_selections(selections, pack=PACK):
 def skill_key(item):
     specialty = ' '.join(item.get('specialty', '').split()).casefold() if item['skill_id'] == 'instrument' else ''
     return (item['skill_id'], specialty)
+
+
+def compare_skill_views(before, after):
+    def index(view):
+        result = {}
+        occurrences: Counter[tuple[str, str, str]] = Counter()
+        for group in ('grants', 'selected'):
+            for skill in view[group]:
+                identity = (group, skill['id'], ' '.join(skill.get('specialty', '').split()).casefold())
+                occurrence = occurrences[identity]
+                occurrences[identity] += 1
+                result[(*identity, occurrence, 'primary')] = skill
+                for check in skill.get('additional_checks', []):
+                    result[(*identity, occurrence, 'check:' + check['name'])] = {
+                        **check, 'name': skill['name'] + ' — ' + check['name'], 'specialty': skill.get('specialty', '')}
+        return result
+    previous, following = index(before), index(after)
+    changes = []
+    for key in dict.fromkeys([*following, *previous]):
+        skill = following.get(key, previous.get(key))
+        changes.append({'name': skill['name'], 'specialty': skill.get('specialty', ''),
+                        'before': previous[key]['percentage'] if key in previous else None,
+                        'after': following[key]['percentage'] if key in following else None})
+    return changes
 
 
 def project_skills(character, pack=PACK):
@@ -79,8 +104,14 @@ def project_skills(character, pack=PACK):
                'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.']
     if intelligence_rule:
         sources.append('I.Q. bonus applies once to every skill: Attribute Bonus Chart p. 281; beyond 30 adds 2% per five points, p. 284.')
+    required = project_required_skills(character, pack, intelligence)
+    if required['catalog']:
+        gaps[0] = 'Begging interpretation, weapon/hand-to-hand choices, other categories and prerequisites are pending.'
+        gaps.append('Barter literacy/mathematics synergies and conditional repair/horsemanship effects are pending.')
+        sources.append('Required choices and Eyeball a Fella bonuses: p. 97; Streetwise adds 10% to I.D. Undercover Agents, p. 321.')
     return {'catalog': domestic, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
-             'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence}}], 'selected': selected, 'remaining': remaining,
-            'warnings': list(dict.fromkeys(warnings)),
+             'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence}}, *required['grants']], 'selected': selected, 'remaining': remaining,
+            'required_remaining': required['remaining'], 'required_catalog': required['catalog'],
+            'warnings': list(dict.fromkeys([*warnings, *required['warnings']])),
             'sources': sources, 'gaps': gaps,
             'intelligence_source': intelligence_rule['source'] if intelligence_rule else None}

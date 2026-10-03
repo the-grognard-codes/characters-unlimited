@@ -1,5 +1,6 @@
 'use strict';
 let token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
+let requiredFormCharacter, requiredDirtyFlag = false;
 const $ = id => document.getElementById(id);
 async function request(path, data) {
   const response = await fetch(path, data === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json','X-Session-Token':token}, body:JSON.stringify(data)});
@@ -12,7 +13,7 @@ function lockNavigation(busy) {
   navigationBusy = busy;
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
-  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = busy || !skillsReady);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
 }
 function library() {
   $('library').replaceChildren();
@@ -67,11 +68,28 @@ let skillsReady = false, skillLoadSequence = 0;
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
   skillsReady = false;
-  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = true);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = true);
   const view = await request(`/api/characters/${character.id}/skills`);
   if (current.id !== character.id || sequence !== skillLoadSequence) return;
   $('skill-choice').replaceChildren(...view.catalog.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
   $('skill-counts').textContent = Object.entries(view.remaining).map(([pool, count]) => `${pool}: ${count} remaining`).join(' · ');
+  $('required-skill-form').hidden = !view.required_catalog;
+  $('required-skill-counts').hidden = !view.required_catalog;
+  if (view.required_catalog) {
+    $('required-skill-counts').textContent = Object.entries(view.required_remaining).map(([name,count]) => `${name.replaceAll('_',' ')}: ${count} remaining`).join(' · ');
+    if (!requiredNeedsSave()) {
+      const choices = character.required_skill_choices || {};
+      $('required-native').value = choices.native_language || '';
+      $('required-languages').value = (choices.other_languages || []).join('\n');
+      for (const name of ['pilot', 'repair']) {
+        const blank = document.createElement('option'); blank.value = ''; blank.textContent = 'Choose one…';
+        $('required-' + name).replaceChildren(blank, ...view.required_catalog[name].options.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
+        $('required-' + name).value = choices[name] || '';
+      }
+      requiredDirtyFlag = false;
+    }
+    requiredFormCharacter = current.id;
+  }
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
     heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.percentage}% · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
@@ -79,6 +97,11 @@ async function loadSkills(character) {
     explanation.textContent = Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ') + ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
     if (view.intelligence_source) explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
     if (skill.uncapped_percentage > 98) explanation.textContent += ` · Capped at 98% from ${skill.uncapped_percentage}% (Ultimate Edition, p. 301).`;
+    for (const check of skill.additional_checks || []) {
+      const total = Object.entries(check.contributions).map(([name,amount]) => `${name.replaceAll('_',' ')} ${amount}%`).join(' + ');
+      explanation.textContent += ` · ${check.name}: ${check.percentage}% (${total}${check.uncapped_percentage > 98 ? '; capped at 98%' : ''})`;
+    }
+    if (skill.notes) explanation.textContent += ' · ' + skill.notes.join(' ');
     row.append(heading, explanation);
     if (!skill.grant) {
       const remove = document.createElement('button'); remove.textContent = 'Remove selection';
@@ -91,8 +114,22 @@ async function loadSkills(character) {
     $(id).replaceChildren(...items.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   }
   skillsReady = true;
-  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button').forEach(element => element.disabled = navigationBusy);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = navigationBusy);
 }
+function readRequiredChoices() {
+  return {native_language:$('required-native').value.trim(), pilot:$('required-pilot').value, repair:$('required-repair').value,
+    other_languages:$('required-languages').value.trim() ? $('required-languages').value.split(/\r?\n/).map(value => value.trim()) : []};
+}
+function requiredNeedsSave() {
+  if (!current || requiredFormCharacter !== current.id || !requiredDirtyFlag || $('required-skill-form').hidden) return false;
+  const choices = readRequiredChoices(), saved = current.required_skill_choices || {};
+  return ['native_language','pilot','repair'].some(name => choices[name] !== (saved[name] || '')) || JSON.stringify(choices.other_languages) !== JSON.stringify(saved.other_languages || []);
+}
+$('required-skill-form').onsubmit = async event => {
+  event.preventDefault(); if (navigationBusy || !skillsReady) return;
+  lockNavigation(true);
+  try { await flushSave(); } catch(error) { showError(error); } finally { lockNavigation(false); }
+};
 $('skill-form').onsubmit = async event => {
   event.preventDefault();
   if (!skillsReady || navigationBusy) return;
@@ -110,9 +147,10 @@ $('preview-rule-update').onclick = async () => {
     $('rule-update-summary').textContent = preview.changes.length ? preview.changes.map(change => `${change.pack_id}: ${change.from} → ${change.to}`).join(' · ') : 'This character already uses the active domestic skill rules.';
     $('rule-update-scope').textContent = preview.scope + ' A backup of all characters is created before applying.';
     $('rule-update-skills').replaceChildren(...preview.skills.map(skill => {
-      const row = document.createElement('li'); row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before}% → ${skill.after}%`; return row;
+      const row = document.createElement('li'); row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before == null ? 'Not yet granted' : skill.before + '%'} → ${skill.after == null ? 'Removed' : skill.after + '%'}`; return row;
     }));
     $('rule-update-counts').textContent = Object.keys(preview.before_remaining).map(pool => `${pool} remaining: ${preview.before_remaining[pool]} → ${preview.after_remaining[pool]}`).join(' · ');
+    $('rule-update-counts').textContent += Object.keys(preview.after_required_remaining).length ? ' · Required choices: ' + Object.keys(preview.after_required_remaining).map(name => `${name.replaceAll('_',' ')}: ${preview.before_required_remaining[name] ?? 'not yet supported'} → ${preview.after_required_remaining[name]}`).join(' · ') : '';
     $('rule-update-findings').replaceChildren(...[...preview.gaps, ...preview.sources].map(message => { const row = document.createElement('li'); row.textContent = message; return row; }));
     $('apply-rule-update').disabled = !preview.changes.length;
     $('rule-update-dialog').showModal();
@@ -166,21 +204,25 @@ async function flushSave() {
   clearTimeout(saveTimer);
   if (savePromise) return savePromise;
   savePromise = (async () => {
-    while (current && ($('name').value !== current.name || $('notes').value !== current.notes)) {
+    let skillsChanged = false;
+    while (current && ($('name').value !== current.name || $('notes').value !== current.notes || requiredNeedsSave())) {
       $('save-status').textContent = 'Saving…';
       const changes = {revision: current.revision ?? 0};
       if ($('name').value !== current.name) changes.name = $('name').value;
       if ($('notes').value !== current.notes) changes.notes = $('notes').value;
-      const saved = await request('/api/characters/' + current.id, changes);
+      let saved;
+      if (changes.name !== undefined || changes.notes !== undefined) saved = await request('/api/characters/' + current.id, changes);
+      else { saved = await request(`/api/characters/${current.id}/required-skills`, {...changes, choices:readRequiredChoices()}); skillsChanged = true; }
       current = saved; characters = [saved, ...characters.filter(item => item.id !== saved.id)];
       $('summary-name').textContent = saved.name || 'Unnamed adventurer'; library();
     }
     $('save-status').textContent = 'Saved on this PC';
+    if (skillsChanged) loadSkills(current).catch(showError);
   })();
   try { await savePromise; } finally { savePromise = null; }
 }
-['name','notes'].forEach(id => $(id).oninput = () => { $('save-status').textContent = 'Unsaved changes'; clearTimeout(saveTimer); saveTimer = setTimeout(() => flushSave().catch(showError), 400); });
-window.addEventListener('beforeunload', event => { if (current && ($('name').value !== current.name || $('notes').value !== current.notes)) { event.preventDefault(); event.returnValue = ''; } });
+['name','notes','required-native','required-languages','required-pilot','required-repair'].forEach(id => $(id).oninput = () => { if (id.startsWith('required-')) requiredDirtyFlag = true; $('save-status').textContent = 'Unsaved changes'; clearTimeout(saveTimer); saveTimer = setTimeout(() => flushSave().catch(showError), 400); });
+window.addEventListener('beforeunload', event => { if (current && ($('name').value !== current.name || $('notes').value !== current.notes || requiredNeedsSave())) { event.preventDefault(); event.returnValue = ''; } });
 const start = async () => { try { await flushSave(); $('new-dialog').showModal(); } catch(error) { showError(error); } };
 $('start').onclick = start; $('new-character').onclick = start;
 $('cancel').onclick = () => $('new-dialog').close();

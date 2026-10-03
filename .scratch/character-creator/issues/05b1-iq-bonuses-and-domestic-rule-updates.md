@@ -1,8 +1,8 @@
 # 05B1 / 18B2: I.Q. bonuses with explicit domestic-rule updates
 
-**Status:** in-progress
+**Status:** done (PR #8, merged)
 
-**Blocked by:** 05A, 18B1
+**Dependencies:** 05A, 18B1 (complete)
 
 Apply the source-grounded I.Q. bonus once to required, related, domestic, and secondary skill percentages, using the effective edited attribute and the 98% cap. Verify printed pp. 281/284 against the original Ultimate Edition PDF. Preserve domestic version 1.0.0 and publish a reviewed 1.1.0 definition for new characters.
 

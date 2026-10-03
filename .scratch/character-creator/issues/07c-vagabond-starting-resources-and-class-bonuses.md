@@ -1,6 +1,6 @@
 # 07C — Vagabond starting resources and class bonuses
 
-**Status:** in-progress. Parents 07, 18, 19 and 20 remain open.
+**Status:** complete, merged in PR #42 after both review axes and both Windows frozen-build checks passed. Parents 07, 18, 19 and 20 remain open.
 
 Implement reviewed level-one Human/Vagabond starting resources under immutable Rifts skills 2.1.0: general S.D.C. 2D6+12 plus O.C.C. 2D6+10 and active Physical S.D.C. contributions. Generate starting resources explicitly after attribute selection, once per character, preserving each source/die. HP is effective P.E. at first generation plus 1D6; retain that attribute snapshot afterward. The user accepted this HP sequencing interpretation on 2026-10-03. Racial house options do not affect resource dice. Missing generation leaves capacities absent, not fabricated zeros.
 

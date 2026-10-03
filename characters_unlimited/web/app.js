@@ -342,7 +342,10 @@ function renderCoverageOptions() {
     const sections = entry.candidate_ids.map(id => coverage.candidates.find(candidate => candidate.id === id)).map(candidate => `Markdown lines ${candidate.line}–${candidate.end_line}`).join('; ');
     source.textContent = `Identity evidence: printed pp. ${entry.source.printed_pages.join(', ')} / PDF pp. ${entry.source.pdf_pages.join(', ')} · ${sections}`;
     const tickets = document.createElement('p'); tickets.className = 'help';
-    tickets.textContent = `Implementation tickets: ${entry.tickets.length ? entry.tickets.join(', ') : 'Awaiting named content batch'}.`;
+    tickets.textContent = `Implementation tickets: ${entry.tickets.length ? entry.tickets.map(id => {
+      const ticket = (coverage.content_tickets || []).find(item => item.id === id);
+      return ticket ? `${ticket.id}: ${ticket.title}` : id;
+    }).join('; ') : 'Awaiting named content batch'}. Assignment does not certify implementation.`;
     row.append(title, status, source, tickets);
     if (entry.dependencies.length) { const dependencies = document.createElement('p'); dependencies.className = 'help'; dependencies.textContent = 'Recorded dependencies: ' + entry.dependencies.map(id => coverage.options.find(option => option.id === id).name).join(' · ') + '. Complete dependency review remains pending.'; row.append(dependencies); }
     if (entry.aliases.length) { const aliases = document.createElement('p'); aliases.className = 'help'; aliases.textContent = 'Aliases: ' + entry.aliases.join(' · '); row.append(aliases); }
@@ -374,7 +377,7 @@ $('source-coverage').onclick = async () => {
   try {
     await flushSave(); coverage = await request('/api/coverage');
     $('builder').hidden = true; $('welcome').hidden = true; $('coverage').hidden = false;
-    $('coverage-summary').textContent = `${coverage.summary.books} books · ${coverage.summary.candidates} extracted sections · ${coverage.summary.books_reviewed} books reviewed · ${coverage.summary.canonical_options} canonical identities · ${coverage.summary.identity_confirmed} identities confirmed · ${coverage.summary.mechanically_reviewed} mechanically reviewed · ${coverage.summary.unassigned_options} awaiting content tickets · ${coverage.summary.fully_automated} fully automated options · ${coverage.summary.source_gaps || 0} source gaps`;
+    $('coverage-summary').textContent = `${coverage.summary.books} books · ${coverage.summary.candidates} extracted sections · ${coverage.summary.books_reviewed} books reviewed · ${coverage.summary.canonical_options} canonical identities · ${coverage.summary.identity_confirmed} identities confirmed · ${coverage.summary.mechanically_reviewed} mechanically reviewed · ${coverage.summary.content_tickets || 0} content tickets · ${coverage.summary.unassigned_options} awaiting content tickets · ${coverage.summary.fully_automated} fully automated options · ${coverage.summary.source_gaps || 0} source gaps`;
     $('coverage-books').replaceChildren(...coverage.books.map(book => {
       const entry = document.createElement('section'); entry.className = 'panel';
       const title = document.createElement('h3'); title.textContent = book.filename.replace('.md','');

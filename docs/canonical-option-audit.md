@@ -2,6 +2,10 @@
 
 `characters_unlimited/data/canonical-options.json` is a source-bound identity catalog. `source-inventory.json` retains the provisional headings and book fingerprints; neither file executes rule text or activates a character option.
 
+`content-tickets.json` assigns every currently audited identity to one bounded owning issue. Its schema contains owning ticket records (`id`, `title`, `option_ids`, `dependencies`, `path`) and explicitly named external workflow prerequisite IDs. Coverage loading rejects missing, duplicate or unknown members, disagreement with canonical ownership, unsafe issue paths and omitted known cross-ticket dependency owners. Each owning batch has at most twelve identities; unrelated options receive individual tickets. Complex construction or effect paths must split further before implementation when needed.
+
+Ticket assignment preserves the separate pending mechanical/dependency states and automation gaps. Known canonical edges establish source dependencies, while the issue files explain provisional feature blockers and remaining source research. Supporting rules, new identities discovered in prose/tables, edition precedence and complete dependency review remain unfinished. A complete ticket map for the current identity audit does not close parent 02 or certify full book coverage.
+
 The initial 30 identities come from the original Ultimate Edition class list, printed p. 43 / PDF p. 46. Each record links the corresponding body heading in the corrected Markdown. Aliases consolidate list labels and body titles rather than treating repeated stats or skill headings as new classes. The SAMAS Pilot and Elite RPA labels identify the same listed class. A subsequent pass adds six hatchlings, their common creation rules, Civilized/Wild Psi-Stalkers, ten Heroes categories and two optional modifiers. Dog Boy breeds and further child paths still need audit. This does not claim a complete core catalog or mechanical review.
 
 The version-one record contract is validated by `option_audit.audited_coverage`:

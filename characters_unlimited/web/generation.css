@@ -1,2 +1,3 @@
 .checks{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:15px}.checks label{font-weight:400;margin:0}.checks input[type=checkbox]{display:inline;width:auto;margin:0 6px 0 0}.attribute-grid{margin-top:18px}.attribute button{font-size:10px;padding:5px;margin:5px 2px 0}.attribute .help{font-size:10px}#history-dialog{max-height:85vh;overflow:auto;width:620px}#history-events details{padding:12px 0;border-bottom:1px solid var(--line)}#history-events summary{cursor:pointer;font-size:12px}#history-close{margin-top:20px}
 #transfer-status{overflow-wrap:anywhere}
+#rule-versions{overflow-wrap:anywhere}.summary .actions{flex-wrap:wrap}#rule-update-dialog{max-height:85vh;overflow:auto;width:620px}#rule-update-dialog .actions{flex-wrap:wrap}

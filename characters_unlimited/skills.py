@@ -31,6 +31,14 @@ def skill_key(item):
 
 def project_skills(character, pack=PACK):
     domestic, pools = pack['skills'], pack['pools']
+    intelligence_rule = pack.get('intelligence')
+    iq = character['attributes']['IQ']['value']
+    intelligence = 0
+    if intelligence_rule:
+        intelligence = intelligence_rule['bonuses'].get(str(min(iq, 30)), 0)
+        if iq > 30:
+            rule = intelligence_rule['beyond_30']
+            intelligence += ((iq - 30) // rule['step']) * rule['bonus']
     selections = character.get('skill_selections', [])
     counts = Counter(item['pool'] for item in selections)
     occurrences = Counter(skill_key(item) for item in selections if skill_key(item) != ('instrument', ''))
@@ -50,19 +58,29 @@ def project_skills(character, pack=PACK):
         if item['skill_id'] == 'instrument' and not item.get('specialty'):
             warnings.append("Choose the instrument for each Play Musical Instrument selection.")
         bonus = pools[item['pool']]['bonus'] if key == ('instrument', '') else bonuses[key]
-        selected.append({**definition, **item, 'percentage': min(98, definition['base'] + bonus + (10 if repeated else 0)),
+        uncapped = definition['base'] + bonus + (10 if repeated else 0) + intelligence
+        selected.append({**definition, **item, 'percentage': min(98, uncapped), 'uncapped_percentage': uncapped,
                          'quality': 'professional' if item['pool'] != 'secondary' or repeated else 'amateur',
-                         'contributions': {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated else 0}})
+                         'contributions': {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated else 0, 'intelligence': intelligence}})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool, count in remaining.items():
         if count < 0:
             warnings.append(f"{pool.title()}: {-count} selection(s) over the level-one allowance.")
     repeat_cook = 10 if occurrences[('cook', '')] >= 2 else 0
     cook = next(skill for skill in domestic if skill['id'] == 'cook')
-    return {'catalog': domestic, 'grants': [{**cook, 'percentage': min(98, cook['base'] + 15 + repeat_cook), 'quality': 'professional',
-             'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook}}], 'selected': selected, 'remaining': remaining,
+    uncapped_cook = cook['base'] + 15 + repeat_cook + intelligence
+    gaps = ['Other required choices and skill categories are pending.',
+            'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']
+    if not intelligence_rule:
+        gaps.append('The pinned rules omit I.Q. bonuses. Preview a rule update to incorporate the reviewed bonus chart.')
+    if iq < 9:
+        gaps.append('Below-average I.Q. skill entitlements and penalties are pending; displayed counts and percentages do not apply them.')
+    sources = ['Vagabond O.C.C. allowances and bonuses: Ultimate Edition pp. 97–98.',
+               'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.']
+    if intelligence_rule:
+        sources.append('I.Q. bonus applies once to every skill: Attribute Bonus Chart p. 281; beyond 30 adds 2% per five points, p. 284.')
+    return {'catalog': domestic, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
+             'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence}}], 'selected': selected, 'remaining': remaining,
             'warnings': list(dict.fromkeys(warnings)),
-            'sources': ['Vagabond O.C.C. allowances and bonuses: Ultimate Edition pp. 97–98.',
-                        'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.'],
-            'gaps': ['Other required choices and skill categories are pending.',
-                     'I.Q. modifiers and acquired-level advancement are pending; percentages shown omit these modifiers.']}
+            'sources': sources, 'gaps': gaps,
+            'intelligence_source': intelligence_rule['source'] if intelligence_rule else None}

@@ -105,6 +105,10 @@ def create_server(application, port=0):
                         self.respond(200, application.select_skills(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'duplicate':
                         self.respond(201, application.duplicate(parts[2]))
+                    elif len(parts) == 4 and parts[3] == 'rule-preview':
+                        self.respond(200, application.preview_rule_upgrade(parts[2]))
+                    elif len(parts) == 4 and parts[3] == 'rule-upgrade':
+                        self.respond(200, application.apply_rule_upgrade(parts[2], **data))
                     else:
                         self.respond(404, {"error": "Not found"})
                 else:

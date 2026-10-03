@@ -1,0 +1,184 @@
+{
+  "id": "rifts-domestic-skills",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.1.0",
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": "cook",
+      "name": "Cook",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "dance",
+      "name": "Dance",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "fishing",
+      "name": "Fishing",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "gardening",
+      "name": "Gardening",
+      "base": 36,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "housekeeping",
+      "name": "Housekeeping",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "instrument",
+      "name": "Play Musical Instrument",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307,
+          308
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "recycle",
+      "name": "Recycle",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "sewing",
+      "name": "Sewing",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Domestic Skills"
+      }
+    },
+    {
+      "id": "sing",
+      "name": "Sing",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Domestic Skills"
+      }
+    }
+  ],
+  "pools": {
+    "domestic": {
+      "count": 2,
+      "bonus": 15
+    },
+    "related": {
+      "count": 5,
+      "bonus": 10
+    },
+    "secondary": {
+      "count": 8,
+      "bonus": 0
+    }
+  },
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "pages": [
+      97,
+      98,
+      300,
+      301,
+      302,
+      307,
+      308
+    ]
+  },
+  "intelligence": {
+    "bonuses": {
+      "16": 2,
+      "17": 3,
+      "18": 4,
+      "19": 5,
+      "20": 6,
+      "21": 7,
+      "22": 8,
+      "23": 9,
+      "24": 10,
+      "25": 11,
+      "26": 12,
+      "27": 13,
+      "28": 14,
+      "29": 15,
+      "30": 16
+    },
+    "beyond_30": {
+      "step": 5,
+      "bonus": 2
+    },
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        281,
+        284
+      ],
+      "section": "Attribute Bonus Chart and Attributes Beyond 30"
+    }
+  }
+}

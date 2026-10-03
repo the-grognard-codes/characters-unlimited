@@ -1,0 +1,13 @@
+# 05B11 Swimming source and validation
+
+Original Rifts Ultimate Edition Swimming paragraph visually reviewed by a bounded source reviewer: printed317/PDF320 right column. Corrected Markdown18443, candidate0f582017f960a22d7a6d (Physical Skills18355–18450). Source says50%/+5 per level,3×PS yards/meters each melee forPE minutes, storm−20, non-powered MDC armor−45 if afloat, no movement after a failed roll, and submersion/drowning after three consecutive failures unless rescued. It grants no attributes/SDC/combat bonus. Fatigue is running's surface-swimming equivalent, medium/heavy exertion. Power armor may swim; no buoyancy formula is supplied.
+
+Related eligibility: Vagabond printed97/PDF100, MD4610; no Physical class percentage bonus. Secondary: printed300/PDF303, candidatee48cf8c81422e145d65e, MD17501–17529 (Swimming explicit17529), no class bonus; class allowance printed98/PDF101, MD4626. Starting HP interpretation remains effectivePE at generation, unchanged by this slice.
+
+Public test initially failed unavailable Swimming. Source oracle IQ16/PS20/PE16/Spd99 yields52% (50+IQ2), storm32%, armor7%,60 yards/meters per melee for16 minutes, unchanged attributes and no dice. Duplicate Related/Secondary selections remain retained/eligible without another bonus. PDF/import/reopen retain values/guidance. Artifact assertions normalize whitespace because notes wrap over editable rows.
+
+Second public test proves2.3 pins exclude Swimming until explicit update, and synthetic99 corrections show proficiency50→55 and yards39→52 before apply without writing. NonpositivePS leaves limits pending. Focused17 checks and types70 pass after updating only active-version expectations. Global/visual/frozen validation and independent reviews follow. Full parent05 and ambiguous overlapping contexts remain open.
+
+Browser Secondary selection and library reload retain52% and expanded32%/7% contexts with60yd/meters per melee for16minutes. Rendered three-page editable Rifts sheet visually inspected: native skill/rate/percentage columns, conditional armor overflow, source/fatigue/failure text and routine limits are legible. Standards and Spec approved final changes. Standards caught six-significant-digit PDF rounding at large manual values; a failing then passing public artifact test now preserves3703701yards/meters and1234567minutes. First global run's sole failure was an outdated active catalog count72; corrected to73. Final publication checks follow.
+
+Final publication checks pass199 tests (one frozen-only skip), type checking70, compilation and all browser script syntax. No unresolved Standards/Spec findings. Windows frozen checks run on the PR before merge.

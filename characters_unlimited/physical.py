@@ -178,11 +178,29 @@ def project_physical(character, pack):
         selection = next(item for item in character.get('skill_selections', []) if item['skill_id'] == identifier)
         projected = {**deepcopy(definition), **deepcopy(selection), 'effects': effects}
         if 'activities' in definition:
-            projected['activities'] = _running_activities(character, definition['activities'])
+            projected['activities'] = (_swimming_activities(character, definition['activities'])
+                if set(definition['activities']) == {'swimming'} else _running_activities(character, definition['activities']))
         selected.append(projected)
         if source not in sources:
             sources.append(deepcopy(source))
     return {'selected': selected, 'resources': resources, 'combat': combat, 'sources': sources}
+
+
+def _swimming_activities(character, rules):
+    swimming = rules['swimming']
+    fields = {'yards_per_ps', 'meters_per_ps', 'minutes_per_pe'}
+    if (not isinstance(swimming, dict) or set(swimming) != fields
+            or any(type(value) is not int or not 1 <= value <= 1000 for value in swimming.values())):
+        raise ValueError('Invalid Swimming activity rules')
+    ps, pe = character['attributes']['PS']['value'], character['attributes']['PE']['value']
+    supported = (0 < ps <= MAX_ACTIVITY_ATTRIBUTE/max(swimming['yards_per_ps'], swimming['meters_per_ps'])
+                 and 0 < pe <= MAX_ACTIVITY_ATTRIBUTE/swimming['minutes_per_pe'])
+    return [{'id':'surface-swimming', 'name':'Surface swimming',
+             'yards_per_melee':ps*swimming['yards_per_ps'] if supported else None,
+             'meters_per_melee':ps*swimming['meters_per_ps'] if supported else None,
+             'minutes':pe*swimming['minutes_per_pe'] if supported else None,
+             'guidance':'Routine pace until fatigue; distance uses current effective P.S., duration uses current effective P.E.' if supported
+                        else 'Positive effective P.S. and P.E. within the supported numeric range are needed for Swimming limits.'}]
 
 
 def _running_activities(character, rules):

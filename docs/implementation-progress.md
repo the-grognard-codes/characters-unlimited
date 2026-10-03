@@ -116,4 +116,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08B3A: Representative free Vagabond armor/gun/knife/transport/spare-clip choices implemented under equipment1.5.0, with original receipt retention and explicit missing transport/broader catalog mechanics. Complete in PR #52 as53b8f66 after Windows checks37153441547/37153445623 passed. All193 local checks, both review axes and browser/PDF verification pass; parent08 stays open.
 
-- 21A: Tailored Heroes Unlimited editable sheet for reviewed identity, attributes, education and program/Secondary skills implemented. Exact rule pins, original selections/allowances, Unicode and matching continuations retained; pending powers/combat/resources/equipment blank. Publication pending; full ticket21 remains open.
+- 21A: Tailored Heroes Unlimited editable sheet for reviewed identity, attributes, education and program/Secondary skills implemented. Exact rule pins, original selections/allowances, Unicode and matching continuations retained; pending powers/combat/resources/equipment blank. Complete in PR #53 as7140443 after Windows checks37154597569/37154600287 passed. All196 local checks, separate review approvals and native/browser PDF verification pass; full ticket21 remains open.
+
+- 05B11: Swimming mixed Physical/percentile projection, source storm/armor contexts and P.S./P.E. activity limits implemented under immutable skills2.4.0. Publication pending; overlapping conditions/buoyancy, further Physical rules and parent05 remain open.

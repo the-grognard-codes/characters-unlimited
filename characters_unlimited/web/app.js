@@ -202,7 +202,11 @@ function renderCoverageCandidates() {
     const title = document.createElement('summary'); title.textContent = item.title;
     const description = document.createElement('p'); description.className = 'help';
     description.textContent = `${item.book_id} · Markdown lines ${item.line}–${item.end_line} · ${item.status}. Mechanical implementation and source review remain pending.`;
-    entry.append(title,description); return entry;
+    entry.append(title,description);
+    for (const gap of item.source_gaps || []) {
+      const warning = document.createElement('p'); warning.textContent = `Source gap at Markdown lines ${gap.line}–${gap.end_line}: ${gap.description}`; entry.append(warning);
+    }
+    return entry;
   }));
 }
 $('coverage-search').oninput = renderCoverageCandidates;
@@ -212,7 +216,7 @@ $('source-coverage').onclick = async () => {
   try {
     await flushSave(); coverage = await request('/api/coverage');
     $('builder').hidden = true; $('welcome').hidden = true; $('coverage').hidden = false;
-    $('coverage-summary').textContent = `${coverage.summary.books} books · ${coverage.summary.candidates} extracted sections · ${coverage.summary.books_reviewed} books reviewed · ${coverage.summary.fully_automated} fully automated options`;
+    $('coverage-summary').textContent = `${coverage.summary.books} books · ${coverage.summary.candidates} extracted sections · ${coverage.summary.books_reviewed} books reviewed · ${coverage.summary.fully_automated} fully automated options · ${coverage.summary.source_gaps || 0} source gaps`;
     $('coverage-books').replaceChildren(...coverage.books.map(book => {
       const entry = document.createElement('section'); entry.className = 'panel';
       const title = document.createElement('h3'); title.textContent = book.filename.replace('.md','');
@@ -223,7 +227,11 @@ $('source-coverage').onclick = async () => {
       const markdownHash = document.createElement('p'); markdownHash.className = 'source-hash'; markdownHash.textContent = `Markdown: ${book.filename} · SHA-256 ${book.sha256}`;
       const pdfHash = document.createElement('p'); pdfHash.className = 'source-hash'; pdfHash.textContent = book.original_pdf ? `PDF: ${book.original_pdf} · SHA-256 ${book.pdf_sha256}` : 'No matching original PDF was found.';
       fingerprints.append(fingerprintHeading, markdownHash, pdfHash);
-      entry.append(title,metadata,fingerprints); return entry;
+      entry.append(title,metadata,fingerprints);
+      for (const gap of book.source_gaps || []) {
+        const warning = document.createElement('p'); warning.textContent = `Source gap at Markdown lines ${gap.line}–${gap.end_line}: ${gap.description}`; entry.append(warning);
+      }
+      return entry;
     })); renderCoverageCandidates();
   } catch(error) { showError(error); } finally { lockNavigation(false); }
 };

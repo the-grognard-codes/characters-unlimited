@@ -8,7 +8,14 @@ import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import TypedDict
 from uuid import uuid4
+
+
+class SourceGap(TypedDict):
+    line: int
+    end_line: int
+    description: str
 
 
 class SourceInventory:
@@ -21,6 +28,7 @@ class SourceInventory:
         if pdf_directory is not None:
             originals = {path.stem.casefold(): path for path in Path(pdf_directory).iterdir() if path.suffix.casefold() == ".pdf"}
         books, candidates = [], []
+        gap_count = 0
         for source in sorted(directory.glob("*.md")):
             before = source.stat()
             content = source.read_bytes()
@@ -32,6 +40,12 @@ class SourceInventory:
             game = "rifts" if source.stem.startswith("Rifts") else "heroes-unlimited" if source.stem.startswith(("Heroes Unlimited", "Aliens Unlimited")) else "unknown"
             original = originals.get(source.stem.casefold())
             lines = content.decode("utf-8-sig").splitlines()
+            text = '\n'.join(lines)
+            gaps: list[SourceGap] = [{'line': text.count('\n', 0, match.start()) + 1,
+                     'end_line': text.count('\n', 0, match.end()) + 1,
+                     'description': ' '.join(match[1].split())}
+                    for match in re.finditer(r'<!--\s*SOURCE GAP:\s*(.*?)-->', text, re.DOTALL | re.IGNORECASE)]
+            gap_count += len(gaps)
             headings = []
             for line_number, line in enumerate(lines, start=1):
                 match = re.match(r"^#{1,6}\s+(.+?)\s*#*\s*$", line)
@@ -49,10 +63,12 @@ class SourceInventory:
                     kind = "race"
                 else:
                     kind = "section"
-                identifier = hashlib.sha256(f"{book_id}:{line_number}:{title}".encode()).hexdigest()[:20]
+                identifier = hashlib.sha256(f"{book_id}:{digest}:{line_number}:{title}".encode()).hexdigest()[:20]
+                section_gaps = [gap for gap in gaps if gap['line'] <= end and gap['end_line'] >= line_number]
                 candidates.append({
                     "id": identifier, "book_id": book_id, "title": title, "kind": kind,
-                    "line": line_number, "end_line": end, "status": "needs-review",
+                    "line": line_number, "end_line": end, "status": "source-gap" if section_gaps else "needs-review",
+                    "source_gaps": section_gaps,
                     "source_sha256": digest, "dependencies": [], "evidence": [],
                 })
             books.append({
@@ -60,12 +76,14 @@ class SourceInventory:
                 "bytes": len(content), "candidate_count": len(headings), "review_complete": False,
                 "original_pdf": original.name if original else None,
                 "pdf_sha256": hashlib.sha256(original.read_bytes()).hexdigest() if original else None,
+                "source_gaps": gaps,
                 "findings": ["Heading extraction is provisional. Audit prose, tables, aliases, and missing dependencies before closing coverage."],
             })
         return {
             "schema_version": 1, "captured_at": datetime.now(timezone.utc).isoformat(),
             "books": books, "candidates": candidates,
-            "summary": {"books": len(books), "candidates": len(candidates), "fully_automated": 0, "books_reviewed": 0},
+            "summary": {"books": len(books), "candidates": len(candidates), "fully_automated": 0, "books_reviewed": 0,
+                        "source_gaps": gap_count},
         }
 
     @staticmethod

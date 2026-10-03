@@ -1,6 +1,6 @@
 # 04B: Recorded Vagabond attribute contributions
 
-**Status:** in-progress
+**Status:** done (PR #15)
 
 **Dependencies:** 07A (complete, PR #14). Bounded Rifts Human/Vagabond path; parent 04 remains open for other species/classes and Heroes Unlimited.
 

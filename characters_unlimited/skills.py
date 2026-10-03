@@ -4,7 +4,7 @@ from collections import Counter
 import json
 from pathlib import Path
 from .required_skills import project_required_skills
-from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids
+from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids, specialty_key
 from .proficiency import synergy_contributions, project_proficiency
 from .combat import combat_skill_cost
 
@@ -30,7 +30,7 @@ def validate_selections(selections, pack=PACK):
 
 def skill_key(item, pack=PACK):
     definition = next(skill for skill in pack['skills'] if skill['id'] == item['skill_id'])
-    specialty = ' '.join(item.get('specialty', '').split()).casefold() if needs_specialty(definition) else ''
+    specialty = specialty_key(item.get('specialty', '')) if needs_specialty(definition) else ''
     return (item['skill_id'], specialty)
 
 
@@ -40,7 +40,7 @@ def compare_skill_views(before, after):
         occurrences: Counter[tuple[str, str, str]] = Counter()
         for group in ('grants', 'selected'):
             for skill in view[group]:
-                identity = (group, skill['id'], ' '.join(skill.get('specialty', '').split()).casefold())
+                identity = (group, skill['id'], specialty_key(skill.get('specialty', '')))
                 occurrence = occurrences[identity]
                 occurrences[identity] += 1
                 result[(*identity, occurrence, 'primary')] = skill
@@ -77,29 +77,37 @@ def project_skills(character, pack=PACK):
         key = skill_key(item, pack)
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
         bonuses[key] = max(bonuses.get(key, 0), selection_policy(definition, item['pool'], pack)['bonus'])
-    warnings = choice_guidance(selections, pack)
+    required = project_required_skills(character, pack, intelligence)
+    granted = {item['id'] for item in required['grants']}
+    warnings = choice_guidance(selections, pack, required['grants'])
     available = learned_selection_ids(selections, pack)
+    available.update(granted)
     selected = []
     for item in selections:
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
         key = skill_key(item, pack)
         is_domestic = definition.get('category', 'domestic') == 'domestic'
-        repeated = is_domestic and occurrences[key] >= 2
-        if is_domestic and occurrences[key] > 2:
+        repetition = definition.get('repetition', {'at': 2, 'bonus': 10} if is_domestic else None)
+        repeated = repetition is not None and occurrences[key] >= repetition['at']
+        if repetition is not None and occurrences[key] > repetition['at']:
             warnings.append(f"{definition['name']}: more than two selections; the repeated-skill bonus applies once.")
-        if not is_domestic and occurrences[key] > 1:
+        if repetition is None and occurrences[key] > 1:
             warnings.append(f"{definition['name']}: duplicate selections are retained without another proficiency bonus.")
         if needs_specialty(definition) and not item.get('specialty'):
             warnings.append(f"Choose the specialty for each {definition['name']} selection.")
         policy = selection_policy(definition, item['pool'], pack)
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
-        contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated else 0, 'intelligence': intelligence}
+        contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated and is_domestic else 0, 'intelligence': intelligence}
+        if 'class_ability' in definition:
+            contributions['class_ability'] = definition['class_ability']
+        if not is_domestic and repetition:
+            contributions['repeated_skill'] = repetition['bonus'] if repeated else 0
         contributions.update(synergy_contributions(definition, available))
         quality = 'trained'
         if is_domestic:
             quality = 'professional' if item['pool'] != 'secondary' or repeated else 'amateur'
         elif definition.get('quality_by_pool'):
-            quality = definition['quality_by_pool'].get(item['pool'], 'trained')
+            quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
         selected.append({**definition, **item, **project_proficiency(definition, contributions), 'quality': quality})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     remaining['related'] -= combat_skill_cost(character, pack)
@@ -119,7 +127,6 @@ def project_skills(character, pack=PACK):
                'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.']
     if intelligence_rule:
         sources.append('I.Q. bonus applies once to every skill: Attribute Bonus Chart p. 281; beyond 30 adds 2% per five points, p. 284.')
-    required = project_required_skills(character, pack, intelligence)
     if required['catalog']:
         gaps[0] = ('Begging interpretation, remaining weapon proficiencies, other categories and prerequisites are pending.' if 'combat' in pack
                    else 'Begging interpretation, weapon/hand-to-hand choices, other categories and prerequisites are pending.')

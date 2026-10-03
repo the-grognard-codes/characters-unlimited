@@ -33,7 +33,9 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 
 - 07A: Complete, merged in PR #14; both Windows checks pass. Representative level-one Rifts combat training, action costs and explained melee/firearm bonuses pass 66 checks and browser verification. Both review axes approve after repairing required energy-weapon eligibility, Assassin alignment guidance and the extra-training warning. Parent 07 remains open; the UI identifies the remaining mechanics.
 
-- 04B: In progress. New Vagabonds record +1D4 M.A., +1 P.S. and +2 P.E. separately under primary 1.1.0. Rerolls preserve class dice, manual fixed/additive modes apply correctly and portable validation rejects altered contributions. All 71 checks and browser explanation/reroll verification pass; both review axes approve after repairing guidance for older skill pins; publication is pending. Earlier primary versions remain unchanged, with random primary-upgrade support still pending.
+- 04B: Complete, merged in PR #15; both Windows CI checks pass. New Vagabonds record +1D4 M.A., +1 P.S. and +2 P.E. separately under primary 1.1.0. Rerolls preserve class dice, manual fixed/additive modes apply correctly and portable validation rejects altered contributions. All 71 checks and browser explanation/reroll verification pass; both review axes approve after repairing guidance for older skill pins; publication is complete. Earlier primary versions remain unchanged, with random primary-upgrade support still pending.
+
+- 05B5: In progress. Fourteen Communications choices bring the selectable catalog to 46. Category exclusions, writing repetition/quality, source-grounded conditional checks, grant-aware prerequisites and named specialties pass 78 checks and browser verification. Spec caught missing guidance for optional languages duplicating grants; shared normalization and a regression repair it. Both targeted reviews approve; publication is pending. Source discrepancy and remaining dependencies are recorded in docs/evidence/05b5-validation.md.
 
 ## Pending source ruling
 

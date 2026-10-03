@@ -1,7 +1,7 @@
 """Reviewed Vagabond grants and required choices, independent of browser state."""
 
 from typing import Any
-from .skill_choices import learned_selection_ids
+from .skill_choices import learned_selection_ids, specialty_key as language_key
 from .proficiency import synergy_contributions, project_proficiency
 
 def validate_required_choices(choices, pack):
@@ -23,10 +23,6 @@ def validate_required_choices(choices, pack):
         raise ValueError('Provide at most 1000 language choices as text')
     result['other_languages'] = [language.strip() for language in languages]
     return result
-
-
-def language_key(value):
-    return ' '.join(value.split()).casefold()
 
 
 def project_required_skills(character, pack, intelligence):

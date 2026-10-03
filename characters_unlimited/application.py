@@ -20,7 +20,7 @@ from .education import education_selection, validate_education, project_educatio
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical
 from .resources import acquire_resources, project_resources, update_resource
-from .equipment import validate_inventory, purchase_inventory, project_equipment
+from .equipment import validate_inventory, purchase_inventory, project_equipment, compare_equipment_views
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -275,8 +275,31 @@ class CharacterApplication:
                        'scope': 'Vagabond skills, reviewed Physical effects, class bonuses, combat training and starting-resource definitions. Resource dice are generated separately; recorded attribute/acquisition dice stay unchanged. Changes to acquired Physical or resource definitions require a separate migration.'}
         changes = [] if previous['version'] == target['version'] else [
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
+        targets = [target]
+        preview['equipment'] = []
+        if character['game'] == 'rifts' and 'rifts-equipment' in character.get('additional_rule_packs', {}):
+            previous_equipment = self.character_equipment_pack(character)
+            target_equipment = self.rule_archive.active('rifts-equipment')
+            try:
+                validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), target_equipment)
+            except ValueError as error:
+                raise ValueError('This equipment update is incompatible with saved possessions. '
+                                 'Current rules remain intact; inventory migration is not yet supported.') from error
+            equipment_before = project_equipment(character, previous_equipment, project_combat(character, previous))
+            equipment_after = project_equipment(character, target_equipment, project_combat(character, target))
+            preview['equipment'] = compare_equipment_views(equipment_before, equipment_after)
+            preview['scope'] += ' Equipment catalog corrections are included. Credits, quantities, locations and shots stay recorded.'
+            preview['gaps'].extend(equipment_after['warnings'])
+            source = target_equipment['source']
+            preview['sources'].append(f"{source['book']}, equipment printed pp. "
+                                     + ', '.join(map(str, source['pages']))
+                                     + ' / PDF pp. ' + ', '.join(map(str, source['pdf_pages'])))
+            targets.append(target_equipment)
+            if previous_equipment['version'] != target_equipment['version']:
+                changes.append({'pack_id': target_equipment['id'], 'from': previous_equipment['version'],
+                                'to': target_equipment['version']})
         preview.update(revision=character['revision'], changes=changes)
-        preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'target': target})).hexdigest()
+        preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'targets': targets})).hexdigest()
         return preview
 
     def apply_rule_upgrade(self, identifier, *, revision, token):
@@ -289,7 +312,8 @@ class CharacterApplication:
             raise ValueError('The rule update preview is unavailable or changed. Preview it again before applying.')
         backup = self.backup()
         pins = dict(character['additional_rule_packs'])
-        pins[preview['changes'][0]['pack_id']] = preview['changes'][0]['to']
+        for change in preview['changes']:
+            pins[change['pack_id']] = change['to']
         updated = self.store.update(identifier, {'additional_rule_packs': pins}, revision)
         return {'character': updated, 'backup': backup}
 

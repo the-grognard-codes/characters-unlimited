@@ -1,6 +1,6 @@
 # 08A — Representative Rifts equipment inventory
 
-**Status:** in-progress. Parent 08 remains open. Depends on 07A, 07C and 18A.
+**Status:** complete. Parent 08 remains open. Depends on 07A, 07C and 18A.
 
 Add an immutable, game-separated `rifts-equipment` 1.0.0 pack for Wilk's 320 Laser Pistol, Wilk's 447 Laser Rifle and Plastic-Man armor. Original Ultimate Edition printed pp. 267–269 / PDF pp. 270–272 supplies costs, weights, damage, range, shot capacities, aimed bonuses, armor locations and movement skill penalties. Record sources and fingerprints. Do not infer gun burst capability from proficiency training examples.
 
@@ -15,3 +15,5 @@ Project inventory values and source explanations through the builder, editable R
 Saved `equipment = {credits: int, items: [{id: str, item_id: str, quantity: int, location: 'carried'|'stored', equipped: bool, shots: int|null}]}`. Credits may be negative; supported integers stay within the browser-safe integer range. Items have unique stable IDs. Positive quantity is bounded to 1000; guns use whole shots 0..source capacity; armor shots is null. Equipment definitions are selected from their accepted pack rather than copied into possession records.
 
 `equipment.py` owns `validate_inventory(record, pack)`, `purchase_inventory(record, pack, item_id, quantity, possession_id)` and `project_equipment(character, pack, combat)`; no persistence, randomness or executable expressions. Projection returns `catalog`, `inventory`, `items` (source definitions merged with possession values), `attacks` (per active weapon, single/aimed contribution totals), `armor` (per active armor), `carried_weight_lbs`, `warnings`, `guidance`, `sources`. The application owns exact pins, optimistic revisions and persistence; UI edits submit a complete validated inventory. Stored/equipped exceptions remain saved with guidance and have no active effect. Parents remain open after this representative path.
+
+Merged in PR #46, squash 1ca9781. Both Windows frozen checks passed: 37144659491 and 37144662103.

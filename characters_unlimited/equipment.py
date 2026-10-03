@@ -184,3 +184,36 @@ def project_equipment(character, pack, combat):
         'attacks': attacks, 'armor': armor, 'carried_weight_lbs': carried_weight,
         'warnings': warnings, 'guidance': guidance, 'sources': sources,
     }
+
+
+def compare_equipment_views(before, after):
+    """Describe catalog corrections and their effects without changing possessions."""
+    changes = []
+    def add(name, old, new):
+        if old != new:
+            changes.append({'name': name, 'before': deepcopy(old), 'after': deepcopy(new)})
+
+    add('Carried weight (lb)', before['carried_weight_lbs'], after['carried_weight_lbs'])
+    old_catalog = {item['id']: item for item in before['catalog']}
+    new_catalog = {item['id']: item for item in after['catalog']}
+    for item_id in dict.fromkeys([*old_catalog, *new_catalog]):
+        old = old_catalog.get(item_id, {})
+        new = new_catalog.get(item_id, {})
+        name = new.get('name', old.get('name', item_id))
+        for field in sorted(set(old) | set(new)):
+            if field != 'id':
+                add(f'{name}: {field.replace("_", " ")}', old.get(field), new.get(field))
+    old_attacks = {item['possession_id']: item for item in before['attacks']}
+    new_attacks = {item['possession_id']: item for item in after['attacks']}
+    for number, possession_id in enumerate(dict.fromkeys([*old_attacks, *new_attacks]), start=1):
+        old = old_attacks.get(possession_id, {})
+        new = new_attacks.get(possession_id, {})
+        name = new.get('name', old.get('name', possession_id))
+        for attack in ('single', 'aimed'):
+            for field in ('value', 'contributions', 'actions'):
+                label = 'strike total' if field == 'value' else field
+                add(f'{name} (weapon {number}): {attack} {label}',
+                    old.get(attack, {}).get(field), new.get(attack, {}).get(field))
+    add('Equipment warnings', before['warnings'], after['warnings'])
+    add('Equipment guidance', before['guidance'], after['guidance'])
+    return changes

@@ -1,0 +1,327 @@
+{
+  "id": "heroes-education",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "name": "Heroes Unlimited education table",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      44,
+      45
+    ],
+    "pdf_pages": [
+      45,
+      46
+    ],
+    "section": "Determining Educational Level and Educational Level Table"
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "outcomes": [
+    {
+      "id": "street-schooled",
+      "name": "Street Schooled",
+      "min": 1,
+      "max": 10,
+      "secondary_count": 8,
+      "program_slots": [],
+      "street_grants": [
+        "Streetwise (+14%)",
+        "Prowl (+5%)",
+        "W.P. knife or automatic pistol: choose one"
+      ],
+      "street_choices": {
+        "Rogue": 3,
+        "Domestic": 2,
+        "Technical": 2
+      },
+      "guidance": [
+        "Unless a Street or Secondary selection is surrendered for literacy, literacy is 30% +2% per level. The literacy trade and skill choices remain unfinished.",
+        "Rogue hacking requires literacy. Gang membership is optional; its random table remains unfinished."
+      ]
+    },
+    {
+      "id": "high-school",
+      "name": "High School Graduate",
+      "min": 11,
+      "max": 20,
+      "secondary_count": 10,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 5,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 5,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "military",
+      "name": "Military",
+      "min": 21,
+      "max": 30,
+      "secondary_count": 8,
+      "program_slots": [
+        {
+          "name": "Basic Military",
+          "bonus": 10,
+          "restriction": "Required Basic Military program"
+        },
+        {
+          "name": "Military or Communications",
+          "bonus": 10,
+          "restriction": "One additional Military or Communications program"
+        },
+        {
+          "name": "Program of choice",
+          "bonus": 5,
+          "restriction": "Exclude Science and Espionage"
+        }
+      ]
+    },
+    {
+      "id": "trade-school",
+      "name": "Trade School / On-the-Job Training",
+      "min": 31,
+      "max": 40,
+      "secondary_count": 8,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "college-one",
+      "name": "One Year of College",
+      "min": 41,
+      "max": 50,
+      "secondary_count": 8,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 10,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 10,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "college-two",
+      "name": "Two Years of College",
+      "min": 51,
+      "max": 60,
+      "secondary_count": 10,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "college-three",
+      "name": "Three Years of College",
+      "min": 61,
+      "max": 70,
+      "secondary_count": 8,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 3",
+          "bonus": 15,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "college-four",
+      "name": "Four Years of College",
+      "min": 71,
+      "max": 80,
+      "secondary_count": 10,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 3",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "military-specialist",
+      "name": "Military Specialist",
+      "min": 81,
+      "max": 85,
+      "secondary_count": 5,
+      "program_slots": [
+        {
+          "name": "Basic Military",
+          "bonus": 20,
+          "restriction": "Required Basic Military program"
+        },
+        {
+          "name": "Military or Espionage",
+          "bonus": 20,
+          "restriction": "One additional Military or Espionage program"
+        },
+        {
+          "name": "Espionage",
+          "bonus": 15,
+          "restriction": "May be a second Espionage selection"
+        },
+        {
+          "name": "W.P. Modern",
+          "bonus": null,
+          "restriction": "Required modern weapon program; table specifies no percentage bonus"
+        },
+        {
+          "name": "Program of choice",
+          "bonus": 10,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "bachelors",
+      "name": "Bachelor’s Degree",
+      "min": 86,
+      "max": 90,
+      "secondary_count": 10,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 3",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 4",
+          "bonus": 20,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "masters",
+      "name": "Master’s Degree",
+      "min": 91,
+      "max": 95,
+      "secondary_count": 10,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 25,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 25,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 3",
+          "bonus": 25,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 4",
+          "bonus": 25,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    },
+    {
+      "id": "doctorate",
+      "name": "Doctorate / Ph.D.",
+      "min": 96,
+      "max": 100,
+      "secondary_count": 10,
+      "program_slots": [
+        {
+          "name": "Program 1",
+          "bonus": 30,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 2",
+          "bonus": 30,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 3",
+          "bonus": 30,
+          "restriction": "Choose an eligible program"
+        },
+        {
+          "name": "Program 4",
+          "bonus": 30,
+          "restriction": "Choose an eligible program"
+        }
+      ]
+    }
+  ],
+  "universal_grants": [
+    "Pilot Automobile",
+    "Mathematics: Basic",
+    "Speak Native Language (+25%)",
+    "Read and Write Native Language (+20%; Street Schooled has a literacy exception)"
+  ],
+  "guidance": [
+    "Education bonuses apply once to every scholastic program skill, never to Secondary skills.",
+    "Duplicate skills use the highest bonus; repeated programs have separate choice rules.",
+    "Special Training and Physical Training use their own category rules instead of this random table.",
+    "Program eligibility, actual program selections, grants, skill percentages and secondary selections remain unfinished."
+  ]
+}

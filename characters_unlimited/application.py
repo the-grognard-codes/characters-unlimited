@@ -16,6 +16,7 @@ from .rules import RuleArchive
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
 from .attribute_modifiers import attribute_value, roll_class_modifiers
+from .education import education_selection, validate_education, project_education
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -91,6 +92,30 @@ class CharacterApplication:
     def combat_view(self, identifier):
         character = self.get(identifier)
         return project_combat(character, self.character_skill_pack(character))
+
+    def character_education_pack(self, character):
+        if character['game'] != 'heroes-unlimited':
+            raise ValueError('Education is available for Heroes Unlimited characters')
+        version = character.get('additional_rule_packs', {}).get('heroes-education')
+        return (self.rule_archive.resolve('heroes-education', version) if version is not None
+                else self.rule_archive.active('heroes-education'))
+
+    def education_view(self, identifier):
+        character = self.get(identifier)
+        return project_education(character.get('education'), self.character_education_pack(character))
+
+    def select_education(self, identifier, *, revision, method, education_id=None):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting education.')
+        pack = self.character_education_pack(character)
+        selection = education_selection(pack, method, education_id, self.die)
+        history = [*character.get('education', {}).get('history', []), selection]
+        record = {'selection':selection, 'history':history}
+        validate_education(record, pack)
+        pins = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
+        return self.store.update(identifier, {'education':record, 'additional_rule_packs':pins}, revision)
 
     def select_combat(self, identifier, *, revision, choices):
         character = self.get(identifier)

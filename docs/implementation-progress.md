@@ -67,4 +67,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 02B7: Complete, merged in PR #27; all 100 local checks and both Windows frozen-build checks pass. Both review axes approve after alias/dependency and documentation repairs; final additive data received self-review because the Standards reviewer reached its thread limit. Forty-seven Powers Unlimited 2 categories, named creation branches, genetic construction and power identities bring the partial catalog to 271. Numerical acceptance and supporting mechanical fan-out remain pending.
 
-- 05B7: In progress. Ten Medical definitions add dual and named contextual checks to the 1.9.0 catalog (67 skills), with narrowed source pool rules, prerequisites, mutual synergies, exact pins and PDF rates. Other Medical subsystems and combined contexts remain pending.
+- 05B7: Complete, merged in PR #29; all 108 local checks, both review axes and both Windows frozen-build checks pass. Ten Medical definitions add dual and named contextual checks to the 1.9.0 catalog (67 skills), with narrowed source pool rules, prerequisites, mutual synergies, exact pins and PDF rates. Other Medical subsystems and combined contexts remain pending.
+
+- 06A: In progress. All twelve Heroes education outcomes support percentile rolls, direct choice, retained history and exact education pack pins. Program slots and bonuses, Secondary/Street allowances and literacy/source guidance are shown. Actual program selection, skills and percentages remain unfinished; parent 06 stays open.

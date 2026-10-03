@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from .generation import roll_attribute, generation_settings, racial_formula
 from .attribute_modifiers import attribute_value
+from .education import validate_education
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -205,6 +206,11 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs):
     core = primary_pack(character, packs)
+    if 'education' in character:
+        pack = next((item for item in packs if item['id'] == 'heroes-education'), None)
+        if character['game'] != 'heroes-unlimited' or pack is None:
+            raise ValueError('Heroes education must retain its accepted rule version pin')
+        validate_education(character['education'], pack)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', []))]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     for attributes in records:

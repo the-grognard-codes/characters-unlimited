@@ -13,3 +13,5 @@ Actual Chrome workflow creates a character, selects Expert/Knife at1, generates 
 The browser fixture exported4 editable PDF pages. Native page1 preserves reference artwork and showslevel15/HP79/advanced skills/Expert combat. Continuations show every active die, learned levels, strikes, conditional critical/knockout/death-blow notes and exact contributions. Rendered first/continuation/finalpages were inspected; editing the native name field, saving and reopening retained the new value. Generated preview images are included as evidence; original book pages are not committed.
 
 Final local suite: 216 tests pass (one frozen-only skip); mypy74, compilation and all browser JavaScript syntax checks pass. Frozen Windows validation runs on the PR before merge. Parent19 and full-corpus acceptance remain open; this is not the final retrospective.
+
+Both Windows runs37160859638/37160862556 passed full checks, frozen build and level15 undo/replay/restart workflow. PR #56 merged as4a12a74. The bounded19B slice is complete; parent19 remains open.

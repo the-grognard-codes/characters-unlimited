@@ -1,6 +1,6 @@
 # 19B: Vagabond progression through level 15
 
-**Parent:**19. **Status:** in-progress. **Base:**226c3d1.
+**Parent:**19. **Status:** done. **Merged:** PR #56, 4a12a74; Windows checks37160859638/37160862556 passed. **Base:**226c3d1.
 
 Implement docs/progression-contract.md through application, persistence, protected HTTP, browser and editable PDF seams. Reviewed skills2.6.0 extends the current Human/Vagabond path: inclusive XP ranges, every intermediate HP gain, new skill allowances, learned-age progression for current skills/four Hand to Hand/five W.P. definitions, conditional move notes and equipped weapon contributions. Validate complete flat history, exact historic pins, import rejection, atomic recovery/undo and cached-die replay. Confirm above-level-one creation, browser controls, editable PDF appearance/conditions and frozen Windows restart before merge.
 

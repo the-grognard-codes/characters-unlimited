@@ -194,6 +194,13 @@ class PackagedApplicationTests(unittest.TestCase):
                 character = request('/api/characters/'+identifier+'/advance',
                     {'revision':character['revision'],'method':'level','value':15},token)
                 self.assertEqual(character['level'],15)
+                combat = request('/api/characters/'+identifier+'/skills')['combat']
+                self.assertEqual(combat['conditions']['critical']['natural_min'],19)
+                self.assertIn('knee', [move['id'] for move in combat['unarmed']])
+                fields = PdfReader(BytesIO(request('/api/characters/'+identifier+'/pdf'))).get_fields()
+                assert fields is not None
+                self.assertEqual(fields['CRITICAL STRIKE']['/V'], 'Natural 19–')
+                self.assertIn('BODY FLIP THROW', fields)
                 later_dice = [event['hp_roll'] for event in character['later_advancements']]
                 self.assertEqual(len(later_dice),13)
                 self.assertTrue(all(1 <= face <= 6 for face in later_dice))

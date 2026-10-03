@@ -1,6 +1,7 @@
 """Reviewed level-one ordinary-human combat, with missing mechanics left absent."""
 
 from collections import Counter
+from copy import deepcopy
 from .saving_bonuses import project_saving_bonuses
 from .physical import project_physical
 from typing import Any
@@ -40,8 +41,10 @@ def total(contributions, *, missing=False, actions=1):
 def progressed(definition, age):
     """Accumulate only the training levels this character has actually learned."""
     effective = dict(definition)
-    moves: list[dict[str, Any]] = []
-    notes: list[str] = []
+    if 'conditions' in definition:
+        effective['conditions'] = deepcopy(definition['conditions'])
+    moves: list[dict[str, Any]] = deepcopy(definition.get('moves', []))
+    notes: list[str] = [f"{definition['name']}: {note}" for note in definition.get('move_notes', [])]
     if 'progression' in definition:
         for step in definition['progression']:
             if step['level'] > age:
@@ -51,6 +54,8 @@ def progressed(definition, age):
             moves.extend(step['moves'])
             notes.extend(f"{definition['name']}, training level {step['level']}: {note}"
                          for note in step['notes'])
+            if step.get('conditions'):
+                effective.setdefault('conditions', {}).update(deepcopy(step['conditions']))
     elif age > 1:
         for stat, gain in definition.get('level_two', {}).items():
             effective[stat] = effective.get(stat, 0) + gain
@@ -107,12 +112,13 @@ def project_combat(character, pack):
         physical_damage['hand_to_hand'] = hand['damage']
     totals['damage']=total(physical_damage,missing=ps < 1)
     unarmed=[]
-    attacks = [('punch','Punch','1D4',False,1),('kick','Kick','1D8',False,1),('power-punch','Power punch','1D4',True,2)]
+    attacks = [('punch','Punch','1D4',False,1,'punch'),('kick','Kick','1D8',False,1,'kick'),('power-punch','Power punch','1D4',True,2,'punch')]
     for move in learned_moves:
-        attacks.append((move['id'], move['name'], move.get('dice'), False, move.get('actions', 1)))
+        category = move.get('damage_type', 'kick' if 'kick' in move['id'] else 'punch')
+        attacks.append((move['id'], move['name'], move.get('dice'), False, move.get('actions', 1), category))
         if move.get('dice') and move.get('power_eligible', False):
-            attacks.append(('power-' + move['id'], 'Power ' + move['name'].lower(), move['dice'], True, 2))
-    for identifier,name,dice,power,actions in attacks:
+            attacks.append(('power-' + move['id'], 'Power ' + move['name'].lower(), move['dice'], True, 2, category))
+    for identifier,name,dice,power,actions,category in attacks:
         if dice is None:
             unarmed.append({'id':identifier,'name':name,'damage':None,'actions':actions})
             continue
@@ -120,7 +126,9 @@ def project_combat(character, pack):
         if ps < 1:
             damage='Pending strength interpretation'
         elif ps <= 2:
-            damage = ('Pending low-strength power-punch interpretation' if power else '1D4 S.D.C.' if 'kick' in identifier else '1 S.D.C.')
+            damage = ('Pending low-strength maneuver interpretation' if category == 'maneuver' else
+                      'Pending low-strength power-punch interpretation' if power else
+                      '1D4 S.D.C.' if category == 'kick' else '1 S.D.C.')
         elif ps <= 4:
             bonus = totals['damage']['value'] or 0
             damage='½ × (' + expression + (' + ' + str(bonus) if bonus else '') + ') S.D.C.'
@@ -192,6 +200,7 @@ def project_combat(character, pack):
              'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.',
              *progression_notes]
     return {'catalog':rules,'choices':choices,'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
+            'conditions':deepcopy(hand.get('conditions', {})),
             'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
             'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':hand['cost']}
 
@@ -205,6 +214,10 @@ def compare_combat_views(before, after):
                     result[(group,item['id'],stat)]={'name':item['name']+' — '+stat, 'value':item[stat]['value']}
         for item in view['unarmed']:
             result[('unarmed',item['id'])]={'name':item['name']+' damage', 'value':item['damage']}
+        for identifier, condition in view.get('conditions', {}).items():
+            low, high = condition['natural_min'], condition['natural_max']
+            value = f'Natural {low}' + (f'–{high}' if low != high else '')
+            result[('condition',identifier)] = {'name':identifier.replace('_',' ').title() + ' natural roll', 'value':value}
         for identifier, bonus in view.get('saving_bonuses', {}).items():
             result[('saving', identifier)] = {'name': bonus['name'] + ' (reviewed bonus)' + bonus['unit'],
                                              'value': bonus['value']}

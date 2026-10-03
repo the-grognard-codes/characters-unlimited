@@ -52,6 +52,14 @@ function renderCombat(view) {
   $('saving-bonuses').replaceChildren(...Object.values(view.saving_bonuses || {}).map(result=>combatRow(result.name,result)));
   $('saving-notes').textContent = (view.saving_notes || []).join(' ');
   const attacks=[];
+  for (const [identifier, condition] of Object.entries(view.conditions || {})) {
+    const detail=document.createElement('details'), heading=document.createElement('summary'), explanation=document.createElement('p');
+    const names={critical:'Critical strike',knockout:'Knockout/stun',death_blow:'Death blow'};
+    const range=condition.natural_min===condition.natural_max ? condition.natural_min : `${condition.natural_min}–${condition.natural_max}`;
+    heading.textContent=`${names[identifier] || identifier}: natural ${range}`;
+    explanation.textContent=`Hand-to-hand condition. Use the natural die, before bonuses. Other attack restrictions and effects follow below. ${condition.source.book}, pp. ${condition.source.pages.join(', ')}.`;
+    detail.append(heading,explanation); attacks.push(detail);
+  }
   view.unarmed.forEach(item => { const row=document.createElement('p'); row.textContent=`${item.name}: ${item.damage ?? 'No damage'} · ${item.actions} action(s)`; attacks.push(row); });
   view.melee.forEach(item => { attacks.push(combatRow(item.name+' melee strike',item.strike),combatRow(item.name+' melee parry',item.parry)); if (item.thrown) attacks.push(combatRow(item.name+' thrown strike',item.thrown)); });
   view.shooting.forEach(item => {

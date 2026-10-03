@@ -72,7 +72,11 @@ def unicode_appearance(writer, widget, value):
     stream = BytesIO()
     canvas = Canvas(stream, pagesize=(width, height))
     canvas.setFont('RPGUnicode', size)
-    canvas.drawString(1, max(1, (height - size) / 2), visible)
+    baseline = max(1, (height - size) / 2)
+    if widget.get('/T') == 'CRITICAL STRIKE':
+        canvas.drawRightString(width - 1, baseline, visible)
+    else:
+        canvas.drawString(1, baseline, visible)
     canvas.showPage()
     canvas.save()
     page = PdfReader(stream).pages[0]
@@ -200,6 +204,33 @@ def fill_saving_bonuses(page, bonuses, values):
         values[matches[0]['/T']] = f'{result["value"]:+d}'
 
 
+def fill_combat_conditions(page, conditions, values):
+    cells = [('critical',218.509,635.949,'CRITICAL STRIKE'),
+             ('knockout',226.44,646.4,'COMBAT KNOCK OUT'),
+             ('death_blow',210.48,626.96,'DEATH')]
+    for identifier, x, y, name in cells:
+        result = conditions.get(identifier)
+        if not result:
+            continue
+        matches = [ref.get_object() for ref in page.get('/Annots', [])
+                   if abs(float(ref.get_object()['/Rect'][0])-x) < .2
+                   and abs(float(ref.get_object()['/Rect'][1])-y) < .2]
+        if len(matches) != 1:
+            raise ValueError('The Rifts combat rectangles changed; review the sheet mapping')
+        matches[0][NameObject('/T')] = TextStringObject(name)
+        low, high = result['natural_min'], result['natural_max']
+        if identifier == 'critical':
+            # The reference prints the range's final 20 outside this widget.
+            # Keep that artwork and right-align the editable prefix beside it.
+            if high != 20:
+                raise ValueError('Review the printed Critical suffix for this natural range')
+            matches[0][NameObject('/Q')] = NumberObject(2)
+            matches[0][NameObject('/TU')] = TextStringObject('Natural roll prefix; the sheet prints the final 20')
+            values[name] = f'Natural {low}–' if low != high else 'Natural'
+        else:
+            values[name] = f'Natural {low}' + (f'–{high}' if low != high else '')
+
+
 def append_continuation(writer, lines, title='RIFTS CHARACTER SHEET - CONTINUATION'):
     if not lines:
         return
@@ -235,7 +266,7 @@ def fill_values(writer, values):
         for reference in page.get('/Annots', []):
             widget = reference.get_object()
             value = values.get(widget.get('/T'))
-            if value is not None and not value.isascii():
+            if value is not None and (not value.isascii() or widget.get('/T') == 'CRITICAL STRIKE'):
                 unicode_appearance(writer, widget, value)
 
 
@@ -301,6 +332,7 @@ def export_rifts_sheet(character, core, skills, combat):
         values[cells[0]['/T']] = str(resources['SDC']['value'])
     saving_bonuses = combat.get('saving_bonuses', {})
     fill_saving_bonuses(writer.pages[0], saving_bonuses, values)
+    fill_combat_conditions(writer.pages[0], combat.get('conditions', {}), values)
     labels = {'attacks': 'OF ATTACKS', 'initiative': 'INNITIATIVE', 'damage': 'DAMAGE',
               'strike': 'STRIKE', 'parry': 'PARR Y', 'dodge': 'DODGE',
               'roll_with_impact': 'ROLL', 'pull_punch': 'RESTR PUNCH'}
@@ -313,7 +345,8 @@ def export_rifts_sheet(character, core, skills, combat):
                     if item['id'] == combat['choices']['hand_to_hand'])
         values['COMBAT SKILL'] = hand['name'].removeprefix('Hand to Hand: ')
     for attack in combat.get('unarmed', []):
-        attack_field = {'punch': 'PUNCH', 'kick': 'KICK', 'power-punch': 'POWER PUNCH'}.get(attack['id'])
+        attack_field = {'punch': 'PUNCH', 'kick': 'KICK', 'power-punch': 'POWER PUNCH',
+                        'leap-kick':'LEAP KICK','body-flip':'BODY FLIP THROW'}.get(attack['id'])
         if attack_field and 'Pending' not in attack['damage']:
             values[attack_field] = attack['damage'].removesuffix(' S.D.C.').replace(' × ', 'x')
     rows = [row for row in skills['grants'] if row['id'] != 'native-language' or row.get('specialty')]

@@ -11,6 +11,7 @@ from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute
 from .skills import validate_selections, project_skills, PACK as SKILL_PACK
+from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -47,6 +48,7 @@ class CharacterApplication:
             "id": str(uuid4()), "format_version": 1, "game": "rifts",
             "name": name, "notes": notes, "race": race, "character_class": character_class,
             "rules": {"id": self.pack["id"], "version": self.pack["version"]},
+            "additional_rule_packs": {SKILL_PACK['id']: SKILL_PACK['version']},
             "level": 1, "revision": 0, "attributes": {}, "generation": settings,
             "completion": ["Skills are not yet complete", "Equipment and resources are not yet complete"],
             "automation_gaps": selected_class["automation_gaps"],
@@ -60,13 +62,37 @@ class CharacterApplication:
         return character
 
     def get(self, identifier):
-        return self.store.get(identifier)
+        character = self.store.get(identifier)
+        # Earlier builds already projected this exact domestic pack without a pin.
+        character.setdefault('additional_rule_packs', {}).setdefault('rifts-domestic-skills', '1.0.0')
+        pinned_packs(character, [self.pack, SKILL_PACK])
+        return character
 
     def list(self):
         return self.store.list()
 
     def skill_view(self, identifier):
         return project_skills(self.get(identifier))
+
+    def export_character(self, identifier):
+        return export_bundle(self.get(identifier), [self.pack, SKILL_PACK])
+
+    def import_character(self, bundle):
+        character = import_bundle(bundle, [self.pack, SKILL_PACK])
+        if 'skill_selections' in character:
+            character['skill_selections'] = validate_selections(character['skill_selections'])
+        self.store.put(character)
+        return character
+
+    def duplicate(self, identifier):
+        character = fresh_copy(self.get(identifier))
+        character['name'] = (character['name'] or 'Unnamed adventurer') + ' (copy)'
+        self.store.put(character)
+        return character
+
+    def backup(self):
+        path = self.store.backup()
+        return {'path': str(path.resolve()), 'filename': path.name}
 
     def select_skills(self, identifier, *, revision, selections):
         character = self.get(identifier)

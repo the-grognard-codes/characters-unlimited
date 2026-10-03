@@ -32,6 +32,12 @@ node --check characters_unlimited/web/app.js
 
 The final Windows package will bundle its runtime; requiring Python is a development-only limitation of the first slice.
 
+## Portable saves and backups
+
+Use **Duplicate** for an independent character copy. **Export portable save** downloads a JSON bundle containing the character and its exact supported rule definitions; **Import portable save** creates a new character and retains existing saves. Current imports support the Rifts Human/Vagabond level-one path and accepted core/domestic pack versions. Altered definitions, inconsistent dice or values, and unsupported versions are rejected. PDF imports are not supported.
+
+**Back up all characters** writes a consistent SQLite snapshot to the `backups` folder beside the live database and displays its full path. To restore a backup, close the application, preserve the current database separately, and copy the chosen snapshot to `characters.sqlite3` in the data directory. Portable saves move individual characters; database backups retain the whole library.
+
 See [the specification](docs/character-creator-spec.md), [ticket plan](docs/character-creator-ticket-plan.md), and [design decisions](docs/design-interview.md). Book transcriptions and reference PDFs remain local inputs and are not committed with the application.
 
 ## Source inventory

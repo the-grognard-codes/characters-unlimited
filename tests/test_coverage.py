@@ -1,11 +1,67 @@
 import tempfile
 import unittest
+import copy
+import hashlib
+import json
+import subprocess
+import sys
 from pathlib import Path
 
 from characters_unlimited.coverage import SourceInventory
 
 
 class CoverageWorkflowTests(unittest.TestCase):
+    def test_verified_pdf_gap_survives_rescan_without_editing_the_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'Rifts - Example.md'
+            source.write_text('# Book\n## Carrier\nPartial systems\n## Intact\nRules\n', encoding='utf-8')
+            original = source.read_bytes()
+            (Path(directory) / 'Rifts - Example.pdf').write_bytes(b'original pdf fixture')
+            inventory = SourceInventory.scan(directory, directory)
+            book = inventory['books'][0]
+            record = {'book_id':book['id'], 'markdown_sha256':book['sha256'],
+                      'pdf_sha256':book['pdf_sha256'], 'gap':{'line':2, 'end_line':3,
+                      'description':'Printed page missing from supplied PDF.'}}
+            records = [record]
+            revised = SourceInventory.with_verified_gaps(inventory, records)
+            self.assertEqual(revised['summary']['source_gaps'], 1)
+            self.assertEqual(next(item for item in revised['candidates'] if item['title']=='Carrier')['status'], 'source-gap')
+            self.assertEqual(next(item for item in revised['candidates'] if item['title']=='Intact')['status'], 'needs-review')
+            self.assertEqual(inventory['summary']['source_gaps'], 0)
+            self.assertEqual(SourceInventory.with_verified_gaps(revised, records), revised)
+            rescanned = SourceInventory.with_verified_gaps(SourceInventory.scan(directory, directory), records)
+            self.assertEqual(rescanned['books'][0]['source_gaps'], revised['books'][0]['source_gaps'])
+            self.assertEqual(hashlib.sha256(source.read_bytes()).digest(), hashlib.sha256(original).digest())
+            for field in ('markdown_sha256','pdf_sha256','book_id'):
+                altered = copy.deepcopy(records); altered[0][field] = 'changed'
+                with self.assertRaisesRegex(ValueError, 'source'):
+                    SourceInventory.with_verified_gaps(inventory, altered)
+            malformed = copy.deepcopy(records); malformed[0]['gap']['line'] = 0
+            with self.assertRaisesRegex(ValueError, 'range'):
+                SourceInventory.with_verified_gaps(inventory, malformed)
+            malformed = copy.deepcopy(records); malformed[0]['gap']['end_line'] = 999999
+            with self.assertRaisesRegex(ValueError, 'range'):
+                SourceInventory.with_verified_gaps(inventory, malformed)
+            output = Path(directory) / 'scan.json'
+            command = [sys.executable, '-m', 'characters_unlimited.coverage', directory, '--output', str(output)]
+            custom = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(custom.returncode, 0, custom.stderr)
+            self.assertEqual(json.loads(output.read_text(encoding='utf-8'))['summary']['source_gaps'], 0)
+            registry = Path(directory) / 'gaps.json'
+            registry.write_text(json.dumps(records), encoding='utf-8')
+            verified = subprocess.run(command + ['--pdf-directory', directory, '--verified-gaps', str(registry)],
+                                      capture_output=True, text=True)
+            self.assertEqual(verified.returncode, 0, verified.stderr)
+            self.assertEqual(json.loads(output.read_text(encoding='utf-8'))['summary']['source_gaps'], 1)
+
+    def test_underseas_missing_page_is_visible_without_certifying_mechanics(self):
+        inventory = SourceInventory.load()
+        self.assertEqual(inventory['summary']['source_gaps'], 2)
+        carrier = next(item for item in inventory['candidates'] if item['id']=='061b098337365482e80c')
+        self.assertEqual(carrier['status'], 'source-gap')
+        self.assertIn('131', carrier['source_gaps'][0]['description'])
+        self.assertEqual(inventory['summary']['mechanically_reviewed'], 0)
+
     def test_source_gaps_remain_visible_and_block_the_containing_candidate(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / 'Rifts - Damaged.md'

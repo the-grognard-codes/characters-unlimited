@@ -1,6 +1,6 @@
 # 07B: Rifts attribute saving bonuses
 
-**Status:** in-progress
+**Status:** done (merged in PR #21)
 
 **Dependencies:** Reviewed Rifts combat, exact rule archives and editable export. Parent 07 remains open for physical skills, remaining combat paths and saving-roll targets/modifiers.
 

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "findings": [
-    "Initial identity audit covers only the 30 O.C.C. names in Ultimate Edition printed p. 43 / PDF p. 46. It does not complete the core book or the 13-book corpus.",
-    "Dragon species, racial choices, class variants, supporting mechanical entries and all supplement identities remain to be audited. Identity evidence does not certify numerical rules.",
+    "Identity audit currently covers 30 listed Rifts O.C.C.s, two Psi-Stalker paths, six dragon hatchlings and their shared rules, ten Heroes Unlimited power categories and two optional modifiers. It does not complete either core book or the 13-book corpus.",
+    "Racial choices, breed/path variants, Heroes subpaths, supporting mechanical entries and all supplement identities remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics."
   ],
   "entries": [
@@ -767,7 +767,7 @@
       "dependencies": [],
       "findings": [
         "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
-        "Civilized and Wild Psi-Stalker paths require separate child-option and dependency audit; this parent identity does not cover both mechanics."
+        "Civilized and Wild child identities are recorded separately; their racial formulas, equipment paths and complete mechanical/dependency review remain pending."
       ]
     },
     {
@@ -924,6 +924,645 @@
       "dependencies": [],
       "findings": [
         "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-civilized-psi-stalker",
+      "name": "Civilized Psi-Stalker",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "4ba428c7b1837e0f5e41"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          154
+        ],
+        "pdf_pages": [
+          157
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-psi-stalker"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "Coalition and independent/mercenary equipment and money variants require further audit."
+      ]
+    },
+    {
+      "id": "rue-wild-psi-stalker",
+      "name": "Wild Psi-Stalker",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "f00f876ed453961e0f1c"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          155
+        ],
+        "pdf_pages": [
+          158
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-psi-stalker"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-dragon-hatchling-rules",
+      "name": "Dragon Hatchling common creation rules",
+      "kind": "rule",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "1f4dfda8e637c2425d39"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          158
+        ],
+        "pdf_pages": [
+          161
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "Shared skills, magic acquisition, age and later maturation interact with species-specific racial rules. Numerical interpretation and all supporting dependencies remain pending."
+      ]
+    },
+    {
+      "id": "rue-cats-eye-hatchling",
+      "name": "Cat's-Eye Dragon Hatchling",
+      "kind": "rcc",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "49ff21f775829b1f80cf"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          159
+        ],
+        "pdf_pages": [
+          162
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-dragon-hatchling-rules"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-flame-wind-hatchling",
+      "name": "Flame Wind Dragon Hatchling",
+      "kind": "rcc",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "40766ff8d8e5f0f2486f"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          160
+        ],
+        "pdf_pages": [
+          163
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-dragon-hatchling-rules"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-forest-runner-hatchling",
+      "name": "Forest Runner Dragon Hatchling",
+      "kind": "rcc",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "2d74c2468c10cc1b6a6b"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          161
+        ],
+        "pdf_pages": [
+          164
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-dragon-hatchling-rules"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-royal-frilled-hatchling",
+      "name": "Royal Frilled Dragon Hatchling",
+      "kind": "rcc",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "fd8031fad9f23af2ff13"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          161
+        ],
+        "pdf_pages": [
+          164
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-dragon-hatchling-rules"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-snow-lizard-hatchling",
+      "name": "Snow Lizard Dragon Hatchling",
+      "kind": "rcc",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "d73a6ddbc07ceea1dda8"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          162
+        ],
+        "pdf_pages": [
+          165
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-dragon-hatchling-rules"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-whip-tailed-hatchling",
+      "name": "Whip-Tailed Dragon Hatchling",
+      "kind": "rcc",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "4713b361222fd1058307"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          163
+        ],
+        "pdf_pages": [
+          166
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "rue-dragon-hatchling-rules"
+      ],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "hu2-experiment",
+      "name": "Experiment",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-robotics",
+      "name": "Robotics",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-bionics",
+      "name": "Bionics and Implants",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-special-training",
+      "name": "Special Training",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-mutants",
+      "name": "Mutants",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-psionics",
+      "name": "Psionics",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-physical-training",
+      "name": "Physical Training",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-magic",
+      "name": "Magic",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-hardware",
+      "name": "Hardware",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-aliens",
+      "name": "Aliens",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7c200ea5fcdc013cfe49"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "This is a top-level category identity. Its subpaths, construction choices, education exceptions and supporting entries require separate audit."
+      ]
+    },
+    {
+      "id": "hu2-crazy-hero",
+      "name": "Crazy Hero",
+      "kind": "rule",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "7064facca67e6f95ec7b"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "Optional personality modifier applicable across categories; it is not a separate roll on the ten-category table."
+      ]
+    },
+    {
+      "id": "hu2-mega-hero",
+      "name": "Mega-Hero",
+      "kind": "rule",
+      "book_id": "heroes-unlimited-rpg-2e",
+      "aliases": [],
+      "candidate_ids": [
+        "b9958da629c9e6641335"
+      ],
+      "source": {
+        "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+        "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706",
+        "printed_pages": [
+          20
+        ],
+        "pdf_pages": [
+          21
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original PDF; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "Optional personality and power modifier with category-specific applicability; it is not a separate roll on the ten-category table."
       ]
     }
   ]

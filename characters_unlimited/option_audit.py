@@ -28,7 +28,7 @@ def audited_coverage(inventory, catalog):
         identifiers.add(identifier)
         if not isinstance(entry.get('name'), str) or not entry['name'].strip():
             raise ValueError('Canonical option names must be nonblank text')
-        if entry.get('kind') not in ('occ', 'rcc', 'race', 'skill', 'power', 'spell', 'psionic', 'equipment', 'construction', 'rule', 'option-family'):
+        if entry.get('kind') not in ('occ', 'rcc', 'race', 'skill', 'power-category', 'power', 'spell', 'psionic', 'equipment', 'construction', 'rule', 'option-family'):
             raise ValueError('Unsupported canonical option kind')
         if not isinstance(entry.get('book_id'), str):
             raise ValueError('Canonical option source book ID must be text')
@@ -64,9 +64,12 @@ def audited_coverage(inventory, catalog):
         if not entry['findings']:
             raise ValueError('Record the remaining mechanical/dependency review findings')
         entry['game'] = book['game']
+    by_id = {entry['id']: entry for entry in entries}
     for entry in entries:
         if set(entry['dependencies']) - identifiers:
             raise ValueError('Canonical option dependency is missing; record unresolved dependencies in findings')
+        if any(by_id[dependency]['game'] != entry['game'] for dependency in entry['dependencies']):
+            raise ValueError('Canonical dependencies must remain within their own game')
     result = deepcopy(inventory)
     result['options'] = entries
     result['audit_findings'] = deepcopy(catalog['findings'])

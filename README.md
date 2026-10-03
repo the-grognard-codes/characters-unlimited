@@ -53,3 +53,9 @@ python -m characters_unlimited.coverage <processed-markdown-directory> --pdf-dir
 The inventory contains names and locations rather than the books' full text. A complete option audit must also inspect prose and tables and resolve duplicate headings, aliases, missing references, and uncertain passages before source coverage is closed.
 
 The coverage view also searches confirmed canonical option identities and their aliases. Identity confirmation is separate from mechanical review and automation. Current records cover 67 core identities across the games, including O.C.C.s, hatchlings, categories, optional modifiers and named Hardware/training/robot paths; remaining options and content-ticket assignments are tracked as open findings. See [the canonical audit contract](docs/canonical-option-audit.md).
+
+## Editable Rifts sheets
+
+**Export editable PDF** shows unfinished parts before downloading an editable copy of the supplied Rifts sheet. Supported identity, attributes, skills, combat and notes are projected; missing equipment, resources and other rules remain blank. Long notes and skill checks receive matching continuation pages. PDF edits stay in the exported file; PDF import remains outside scope. Full game-specific projection and Heroes Unlimited sheets remain pending.
+
+PDFs embed the bundled, licensed Droid Sans Fallback font for Unicode editing. Initial exports display characters outside its coverage as `[U+code]` while preserving their original editable value.

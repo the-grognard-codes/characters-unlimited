@@ -96,6 +96,14 @@ class CharacterApplication:
     def export_character(self, identifier):
         return export_bundle(self.get(identifier), self.rule_archive.definitions())
 
+    def export_pdf(self, identifier):
+        from .pdf_export import export_rifts_sheet
+
+        character = self.get(identifier)
+        core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
+        pack = self.character_skill_pack(character)
+        return export_rifts_sheet(character, core, project_skills(character, pack), project_combat(character, pack))
+
     def import_character(self, bundle):
         character = import_bundle(bundle, self.rule_archive.definitions())
         if 'skill_selections' in character:

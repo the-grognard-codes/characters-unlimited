@@ -66,12 +66,16 @@ def create_server(application, port=0):
                         self.respond(200, application.skill_view(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'export':
                         self.respond(200, application.export_character(parts[2]))
+                    elif len(parts) == 4 and parts[3] == 'pdf':
+                        self.respond(200, application.export_pdf(parts[2]), 'application/pdf')
                     else:
                         self.respond(200, application.get(path.rsplit("/", 1)[-1]))
                 except KeyError:
                     self.respond(404, {"error": "Character not found"})
                 except ValueError as error:
                     self.respond(400, {"error": str(error)})
+                except OSError:
+                    self.respond(400, {"error": "The PDF export could not complete. Your saved character is unchanged."})
             elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css", "/combat.js"):
                 filename = "index.html" if path == "/" else path[1:]
                 content_type = "text/html" if filename == "index.html" else "text/javascript" if filename.endswith(".js") else "text/css"

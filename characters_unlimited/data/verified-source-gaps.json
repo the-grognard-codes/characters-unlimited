@@ -32,5 +32,42 @@
       "end_line": 5439,
       "description": "PDF page 108 / printed page 108 has an obscured lower half, between PDF/printed pages 107 and 109. Destroyer 'Borg M.D.C. continuation, abilities 2–4 and continuing text are incomplete. The original Markdown marker mislabels the printed page as 107; this verified locator corrects metadata without altering sources. Recover an intact same-edition page before mechanical ingestion. See ticket 02C."
     }
+  },
+  {
+    "book_id": "heroes-unlimited-powers-unlimited-3",
+    "markdown_sha256": "fcd7abd1955d7e82332d35888ea56d3fa28835575cf0e4aef47be1e56991acb0",
+    "pdf_sha256": "ed5cb85587eff6cb3030ffc08abadcb9884b7608fc0a338f82b041ce21404844",
+    "printed_pages": [
+      60,
+      61
+    ],
+    "pdf_neighbor_pages": [
+      61,
+      62
+    ],
+    "gap": {
+      "line": 3397,
+      "end_line": 3452,
+      "description": "Printed pages 60–61 are absent between supplied PDF page 61 (printed 59) and PDF page 62 (printed 62). Energy Conversion, Energy Wings and the opening of Enlarge Items are missing. Markdown lines 3397–3452 contain the orphan Enlarge Items continuation under the preceding Ectoplasmic Webbing candidate; the preceding printed-59 Webbing rules are intact. Recover intact same-edition pages before numerical ingestion of the missing powers. See ticket 02C3."
+    }
+  },
+  {
+    "book_id": "rifts-mercenaries",
+    "markdown_sha256": "fd039ce44880ef66b8596ade7ac05cf8a0573da4e83597902f748e4ce01cd466",
+    "pdf_sha256": "fa95e8e8d9bc7e43ff5d3169ff67ee793020097000177caa69124a18e5743144",
+    "printed_pages": [
+      40
+    ],
+    "pdf_neighbor_pages": [
+      41,
+      42,
+      43,
+      44
+    ],
+    "gap": {
+      "line": 1907,
+      "end_line": 1922,
+      "description": "Original printed page 40 is missing: physical PDF page 41 ends on printed 39, PDF pages 42 and 43 duplicate printed 41, and PDF page 44 resumes printed 42. Markdown lines 1907–1922 around Mechanoid Threat and Role-Playing Battles have unresolved original-page placement/content at this transition; keep that guidance unaccepted until intact same-edition evidence is available. General Smith on printed 41 is an adjacent named NPC, not another class. Earlier company/occupation rules and later restored +2 locators remain unaffected. See ticket 02C4."
+    }
   }
 ]

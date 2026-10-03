@@ -1,6 +1,6 @@
 # 02B9: Audit remaining Aliens groups and named creation rules
 
-**Status:** in-progress
+**Status:** complete, merged in PR #32 after both Windows builds passed
 
 Confirm Humanoid, Insect, Mineral, Reptile and Vegetation profile identities and meaningful named caste/training/augmentation branches from original body pages. Preserve exact aliases, parent candidates and shared mineral/plant rules. Record standard, expanded and optional alien generation paths with independently inspected page starts. Audit Galactic Monsters & Evil with its race/family and player/NPC distinctions, keeping organizations and individuals separate.
 

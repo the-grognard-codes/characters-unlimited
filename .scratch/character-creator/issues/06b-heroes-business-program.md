@@ -1,6 +1,6 @@
 # 06B — Heroes Business program and universal skill percentages
 
-Status: in-progress. Parent 06 remains open.
+Status: complete, merged in PR #33 after 121 local checks, both independent review axes and both Windows builds passed. Parent 06 remains open.
 
 Implement Business selection in an education slot for the Human-origin Mutant Heroes path. Its five fixed grants use the slot scholastic bonus and one I.Q. bonus, cap ordinary proficiency at 98%, and merge universal Basic Mathematics once. Pilot Automobile uses only the I.Q. bonus. Source rules come from HU Revised 2E printed 15, 45–46, 48, 56, 59–60 (PDF +1).
 

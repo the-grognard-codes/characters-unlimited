@@ -10,12 +10,21 @@ from .proficiency import project_proficiency
 def validate_program_selections(selections, pack):
     if not isinstance(selections, list) or len(selections) > 100:
         raise ValueError('Select at most 100 program entries')
-    programs = {item['id'] for item in pack['programs']}
+    programs = {item['id']:item for item in pack['programs']}
+    skills = {item['id'] for item in pack['skills']}
     for selection in selections:
-        if (not isinstance(selection, dict) or set(selection) != {'slot', 'program'}
+        if (not isinstance(selection, dict) or not {'slot','program'} <= set(selection) <= {'slot','program','choices'}
                 or type(selection['slot']) is not int or not 0 <= selection['slot'] < 100
                 or not isinstance(selection['program'], str) or selection['program'] not in programs):
             raise ValueError('Select an available program and a whole-number education slot')
+        if 'choices' in selection:
+            groups = {group['id'] for group in programs[selection['program']].get('choice_groups',[])}
+            choices = selection['choices']
+            if (not groups or not isinstance(choices,dict) or not set(choices)<=groups
+                    or any(not isinstance(items,list) or len(items)>100
+                           or any(not isinstance(item,str) or item not in skills for item in items)
+                           for items in choices.values())):
+                raise ValueError('Select known skills in an available program choice group')
     return deepcopy(selections)
 
 
@@ -27,6 +36,24 @@ def validate_secondary_selections(selections, pack):
             or any(not isinstance(item,str) or item not in identifiers for item in selections)):
         raise ValueError('Select at most 100 available Secondary skill entries')
     return list(selections)
+
+
+def program_choice_view(selection, program, warnings):
+    groups = []
+    for definition in program.get('choice_groups',[]):
+        choices = selection.get('choices',{}).get(definition['id'],[])
+        eligible = set(choices).intersection(definition['skill_ids'])
+        remaining = definition['count']-len(eligible)
+        label = f"{program['name']} slot {selection['slot']+1} — {definition['name']}"
+        if remaining:
+            warnings.append(f'{label}: {remaining} distinct eligible choices remaining. Entered choices retained.')
+        if len(set(choices))<len(choices):
+            warnings.append(f'{label}: repeated choices retained; duplicates do not fill another distinct choice.')
+        if set(choices)-set(definition['skill_ids']):
+            warnings.append(f'{label}: outside-group choices retained with no group education bonus.')
+        groups.append({**deepcopy(definition),'selections':deepcopy(choices),'entered':len(choices),
+                       'credited':len(eligible),'remaining':remaining})
+    return groups
 
 
 def project_programs(character, pack, education_pack):
@@ -42,10 +69,12 @@ def project_programs(character, pack, education_pack):
     for identifier in secondary_choices:
         bonuses.setdefault(identifier,0)
     seen_programs, seen_slots = set(), set()
+    program_choices = []
     for selection in selections:
         program = next(item for item in pack['programs'] if item['id'] == selection['program'])
         slot = slots[selection['slot']] if selection['slot'] < len(slots) else None
-        if selection['program'] in seen_programs:
+        repeated = selection['program'] in seen_programs
+        if repeated:
             warnings.append(f"Repeated {program['name']} program retained. Its four remaining-category choices are not yet implemented; grants occur once with the highest eligible bonus, without adding bonuses together.")
         seen_programs.add(selection['program'])
         eligible_slots = program['eligible_slots'].get(outcome['id'], []) if outcome else []
@@ -56,6 +85,14 @@ def project_programs(character, pack, education_pack):
         bonus = slot['bonus'] if valid and slot is not None and slot['bonus'] is not None else 0
         for identifier in program['skill_ids']:
             bonuses[identifier] = max(bonuses.get(identifier, 0), bonus)
+        groups = program_choice_view(selection,program,warnings)
+        program_choices.append({'program':program['id'],'slot':selection['slot'],'groups':groups,'repeat':repeated})
+        if repeated and groups:
+            warnings.append(f"{program['name']} repeat entitlement is not implemented. Retained first-program group choices receive no new group education bonus and do not certify the repeat's remaining-category choices.")
+        for group in groups:
+            for identifier in group['selections']:
+                choice_bonus = bonus if not repeated and identifier in group['skill_ids'] else 0
+                bonuses[identifier] = max(bonuses.get(identifier,0),choice_bonus)
     if outcome is None:
         warnings.append('Choose education before assigning scholastic programs.')
     elif outcome['id'] == 'street-schooled':
@@ -83,8 +120,10 @@ def project_programs(character, pack, education_pack):
         skills.append({**deepcopy(definition), **project_proficiency(definition, contributions),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),
+            'skill_catalog':deepcopy(pack['skills']),
             'skills':skills, 'warnings':warnings, 'guidance':deepcopy(pack['guidance']),
             'rules':{'id':pack['id'], 'version':pack['version']}, 'source':deepcopy(pack['source']),
+            'program_choices':program_choices,
             'secondary':{'supported':secondary_rules is not None, 'catalog':deepcopy(pack['skills']) if secondary_rules else [],
                          'selections':secondary_choices,'allowance':allowance,'used':secondary_used,'remaining':allowance-secondary_used,
                          'guidance':deepcopy(secondary_rules['guidance']) if secondary_rules else [],

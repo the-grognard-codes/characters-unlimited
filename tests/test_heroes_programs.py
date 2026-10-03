@@ -98,9 +98,9 @@ class HeroesProgramWorkflowTests(unittest.TestCase):
             hero = app.set_attribute(hero['id'], attribute='IQ', revision=hero['revision'], mode='fixed', value=30)
             self.assertEqual(next(item for item in app.hero_program_view(hero['id'])['skills'] if item['id'] == 'research')['percentage'], 96)
             correction = archive.active('heroes-program-skills')
-            correction['version'] = '1.4.0'
+            correction['version'] = '1.5.0'
             correction['skills'][2]['base'] = 60
-            newer = CharacterApplication(directory, rule_archive=RuleArchive([*archive.definitions(),correction], {**archive.active_versions(),'heroes-program-skills':'1.4.0'}))
+            newer = CharacterApplication(directory, rule_archive=RuleArchive([*archive.definitions(),correction], {**archive.active_versions(),'heroes-program-skills':'1.5.0'}))
             self.assertEqual(next(item for item in newer.hero_program_view(hero['id'])['skills'] if item['id'] == 'research')['percentage'], 96)
             hero = newer.select_education(hero['id'], revision=hero['revision'], method='choose', education_id='high-school')
             self.assertEqual(next(item for item in newer.hero_program_view(hero['id'])['skills'] if item['id'] == 'research')['percentage'], 71)

@@ -68,7 +68,7 @@ class HeroesMedicalAssistantWorkflowTests(unittest.TestCase):
                 current.select_hero_programs(hero['id'],revision=hero['revision'],selections=[{'slot':1,'program':'medical-assistant'}])
             self.assertEqual(current.get(hero['id']),hero)
             preview = current.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'],[{'pack_id':'heroes-program-skills','from':'1.1.0','to':'1.3.0'}])
+            self.assertEqual(preview['changes'],[{'pack_id':'heroes-program-skills','from':'1.1.0','to':'1.4.0'}])
             updated = current.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(updated['hero_program_selections'],hero['hero_program_selections'])
             self.assertEqual(current.hero_program_view(hero['id'])['skills'],earlier.hero_program_view(hero['id'])['skills'])

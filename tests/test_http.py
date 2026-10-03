@@ -12,6 +12,26 @@ from characters_unlimited.server import create_server
 
 
 class LocalBackupAdapterTests(unittest.TestCase):
+    def test_invalid_source_audit_returns_diagnostic_without_affecting_characters(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory, die=lambda sides: 4)
+            character = app.create()
+            server = create_server(app)
+            worker = threading.Thread(target=server.serve_forever, daemon=True)
+            worker.start()
+            try:
+                with patch.object(app, 'coverage', side_effect=ValueError('Source fingerprint changed')):
+                    with self.assertRaises(HTTPError) as result:
+                        urlopen(f'http://127.0.0.1:{server.server_port}/api/coverage', timeout=3)
+                with result.exception as failure:
+                    self.assertEqual(failure.code, 400)
+                    self.assertIn('Source fingerprint changed', json.load(failure)['error'])
+                self.assertEqual(app.get(character['id']), character)
+            finally:
+                server.shutdown()
+                server.server_close()
+                worker.join(timeout=3)
+
     def test_sqlite_backup_failure_returns_a_controlled_error_and_preserves_the_save(self):
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4)

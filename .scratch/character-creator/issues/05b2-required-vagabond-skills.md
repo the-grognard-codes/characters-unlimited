@@ -1,6 +1,6 @@
 # 05B2: Reviewed Vagabond grants and required choices
 
-**Status:** in-progress
+**Status:** done (PR #9, merged)
 
 **Dependencies:** 05B1 / 18B2 (complete)
 

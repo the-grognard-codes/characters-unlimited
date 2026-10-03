@@ -15,3 +15,7 @@ The local browser displayed the unfinished-parts checklist and accepted Download
 ![Edited Unicode continuation](20a-unicode-edit.png)
 
 Font source and unchanged binary license are recorded in `characters_unlimited/fonts/README.md` and `NOTICE`.
+
+## Browser delivery follow-through
+
+23A closed the earlier environment limitation. Edge downloaded `rifts-character-sheet.pdf` from the frozen app after creating Frozen Windows PDF check. The browser event API still timed out, but the actual file existed in Downloads (3,037,235 bytes) and reopened with the correct NAME, two pages and 1,140 canonical editable fields. See the 23A validation evidence.

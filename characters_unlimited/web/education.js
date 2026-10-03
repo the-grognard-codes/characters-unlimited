@@ -106,7 +106,7 @@ async function loadEducation(character) {
   $('hero-program-guidance').replaceChildren(...[...programs.guidance,
     `${programs.rules.id} ${programs.rules.version} · ${programs.pinned ? 'pinned to this character' : 'preview; saving program choices pins these rules'}`].map(educationLine));
   const secondary = programs.secondary;
-  $('hero-secondary-counts').textContent = secondary.supported ? `${secondary.used} selections used · ${secondary.allowance} allowed · ${secondary.remaining} remaining. Secondary skills receive I.Q. bonuses, with no scholastic bonus.` : 'Review rule updates to add supported Secondary selections to this earlier rule pin.';
+  $('hero-secondary-counts').textContent = secondary.supported ? `${secondary.used} selection${secondary.used === 1 ? '' : 's'} used · ${secondary.allowance} allowed · ${secondary.remaining} remaining. Secondary skills receive I.Q. bonuses, with no scholastic bonus.` : 'Review rule updates to add supported Secondary selections to this earlier rule pin.';
   $('hero-secondary-form').hidden = !secondary.supported;
   const categories = [...new Set(secondary.catalog.map(skill => skill.category))];
   $('hero-secondary-category').replaceChildren(...categories.map(category => {
@@ -115,14 +115,16 @@ async function loadEducation(character) {
   const updateSecondaryChoices = () => {
     $('hero-secondary-choice').replaceChildren(...secondary.catalog.filter(skill => skill.category === $('hero-secondary-category').value).map(skill => {
       const option = document.createElement('option'); option.value = skill.id;
-      option.textContent = skill.name + (secondary.eligible_skill_ids.includes(skill.id) ? '' : ' · outside eligible Secondary categories'); return option;
+      const cost = secondary.selection_costs[skill.id];
+      option.textContent = `${skill.name} · ${cost} selection${cost === 1 ? '' : 's'}` + (secondary.eligible_skill_ids.includes(skill.id) ? '' : ' · outside eligible Secondary categories'); return option;
     }));
   };
   $('hero-secondary-category').onchange = updateSecondaryChoices;
   updateSecondaryChoices();
   $('hero-secondary-list').replaceChildren(...secondary.selections.map((identifier,index) => {
     const skill = secondary.catalog.find(item => item.id === identifier);
-    const item = educationLine(skill.name);
+    const cost = secondary.selection_costs[identifier];
+    const item = educationLine(`${skill.name} · ${cost} selection${cost === 1 ? '' : 's'}`);
     const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Remove';
     button.onclick = () => characterAction('hero-secondary',{selections:heroProgramView.secondary.selections.filter((_,i) => i !== index)}).catch(showError);
     item.append(button); return item;

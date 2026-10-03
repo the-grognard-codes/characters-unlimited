@@ -104,7 +104,9 @@ def project_programs(character, pack, education_pack):
     intelligence = pack['intelligence']['bonuses'].get(str(min(iq, 30)), 0)
     if iq > 30:
         warnings.append('I.Q. above 30 uses the reviewed +16% chart limit; further skill bonuses remain pending.')
-    secondary_used = sum(secondary_rules['selection_costs'].get(identifier,1) for identifier in secondary_choices) if secondary_rules else 0
+    secondary_costs = {skill['id']:secondary_rules['selection_costs'].get(skill['id'],1)
+                       for skill in pack['skills']} if secondary_rules else {}
+    secondary_used = sum(secondary_costs[identifier] for identifier in secondary_choices)
     allowance = outcome['secondary_count'] if outcome else 0
     if secondary_rules:
         names = {skill['id']:skill['name'] for skill in pack['skills']}
@@ -130,6 +132,7 @@ def project_programs(character, pack, education_pack):
             'program_choices':program_choices,
             'secondary':{'supported':secondary_rules is not None, 'catalog':deepcopy(pack['skills']) if secondary_rules else [],
                          'selections':secondary_choices,'allowance':allowance,'used':secondary_used,'remaining':allowance-secondary_used,
+                         'selection_costs':secondary_costs,
                          'guidance':deepcopy(secondary_rules['guidance']) if secondary_rules else [],
                          'eligible_skill_ids':deepcopy(secondary_rules['eligible_skill_ids']) if secondary_rules else [],
                          'source':deepcopy(secondary_rules['source']) if secondary_rules else None}}

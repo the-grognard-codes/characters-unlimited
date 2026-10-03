@@ -1,6 +1,6 @@
 # 06G — Heroes Communications program
 
-**Status:** in-progress. Parent 06 remains open.
+**Status:** done, merged in PR #39 after both Windows frozen checks passed. Parent 06 remains open.
 
 Add the source-defined Communications program: Basic Electronics, Radio Scramblers, Radio Basic, T.V./Video and one Communications skill of choice. Review the original printed 46/50 and Read Sensory Equipment cross-reference. Expose all nine Communications alternatives with source percentages, +4% T.V./Video advancement rate, Cryptography's short-study context, Optic Systems' once-only T.V./Video bonus, and conditional Surveillance prerequisites as visible guidance. Do not copy values from Rifts or separate Rogue skills.
 

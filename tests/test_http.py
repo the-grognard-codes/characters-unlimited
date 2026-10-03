@@ -45,7 +45,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.5.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.6.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -122,6 +122,15 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(next(item for item in view['skills'] if item['id']=='tv-video')['percentage'],30)
                 self.assertEqual(view['program_choices'][0]['groups'][0]['remaining'],0)
                 self.assertEqual(saved['hero_secondary_selections'],['research'])
+                payload = json.dumps({'revision':saved['revision'],'selections':['research','first-aid','holistic-medicine']}).encode()
+                with urlopen(Request(secondary_path,data=payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path,timeout=5) as response:
+                    view = json.load(response)
+                self.assertEqual(view['secondary']['used'],4)
+                self.assertEqual(view['secondary']['remaining'],6)
+                self.assertEqual(next(item for item in view['skills'] if item['id']=='holistic-medicine')['percentage'],20)
+                self.assertEqual(saved['hero_program_selections'][0]['program'],'communications')
             finally:
                 server.shutdown(); server.server_close(); worker.join(timeout=5)
 

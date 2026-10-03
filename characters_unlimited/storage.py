@@ -102,3 +102,21 @@ class CharacterStore:
                 (json.dumps(character, ensure_ascii=False), identifier),
             )
         return character
+
+    def restore(self, identifier: str, restored: dict, recovery: dict, revision: int) -> dict:
+        """Atomically retain the current state as a new save and restore a snapshot."""
+        with self.connect() as connection:
+            connection.execute('BEGIN IMMEDIATE')
+            row = connection.execute('SELECT document FROM characters WHERE id=?', (identifier,)).fetchone()
+            if row is None:
+                raise KeyError('Character not found')
+            current = json.loads(row[0])
+            if revision != current['revision']:
+                raise SaveConflict('This character changed. Reopen it before undoing advancement.')
+            restored = {**restored, 'id': identifier, 'revision': revision + 1,
+                        'updated_at': datetime.now(timezone.utc).isoformat()}
+            connection.execute('INSERT INTO characters(id, document) VALUES (?, ?)',
+                               (recovery['id'], json.dumps(recovery, ensure_ascii=False)))
+            connection.execute('UPDATE characters SET document=? WHERE id=?',
+                               (json.dumps(restored, ensure_ascii=False), identifier))
+        return {'character': restored, 'recovery': recovery}

@@ -170,6 +170,27 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(fields['NAME']['/V'], 'Packaged Rowan')
                 self.assertEqual(fields['HIT POINTS']['/V'],str(resource_view['resources']['HP']['value']))
                 self.assertTrue(reader.pages[0].get('/Annots'))
+                pre_level = character
+                character = request('/api/characters/'+identifier+'/advance',
+                    {'revision':character['revision'],'method':'xp','value':1876},token)
+                self.assertEqual(character['level'],2)
+                advancement_die = character['advancement']['hp_roll']
+                self.assertTrue(1<=advancement_die<=6)
+                self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],
+                                 resource_view['resources']['HP']['value']+advancement_die)
+                self.assertEqual(request('/api/characters/'+identifier+'/skills')['combat']['totals']['parry']['contributions']['hand_to_hand'],2)
+                portable_level = request('/api/characters/'+identifier+'/export')
+                level_copy = request('/api/import',{'bundle':portable_level},token)
+                self.assertEqual(level_copy['advancement'],character['advancement'])
+                restored = request('/api/characters/'+identifier+'/undo-advancement',
+                    {'revision':character['revision']},token)
+                character = restored['character']
+                self.assertEqual(character['equipment'],pre_level['equipment'])
+                self.assertEqual(character['physical_acquisitions'],pre_level['physical_acquisitions'])
+                self.assertEqual(request('/api/characters/'+restored['recovery']['id'])['level'],2)
+                character = request('/api/characters/'+identifier+'/advance',
+                    {'revision':character['revision'],'method':'level','value':2},token)
+                self.assertEqual(character['advancement']['hp_roll'],advancement_die)
                 with urlopen(url + '/education.js', timeout=15) as script:
                     self.assertIn(b'loadEducation', script.read())
                 with urlopen(url + '/resources.js',timeout=15) as script:

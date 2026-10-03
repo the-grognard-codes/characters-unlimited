@@ -3,6 +3,7 @@
 from typing import Any
 from .skill_choices import learned_selection_ids, specialty_key as language_key
 from .proficiency import synergy_contributions, project_proficiency
+from .advancement import learning_age
 
 def validate_required_choices(choices, pack):
     if 'required' not in pack:
@@ -55,6 +56,8 @@ def project_required_skills(character, pack, intelligence):
     grants = []
     for definition, specialty in definitions:
         contributions = {'base': definition['base'], 'class': definition['class_bonus'], 'intelligence': intelligence}
+        if character['level'] > 1:
+            contributions['advancement'] = (learning_age(character, 'skill', definition['id'], specialty) - 1) * definition['per_level']
         if 'class_ability' in definition:
             contributions['class_ability'] = definition['class_ability']
         contributions.update(synergy_contributions(definition, available))

@@ -182,6 +182,11 @@ def project_resources(character, pack):
         amounts = {item['id']: item['value'] for item in record['contributions']} if record else {}
         rolls = {item['id']: deepcopy(item['rolls']) for item in record['contributions']} if record else {}
         sources = [deepcopy(item['source']) for item in record['contributions']] if record else []
+        advancement = character.get('advancement')
+        if identifier == 'HP' and advancement and advancement['active']:
+            amounts['Level 2'] = advancement['hp_roll']
+            rolls['Level 2'] = [advancement['hp_roll']]
+            sources.append(deepcopy(advancement['source']))
         if identifier == 'SDC':
             for item in physical:
                 if item['resource'] != 'SDC':

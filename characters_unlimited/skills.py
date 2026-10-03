@@ -143,7 +143,8 @@ def project_skills(character, pack=PACK):
                'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.']
     if any(skill.get('kind') == 'physical' for skill in domestic):
         sources.append('Athletics and Body Building bonuses accumulate once per skill: p. 316. Gun-dodge restrictions: p. 361.')
-        gaps.append('Physical S.D.C. bonuses are recorded; starting S.D.C. totals and other Physical skills are pending.')
+        gaps.append('Other Physical skills are pending. Starting S.D.C. is generated separately.' if 'resources' in pack
+                    else 'Physical S.D.C. bonuses are recorded; starting S.D.C. totals and other Physical skills are pending.')
     if intelligence_rule:
         sources.append('I.Q. bonus applies once to every skill: Attribute Bonus Chart p. 281; beyond 30 adds 2% per five points, p. 284.')
     if required['catalog']:

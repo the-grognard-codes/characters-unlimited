@@ -1,6 +1,6 @@
 # 05B8 — Recorded Rifts Physical skill bonuses
 
-**Status:** in-progress. Parents 05, 07, 18 and 20 remain open.
+**Status:** done — merged in PR #41; both Windows frozen-build checks passed. Parents 05, 07, 18 and 20 remain open.
 
 Add Athletics (General) and Body Building & Weight Lifting under immutable Rifts skill rules 2.0.0. Source-verify printed p. 316 / PDF p. 319, Vagabond related restrictions on printed p. 97 / PDF p. 100 and Secondary restrictions on printed p. 300 / PDF p. 303. Athletics adds P.S. +1, Spd +1D6, S.D.C. +1D8 and +1 parry, ordinary dodge and roll with impact; Body Building adds P.S. +2 and S.D.C. +10. Bonuses accumulate with O.C.C. bonuses once per distinct Physical skill. Gunfire/energy dodge excludes Athletics under printed p. 361 / PDF p. 364.
 

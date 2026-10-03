@@ -19,6 +19,7 @@ from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical
+from .resources import acquire_resources, project_resources, update_resource
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -89,7 +90,8 @@ class CharacterApplication:
     def skill_view(self, identifier):
         character = self.get(identifier)
         pack = self.character_skill_pack(character)
-        return {**project_skills(character, pack), 'combat': project_combat(character, pack)}
+        return {**project_skills(character, pack), 'combat': project_combat(character, pack),
+                'resources':project_resources(character,pack)}
 
     def combat_view(self, identifier):
         character = self.get(identifier)
@@ -172,7 +174,8 @@ class CharacterApplication:
             raise ValueError('Heroes Unlimited editable PDF remains unfinished')
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
-        return export_rifts_sheet(character, core, project_skills(character, pack), project_combat(character, pack))
+        return export_rifts_sheet(character, core, {**project_skills(character, pack),
+            'resources':project_resources(character,pack)}, project_combat(character, pack))
 
     def import_character(self, bundle):
         character = import_bundle(bundle, self.rule_archive.definitions())
@@ -215,6 +218,8 @@ class CharacterApplication:
         else:
             previous = self.character_skill_pack(character)
             target = self.rule_archive.active('rifts-domestic-skills')
+            if 'resources' in character and canonical(previous.get('resources',{}).get('definitions')) != canonical(target.get('resources',{}).get('definitions')):
+                raise ValueError('This update changes recorded resource rules. Resource migration is not yet supported; current rules remain intact.')
             for skill_id in character.get('physical_acquisitions',{}):
                 before_definition = next(item for item in previous['skills'] if item['id']==skill_id)
                 after_definition: dict = next((item for item in target['skills'] if item['id']==skill_id),{})
@@ -230,7 +235,7 @@ class CharacterApplication:
                        'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
                        'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
                        'gaps': [*after['gaps'], *combat_after['gaps']], 'sources': after['sources'],
-                       'scope': 'Vagabond skills, reviewed Physical bonuses and combat training. Recorded attribute and acquisition dice stay unchanged; changes to acquired Physical bonus definitions require a separate migration.'}
+                       'scope': 'Vagabond skills, reviewed Physical effects, class bonuses, combat training and starting-resource definitions. Resource dice are generated separately; recorded attribute/acquisition dice stay unchanged. Changes to acquired Physical or resource definitions require a separate migration.'}
         changes = [] if previous['version'] == target['version'] else [
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
         preview.update(revision=character['revision'], changes=changes)
@@ -261,6 +266,26 @@ class CharacterApplication:
         selections = validate_selections(selections,pack)
         changes = acquire_physical(character,selections,pack,self.die)
         return self.store.update(identifier, {'skill_selections': selections, 'additional_rule_packs': packs, **changes}, revision)
+
+    def resource_view(self, identifier):
+        character = self.get(identifier)
+        return project_resources(character,self.character_skill_pack(character))
+
+    def generate_resources(self, identifier, *, revision):
+        require_revision(revision)
+        character = self.get(identifier)
+        pack = self.character_skill_pack(character)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before generating starting resources.')
+        changes = acquire_resources(character,pack,self.die)
+        return self.store.update(identifier,changes,revision)
+
+    def set_resource(self, identifier, *, revision, resource, mode, value=None):
+        require_revision(revision)
+        character = self.get(identifier)
+        pack = self.character_skill_pack(character)
+        changes = update_resource(character,pack,resource,mode,value)
+        return self.store.update(identifier,changes,revision)
 
     def select_required_skills(self, identifier, *, revision, choices):
         character = self.get(identifier)

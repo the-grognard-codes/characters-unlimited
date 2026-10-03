@@ -45,6 +45,23 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(stale.exception.code,409)
                 stale.exception.close()
                 self.assertEqual(app.get(hero['id']),saved)
+                resource_path = base+'/api/characters/'+hero['id']+'/resources'
+                resource_payload = json.dumps({'revision':saved['revision']}).encode()
+                with self.assertRaises(HTTPError) as denied_resource:
+                    urlopen(Request(resource_path,data=resource_payload),timeout=5)
+                self.assertEqual(denied_resource.exception.code,403)
+                denied_resource.exception.close()
+                with urlopen(Request(resource_path,data=resource_payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(resource_path,timeout=5) as response:
+                    resources = json.load(response)
+                self.assertEqual(resources['resources']['HP']['value'],18)
+                self.assertEqual(resources['resources']['SDC']['value'],42)
+                with self.assertRaises(HTTPError) as stale_resource:
+                    urlopen(Request(resource_path,data=resource_payload,headers=headers),timeout=5)
+                self.assertEqual(stale_resource.exception.code,409)
+                stale_resource.exception.close()
+                self.assertEqual(app.get(hero['id']),saved)
             finally:
                 server.shutdown(); server.server_close(); worker.join(timeout=5)
 

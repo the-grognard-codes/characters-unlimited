@@ -37,6 +37,12 @@ function renderCombat(view) {
     });
   }
   $('combat-totals').replaceChildren(...Object.entries(view.totals).map(([name,result])=>combatRow(name.replaceAll('_',' '),result)));
+  $('class-bonuses').replaceChildren(...Object.entries(view.class_bonuses || {}).map(([name,result]) => {
+    const row = combatRow(name + ' O.C.C. bonus',result);
+    const note = document.createElement('p'); note.className = 'help';
+    note.textContent = 'Class contribution only; other Perception modifiers remain separate.';
+    row.append(note); return row;
+  }));
   $('saving-section').hidden = !Object.keys(view.saving_bonuses || {}).length;
   $('saving-bonuses').replaceChildren(...Object.values(view.saving_bonuses || {}).map(result=>combatRow(result.name,result)));
   $('saving-notes').textContent = (view.saving_notes || []).join(' ');

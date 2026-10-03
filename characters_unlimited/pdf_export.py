@@ -240,6 +240,16 @@ def export_rifts_sheet(character, core, skills, combat):
     values = {'NAME': character['name'], 'RACE': race, 'OCC': occupation,
               'EXPERIENCE LEVEL': str(character['level'])}
     values.update({name: str(value['value']) for name, value in character['attributes'].items()})
+    resources = skills.get('resources',{}).get('resources',{})
+    if resources.get('HP',{}).get('value') is not None:
+        values['HIT POINTS'] = str(resources['HP']['value'])
+    if resources.get('SDC',{}).get('value') is not None:
+        cells = [ref.get_object() for ref in writer.pages[0].get('/Annots',[])
+                 if abs(float(ref.get_object()['/Rect'][0])-512.64)<.2
+                 and abs(float(ref.get_object()['/Rect'][1])-682.64)<.2]
+        if len(cells)!=1:
+            raise ValueError('The Rifts physical S.D.C. rectangle changed; review its field mapping')
+        values[cells[0]['/T']] = str(resources['SDC']['value'])
     saving_bonuses = combat.get('saving_bonuses', {})
     fill_saving_bonuses(writer.pages[0], saving_bonuses, values)
     labels = {'attacks': 'OF ATTACKS', 'initiative': 'INNITIATIVE', 'damage': 'DAMAGE',
@@ -263,17 +273,30 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    for identifier,result in resources.items():
+        if result['value'] is None:
+            continue
+        terms = [f'{name}: {value}'+(' (dice '+', '.join(map(str,result['rolls'][name]))+')' if result['rolls'][name] else '')
+                 for name,value in result['contributions'].items()]
+        if result['fixed'] is not None:
+            terms.append('Fixed total: '+str(result['fixed']))
+        elif result['adjustment']:
+            terms.append('Player adjustment: '+str(result['adjustment']))
+        references = list(dict.fromkeys(source['book']+', pp. '+', '.join(map(str,source['pages'])) for source in result['sources']))
+        sheet_notes += '\n'+result['name']+': '+'; '.join([*terms,*references])+'.'
+    if combat.get('class_bonuses'):
+        sheet_notes += '\nPerception O.C.C. bonus: +'+str(combat['class_bonuses']['perception']['value'])+' (Ultimate Edition p. 97). Other Perception contributions remain separate.'
     for skill in skills.get('physical',{}).get('selected',[]):
         effects = []
         for group,bonuses in skill['effects'].items():
             for name,effect in bonuses.items():
                 value = effect['value'] if isinstance(effect,dict) else effect
-                label = 'S.D.C. bonus (starting total pending)' if group=='resources' and name=='SDC' else name.replace('_',' ')
+                label = ('S.D.C. bonus' if resources.get('SDC',{}).get('value') is not None else 'S.D.C. bonus (starting total pending)') if group=='resources' and name=='SDC' else name.replace('_',' ')
                 rolls = effect.get('rolls',[]) if isinstance(effect,dict) else []
                 effects.append(f'{label} +{value}'+(' (dice '+', '.join(map(str,rolls))+')' if rolls else ''))
         sheet_notes += '\n'+skill['name']+': '+'; '.join(effects)+'. '+skill['source']['book']+', p. '+', '.join(map(str,skill['source']['pages']))+'.'
     if saving_bonuses:
-        sheet_notes += '\nSaving fields show attribute bonuses.'
+        sheet_notes += '\nSaving fields show reviewed bonuses.'
         additional = [f'{saving_bonuses[key]["name"]}: {saving_bonuses[key]["value"]:+d}'
                       for key in ('disease', 'illusions') if saving_bonuses[key]['value'] is not None]
         sheet_notes += '\n' + '; '.join(additional)

@@ -75,19 +75,30 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertTrue(1<=speed_roll<=6)
                 self.assertEqual(character['attributes']['SPD']['value'],before_physical['SPD']['value']+speed_roll)
                 self.assertEqual(physical_view['remaining']['related'],3)
+                character = request('/api/characters/'+identifier+'/resources',{'revision':character['revision']},token)
+                resource_view = request('/api/characters/'+identifier+'/resources')
+                hp_roll = character['resources']['HP']['contributions'][1]['rolls'][0]
+                self.assertEqual(resource_view['resources']['HP']['value'],before_physical['PE']['value']+hp_roll)
+                sdc_base = sum(item['value'] for item in character['resources']['SDC']['contributions'])
+                sdc_roll = character['physical_acquisitions']['athletics']['rolls']['resource:SDC'][0]
+                self.assertEqual(resource_view['resources']['SDC']['value'],sdc_base+sdc_roll+10)
                 coverage = request('/api/coverage')
                 self.assertIn('books', coverage)
                 portable = request('/api/characters/' + identifier + '/export')
                 imported = request('/api/import', {'bundle':portable}, token)
                 self.assertNotEqual(imported['id'], identifier)
                 self.assertEqual(imported['physical_acquisitions'],character['physical_acquisitions'])
+                self.assertEqual(imported['resources'],character['resources'])
                 reader = PdfReader(BytesIO(request('/api/characters/' + identifier + '/pdf')))
                 fields = reader.get_fields()
                 assert fields is not None
                 self.assertEqual(fields['NAME']['/V'], 'Packaged Rowan')
+                self.assertEqual(fields['HIT POINTS']['/V'],str(resource_view['resources']['HP']['value']))
                 self.assertTrue(reader.pages[0].get('/Annots'))
                 with urlopen(url + '/education.js', timeout=15) as script:
                     self.assertIn(b'loadEducation', script.read())
+                with urlopen(url + '/resources.js',timeout=15) as script:
+                    self.assertIn(b'renderResources',script.read())
                 hero = request('/api/characters', {'name':'Packaged Beacon','game':'heroes-unlimited'}, token)
                 hero = request('/api/characters/' + hero['id'] + '/education',
                                {'revision':0,'method':'choose','education_id':'military-specialist'}, token)
@@ -178,6 +189,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
                 self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
                 self.assertEqual(request('/api/characters/'+identifier)['physical_acquisitions'],character['physical_acquisitions'])
+                self.assertEqual(request('/api/characters/'+identifier)['resources'],character['resources'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
                 self.assertEqual(len(bootstrap['characters']), 5)

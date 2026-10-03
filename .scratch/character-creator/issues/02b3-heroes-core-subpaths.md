@@ -1,6 +1,6 @@
 # 02B3: Heroes core subpath identities
 
-**Status:** in-progress
+**Status:** done (merged in PR #17)
 
 **Dependencies:** 02B2 complete. Parent 02B and complete 13-book content fan-out remain open.
 

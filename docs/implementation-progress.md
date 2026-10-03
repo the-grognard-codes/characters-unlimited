@@ -37,7 +37,7 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 
 - 05B5: Complete, merged in PR #16; both Windows CI checks pass. Fourteen Communications choices bring the selectable catalog to 46. Category exclusions, writing repetition/quality, source-grounded conditional checks, grant-aware prerequisites and named specialties pass 78 checks and browser verification. Spec caught missing guidance for optional languages duplicating grants; shared normalization and a regression repair it. Both targeted reviews approve; publication is complete. Source discrepancy and remaining dependencies are recorded in docs/evidence/05b5-validation.md.
 
-- 02B3: In progress. Sixteen source-bound Heroes Unlimited identities add four Hardware specializations, Super Vehicle construction, five Special Training paths, four robot types and two shared robot rules. There are 67 identities, zero mechanically reviewed entries, and 66 unassigned identities. All 79 local checks and browser alias/dependency validation pass. Both review axes approve; publication is pending. Evidence: docs/evidence/02b3-validation.md.
+- 02B3: Complete, merged in PR #17; both Windows CI checks pass. Sixteen source-bound Heroes Unlimited identities add four Hardware specializations, Super Vehicle construction, five Special Training paths, four robot types and two shared robot rules. There are 67 identities, zero mechanically reviewed entries, and 66 unassigned identities. All 79 local checks and browser alias/dependency validation pass. Both review axes approve; publication is complete. Evidence: docs/evidence/02b3-validation.md.
 
 ## Pending source ruling
 
@@ -46,3 +46,5 @@ Heroes Unlimited Second Edition adds a die to an initial 16–18 and says to rol
 ## Retrospective
 
 Perform the requested retro only after all slices are completed. Compare functionality, visual/media outcomes, and intent with the original ticket plan and record the final assessment in Markdown. Do not label a partial implementation as the completed retrospective outcome.
+
+- 05B6: In progress. Eleven Science definitions bring the selectable catalog to 57. Navigation prerequisites and once-only math bonus, Archaeology dual checks, History and Computer synergies, pool restrictions and exact portable pins pass 84 local checks and browser explanation verification. Both independent review axes approve; publication is pending. Zoology specialization, Lore targets, alien medical contexts and full category advancement remain pending.

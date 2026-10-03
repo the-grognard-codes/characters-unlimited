@@ -13,7 +13,7 @@ function lockNavigation(busy) {
   navigationBusy = busy;
   setEducationBusy();
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
-  if (current?.game === 'heroes-unlimited') { $('preview-rule-update').disabled = true; $('export-pdf').disabled = true; }
+  if (current?.game === 'heroes-unlimited') $('export-pdf').disabled = true;
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
 }
@@ -54,7 +54,7 @@ function render(character) {
   $('heroes-pending').hidden = !heroes;
   $('education-panel').hidden = !heroes;
   $('export-pdf').disabled = heroes || navigationBusy;
-  $('preview-rule-update').disabled = heroes || navigationBusy;
+  $('preview-rule-update').disabled = navigationBusy;
   $('name').value = character.name; $('notes').value = character.notes;
   $('summary-name').textContent = character.name || 'Unnamed adventurer';
   $('rule-versions').textContent = `Rules: ${character.rules.id} ${character.rules.version} · ` + Object.entries(character.additional_rule_packs || {}).map(([id, version]) => `${id} ${version}`).join(' · ');
@@ -185,7 +185,7 @@ $('preview-rule-update').onclick = async () => {
     const preview = await request(`/api/characters/${current.id}/rule-preview`, {});
     rulePreview = {...preview, characterId:current.id};
     $('rule-error').hidden = true;
-    $('rule-update-summary').textContent = preview.changes.length ? preview.changes.map(change => `${change.pack_id}: ${change.from} → ${change.to}`).join(' · ') : 'This character already uses the active domestic skill rules.';
+    $('rule-update-summary').textContent = preview.changes.length ? preview.changes.map(change => `${change.pack_id}: ${change.from} → ${change.to}`).join(' · ') : 'This character already uses the active rules covered by this preview.';
     $('rule-update-scope').textContent = preview.scope + ' A backup of all characters is created before applying.';
     $('rule-update-skills').replaceChildren(...preview.skills.map(skill => {
       const row = document.createElement('li'); row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before == null ? 'Not yet granted' : skill.before + '%'} → ${skill.after == null ? 'Removed' : skill.after + '%'}`; return row;

@@ -11,9 +11,48 @@ from pypdf import PdfReader
 
 from characters_unlimited.application import CharacterApplication
 from characters_unlimited.server import create_server
+from characters_unlimited.rules import RuleArchive
 
 
 class LocalBackupAdapterTests(unittest.TestCase):
+    def test_heroes_rule_preview_and_apply_use_protected_endpoints_and_exact_versions(self):
+        with tempfile.TemporaryDirectory() as directory:
+            archive = RuleArchive.load()
+            legacy = RuleArchive(archive.definitions(), {**archive.active_versions(),'heroes-program-skills':'1.0.0'})
+            earlier = CharacterApplication(directory, die=lambda sides:4, rule_archive=legacy)
+            hero = earlier.create(game='heroes-unlimited')
+            hero = earlier.select_education(hero['id'], revision=0, method='choose', education_id='high-school')
+            hero = earlier.select_hero_programs(hero['id'], revision=hero['revision'], selections=[{'slot':0,'program':'business'}])
+            current = CharacterApplication(directory)
+            server = create_server(current)
+            worker = threading.Thread(target=server.serve_forever, daemon=True)
+            worker.start()
+            try:
+                base = f'http://127.0.0.1:{server.server_port}'
+                with urlopen(base+'/api/bootstrap',timeout=5) as response:
+                    token = json.load(response)['token']
+                path = base+'/api/characters/'+hero['id']
+                headers = {'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
+                with self.assertRaises(HTTPError) as denied:
+                    urlopen(Request(path+'/rule-preview',data=b'{}'),timeout=5)
+                self.assertEqual(denied.exception.code,403)
+                denied.exception.close()
+                with urlopen(Request(path+'/rule-preview',data=b'{}',headers=headers),timeout=5) as response:
+                    preview = json.load(response)
+                research = next(skill for skill in preview['skills'] if skill['name']=='Research')
+                self.assertEqual((research['before'],research['after']),(55,50))
+                self.assertEqual(current.get(hero['id']),hero)
+                payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
+                with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
+                    result = json.load(response)
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.1.0')
+                with self.assertRaises(HTTPError) as conflict:
+                    urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
+                self.assertEqual(conflict.exception.code,409)
+                conflict.exception.close()
+            finally:
+                server.shutdown();server.server_close();worker.join(timeout=5)
+
     def test_heroes_program_endpoint_saves_and_reports_stale_choices(self):
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4)
@@ -34,7 +73,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 with urlopen(path, timeout=5) as response:
                     view = json.load(response)
                 self.assertTrue(view['pinned'])
-                self.assertEqual(next(item for item in view['skills'] if item['id'] == 'research')['percentage'], 55)
+                self.assertEqual(next(item for item in view['skills'] if item['id'] == 'research')['percentage'], 50)
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path, data=payload, headers=headers), timeout=5)
                 self.assertEqual(conflict.exception.code, 409)

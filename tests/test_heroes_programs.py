@@ -12,16 +12,16 @@ class HeroesProgramWorkflowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4)
             hero = app.create(game='heroes-unlimited')
-            hero = app.select_education(hero['id'], revision=0, method='choose', education_id='high-school')
+            hero = app.select_education(hero['id'], revision=0, method='choose', education_id='college-one')
             hero = app.set_attribute(hero['id'], attribute='IQ', revision=hero['revision'], mode='fixed', value=16)
             hero = app.select_hero_programs(hero['id'], revision=hero['revision'], selections=[{'slot':0, 'program':'business'}])
             skills = {item['id']:item for item in app.hero_program_view(hero['id'])['skills']}
-            self.assertEqual(skills['research']['percentage'], 57)
-            self.assertEqual(skills['mathematics-basic']['percentage'], 52)
+            self.assertEqual(skills['research']['percentage'], 62)
+            self.assertEqual(skills['mathematics-basic']['percentage'], 57)
             self.assertEqual(skills['pilot-automobile']['percentage'], 62)
-            self.assertEqual(skills['law-general']['percentage'], 32)
-            self.assertEqual(skills['computer-operation']['percentage'], 47)
-            self.assertEqual(skills['business-finance']['percentage'], 42)
+            self.assertEqual(skills['law-general']['percentage'], 37)
+            self.assertEqual(skills['computer-operation']['percentage'], 52)
+            self.assertEqual(skills['business-finance']['percentage'], 47)
             self.assertEqual(skills['research']['per_level'], 5)
             imported = app.import_character(app.export_character(hero['id']))
             self.assertEqual(imported['hero_program_selections'], hero['hero_program_selections'])
@@ -89,17 +89,18 @@ class HeroesProgramWorkflowTests(unittest.TestCase):
 
     def test_saved_program_version_survives_corrections_and_education_changes(self):
         with tempfile.TemporaryDirectory() as directory:
-            app = CharacterApplication(directory, die=lambda sides: 4)
+            archive = RuleArchive.load()
+            legacy = RuleArchive(archive.definitions(), {**archive.active_versions(), 'heroes-program-skills':'1.0.0'})
+            app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=legacy)
             hero = app.create(game='heroes-unlimited')
             hero = app.select_education(hero['id'], revision=0, method='choose', education_id='doctorate')
             hero = app.select_hero_programs(hero['id'], revision=hero['revision'], selections=[{'slot':0,'program':'business'}])
             hero = app.set_attribute(hero['id'], attribute='IQ', revision=hero['revision'], mode='fixed', value=30)
             self.assertEqual(next(item for item in app.hero_program_view(hero['id'])['skills'] if item['id'] == 'research')['percentage'], 96)
-            archive = RuleArchive.load()
             correction = archive.active('heroes-program-skills')
-            correction['version'] = '1.1.0'
+            correction['version'] = '1.2.0'
             correction['skills'][2]['base'] = 60
-            newer = CharacterApplication(directory, rule_archive=RuleArchive([*archive.definitions(),correction], {**archive.active_versions(),'heroes-program-skills':'1.1.0'}))
+            newer = CharacterApplication(directory, rule_archive=RuleArchive([*archive.definitions(),correction], {**archive.active_versions(),'heroes-program-skills':'1.2.0'}))
             self.assertEqual(next(item for item in newer.hero_program_view(hero['id'])['skills'] if item['id'] == 'research')['percentage'], 96)
             hero = newer.select_education(hero['id'], revision=hero['revision'], method='choose', education_id='high-school')
             self.assertEqual(next(item for item in newer.hero_program_view(hero['id'])['skills'] if item['id'] == 'research')['percentage'], 71)

@@ -7,7 +7,7 @@ from uuid import UUID, uuid4
 from .generation import roll_attribute, generation_settings, racial_formula
 from .attribute_modifiers import attribute_value
 from .education import validate_education
-from .heroes_programs import validate_program_selections
+from .heroes_programs import validate_program_selections, validate_secondary_selections
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -217,6 +217,11 @@ def validate_sources(character, packs):
         if character['game'] != 'heroes-unlimited' or pack is None or 'education' not in character:
             raise ValueError('Heroes programs must retain education and their accepted rule version pin')
         validate_program_selections(character['hero_program_selections'], pack)
+    if 'hero_secondary_selections' in character:
+        pack = next((item for item in packs if item['id']=='heroes-program-skills'),None)
+        if character['game']!='heroes-unlimited' or pack is None or 'education' not in character:
+            raise ValueError('Heroes Secondary skills must retain education and their accepted rule version pin')
+        validate_secondary_selections(character['hero_secondary_selections'],pack)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', []))]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     for attributes in records:

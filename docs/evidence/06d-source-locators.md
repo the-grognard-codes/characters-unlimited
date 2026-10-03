@@ -13,4 +13,4 @@ Existing Business, universal and I.Q. definitions inherit [06B](06b-source-locat
 
 Worked example: One Year of College (+10%) and I.Q. 16 (+2%) yield Mathematics 57%, Business & Finance 47%, Computer Operation 52%, Biology 42%, Paramedic 52%, universal Pilot Automobile 62%. A Military Business choice (+5%) plus an ineligible Medical Assistant choice merges Mathematics at 50%, Computer 45%, Business 40%; Biology stays 30% and Paramedic 40% at I.Q. 12. Selection order does not add bonuses together.
 
-The same original program page includes Pathology in Medical Investigation, absent from that Markdown list; that separate program is not accepted by this slice. No source files were modified. Native-language arithmetic still awaits the agreed interpretation.
+The same original program page includes Pathology in Medical Investigation; the corrected Markdown also lists it at line 2493, after the combined mathematics entry. An earlier truncated excerpt missed that continuation. That separate program is not accepted by this slice. No source files were modified. Native-language arithmetic still awaits the agreed interpretation.

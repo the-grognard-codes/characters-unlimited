@@ -7,3 +7,5 @@ Public workflows verify source-grounded percentages, shared grants without summe
 All 133 local tests pass (one frozen-only skip); mypy checks 44 files, compilation and all browser script syntax pass. Edge selected Medical Assistant using the catalog selector, showed the independently calculated College/I.Q. percentages, retained a repeated choice with named visible warnings, and reopened both choices with unchanged values. The [program/warning capture](06d-medical-assistant.png) and [calculated skill capture](06d-medical-percentages.png) were inspected.
 
 Remaining programs, repeat-category selections, Secondary skills, native-language arithmetic, powers, combat, equipment, advancement and Heroes PDF remain unfinished. Parent 06 stays open.
+
+PR #36 merged after both independent reviews and both Windows frozen checks passed.

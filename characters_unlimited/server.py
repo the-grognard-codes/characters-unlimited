@@ -122,6 +122,8 @@ def create_server(application, port=0):
                         self.respond(200, application.select_required_skills(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'hero-programs':
                         self.respond(200, application.select_hero_programs(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'hero-secondary':
+                        self.respond(200, application.select_hero_secondary(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'duplicate':
                         self.respond(201, application.duplicate(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'rule-preview':

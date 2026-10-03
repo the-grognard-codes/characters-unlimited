@@ -7,3 +7,5 @@ The protected HTTP endpoint verifies token rejection, Research selection and all
 All 137 local tests pass (one frozen-only skip), mypy over 45 files, compilation and browser script syntax. Edge selects Technical Research at 52% with I.Q. 16 and no Doctorate bonus, retains ineligible Paramedic at 42% with a visible warning, reopens both choices at eight remaining, then removes Paramedic and shows nine remaining with Research unchanged. Both [selection/warning](06e-secondary-selections.png) and [calculation/removal](06e-secondary-percentages.png) captures were inspected.
 
 Other Secondary definitions/categories and special costs, Street allocations/trades, native-language arithmetic, remaining programs and full advancement stay open. Parent 06 is not complete.
+
+PR #37 merged after both independent reviews and both Windows frozen checks passed.

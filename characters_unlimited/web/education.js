@@ -58,13 +58,47 @@ async function loadEducation(character) {
     const item = educationLine(`${programs.catalog.find(program => program.id === selection.program).name} · slot ${selection.slot + 1}`);
     const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Remove';
     button.onclick = () => characterAction('hero-programs', {selections:heroProgramView.selections.filter((_, i) => i !== index)}).catch(showError);
-    item.append(button); return item;
+    item.append(button);
+    const choiceView = programs.program_choices[index];
+    for (const group of choiceView.groups) {
+      const section = document.createElement('div'); section.className = 'help';
+      const description = document.createElement('p');
+      description.textContent = `${group.name}: ${group.entered} entered, ${group.credited} distinct eligible, ${group.count} required, ${group.remaining} remaining.${choiceView.repeat ? ' Repeat entitlement pending; these retained first-program choices add no new group education bonus.' : ''}`;
+      section.append(description);
+      const select = document.createElement('select');
+      select.setAttribute('aria-label',`${group.name} for program ${index + 1}`);
+      const entries = [...programs.skill_catalog].sort((a,b) => Number(group.skill_ids.includes(b.id)) - Number(group.skill_ids.includes(a.id)));
+      select.replaceChildren(...entries.map(skill => {
+        const option = document.createElement('option'); option.value = skill.id;
+        option.textContent = skill.name + (group.skill_ids.includes(skill.id) ? '' : ' · outside this choice group'); return option;
+      }));
+      const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Add program choice';
+      const saveChoices = choices => {
+        const selections = heroProgramView.selections.map((entry,i) => i === index ? {...entry,choices:{...entry.choices,[group.id]:choices}} : entry);
+        return characterAction('hero-programs',{selections});
+      };
+      add.onclick = () => saveChoices([...group.selections,select.value]).catch(showError);
+      section.append(select,add);
+      const list = document.createElement('ul');
+      list.replaceChildren(...group.selections.map((identifier,choiceIndex) => {
+        const row = educationLine(programs.skill_catalog.find(skill => skill.id === identifier).name);
+        const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Remove choice';
+        remove.onclick = () => saveChoices(group.selections.filter((_,i) => i !== choiceIndex)).catch(showError);
+        row.append(remove); return row;
+      }));
+      section.append(list); item.append(section);
+    }
+    return item;
   }));
   $('hero-program-skills').replaceChildren(...programs.skills.map(skill => {
-    const item = educationLine(`${skill.name}: ${skill.percentage}% (+${skill.per_level}% per level) · base ${skill.contributions.base}, education +${skill.contributions.education}, I.Q. +${skill.contributions.intelligence}`);
+    const item = educationLine(`${skill.name}${skill.primary_check_name ? ' — ' + skill.primary_check_name : ''}: ${skill.percentage}% (+${skill.per_level}% per level) · base ${skill.contributions.base}, education +${skill.contributions.education}, I.Q. +${skill.contributions.intelligence}`);
     const detail = document.createElement('small'); detail.textContent = ` ${skill.category}; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}${skill.prerequisites.length ? '; requires ' + skill.prerequisites.join(', ') : ''}${skill.secondary_selected ? '; selected as Secondary (no added education bonus)' : ''}`;
     item.append(detail); return item;
   }));
+  for (const skill of programs.skills) {
+    for (const check of skill.additional_checks || []) $('hero-program-skills').append(educationLine(`${skill.name} — ${check.name}: ${check.percentage}% (+${check.per_level}% per level)${check.context_of ? ' · applies only in this stated context' : ' · separate roll'}`));
+    for (const note of skill.notes || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
+  }
   $('hero-program-warnings').replaceChildren(...programs.warnings.map(educationLine));
   $('hero-program-warnings').hidden = !programs.warnings.length;
   $('hero-program-guidance').replaceChildren(...[...programs.guidance,

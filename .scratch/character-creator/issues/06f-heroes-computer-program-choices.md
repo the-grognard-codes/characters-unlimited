@@ -1,0 +1,9 @@
+# 06F — Heroes Computer program choices
+
+**Status:** in-progress. Parent 06 remains open.
+
+Add the Computer program (original printed 46/PDF 47): Basic Electronics, Computer Operation, Computer Programming and one choice of Computer Repair or a Radio skill. The explicit alternatives are Computer Repair, Radio Basic, Radio Scramblers and Radio Satellite. It is eligible for High School and ordinary unrestricted slots. Verify six new definitions against original printed50/51/60 (PDF51/52/61), including Computer Repair procedure/actual checks and the non-hacker Computer Programming penalty. Technical/Science initial category interpretations remain pending.
+
+Extend saved program selections with optional, source-declared choice groups. Existing two-field selections remain valid and byte-equivalent on save/import until edited. Show saved program groups, eligible categories, entered choices and remaining distinct eligible choices. Missing, duplicate, outside-category and excessive choices remain retainable with useful guidance; malformed groups or unknown skills cannot replace saved work. Qualifying selections receive the slot's scholastic bonus once and I.Q. once; ineligible category choices receive no group education bonus. Shared grants still occur once at the highest eligible bonus. Repeated-program remaining-category rules stay visibly pending.
+
+Publish immutable program pack 1.4.0; older pins gain the catalog only through explicit reviewed updates. Implement browser group selection/removal, protected HTTP, portable reopen and Windows package checks at the agreed seams. Do not add unsupported language arithmetic, specialties or other programs. Extend Secondary eligibility only for these reviewed new definitions under the existing source category exceptions. Preserve Secondary work when programs or choices change.

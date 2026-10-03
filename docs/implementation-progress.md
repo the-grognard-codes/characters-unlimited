@@ -63,4 +63,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 02A4: Complete, merged in PR #25; all 98 checks, both review axes and both Windows package checks pass. Original South America 2 neighbor labels correct the damaged-page locator to printed/PDF page 108. Verified metadata replaces the same passage description without changing source hashes or counting another gap.
 
-- 02B6: In progress. Fifty-five Mercenaries/Merc Ops/South America 2 creation identities bring the catalog to 224 across all eight supplied Rifts books. Complete core child paths, NPC-profile racial reconciliation, remaining Heroes books and mechanical/dependency review remain pending.
+- 02B6: Complete, merged in PR #26; all 99 local checks, both reviews and both Windows frozen-build checks pass. Fifty-five Mercenaries/Merc Ops/South America 2 creation identities bring the catalog to 224 across all eight supplied Rifts books. Complete core child paths, NPC-profile racial reconciliation, remaining Heroes books and mechanical/dependency review remain pending.
+
+- 02B7: In progress. Forty-seven Powers Unlimited 2 categories, named creation branches, genetic construction and power identities bring the partial catalog to 271. Numerical acceptance and supporting mechanical fan-out remain pending.

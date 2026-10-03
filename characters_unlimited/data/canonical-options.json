@@ -1,11 +1,12 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 224 source-bound entries across the core games and all eight supplied Rifts books. This remains a partial identity audit, not full corpus coverage or mechanical acceptance.",
+    "Identity audit currently covers 271 source-bound entries across the core games and all eight supplied Rifts books. This remains a partial identity audit, not full corpus coverage or mechanical acceptance.",
     "Remaining core child paths, supplement subpaths, other supplied books and supporting mechanical entries remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics.",
     "Mercenary NPC profiles include referenced Uteni, Dysasha, Raksasha, Brodkil, tattooed/witch/psionic paths and Dog Pack Wolf examples. Profile-to-existing-option reconciliation and full racial/template evidence remain pending; named personnel are not invented independent O.C.C.s.",
-    "Remaining South America 2 occupation adaptations, heritage variants and referenced magic/augmentation systems need full dependency and named content-ticket review. Destroyer Borg remains blocked by the verified damaged page."
+    "Remaining South America 2 occupation adaptations, heritage variants and referenced magic/augmentation systems need full dependency and named content-ticket review. Destroyer Borg remains blocked by the verified damaged page.",
+    "Powers Unlimited 2 category and named creation-branch identities are audited. Its genetic options, mental disciplines, weapon specialties, powers and other supporting mechanics still need complete dependency review and content-ticket fan-out; remaining Heroes books stay pending."
   ],
   "entries": [
     {
@@ -7188,6 +7189,1487 @@
         "Requires target mortal-humanoid biology/abilities; source says copied forms do not grant the target’s skills, memories, or personality.",
         "Description, transformation abilities and build statistics are repeated headings of one R.C.C.; copying a mortal form does not grant skills, memories or personality.",
         "Identity evidence does not accept numerical rules; complete mechanical/dependency review, advancement, equipment and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered",
+      "name": "Empowered",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "fba3709f06698001f69d"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          8
+        ],
+        "pdf_pages": [
+          9
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-eugenic-hero",
+      "name": "Eugenic Hero",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "8a88268ae9fe9093e450"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          16
+        ],
+        "pdf_pages": [
+          17
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-gestalt",
+      "name": "Gestalt Superhuman",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "664a3aa8ae917bf8edae"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          36
+        ],
+        "pdf_pages": [
+          37
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-imbued",
+      "name": "Imbued Hero",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "ed40fee6e557ce7f4443"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          56
+        ],
+        "pdf_pages": [
+          57
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-immortal",
+      "name": "Immortal",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "7bc7564ef2e71ff4b8fc"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-super-invention",
+      "name": "Super-Invention",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "8efc95db88e231712895"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          67
+        ],
+        "pdf_pages": [
+          68
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-minor-hero",
+      "name": "Minor Hero option",
+      "kind": "rule",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "bf45e9710d4760112a3f",
+        "8cd131c4729ba17deb67"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          71
+        ],
+        "pdf_pages": [
+          72
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Body describes a modifier to normal categories; the quick-find calls it a Power Category. Preserve modifier identity rather than inventing an independent power category. Honor-system guidance requires no administrative gate."
+      ]
+    },
+    {
+      "id": "pu2-natural-genius",
+      "name": "Natural Genius",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "3049c3c8254af3feaa2f"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          72
+        ],
+        "pdf_pages": [
+          73
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Mental disciplines remain supporting mechanical entries to audit, not silently accepted by this category identity."
+      ]
+    },
+    {
+      "id": "pu2-supersoldier",
+      "name": "Supersoldier",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "03e24fca4b1d59d3c8c5"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          76
+        ],
+        "pdf_pages": [
+          77
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-symbiotic",
+      "name": "Symbiotic Superhuman",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "0b7f44e4f9980e3383e6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          86
+        ],
+        "pdf_pages": [
+          87
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-ancient-weapons-master",
+      "name": "Ancient Weapons Master",
+      "kind": "power-category",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [
+        "Ancient Weapon Master"
+      ],
+      "candidate_ids": [
+        "00ca1e9324c222b2cff4"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          90
+        ],
+        "pdf_pages": [
+          91
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Weapon specialties and mastery effects require later supporting-mechanic fan-out."
+      ]
+    },
+    {
+      "id": "pu2-eugenic-construction",
+      "name": "Genetic construction budget",
+      "kind": "construction",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "9ced5f541e5b89d20f1c",
+        "16e9500e010e03cd2a3a"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          18
+        ],
+        "pdf_pages": [
+          19
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-eugenic-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-bionics",
+      "name": "Empowered: Bionics",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "ebd16c0eb5e96d894c09"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          11
+        ],
+        "pdf_pages": [
+          12
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered",
+        "hu2-bionics"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-demigod",
+      "name": "Empowered: Demigod metamorphosis",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "afead0510ebf830985d5"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          11
+        ],
+        "pdf_pages": [
+          12
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-monster",
+      "name": "Empowered: Monster metamorphosis",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "5e0e3131b90dec23790f"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          12
+        ],
+        "pdf_pages": [
+          13
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-psionic",
+      "name": "Empowered: Psionic compensation",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "7df36fe609f5232db129"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          12
+        ],
+        "pdf_pages": [
+          13
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered",
+        "hu2-psionics"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-super-abilities",
+      "name": "Empowered: Super abilities",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "e2e47c6a2fa8e96539b6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          13
+        ],
+        "pdf_pages": [
+          14
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-lycanthropy",
+      "name": "Empowered: Lycanthropy",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "3c44c551a20b4a6a9241"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          15
+        ],
+        "pdf_pages": [
+          16
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-robotics",
+      "name": "Empowered: Robotics",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "11d7ae11157ce693f965"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          15
+        ],
+        "pdf_pages": [
+          16
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered",
+        "hu2-robotics"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-empowered-underwater",
+      "name": "Empowered: Underwater abilities",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2d38ebd3edecaa4a04ad"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          15
+        ],
+        "pdf_pages": [
+          16
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-empowered"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-gestalt-animal",
+      "name": "Animal Gestalt",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "8d0732ad663ba4a4714c"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          37
+        ],
+        "pdf_pages": [
+          38
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-gestalt"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-gestalt-physical-human",
+      "name": "Physical Human Gestalt",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "4dada5a53d3026c26aae"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          44
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-gestalt"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-gestalt-psychic-human",
+      "name": "Psychic Human Gestalt",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "b8f339f14230e11ef84a"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          47
+        ],
+        "pdf_pages": [
+          48
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-gestalt"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-gestalt-plant",
+      "name": "Plant Gestalt",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "5008c839d8c26f8b20eb"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-gestalt"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-supersoldier-brain-implant",
+      "name": "Supersoldier: Brain Implant Augmentation",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [
+        "Brain Impant Augmentation",
+        "Brain Implant Augmentation"
+      ],
+      "candidate_ids": [
+        "f8c737a9a96e92918b1d"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          81
+        ],
+        "pdf_pages": [
+          82
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-supersoldier"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Original contents spells Implant; the Markdown heading spells Impant. Normalize the identity while preserving the transcription alias."
+      ]
+    },
+    {
+      "id": "pu2-supersoldier-chemical",
+      "name": "Supersoldier: Chemical Enhancement",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [
+        "Chemical Enhanced Hero"
+      ],
+      "candidate_ids": [
+        "e1c3a930daaf6489e3c9"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          82
+        ],
+        "pdf_pages": [
+          83
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-supersoldier"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-supersoldier-endoskeleton",
+      "name": "Supersoldier: Endoskeletal Replacement",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "39749ca985f7a3d4af3f"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          83
+        ],
+        "pdf_pages": [
+          84
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-supersoldier"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-immortal-lesser-demon",
+      "name": "Immortal: Lesser Demon",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "References the core Mega-Hero Immortal or Undead power; this source dependency does not impose the entire Mega-Hero category as a mandatory character prerequisite."
+      ]
+    },
+    {
+      "id": "pu2-immortal-dragon",
+      "name": "Immortal: Dragon",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-alien",
+      "name": "Immortal: Inhuman or Alien",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "References the core Alien Appearance table; conditional use and full dependency acceptance remain pending."
+      ]
+    },
+    {
+      "id": "pu2-immortal-angel",
+      "name": "Immortal: Angel or Ancient Spirit of Order/Light or Good",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-monster",
+      "name": "Immortal: Monster",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          61
+        ],
+        "pdf_pages": [
+          62
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-godling",
+      "name": "Immortal: Godling",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          61
+        ],
+        "pdf_pages": [
+          62
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-demon-lord",
+      "name": "Immortal: Demon Lord",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          61
+        ],
+        "pdf_pages": [
+          62
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-merfolk",
+      "name": "Immortal: Merman/Mermaid",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          62
+        ],
+        "pdf_pages": [
+          63
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "References the core Mega-Hero Immortal or Undead power; this source dependency does not impose the entire Mega-Hero category as a mandatory character prerequisite."
+      ]
+    },
+    {
+      "id": "pu2-immortal-faerie",
+      "name": "Immortal: Faerie Folk",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          62
+        ],
+        "pdf_pages": [
+          63
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-human",
+      "name": "Immortal: Human",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          62
+        ],
+        "pdf_pages": [
+          63
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "References the core Mega-Hero Immortal or Undead power; this source dependency does not impose the entire Mega-Hero category as a mandatory character prerequisite."
+      ]
+    },
+    {
+      "id": "pu2-immortal-avatar",
+      "name": "Immortal: Avatar of a god",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          62
+        ],
+        "pdf_pages": [
+          63
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "References the core Mega-Hero Immortal or Undead power; this source dependency does not impose the entire Mega-Hero category as a mandatory character prerequisite."
+      ]
+    },
+    {
+      "id": "pu2-immortal-demigod",
+      "name": "Immortal: Demigod",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          62
+        ],
+        "pdf_pages": [
+          63
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-golem",
+      "name": "Immortal: Golem",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          63
+        ],
+        "pdf_pages": [
+          64
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "Markdown orders a Golem special paragraph before its label. Original printed page 63 places it within Golem; full mechanical paragraph reconciliation remains pending."
+      ]
+    },
+    {
+      "id": "pu2-immortal-fallen",
+      "name": "Immortal: Fallen Demigod, Godling or Demon Lord",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          63
+        ],
+        "pdf_pages": [
+          64
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches."
+      ]
+    },
+    {
+      "id": "pu2-immortal-undead",
+      "name": "Immortal: Undead/Vampire",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          63
+        ],
+        "pdf_pages": [
+          64
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-mega-hero"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "References the core Mega-Hero Immortal or Undead power; this source dependency does not impose the entire Mega-Hero category as a mandatory character prerequisite."
+      ]
+    },
+    {
+      "id": "pu2-immortal-spirit",
+      "name": "Immortal: Astral Being or Ghostly Spirit",
+      "kind": "option-family",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [
+        "Astral Being",
+        "Ghostly Spirit"
+      ],
+      "candidate_ids": [
+        "2fa2e4b66d3c9accb3a6"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          63
+        ],
+        "pdf_pages": [
+          64
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "pu2-immortal",
+        "hu2-psionics"
+      ],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending.",
+        "Named result of the shared immortal archetype table; the common source candidate is retained without merging distinct creation branches.",
+        "Intangible form has special attribute/skill exclusions requiring future mechanical review."
+      ]
+    },
+    {
+      "id": "pu2-directed-force",
+      "name": "Directed Force",
+      "kind": "power",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "e72d3d60bb8c99889416"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          94
+        ],
+        "pdf_pages": [
+          95
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-super-power-punch",
+      "name": "Super Power Punch",
+      "kind": "power",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "574842e538251b8de64c"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-sidestep",
+      "name": "Sidestep",
+      "kind": "power",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "cc5b155545b434173bc7"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
+      ]
+    },
+    {
+      "id": "pu2-spit-spikes",
+      "name": "Spit Spikes",
+      "kind": "power",
+      "book_id": "heroes-unlimited-powers-unlimited-2",
+      "aliases": [],
+      "candidate_ids": [
+        "2778c11d16ff8f46e425"
+      ],
+      "source": {
+        "markdown_sha256": "cb849234fa3bbfe83ee21de3bcfcc15566b40715e3fb7a127be9b4a260164673",
+        "pdf_sha256": "c1aa012f3dd78705ba38ffb9cf6777adb64e8d17ab84cecfbf4bca55d272e5fc",
+        "printed_pages": [
+          95
+        ],
+        "pdf_pages": [
+          96
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against original contents or body labels. Numerical mechanics, full dependencies, restrictions, advancement and named content tickets remain pending."
       ]
     }
   ]

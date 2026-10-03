@@ -1,6 +1,6 @@
 # 18C: Preview and apply equipment catalog corrections
 
-**Parent:** 18. **Blocked by:** 08A, 18A. **Status:** in-progress.
+**Parent:** 18. **Blocked by:** 08A, 18A. **Status:** complete.
 
 - Preview exact pinned equipment against the active accepted catalog, together with skill corrections. Show changed catalog fields, carried weight, active attack totals and contributions, warnings, and sources before applying.
 - Apply all reviewed changed pins atomically after a backup. Preserve credits, quantities, locations, equipped flags, ammunition, attributes and recorded dice.
@@ -9,3 +9,5 @@
 - Verify the public workflow, browser dialog, portable exact versions, and interrupted multi-pack updates. Complete standards/spec review and the normal PR/merge cycle.
 
 This slice does not migrate incompatible inventory or update primary character, education, or recorded resource definitions. Parent 18 remains open.
+
+PR #47 merged as 052eeab after both Windows checks passed (37145797602 and 37145801884).

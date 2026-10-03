@@ -305,6 +305,13 @@ def export_rifts_sheet(character, core, skills, combat):
     if equipment is not None:
         fill_equipment(writer.pages[0],equipment,values)
         sheet_notes += '\nCurrent credits: '+str(equipment['inventory']['credits'])+'. Carried weight: '+str(equipment['carried_weight_lbs'])+' lb.'
+        for identifier, record in equipment['starting_funds']['funds'].items():
+            definition = next(item for item in equipment['starting_funds']['definitions'] if item['id']==identifier)
+            sheet_notes += ('\n'+definition['name']+': '+str(record['value'])+' credits = ('+
+                            ' + '.join(map(str,record['rolls']))+') x'+str(definition['multiplier'])+'. '+record['source']['book']+
+                            ', p. '+', '.join(map(str,record['source']['pages']))+'.')
+        if equipment['starting_funds']['generated']:
+            sheet_notes += '\nStarting saleable goods remain goods value; they are not added to current credits automatically.'
         for item in equipment['items']:
             sheet_notes += ('\n'+item['name']+' x'+str(item['quantity'])+'; '+item['location']+
                             ('; equipped' if item['equipped'] else '; unequipped')+

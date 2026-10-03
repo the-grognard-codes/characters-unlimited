@@ -1,6 +1,7 @@
 """Source-bound Rifts equipment inventory and projection helpers."""
 
 from copy import deepcopy
+from .starting_funds import project_starting_funds
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -183,6 +184,7 @@ def project_equipment(character, pack, combat):
         'catalog': deepcopy(pack['items']), 'inventory': inventory, 'items': selected,
         'attacks': attacks, 'armor': armor, 'carried_weight_lbs': carried_weight,
         'warnings': warnings, 'guidance': guidance, 'sources': sources,
+        'starting_funds': project_starting_funds(character, pack),
     }
 
 
@@ -194,6 +196,7 @@ def compare_equipment_views(before, after):
             changes.append({'name': name, 'before': deepcopy(old), 'after': deepcopy(new)})
 
     add('Carried weight (lb)', before['carried_weight_lbs'], after['carried_weight_lbs'])
+    add('Starting funds rules', before['starting_funds']['definitions'], after['starting_funds']['definitions'])
     old_catalog = {item['id']: item for item in before['catalog']}
     new_catalog = {item['id']: item for item in after['catalog']}
     for item_id in dict.fromkeys([*old_catalog, *new_catalog]):

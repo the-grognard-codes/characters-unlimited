@@ -14,7 +14,7 @@ from characters_unlimited.rules import RuleArchive
 class EquipmentUpgradeTests(unittest.TestCase):
     def newer_application(self, directory, change=None):
         archive = RuleArchive.load()
-        equipment = archive.resolve('rifts-equipment', '1.0.0')
+        equipment = archive.active('rifts-equipment')
         equipment['version'] = '99.0.0'
         equipment['items'][0].update(weight_lbs=3, aimed_bonus=4, cost_credits=12000)
         equipment['items'][2]['locations']['main_body'] = 40
@@ -45,7 +45,7 @@ class EquipmentUpgradeTests(unittest.TestCase):
             self.assertEqual(before['carried_weight_lbs'],17)
             self.assertEqual(before['attacks'][0]['aimed']['value'],5)
             preview = current.preview_rule_upgrade(character['id'])
-            self.assertEqual(preview['changes'],[{'pack_id':'rifts-equipment','from':'1.0.0','to':'99.0.0'}])
+            self.assertEqual(preview['changes'],[{'pack_id':'rifts-equipment','from':'1.1.0','to':'99.0.0'}])
             changes = {row['name']:(row['before'],row['after']) for row in preview['equipment']}
             self.assertEqual(changes['Carried weight (lb)'],(17,19))
             self.assertTrue(any('aimed' in name and values == (5,7) for name,values in changes.items()))

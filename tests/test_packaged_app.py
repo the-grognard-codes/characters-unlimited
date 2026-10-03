@@ -105,6 +105,11 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],resource_view['resources']['HP']['value'])
                 character = request('/api/characters/'+identifier+'/equipment',
                     {'revision':character['revision'],'inventory':{'credits':50000,'items':[]}},token)
+                character = request('/api/characters/'+identifier+'/starting-funds',
+                    {'revision':character['revision']},token)
+                starting_credit_value = sum(character['starting_funds']['credits']['rolls'])*100
+                self.assertEqual(character['equipment']['credits'],50000+starting_credit_value)
+                self.assertEqual(len(character['starting_funds']['saleable_goods']['rolls']),2)
                 for item_id in ('wilks-320','plastic-man'):
                     character = request('/api/characters/'+identifier+'/purchase-equipment',
                         {'revision':character['revision'],'item_id':item_id,'quantity':1},token)
@@ -116,7 +121,7 @@ class PackagedApplicationTests(unittest.TestCase):
                     {'revision':character['revision'],'choices':{'hand_to_hand':'basic','ancient':[],
                      'modern':['energy-pistol']}},token)
                 gear = request('/api/characters/'+identifier+'/equipment')
-                self.assertEqual(gear['inventory']['credits'],21000)
+                self.assertEqual(gear['inventory']['credits'],21000+starting_credit_value)
                 self.assertEqual(gear['carried_weight_lbs'],15)
                 self.assertEqual(gear['attacks'][0]['aimed']['contributions']['weapon_aimed_bonus'],2)
                 self.assertEqual(gear['armor'][0]['locations']['main_body'],35)
@@ -126,6 +131,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(imported['physical_acquisitions'],character['physical_acquisitions'])
                 self.assertEqual(imported['resources'],character['resources'])
                 self.assertEqual(imported['equipment'],character['equipment'])
+                self.assertEqual(imported['starting_funds'],character['starting_funds'])
                 reader = PdfReader(BytesIO(request('/api/characters/' + identifier + '/pdf')))
                 fields = reader.get_fields()
                 assert fields is not None
@@ -227,6 +233,8 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
                 self.assertEqual(request('/api/characters/'+identifier)['physical_acquisitions'],character['physical_acquisitions'])
                 self.assertEqual(request('/api/characters/'+identifier)['resources'],character['resources'])
+                self.assertEqual(request('/api/characters/'+identifier)['starting_funds'],character['starting_funds'])
+                self.assertEqual(request('/api/characters/'+identifier)['equipment'],character['equipment'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
                 self.assertEqual(len(bootstrap['characters']), 5)

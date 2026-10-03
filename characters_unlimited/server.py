@@ -72,7 +72,7 @@ def create_server(application, port=0):
                     self.respond(404, {"error": "Character not found"})
                 except ValueError as error:
                     self.respond(400, {"error": str(error)})
-            elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css"):
+            elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css", "/combat.js"):
                 filename = "index.html" if path == "/" else path[1:]
                 content_type = "text/html" if filename == "index.html" else "text/javascript" if filename.endswith(".js") else "text/css"
                 self.respond(200, (assets / filename).read_bytes(), f"{content_type}; charset=utf-8")
@@ -104,6 +104,8 @@ def create_server(application, port=0):
                         self.respond(200, application.reroll(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "attribute":
                         self.respond(200, application.set_attribute(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == "combat":
+                        self.respond(200, application.select_combat(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "skills":
                         self.respond(200, application.select_skills(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'required-skills':

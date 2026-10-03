@@ -6,6 +6,7 @@ from pathlib import Path
 from .required_skills import project_required_skills
 from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids
 from .proficiency import synergy_contributions, project_proficiency
+from .combat import combat_skill_cost
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -101,6 +102,7 @@ def project_skills(character, pack=PACK):
             quality = definition['quality_by_pool'].get(item['pool'], 'trained')
         selected.append({**definition, **item, **project_proficiency(definition, contributions), 'quality': quality})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
+    remaining['related'] -= combat_skill_cost(character, pack)
     for pool, count in remaining.items():
         if count < 0:
             warnings.append(f"{pool.title()}: {-count} selection(s) over the level-one allowance.")
@@ -119,7 +121,8 @@ def project_skills(character, pack=PACK):
         sources.append('I.Q. bonus applies once to every skill: Attribute Bonus Chart p. 281; beyond 30 adds 2% per five points, p. 284.')
     required = project_required_skills(character, pack, intelligence)
     if required['catalog']:
-        gaps[0] = 'Begging interpretation, weapon/hand-to-hand choices, other categories and prerequisites are pending.'
+        gaps[0] = ('Begging interpretation, remaining weapon proficiencies, other categories and prerequisites are pending.' if 'combat' in pack
+                   else 'Begging interpretation, weapon/hand-to-hand choices, other categories and prerequisites are pending.')
         gaps.append('Conditional repair/horsemanship effects are pending.' if 'selection_rules' in pack else 'Barter literacy/mathematics synergies and conditional repair/horsemanship effects are pending.')
         sources.append('Required choices and Eyeball a Fella bonuses: p. 97; Streetwise adds 10% to I.D. Undercover Agents, p. 321.')
     return {'catalog': domestic, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',

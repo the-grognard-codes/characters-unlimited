@@ -1,6 +1,6 @@
 # 05B4: Reviewed technical choices and multiple proficiency checks
 
-**Status:** in-progress
+**Status:** done (PR #13, merged)
 
 **Dependencies:** 05B3 (complete, PR #12)
 

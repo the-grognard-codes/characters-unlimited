@@ -73,5 +73,5 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             'id':'rue-scout', 'name':'Scout', 'kind':'occ', 'book_id':'rue', 'aliases':[],
             'candidate_ids':['candidate'], 'source':{'markdown_sha256':'md','pdf_sha256':'pdf','printed_pages':[43],'pdf_pages':[46]},
             'identity_review':'confirmed', 'mechanical_review':'pending', 'dependency_review':'pending',
-            'automation':'not-implemented', 'tickets':[], 'dependencies':[], 'findings':['Mechanics and dependencies require review.']}]} 
+            'automation':'not-implemented', 'tickets':[], 'dependencies':[], 'findings':['Mechanics and dependencies require review.']}]}
         return inventory, catalog

@@ -148,7 +148,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             view = CharacterApplication(directory).coverage()
             options = {entry['id']: entry for entry in view['options']}
             self.assertEqual(view['summary']['canonical_options'], 718)
-            self.assertEqual(view['summary']['unassigned_options'], 717)
+            self.assertEqual(view['summary']['unassigned_options'], 0)
             self.assertEqual(options['mercenaries-company-design']['kind'], 'construction')
             self.assertEqual(options['mercenaries-bounty-hunter']['source']['pdf_pages'], [21])
             self.assertIn('Special Forces Soldier', options['mercenaries-special-forces']['aliases'])
@@ -175,7 +175,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             view = CharacterApplication(directory).coverage()
             options = {entry['id']: entry for entry in view['options']}
             self.assertEqual(view['summary']['identity_confirmed'], 718)
-            self.assertEqual(view['summary']['unassigned_options'], 717)
+            self.assertEqual(view['summary']['unassigned_options'], 0)
             self.assertEqual(options['atlantis-nomad']['dependencies'], ['atlantis-true-atlantean'])
             self.assertIn('True Atlantean Adventurer', options['atlantis-nomad']['aliases'])
             self.assertEqual(options['atlantis-undead-slayer']['source']['printed_pages'], [17, 97])
@@ -203,7 +203,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             view = CharacterApplication(directory).coverage()
             options = {entry['id']:entry for entry in view['options']}
             self.assertEqual(view['summary']['identity_confirmed'], 718)
-            self.assertEqual(view['summary']['unassigned_options'], 717)
+            self.assertEqual(view['summary']['unassigned_options'], 0)
             self.assertEqual(options['sa1-ewaipanomas']['source']['printed_pages'], [102])
             self.assertEqual(options['sa1-shaydor-spherians']['source']['pdf_pages'], [104])
             self.assertIn('Amazon R.C.G', options['sa1-amazon']['aliases'])
@@ -254,7 +254,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-experiment']['source']['pdf_pages'], [21])
             self.assertEqual(options['hu2-mega-hero']['kind'], 'rule')
             self.assertTrue(any('modifier' in finding for finding in options['hu2-mega-hero']['findings']))
-            self.assertEqual(view['summary']['unassigned_options'], 717)
+            self.assertEqual(view['summary']['unassigned_options'], 0)
             self.assertEqual([pack['classes'][0]['id'] for pack in CharacterApplication(directory).catalog()['packs']], ['vagabond', 'mutant'])
 
     def test_heroes_named_paths_link_to_categories_and_shared_robot_rules(self):

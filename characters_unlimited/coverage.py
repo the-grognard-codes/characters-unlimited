@@ -12,6 +12,7 @@ from typing import TypedDict
 from uuid import uuid4
 from copy import deepcopy
 from .option_audit import audited_coverage
+from .content_tickets import with_content_tickets
 
 
 class SourceGap(TypedDict):
@@ -148,8 +149,9 @@ class SourceInventory:
             temporary.unlink(missing_ok=True)
 
     @staticmethod
-    def with_catalog(inventory, catalog):
-        return audited_coverage(inventory, catalog)
+    def with_catalog(inventory, catalog, ticket_manifest=None):
+        coverage = audited_coverage(inventory, catalog)
+        return with_content_tickets(coverage, ticket_manifest) if ticket_manifest is not None else coverage
 
     @staticmethod
     def load() -> dict:
@@ -162,7 +164,8 @@ class SourceInventory:
         verified_gaps = json.loads((target.parent / 'verified-source-gaps.json').read_text(encoding='utf-8'))
         inventory = SourceInventory.with_verified_gaps(inventory, verified_gaps)
         catalog = json.loads((target.parent / 'canonical-options.json').read_text(encoding='utf-8'))
-        return SourceInventory.with_catalog(inventory, catalog)
+        manifest = json.loads((target.parent / 'content-tickets.json').read_text(encoding='utf-8'))
+        return SourceInventory.with_catalog(inventory, catalog, manifest)
 
 
 def main():

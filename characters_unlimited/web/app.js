@@ -215,6 +215,10 @@ $('preview-rule-update').onclick = async () => {
       const row = document.createElement('li'); const unit = skill.unit ?? '%'; row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before == null ? 'Not yet granted' : skill.before + unit} → ${skill.after == null ? 'Removed' : skill.after + unit}`; return row;
     }));
     $('rule-update-combat').replaceChildren(...rulePreview.combat.map(row => { const item = document.createElement('li'); item.textContent = `${row.name}: ${row.before ?? 'not available'} → ${row.after ?? 'not available'}`; return item; }));
+    const equipmentValue = value => value == null ? 'not available' : Array.isArray(value) ? value.map(equipmentValue).join('; ') : typeof value === 'object' ? Object.entries(value).map(([key,entry]) => `${key.replaceAll('_',' ')}: ${equipmentValue(entry)}`).join('; ') : String(value);
+    $('rule-update-equipment').replaceChildren(...preview.equipment.map(row => {
+      const item = document.createElement('li'); item.textContent = `${row.name}: ${equipmentValue(row.before)} → ${equipmentValue(row.after)}`; return item;
+    }));
     $('rule-update-counts').textContent = Object.keys(preview.before_remaining).map(pool => `${pool} remaining: ${preview.before_remaining[pool]} → ${preview.after_remaining[pool]}`).join(' · ');
     $('rule-update-counts').textContent += Object.keys(preview.after_required_remaining).length ? ' · Required choices: ' + Object.keys(preview.after_required_remaining).map(name => `${name.replaceAll('_',' ')}: ${preview.before_required_remaining[name] ?? 'not yet supported'} → ${preview.after_required_remaining[name]}`).join(' · ') : '';
     $('rule-update-findings').replaceChildren(...[...preview.gaps, ...preview.sources].map(message => { const row = document.createElement('li'); row.textContent = message; return row; }));

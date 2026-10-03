@@ -9,3 +9,5 @@ In Edge, the 50,000-credit fixture purchased two pistols, one rifle and one armo
 The exported PDF was rendered with forms initialized. Pages 1 and 3 were visually reviewed: original weapon rows include range, remaining/capacity shots, M.D. damage, quantities and locations; equipped armor fills identity, pounds, cost and main-body capacity. The first render showed a crowded full armor name; optional `sheet_name` now displays readable “Plastic-Man” while editable notes retain its full identity. Credits, all armor locations, states, warnings, source references and equipped attack contributions continue without clipped text. Original page 2 remains unchanged. No unreviewed burst capability or universal armor speed penalty is invented.
 
 Starting O.C.C. funds/gear, other items, ammunition purchases/reload automation, encumbrance, armor-affected skill checks, other games and complete corpus acceptance remain pending under the parent tickets. This representative inventory does not close parent 08 or release acceptance.
+
+Publication: PR #46 merged as 1ca9781 after both Windows frozen package checks passed (37144659491 and 37144662103).

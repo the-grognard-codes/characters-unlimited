@@ -17,6 +17,7 @@ from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
 from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
+from .heroes_programs import validate_program_selections, project_programs
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -94,11 +95,7 @@ class CharacterApplication:
         return project_combat(character, self.character_skill_pack(character))
 
     def character_education_pack(self, character):
-        if character['game'] != 'heroes-unlimited':
-            raise ValueError('Education is available for Heroes Unlimited characters')
-        version = character.get('additional_rule_packs', {}).get('heroes-education')
-        return (self.rule_archive.resolve('heroes-education', version) if version is not None
-                else self.rule_archive.active('heroes-education'))
+        return self._character_heroes_pack(character, 'heroes-education')
 
     def education_view(self, identifier):
         character = self.get(identifier)
@@ -121,6 +118,30 @@ class CharacterApplication:
         character = self.get(identifier)
         choices = validate_combat_choices(choices, self.character_skill_pack(character))
         return self.store.update(identifier, {'combat_choices': choices}, require_revision(revision))
+
+    def _character_heroes_pack(self, character, identifier):
+        if character['game'] != 'heroes-unlimited':
+            raise ValueError('Education and scholastic programs are available for Heroes Unlimited characters')
+        version = character.get('additional_rule_packs', {}).get(identifier)
+        return (self.rule_archive.resolve(identifier, version) if version is not None
+                else self.rule_archive.active(identifier))
+
+    def hero_program_view(self, identifier):
+        character = self.get(identifier)
+        return {**project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character)),
+                'pinned':'heroes-program-skills' in character.get('additional_rule_packs', {})}
+
+    def select_hero_programs(self, identifier, *, revision, selections):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting programs.')
+        pack = self._character_heroes_pack(character, 'heroes-program-skills')
+        selections = validate_program_selections(selections, pack)
+        if 'education' not in character:
+            raise ValueError('Choose education before saving scholastic programs')
+        pins = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
+        return self.store.update(identifier, {'hero_program_selections':selections, 'additional_rule_packs':pins}, revision)
 
     def character_skill_pack(self, character):
         if character['game'] != 'rifts':

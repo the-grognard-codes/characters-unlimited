@@ -14,6 +14,35 @@ from characters_unlimited.server import create_server
 
 
 class LocalBackupAdapterTests(unittest.TestCase):
+    def test_heroes_program_endpoint_saves_and_reports_stale_choices(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory, die=lambda sides: 4)
+            hero = app.create(game='heroes-unlimited')
+            app.select_education(hero['id'], revision=0, method='choose', education_id='high-school')
+            server = create_server(app)
+            worker = threading.Thread(target=server.serve_forever, daemon=True)
+            worker.start()
+            try:
+                base = f'http://127.0.0.1:{server.server_port}'
+                with urlopen(base + '/api/bootstrap', timeout=5) as response:
+                    token = json.load(response)['token']
+                path = base + '/api/characters/' + hero['id'] + '/hero-programs'
+                payload = json.dumps({'revision':1,'selections':[{'slot':0,'program':'business'}]}).encode()
+                headers = {'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
+                with urlopen(Request(path, data=payload, headers=headers), timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path, timeout=5) as response:
+                    view = json.load(response)
+                self.assertTrue(view['pinned'])
+                self.assertEqual(next(item for item in view['skills'] if item['id'] == 'research')['percentage'], 55)
+                with self.assertRaises(HTTPError) as conflict:
+                    urlopen(Request(path, data=payload, headers=headers), timeout=5)
+                self.assertEqual(conflict.exception.code, 409)
+                conflict.exception.close()
+                self.assertEqual(app.get(hero['id']), saved)
+            finally:
+                server.shutdown(); server.server_close(); worker.join(timeout=5)
+
     def test_pdf_download_is_an_editable_document_and_preserves_saved_revision(self):
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4)

@@ -66,6 +66,8 @@ def create_server(application, port=0):
                         self.respond(200, application.skill_view(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'education':
                         self.respond(200, application.education_view(parts[2]))
+                    elif len(parts) == 4 and parts[3] == 'hero-programs':
+                        self.respond(200, application.hero_program_view(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'export':
                         self.respond(200, application.export_character(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'pdf':
@@ -118,6 +120,8 @@ def create_server(application, port=0):
                         self.respond(200, application.select_education(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'required-skills':
                         self.respond(200, application.select_required_skills(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'hero-programs':
+                        self.respond(200, application.select_hero_programs(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'duplicate':
                         self.respond(201, application.duplicate(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'rule-preview':

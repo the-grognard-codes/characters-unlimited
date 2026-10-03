@@ -4,7 +4,8 @@
     "rifts-core": "1.1.0",
     "rifts-domestic-skills": "1.9.0",
     "heroes-core": "1.0.0",
-    "heroes-education": "1.0.0"
+    "heroes-education": "1.0.0",
+    "heroes-program-skills": "1.0.0"
   },
   "definitions": [
     {
@@ -90,6 +91,12 @@
       "id": "heroes-education",
       "version": "1.0.0",
       "sha256": "4609c9403b425d128127f3324df37e1dc5516d0efd6f528be95fedfaa3452cfb"
+    },
+    {
+      "id": "heroes-program-skills",
+      "version": "1.0.0",
+      "filename": "heroes-program-skills.json",
+      "sha256": "b7a7ccae4ccc67bba532684cd39eba77da4721aa7b7c58456bce679a4327026c"
     }
   ]
 }

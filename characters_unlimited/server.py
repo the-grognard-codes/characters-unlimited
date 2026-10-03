@@ -124,6 +124,10 @@ def create_server(application, port=0):
                         self.respond(200, application.set_equipment(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'purchase-equipment':
                         self.respond(200, application.purchase_equipment(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'reload-weapon':
+                        self.respond(200, application.reload_weapon(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'split-equipment':
+                        self.respond(200, application.split_equipment(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'starting-funds':
                         self.respond(200, application.generate_starting_funds(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'starting-gear':

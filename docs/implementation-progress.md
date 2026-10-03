@@ -110,4 +110,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08B2: Complete, merged in PR #49 as 37bcb4d after both Windows frozen checks passed (37148507938 and 37148513086). All 184 local checks and rendered editable PDF/browser inspection pass. Independent Standards review approved; Spec integration review approved after receipt display repair, with root source review of the delegated module/pack. Fixed Vagabond personal gear uses immutable equipment 1.2.0. Free one-time grant, retained original receipts, editable generic possessions, unspecified values and incomplete carried weights are explicit. Choice-based gear and parent 08 stay open.
 
-- 08C1: Ordinary large/small knives, source purchase ranges and held-knife melee projection implemented under equipment 1.3.0; publication pending. Full starting choices and parent 08 remain open.
+- 08C1: Ordinary large/small knives, source purchase ranges and held-knife melee projection implemented under equipment 1.3.0; complete in PR #50, squash 045866f, after both Windows checks passed (37150187267 and 37150183497). All 188 local checks pass, with browser/PDF validation and review approvals. Full starting choices and parent 08 remain open.
+
+- 08C2: Standard short E-Clips with source price ranges, scoped compatibility, ammunition-preserving exchanges and quantity-preserving split UI implemented under equipment 1.4.0; publication pending. All 191 local checks pass. Other ammunition/recharge, class starting choices and parent 08 remain open.

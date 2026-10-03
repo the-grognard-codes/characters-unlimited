@@ -58,6 +58,11 @@ def _inventory(record, pack):
         elif definition.get('category') in ('armor', 'gear'):
             if item['shots'] is not None:
                 raise ValueError('Non-weapon equipment cannot have weapon shots')
+        elif definition.get('category') == 'ammunition':
+            capacity = definition.get('capacity')
+            if (type(capacity) is not int or not 1 <= capacity <= MAX_QUANTITY
+                    or type(item['shots']) is not int or not 0 <= item['shots'] <= capacity):
+                raise ValueError('Ammunition shots must be within the source capacity')
         else:
             raise ValueError('Unsupported equipment kind')
     return definitions
@@ -100,12 +105,60 @@ def purchase_inventory(record, pack, item_id, quantity, possession_id, unit_cost
     credits = record['credits'] - cost * quantity
     if not _safe_integer(credits):
         raise ValueError('Purchase would exceed the supported credit range')
-    shots = (definition['capacity'] if definition['category'] == 'weapon'
-             and definition.get('weapon_kind', 'ranged') == 'ranged' else None)
+    shots = (definition['capacity'] if definition['category'] == 'ammunition' or
+             (definition['category'] == 'weapon' and
+              definition.get('weapon_kind', 'ranged') == 'ranged') else None)
     result = {'credits': credits, 'items': [*deepcopy(record['items']), {
         'id': possession_id, 'item_id': item_id, 'quantity': quantity,
         'location': 'carried', 'equipped': False, 'shots': shots,
     }]}
+    _inventory(result, pack)
+    return result
+
+
+def split_inventory(record, pack, possession_id, new_possession_id):
+    """Move one unit from a grouped possession into its own unchanged-condition row."""
+    _inventory(record, pack)
+    possession = next((item for item in record['items'] if item['id'] == possession_id), None)
+    if possession is None or possession['quantity'] <= 1:
+        raise ValueError('Select a grouped possession with at least two units')
+    result = deepcopy(record)
+    grouped = next(item for item in result['items'] if item['id'] == possession_id)
+    single = {**deepcopy(grouped), 'id': new_possession_id, 'quantity': 1}
+    grouped['quantity'] -= 1
+    result['items'].append(single)
+    _inventory(result, pack)
+    return result
+
+
+def reload_inventory(record, pack, weapon_possession_id, clip_possession_id):
+    """Exchange the remaining shots in one carried gun and one carried spare clip."""
+    definitions = _inventory(record, pack)
+    if (not isinstance(weapon_possession_id, str) or not isinstance(clip_possession_id, str)
+            or not weapon_possession_id or not clip_possession_id
+            or weapon_possession_id == clip_possession_id):
+        raise ValueError('Select distinct gun and clip possessions')
+    possessions = {item['id']: item for item in record['items']}
+    weapon = possessions.get(weapon_possession_id)
+    clip = possessions.get(clip_possession_id)
+    if weapon is None or clip is None:
+        raise ValueError('Select existing gun and clip possessions')
+    weapon_rule = definitions[weapon['item_id']]
+    clip_rule = definitions[clip['item_id']]
+    if (weapon_rule.get('category') != 'weapon'
+            or weapon_rule.get('weapon_kind', 'ranged') != 'ranged'
+            or clip_rule.get('category') != 'ammunition'
+            or weapon['item_id'] not in clip_rule.get('compatible_weapons', [])
+            or weapon_rule['capacity'] != clip_rule['capacity']):
+        raise ValueError('This clip is not reviewed for the selected gun')
+    if weapon['location'] != 'carried' or clip['location'] != 'carried':
+        raise ValueError('Carry both the gun and clip to reload')
+    if weapon['quantity'] != 1 or clip['quantity'] != 1:
+        raise ValueError('Reload one gun and one clip at a time; split grouped rows into individual possessions')
+    result = deepcopy(record)
+    by_id = {item['id']: item for item in result['items']}
+    by_id[weapon_possession_id]['shots'], by_id[clip_possession_id]['shots'] = (
+        by_id[clip_possession_id]['shots'], by_id[weapon_possession_id]['shots'])
     _inventory(result, pack)
     return result
 
@@ -263,6 +316,8 @@ def project_equipment(character, pack, combat):
         guidance.append('Some carried equipment has no source weight; the known carried weight is an incomplete total.')
     if melee_attacks:
         guidance.append('Held knife damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
+    if any(item.get('category') == 'ammunition' for item in definitions.values()):
+        guidance.append('Reload by swapping the remaining shots in one carried gun and one compatible carried clip. Split grouped gun or clip rows into individual possessions first.')
     return {
         'catalog': deepcopy(pack['items']), 'inventory': inventory, 'items': selected,
         'attacks': attacks, 'melee_attacks': melee_attacks,

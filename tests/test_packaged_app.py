@@ -118,22 +118,32 @@ class PackagedApplicationTests(unittest.TestCase):
                         {'revision':character['revision'],'item_id':item_id,'quantity':1},token)
                 character = request('/api/characters/'+identifier+'/purchase-equipment',
                     {'revision':character['revision'],'item_id':'knife-large','unit_cost':30},token)
+                character = request('/api/characters/'+identifier+'/purchase-equipment',
+                    {'revision':character['revision'],'item_id':'standard-e-clip','quantity':2,'unit_cost':5000},token)
+                character = request('/api/characters/'+identifier+'/split-equipment',
+                    {'revision':character['revision'],'possession_id':character['equipment']['items'][-1]['id']},token)
                 inventory = character['equipment']
                 for item in inventory['items']: item['equipped']=True
+                gun = next(item for item in inventory['items'] if item['item_id']=='wilks-320')
+                clip = inventory['items'][-1]
+                gun['shots'] = 3
                 character = request('/api/characters/'+identifier+'/equipment',
                     {'revision':character['revision'],'inventory':inventory},token)
+                character = request('/api/characters/'+identifier+'/reload-weapon',
+                    {'revision':character['revision'],'weapon_possession_id':gun['id'],'clip_possession_id':clip['id']},token)
                 character = request('/api/characters/'+identifier+'/combat',
                     {'revision':character['revision'],'choices':{'hand_to_hand':'basic','ancient':['knife'],
                      'modern':['energy-pistol']}},token)
                 gear = request('/api/characters/'+identifier+'/equipment')
-                self.assertEqual(gear['inventory']['credits'],20970+starting_credit_value)
+                self.assertEqual(gear['inventory']['credits'],10970+starting_credit_value)
                 self.assertEqual(gear['carried_weight_lbs'],15)
-                self.assertEqual(gear['unknown_carried_weight_quantity'],21)
+                self.assertEqual(gear['unknown_carried_weight_quantity'],23)
                 self.assertFalse(gear['carried_weight_complete'])
                 self.assertEqual(gear['attacks'][0]['aimed']['contributions']['weapon_aimed_bonus'],2)
                 self.assertEqual(gear['armor'][0]['locations']['main_body'],35)
                 self.assertEqual(gear['melee_attacks'][0]['base_damage'],'1D6 S.D.C.')
-                self.assertIsNone(character['equipment']['items'][-1]['shots'])
+                self.assertEqual(character['equipment']['items'][-1]['shots'],3)
+                self.assertEqual(gear['attacks'][0]['shots'],20)
                 portable = request('/api/characters/' + identifier + '/export')
                 imported = request('/api/import', {'bundle':portable}, token)
                 self.assertNotEqual(imported['id'], identifier)

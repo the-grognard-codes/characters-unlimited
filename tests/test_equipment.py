@@ -79,7 +79,7 @@ class EquipmentWorkflowTests(unittest.TestCase):
             character = app.create()
             self.assertNotIn('rifts-equipment',character['additional_rule_packs'])
             character = app.set_equipment(character['id'],revision=0,inventory={'credits':50000,'items':[]})
-            self.assertEqual(character['additional_rule_packs']['rifts-equipment'],'1.3.0')
+            self.assertEqual(character['additional_rule_packs']['rifts-equipment'],'1.4.0')
             for item_id,quantity in [('wilks-320',2),('wilks-447',1),('plastic-man',1)]:
                 character = app.purchase_equipment(character['id'],revision=character['revision'],item_id=item_id,quantity=quantity)
             self.assertEqual(character['equipment']['credits'],-8000)

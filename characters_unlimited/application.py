@@ -122,14 +122,14 @@ class CharacterApplication:
         pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
         return self.store.update(identifier,{'equipment':inventory,'additional_rule_packs':pins},revision)
 
-    def purchase_equipment(self, identifier, *, revision, item_id, quantity=1):
+    def purchase_equipment(self, identifier, *, revision, item_id, quantity=1, unit_cost=None):
         require_revision(revision)
         character = self.get(identifier)
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before purchasing equipment.')
         pack = self.character_equipment_pack(character)
         inventory = purchase_inventory(character.get('equipment',{'credits':0,'items':[]}),
-                                       pack,item_id,quantity,str(uuid4()))
+                                       pack,item_id,quantity,str(uuid4()),unit_cost=unit_cost)
         pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
         return self.store.update(identifier,{'equipment':inventory,'additional_rule_packs':pins},revision)
 

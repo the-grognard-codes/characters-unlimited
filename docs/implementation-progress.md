@@ -108,4 +108,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08B1: Complete, merged in PR #48 as babb040 after both Windows checks passed (37146924086 and 37146927753). Reviewed Vagabond starting credits and saleable goods use immutable equipment 1.1.0. Once-only original dice, exact pins, balance addition and portable/PDF projection preserve goods separately. Starting gear and parent 08 stay open.
 
-- 08B2: Fixed Vagabond personal gear implemented under immutable equipment 1.2.0; validation/publication pending. Free one-time grant, retained original receipts, editable generic possessions, unspecified values and incomplete carried weights are explicit. Choice-based gear and parent 08 stay open.
+- 08B2: Complete, merged in PR #49 as 37bcb4d after both Windows frozen checks passed (37148507938 and 37148513086). All 184 local checks and rendered editable PDF/browser inspection pass. Independent Standards review approved; Spec integration review approved after receipt display repair, with root source review of the delegated module/pack. Fixed Vagabond personal gear uses immutable equipment 1.2.0. Free one-time grant, retained original receipts, editable generic possessions, unspecified values and incomplete carried weights are explicit. Choice-based gear and parent 08 stay open.
+
+- 08C1: Ordinary large/small knives, source purchase ranges and held-knife melee projection implemented under equipment 1.3.0; publication pending. Full starting choices and parent 08 remain open.

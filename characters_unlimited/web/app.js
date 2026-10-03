@@ -13,7 +13,7 @@ function lockNavigation(busy) {
   navigationBusy = busy;
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
-  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
 }
 function library() {
   $('library').replaceChildren();
@@ -76,9 +76,10 @@ $('skill-category').onchange = filterSkillChoices;
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
   skillsReady = false;
-  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = true);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = true);
   const view = await request(`/api/characters/${character.id}/skills`);
   if (current.id !== character.id || sequence !== skillLoadSequence) return;
+  renderCombat(view.combat);
   skillCatalog = view.catalog;
   const category = $('skill-category').value;
   const categories = ['', ...new Set(view.catalog.map(skill => skill.category || 'domestic'))];
@@ -127,8 +128,9 @@ async function loadSkills(character) {
     $(id).replaceChildren(...items.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   }
   skillsReady = true;
-  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = navigationBusy);
+  document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = navigationBusy);
 }
+wireCombatEvents();
 function readRequiredChoices() {
   return {native_language:$('required-native').value.trim(), pilot:$('required-pilot').value, repair:$('required-repair').value,
     other_languages:$('required-languages').value.trim() ? $('required-languages').value.split(/\r?\n/).map(value => value.trim()) : []};
@@ -162,6 +164,7 @@ $('preview-rule-update').onclick = async () => {
     $('rule-update-skills').replaceChildren(...preview.skills.map(skill => {
       const row = document.createElement('li'); row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before == null ? 'Not yet granted' : skill.before + '%'} → ${skill.after == null ? 'Removed' : skill.after + '%'}`; return row;
     }));
+    $('rule-update-combat').replaceChildren(...rulePreview.combat.map(row => { const item = document.createElement('li'); item.textContent = `${row.name}: ${row.before ?? 'not available'} → ${row.after ?? 'not available'}`; return item; }));
     $('rule-update-counts').textContent = Object.keys(preview.before_remaining).map(pool => `${pool} remaining: ${preview.before_remaining[pool]} → ${preview.after_remaining[pool]}`).join(' · ');
     $('rule-update-counts').textContent += Object.keys(preview.after_required_remaining).length ? ' · Required choices: ' + Object.keys(preview.after_required_remaining).map(name => `${name.replaceAll('_',' ')}: ${preview.before_required_remaining[name] ?? 'not yet supported'} → ${preview.after_required_remaining[name]}`).join(' · ') : '';
     $('rule-update-findings').replaceChildren(...[...preview.gaps, ...preview.sources].map(message => { const row = document.createElement('li'); row.textContent = message; return row; }));

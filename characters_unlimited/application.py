@@ -14,6 +14,7 @@ from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
 from .required_skills import validate_required_choices
+from .combat import validate_combat_choices, project_combat, compare_combat_views
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -75,7 +76,17 @@ class CharacterApplication:
 
     def skill_view(self, identifier):
         character = self.get(identifier)
-        return project_skills(character, self.character_skill_pack(character))
+        pack = self.character_skill_pack(character)
+        return {**project_skills(character, pack), 'combat': project_combat(character, pack)}
+
+    def combat_view(self, identifier):
+        character = self.get(identifier)
+        return project_combat(character, self.character_skill_pack(character))
+
+    def select_combat(self, identifier, *, revision, choices):
+        character = self.get(identifier)
+        choices = validate_combat_choices(choices, self.character_skill_pack(character))
+        return self.store.update(identifier, {'combat_choices': choices}, require_revision(revision))
 
     def character_skill_pack(self, character):
         return self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills'])
@@ -89,6 +100,8 @@ class CharacterApplication:
             character['skill_selections'] = validate_selections(character['skill_selections'], self.character_skill_pack(character))
         if 'required_skill_choices' in character:
             character['required_skill_choices'] = validate_required_choices(character['required_skill_choices'], self.character_skill_pack(character))
+        if 'combat_choices' in character:
+            character['combat_choices'] = validate_combat_choices(character['combat_choices'], self.character_skill_pack(character))
         self.store.put(character)
         return character
 
@@ -112,12 +125,14 @@ class CharacterApplication:
         validate_selections(character.get('skill_selections', []), target)
         before = project_skills(character, previous)
         after = project_skills(character, target)
+        combat_after = project_combat(character, target)
         preview = {'revision': character['revision'], 'changes': changes,
                    'skills': compare_skill_views(before, after),
+                   'combat': compare_combat_views(project_combat(character, previous), project_combat(character, target)),
                    'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
                    'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
-                   'gaps': after['gaps'], 'sources': after['sources'],
-                   'scope': 'Vagabond skill definitions. Attributes and their recorded dice stay unchanged.'}
+                   'gaps': [*after['gaps'], *combat_after['gaps']], 'sources': after['sources'],
+                   'scope': 'Vagabond skills and reviewed combat training. Attributes and their recorded dice stay unchanged.'}
         preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'target': target})).hexdigest()
         return preview
 

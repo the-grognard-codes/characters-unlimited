@@ -1,0 +1,65 @@
+"use strict";
+let combatView;
+function combatValue(result) {
+  return result.value == null ? 'pending' : (result.value > 0 ? '+' : '') + result.value;
+}
+function combatExplanation(result) {
+  const terms = Object.entries(result.contributions).map(([name,value]) => `${name.replaceAll('_',' ')} ${value > 0 ? '+' : ''}${value}`);
+  const references = (result.sources || []).map(source => `${source.book}, pp. ${source.pages.join(', ')}`);
+  return [...terms, ...references].join(' · ');
+}
+function combatRow(name, result) {
+  const detail = document.createElement('details'), heading = document.createElement('summary'), explanation = document.createElement('p');
+  heading.textContent = `${name}: ${name === 'attacks' ? result.value : combatValue(result)}`;
+  explanation.textContent = combatExplanation(result);
+  detail.append(heading, explanation); return detail;
+}
+function renderCombat(view) {
+  combatView = view;
+  $('combat-controls').hidden = !view.catalog;
+  $('combat-counts').textContent = view.catalog ? Object.entries(view.remaining).map(([name,count]) => `${name}: ${count} required choices remaining`).join(' · ') + ` · related skills used by training: ${view.related_cost}` : '';
+  if (view.catalog) {
+    for (const [id, definitions] of [['hand',view.catalog.hand_to_hand],['ancient',view.catalog.ancient],['modern',view.catalog.modern]]) {
+      const previous = $('combat-' + id).value;
+      $('combat-' + id).replaceChildren(...definitions.map(definition => { const option=document.createElement('option'); option.value=definition.id; option.textContent=definition.name; return option; }));
+      if (id !== 'hand' && definitions.some(definition => definition.id === previous)) $('combat-' + id).value = previous;
+    }
+    $('combat-hand').value = view.choices.hand_to_hand;
+  }
+  $('combat-list').replaceChildren();
+  for (const family of ['ancient','modern']) {
+    (view.choices?.[family] || []).forEach((id,index) => {
+      const row=document.createElement('p'), remove=document.createElement('button');
+      row.textContent=view.catalog[family].find(definition => definition.id===id).name + ' ';
+      remove.textContent='Remove proficiency'; remove.type='button';
+      remove.onclick=() => saveCombat({[family]:combatView.choices[family].filter((value,position)=>position!==index)});
+      row.append(remove); $('combat-list').append(row);
+    });
+  }
+  $('combat-totals').replaceChildren(...Object.entries(view.totals).map(([name,result])=>combatRow(name.replaceAll('_',' '),result)));
+  const attacks=[];
+  view.unarmed.forEach(item => { const row=document.createElement('p'); row.textContent=`${item.name}: ${item.damage} · ${item.actions} action(s)`; attacks.push(row); });
+  view.melee.forEach(item => { attacks.push(combatRow(item.name+' melee strike',item.strike),combatRow(item.name+' melee parry',item.parry)); });
+  view.shooting.forEach(item => {
+    const detail=document.createElement('details'), heading=document.createElement('summary');
+    heading.textContent=item.name+' shooting ('+(item.trained?'trained':'untrained')+')'; detail.append(heading);
+    for (const context of ['single','aimed','burst','wild']) {
+      const row=document.createElement('p'), result=item[context];
+      row.textContent=`${context}: ${combatValue(result)} · ${result.actions} action(s) · ${combatExplanation(result)}`; detail.append(row);
+    }
+    attacks.push(detail);
+  });
+  $('combat-attacks').replaceChildren(...attacks);
+  const source=view.sources.map(item=>`${item.book}, pp. ${item.pages.join(', ')}`);
+  for (const [id,items] of [['combat-warnings',view.warnings],['combat-gaps',[...view.gaps,...(view.notes || []),...source]]]) {
+    $(id).replaceChildren(...items.map(message=>{ const item=document.createElement('li'); item.textContent=message; return item; }));
+  }
+}
+function saveCombat(changes) {
+  if (!skillsReady || navigationBusy || !combatView?.catalog) return;
+  characterAction('combat',{choices:{...combatView.choices,...changes}}).catch(showError);
+}
+function wireCombatEvents() {
+  $('combat-hand').onchange=()=>saveCombat({hand_to_hand:$('combat-hand').value});
+  for (const family of ['ancient','modern']) $('combat-add-'+family).onclick=()=>saveCombat({[family]:[...combatView.choices[family],$('combat-'+family).value]});
+}

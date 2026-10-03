@@ -246,9 +246,15 @@ def fill_equipment(page, equipment, values):
                   ((37.451,328.658),(121.168,328.778),(147.677,328.778),(178.986,328.778),(60.731,320.05)),
                   ((37.451,311.64),(121.168,311.759),(147.677,311.759),(178.986,311.76),(60.731,303.032))]
     for item, cells in zip(weapons,rectangles):
-        for position, value in zip(cells,[item['name'],str(item['range_feet'])+' ft',
-                                       str(item['shots'])+'/'+str(item['capacity']),item['damage'],
-                                       'Standard E-Clip; '+str(item['quantity'])+' item(s), '+item['location']]):
+        melee = item.get('weapon_kind') == 'melee'
+        active = next((attack for attack in equipment['melee_attacks']
+                       if attack['possession_id'] == item['id']), None)
+        damage = active['damage'] if active else item['damage']
+        if 'Pending' in damage:
+            damage = ''
+        for position, value in zip(cells,[item['name'],'Melee' if melee else str(item['range_feet'])+' ft',
+                                       '' if melee else str(item['shots'])+'/'+str(item['capacity']),damage,
+                                       ('' if melee else 'Standard E-Clip; ')+str(item['quantity'])+' item(s), '+item['location']]):
             cell(*position,value)
     personal_gear = [item for item in equipment['items'] if item['category']=='gear']
     gear_rows = [202.44,193.44,185.52,177,168,159.48,150.96,143.04,134.52,125.52,
@@ -332,8 +338,11 @@ def export_rifts_sheet(character, core, skills, combat):
                               '; '+('weight unspecified' if item['weight_lbs'] is None else str(item['weight_lbs'])+' lb each')+'. '+item['source']['book']+
                             ', p. '+', '.join(map(str,item['source']['pages']))+'.')
             if item['category']=='weapon':
-                sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
-                                ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'.')
+                if item.get('weapon_kind') == 'melee':
+                    sheet_notes += ' Base damage '+item['damage']+'; melee weapon. Equipped totals follow below.'
+                else:
+                    sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
+                                    ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'.')
             elif item['category'] == 'armor':
                 sheet_notes += ' '+', '.join(name.replace('_',' ')+' '+str(value)+' M.D.C.' for name,value in item['locations'].items())+'.'
                 sheet_notes += ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.'
@@ -342,6 +351,15 @@ def export_rifts_sheet(character, core, skills, combat):
                 context+' strike '+(str(attack[context]['value']) if attack[context]['value'] is not None else 'pending')+
                 ' ('+', '.join(name.replace('_',' ')+' '+str(value) for name,value in attack[context]['contributions'].items())+
                 '); '+str(attack[context]['actions'])+' action(s)' for context in ('single','aimed'))+'.'
+        for attack in equipment['melee_attacks']:
+            sheet_notes += '\n'+attack['name']+': '+ '; '.join(
+                context+' '+(str(attack[context]['value']) if attack[context]['value'] is not None else 'pending')+
+                ' ('+', '.join(name.replace('_',' ')+' '+str(value) for name,value in attack[context]['contributions'].items())+')'
+                for context in ('strike','parry'))+'; damage '+attack['damage']+'. '+attack['guidance']
+            sheet_notes += ' Damage bonus: '+', '.join(name.replace('_',' ')+' '+str(value)
+                for name,value in attack['damage_bonus']['contributions'].items())+'. '+ '; '.join(
+                source['book']+', pp. '+', '.join(map(str,source['pages']))
+                for source in attack['damage_bonus']['sources'])+'.'
         sheet_notes += '\n'+' '.join([*equipment['warnings'],*equipment['guidance']])
     for identifier,result in resources.items():
         if result['value'] is None:

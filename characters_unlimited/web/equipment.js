@@ -5,7 +5,7 @@ function setEquipmentBusy() {
     element.disabled = navigationBusy || !equipmentReady;
   });
   const selected = equipmentView?.catalog.find(item => item.id === $('equipment-choice').value);
-  $('purchase-equipment').disabled = navigationBusy || !equipmentReady || selected?.cost_credits == null;
+  $('purchase-equipment').disabled = navigationBusy || !equipmentReady || (selected?.cost_credits == null && !selected?.cost_credits_range);
 }
 async function loadEquipment(character) {
   const sequence = ++equipmentSequence;
@@ -44,7 +44,7 @@ async function loadEquipment(character) {
     const row = document.createElement('details'), heading = document.createElement('summary');
     heading.textContent = `${item.name} × ${item.quantity} · ${item.location}${item.equipped ? ' · equipped' : ''}`;
     const source = document.createElement('p'); source.className = 'help';
-    source.textContent = `${item.source.book}, pp. ${item.source.pages.join(', ')} · ${item.weight_lbs == null ? 'weight unspecified' : item.weight_lbs + ' lb each'}${item.cost_credits == null ? ' · purchase price unspecified' : ''}`;
+    source.textContent = `${item.source.book}, pp. ${item.source.pages.join(', ')} · ${item.weight_lbs == null ? 'weight unspecified' : item.weight_lbs + ' lb each'}${item.cost_credits_range ? ` · ${item.cost_credits_range.min}–${item.cost_credits_range.max} credits each` : item.cost_credits == null ? ' · purchase price unspecified' : ''}`;
     const form = document.createElement('form');
     const input = (text,type,value) => {
       const label = document.createElement('label'), field = document.createElement('input');
@@ -93,6 +93,16 @@ async function loadEquipment(character) {
     if (attack.guidance) text.textContent += ' · ' + attack.guidance;
     row.append(heading,text); explanations.push(row);
   }
+  for (const attack of view.melee_attacks) {
+    const row = document.createElement('details'), heading = document.createElement('summary');
+    heading.textContent = `${attack.name} · ${attack.damage}`;
+    const text = document.createElement('p'); text.className = 'help';
+    text.textContent = ['strike','parry'].map(context => {
+      const total = attack[context];
+      return `${context}: ${total.value == null ? 'pending' : '+' + total.value} (${Object.entries(total.contributions).map(([name,value]) => name.replaceAll('_',' ') + ' ' + value).join(' + ')})`;
+    }).join(' · ') + ` · Damage bonus: ${Object.entries(attack.damage_bonus.contributions).map(([name,value]) => name.replaceAll('_',' ') + ' ' + value).join(', ')}. ${attack.damage_bonus.sources.map(source => source.book + ', pp. ' + source.pages.join(', ')).join('; ')}. ` + attack.guidance;
+    row.append(heading,text); explanations.push(row);
+  }
   for (const armor of view.armor) {
     const row = document.createElement('p'); row.className = 'help';
     row.textContent = `${armor.name}: ${Object.entries(armor.locations).map(([location,value]) => location.replaceAll('_',' ') + ' ' + value + ' M.D.C.').join(' · ')}. Movement skill penalty: ${armor.movement_penalty}%.`;
@@ -107,11 +117,15 @@ function filterEquipmentCatalog() {
   const entries = equipmentView.catalog.filter(item => !category || item.category === category);
   $('equipment-choice').replaceChildren(...entries.map(item => {
     const option = document.createElement('option'); option.value = item.id;
-    option.textContent = `${item.name} · ${item.cost_credits == null ? 'purchase price unspecified' : item.cost_credits.toLocaleString() + ' credits'}`; return option;
+    option.textContent = `${item.name} · ${item.cost_credits_range ? item.cost_credits_range.min + '–' + item.cost_credits_range.max + ' credits' : item.cost_credits == null ? 'purchase price unspecified' : item.cost_credits.toLocaleString() + ' credits'}`; return option;
   }));
   if (entries.some(item => item.id === previous)) $('equipment-choice').value = previous;
   const selected = entries.find(item => item.id === $('equipment-choice').value);
-  $('equipment-price-guidance').textContent = selected?.cost_credits == null ? 'This item has no reviewed purchase price. Use its class starting grant to add it without a purchase.' : '';
+  const range = selected?.cost_credits_range, price = $('equipment-unit-cost');
+  $('equipment-unit-cost-label').hidden = !range;
+  price.required = !!range;
+  if (range) { price.min = range.min; price.max = range.max; price.value = ''; }
+  $('equipment-price-guidance').textContent = range ? `Choose a price per item within the source range (${range.min}–${range.max} credits).` : selected?.cost_credits == null ? 'This item has no reviewed purchase price. Use its class starting grant to add it without a purchase.' : '';
   setEquipmentBusy();
 }
 function wireEquipmentEvents() {
@@ -126,6 +140,8 @@ function wireEquipmentEvents() {
   };
   $('equipment-purchase-form').onsubmit = event => {
     event.preventDefault();
-    characterAction('purchase-equipment',{item_id:$('equipment-choice').value,quantity:Number($('equipment-quantity').value)}).catch(showError);
+    const purchase = {item_id:$('equipment-choice').value,quantity:Number($('equipment-quantity').value)};
+    if (equipmentView.catalog.find(item => item.id === purchase.item_id)?.cost_credits_range) purchase.unit_cost = Number($('equipment-unit-cost').value);
+    characterAction('purchase-equipment',purchase).catch(showError);
   };
 }

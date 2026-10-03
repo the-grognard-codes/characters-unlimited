@@ -9,6 +9,7 @@ from .attribute_modifiers import attribute_value
 from .education import validate_education
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
+from .resources import validate_resources
 from .skills import validate_selections
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
@@ -210,6 +211,7 @@ def primary_pack(character, packs):
 def validate_sources(character, packs):
     core = primary_pack(character, packs)
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
+    validate_resources(character,skill_pack or {})
     if skill_pack is not None:
         validate_selections(character.get('skill_selections',[]),skill_pack)
         validate_physical(character,skill_pack)
@@ -232,7 +234,13 @@ def validate_sources(character, packs):
         if character['game']!='heroes-unlimited' or pack is None or 'education' not in character:
             raise ValueError('Heroes Secondary skills must retain education and their accepted rule version pin')
         validate_secondary_selections(character['hero_secondary_selections'],pack)
-    records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', []))]
+    resource_snapshot = character.get('resource_attribute_snapshot')
+    if resource_snapshot is not None:
+        race = next(item for item in core['races'] if item['id']==character['race'])
+        validate_attributes(resource_snapshot,race)
+        validate_physical_history(resource_snapshot,character.get('physical_acquisitions',{}),skill_pack)
+    records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', [])),
+               *([resource_snapshot] if resource_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     for attributes in records:
         for name, value in attributes.items():

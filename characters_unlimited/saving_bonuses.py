@@ -20,6 +20,14 @@ def project_saving_bonuses(character, pack):
         results[definition['id']] = {'name': definition['name'], 'unit': definition['unit'],
             'value': None if missing else sum(contributions.values()), 'contributions': contributions,
             'sources': [definition['source']]}
+    class_rules = pack.get('class_bonuses',{})
+    if character['character_class'] == class_rules.get('class_id'):
+        for identifier,bonus in class_rules['saving'].items():
+            result = results[identifier]
+            result['contributions']['O.C.C.'] = bonus
+            if result['value'] is not None:
+                result['value'] += bonus
+            result['sources'].append(class_rules['source'])
     notes = list(rules['notes'])
     for condition in rules['conditions']:
         score = character['attributes'][condition['attribute']]['value']

@@ -38,6 +38,10 @@ def total(contributions, *, missing=False, actions=1):
 
 def project_combat(character, pack):
     saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
+    class_rules = pack.get('class_bonuses',{})
+    class_bonuses = ({'perception':{'value':class_rules['perception'],
+        'contributions':{'O.C.C.':class_rules['perception']},'sources':[class_rules['source']]}}
+        if character['character_class'] == class_rules.get('class_id') else {})
     rules = pack.get('combat')
     gaps = ['Other Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
     if character['rules']['version'] == '1.0.0':
@@ -122,7 +126,7 @@ def project_combat(character, pack):
              'Gun dodge requires seeing the attacker and knowing the shot is coming; subtract 10 within 10 feet or 5 within 50 feet. Athletics and hand-to-hand dodge bonuses do not apply to gunfire or energy blasts (p. 361).',
              'Power punch uses two actions and doubles base dice before adding the normal-human strength bonus.',
              'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.']
-    return {'catalog':rules,'choices':choices,'totals':totals,'melee':melee,'shooting':shooting,'unarmed':unarmed,
+    return {'catalog':rules,'choices':choices,'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
             'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
             'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':hand['cost']}
 
@@ -137,8 +141,10 @@ def compare_combat_views(before, after):
         for item in view['unarmed']:
             result[('unarmed',item['id'])]={'name':item['name']+' damage', 'value':item['damage']}
         for identifier, bonus in view.get('saving_bonuses', {}).items():
-            result[('saving', identifier)] = {'name': bonus['name'] + ' (attribute bonus)' + bonus['unit'],
+            result[('saving', identifier)] = {'name': bonus['name'] + ' (reviewed bonus)' + bonus['unit'],
                                              'value': bonus['value']}
+        for identifier,bonus in view.get('class_bonuses',{}).items():
+            result[('class',identifier)]={'name':identifier.title()+' (O.C.C. bonus)','value':bonus['value']}
         return result
     previous,following=index(before),index(after)
     return [{'name':following.get(key,previous.get(key))['name'],

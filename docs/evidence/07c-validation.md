@@ -1,0 +1,13 @@
+# 07C validation
+
+Previously, starting HP and S.D.C. were absent and Vagabond class saving and Perception contributions were pending. Immutable Rifts skills 2.1.0 now adds explicit, once-only starting resource generation and those class contributions. Existing pins remain unchanged until reviewed update. Resource definition changes require a dedicated migration after generation.
+
+The user accepted effective P.E. at first HP generation on 2026-10-03. The saved attribute snapshot supplies that contribution afterward; later edits and rerolls do not recalculate it. Public workflow tests cover source dice, house-rule independence, Physical accumulation/removal, fixed/additive/calculated edits, invalid late dice and stale requests without partial saves, repeat rejection, exact portable reopening, snapshot/source tampering and compatible versus incompatible upgrades. Protected HTTP and frozen application tests exercise the same public seams.
+
+The full check passes: 162 tests with one frozen-only skip, mypy over 52 files, Python compilation and all browser JavaScript syntax checks. Independent Standards and Spec reviews report no remaining code findings. Standards also reviewed the browser readiness repair described below.
+
+In Edge, the fixture generated general S.D.C. 23, class S.D.C. 20, Athletics 4 and Body Building 10, totaling 57. HP was effective P.E. 20 plus D6=1, totaling 21. An additive edit produced 62; a fixed edit retained 100 through skill removal. Returning to calculated mode produced 47 without Body Building and 57 after reselection, reusing acquired dice. P.E. was then edited to 30 and reopening retained HP 21 and S.D.C. 57. The first browser edit exposed a disabled dialog Save button; resource controls now follow application readiness and the complete workflow passed after repair. [Browser evidence](07c-resources-browser.png) was visually inspected.
+
+The generated PDF was rendered with form initialization. Page 1 preserves reference artwork and displays editable HP 21, Physical S.D.C. 57 and current P.E. 30. Class saves and Physical skills appear in their appropriate fields. Page 3 explains the recorded source dice, class Perception contribution and saving context in editable continuation notes. Pages 1 and 3 were visually inspected; page 2 preserves the existing reference. The original Physical S.D.C. checkbox remains a checkbox, while the actual capacity uses its adjacent text field. Original source-page images remain local evidence only.
+
+Windows frozen-build results will be recorded after the publication checks. Advancement, live damage, other resource paths and the parent tickets remain unfinished.

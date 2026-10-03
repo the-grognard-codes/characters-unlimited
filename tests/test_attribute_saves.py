@@ -14,14 +14,14 @@ class AttributeSavingWorkflowTests(unittest.TestCase):
             app.set_attribute(character['id'], revision=0, attribute='ME', mode='fixed', value=20)
             app.set_attribute(character['id'], revision=1, attribute='PE', mode='fixed', value=16)
             saves = app.combat_view(character['id'])['saving_bonuses']
-            self.assertEqual(saves['psionics']['value'], 3)
+            self.assertEqual(saves['psionics']['value'], 4)
             self.assertEqual(saves['insanity']['value'], 3)
             self.assertEqual(saves['magic']['value'], 1)
             self.assertEqual(saves['poison']['value'], 1)
             self.assertEqual(saves['disease']['value'], 1)
             self.assertEqual(saves['coma_death']['value'], 4)
             self.assertEqual(saves['coma_death']['unit'], '%')
-            self.assertEqual(saves['psionics']['contributions'], {'mental_endurance':3})
+            self.assertEqual(saves['psionics']['contributions'], {'mental_endurance':3,'O.C.C.':1})
             self.assertIn(281, saves['psionics']['sources'][0]['pages'])
 
     def test_low_penalties_and_high_caps_follow_the_original_source(self):
@@ -34,7 +34,7 @@ class AttributeSavingWorkflowTests(unittest.TestCase):
                 app.set_attribute(identifier, revision=saved['revision'], attribute=attribute, mode='fixed', value=value)
             saves = app.combat_view(identifier)['saving_bonuses']
             self.assertEqual([saves[key]['value'] for key in ('psionics','insanity','horror_factor','possession','illusions')],
-                             [-3,-2,-6,-3,0])
+                             [-2,-2,-4,-2,0])
             self.assertEqual([saves[key]['value'] for key in ('magic','poison','drugs','disease','coma_death')],
                              [-4,-5,-5,-6,-10])
             self.assertTrue(any('25% longer' in note for note in app.combat_view(identifier)['saving_notes']))
@@ -43,7 +43,7 @@ class AttributeSavingWorkflowTests(unittest.TestCase):
                 app.set_attribute(identifier, revision=saved['revision'], attribute=attribute, mode='fixed', value=value)
             view = app.combat_view(identifier)
             self.assertEqual([view['saving_bonuses'][key]['value'] for key in ('psionics','insanity','possession','magic','coma_death','illusions')],
-                             [8,13,0,8,35,7])
+                             [9,13,1,8,35,7])
             self.assertTrue(any('impervious' in note for note in view['saving_notes']))
 
     def test_fatigue_ranges_and_magic_exceptions_survive_pdf_notes(self):
@@ -86,7 +86,7 @@ class AttributeSavingWorkflowTests(unittest.TestCase):
             assert fields is not None
             widget = next(ref.get_object() for ref in reader.pages[0].get('/Annots', [])
                           if abs(float(ref.get_object()['/Rect'][1])-701.1) < .2)
-            self.assertEqual(fields[widget['/T']]['/V'], '+3')
+            self.assertEqual(fields[widget['/T']]['/V'], '+4')
             reopened = CharacterApplication(other)
             imported = reopened.import_character(app.export_character(character['id']))
             self.assertEqual(reopened.combat_view(imported['id'])['saving_bonuses'],app.combat_view(character['id'])['saving_bonuses'])

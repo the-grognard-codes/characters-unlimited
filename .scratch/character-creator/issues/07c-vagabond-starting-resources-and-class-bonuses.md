@@ -1,0 +1,11 @@
+# 07C — Vagabond starting resources and class bonuses
+
+**Status:** in-progress. Parents 07, 18, 19 and 20 remain open.
+
+Implement reviewed level-one Human/Vagabond starting resources under immutable Rifts skills 2.1.0: general S.D.C. 2D6+12 plus O.C.C. 2D6+10 and active Physical S.D.C. contributions. Generate starting resources explicitly after attribute selection, once per character, preserving each source/die. HP is effective P.E. at first generation plus 1D6; retain that attribute snapshot afterward. The user accepted this HP sequencing interpretation on 2026-10-03. Racial house options do not affect resource dice. Missing generation leaves capacities absent, not fabricated zeros.
+
+Add fixed Vagabond +1 psionic/possession saves, +2 Horror Factor saves and +4 Perception O.C.C. contribution. Saving totals combine reviewed attribute and class contributions; Perception shows the class contribution separately from unimplemented modifiers/targets. Source: Ultimate Edition printed pp. 97 and 287 / PDF pp. 100 and 290. Preserve source exceptions and the independent gun-dodge rules.
+
+Expose generation, explained capacities and honor-system fixed/additive/calculated resource edits. Selection changes add/remove Physical S.D.C.; fixed totals remain authoritative. Later P.E. changes do not regenerate the recorded starting HP contribution. Invalid dice, stale requests, malformed imports and repeated generation preserve saved work. Portable saves include exact contributions and the validated attribute snapshot. Older skill pins remain unchanged until explicit preview/apply; reject updates that alter already-generated resource definitions pending a dedicated migration.
+
+Project actual HP/S.D.C. into editable Rifts fields with explained dice and class Perception in notes, preserving the reference artwork and continuations. Verify public workflows, protected HTTP, browser generation/edit/reopen, rendered editable PDF, frozen Windows create/import/reopen, both review axes and Windows CI before merge. No live damage tracking, advancement gains, other races/resource types, full custom-effect schema or full corpus completion is claimed.

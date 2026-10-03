@@ -16,6 +16,7 @@ function lockNavigation(busy) {
   if (current?.game === 'heroes-unlimited') $('export-pdf').disabled = true;
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
+  setResourcesBusy();
 }
 function library() {
   $('library').replaceChildren();
@@ -42,6 +43,7 @@ function render(character) {
   $('coverage').hidden = true;
   const pack = gamePacks.find(entry => entry.game === character.game);
   const heroes = character.game === 'heroes-unlimited';
+  $('resources-panel').hidden = heroes;
   $('game-title').textContent = heroes ? 'HEROES UNLIMITED · REVISED SECOND EDITION' : 'RIFTS · ULTIMATE EDITION';
   $('class-label').textContent = pack.class_label || 'Occupational character class';
   for (const [element, entries, selected] of [[$('race'),pack.races,character.race],[$('character-class'),pack.classes,character.character_class]]) {
@@ -100,10 +102,12 @@ $('skill-category').onchange = filterSkillChoices;
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
   skillsReady = false;
+  setResourcesBusy();
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = true);
   const view = await request(`/api/characters/${character.id}/skills`);
   if (current.id !== character.id || sequence !== skillLoadSequence) return;
   renderCombat(view.combat);
+  renderResources(view.resources);
   skillCatalog = view.catalog;
   const category = $('skill-category').value;
   const categories = ['', ...new Set(view.catalog.map(skill => skill.category || 'domestic'))];
@@ -137,7 +141,8 @@ async function loadSkills(character) {
           const value = typeof effect === 'object' ? effect.value : effect;
           const dice = typeof effect === 'object' && effect.rolls.length
             ? ` (dice: ${effect.rolls.join(' + ')})` : '';
-          const pending = group === 'resources' ? ' bonus; starting total pending' : '';
+          const pending = group === 'resources'
+            ? (view.resources?.generated ? ' bonus to starting total' : ' bonus; starting total not generated') : '';
           return `${name.replaceAll('_', ' ')} +${value}${dice}${pending}`;
         })).join(' · ')
       : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
@@ -162,6 +167,7 @@ async function loadSkills(character) {
     $(id).replaceChildren(...items.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   }
   skillsReady = true;
+  setResourcesBusy();
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = navigationBusy);
 }
 wireCombatEvents();
@@ -423,6 +429,7 @@ function updateNewIdentity() {
   $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${pack.races[0].name} · ${pack.classes[0].name}. Initial attributes follow the core book. Other creation paths remain unfinished.`;
 }
 $('new-game').onchange = updateNewIdentity;
+wireResourcesEvents();
 request('/api/bootstrap').then(result => {
   token = result.token; characters = result.characters; gamePacks = result.catalog.packs;
   $('new-game').replaceChildren(...result.catalog.games.map(game => { const option = document.createElement('option'); option.value = game.id; option.textContent = game.name; return option; }));

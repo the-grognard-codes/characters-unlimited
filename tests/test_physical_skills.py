@@ -142,14 +142,15 @@ class PhysicalSkillWorkflowTests(unittest.TestCase):
             choices = [{'skill_id':'athletics','pool':'related'}]
             with self.assertRaises(ValueError):
                 earlier.select_skills(hero['id'],revision=0,selections=choices)
-            current = CharacterApplication(directory,die=lambda sides:4)
+            current = CharacterApplication(directory,die=lambda sides:4,rule_archive=RuleArchive(
+                archive.definitions(),{**archive.active_versions(),'rifts-domestic-skills':'2.0.0'}))
             preview = current.preview_rule_upgrade(hero['id'])
             self.assertEqual(current.get(hero['id']),hero)
             hero = current.apply_rule_upgrade(hero['id'],revision=0,token=preview['token'])['character']
             hero = current.select_skills(hero['id'],revision=hero['revision'],selections=choices)
             same = current.preview_rule_upgrade(hero['id'])
             self.assertTrue(any(row.get('unit')=='' and row['name'].endswith('PS') for row in same['skills']))
-            compatible = archive.active('rifts-domestic-skills')
+            compatible = archive.resolve('rifts-domestic-skills','2.0.0')
             original_bundle = current.export_character(hero['id'])
             compatible['version']='2.0.1'
             next(skill for skill in compatible['skills'] if skill['id']=='cook')['base']+=1
@@ -160,11 +161,11 @@ class PhysicalSkillWorkflowTests(unittest.TestCase):
             self.assertEqual(unchanged['physical_acquisitions'],hero['physical_acquisitions'])
             self.assertEqual(unchanged['attributes'],hero['attributes'])
             hero = unchanged
-            correction = archive.active('rifts-domestic-skills')
-            correction['version']='2.1.0'
+            correction = archive.resolve('rifts-domestic-skills','2.0.0')
+            correction['version']='99.0.0'
             next(skill for skill in correction['skills'] if skill['id']=='athletics')['attributes']['PS']['bonus']=2
             newer = CharacterApplication(directory,rule_archive=RuleArchive([*archive.definitions(),compatible,correction],
-                {**archive.active_versions(),'rifts-domestic-skills':'2.1.0'}))
+                {**archive.active_versions(),'rifts-domestic-skills':'99.0.0'}))
             with self.assertRaisesRegex(ValueError,'Acquisition/history migration'):
                 newer.preview_rule_upgrade(hero['id'])
             self.assertEqual(newer.get(hero['id']),hero)

@@ -40,12 +40,19 @@ async function loadEducation(character) {
   const programs = await request(`/api/characters/${character.id}/hero-programs`);
   if (current.id !== character.id || sequence !== educationLoadSequence) return;
   heroProgramView = programs;
+  $('hero-program-choice').replaceChildren(...programs.catalog.map(program => {
+    const option = document.createElement('option'); option.value = program.id; option.textContent = program.name; return option;
+  }));
   $('hero-program-slot').replaceChildren(...programs.slots.map((slot, index) => {
     const option = document.createElement('option'); option.value = index;
     option.textContent = `${slot.name} (${slot.bonus == null ? 'no bonus specified' : '+' + slot.bonus + '%'}) · ${slot.restriction}`; return option;
   }));
-  const eligible = programs.catalog[0].eligible_slots[view.selection?.id]?.[0] ?? -1;
-  if (eligible >= 0) $('hero-program-slot').value = eligible;
+  $('hero-program-choice').onchange = () => {
+    const program = programs.catalog.find(item => item.id === $('hero-program-choice').value);
+    const eligible = program.eligible_slots[view.selection?.id]?.[0] ?? -1;
+    if (eligible >= 0) $('hero-program-slot').value = eligible;
+  };
+  $('hero-program-choice').onchange();
   $('hero-program-list').replaceChildren(...programs.selections.map((selection, index) => {
     const item = educationLine(`${programs.catalog.find(program => program.id === selection.program).name} · slot ${selection.slot + 1}`);
     const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Remove';
@@ -69,6 +76,6 @@ function wireEducationEvents() {
   $('education-roll').onclick = () => characterAction('education', {method:'roll'}).catch(showError);
   $('hero-program-form').onsubmit = event => {
     event.preventDefault();
-    characterAction('hero-programs', {selections:[...heroProgramView.selections, {slot:Number($('hero-program-slot').value), program:'business'}]}).catch(showError);
+    characterAction('hero-programs', {selections:[...heroProgramView.selections, {slot:Number($('hero-program-slot').value), program:$('hero-program-choice').value}]}).catch(showError);
   };
 }

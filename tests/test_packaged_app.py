@@ -85,6 +85,13 @@ class PackagedApplicationTests(unittest.TestCase):
                                {'revision':hero['revision'],'selections':[{'slot':4,'program':'business'}]}, token)
                 programs = request('/api/characters/' + hero['id'] + '/hero-programs')
                 self.assertEqual(next(item for item in programs['skills'] if item['id'] == 'research')['contributions']['education'], 10)
+                hero = request('/api/characters/'+hero['id']+'/hero-programs',
+                               {'revision':hero['revision'],'selections':[{'slot':4,'program':'medical-assistant'}]},token)
+                programs = request('/api/characters/'+hero['id']+'/hero-programs')
+                paramedic = next(item for item in programs['skills'] if item['id']=='paramedic')
+                self.assertEqual(paramedic['contributions']['education'],10)
+                self.assertEqual(paramedic['contributions']['base'],40)
+                self.assertEqual(paramedic['per_level'],5)
                 hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
                 self.assertEqual(hero_imported['education'], hero['education'])
                 self.assertEqual(hero_imported['hero_program_selections'], hero['hero_program_selections'])
@@ -101,10 +108,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.1.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.2.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.1.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.2.0')
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:
@@ -128,6 +135,7 @@ class PackagedApplicationTests(unittest.TestCase):
             try:
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
                 self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
+                self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(len(bootstrap['characters']), 5)
             finally:
                 process.terminate(); process.wait(timeout=10)

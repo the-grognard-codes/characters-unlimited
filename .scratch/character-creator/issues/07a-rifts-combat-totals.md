@@ -1,6 +1,6 @@
 # 07A: Ordinary-human Rifts combat explanations
 
-**Status:** in-progress
+**Status:** done (PR #14)
 
 **Dependencies:** 05B4 (complete, PR #13); representative Rifts path only. Parent 07 still requires Heroes Unlimited and physical skill integration.
 

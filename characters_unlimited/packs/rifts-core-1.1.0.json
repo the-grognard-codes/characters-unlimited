@@ -1,0 +1,70 @@
+{
+  "id": "rifts-core",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.1.0",
+  "schema_version": 1,
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Character Creation, Step 1: The Eight Attributes",
+    "markdown_lines": [
+      15895,
+      15899
+    ]
+  },
+  "races": [
+    {
+      "id": "human",
+      "name": "Human",
+      "attributes": {
+        "count": 3,
+        "sides": 6,
+        "constant": 0,
+        "exceptional": {
+          "thresholds": [
+            16,
+            17,
+            18
+          ],
+          "max_bonus_dice": 2
+        }
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "vagabond",
+      "name": "Vagabond",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C."
+      },
+      "automation_gaps": [
+        "Class-specific skills, abilities, resources, equipment, and advancement await their implementation slices."
+      ],
+      "attribute_bonuses": {
+        "MA": {
+          "count": 1,
+          "sides": 4
+        },
+        "PS": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PE": {
+          "count": 0,
+          "sides": 6,
+          "constant": 2
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C. Bonuses",
+        "pages": [
+          97
+        ]
+      }
+    }
+  ]
+}

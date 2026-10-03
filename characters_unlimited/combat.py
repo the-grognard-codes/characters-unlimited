@@ -36,11 +36,12 @@ def total(contributions, *, missing=False, actions=1):
 
 def project_combat(character, pack):
     rules = pack.get('combat')
-    gaps = ['Class attribute bonuses remain pending; combat uses the attributes currently displayed.',
-            'Physical skills, remaining proficiencies, equipment attacks, saving throws, enhanced strength types and combat advancement are pending.']
+    gaps = ['Physical skills, remaining proficiencies, equipment attacks, saving throws, enhanced strength types and combat advancement are pending.']
+    if character['rules']['version'] == '1.0.0':
+        gaps.insert(0, 'This saved primary rule version has no class attribute bonuses; combat uses the attributes currently displayed. An explicit primary-rule upgrade remains pending.')
     if not rules:
         return {'catalog': None, 'totals': {}, 'melee': [], 'shooting': [], 'unarmed': [], 'warnings': [],
-                'gaps': ['Preview a rule update to incorporate reviewed combat training.'], 'sources': [], 'remaining': {}}
+                'gaps': ['Preview a rule update to incorporate reviewed combat training.', *gaps], 'sources': [], 'remaining': {}}
     choices = validate_combat_choices(character.get('combat_choices', {}), pack)
     hand = next(item for item in rules['hand_to_hand'] if item['id'] == choices['hand_to_hand'])
     pp, ps, speed = (character['attributes'][name]['value'] for name in ('PP','PS','SPD'))

@@ -58,9 +58,10 @@ def project_combat(character, pack):
         gaps.append('P.P. below 8: combat penalties and bonus ordering are pending; affected accuracy/defense totals are blank.')
     initiative = min(6,max(0,(pp-28)//3))
     slow = -1 if speed <= 6 else 0
-    totals = {'attacks':total({'hand_to_hand':hand['attacks']}),
-              'initiative':total({'physical_prowess':initiative,'slow_speed':slow},missing=low_pp)}
     physical = project_physical(character,pack)
+    totals = {'attacks':total({'hand_to_hand':hand['attacks'],
+                              **physical['combat'].get('attacks',{})}),
+              'initiative':total({'physical_prowess':initiative,'slow_speed':slow},missing=low_pp)}
     for stat in ('strike','parry','dodge','pull_punch','roll_with_impact','disarm'):
         contributions = {'hand_to_hand':hand.get(stat,0)}
         contributions.update(physical['combat'].get(stat,{}))

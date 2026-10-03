@@ -1,6 +1,6 @@
 # 05B9 — Physical Labor and Running
 
-**Status:** in-progress. Parent 05B remains open.
+**Status:** complete, merged in PR #44 after both Windows frozen checks passed. Parent 05B remains open.
 
 Add reviewed Physical Labor and Running under immutable Rifts skills 2.2.0, preserving older pins. Original Ultimate Edition printed p. 317 / physical PDF p. 320 confirms Physical Labor P.S. +2, P.E. +1 and S.D.C. +2D8; Running P.E. +1, Spd +4D4 and S.D.C. +1D6. Record dice once using the existing acquisition contract, independent of racial house options. Duplicates do not stack; removal deactivates and reselection reuses acquired effects. Fixed/additive attributes and resources stay authoritative.
 

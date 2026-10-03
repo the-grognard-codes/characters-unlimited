@@ -93,8 +93,12 @@ class PackagedApplicationTests(unittest.TestCase):
                                         {'skill_id':'athletics','pool':'related'},
                                         {'skill_id':'body-building','pool':'related'},
                                         {'skill_id':'physical-labor','pool':'related'},
-                                        {'skill_id':'running','pool':'related'}]},token)
+                                        {'skill_id':'running','pool':'related'},
+                                        {'skill_id':'boxing','pool':'related'}]},token)
                 endurance = request('/api/characters/'+identifier+'/skills')
+                self.assertEqual(endurance['combat']['totals']['attacks']['value'],5)
+                self.assertEqual(endurance['combat']['totals']['parry']['value'],3)
+                self.assertEqual(len(character['physical_acquisitions']['boxing']['rolls']['resource:SDC']),3)
                 running = next(skill for skill in endurance['selected'] if skill['id']=='running')
                 self.assertEqual(running['activities'][0]['miles'],character['attributes']['PE']['value']*0.5)
                 self.assertEqual(request('/api/characters/'+identifier+'/resources')['resources']['HP']['value'],resource_view['resources']['HP']['value'])

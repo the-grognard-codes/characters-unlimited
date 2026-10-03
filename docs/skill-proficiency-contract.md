@@ -27,7 +27,7 @@ Heroes Secondary projection expands the reviewed `selection_costs` into an effec
 
 ## Recorded Rifts Physical bonuses
 
-Definitions with `kind: "physical"` omit percentile base/rate. `attributes` and `resources` map named effects to reviewed `{count, sides, bonus}` formulas; fixed effects use count/sides zero. `combat` maps explicit ordinary combat statistics to fixed bonuses. This bounded contract currently supports Athletics, Body Building, Physical Labor and Running; other Physical and combat contexts remain pending.
+Definitions with `kind: "physical"` omit percentile base/rate. `attributes` and `resources` map named effects to reviewed `{count, sides, bonus}` formulas; fixed effects use count/sides zero. `combat` maps explicit ordinary combat statistics to fixed bonuses. This bounded contract currently supports Athletics, Body Building, Physical Labor, Running and Boxing; other Physical and combat contexts remain pending.
 
 Saved `physical_acquisitions` maps each acquired skill ID to `rolls`, keyed by `attribute:SPD` or `resource:SDC` for random effects. First acquisition rolls each formula once without racial house rules. Removal keeps the acquisition but removes active effects; reselection and duplicates reuse it. Attribute records carry source-bound `physical:<skill-id>` modifiers alongside class modifiers. Fixed manual values remain authoritative. Portable validation checks dice, active modifiers and any historical modifiers against the exact pinned definition; historical absence is valid before acquisition.
 
@@ -45,3 +45,5 @@ S.D.C. sums its recorded general/class values and active Physical bonuses. HP su
 Rifts skills 2.2.0 adds Physical Labor and Running through the recorded Physical acquisition contract. Running's `activities.running` rule declares half-speed miles/km per effective P.E. and the maximum-speed distance divisor. Projection produces named half/maximum-speed activity records with current speed attribute and distances. It does not invent elapsed time or universal movement conversion. Nonpositive or unrepresentable manual attributes remain saved; activity numbers are absent with guidance.
 
 Activities are derived rather than saved acquisitions. Explicit numerical updates show separate speed, mile and kilometer rows in the reviewed preview and preserve source dice. Their values appear in builder explanations and editable PDF notes. Running is eligible Secondary under the original p. 300 list; Physical Labor is an eligible Related choice and remains a retained exception in Secondary.
+
+Boxing uses the fixed Physical `combat.attacks` contribution, added once to the selected hand-to-hand attacks per melee. Its natural-20 knockout condition is retained in source notes; encounter durations are not rolled during acquisition. Physical notes also appear in editable PDF continuation fields.

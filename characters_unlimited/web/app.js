@@ -68,7 +68,7 @@ function render(character) {
     const explanation = document.createElement('p');
     explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
     for (const modifier of attribute.modifiers || []) {
-      explanation.textContent += ` · O.C.C. bonus: +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifier.source.book}, pp. ${modifier.source.pages.join(', ')}`;
+      explanation.textContent += ` · ${modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. bonus'}: +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifier.source.book}, pp. ${modifier.source.pages.join(', ')}`;
     }
     if (attribute.cap != null) explanation.textContent += ` · Normal automatic ceiling: ${attribute.cap}; full raw total retained. Manual values remain available.`;
     if (attribute.fixed != null) explanation.textContent += ` · Fixed total: ${attribute.fixed}; calculated contributions remain recorded.`;
@@ -130,10 +130,19 @@ async function loadSkills(character) {
   }
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
-    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.percentage}% · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
+    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.kind === 'physical' ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
     const explanation = document.createElement('p'); explanation.className = 'help';
-    explanation.textContent = Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ') + ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
-    if (view.intelligence_source) explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
+    explanation.textContent = skill.kind === 'physical'
+      ? Object.entries(skill.effects).flatMap(([group, effects]) => Object.entries(effects).map(([name, effect]) => {
+          const value = typeof effect === 'object' ? effect.value : effect;
+          const dice = typeof effect === 'object' && effect.rolls.length
+            ? ` (dice: ${effect.rolls.join(' + ')})` : '';
+          const pending = group === 'resources' ? ' bonus; starting total pending' : '';
+          return `${name.replaceAll('_', ' ')} +${value}${dice}${pending}`;
+        })).join(' · ')
+      : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
+    explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
+    if (view.intelligence_source && skill.kind !== 'physical') explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
     if (skill.uncapped_percentage > 98) explanation.textContent += ` · Capped at 98% from ${skill.uncapped_percentage}% (Ultimate Edition, p. 301).`;
     for (const check of skill.additional_checks || []) {
       const total = Object.entries(check.contributions).map(([name,amount]) => `${name.replaceAll('_',' ')} ${amount}%`).join(' + ');
@@ -188,7 +197,7 @@ $('preview-rule-update').onclick = async () => {
     $('rule-update-summary').textContent = preview.changes.length ? preview.changes.map(change => `${change.pack_id}: ${change.from} → ${change.to}`).join(' · ') : 'This character already uses the active rules covered by this preview.';
     $('rule-update-scope').textContent = preview.scope + ' A backup of all characters is created before applying.';
     $('rule-update-skills').replaceChildren(...preview.skills.map(skill => {
-      const row = document.createElement('li'); row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before == null ? 'Not yet granted' : skill.before + '%'} → ${skill.after == null ? 'Removed' : skill.after + '%'}`; return row;
+      const row = document.createElement('li'); const unit = skill.unit ?? '%'; row.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}: ${skill.before == null ? 'Not yet granted' : skill.before + unit} → ${skill.after == null ? 'Removed' : skill.after + unit}`; return row;
     }));
     $('rule-update-combat').replaceChildren(...rulePreview.combat.map(row => { const item = document.createElement('li'); item.textContent = `${row.name}: ${row.before ?? 'not available'} → ${row.after ?? 'not available'}`; return item; }));
     $('rule-update-counts').textContent = Object.keys(preview.before_remaining).map(pool => `${pool} remaining: ${preview.before_remaining[pool]} → ${preview.after_remaining[pool]}`).join(' · ');
@@ -306,7 +315,7 @@ $('roll-history').onclick = () => {
       const options = settings ? ` · reroll ones: ${settings.reroll_ones ? 'yes' : 'no'} · extra die: ${settings.extra_die ? 'yes' : 'no'}` : '';
         const text = document.createElement('p'); text.className = 'help'; text.textContent = `${name}: base ${value.base} · dice ${value.rolls.join(', ')}${value.discarded?.length ? ' · dropped ' + value.discarded.join(', ') : ''}${value.bonus_rolls.length ? ' · exceptional ' + value.bonus_rolls.join(', ') : ''}${value.rerolls?.length ? ' · rerolled ones ' + value.rerolls.map(item => item.rolls.join(' → ')).join('; ') : ''}${options}`; entry.append(text);
         for (const modifier of value.modifiers || []) {
-          text.textContent += ` · O.C.C. contribution +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(', ') + ')' : ''}`;
+            text.textContent += ` · ${modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. contribution'} +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(', ') + ')' : ''}`;
         }
     }
     return entry;

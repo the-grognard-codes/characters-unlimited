@@ -64,11 +64,23 @@ class PackagedApplicationTests(unittest.TestCase):
                 identifier = character['id']
                 self.assertEqual(len(character['attributes']), 8)
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
+                before_physical = character['attributes']
+                character = request('/api/characters/'+identifier+'/skills',
+                                    {'revision':character['revision'],'selections':[
+                                        {'skill_id':'athletics','pool':'related'},
+                                        {'skill_id':'body-building','pool':'related'}]},token)
+                physical_view = request('/api/characters/'+identifier+'/skills')
+                self.assertEqual(character['attributes']['PS']['value'],before_physical['PS']['value']+3)
+                speed_roll = character['physical_acquisitions']['athletics']['rolls']['attribute:SPD'][0]
+                self.assertTrue(1<=speed_roll<=6)
+                self.assertEqual(character['attributes']['SPD']['value'],before_physical['SPD']['value']+speed_roll)
+                self.assertEqual(physical_view['remaining']['related'],3)
                 coverage = request('/api/coverage')
                 self.assertIn('books', coverage)
                 portable = request('/api/characters/' + identifier + '/export')
                 imported = request('/api/import', {'bundle':portable}, token)
                 self.assertNotEqual(imported['id'], identifier)
+                self.assertEqual(imported['physical_acquisitions'],character['physical_acquisitions'])
                 reader = PdfReader(BytesIO(request('/api/characters/' + identifier + '/pdf')))
                 fields = reader.get_fields()
                 assert fields is not None
@@ -165,6 +177,7 @@ class PackagedApplicationTests(unittest.TestCase):
             try:
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
                 self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
+                self.assertEqual(request('/api/characters/'+identifier)['physical_acquisitions'],character['physical_acquisitions'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
                 self.assertEqual(len(bootstrap['characters']), 5)

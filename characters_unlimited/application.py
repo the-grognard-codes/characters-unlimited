@@ -18,6 +18,7 @@ from .combat import validate_combat_choices, project_combat, compare_combat_view
 from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
+from .physical import acquire_physical
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -214,6 +215,12 @@ class CharacterApplication:
         else:
             previous = self.character_skill_pack(character)
             target = self.rule_archive.active('rifts-domestic-skills')
+            for skill_id in character.get('physical_acquisitions',{}):
+                before_definition = next(item for item in previous['skills'] if item['id']==skill_id)
+                after_definition: dict = next((item for item in target['skills'] if item['id']==skill_id),{})
+                fields = ('kind','attributes','resources','combat','source')
+                if canonical({key:before_definition.get(key) for key in fields}) != canonical({key:after_definition.get(key) for key in fields}):
+                    raise ValueError('This update changes recorded Physical bonus rules. Acquisition/history migration is not yet supported; current rules remain intact.')
             validate_selections(character.get('skill_selections', []), target)
             before = project_skills(character, previous)
             after = project_skills(character, target)
@@ -223,7 +230,7 @@ class CharacterApplication:
                        'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
                        'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
                        'gaps': [*after['gaps'], *combat_after['gaps']], 'sources': after['sources'],
-                       'scope': 'Vagabond skills and reviewed combat training. Attributes and their recorded dice stay unchanged.'}
+                       'scope': 'Vagabond skills, reviewed Physical bonuses and combat training. Recorded attribute and acquisition dice stay unchanged; changes to acquired Physical bonus definitions require a separate migration.'}
         changes = [] if previous['version'] == target['version'] else [
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
         preview.update(revision=character['revision'], changes=changes)
@@ -245,9 +252,15 @@ class CharacterApplication:
         return {'character': updated, 'backup': backup}
 
     def select_skills(self, identifier, *, revision, selections):
+        require_revision(revision)
         character = self.get(identifier)
+        pack = self.character_skill_pack(character)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting skills.')
         packs = character.get('additional_rule_packs', {})
-        return self.store.update(identifier, {'skill_selections': validate_selections(selections, self.character_skill_pack(character)), 'additional_rule_packs': packs}, require_revision(revision))
+        selections = validate_selections(selections,pack)
+        changes = acquire_physical(character,selections,pack,self.die)
+        return self.store.update(identifier, {'skill_selections': selections, 'additional_rule_packs': packs, **changes}, revision)
 
     def select_required_skills(self, identifier, *, revision, choices):
         character = self.get(identifier)

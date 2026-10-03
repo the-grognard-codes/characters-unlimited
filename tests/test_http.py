@@ -15,6 +15,39 @@ from characters_unlimited.rules import RuleArchive
 
 
 class LocalBackupAdapterTests(unittest.TestCase):
+    def test_physical_acquisition_endpoint_protects_and_projects_saved_bonuses(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory,die=lambda sides:4)
+            hero = app.create()
+            server = create_server(app)
+            worker = threading.Thread(target=server.serve_forever,daemon=True)
+            worker.start()
+            try:
+                base = f'http://127.0.0.1:{server.server_port}'
+                with urlopen(base+'/api/bootstrap',timeout=5) as response:
+                    token = json.load(response)['token']
+                path = base+'/api/characters/'+hero['id']+'/skills'
+                payload = json.dumps({'revision':0,'selections':[{'skill_id':'athletics','pool':'related'}]}).encode()
+                headers = {'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
+                with self.assertRaises(HTTPError) as denied:
+                    urlopen(Request(path,data=payload),timeout=5)
+                self.assertEqual(denied.exception.code,403)
+                denied.exception.close()
+                with urlopen(Request(path,data=payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path,timeout=5) as response:
+                    view = json.load(response)
+                self.assertEqual(saved['attributes']['SPD']['value'],16)
+                self.assertEqual(view['physical']['resources'][0]['value'],4)
+                self.assertEqual(view['combat']['totals']['parry']['value'],1)
+                with self.assertRaises(HTTPError) as stale:
+                    urlopen(Request(path,data=payload,headers=headers),timeout=5)
+                self.assertEqual(stale.exception.code,409)
+                stale.exception.close()
+                self.assertEqual(app.get(hero['id']),saved)
+            finally:
+                server.shutdown(); server.server_close(); worker.join(timeout=5)
+
     def test_heroes_rule_preview_and_apply_use_protected_endpoints_and_exact_versions(self):
         with tempfile.TemporaryDirectory() as directory:
             archive = RuleArchive.load()

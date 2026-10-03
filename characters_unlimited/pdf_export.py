@@ -160,16 +160,16 @@ def fill_skills(page, rows, left, values):
     slot = 0
     for row in rows:
         label = row['name'] + (' - ' + row['specialty'] if row.get('specialty') else '')
-        for name, percentage, rate in [(label, row['percentage'], row['per_level']),
+        for name, percentage, rate in [(label, row.get('percentage'), row.get('per_level')),
                                  *[(label + ': ' + check['name'], check['percentage'], check.get('per_level', row['per_level']))
                                    for check in row.get('additional_checks', [])]]:
             if slot < len(names) and stringWidth(name, 'Helvetica', 7) <= 132:
                 values[names[slot]['/T']] = name
-                values[rates[slot]['/T']] = str(rate)
-                values[percentages[slot]['/T']] = str(percentage)
+                values[rates[slot]['/T']] = '' if rate is None else str(rate)
+                values[percentages[slot]['/T']] = '' if percentage is None else str(percentage)
                 slot += 1
             else:
-                overflow.extend(wrap_lines(f'{name}: {percentage}% (+{rate}% per level)', 530))
+                overflow.extend(wrap_lines(name+' (Physical bonuses)' if percentage is None else f'{name}: {percentage}% (+{rate}% per level)', 530))
     return overflow
 
 
@@ -263,6 +263,15 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    for skill in skills.get('physical',{}).get('selected',[]):
+        effects = []
+        for group,bonuses in skill['effects'].items():
+            for name,effect in bonuses.items():
+                value = effect['value'] if isinstance(effect,dict) else effect
+                label = 'S.D.C. bonus (starting total pending)' if group=='resources' and name=='SDC' else name.replace('_',' ')
+                rolls = effect.get('rolls',[]) if isinstance(effect,dict) else []
+                effects.append(f'{label} +{value}'+(' (dice '+', '.join(map(str,rolls))+')' if rolls else ''))
+        sheet_notes += '\n'+skill['name']+': '+'; '.join(effects)+'. '+skill['source']['book']+', p. '+', '.join(map(str,skill['source']['pages']))+'.'
     if saving_bonuses:
         sheet_notes += '\nSaving fields show attribute bonuses.'
         additional = [f'{saving_bonuses[key]["name"]}: {saving_bonuses[key]["value"]:+d}'

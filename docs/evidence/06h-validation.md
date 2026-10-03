@@ -11,3 +11,5 @@ Edge selected First Aid and Holistic from the Medical picker, showing one/two-se
 Other Medical mechanisms, Secondary catalogs and costs, native-language arithmetic, repeated programs, advancement and parent 06/full corpus stay open. No Paramedic procedure or permanent healing modifier is imported into these definitions.
 
 Standards flagged repeated default-cost logic. A public tracer initially rejected effective First Aid cost lookup. Projection now expands costs for the entire catalog once and uses that same map for counting; the browser consumes it directly. Both targeted review axes approve the repair, and all 151 full checks, mypy48, compilation and JavaScript syntax pass again. Final browser reload confirms First Aid1/Holistic2 in both picker/list with three used/seven remaining.
+
+Publication completed in PR #40 with both Windows frozen-build checks passing (runs 37130181430 and 37130190459). Parent 06 remains open.

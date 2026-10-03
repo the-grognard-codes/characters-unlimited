@@ -1,6 +1,6 @@
 # 05B: Complete the representative Rifts skill path
 
-**Status:** ready-for-agent
+**Status:** in-progress — bounded skill slices are merged; full acceptance remains open.
 
 **Blocked by:** 05A
 

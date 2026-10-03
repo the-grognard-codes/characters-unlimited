@@ -8,6 +8,8 @@ from .generation import roll_attribute, generation_settings, racial_formula
 from .attribute_modifiers import attribute_value
 from .education import validate_education
 from .heroes_programs import validate_program_selections, validate_secondary_selections
+from .physical import validate_physical, validate_physical_history
+from .skills import validate_selections
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -207,6 +209,14 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs):
     core = primary_pack(character, packs)
+    skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
+    if skill_pack is not None:
+        validate_selections(character.get('skill_selections',[]),skill_pack)
+        validate_physical(character,skill_pack)
+        for event in character.get('roll_history', []):
+            validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),skill_pack)
+    elif 'physical_acquisitions' in character:
+        raise ValueError('Physical skill acquisitions must retain their Rifts rule version')
     if 'education' in character:
         pack = next((item for item in packs if item['id'] == 'heroes-education'), None)
         if character['game'] != 'heroes-unlimited' or pack is None:
@@ -229,7 +239,14 @@ def validate_sources(character, packs):
             if canonical(value['explanation']['source']) != canonical(core['source']):
                 raise ValueError('Generated attribute sources must match the pinned rule definition')
             formula = selected_class.get('attribute_bonuses', {}).get(name)
-            modifiers = value.get('modifiers', [])
+            modifiers = []
+            for modifier in value.get('modifiers',[]):
+                if modifier['id'].startswith('physical:'):
+                    definition = next(item for item in skill_pack['skills'] if item['id']==modifier['id'].removeprefix('physical:')) if skill_pack else None
+                    if definition is None or canonical(modifier['source']) != canonical(definition['source']):
+                        raise ValueError('Physical modifier sources must match their pinned rules')
+                else:
+                    modifiers.append(modifier)
             if formula is None:
                 if modifiers:
                     raise ValueError('Attribute modifiers are unavailable in this pinned rule version')

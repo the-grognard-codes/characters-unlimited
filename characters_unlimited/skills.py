@@ -7,6 +7,7 @@ from .required_skills import project_required_skills
 from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids, specialty_key
 from .proficiency import synergy_contributions, project_proficiency
 from .combat import combat_skill_cost
+from .physical import project_physical
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -43,6 +44,14 @@ def compare_skill_views(before, after):
                 identity = (group, skill['id'], specialty_key(skill.get('specialty', '')))
                 occurrence = occurrences[identity]
                 occurrences[identity] += 1
+                if skill.get('kind') == 'physical':
+                    for effect_group,effects in skill['effects'].items():
+                        for name,value in effects.items():
+                            result[(*identity,occurrence,'effect:'+effect_group+':'+name)] = {
+                                'name':skill['name']+' — '+name.replace('_',' '),
+                                'specialty':skill.get('specialty',''), 'percentage':value['value'] if isinstance(value,dict) else value,
+                                'unit':''}
+                    continue
                 result[(*identity, occurrence, 'primary')] = skill
                 for check in skill.get('additional_checks', []):
                     result[(*identity, occurrence, 'check:' + check['name'])] = {
@@ -54,7 +63,8 @@ def compare_skill_views(before, after):
         skill = following.get(key, previous.get(key))
         changes.append({'name': skill['name'], 'specialty': skill.get('specialty', ''),
                         'before': previous[key]['percentage'] if key in previous else None,
-                        'after': following[key]['percentage'] if key in following else None})
+                        'after': following[key]['percentage'] if key in following else None,
+                        **({'unit':skill['unit']} if 'unit' in skill else {})})
     return changes
 
 
@@ -83,6 +93,8 @@ def project_skills(character, pack=PACK):
     available = learned_selection_ids(selections, pack)
     available.update(granted)
     selected = []
+    physical = project_physical(character,pack)
+    physical_entries = {item['id']:item for item in physical['selected']}
     for item in selections:
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
         key = skill_key(item, pack)
@@ -92,10 +104,14 @@ def project_skills(character, pack=PACK):
         if repetition is not None and occurrences[key] > repetition['at']:
             warnings.append(f"{definition['name']}: more than two selections; the repeated-skill bonus applies once.")
         if repetition is None and occurrences[key] > 1:
-            warnings.append(f"{definition['name']}: duplicate selections are retained without another proficiency bonus.")
+            benefit = 'Physical bonus' if definition.get('kind') == 'physical' else 'proficiency bonus'
+            warnings.append(f"{definition['name']}: duplicate selections are retained without another {benefit}.")
         if needs_specialty(definition) and not item.get('specialty'):
             warnings.append(f"Choose the specialty for each {definition['name']} selection.")
         policy = selection_policy(definition, item['pool'], pack)
+        if definition.get('kind') == 'physical':
+            selected.append({**physical_entries[definition['id']], **item, 'quality':'trained'})
+            continue
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
         contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated and is_domestic else 0, 'intelligence': intelligence}
         if 'class_ability' in definition:
@@ -125,6 +141,9 @@ def project_skills(character, pack=PACK):
         gaps.append('Below-average I.Q. skill entitlements and penalties are pending; displayed counts and percentages do not apply them.')
     sources = ['Vagabond O.C.C. allowances and bonuses: Ultimate Edition pp. 97–98.',
                'Secondary skill restrictions: p. 300; percentage cap: p. 301; repeated domestic skill bonus: p. 307.']
+    if any(skill.get('kind') == 'physical' for skill in domestic):
+        sources.append('Athletics and Body Building bonuses accumulate once per skill: p. 316. Gun-dodge restrictions: p. 361.')
+        gaps.append('Physical S.D.C. bonuses are recorded; starting S.D.C. totals and other Physical skills are pending.')
     if intelligence_rule:
         sources.append('I.Q. bonus applies once to every skill: Attribute Bonus Chart p. 281; beyond 30 adds 2% per five points, p. 284.')
     if required['catalog']:
@@ -132,7 +151,7 @@ def project_skills(character, pack=PACK):
                    else 'Begging interpretation, weapon/hand-to-hand choices, other categories and prerequisites are pending.')
         gaps.append('Conditional repair/horsemanship effects are pending.' if 'selection_rules' in pack else 'Barter literacy/mathematics synergies and conditional repair/horsemanship effects are pending.')
         sources.append('Required choices and Eyeball a Fella bonuses: p. 97; Streetwise adds 10% to I.D. Undercover Agents, p. 321.')
-    return {'catalog': domestic, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
+    return {'catalog': domestic, 'physical':physical, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
              'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence}}, *required['grants']], 'selected': selected, 'remaining': remaining,
             'required_remaining': required['remaining'], 'required_catalog': required['catalog'],
             'warnings': list(dict.fromkeys([*warnings, *required['warnings']])),

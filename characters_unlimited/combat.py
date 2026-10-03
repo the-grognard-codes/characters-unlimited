@@ -2,6 +2,7 @@
 
 from collections import Counter
 from .saving_bonuses import project_saving_bonuses
+from .physical import project_physical
 from typing import Any
 
 
@@ -38,7 +39,7 @@ def total(contributions, *, missing=False, actions=1):
 def project_combat(character, pack):
     saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
     rules = pack.get('combat')
-    gaps = ['Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
+    gaps = ['Other Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
     if character['rules']['version'] == '1.0.0':
         gaps.insert(0, 'This saved primary rule version has no class attribute bonuses; combat uses the attributes currently displayed. An explicit primary-rule upgrade remains pending.')
     if not rules:
@@ -55,8 +56,10 @@ def project_combat(character, pack):
     slow = -1 if speed <= 6 else 0
     totals = {'attacks':total({'hand_to_hand':hand['attacks']}),
               'initiative':total({'physical_prowess':initiative,'slow_speed':slow},missing=low_pp)}
+    physical = project_physical(character,pack)
     for stat in ('strike','parry','dodge','pull_punch','roll_with_impact','disarm'):
         contributions = {'hand_to_hand':hand.get(stat,0)}
+        contributions.update(physical['combat'].get(stat,{}))
         if stat in ('strike','parry','dodge'): contributions['physical_prowess']=pp_bonus
         if stat=='dodge': contributions['slow_speed']=slow
         totals[stat]=total(contributions,missing=low_pp)
@@ -107,13 +110,16 @@ def project_combat(character, pack):
     attribute_source = {'book':'Rifts - Ultimate Edition','pages':[281,283,284]}
     for name,result in totals.items():
         result['sources'] = [hand['source']] if name=='attacks' else [attribute_source] if name in ('damage','initiative','gun_dodge') else [hand['source'],attribute_source]
+        result['sources'].extend(item['source'] for item in physical['selected'] if name in item.get('combat',{}))
     for item in melee:
         for stat in ('strike','parry'): item[stat]['sources'] = [hand['source'],attribute_source,item['source']]
+        for stat in ('strike','parry'):
+            item[stat]['sources'].extend(skill['source'] for skill in physical['selected'] if stat in skill.get('combat',{}))
     for item in shooting:
         for context in ('single','aimed','burst','wild'): item[context]['sources'] = [item['source'],{'book':'Rifts - Ultimate Edition','pages':[361]}]
     notes = ['Shooting contexts are training examples; actual weapon modes, burst lengths, ammunition and capacity remain pending.',
              'Gun shooting excludes P.P., hand-to-hand strike and strength damage bonuses. Untrained shooters cannot make aimed shots.',
-             'Gun dodge requires seeing the attacker and knowing the shot is coming; subtract 10 within 10 feet or 5 within 50 feet.',
+             'Gun dodge requires seeing the attacker and knowing the shot is coming; subtract 10 within 10 feet or 5 within 50 feet. Athletics and hand-to-hand dodge bonuses do not apply to gunfire or energy blasts (p. 361).',
              'Power punch uses two actions and doubles base dice before adding the normal-human strength bonus.',
              'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.']
     return {'catalog':rules,'choices':choices,'totals':totals,'melee':melee,'shooting':shooting,'unarmed':unarmed,

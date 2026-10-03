@@ -15,7 +15,7 @@ async function loadEducation(character) {
   const sequence = ++educationLoadSequence;
   educationReady = false; setEducationBusy();
   heroProgramView = null;
-  for (const id of ['hero-program-list', 'hero-program-skills', 'hero-program-guidance']) $(id).replaceChildren();
+  for (const id of ['hero-program-list', 'hero-program-skills', 'hero-program-guidance', 'hero-program-warnings']) $(id).replaceChildren();
   $('education-result').textContent = 'Loading education…';
   $('education-details').replaceChildren(); $('education-history').replaceChildren();
   const view = await request(`/api/characters/${character.id}/education`);
@@ -57,7 +57,9 @@ async function loadEducation(character) {
     const detail = document.createElement('small'); detail.textContent = ` ${skill.category}; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}${skill.prerequisites.length ? '; requires ' + skill.prerequisites.join(', ') : ''}`;
     item.append(detail); return item;
   }));
-  $('hero-program-guidance').replaceChildren(...[...programs.warnings, ...programs.guidance,
+  $('hero-program-warnings').replaceChildren(...programs.warnings.map(educationLine));
+  $('hero-program-warnings').hidden = !programs.warnings.length;
+  $('hero-program-guidance').replaceChildren(...[...programs.guidance,
     `${programs.rules.id} ${programs.rules.version} · ${programs.pinned ? 'pinned to this character' : 'preview; saving program choices pins these rules'}`].map(educationLine));
   educationReady = true; setEducationBusy();
 }

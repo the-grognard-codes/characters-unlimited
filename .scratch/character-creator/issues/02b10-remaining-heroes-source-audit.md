@@ -1,6 +1,6 @@
 # 02B10 — Audit remaining Heroes powers and Alien count evidence
 
-Status: in-progress. Parent 02 remains open.
+Status: complete, merged in PR #34 after 126 local tests, both independent review axes and both Windows builds passed. Parent 02 remains open.
 
 Confirm selectable power identities from Powers Unlimited 1 and 3, keeping Minor/Major groups, psionic powers, named animal subtypes and cross-book parent references distinct from races and character-creation categories. Bind names and original printed/PDF locators to exact current source candidates/hashes. Preserve missing body transcription/alias/dependency findings and any TOC/body discrepancies. This pass accepts identities only, with mechanics and ticket assignment pending.
 
@@ -10,4 +10,4 @@ Record Aliens intro/index/optional-table count discrepancies with exact candidat
 
 Verify public coverage/source relationships, incomplete automation counts, source evidence, browser search, both review axes and Windows builds. Update the prior merged slice statuses without claiming corpus completion or closing parent 02.
 
-Implemented: 194 PU1 records, 137 PU3 records and three HU2 shared powers bring the partial catalog to 718/717 unassigned. Source groups are option families; new animal types are power variants beneath the HU2 extension. Fingerprint-bound overlays expose four source gaps, with new PU3/Mercenaries recovery tickets. The bounded thirteen-book footer pass records Merc Ops and PU3 spreads/repeated pages without claiming all source pages intact. Full local validation passes 126 tests; browser lookups and original fingerprints pass. Independent reviews and Windows build results remain to be recorded before completion.
+Implemented: 194 PU1 records, 137 PU3 records and three HU2 shared powers bring the partial catalog to 718/717 unassigned. Source groups are option families; new animal types are power variants beneath the HU2 extension. Fingerprint-bound overlays expose four source gaps, with new PU3/Mercenaries recovery tickets. The bounded thirteen-book footer pass records Merc Ops and PU3 spreads/repeated pages without claiming all source pages intact. Full local validation passes 126 tests; browser lookups and original fingerprints pass. Both independent reviews and both Windows builds pass before merge in PR #34.

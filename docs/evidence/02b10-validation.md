@@ -12,4 +12,4 @@ All thirteen original PDF and corrected Markdown SHA-256 fingerprints match the 
 
 Edge verifies the totals, PU1 Abnormal Energy Sense printed 9/PDF 11, the `Bat (New)` alias and shared dependencies, and Energy Conversion using only original Contents printed 4/PDF 6 with blocked body mechanics. Both browser captures were visually inspected: [Animal variant](02b10-animal-variant.png) and [missing power](02b10-missing-power.png). Exact evidence reports cover [PU1](02b10-pu1-source-locators.md), [PU3](02b10-pu3-source-locators.md), [HU2 shared parents](02b10-hu2-shared-parents.md), [Alien count reconciliation](02b10-aliens-count-reconciliation.md) and [PDF pagination integrity](02b10-pdf-integrity.md).
 
-[Independent Standards and Spec reviews](02b10-review.md) both approve with zero findings. Windows frozen-build CI checks must pass before merge.
+[Independent Standards and Spec reviews](02b10-review.md) both approve with zero findings. Both Windows CI runs pass, including frozen executable workflows, before merge in PR #34.

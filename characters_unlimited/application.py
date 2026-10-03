@@ -184,22 +184,37 @@ class CharacterApplication:
 
     def preview_rule_upgrade(self, identifier):
         character = self.get(identifier)
-        previous = self.character_skill_pack(character)
-        target = self.rule_archive.active('rifts-domestic-skills')
+        if character['game'] == 'heroes-unlimited':
+            previous = self._character_heroes_pack(character, 'heroes-program-skills')
+            target = self.rule_archive.active('heroes-program-skills')
+            education = self.character_education_pack(character)
+            before = project_programs(character, previous, education)
+            after = project_programs(character, target, education)
+            preview = {'skills':compare_skill_views({'grants':before['skills'], 'selected':[]},
+                                                  {'grants':after['skills'], 'selected':[]}),
+                       'combat':[], 'before_remaining':{}, 'after_remaining':{},
+                       'before_required_remaining':{}, 'after_required_remaining':{},
+                       'gaps':[*after['warnings'], *after['guidance']],
+                       'sources':[f"{target['source']['book']}, printed pp. "
+                                  + ', '.join(map(str, target['source']['pages']))
+                                  + ' / PDF pp. ' + ', '.join(map(str, target['source']['pdf_pages']))],
+                       'scope':'Heroes scholastic program skills. Education, attributes and other rules keep their saved versions.'}
+        else:
+            previous = self.character_skill_pack(character)
+            target = self.rule_archive.active('rifts-domestic-skills')
+            validate_selections(character.get('skill_selections', []), target)
+            before = project_skills(character, previous)
+            after = project_skills(character, target)
+            combat_after = project_combat(character, target)
+            preview = {'skills': compare_skill_views(before, after),
+                       'combat': compare_combat_views(project_combat(character, previous), combat_after),
+                       'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
+                       'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
+                       'gaps': [*after['gaps'], *combat_after['gaps']], 'sources': after['sources'],
+                       'scope': 'Vagabond skills and reviewed combat training. Attributes and their recorded dice stay unchanged.'}
         changes = [] if previous['version'] == target['version'] else [
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
-        # This explicit upgrade handler changes domestic definitions only.
-        validate_selections(character.get('skill_selections', []), target)
-        before = project_skills(character, previous)
-        after = project_skills(character, target)
-        combat_after = project_combat(character, target)
-        preview = {'revision': character['revision'], 'changes': changes,
-                   'skills': compare_skill_views(before, after),
-                   'combat': compare_combat_views(project_combat(character, previous), project_combat(character, target)),
-                   'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
-                   'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
-                   'gaps': [*after['gaps'], *combat_after['gaps']], 'sources': after['sources'],
-                   'scope': 'Vagabond skills and reviewed combat training. Attributes and their recorded dice stay unchanged.'}
+        preview.update(revision=character['revision'], changes=changes)
         preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'target': target})).hexdigest()
         return preview
 
@@ -213,7 +228,7 @@ class CharacterApplication:
             raise ValueError('The rule update preview is unavailable or changed. Preview it again before applying.')
         backup = self.backup()
         pins = dict(character['additional_rule_packs'])
-        pins['rifts-domestic-skills'] = preview['changes'][0]['to']
+        pins[preview['changes'][0]['pack_id']] = preview['changes'][0]['to']
         updated = self.store.update(identifier, {'additional_rule_packs': pins}, revision)
         return {'character': updated, 'backup': backup}
 

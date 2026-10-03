@@ -10,6 +10,8 @@ from urllib.request import Request, urlopen
 import json
 from io import BytesIO
 from pypdf import PdfReader
+from characters_unlimited.application import CharacterApplication
+from characters_unlimited.rules import RuleArchive
 
 
 @unittest.skipUnless(os.getenv('CHARACTERS_UNLIMITED_EXE'), 'Frozen executable checked by the packaging workflow')
@@ -86,6 +88,23 @@ class PackagedApplicationTests(unittest.TestCase):
                 hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
                 self.assertEqual(hero_imported['education'], hero['education'])
                 self.assertEqual(hero_imported['hero_program_selections'], hero['hero_program_selections'])
+                archive = RuleArchive.load()
+                legacy = RuleArchive(archive.definitions(), {**archive.active_versions(),'heroes-program-skills':'1.0.0'})
+                earlier = CharacterApplication(root/'legacy-fixture',die=lambda sides:4,rule_archive=legacy)
+                old_hero = earlier.create(game='heroes-unlimited')
+                old_hero = earlier.select_education(old_hero['id'],revision=0,method='choose',education_id='high-school')
+                old_hero = earlier.set_attribute(old_hero['id'],revision=old_hero['revision'],attribute='IQ',mode='fixed',value=16)
+                old_hero = earlier.select_hero_programs(old_hero['id'],revision=old_hero['revision'],selections=[{'slot':0,'program':'business'}])
+                legacy_imported = request('/api/import',{'bundle':earlier.export_character(old_hero['id'])},token)
+                legacy_path = '/api/characters/'+legacy_imported['id']
+                preview = request(legacy_path+'/rule-preview',{},token)
+                research = next(skill for skill in preview['skills'] if skill['name']=='Research')
+                self.assertEqual((research['before'],research['after']),(57,52))
+                result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.1.0')
+                self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
+                self.assertEqual(result['character']['education'],legacy_imported['education'])
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.1.0')
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:
@@ -109,6 +128,6 @@ class PackagedApplicationTests(unittest.TestCase):
             try:
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
                 self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
-                self.assertEqual(len(bootstrap['characters']), 4)
+                self.assertEqual(len(bootstrap['characters']), 5)
             finally:
                 process.terminate(); process.wait(timeout=10)

@@ -45,6 +45,17 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(stale.exception.code,409)
                 stale.exception.close()
                 self.assertEqual(app.get(hero['id']),saved)
+                advance_path = base+'/api/characters/'+hero['id']+'/advance'
+                advance_payload = json.dumps({'revision':saved['revision'],'method':'level','value':2}).encode()
+                with self.assertRaises(HTTPError) as denied_advance:
+                    urlopen(Request(advance_path,data=advance_payload),timeout=5)
+                self.assertEqual(denied_advance.exception.code,403)
+                denied_advance.exception.close()
+                # Starting resources have not yet been generated at this point.
+                with self.assertRaises(HTTPError) as incomplete:
+                    urlopen(Request(advance_path,data=advance_payload,headers=headers),timeout=5)
+                self.assertEqual(incomplete.exception.code,400)
+                incomplete.exception.close()
                 resource_path = base+'/api/characters/'+hero['id']+'/resources'
                 resource_payload = json.dumps({'revision':saved['revision']}).encode()
                 with self.assertRaises(HTTPError) as denied_resource:
@@ -62,6 +73,22 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(stale_resource.exception.code,409)
                 stale_resource.exception.close()
                 self.assertEqual(app.get(hero['id']),saved)
+                before = saved
+                advance_payload = json.dumps({'revision':saved['revision'],'method':'level','value':2}).encode()
+                with urlopen(Request(advance_path,data=advance_payload,headers=headers),timeout=5) as response:
+                    advanced = json.load(response)
+                self.assertEqual(advanced['level'],2)
+                undo_path = base+'/api/characters/'+hero['id']+'/undo-advancement'
+                undo_payload = json.dumps({'revision':advanced['revision']}).encode()
+                with self.assertRaises(HTTPError) as denied_undo:
+                    urlopen(Request(undo_path,data=undo_payload),timeout=5)
+                self.assertEqual(denied_undo.exception.code,403)
+                denied_undo.exception.close()
+                with urlopen(Request(undo_path,data=undo_payload,headers=headers),timeout=5) as response:
+                    undone = json.load(response)
+                self.assertEqual(undone['character']['resources'],before['resources'])
+                self.assertEqual(undone['character']['level'],1)
+                self.assertEqual(app.get(undone['recovery']['id'])['level'],2)
             finally:
                 server.shutdown(); server.server_close(); worker.join(timeout=5)
 

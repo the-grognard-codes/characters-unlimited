@@ -1,0 +1,3130 @@
+{
+  "id": "rifts-domestic-skills",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "2.5.0",
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": "cook",
+      "name": "Cook",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "dance",
+      "name": "Dance",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "fishing",
+      "name": "Fishing",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "gardening",
+      "name": "Gardening",
+      "base": 36,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "housekeeping",
+      "name": "Housekeeping",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "instrument",
+      "name": "Play Musical Instrument",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          307,
+          308
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "recycle",
+      "name": "Recycle",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "sewing",
+      "name": "Sewing",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "sing",
+      "name": "Sing",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Domestic Skills"
+      },
+      "category": "domestic"
+    },
+    {
+      "id": "literacy-native",
+      "name": "Literacy: Native Language",
+      "category": "communications",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communications Skills"
+      }
+    },
+    {
+      "id": "literacy-other",
+      "name": "Literacy: Other",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communications Skills"
+      },
+      "requires_specialty": true
+    },
+    {
+      "id": "math-basic",
+      "name": "Mathematics: Basic",
+      "category": "science",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      }
+    },
+    {
+      "id": "math-advanced",
+      "name": "Mathematics: Advanced",
+      "category": "science",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "prerequisites": [
+        [
+          "math-basic"
+        ]
+      ]
+    },
+    {
+      "id": "basic-electronics",
+      "name": "Basic Electronics",
+      "category": "electrical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Electrical Skills"
+      }
+    },
+    {
+      "id": "computer-repair",
+      "name": "Computer Repair",
+      "category": "electrical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          308
+        ],
+        "section": "Electrical Skills"
+      },
+      "synergies": [
+        {
+          "skill_id": "artificial-intelligence",
+          "name": "artificial_intelligence",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "basic-mechanics",
+      "name": "Basic Mechanics",
+      "category": "mechanical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          312
+        ],
+        "section": "Mechanical Skills"
+      }
+    },
+    {
+      "id": "automotive-mechanics",
+      "name": "Automotive Mechanics",
+      "category": "mechanical",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          312
+        ],
+        "section": "Mechanical Skills"
+      }
+    },
+    {
+      "id": "first-aid",
+      "name": "First Aid",
+      "category": "medical",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      }
+    },
+    {
+      "id": "art",
+      "name": "Art",
+      "category": "technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          323
+        ],
+        "section": "Technical Skills"
+      },
+      "quality_by_pool": {
+        "related": "professional",
+        "secondary": "amateur"
+      }
+    },
+    {
+      "id": "calligraphy",
+      "name": "Calligraphy",
+      "category": "technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          323
+        ],
+        "section": "Technical Skills"
+      },
+      "prerequisites": [
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ],
+      "notes": [
+        "Literacy is required to write readable text; without it, letters can only be copied."
+      ]
+    },
+    {
+      "id": "computer-operation",
+      "name": "Computer Operation",
+      "category": "technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          323
+        ],
+        "section": "Technical Skills"
+      },
+      "prerequisites": [
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ],
+      "synergies": [
+        {
+          "skill_id": "artificial-intelligence",
+          "name": "artificial_intelligence",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "computer-programming",
+      "name": "Computer Programming",
+      "category": "technical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          323
+        ],
+        "section": "Technical Skills"
+      },
+      "prerequisites": [
+        [
+          "literacy-native",
+          "literacy-other"
+        ],
+        [
+          "computer-operation"
+        ]
+      ],
+      "notes": [
+        "Hacking without Computer Hacking has a -40% penalty; conditional hacking checks remain pending."
+      ],
+      "synergies": [
+        {
+          "skill_id": "artificial-intelligence",
+          "name": "artificial_intelligence",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "firefighting",
+      "name": "Firefighting",
+      "category": "technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          323
+        ],
+        "section": "Technical Skills"
+      }
+    },
+    {
+      "id": "history-pre",
+      "name": "History: Pre-Rifts",
+      "category": "technical",
+      "base": 32,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          324
+        ],
+        "section": "Technical Skills"
+      },
+      "requires_specialty": true,
+      "additional_checks": [
+        {
+          "name": "Specific region or subject",
+          "base": 24
+        }
+      ],
+      "synergies": [
+        {
+          "skill_id": "research",
+          "name": "research",
+          "amount": 5
+        },
+        {
+          "skill_id": "archaeology",
+          "name": "archaeology",
+          "amount": 10
+        },
+        {
+          "skill_id": "anthropology",
+          "name": "anthropology",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "history-post",
+      "name": "History: Post-Apocalypse",
+      "category": "technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          324
+        ],
+        "section": "Technical Skills"
+      },
+      "requires_specialty": true,
+      "additional_checks": [
+        {
+          "name": "Specific region or subject",
+          "base": 30
+        }
+      ],
+      "synergies": [
+        {
+          "skill_id": "research",
+          "name": "research",
+          "amount": 5
+        },
+        {
+          "skill_id": "archaeology",
+          "name": "archaeology",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "id": "law",
+      "name": "Law (General)",
+      "category": "technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          324
+        ],
+        "section": "Technical Skills"
+      },
+      "synergies": [
+        {
+          "skill_id": "research",
+          "name": "research",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "leather-working",
+      "name": "Leather Working",
+      "category": "technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          324
+        ],
+        "section": "Technical Skills"
+      }
+    },
+    {
+      "id": "masonry",
+      "name": "Masonry",
+      "category": "technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          325
+        ],
+        "section": "Technical Skills"
+      }
+    },
+    {
+      "id": "philosophy",
+      "name": "Philosophy",
+      "category": "technical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          325
+        ],
+        "section": "Technical Skills"
+      }
+    },
+    {
+      "id": "photography",
+      "name": "Photography",
+      "category": "technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          325
+        ],
+        "section": "Technical Skills"
+      },
+      "notes": [
+        "Computer enhancements and alterations require Computer Operation; conditional photography checks remain pending."
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "category": "technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          325
+        ],
+        "section": "Technical Skills"
+      },
+      "notes": [
+        "Eyeball a Fella adds +10% when gathering information by talking to people; this conditional check remains pending."
+      ]
+    },
+    {
+      "id": "ventriloquism",
+      "name": "Ventriloquism",
+      "category": "technical",
+      "base": 16,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          326
+        ],
+        "section": "Technical Skills"
+      }
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      },
+      "synergies": [
+        {
+          "skill_id": "public-speaking",
+          "name": "public_speaking",
+          "amount": 5
+        }
+      ],
+      "notes": [
+        "Adds 5% to Undercover Ops and Impersonation; these target skills remain pending."
+      ]
+    },
+    {
+      "id": "public-speaking",
+      "name": "Public Speaking",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      }
+    },
+    {
+      "id": "creative-writing",
+      "name": "Creative Writing",
+      "category": "communications",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          304
+        ],
+        "section": "Communication Skills"
+      },
+      "prerequisites": [
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ],
+      "repetition": {
+        "at": 2,
+        "bonus": 10
+      },
+      "quality_by_pool": {
+        "related": "amateur",
+        "secondary": "amateur",
+        "domestic": "amateur"
+      }
+    },
+    {
+      "id": "electronic-countermeasures",
+      "name": "Electronic Countermeasures",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          304
+        ],
+        "section": "Communication Skills"
+      },
+      "prerequisites": [
+        [
+          "radio-basic"
+        ]
+      ]
+    },
+    {
+      "id": "optic-systems",
+      "name": "Optic Systems",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      }
+    },
+    {
+      "id": "tv-video",
+      "name": "TV/Video",
+      "category": "communications",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      },
+      "synergies": [
+        {
+          "skill_id": "optic-systems",
+          "name": "optic_systems",
+          "amount": 5
+        }
+      ]
+    },
+    {
+      "id": "radio-basic",
+      "name": "Radio: Basic",
+      "category": "communications",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      }
+    },
+    {
+      "id": "cryptography",
+      "name": "Cryptography",
+      "category": "communications",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          304
+        ],
+        "section": "Communication Skills"
+      },
+      "prerequisites": [
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ],
+      "additional_checks": [
+        {
+          "name": "After only ten minutes of study (−30%)",
+          "base": -5
+        }
+      ],
+      "notes": [
+        "Ordinary attempts require two hours of study; a failed attempt requires two more hours before retrying."
+      ]
+    },
+    {
+      "id": "sensory-equipment",
+      "name": "Sensory Equipment",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      },
+      "additional_checks": [
+        {
+          "name": "Passive sonar or radar (−15%)",
+          "base": 15
+        }
+      ]
+    },
+    {
+      "id": "sign-language",
+      "name": "Sign Language",
+      "category": "communications",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      },
+      "requires_specialty": true,
+      "notes": [
+        "Choose deaf or military sign language. Deaf sign requires a sender and interpreter check for every twenty words and line of sight."
+      ]
+    },
+    {
+      "id": "language-other",
+      "name": "Language: Other",
+      "category": "communications",
+      "base": 50,
+      "per_level": 3,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          304
+        ],
+        "section": "Communication Skills"
+      },
+      "requires_specialty": true,
+      "notes": [
+        "Choose a distinct language. Regional dialect penalties and cross-language comprehension remain pending; Techno-Can is a written technical language, not a spoken tongue."
+      ]
+    },
+    {
+      "id": "barter",
+      "name": "Barter",
+      "category": "communications",
+      "base": 30,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          97,
+          304
+        ],
+        "section": "Communication Skills"
+      },
+      "class_ability": 10,
+      "synergies": [
+        {
+          "name": "mathematics",
+          "any_of": [
+            "math-basic",
+            "math-advanced"
+          ],
+          "amount": 2
+        },
+        {
+          "name": "literacy",
+          "any_of": [
+            "literacy-native",
+            "literacy-other"
+          ],
+          "amount": 2
+        }
+      ],
+      "notes": [
+        "Eyeball a Fella adds 10% for this Vagabond. Price negotiation rolls and rare/alien-item exceptions remain pending."
+      ]
+    },
+    {
+      "id": "laser-communications",
+      "name": "Laser Communications",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          304
+        ],
+        "section": "Communication Skills"
+      },
+      "prerequisites": [
+        [
+          "radio-basic"
+        ],
+        [
+          "computer-operation"
+        ]
+      ],
+      "pending_prerequisites": [
+        "Electrical Engineer is not yet in the reviewed catalog."
+      ]
+    },
+    {
+      "id": "surveillance",
+      "name": "Surveillance",
+      "category": "communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          305
+        ],
+        "section": "Communication Skills"
+      },
+      "prerequisites": [
+        [
+          "basic-electronics"
+        ]
+      ],
+      "notes": [
+        "Electrical Engineering can substitute for Basic Electronics; that alternate skill is not yet reviewed. Complex high-tech systems also require Computer Operation and Literacy; conditional prerequisites remain pending."
+      ]
+    },
+    {
+      "id": "astronomy-navigation",
+      "name": "Astronomy & Navigation",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "prerequisites": [
+        [
+          "math-basic"
+        ],
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ],
+      "synergies": [
+        {
+          "skill_id": "math-advanced",
+          "name": "advanced_mathematics",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "id": "anthropology",
+      "name": "Anthropology",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          321,
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "notes": [
+        "Adds +5% to all Lore skills; these target definitions remain pending."
+      ]
+    },
+    {
+      "id": "archaeology",
+      "name": "Archaeology",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "additional_checks": [
+        {
+          "name": "Recognize artifacts and infer their purpose",
+          "base": 20
+        }
+      ],
+      "notes": [
+        "Adds +2% to all Lore skills; these target definitions remain pending."
+      ]
+    },
+    {
+      "id": "artificial-intelligence",
+      "name": "Artificial Intelligence",
+      "category": "science",
+      "base": 30,
+      "per_level": 3,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "prerequisites": [
+        [
+          "computer-operation"
+        ]
+      ],
+      "notes": [
+        "Usually limited to robotics/computer specialists; eligibility beyond the current Vagabond path remains pending. Computer Hacking and its +5% synergy target remain pending."
+      ]
+    },
+    {
+      "id": "chemistry",
+      "name": "Chemistry",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      }
+    },
+    {
+      "id": "chemistry-analytical",
+      "name": "Chemistry: Analytical",
+      "category": "science",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "prerequisites": [
+        [
+          "chemistry"
+        ],
+        [
+          "math-advanced"
+        ],
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ]
+    },
+    {
+      "id": "astrophysics",
+      "name": "Astrophysics",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "prerequisites": [
+        [
+          "math-basic"
+        ],
+        [
+          "math-advanced"
+        ]
+      ]
+    },
+    {
+      "id": "biology",
+      "name": "Biology",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      }
+    },
+    {
+      "id": "botany",
+      "name": "Botany",
+      "category": "science",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      }
+    },
+    {
+      "id": "chemistry-pharmaceutical",
+      "name": "Chemistry: Pharmaceutical",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "notes": [
+        "Adds +10% to Lore: Juicer; that target definition remains pending."
+      ]
+    },
+    {
+      "id": "xenology",
+      "name": "Xenology",
+      "category": "science",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          322
+        ],
+        "section": "Science Skills"
+      },
+      "notes": [
+        "Without Xenology, medical checks on an alien species have a -20% penalty. Medical species contexts remain pending; this skill does not alter ordinary First Aid checks."
+      ]
+    },
+    {
+      "id": "animal-husbandry",
+      "name": "Animal Husbandry",
+      "category": "medical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          313
+        ],
+        "section": "Medical Skills"
+      },
+      "additional_checks": [
+        {
+          "name": "Captive or injured wild animals",
+          "context_of": "primary",
+          "multiplier": 0.5
+        }
+      ]
+    },
+    {
+      "id": "brewing-medicinal",
+      "name": "Brewing: Medicinal",
+      "category": "medical",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          313
+        ],
+        "section": "Medical Skills"
+      },
+      "additional_checks": [
+        {
+          "name": "Brew quality",
+          "base": 30
+        }
+      ],
+      "synergies": [
+        {
+          "skill_id": "holistic-medicine",
+          "name": "holistic_medicine",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "id": "field-surgery",
+      "name": "Field Surgery",
+      "category": "medical",
+      "base": 16,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "synergies": [
+        {
+          "skill_id": "medical-doctor",
+          "name": "medical_doctor",
+          "amount": 14
+        }
+      ],
+      "additional_checks": [
+        {
+          "name": "Cybernetic implants (non-Cyber-Doc)",
+          "context_of": "primary",
+          "modifier": -15
+        }
+      ],
+      "notes": [
+        "Emergency last-resort procedures require proper equipment. A failed attempt can kill the patient; medical simulation and Cyber-Doc exceptions remain pending."
+      ]
+    },
+    {
+      "id": "forensics",
+      "name": "Forensics",
+      "category": "medical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "prerequisites": [
+        [
+          "biology"
+        ],
+        [
+          "chemistry"
+        ]
+      ],
+      "synergies": [
+        {
+          "skill_id": "pathology",
+          "name": "pathology",
+          "amount": 5
+        }
+      ],
+      "notes": [
+        "The Markdown heading spells Forensies; the original printed heading confirms Forensics."
+      ]
+    },
+    {
+      "id": "holistic-medicine",
+      "name": "Holistic Medicine",
+      "category": "medical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "additional_checks": [
+        {
+          "name": "Treatment",
+          "base": 20
+        },
+        {
+          "name": "Treat disease, infection or poison",
+          "context_of": "Treatment",
+          "modifier": -10
+        },
+        {
+          "name": "Treat internal injuries",
+          "context_of": "Treatment",
+          "modifier": -10
+        },
+        {
+          "name": "Cauterize",
+          "context_of": "Treatment",
+          "modifier": -5
+        },
+        {
+          "name": "Treat alien creatures",
+          "context_of": "Treatment",
+          "modifier": -30
+        }
+      ],
+      "synergies": [
+        {
+          "skill_id": "brewing-medicinal",
+          "name": "medicinal_brewing",
+          "amount": 5
+        }
+      ],
+      "notes": [
+        "Diagnosis is the primary check; treatment is separate. Cannot perform surgery or amputation. Combined treatment contexts and +10% Identify Plants & Fruits / Preserve Food target definitions remain pending."
+      ]
+    },
+    {
+      "id": "paramedic",
+      "name": "Paramedic",
+      "category": "medical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "notes": [
+        "Serious injury/coma: roll three consecutive checks; two successes stabilize the patient. After failure another character may try immediately; the same character needs 1D6 minutes of reexamination. Procedure simulation remains pending."
+      ]
+    },
+    {
+      "id": "medical-doctor",
+      "name": "Medical Doctor",
+      "category": "medical",
+      "base": 60,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "additional_checks": [
+        {
+          "name": "Treatment",
+          "base": 50
+        },
+        {
+          "name": "Animal treatment",
+          "context_of": "Treatment",
+          "modifier": -35
+        }
+      ],
+      "prerequisites": [
+        [
+          "biology"
+        ],
+        [
+          "pathology"
+        ],
+        [
+          "chemistry"
+        ],
+        [
+          "math-basic",
+          "math-advanced"
+        ],
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ],
+      "notes": [
+        "Primary proficiency diagnoses a problem; Treatment is separate. The source animal-care penalty applies to treatment only."
+      ]
+    },
+    {
+      "id": "pathology",
+      "name": "Pathology",
+      "category": "medical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "prerequisites": [
+        [
+          "biology"
+        ],
+        [
+          "chemistry"
+        ],
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ]
+    },
+    {
+      "id": "psychology",
+      "name": "Psychology",
+      "category": "medical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "prerequisites": [
+        [
+          "biology"
+        ],
+        [
+          "chemistry"
+        ],
+        [
+          "literacy-native",
+          "literacy-other"
+        ]
+      ]
+    },
+    {
+      "id": "veterinary-science",
+      "name": "Veterinary Science",
+      "category": "medical",
+      "base": 50,
+      "per_level": 4,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          314
+        ],
+        "section": "Medical Skills"
+      },
+      "prerequisites": [
+        [
+          "biology"
+        ],
+        [
+          "animal-husbandry"
+        ]
+      ]
+    },
+    {
+      "id": "athletics",
+      "name": "Athletics (General)",
+      "kind": "physical",
+      "category": "physical",
+      "requires_specialty": false,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          316
+        ],
+        "pdf_pages": [
+          319
+        ],
+        "section": "Physical Skills — Athletics (General)",
+        "candidate_ids": [
+          "0f582017f960a22d7a6d"
+        ]
+      },
+      "attributes": {
+        "PS": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 1
+        },
+        "SPD": {
+          "count": 1,
+          "sides": 6,
+          "bonus": 0
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 1,
+          "sides": 8,
+          "bonus": 0
+        }
+      },
+      "combat": {
+        "parry": 1,
+        "dodge": 1,
+        "roll_with_impact": 1
+      },
+      "prerequisites": [],
+      "notes": [
+        "Each specific Physical skill applies once. Bonuses from different skills accumulate. S.D.C. adds to separately generated starting resources."
+      ]
+    },
+    {
+      "id": "body-building",
+      "name": "Body Building & Weight Lifting",
+      "kind": "physical",
+      "category": "physical",
+      "requires_specialty": false,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          316
+        ],
+        "pdf_pages": [
+          319
+        ],
+        "section": "Physical Skills — Body Building & Weight Lifting",
+        "candidate_ids": [
+          "0f582017f960a22d7a6d"
+        ]
+      },
+      "attributes": {
+        "PS": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 2
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 10
+        }
+      },
+      "combat": {},
+      "prerequisites": [],
+      "notes": [
+        "Adds strength and S.D.C. once; combines with other Physical skills and O.C.C. bonuses."
+      ]
+    },
+    {
+      "id": "physical-labor",
+      "name": "Physical Labor",
+      "kind": "physical",
+      "category": "physical",
+      "requires_specialty": false,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          317
+        ],
+        "pdf_pages": [
+          320
+        ],
+        "section": "Physical Skills — Physical Labor",
+        "candidate_ids": [
+          "0f582017f960a22d7a6d"
+        ]
+      },
+      "attributes": {
+        "PS": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 2
+        },
+        "PE": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 1
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 2,
+          "sides": 8,
+          "bonus": 0
+        }
+      },
+      "combat": {},
+      "prerequisites": [],
+      "notes": [
+        "Physical bonuses apply once and combine with other reviewed training."
+      ]
+    },
+    {
+      "id": "running",
+      "name": "Running",
+      "kind": "physical",
+      "category": "physical",
+      "requires_specialty": false,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          317
+        ],
+        "pdf_pages": [
+          320
+        ],
+        "section": "Physical Skills — Running",
+        "candidate_ids": [
+          "0f582017f960a22d7a6d"
+        ]
+      },
+      "attributes": {
+        "PE": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 1
+        },
+        "SPD": {
+          "count": 4,
+          "sides": 4,
+          "bonus": 0
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 1,
+          "sides": 6,
+          "bonus": 0
+        }
+      },
+      "combat": {},
+      "prerequisites": [],
+      "notes": [
+        "Physical bonuses apply once and combine with other reviewed training.",
+        "Running routine distance uses current effective P.E.; maximum-speed distance is one third of the half-speed limit."
+      ],
+      "activities": {
+        "running": {
+          "half_speed_miles_per_pe": 0.5,
+          "half_speed_kilometers_per_pe": 0.8,
+          "maximum_speed_distance_divisor": 3
+        }
+      }
+    },
+    {
+      "id": "boxing",
+      "name": "Boxing",
+      "kind": "physical",
+      "category": "physical",
+      "requires_specialty": false,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          316
+        ],
+        "pdf_pages": [
+          319
+        ],
+        "section": "Physical Skills — Boxing",
+        "candidate_ids": [
+          "0f582017f960a22d7a6d"
+        ]
+      },
+      "attributes": {
+        "PS": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 2
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 3,
+          "sides": 6,
+          "bonus": 0
+        }
+      },
+      "combat": {
+        "attacks": 1,
+        "parry": 2,
+        "dodge": 2,
+        "roll_with_impact": 1
+      },
+      "prerequisites": [],
+      "notes": [
+        "Natural 20: automatically knocks out an opponent for 1D6 melee rounds without announcing a knockout attempt before the strike.",
+        "Physical bonuses apply once and combine with other reviewed training."
+      ]
+    },
+    {
+      "id": "swimming",
+      "name": "Swimming",
+      "kind": "physical",
+      "category": "physical",
+      "requires_specialty": false,
+      "base": 50,
+      "per_level": 5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          317
+        ],
+        "pdf_pages": [
+          320
+        ],
+        "section": "Physical Skills — Swimming",
+        "candidate_ids": [
+          "0f582017f960a22d7a6d"
+        ],
+        "markdown_lines": [
+          18443,
+          18443
+        ]
+      },
+      "additional_checks": [
+        {
+          "name": "Rough waves or storm",
+          "context_of": "primary",
+          "modifier": -20
+        },
+        {
+          "name": "Non-powered M.D.C. armor, if afloat",
+          "context_of": "primary",
+          "modifier": -45
+        }
+      ],
+      "activities": {
+        "swimming": {
+          "yards_per_ps": 3,
+          "meters_per_ps": 3,
+          "minutes_per_pe": 1
+        }
+      },
+      "notes": [
+        "Surface swimming covers three times P.S. in yards/meters each melee round for P.E. minutes before fatigue. No attribute, S.D.C. or combat bonus is granted.",
+        "A failed roll leaves the swimmer afloat without covering distance. Three consecutive failed rolls cause submersion and drowning unless rescued.",
+        "Non-powered M.D.C. armor swimming requires staying afloat, depending on armor weight; no buoyancy formula is provided. Power armor swimming is permitted.",
+        "Surface swimming has the fatigue rate of running and is medium to heavy exertion, especially fast or long distances. Conditional storm and armor checks are shown separately; they do not automatically resolve simultaneous conditions or other armor movement penalties."
+      ]
+    }
+  ],
+  "pools": {
+    "domestic": {
+      "count": 2,
+      "bonus": 15
+    },
+    "related": {
+      "count": 5,
+      "bonus": 10
+    },
+    "secondary": {
+      "count": 8,
+      "bonus": 0
+    }
+  },
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "pages": [
+      97,
+      98,
+      300,
+      301,
+      302,
+      304,
+      305,
+      307,
+      308,
+      312,
+      313,
+      314,
+      316,
+      317,
+      322,
+      323,
+      324,
+      325,
+      326
+    ],
+    "section": "Reviewed skills, combat and Physical skill bonuses"
+  },
+  "intelligence": {
+    "bonuses": {
+      "16": 2,
+      "17": 3,
+      "18": 4,
+      "19": 5,
+      "20": 6,
+      "21": 7,
+      "22": 8,
+      "23": 9,
+      "24": 10,
+      "25": 11,
+      "26": 12,
+      "27": 13,
+      "28": 14,
+      "29": 15,
+      "30": 16
+    },
+    "beyond_30": {
+      "step": 5,
+      "bonus": 2
+    },
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        281,
+        284
+      ],
+      "section": "Attribute Bonus Chart and Attributes Beyond 30"
+    }
+  },
+  "required": {
+    "grants": [
+      {
+        "id": "native-language",
+        "name": "Language: Native Tongue",
+        "base": 88,
+        "per_level": 1,
+        "class_bonus": 0,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            302,
+            304
+          ]
+        }
+      },
+      {
+        "id": "barter",
+        "name": "Barter",
+        "base": 30,
+        "per_level": 4,
+        "class_bonus": 16,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            302,
+            304
+          ]
+        },
+        "class_ability": 10,
+        "synergies": [
+          {
+            "name": "mathematics",
+            "any_of": [
+              "math-basic",
+              "math-advanced"
+            ],
+            "amount": 2
+          },
+          {
+            "name": "literacy",
+            "any_of": [
+              "literacy-native",
+              "literacy-other"
+            ],
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "identify-undercover",
+        "name": "I.D. Undercover Agents",
+        "base": 30,
+        "per_level": 4,
+        "class_bonus": 10,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            303,
+            321
+          ]
+        },
+        "class_ability": 10,
+        "synergies": [
+          {
+            "skill_id": "streetwise",
+            "name": "streetwise",
+            "amount": 10
+          }
+        ]
+      },
+      {
+        "id": "radio-basic",
+        "name": "Radio: Basic",
+        "base": 45,
+        "per_level": 5,
+        "class_bonus": 5,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            302,
+            305
+          ]
+        }
+      },
+      {
+        "id": "streetwise",
+        "name": "Streetwise",
+        "base": 20,
+        "per_level": 4,
+        "class_bonus": 10,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            303,
+            321
+          ]
+        }
+      },
+      {
+        "id": "eyeball",
+        "name": "Eyeball a Fella",
+        "base": 56,
+        "per_level": 3,
+        "class_bonus": 0,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97
+          ]
+        }
+      }
+    ],
+    "other_languages": {
+      "count": 2,
+      "skill": {
+        "id": "other-language",
+        "name": "Language: Other",
+        "base": 50,
+        "per_level": 3,
+        "class_bonus": 15,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            302,
+            304
+          ]
+        }
+      }
+    },
+    "pilot": {
+      "count": 1,
+      "options": [
+        {
+          "id": "automobile",
+          "name": "Pilot: Automobile",
+          "base": 60,
+          "per_level": 2,
+          "class_bonus": 10,
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "pages": [
+              97,
+              303,
+              318
+            ]
+          }
+        },
+        {
+          "id": "motorcycle",
+          "name": "Pilot: Motorcycles & Snowmobiles",
+          "base": 60,
+          "per_level": 4,
+          "class_bonus": 12,
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "pages": [
+              97,
+              303,
+              319
+            ]
+          }
+        }
+      ]
+    },
+    "repair": {
+      "count": 1,
+      "options": [
+        {
+          "id": "general-repair",
+          "name": "General Repair & Maintenance",
+          "base": 35,
+          "per_level": 5,
+          "class_bonus": 10,
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "pages": [
+              97,
+              303,
+              323,
+              324
+            ]
+          },
+          "notes": [
+            "Two checks: diagnose the repair, then perform it. Complex, extremely damaged, high-tech, or alien items halve proficiency; conditional repair handling remains pending."
+          ]
+        },
+        {
+          "id": "horse-general",
+          "name": "Horsemanship: General",
+          "base": 40,
+          "per_level": 4,
+          "class_bonus": 5,
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "pages": [
+              97,
+              302,
+              310,
+              311
+            ]
+          },
+          "additional_checks": [
+            {
+              "name": "Jumping and other special maneuvers",
+              "base": 20
+            }
+          ],
+          "notes": [
+            "Primary check covers basic riding, care, breeds, training, and wagon handling. The second check covers jumps, tricks, combat maneuvers, panicked horses and racing. Mounted combat and special situational modifiers remain pending."
+          ]
+        }
+      ]
+    }
+  },
+  "selection_rules": {
+    "domestic": {
+      "domestic": {
+        "allow": "any",
+        "bonus": 15
+      }
+    },
+    "related": {
+      "domestic": {
+        "allow": "any",
+        "bonus": 10
+      },
+      "communications": {
+        "allow": "any",
+        "bonus": 0,
+        "exclude": [
+          "cryptography",
+          "laser-communications",
+          "optic-systems",
+          "surveillance"
+        ]
+      },
+      "electrical": {
+        "allow": [
+          "basic-electronics"
+        ],
+        "bonus": 5
+      },
+      "mechanical": {
+        "allow": [
+          "basic-mechanics",
+          "automotive-mechanics"
+        ],
+        "bonus": 5
+      },
+      "medical": {
+        "allow": [
+          "first-aid"
+        ],
+        "bonus": 5
+      },
+      "science": {
+        "allow": [
+          "math-basic",
+          "math-advanced"
+        ],
+        "bonus": 5
+      },
+      "technical": {
+        "allow": "any",
+        "bonus": 5
+      },
+      "physical": {
+        "allow": "any",
+        "exclude": [
+          "acrobatics",
+          "gymnastics",
+          "wrestling"
+        ],
+        "bonus": 0
+      }
+    },
+    "secondary": {
+      "domestic": {
+        "allow": "any",
+        "bonus": 0
+      },
+      "communications": {
+        "allow": "any",
+        "bonus": 0,
+        "exclude": [
+          "cryptography",
+          "laser-communications",
+          "surveillance",
+          "tv-video"
+        ]
+      },
+      "electrical": {
+        "allow": "any",
+        "bonus": 0
+      },
+      "mechanical": {
+        "allow": "any",
+        "bonus": 0
+      },
+      "medical": {
+        "allow": [
+          "animal-husbandry",
+          "first-aid"
+        ],
+        "bonus": 0
+      },
+      "science": {
+        "allow": [
+          "astronomy-navigation",
+          "math-basic",
+          "math-advanced"
+        ],
+        "bonus": 0
+      },
+      "technical": {
+        "allow": "any",
+        "bonus": 0
+      },
+      "physical": {
+        "allow": [
+          "athletics",
+          "body-building",
+          "running",
+          "swimming"
+        ],
+        "bonus": 0
+      }
+    }
+  },
+  "combat": {
+    "strength_type": "normal-human",
+    "default_hand_to_hand": "basic",
+    "pp_bonuses": {
+      "16": 1,
+      "17": 1,
+      "18": 2,
+      "19": 2,
+      "20": 3,
+      "21": 3,
+      "22": 4,
+      "23": 4,
+      "24": 5,
+      "25": 5,
+      "26": 6,
+      "27": 6,
+      "28": 7,
+      "29": 7,
+      "30": 8
+    },
+    "hand_to_hand": [
+      {
+        "id": "basic",
+        "name": "Hand to Hand: Basic",
+        "cost": 0,
+        "attacks": 4,
+        "pull_punch": 2,
+        "roll_with_impact": 2,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            347
+          ]
+        },
+        "level_two": {
+          "parry": 2,
+          "dodge": 2
+        }
+      },
+      {
+        "id": "expert",
+        "name": "Hand to Hand: Expert",
+        "cost": 1,
+        "attacks": 4,
+        "pull_punch": 2,
+        "roll_with_impact": 2,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            348
+          ]
+        },
+        "level_two": {
+          "parry": 3,
+          "dodge": 3,
+          "pull_punch": 1
+        }
+      },
+      {
+        "id": "martial-arts",
+        "name": "Hand to Hand: Martial Arts",
+        "cost": 2,
+        "attacks": 4,
+        "pull_punch": 3,
+        "roll_with_impact": 3,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            348
+          ]
+        },
+        "level_two": {
+          "parry": 3,
+          "dodge": 3,
+          "strike": 2
+        },
+        "level_two_moves": [
+          {
+            "id": "karate-punch",
+            "name": "Karate punch",
+            "dice": "2D4",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                345,
+                348
+              ],
+              "pdf_pages": [
+                348,
+                351
+              ],
+              "section": "Martial Arts level two hand strikes"
+            }
+          },
+          {
+            "id": "martial-backhand",
+            "name": "Martial arts backhand",
+            "dice": "1D6",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                345,
+                348
+              ],
+              "pdf_pages": [
+                348,
+                351
+              ],
+              "section": "Martial Arts level two hand strikes"
+            }
+          }
+        ]
+      },
+      {
+        "id": "assassin",
+        "name": "Hand to Hand: Assassin",
+        "cost": 2,
+        "attacks": 3,
+        "strike": 2,
+        "paired_weapons": true,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97,
+            348
+          ]
+        },
+        "unverified_requirements": [
+          "Evil alignment (alignment is not yet recorded in this builder)"
+        ],
+        "level_two": {
+          "attacks": 2,
+          "initiative": 1
+        }
+      }
+    ],
+    "ancient": [
+      {
+        "id": "knife",
+        "name": "W.P. Knife",
+        "strike": 0,
+        "parry": 1,
+        "thrown": 1,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            327
+          ]
+        },
+        "level_two": {
+          "strike": 1
+        }
+      },
+      {
+        "id": "sword",
+        "name": "W.P. Sword",
+        "strike": 1,
+        "parry": 0,
+        "thrown": 0,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            327
+          ]
+        },
+        "level_two": {
+          "parry": 1
+        }
+      }
+    ],
+    "modern": [
+      {
+        "id": "handguns",
+        "name": "W.P. Handguns",
+        "strike": 0,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            360
+          ]
+        },
+        "level_two": {
+          "strike": 1
+        }
+      },
+      {
+        "id": "energy-pistol",
+        "name": "W.P. Energy Pistol",
+        "strike": 1,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            360
+          ]
+        },
+        "level_two": {}
+      },
+      {
+        "id": "energy-rifle",
+        "name": "W.P. Energy Rifle",
+        "strike": 0,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            360
+          ]
+        },
+        "level_two": {
+          "strike": 1
+        }
+      }
+    ],
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        97,
+        281,
+        283,
+        284,
+        327,
+        328,
+        344,
+        345,
+        347,
+        348,
+        360,
+        361
+      ]
+    },
+    "required_proficiencies": {
+      "ancient": "any",
+      "modern": [
+        "energy-pistol",
+        "energy-rifle"
+      ]
+    }
+  },
+  "attribute_saves": {
+    "definitions": [
+      {
+        "id": "psionics",
+        "name": "Save vs psionic attack",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "ME",
+            "key": "mental_endurance",
+            "values": {
+              "1": -6,
+              "2": -6,
+              "3": -3,
+              "4": -3,
+              "5": -1,
+              "6": -1,
+              "7": -1,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 1,
+              "17": 1,
+              "18": 2,
+              "19": 2,
+              "20": 3,
+              "21": 3,
+              "22": 4,
+              "23": 4,
+              "24": 5,
+              "25": 5,
+              "26": 6,
+              "27": 6,
+              "28": 7,
+              "29": 7,
+              "30": 8
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "insanity",
+        "name": "Save vs insanity",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "ME",
+            "key": "mental_endurance",
+            "values": {
+              "1": -5,
+              "2": -5,
+              "3": -2,
+              "4": -2,
+              "5": -1,
+              "6": -1,
+              "7": -1,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 1,
+              "17": 1,
+              "18": 2,
+              "19": 2,
+              "20": 3,
+              "21": 4,
+              "22": 5,
+              "23": 6,
+              "24": 7,
+              "25": 8,
+              "26": 9,
+              "27": 10,
+              "28": 11,
+              "29": 12,
+              "30": 13
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "horror_factor",
+        "name": "Save vs Horror Factor",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "ME",
+            "key": "mental_endurance",
+            "values": {
+              "1": -8,
+              "2": -8,
+              "3": -6,
+              "4": -6,
+              "5": -3,
+              "6": -3,
+              "7": -3,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "possession",
+        "name": "Save vs possession",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "ME",
+            "key": "mental_endurance",
+            "values": {
+              "1": -6,
+              "2": -6,
+              "3": -3,
+              "4": -3,
+              "5": -1,
+              "6": -1,
+              "7": -1,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "illusions",
+        "name": "Save vs illusions",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "ME",
+            "key": "mental_endurance",
+            "values": {
+              "1": -6,
+              "2": -6,
+              "3": -4,
+              "4": -4,
+              "5": -2,
+              "6": -2,
+              "7": -2,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          },
+          {
+            "attribute": "IQ",
+            "key": "intelligence",
+            "values": {
+              "1": 0,
+              "2": 0,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 0,
+              "17": 0,
+              "18": 0,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "22": 0,
+              "23": 0,
+              "24": 0,
+              "25": 0,
+              "26": 0,
+              "27": 0,
+              "28": 0,
+              "29": 0,
+              "30": 0,
+              "31": 1,
+              "32": 1,
+              "33": 1,
+              "34": 2,
+              "35": 2,
+              "36": 2,
+              "37": 3,
+              "38": 3,
+              "39": 3,
+              "40": 4,
+              "41": 4,
+              "42": 4,
+              "43": 5,
+              "44": 5,
+              "45": 5,
+              "46": 6,
+              "47": 6,
+              "48": 6,
+              "49": 7
+            },
+            "cap_at": 49,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "magic",
+        "name": "Save vs magic",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "PE",
+            "key": "physical_endurance",
+            "values": {
+              "1": -5,
+              "2": -5,
+              "3": -4,
+              "4": -4,
+              "5": -3,
+              "6": -3,
+              "7": -3,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 1,
+              "17": 1,
+              "18": 2,
+              "19": 2,
+              "20": 3,
+              "21": 3,
+              "22": 4,
+              "23": 4,
+              "24": 5,
+              "25": 5,
+              "26": 6,
+              "27": 6,
+              "28": 7,
+              "29": 7,
+              "30": 8
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "poison",
+        "name": "Save vs poison/toxins",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "PE",
+            "key": "physical_endurance",
+            "values": {
+              "1": -6,
+              "2": -6,
+              "3": -5,
+              "4": -5,
+              "5": -3,
+              "6": -3,
+              "7": -3,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 1,
+              "17": 1,
+              "18": 2,
+              "19": 2,
+              "20": 3,
+              "21": 3,
+              "22": 4,
+              "23": 4,
+              "24": 5,
+              "25": 5,
+              "26": 6,
+              "27": 6,
+              "28": 7,
+              "29": 7,
+              "30": 8
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "drugs",
+        "name": "Save vs harmful drugs",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "PE",
+            "key": "physical_endurance",
+            "values": {
+              "1": -6,
+              "2": -6,
+              "3": -5,
+              "4": -5,
+              "5": -3,
+              "6": -3,
+              "7": -3,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 1,
+              "17": 1,
+              "18": 2,
+              "19": 2,
+              "20": 3,
+              "21": 3,
+              "22": 4,
+              "23": 4,
+              "24": 5,
+              "25": 5,
+              "26": 6,
+              "27": 6,
+              "28": 7,
+              "29": 7,
+              "30": 8
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "disease",
+        "name": "Save vs disease",
+        "unit": "",
+        "contributions": [
+          {
+            "attribute": "PE",
+            "key": "physical_endurance",
+            "values": {
+              "1": -8,
+              "2": -8,
+              "3": -6,
+              "4": -6,
+              "5": -2,
+              "6": -2,
+              "7": -2,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 1,
+              "17": 1,
+              "18": 2,
+              "19": 2,
+              "20": 3,
+              "21": 3,
+              "22": 4,
+              "23": 4,
+              "24": 5,
+              "25": 5,
+              "26": 6,
+              "27": 6,
+              "28": 7,
+              "29": 7,
+              "30": 8
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 0
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      },
+      {
+        "id": "coma_death",
+        "name": "Save vs coma/death",
+        "unit": "%",
+        "contributions": [
+          {
+            "attribute": "PE",
+            "key": "physical_endurance",
+            "values": {
+              "1": -20,
+              "2": -20,
+              "3": -10,
+              "4": -10,
+              "5": -5,
+              "6": -5,
+              "7": -5,
+              "8": 0,
+              "9": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 0,
+              "15": 0,
+              "16": 4,
+              "17": 5,
+              "18": 6,
+              "19": 8,
+              "20": 10,
+              "21": 12,
+              "22": 14,
+              "23": 16,
+              "24": 18,
+              "25": 20,
+              "26": 22,
+              "27": 24,
+              "28": 26,
+              "29": 28,
+              "30": 30
+            },
+            "cap_at": 30,
+            "beyond_cap_step": 1
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            281,
+            283,
+            284
+          ]
+        }
+      }
+    ],
+    "notes": [
+      "These are attribute and reviewed O.C.C. contributions. Saving-roll targets and other effects remain separate.",
+      "The P.E. magic bonus does not apply to demonic curses or possession.",
+      "High-M.E. possession bonuses are restricted to specified supernatural beings; they are not granted to this ordinary Human path."
+    ],
+    "conditions": [
+      {
+        "attribute": "PE",
+        "minimum": 30,
+        "text": "P.E. 30+: effectively impervious to ordinary disease; virulent/designer viruses are source exceptions. Fatigue occurs at half the normal rate."
+      },
+      {
+        "attribute": "PE",
+        "minimum": 5,
+        "maximum": 7,
+        "text": "P.E. 5-7: Fatigue occurs 50% faster unless frequent rest breaks are available (Ultimate Edition p. 284)."
+      },
+      {
+        "attribute": "PE",
+        "minimum": 3,
+        "maximum": 4,
+        "text": "P.E. 3-4: Fatigue occurs 50% faster unless frequent rest breaks are available. Illness and drug/poison side effects last 25% longer (Ultimate Edition p. 284)."
+      },
+      {
+        "attribute": "PE",
+        "minimum": 1,
+        "maximum": 2,
+        "text": "P.E. 1-2: Fatigue occurs 75% faster unless frequent rest breaks are available. The character suffers 50% more damage; penalties and duration from illness and drug/poison/magic side effects double (Ultimate Edition p. 284)."
+      }
+    ]
+  },
+  "name": "Reviewed Rifts skills with Boxing",
+  "physical_source": {
+    "book": "Rifts - Ultimate Edition",
+    "pages": [
+      97,
+      98,
+      300,
+      316,
+      361
+    ],
+    "pdf_pages": [
+      100,
+      101,
+      303,
+      319,
+      364
+    ],
+    "section": "Vagabond allowances, Secondary Physical list, accumulating bonuses and gun dodge restrictions",
+    "candidate_ids": [
+      "53ee8e2436810fe4d848",
+      "4723d131c9eb5765a291",
+      "e48cf8c81422e145d65e",
+      "0f582017f960a22d7a6d",
+      "ebade8e0974d16a57fcc"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+    "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c"
+  },
+  "class_bonuses": {
+    "class_id": "vagabond",
+    "perception": 4,
+    "saving": {
+      "possession": 1,
+      "psionics": 1,
+      "horror_factor": 2
+    },
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        97
+      ],
+      "pdf_pages": [
+        100
+      ],
+      "section": "Vagabond O.C.C. Bonuses",
+      "candidate_ids": [
+        "4723d131c9eb5765a291"
+      ]
+    }
+  },
+  "resources": {
+    "definitions": [
+      {
+        "id": "SDC",
+        "name": "Physical S.D.C.",
+        "contributions": [
+          {
+            "id": "general-base",
+            "formula": {
+              "count": 2,
+              "sides": 6,
+              "bonus": 12
+            },
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                287
+              ],
+              "pdf_pages": [
+                290
+              ],
+              "section": "Starting physical S.D.C. fallback",
+              "candidate_ids": [
+                "a9fb249f780172d26ec3"
+              ]
+            }
+          },
+          {
+            "id": "vagabond",
+            "formula": {
+              "count": 2,
+              "sides": 6,
+              "bonus": 10
+            },
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97
+              ],
+              "pdf_pages": [
+                100
+              ],
+              "section": "Vagabond O.C.C. Bonuses",
+              "candidate_ids": [
+                "4723d131c9eb5765a291"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "HP",
+        "name": "Hit Points",
+        "contributions": [
+          {
+            "id": "starting-pe",
+            "attribute": "PE",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                287
+              ],
+              "pdf_pages": [
+                290
+              ],
+              "section": "Starting Hit Points",
+              "candidate_ids": [
+                "f55d7c74462262770772"
+              ]
+            }
+          },
+          {
+            "id": "level-one",
+            "formula": {
+              "count": 1,
+              "sides": 6,
+              "bonus": 0
+            },
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                287
+              ],
+              "pdf_pages": [
+                290
+              ],
+              "section": "Starting Hit Points",
+              "candidate_ids": [
+                "f55d7c74462262770772"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "guidance": [
+      "Starting resources are generated once. Resource dice ignore racial house rules.",
+      "Hit Points retain effective P.E. at first HP generation plus the recorded D6. Later attribute changes do not recalculate that starting contribution.",
+      "Active Physical S.D.C. bonuses add to the recorded general and O.C.C. contributions; fixed manual totals remain authoritative.",
+      "These are character-sheet capacities, not live damage tracking. First advancement HP is recorded separately; progression after level two and other resource types remain pending."
+    ]
+  },
+  "resource_interpretation": {
+    "id": "effective-pe-at-first-hp-generation",
+    "accepted": "2026-10-03",
+    "decision": "Use effective P.E. when HP is first generated; retain the starting contribution afterward."
+  },
+  "advancement": {
+    "class_id": "vagabond",
+    "max_level": 2,
+    "xp_ranges": [
+      [
+        0,
+        1875
+      ],
+      [
+        1876,
+        3750
+      ]
+    ],
+    "hp_die": 6,
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        97,
+        98,
+        287,
+        295,
+        300
+      ],
+      "pdf_pages": [
+        100,
+        101,
+        290,
+        298,
+        303
+      ],
+      "section": "Vagabond first advancement and learned skill progression"
+    }
+  }
+}

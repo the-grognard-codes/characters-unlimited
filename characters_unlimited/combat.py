@@ -4,6 +4,7 @@ from collections import Counter
 from .saving_bonuses import project_saving_bonuses
 from .physical import project_physical
 from typing import Any
+from .advancement import learning_age
 
 
 def validate_combat_choices(choices, pack):
@@ -44,6 +45,8 @@ def project_combat(character, pack):
         if character['character_class'] == class_rules.get('class_id') else {})
     rules = pack.get('combat')
     gaps = ['Other Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
+    if 'advancement' in pack:
+        gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and progression after level two remain pending.'
     if character['rules']['version'] == '1.0.0':
         gaps.insert(0, 'This saved primary rule version has no class attribute bonuses; combat uses the attributes currently displayed. An explicit primary-rule upgrade remains pending.')
     if not rules:
@@ -51,6 +54,8 @@ def project_combat(character, pack):
                 'gaps': ['Preview a rule update to incorporate reviewed combat training.', *gaps], 'sources': [], 'remaining': {}}
     choices = validate_combat_choices(character.get('combat_choices', {}), pack)
     hand = next(item for item in rules['hand_to_hand'] if item['id'] == choices['hand_to_hand'])
+    if learning_age(character, 'hand', hand['id']) > 1:
+        hand = {**hand, **{stat: hand.get(stat, 0) + gain for stat, gain in hand.get('level_two', {}).items()}}
     pp, ps, speed = (character['attributes'][name]['value'] for name in ('PP','PS','SPD'))
     pp_bonus = rules['pp_bonuses'].get(str(min(pp,30)),0)
     low_pp = pp < 8
@@ -61,7 +66,7 @@ def project_combat(character, pack):
     physical = project_physical(character,pack)
     totals = {'attacks':total({'hand_to_hand':hand['attacks'],
                               **physical['combat'].get('attacks',{})}),
-              'initiative':total({'physical_prowess':initiative,'slow_speed':slow},missing=low_pp)}
+              'initiative':total({'physical_prowess':initiative,'slow_speed':slow, **({'hand_to_hand':hand['initiative']} if 'initiative' in hand else {})},missing=low_pp)}
     for stat in ('strike','parry','dodge','pull_punch','roll_with_impact','disarm'):
         contributions = {'hand_to_hand':hand.get(stat,0)}
         contributions.update(physical['combat'].get(stat,{}))
@@ -72,12 +77,17 @@ def project_combat(character, pack):
     damage_bonus=max(0,ps-15)
     totals['damage']=total({'normal_strength':damage_bonus},missing=ps < 1)
     unarmed=[]
-    for identifier,name,dice,power in [('punch','Punch','1D4',False),('kick','Kick','1D8',False),('power-punch','Power punch','1D4',True)]:
+    attacks = [('punch','Punch','1D4',False),('kick','Kick','1D8',False),('power-punch','Power punch','1D4',True)]
+    if learning_age(character, 'hand', hand['id']) > 1:
+        for move in hand.get('level_two_moves', []):
+            attacks.append((move['id'], move['name'], move['dice'], False))
+            attacks.append(('power-' + move['id'], 'Power ' + move['name'].lower(), move['dice'], True))
+    for identifier,name,dice,power in attacks:
         expression = ('2 × ' if power else '') + dice
         if ps < 1:
             damage='Pending strength interpretation'
         elif ps <= 2:
-            damage = ('Pending low-strength power-punch interpretation' if power else '1 S.D.C.' if identifier=='punch' else '1D4 S.D.C.')
+            damage = ('Pending low-strength power-punch interpretation' if power else '1D4 S.D.C.' if identifier=='kick' else '1 S.D.C.')
         elif ps <= 4:
             damage='½ × (' + expression + ') S.D.C.'
         else:
@@ -88,13 +98,16 @@ def project_combat(character, pack):
     melee=[]
     for definition in rules['ancient']:
         if definition['id'] not in choices['ancient']: continue
+        if learning_age(character, 'weapon', definition['id']) > 1:
+            definition = {**definition, **{stat: definition.get(stat, 0) + gain for stat, gain in definition.get('level_two', {}).items()}}
         melee.append({'id':definition['id'],'name':definition['name'], 'source':definition['source'],
                       'strike':total({**totals['strike']['contributions'],'weapon_proficiency':definition['strike']},missing=low_pp),
                       'parry':total({**totals['parry']['contributions'],'weapon_proficiency':definition['parry']},missing=low_pp)})
     shooting=[]
     for definition in rules['modern']:
         trained=definition['id'] in choices['modern']
-        bonus=definition['strike'] if trained else 0
+        gain = definition.get('level_two', {}).get('strike', 0) if learning_age(character, 'weapon', definition['id']) > 1 else 0
+        bonus=definition['strike'] + gain if trained else 0
         shooting.append({'id':definition['id'],'name':definition['name'],'trained':trained,'source':definition['source'],
                          'single':total({'weapon_proficiency':bonus},missing=low_pp),
                          'aimed':total({'weapon_proficiency':bonus,'aimed':2},missing=low_pp or not trained,actions=2),

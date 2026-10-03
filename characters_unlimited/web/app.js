@@ -16,13 +16,14 @@ function lockNavigation(busy) {
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
   setResourcesBusy();
+  setAdvancementBusy();
   setEquipmentBusy();
 }
 function library() {
   $('library').replaceChildren();
   characters.forEach(character => {
     const button = document.createElement('button');
-    button.textContent = character.name || 'Unnamed adventurer';
+    button.textContent = (character.name || 'Unnamed adventurer') + (character.recovery_of ? ' · recovery' : '');
     button.classList.toggle('selected', current?.id === character.id);
     button.disabled = navigationBusy;
     button.onclick = async () => {
@@ -44,6 +45,10 @@ function render(character) {
   const pack = gamePacks.find(entry => entry.game === character.game);
   const heroes = character.game === 'heroes-unlimited';
   $('resources-panel').hidden = heroes;
+  $('advancement-panel').hidden = heroes;
+  $('skill-learned-label').hidden = heroes || character.level === 1;
+  $('skill-learned-level').replaceChildren(...Array.from({length:character.level}, (_, index) => { const option = document.createElement('option'); option.value = index + 1; option.textContent = index + 1; return option; }));
+  $('skill-learned-level').value = character.level;
   $('equipment-panel').hidden = heroes;
   loadEquipment(character).catch(showError);
   $('game-title').textContent = heroes ? 'HEROES UNLIMITED · REVISED SECOND EDITION' : 'RIFTS · ULTIMATE EDITION';
@@ -110,6 +115,7 @@ async function loadSkills(character) {
   if (current.id !== character.id || sequence !== skillLoadSequence) return;
   renderCombat(view.combat);
   renderResources(view.resources);
+  renderAdvancement(view.advancement);
   skillCatalog = view.catalog;
   const category = $('skill-category').value;
   const categories = ['', ...new Set(view.catalog.map(skill => skill.category || 'domestic'))];
@@ -179,6 +185,7 @@ async function loadSkills(character) {
   }
   skillsReady = true;
   setResourcesBusy();
+  setAdvancementBusy();
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = navigationBusy);
 }
 wireCombatEvents();
@@ -200,7 +207,7 @@ $('required-skill-form').onsubmit = async event => {
 $('skill-form').onsubmit = async event => {
   event.preventDefault();
   if (!skillsReady || navigationBusy) return;
-  await characterAction('skills', {selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool:$('skill-pool').value, specialty:$('skill-specialty').value}]}).catch(showError);
+  await characterAction('skills', {learned_level:Number($('skill-learned-level').value), selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool:$('skill-pool').value, specialty:$('skill-specialty').value}]}).catch(showError);
 };
 let rulePreview;
 $('preview-rule-update').onclick = async () => {
@@ -442,13 +449,17 @@ $('pdf-export-download').onclick = async () => {
     $('pdf-export-error').textContent = error.message; $('pdf-export-error').hidden = false;
   } finally { button.disabled = false; }
 };
-$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), game:$('new-game').value, generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
+$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), game:$('new-game').value, level:Number($('new-level').value), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
 function updateNewIdentity() {
   const pack = gamePacks.find(entry => entry.game === $('new-game').value);
+  const heroes = pack.game === 'heroes-unlimited';
+  $('new-level').disabled = heroes;
+  if (heroes) $('new-level').value = '1';
   $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${pack.races[0].name} · ${pack.classes[0].name}. Initial attributes follow the core book. Other creation paths remain unfinished.`;
 }
 $('new-game').onchange = updateNewIdentity;
 wireResourcesEvents();
+wireAdvancementEvents();
 wireEquipmentEvents();
 request('/api/bootstrap').then(result => {
   token = result.token; characters = result.characters; gamePacks = result.catalog.packs;

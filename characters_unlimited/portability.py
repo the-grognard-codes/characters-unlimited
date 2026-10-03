@@ -10,11 +10,14 @@ from .education import validate_education
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
 from .resources import validate_resources
-from .skills import validate_selections
+from .skills import validate_selections, project_skills
 from .equipment import validate_inventory
 from .starting_funds import validate_starting_funds
 from .starting_gear import validate_starting_gear
 from .starting_choices import validate_starting_choices
+from .advancement import validate_advancement, remember_learning
+from .required_skills import validate_required_choices
+from .combat import validate_combat_choices
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -120,8 +123,13 @@ def validate_character(character, core):
     for key in ('name', 'notes'):
         if not isinstance(character.get(key), str):
             raise ValueError(f'{key} must be text')
-    if character.get('level') != 1 or type(character.get('level')) is not int:
-        raise ValueError('This application version supports level-one imports')
+    if character.get('level') not in (1, 2) or type(character.get('level')) is not int:
+        raise ValueError('This application version supports levels one and two')
+    if character['level'] == 2 and character.get('game') != 'rifts':
+        raise ValueError('Heroes Unlimited advancement remains pending')
+    if 'experience' in character and (type(character['experience']) is not int or
+            not (0 if character['level'] == 1 else 1876) <= character['experience'] <= (1875 if character['level'] == 1 else 3750)):
+        raise ValueError('Experience must match a reviewed level range')
     for key in ('completion', 'automation_gaps'):
         if not isinstance(character.get(key), list) or any(not isinstance(item, str) for item in character[key]):
             raise ValueError(f'Invalid {key}')
@@ -150,7 +158,7 @@ def validate_character(character, core):
             validate_generation(event['generation'])
 
 
-def pinned_packs(character, packs):
+def pinned_packs(character, packs, *, include_history=True):
     primary = character.get('rules')
     additional = character.get('additional_rule_packs', {})
     if not isinstance(primary, dict) or not isinstance(additional, dict):
@@ -167,6 +175,13 @@ def pinned_packs(character, packs):
         if match is None:
             raise ValueError(f'Unsupported rule version: {identifier} {version}')
         result.append(deepcopy(match))
+    if include_history and isinstance(character.get('advancement'), dict):
+        before = character['advancement'].get('before')
+        if not isinstance(before, dict):
+            raise ValueError('Missing advancement snapshot')
+        for pack in pinned_packs(before, packs, include_history=False):
+            if not any(item['id'] == pack['id'] and item['version'] == pack['version'] for item in result):
+                result.append(pack)
     return result
 
 
@@ -227,12 +242,36 @@ def validate_sources(character, packs):
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
     validate_resources(character,skill_pack or {})
     if skill_pack is not None:
+        validate_advancement(character, skill_pack)
         validate_selections(character.get('skill_selections',[]),skill_pack)
+        if 'required_skill_choices' in character:
+            validate_required_choices(character['required_skill_choices'], skill_pack)
+        if 'combat_choices' in character:
+            validate_combat_choices(character['combat_choices'], skill_pack)
         validate_physical(character,skill_pack)
         for event in character.get('roll_history', []):
             validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),skill_pack)
     elif 'physical_acquisitions' in character:
         raise ValueError('Physical skill acquisitions must retain their Rifts rule version')
+    elif 'advancement' in character or 'learning_levels' in character or character['level'] != 1:
+        raise ValueError('Advancement must retain its Rifts rule version')
+    if 'advancement' in character:
+        before = {**character['advancement']['before'], 'id': character['id'],
+                  'revision': 0, 'updated_at': character['updated_at']}
+        historical = pinned_packs(before, packs, include_history=False)
+        validate_character(before, primary_pack(before, historical))
+        validate_sources(before, historical)
+        if character['advancement']['active']:
+            old_skill_pack = next(item for item in historical if item['id'] == 'rifts-domestic-skills')
+            initial = remember_learning(before, project_skills(before, old_skill_pack),
+                validate_combat_choices(before.get('combat_choices', {}), old_skill_pack))
+            levels = character['learning_levels']
+            if any(levels.get(key) != 1 for key in initial):
+                raise ValueError('Pre-level skills must retain their recorded learning level')
+            expected = remember_learning(character, project_skills(character, skill_pack),
+                validate_combat_choices(character.get('combat_choices', {}), skill_pack))
+            if levels != expected:
+                raise ValueError('Every current skill must retain its learned-level record')
     if 'education' in character:
         pack = next((item for item in packs if item['id'] == 'heroes-education'), None)
         if character['game'] != 'heroes-unlimited' or pack is None:

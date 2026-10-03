@@ -10,6 +10,7 @@ from reportlab.lib.colors import black, white
 from reportlab.pdfbase.pdfmetrics import stringWidth, registerFont
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen.canvas import Canvas
+from .advancement import learning_key
 
 
 TEMPLATE = Path(__file__).parent / 'templates' / 'rifts.pdf'
@@ -321,6 +322,19 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    if 'experience' in character:
+        sheet_notes += '\nExperience: ' + str(character['experience']) + ' XP.'
+    if character.get('advancement'):
+        record = character['advancement']
+        sheet_notes += ('\nLevel-two advancement HP die: ' + str(record['hp_roll']) +
+                        (' (active).' if record['active'] else ' (undone; retained for replay).'))
+        for skill in [*skills['grants'], *skills['selected']]:
+            learned = character.get('learning_levels', {}).get(learning_key('skill', skill['id'], skill.get('specialty', '')))
+            if learned is not None:
+                sheet_notes += '\n' + skill['name'] + (' - ' + skill['specialty'] if skill.get('specialty') else '') + ': learned at level ' + str(learned) + '.'
+    for attack in combat.get('unarmed', []):
+        if attack['id'] not in ('punch', 'kick', 'power-punch'):
+            sheet_notes += '\n' + attack['name'] + ': ' + attack['damage'] + '; ' + str(attack['actions']) + ' action(s). Ultimate Edition pp. 345, 348.'
     equipment = skills.get('equipment')
     if equipment is not None:
         fill_equipment(writer.pages[0],equipment,values)

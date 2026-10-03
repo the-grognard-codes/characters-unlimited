@@ -118,6 +118,10 @@ def create_server(application, port=0):
                         self.respond(200, application.set_attribute(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "combat":
                         self.respond(200, application.select_combat(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'advance':
+                        self.respond(200, application.advance(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'undo-advancement':
+                        self.respond(200, application.undo_advancement(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == "skills":
                         self.respond(200, application.select_skills(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'equipment':

@@ -63,3 +63,61 @@ function wireResourcesEvents() {
     }
   };
 }
+
+let advancementSupported = false;
+function setAdvancementBusy() {
+  document.querySelectorAll('#advancement-panel input, #advancement-panel select, #advancement-panel button').forEach(element => {
+    element.disabled = navigationBusy || !skillsReady || !advancementSupported;
+  });
+}
+function renderAdvancement(view) {
+  advancementSupported = view.supported;
+  $('advancement-status').textContent = `Level ${view.level} · ${view.xp} XP${view.hp_roll !== null ? ' · Recorded level-two HP die: ' + view.hp_roll : ''}`;
+  $('advancement-guidance').textContent = view.guidance;
+  $('undo-advancement').hidden = !view.active;
+  $('advancement-method').value = 'xp';
+  $('advancement-value').min = 0;
+  $('advancement-value').max = 3750;
+  $('advancement-value').value = view.xp;
+  setAdvancementBusy();
+}
+function wireAdvancementEvents() {
+  $('advancement-method').onchange = () => {
+    const direct = $('advancement-method').value === 'level';
+    $('advancement-value').min = direct ? 2 : 0;
+    $('advancement-value').max = direct ? 2 : 3750;
+    $('advancement-value').value = direct ? 2 : current.experience ?? 0;
+  };
+  $('advancement-form').onsubmit = async event => {
+    event.preventDefault();
+    if (!advancementSupported || navigationBusy || !skillsReady) return;
+    const value = Number($('advancement-value').value);
+    if (!Number.isSafeInteger(value)) return showError(new Error('Enter a whole-number XP or level'));
+    await characterAction('advance', {method:$('advancement-method').value, value}).catch(showError);
+  };
+  $('undo-advancement').onclick = () => {
+    $('undo-error').hidden = true;
+    $('undo-dialog').showModal();
+  };
+  $('undo-cancel').onclick = () => $('undo-dialog').close();
+  $('undo-confirm').onclick = async () => {
+    if (navigationBusy || !current) return;
+    lockNavigation(true);
+    $('undo-confirm').disabled = true;
+    try {
+      await flushSave();
+      const result = await request(`/api/characters/${current.id}/undo-advancement`, {revision:current.revision});
+      characters.unshift(result.recovery);
+      render(result.character);
+      $('undo-dialog').close();
+      $('save-status').textContent = 'Restored; later edits kept in a separate library save';
+    } catch(error) {
+      $('undo-error').textContent = error.message;
+      $('undo-error').hidden = false;
+    } finally {
+      lockNavigation(false);
+      $('undo-confirm').disabled = false;
+    }
+  };
+
+}

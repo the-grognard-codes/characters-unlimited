@@ -25,7 +25,9 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 
 - 02B1: Complete, merged in PR #10; 47 checks, both reviews, browser verification and Windows CI pass. Source-bound canonical identity records cover 30 core-list O.C.C. names, with aliases and source/candidate links. Mechanical/dependency review, complete corpus identities and named content-ticket fan-out stay pending; unassigned identities remain visible.
 
-- 02B2: In progress. Canonical source identities expand to 51 entries across the games, with explicit shared hatchling and Psi-Stalker links. No numerical acceptance or builder activation is claimed.
+- 02B2: Complete, merged in PR #11; 49 checks, both reviews, browser verification and Windows CI pass. Canonical source identities expand to 51 entries across the games, with explicit shared hatchling and Psi-Stalker links. No numerical acceptance or builder activation is claimed.
+
+- 05B3: In progress. Nine reviewed noncombat choices expand the catalog to 18; category-specific bonuses, prerequisites, language specialties and once-only Barter family synergies pass 53 local checks. Browser category selection and explained Barter totals pass; the Spec review approves, and the Standards review identified duplicate specialty detection, now consolidated. Publication is pending. Parent 05B remains open.
 
 ## Pending source ruling
 

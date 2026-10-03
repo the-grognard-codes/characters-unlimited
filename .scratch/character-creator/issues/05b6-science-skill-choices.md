@@ -1,6 +1,6 @@
 # 05B6: Science skill choices
 
-**Status:** in-progress
+**Status:** done (merged in PR #18)
 
 **Dependencies:** 05B5 complete. Parent 05B remains open.
 

@@ -12,3 +12,4 @@ sources-pdf/
 reports/ocr-review/
 character-sheets/*.pdf
 local-data/
+output/pdf/

@@ -11,7 +11,7 @@ async function request(path, data) {
 function showError(error) { $('error').textContent = error.message; $('error').hidden = false; $('save-status').textContent = 'Check the message below'; }
 function lockNavigation(busy) {
   navigationBusy = busy;
-  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update'].forEach(id => $(id).disabled = busy);
+  ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
 }
@@ -358,6 +358,34 @@ $('source-coverage').onclick = async () => {
     $('audit-findings').replaceChildren(...coverage.audit_findings.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
     renderCoverageOptions(); renderCoverageCandidates();
   } catch(error) { showError(error); } finally { lockNavigation(false); }
+};
+$('export-pdf').onclick = async () => {
+  if (navigationBusy) return;
+  lockNavigation(true);
+  try {
+    await flushSave();
+    $('pdf-export-checklist').replaceChildren(...current.completion.map(message => {
+      const item = document.createElement('li'); item.textContent = message; return item;
+    }));
+    $('pdf-export-error').hidden = true;
+    $('pdf-export-dialog').showModal();
+  } catch(error) { showError(error); lockNavigation(false); }
+};
+$('pdf-export-dialog').addEventListener('close', () => lockNavigation(false));
+$('pdf-export-cancel').onclick = () => $('pdf-export-dialog').close();
+$('pdf-export-download').onclick = async () => {
+  const button = $('pdf-export-download'); button.disabled = true;
+  try {
+    const response = await fetch('/api/characters/' + current.id + '/pdf');
+    if (!response.ok) throw new Error((await response.json()).error || 'PDF export failed');
+    const url = URL.createObjectURL(await response.blob());
+    const link = document.createElement('a'); link.href = url;
+    link.download = 'rifts-character-sheet.pdf'; document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    $('pdf-export-dialog').close();
+  } catch(error) {
+    $('pdf-export-error').textContent = error.message; $('pdf-export-error').hidden = false;
+  } finally { button.disabled = false; }
 };
 $('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
 request('/api/bootstrap').then(result => {

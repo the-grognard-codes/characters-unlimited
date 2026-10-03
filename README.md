@@ -59,3 +59,7 @@ The coverage view also searches confirmed canonical option identities and their 
 **Export editable PDF** shows unfinished parts before downloading an editable copy of the supplied Rifts sheet. Supported identity, attributes, skills, combat and notes are projected; missing equipment, resources and other rules remain blank. Long notes and skill checks receive matching continuation pages. PDF edits stay in the exported file; PDF import remains outside scope. Full game-specific projection and Heroes Unlimited sheets remain pending.
 
 PDFs embed the bundled, licensed Droid Sans Fallback font for Unicode editing. Initial exports display characters outside its coverage as `[U+code]` while preserving their original editable value.
+
+## Early Windows package
+
+Run `scripts/build-windows.ps1` on Windows to build `dist/CharactersUnlimited/CharactersUnlimited.exe`. Unzip or copy the entire folder, then double-click the executable; the desktop controller opens the workshop and stops the local application. Player PCs need no Python or Node installation. This package covers the current implemented path; full content and release acceptance remain pending. See [package instructions](docs/windows-package.md).

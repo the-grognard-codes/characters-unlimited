@@ -13,3 +13,4 @@ reports/ocr-review/
 character-sheets/*.pdf
 local-data/
 output/pdf/
+.packaging-venv/

@@ -12,6 +12,15 @@ async function loadEquipment(character) {
   const view = await request(`/api/characters/${character.id}/equipment`);
   if (current.id !== character.id || sequence !== equipmentSequence) return;
   equipmentView = view;
+  const funds = view.starting_funds;
+  $('generate-starting-funds').hidden = !funds.supported || funds.generated;
+  $('starting-funds-guidance').textContent = funds.guidance.join(' ');
+  $('starting-funds-record').replaceChildren(...Object.entries(funds.funds).map(([id,record]) => {
+    const row = document.createElement('p'); row.className = 'help';
+    const definition = funds.definitions.find(entry => entry.id === id);
+    row.textContent = `${definition.name}: ${record.value.toLocaleString()} credits = (${record.rolls.join(' + ')}) × ${definition.multiplier}. ${record.source.book}, p. ${record.source.pages.join(', ')}.`;
+    return row;
+  }));
   $('equipment-credits').value = view.inventory.credits;
   $('equipment-weight').textContent = `Carried weight: ${view.carried_weight_lbs.toLocaleString()} lb. Reviewed items only; an encumbrance limit is not yet calculated.`;
   $('equipment-guidance').textContent = view.guidance.join(' ');
@@ -91,6 +100,7 @@ function filterEquipmentCatalog() {
   if (entries.some(item => item.id === previous)) $('equipment-choice').value = previous;
 }
 function wireEquipmentEvents() {
+  $('generate-starting-funds').onclick = () => characterAction('starting-funds',{}).catch(showError);
   $('equipment-category').onchange = filterEquipmentCatalog;
   $('equipment-funds-form').onsubmit = event => {
     event.preventDefault();

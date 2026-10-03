@@ -11,6 +11,7 @@ from .heroes_programs import validate_program_selections, validate_secondary_sel
 from .physical import validate_physical, validate_physical_history
 from .resources import validate_resources
 from .skills import validate_selections
+from .equipment import validate_inventory
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -210,6 +211,11 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs):
     core = primary_pack(character, packs)
+    if 'equipment' in character:
+        equipment_pack = next((item for item in packs if item['id']=='rifts-equipment'),None)
+        if character['game'] != 'rifts' or equipment_pack is None:
+            raise ValueError('Rifts equipment must retain its accepted rule version pin')
+        validate_inventory(character['equipment'],equipment_pack)
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
     validate_resources(character,skill_pack or {})
     if skill_pack is not None:

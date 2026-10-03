@@ -4,7 +4,7 @@
 
 **Blocked by:** 07
 
-**Status:** ready-for-agent
+**Status:** in-progress — 08A implements a reviewed Rifts inventory path; complete equipment acceptance remains open.
 
 - [ ] The behavior described above works through the character application or maintainer interface and UI.
 - [ ] Source-grounded expected results and affected workflow checks pass.

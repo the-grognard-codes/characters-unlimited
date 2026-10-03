@@ -9,3 +9,5 @@ Edge selected Boxing as Related, recording S.D.C. faces 6,4,6 and P.S. 15. Basic
 Other fighting techniques, levels and complete corpus acceptance remain open.
 
 The first frozen Windows run exposed a test assumption: randomized P.P. can make parry absent below eight or add its own bonus above fifteen. The regression now checks the independent Boxing +2 and Athletics +1 contribution entries, retaining the five-attack assertion. Product behavior was unchanged; targeted Standards re-review approves. A local frozen rebuild and both replacement CI runs validate the correction.
+
+Both corrected Windows runs pass (37142194086 and 37142196882). The locally rebuilt frozen application also passes the complete workflow outside sandbox restrictions, including hidden controller startup; the first sandboxed GUI attempt timed out. Merged in PR #45.

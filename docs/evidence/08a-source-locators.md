@@ -1,0 +1,9 @@
+# Representative equipment source review
+
+Original Ultimate Edition PDF pages 270–272 / printed pp. 267–269 were rendered and visually inspected. Printed p. 267 explains environmental armor and movement penalties on named physical checks; it does not apply a universal speed reduction. Printed p. 268 gives Plastic-Man's main-body 35, helmet 30, each arm 15 and each leg 22 M.D.C.; 13 lb; -10% movement skill penalty; 18,000-credit cost. The same page gives Wilk's 320: 2 lb, 1D6 M.D., 1,000 ft / 305 m, 20 shots, one attack per blast, +2 aimed strike and 11,000 credits. Printed p. 269 gives Wilk's 447: 5 lb, 3D6 M.D., 2,000 ft / 610 m, 20 shots per standard clip (no long clip), one attack per blast, +1 aimed strike and 18,000 credits.
+
+Candidates: `aceb60f33074cf592e94` (Plastic-Man), `b7db76a3325aa1ad13bb` (Wilk's 320), `3a5a7404a4d969496b7d` (Wilk's 447). Candidates locate the ingested sections (Markdown lines 15033–15040, 15069–15088 and 15089–15108); original pages independently establish the printed/PDF locators and numerical acceptance. Source inventory files remain unchanged. Markdown SHA-256 `601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9`; PDF SHA-256 `448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c`.
+
+The existing reviewed level-one Energy Pistol W.P. is +1, Energy Rifle W.P. +0 and a trained aimed shot +2 with two actions (printed pp. 360–361). Thus the equipped 320 aimed total is +5 (1+2+2), and the 447 is +3 (0+2+1); gun damage remains the source M.D. dice without P.S. or P.P. contributions. No burst capability is inferred for these single-blast guns.
+
+A 50,000-credit example purchasing two pistols (22,000), one rifle (18,000) and one armor (18,000) leaves -8,000 with guidance. Carried weight is 22 lb; storing the rifle leaves 17 lb. Removing a possession does not invent a refund. Starting O.C.C. grants/funds and other inventory systems remain separate work.

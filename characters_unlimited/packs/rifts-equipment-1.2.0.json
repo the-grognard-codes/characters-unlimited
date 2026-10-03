@@ -1,0 +1,640 @@
+{
+  "id": "rifts-equipment",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.2.0",
+  "schema_version": 1,
+  "name": "Reviewed Rifts Equipment",
+  "currency": "credits",
+  "source_fingerprints": {
+    "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+    "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c"
+  },
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "pages": [
+      98,
+      267,
+      268,
+      269
+    ],
+    "pdf_pages": [
+      101,
+      270,
+      271,
+      272
+    ],
+    "section": "Weapons, Body Armor, Vagabond Starting Money and Standard Equipment",
+    "candidate_ids": [
+      "75af68e659ce2c3e7d24",
+      "aceb60f33074cf592e94",
+      "b7db76a3325aa1ad13bb",
+      "3a5a7404a4d969496b7d",
+      "4b5980c422c4cfb35c00"
+    ]
+  },
+  "items": [
+    {
+      "id": "wilks-320",
+      "name": "Wilk's 320 Laser Pistol",
+      "category": "weapon",
+      "cost_credits": 11000,
+      "weight_lbs": 2,
+      "damage": "1D6 M.D.",
+      "range_feet": 1000,
+      "range_meters": 305,
+      "capacity": 20,
+      "aimed_bonus": 2,
+      "proficiency": "energy-pistol",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Wilk's 320 Laser Pistol",
+        "candidate_ids": [
+          "b7db76a3325aa1ad13bb"
+        ]
+      }
+    },
+    {
+      "id": "wilks-447",
+      "name": "Wilk's 447 Laser Rifle",
+      "category": "weapon",
+      "cost_credits": 18000,
+      "weight_lbs": 5,
+      "damage": "3D6 M.D.",
+      "range_feet": 2000,
+      "range_meters": 610,
+      "capacity": 20,
+      "aimed_bonus": 1,
+      "proficiency": "energy-rifle",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          269
+        ],
+        "pdf_pages": [
+          272
+        ],
+        "section": "Wilk's 447 Laser Rifle",
+        "candidate_ids": [
+          "3a5a7404a4d969496b7d"
+        ]
+      }
+    },
+    {
+      "id": "plastic-man",
+      "name": "Plastic-Man Full Environmental Body Armor",
+      "sheet_name": "Plastic-Man",
+      "category": "armor",
+      "cost_credits": 18000,
+      "weight_lbs": 13,
+      "locations": {
+        "main_body": 35,
+        "helmet": 30,
+        "left_arm": 15,
+        "right_arm": 15,
+        "left_leg": 22,
+        "right_leg": 22
+      },
+      "movement_penalty": -10,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Plastic-Man — Full Environmental Body Armor",
+        "candidate_ids": [
+          "aceb60f33074cf592e94"
+        ]
+      },
+      "movement_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          267
+        ],
+        "pdf_pages": [
+          270
+        ],
+        "section": "All environmental body armor have the following properties",
+        "candidate_ids": [
+          "75af68e659ce2c3e7d24"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-clothes",
+      "name": "Set of clothes",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-baseball-cap",
+      "name": "Baseball cap",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-jacket-or-coat",
+      "name": "Jacket or coat",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-flashlight",
+      "name": "Flashlight",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-backpack",
+      "name": "Backpack",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-sleeping-bag",
+      "name": "Sleeping bag",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-small-duffle-bag",
+      "name": "Small duffle bag",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-wallet-with-id",
+      "name": "Wallet with I.D.",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-bandages",
+      "name": "Bandages",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-aspirin",
+      "name": "Aspirin",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-comb",
+      "name": "Comb",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-toothbrush",
+      "name": "Toothbrush",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-toothpaste",
+      "name": "Toothpaste",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-bar-of-soap",
+      "name": "Bar of soap",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-candy",
+      "name": "Candy (several pieces)",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-sturdy-plastic-bag",
+      "name": "Sturdy plastic bag",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-canteen",
+      "name": "Canteen",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-sunglasses",
+      "name": "Sunglasses",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    }
+  ],
+  "starting_funds": {
+    "character_class": "vagabond",
+    "definitions": [
+      {
+        "id": "credits",
+        "name": "Starting credits",
+        "count": 2,
+        "sides": 6,
+        "multiplier": 100,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            98
+          ],
+          "pdf_pages": [
+            101
+          ],
+          "section": "Vagabond — Money",
+          "candidate_ids": [
+            "4b5980c422c4cfb35c00"
+          ]
+        }
+      },
+      {
+        "id": "saleable_goods",
+        "name": "Starting Black Market saleable goods value",
+        "count": 2,
+        "sides": 6,
+        "multiplier": 100,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            98
+          ],
+          "pdf_pages": [
+            101
+          ],
+          "section": "Vagabond — Money",
+          "candidate_ids": [
+            "4b5980c422c4cfb35c00"
+          ]
+        }
+      }
+    ],
+    "guidance": [
+      "Starting funds are generated once. Four D6 are rolled without attribute house options.",
+      "Starting credits add to the current balance; later purchases or manual balance edits do not change the original rolls.",
+      "Roll starting credits and Black Market saleable goods value separately.",
+      "Saleable goods are recorded as a value; they are not added to credits or converted to equipment.",
+      "The rest of the Vagabond starting equipment is not yet implemented."
+    ]
+  },
+  "starting_gear": {
+    "character_class": "vagabond",
+    "grants": [
+      {
+        "item_id": "vagabond-clothes",
+        "quantity": 2
+      },
+      {
+        "item_id": "vagabond-baseball-cap",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-jacket-or-coat",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-flashlight",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-backpack",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-sleeping-bag",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-small-duffle-bag",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-wallet-with-id",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-bandages",
+        "quantity": 2
+      },
+      {
+        "item_id": "vagabond-aspirin",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-comb",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-toothbrush",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-toothpaste",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-bar-of-soap",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-candy",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-sturdy-plastic-bag",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-canteen",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-sunglasses",
+        "quantity": 1
+      }
+    ],
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        98
+      ],
+      "pdf_pages": [
+        101
+      ],
+      "section": "Vagabond Standard Equipment",
+      "candidate_ids": [
+        "4b5980c422c4cfb35c00"
+      ]
+    },
+    "guidance": [
+      "Grant the fixed personal gear once. It costs no credits and has no reviewed weight or combat effects.",
+      "The receipt records the original grant; later inventory edits or removal do not grant the items again.",
+      "Knife, armor, gun, spare clip and transport choices remain pending."
+    ]
+  }
+}

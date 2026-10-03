@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 from .starting_funds import project_starting_funds
+from .starting_gear import project_starting_gear
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -48,9 +49,9 @@ def _inventory(record, pack):
             if (type(capacity) is not int or capacity < 1 or type(item['shots']) is not int
                     or not 0 <= item['shots'] <= capacity):
                 raise ValueError('Weapon shots must be within the source capacity')
-        elif definition.get('category') == 'armor':
+        elif definition.get('category') in ('armor', 'gear'):
             if item['shots'] is not None:
-                raise ValueError('Armor cannot have weapon shots')
+                raise ValueError('Non-weapon equipment cannot have weapon shots')
         else:
             raise ValueError('Unsupported equipment kind')
     return definitions
@@ -74,6 +75,8 @@ def purchase_inventory(record, pack, item_id, quantity, possession_id):
         raise ValueError('Equipment possession ID must be new and nonempty')
     definition = definitions[item_id]
     cost = definition.get('cost_credits')
+    if cost is None:
+        raise ValueError('This item has no reviewed purchase price. Its class starting grant is available separately.')
     if type(cost) is not int or cost < 0 or cost * quantity > MAX_SAFE_INTEGER:
         raise ValueError('Equipment cost is outside the supported range')
     credits = record['credits'] - cost * quantity
@@ -104,6 +107,7 @@ def project_equipment(character, pack, combat):
         'Stored items have no active combat or armor effects.',
     ]
     carried_weight = 0
+    unknown_weight_quantity = 0
     if inventory['credits'] < 0:
         warnings.append('Credit balance is below zero; the deficit is retained and does not block further purchases.')
     low_pp = (combat is None or combat.get('totals', {}).get('strike', {}).get('value') is None)
@@ -117,7 +121,10 @@ def project_equipment(character, pack, combat):
         projected = {**deepcopy(definition), **deepcopy(possession), 'item_id': possession['item_id']}
         selected.append(projected)
         if possession['location'] == 'carried':
-            carried_weight += definition['weight_lbs'] * possession['quantity']
+            if definition['weight_lbs'] is None:
+                unknown_weight_quantity += possession['quantity']
+            else:
+                carried_weight += definition['weight_lbs'] * possession['quantity']
         if definition['source'] not in sources:
             sources.append(deepcopy(definition['source']))
         if possession['location'] == 'stored' and possession['equipped']:
@@ -180,11 +187,16 @@ def project_equipment(character, pack, combat):
         guidance.append('Stored possessions remain recorded and do not affect carried weight, combat or armor capacity.')
     if armor:
         guidance.append('Armor capacities are per location; movement skill penalties are not applied as a universal speed penalty.')
+    if unknown_weight_quantity:
+        guidance.append('Some carried equipment has no source weight; the known carried weight is an incomplete total.')
     return {
         'catalog': deepcopy(pack['items']), 'inventory': inventory, 'items': selected,
         'attacks': attacks, 'armor': armor, 'carried_weight_lbs': carried_weight,
         'warnings': warnings, 'guidance': guidance, 'sources': sources,
         'starting_funds': project_starting_funds(character, pack),
+        'starting_gear': project_starting_gear(character, pack),
+        'carried_weight_complete': unknown_weight_quantity == 0,
+        'unknown_carried_weight_quantity': unknown_weight_quantity,
     }
 
 
@@ -197,6 +209,8 @@ def compare_equipment_views(before, after):
 
     add('Carried weight (lb)', before['carried_weight_lbs'], after['carried_weight_lbs'])
     add('Starting funds rules', before['starting_funds']['definitions'], after['starting_funds']['definitions'])
+    add('Starting personal gear rules', before['starting_gear']['definitions'], after['starting_gear']['definitions'])
+    add('Carried items with unspecified weight', before['unknown_carried_weight_quantity'], after['unknown_carried_weight_quantity'])
     old_catalog = {item['id']: item for item in before['catalog']}
     new_catalog = {item['id']: item for item in after['catalog']}
     for item_id in dict.fromkeys([*old_catalog, *new_catalog]):

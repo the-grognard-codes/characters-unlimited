@@ -6,7 +6,7 @@
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.6.0",
-    "rifts-equipment": "1.1.0"
+    "rifts-equipment": "1.2.0"
   },
   "definitions": [
     {
@@ -170,6 +170,12 @@
       "version": "1.1.0",
       "filename": "rifts-equipment-1.1.0.json",
       "sha256": "69989afff57e2d6116d0b0974580cb5d1ad4093e921ceb0a890a821628cba29b"
+    },
+    {
+      "id": "rifts-equipment",
+      "version": "1.2.0",
+      "filename": "rifts-equipment-1.2.0.json",
+      "sha256": "cf3c49b28a2a8bba3f66147d617f12ed4692f654827bd0c9aefccc19f9e17b06"
     }
   ]
 }

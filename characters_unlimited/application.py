@@ -22,6 +22,7 @@ from .physical import acquire_physical
 from .resources import acquire_resources, project_resources, update_resource
 from .equipment import validate_inventory, purchase_inventory, project_equipment, compare_equipment_views
 from .starting_funds import acquire_starting_funds
+from .starting_gear import acquire_starting_gear
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -283,6 +284,8 @@ class CharacterApplication:
             target_equipment = self.rule_archive.active('rifts-equipment')
             if 'starting_funds' in character and canonical(previous_equipment.get('starting_funds')) != canonical(target_equipment.get('starting_funds')):
                 raise ValueError('This update changes recorded starting funds rules. History migration is not yet supported; current rules remain intact.')
+            if 'starting_gear' in character and canonical(previous_equipment.get('starting_gear')) != canonical(target_equipment.get('starting_gear')):
+                raise ValueError('This update changes recorded starting gear rules. Receipt migration is not yet supported; current rules remain intact.')
             try:
                 validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), target_equipment)
             except ValueError as error:
@@ -352,6 +355,19 @@ class CharacterApplication:
         pack = self.character_equipment_pack(character)
         validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
         changes = acquire_starting_funds(character, pack, self.die)
+        validate_inventory(changes['equipment'], pack)
+        pins = dict(character['additional_rule_packs'])
+        pins[pack['id']] = pack['version']
+        return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)
+
+    def grant_starting_gear(self, identifier, *, revision):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before adding starting gear.')
+        pack = self.character_equipment_pack(character)
+        validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
+        changes = acquire_starting_gear(character, pack, lambda: str(uuid4()))
         validate_inventory(changes['equipment'], pack)
         pins = dict(character['additional_rule_packs'])
         pins[pack['id']] = pack['version']

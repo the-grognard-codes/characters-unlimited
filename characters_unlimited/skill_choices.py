@@ -13,9 +13,15 @@ def selection_policy(definition, pool, pack):
     return {'allowed': allowed, 'bonus': rule.get('bonus', 0) if allowed else 0}
 
 
+def learned_selection_ids(selections, pack):
+    known = {definition['id']: definition for definition in pack['skills']}
+    return {item['skill_id'] for item in selections
+            if not needs_specialty(known[item['skill_id']]) or item.get('specialty')}
+
+
 def choice_guidance(selections, pack):
     known = {definition['id']: definition for definition in pack['skills']}
-    available = {item['skill_id'] for item in selections}
+    available = learned_selection_ids(selections, pack)
     warnings = []
     for item in selections:
         definition = known[item['skill_id']]

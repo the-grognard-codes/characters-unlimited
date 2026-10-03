@@ -4,7 +4,8 @@ from collections import Counter
 import json
 from pathlib import Path
 from .required_skills import project_required_skills
-from .skill_choices import needs_specialty, selection_policy, choice_guidance
+from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids
+from .proficiency import synergy_contributions, project_proficiency
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -76,6 +77,7 @@ def project_skills(character, pack=PACK):
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
         bonuses[key] = max(bonuses.get(key, 0), selection_policy(definition, item['pool'], pack)['bonus'])
     warnings = choice_guidance(selections, pack)
+    available = learned_selection_ids(selections, pack)
     selected = []
     for item in selections:
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
@@ -90,10 +92,14 @@ def project_skills(character, pack=PACK):
             warnings.append(f"Choose the specialty for each {definition['name']} selection.")
         policy = selection_policy(definition, item['pool'], pack)
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
-        uncapped = definition['base'] + bonus + (10 if repeated else 0) + intelligence
-        selected.append({**definition, **item, 'percentage': min(98, uncapped), 'uncapped_percentage': uncapped,
-                         'quality': ('professional' if item['pool'] != 'secondary' or repeated else 'amateur') if is_domestic else 'trained',
-                         'contributions': {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated else 0, 'intelligence': intelligence}})
+        contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated else 0, 'intelligence': intelligence}
+        contributions.update(synergy_contributions(definition, available))
+        quality = 'trained'
+        if is_domestic:
+            quality = 'professional' if item['pool'] != 'secondary' or repeated else 'amateur'
+        elif definition.get('quality_by_pool'):
+            quality = definition['quality_by_pool'].get(item['pool'], 'trained')
+        selected.append({**definition, **item, **project_proficiency(definition, contributions), 'quality': quality})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool, count in remaining.items():
         if count < 0:

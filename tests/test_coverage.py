@@ -11,6 +11,30 @@ from characters_unlimited.coverage import SourceInventory
 
 
 class CoverageWorkflowTests(unittest.TestCase):
+    def test_verified_locator_correction_replaces_the_same_gap_without_double_counting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / 'Rifts - Damaged.md'
+            source.write_text('# Book\n## Destroyer\n<!-- SOURCE GAP: Wrong printed page 107. -->\n## Other\n<!-- SOURCE GAP: Separate missing passage. -->\n', encoding='utf-8')
+            (Path(directory) / 'Rifts - Damaged.pdf').write_bytes(b'original fixture')
+            inventory = SourceInventory.scan(directory, directory)
+            book = inventory['books'][0]
+            record = {'book_id':book['id'], 'markdown_sha256':book['sha256'],
+                      'pdf_sha256':book['pdf_sha256'], 'gap':{'line':3, 'end_line':3,
+                      'description':'Verified PDF page 108 / printed page 108.'}}
+            revised = SourceInventory.with_verified_gaps(inventory, [record])
+            self.assertEqual(revised['summary']['source_gaps'], 2)
+            destroyer = next(item for item in revised['candidates'] if item['title']=='Destroyer')
+            self.assertEqual(destroyer['source_gaps'], [record['gap']])
+            self.assertEqual(destroyer['status'], 'source-gap')
+            self.assertEqual(revised['books'][0]['source_gaps'][1], book['source_gaps'][1])
+            self.assertIn('107', book['source_gaps'][0]['description'])
+            self.assertEqual(SourceInventory.with_verified_gaps(revised, [record]), revised)
+            self.assertIn('107', source.read_text(encoding='utf-8'))
+        active = SourceInventory.load()
+        self.assertEqual(active['summary']['source_gaps'], 2)
+        damaged = next(book for book in active['books'] if book['id']=='rifts-world-book-09-south-america-2')
+        self.assertIn('printed page 108', damaged['source_gaps'][0]['description'])
+
     def test_verified_pdf_gap_survives_rescan_without_editing_the_source(self):
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / 'Rifts - Example.md'

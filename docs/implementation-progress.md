@@ -6,7 +6,7 @@ The user approved the work plan and the branch → implementation → review →
 
 Read corrected local `sources-markdown` copies from the source-review workstream and use the pipeline's original PDFs for mechanical verification. Do not mutate either workstream. The initial processed-source inventory is preserved in `characters_unlimited/data/source-snapshots/initial-inventory.json`; the active inventory fingerprints the corrected copies. All 13 original PDF hashes are unchanged. Corrections and syntactic checks do not certify untouched mechanics. Application work proceeds without waiting for later conversions; content work depending on unavailable or ambiguous passages remains explicitly tracked.
 
-South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring Destroyer ’Borg mechanics. The active coverage view records its source-gap marker; `02c-destroyer-borg-source-gap.md` holds that option out of ingestion until an intact source is available. Missing abilities are not interpreted as absent or zero.
+South America 2 PDF page 108 / printed page 108 has confirmed damage obscuring Destroyer ’Borg mechanics. The active coverage view records its source-gap marker; `02c-destroyer-borg-source-gap.md` holds that option out of ingestion until an intact source is available. Missing abilities are not interpreted as absent or zero.
 
 ## Slices
 
@@ -59,4 +59,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 02B4: Complete, merged in PR #23; both Windows frozen-build checks pass. All 96 local checks and both review axes approve after documentation and source-provenance repairs. Sixty-two South America 1/Underseas identity records bring coverage to 129 confirmed identities and 128 unassigned entries. Original contents/body names and printed/PDF offsets were checked, with race/class and bi-form dependencies retained. Numerical acceptance, remaining variants, complete corpus identities and builder activation remain pending.
 
-- 02B5: In progress. Forty Atlantis/Splynn racial, occupational, form and conversion identities bring the catalog to 169; numerical rules, full dependency acceptance and named branch fan-out remain pending. Original contents and selected body headings resolve page and class-label discrepancies.
+- 02B5: Complete, merged in PR #24; all 97 local checks, both review axes and both Windows frozen-build checks pass. Forty Atlantis/Splynn racial, occupational, form and conversion identities bring the catalog to 169; numerical rules, full dependency acceptance and named branch fan-out remain pending. Original contents and selected body headings resolve page and class-label discrepancies.
+
+- 02A4: In progress. Original South America 2 neighbor labels correct the damaged-page locator to printed/PDF page 108. Verified metadata replaces the same passage description without changing source hashes or counting another gap.

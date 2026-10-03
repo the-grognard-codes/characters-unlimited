@@ -284,6 +284,7 @@ function renderCoverageOptions() {
     const tickets = document.createElement('p'); tickets.className = 'help';
     tickets.textContent = `Implementation tickets: ${entry.tickets.length ? entry.tickets.join(', ') : 'Awaiting named content batch'}.`;
     row.append(title, status, source, tickets);
+    if (entry.dependencies.length) { const dependencies = document.createElement('p'); dependencies.className = 'help'; dependencies.textContent = 'Recorded dependencies: ' + entry.dependencies.map(id => coverage.options.find(option => option.id === id).name).join(' · ') + '. Complete dependency review remains pending.'; row.append(dependencies); }
     if (entry.aliases.length) { const aliases = document.createElement('p'); aliases.className = 'help'; aliases.textContent = 'Aliases: ' + entry.aliases.join(' · '); row.append(aliases); }
     for (const finding of entry.findings) { const note = document.createElement('p'); note.className = 'help'; note.textContent = finding; row.append(note); }
     return row;

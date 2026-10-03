@@ -1,6 +1,6 @@
 # 02B1: Source-bound canonical option identities
 
-**Status:** in-progress
+**Status:** done (PR #10, merged)
 
 **Dependencies:** 02A2 (complete)
 

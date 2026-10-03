@@ -1,6 +1,6 @@
 # 05B5: Reviewed Communications choices
 
-**Status:** in-progress
+**Status:** done (PR #16)
 
 **Dependencies:** 05B4 and 04B complete; parent 05B remains open.
 

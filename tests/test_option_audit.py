@@ -10,7 +10,7 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
     def test_coverage_distinguishes_confirmed_identities_from_mechanical_acceptance(self):
         with tempfile.TemporaryDirectory() as directory:
             view = CharacterApplication(directory).coverage()
-            self.assertEqual(view['summary']['identity_confirmed'], 51)
+            self.assertEqual(view['summary']['identity_confirmed'], 67)
             self.assertEqual(view['summary']['fully_automated'], 0)
             self.assertEqual(view['summary']['books_reviewed'], 0)
             vagabond = next(entry for entry in view['options'] if entry['id'] == 'rue-vagabond')
@@ -34,8 +34,23 @@ class CanonicalOptionAuditWorkflowTests(unittest.TestCase):
             self.assertEqual(options['hu2-experiment']['source']['pdf_pages'], [21])
             self.assertEqual(options['hu2-mega-hero']['kind'], 'rule')
             self.assertTrue(any('modifier' in finding for finding in options['hu2-mega-hero']['findings']))
-            self.assertEqual(view['summary']['unassigned_options'], 50)
+            self.assertEqual(view['summary']['unassigned_options'], 66)
             self.assertEqual(CharacterApplication(directory).catalog()['games'], [{'id':'rifts','name':'Rifts Ultimate Edition'}])
+
+    def test_heroes_named_paths_link_to_categories_and_shared_robot_rules(self):
+        with tempfile.TemporaryDirectory() as directory:
+            view = CharacterApplication(directory).coverage()
+            options = {entry['id']: entry for entry in view['options']}
+            self.assertEqual(options['hu2-hardware-electrical']['dependencies'], ['hu2-hardware'])
+            self.assertIn('Manhunter', options['hu2-special-hunter']['aliases'])
+            self.assertEqual(options['hu2-robot-true']['source']['printed_pages'], [194, 196])
+            self.assertIn('hu2-robot-vehicle', options['hu2-robot-exoskeleton']['dependencies'])
+            self.assertIn('hu2-robot-construction', options['hu2-robot-android']['dependencies'])
+            self.assertEqual(options['hu2-robot-construction']['kind'], 'construction')
+            self.assertEqual(options['hu2-special-stage-magician']['automation'], 'not-implemented')
+            self.assertEqual(options['hu2-hardware-super-vehicle']['mechanical_review'], 'pending')
+            self.assertEqual(view['summary']['canonical_options'], 67)
+            self.assertEqual(view['summary']['fully_automated'], 0)
 
     def test_dependency_links_cannot_join_games_or_reference_missing_entries(self):
         inventory, catalog = self.fixture()

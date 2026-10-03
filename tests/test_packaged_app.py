@@ -299,6 +299,8 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/'+identifier)['equipment'],character['equipment'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
-                self.assertEqual(len(bootstrap['characters']), 5)
+                self.assertEqual(len(bootstrap['characters']), 7)
+                self.assertEqual(request('/api/characters/'+identifier)['level'],2)
+                self.assertEqual(request('/api/characters/'+identifier)['advancement']['hp_roll'],advancement_die)
             finally:
                 process.terminate(); process.wait(timeout=10)

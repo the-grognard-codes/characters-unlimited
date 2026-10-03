@@ -17,6 +17,11 @@ function combatRow(name, result) {
 function renderCombat(view) {
   combatView = view;
   $('combat-controls').hidden = !view.catalog;
+  $('combat-learned-label').hidden = current.level === 1;
+  $('combat-learned-level').replaceChildren(...Array.from({length:current.level}, (_,index) => {
+    const option=document.createElement('option'); option.value=index+1; option.textContent=index+1; return option;
+  }));
+  $('combat-learned-level').value = current.level;
   $('combat-counts').textContent = view.catalog ? Object.entries(view.remaining).map(([name,count]) => `${name}: ${count} required choices remaining`).join(' · ') + ` · related skills used by training: ${view.related_cost}` : '';
   if (view.catalog) {
     for (const [id, definitions] of [['hand',view.catalog.hand_to_hand],['ancient',view.catalog.ancient],['modern',view.catalog.modern]]) {
@@ -47,8 +52,8 @@ function renderCombat(view) {
   $('saving-bonuses').replaceChildren(...Object.values(view.saving_bonuses || {}).map(result=>combatRow(result.name,result)));
   $('saving-notes').textContent = (view.saving_notes || []).join(' ');
   const attacks=[];
-  view.unarmed.forEach(item => { const row=document.createElement('p'); row.textContent=`${item.name}: ${item.damage} · ${item.actions} action(s)`; attacks.push(row); });
-  view.melee.forEach(item => { attacks.push(combatRow(item.name+' melee strike',item.strike),combatRow(item.name+' melee parry',item.parry)); });
+  view.unarmed.forEach(item => { const row=document.createElement('p'); row.textContent=`${item.name}: ${item.damage ?? 'No damage'} · ${item.actions} action(s)`; attacks.push(row); });
+  view.melee.forEach(item => { attacks.push(combatRow(item.name+' melee strike',item.strike),combatRow(item.name+' melee parry',item.parry)); if (item.thrown) attacks.push(combatRow(item.name+' thrown strike',item.thrown)); });
   view.shooting.forEach(item => {
     const detail=document.createElement('details'), heading=document.createElement('summary');
     heading.textContent=item.name+' shooting ('+(item.trained?'trained':'untrained')+')'; detail.append(heading);
@@ -66,7 +71,7 @@ function renderCombat(view) {
 }
 function saveCombat(changes) {
   if (!skillsReady || navigationBusy || !combatView?.catalog) return;
-  characterAction('combat',{choices:{...combatView.choices,...changes}}).catch(showError);
+  characterAction('combat',{learned_level:Number($('combat-learned-level').value),choices:{...combatView.choices,...changes}}).catch(showError);
 }
 function wireCombatEvents() {
   $('combat-hand').onchange=()=>saveCombat({hand_to_hand:$('combat-hand').value});

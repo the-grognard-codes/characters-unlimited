@@ -14,3 +14,5 @@ Standards found and confirmed repairs for wiring and missingcurrentlearningrecor
 Final local205checks pass (one frozen-only skip), type checking72, compilation and all browser-script syntax checks pass. Both review axes approve corrected implementation. Windows frozen validation runs on the PR before merge.
 
 Initial Windows runs37157991500/37158026171 passed local checks and building, and exercised advancement/import/undo/replay through restart. Their sole failure was the old final library count5; adding the imported level2 character and recovery save correctly makes7. Updated that expectation and explicitly checked retainedlevel2 and HPdie after restart; corrected frozen checks follow.
+
+Corrected Windows runs 37158295005/37158298354 passed all checks, frozen build and restart workflow. PR #55 merged as 226c3d1; this bounded first-advancement slice is complete. Parent19 remains open.

@@ -54,8 +54,9 @@ class CharacterApplication:
         pack = {"rifts": self.pack, "heroes-unlimited": self.heroes_pack}.get(game)
         if pack is None:
             raise ValueError("Select an available game")
-        if type(level) is not int or level not in (1, 2) or (game != 'rifts' and level != 1):
-            raise ValueError('Choose level one, or reviewed Rifts level two')
+        maximum = self.skill_pack.get('higher_advancement', {}).get('max_level', 2) if game == 'rifts' else 1
+        if type(level) is not int or not 1 <= level <= maximum:
+            raise ValueError('Choose a reviewed starting level')
         if character_class is None:
             character_class = pack["classes"][0]["id"]
         racial_rules = next((item for item in pack["races"] if item["id"] == race), None)
@@ -80,7 +81,7 @@ class CharacterApplication:
             character["attributes"][attribute] = roll_attribute(formula, settings, self.die, pack["source"])
         roll_class_modifiers(character['attributes'], selected_class, self.die)
         character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
-        if level == 2:
+        if level > 1:
             character.update(acquire_resources(character, self.skill_pack, self.die))
             choices = validate_combat_choices({}, self.skill_pack)
             levels = remember_learning(character, project_skills(character, self.skill_pack), choices)
@@ -130,9 +131,16 @@ class CharacterApplication:
         record = character.get('advancement')
         if not record or not record['active']:
             raise ValueError('There is no active advancement to undo')
-        restored = {**deepcopy(record['before']), 'id': identifier,
-                    'revision': revision, 'updated_at': character['updated_at'],
-                    'advancement': {**deepcopy(record), 'active': False}}
+        if character['level'] > 2:
+            event = next(item for item in character['later_advancements'] if item['level'] == character['level'])
+            restored = {**deepcopy(event['before']), 'id': identifier,
+                        'revision': revision, 'updated_at': character['updated_at']}
+        else:
+            restored = {**deepcopy(record['before']), 'id': identifier,
+                        'revision': revision, 'updated_at': character['updated_at'],
+                        'advancement': {**deepcopy(record), 'active': False}}
+        if 'later_advancements' in character:
+            restored['later_advancements'] = deepcopy(character['later_advancements'])
         recovery = fresh_copy(character)
         recovery['recovery_of'] = identifier
         export_bundle(restored, self.rule_archive.definitions())
@@ -219,11 +227,23 @@ class CharacterApplication:
         pins = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
         return self.store.update(identifier, {'education':record, 'additional_rule_packs':pins}, revision)
 
-    def select_combat(self, identifier, *, revision, choices):
+    def select_combat(self, identifier, *, revision, choices, learned_level=None):
+        require_revision(revision)
         character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting combat training.')
+        if learned_level is not None and (type(learned_level) is not int or not 1 <= learned_level <= character['level']):
+            raise ValueError('Choose a learned level no later than the current level')
         pack = self.character_skill_pack(character)
         choices = validate_combat_choices(choices, pack)
-        return self.store.update(identifier, self._learning_changes(character, {'combat_choices': choices}, pack), require_revision(revision))
+        changes = self._learning_changes(character, {'combat_choices': choices}, pack)
+        if character['level'] > 1 and learned_level is not None:
+            keys = [learning_key('hand', choices['hand_to_hand'])]
+            keys.extend(learning_key('weapon', identifier) for family in ('ancient','modern') for identifier in choices[family])
+            for key in keys:
+                if key not in character.get('learning_levels', {}):
+                    changes['learning_levels'][key] = learned_level
+        return self.store.update(identifier, changes, revision)
 
     def _character_heroes_pack(self, character, identifier):
         if character['game'] != 'heroes-unlimited':
@@ -330,6 +350,8 @@ class CharacterApplication:
             target = self.rule_archive.active('rifts-domestic-skills')
             if 'advancement' in character and canonical(previous.get('advancement')) != canonical(target.get('advancement')):
                 raise ValueError('This update changes recorded advancement rules. History migration is not yet supported; current rules remain intact.')
+            if character.get('later_advancements') and canonical(previous.get('higher_advancement')) != canonical(target.get('higher_advancement')):
+                raise ValueError('This update changes recorded later advancement rules. History migration is not yet supported; current rules remain intact.')
             if 'resources' in character and canonical(previous.get('resources',{}).get('definitions')) != canonical(target.get('resources',{}).get('definitions')):
                 raise ValueError('This update changes recorded resource rules. Resource migration is not yet supported; current rules remain intact.')
             for skill_id in character.get('physical_acquisitions',{}):

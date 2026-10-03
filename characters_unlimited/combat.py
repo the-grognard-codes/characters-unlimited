@@ -37,6 +37,27 @@ def total(contributions, *, missing=False, actions=1):
     return {'value': None if missing else sum(contributions.values()), 'contributions': contributions, 'actions': actions}
 
 
+def progressed(definition, age):
+    """Accumulate only the training levels this character has actually learned."""
+    effective = dict(definition)
+    moves: list[dict[str, Any]] = []
+    notes: list[str] = []
+    if 'progression' in definition:
+        for step in definition['progression']:
+            if step['level'] > age:
+                continue
+            for stat, gain in step['bonuses'].items():
+                effective[stat] = effective.get(stat, 0) + gain
+            moves.extend(step['moves'])
+            notes.extend(f"{definition['name']}, training level {step['level']}: {note}"
+                         for note in step['notes'])
+    elif age > 1:
+        for stat, gain in definition.get('level_two', {}).items():
+            effective[stat] = effective.get(stat, 0) + gain
+        moves.extend({**move, 'power_eligible': True} for move in definition.get('level_two_moves', []))
+    return effective, moves, notes
+
+
 def project_combat(character, pack):
     saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
     class_rules = pack.get('class_bonuses',{})
@@ -46,7 +67,10 @@ def project_combat(character, pack):
     rules = pack.get('combat')
     gaps = ['Other Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
     if 'advancement' in pack:
-        gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and progression after level two remain pending.'
+        if pack.get('higher_advancement', {}).get('max_level', 2) > 2:
+            gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and other character paths remain pending. Reviewed Vagabond advancement ends at level fifteen.'
+        else:
+            gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and progression after level two remain pending.'
     if character['rules']['version'] == '1.0.0':
         gaps.insert(0, 'This saved primary rule version has no class attribute bonuses; combat uses the attributes currently displayed. An explicit primary-rule upgrade remains pending.')
     if not rules:
@@ -54,8 +78,7 @@ def project_combat(character, pack):
                 'gaps': ['Preview a rule update to incorporate reviewed combat training.', *gaps], 'sources': [], 'remaining': {}}
     choices = validate_combat_choices(character.get('combat_choices', {}), pack)
     hand = next(item for item in rules['hand_to_hand'] if item['id'] == choices['hand_to_hand'])
-    if learning_age(character, 'hand', hand['id']) > 1:
-        hand = {**hand, **{stat: hand.get(stat, 0) + gain for stat, gain in hand.get('level_two', {}).items()}}
+    hand, learned_moves, progression_notes = progressed(hand, learning_age(character, 'hand', hand['id']))
     pp, ps, speed = (character['attributes'][name]['value'] for name in ('PP','PS','SPD'))
     pp_bonus = rules['pp_bonuses'].get(str(min(pp,30)),0)
     low_pp = pp < 8
@@ -73,46 +96,61 @@ def project_combat(character, pack):
         if stat in ('strike','parry','dodge'): contributions['physical_prowess']=pp_bonus
         if stat=='dodge': contributions['slow_speed']=slow
         totals[stat]=total(contributions,missing=low_pp)
+    if 'entangle' in hand:
+        totals['entangle'] = total({'hand_to_hand': hand['entangle']}, missing=low_pp)
+    if 'thrown_strike' in hand:
+        totals['thrown_strike'] = total({'hand_to_hand': hand['thrown_strike'], 'physical_prowess': pp_bonus}, missing=low_pp)
     totals['gun_dodge']=total({'physical_prowess':pp_bonus,'slow_speed':slow},missing=low_pp)
     damage_bonus=max(0,ps-15)
-    totals['damage']=total({'normal_strength':damage_bonus},missing=ps < 1)
+    physical_damage = {'normal_strength': damage_bonus}
+    if (ps >= 8 or 3 <= ps <= 4) and hand.get('damage'):
+        physical_damage['hand_to_hand'] = hand['damage']
+    totals['damage']=total(physical_damage,missing=ps < 1)
     unarmed=[]
-    attacks = [('punch','Punch','1D4',False),('kick','Kick','1D8',False),('power-punch','Power punch','1D4',True)]
-    if learning_age(character, 'hand', hand['id']) > 1:
-        for move in hand.get('level_two_moves', []):
-            attacks.append((move['id'], move['name'], move['dice'], False))
-            attacks.append(('power-' + move['id'], 'Power ' + move['name'].lower(), move['dice'], True))
-    for identifier,name,dice,power in attacks:
+    attacks = [('punch','Punch','1D4',False,1),('kick','Kick','1D8',False,1),('power-punch','Power punch','1D4',True,2)]
+    for move in learned_moves:
+        attacks.append((move['id'], move['name'], move.get('dice'), False, move.get('actions', 1)))
+        if move.get('dice') and move.get('power_eligible', False):
+            attacks.append(('power-' + move['id'], 'Power ' + move['name'].lower(), move['dice'], True, 2))
+    for identifier,name,dice,power,actions in attacks:
+        if dice is None:
+            unarmed.append({'id':identifier,'name':name,'damage':None,'actions':actions})
+            continue
         expression = ('2 × ' if power else '') + dice
         if ps < 1:
             damage='Pending strength interpretation'
         elif ps <= 2:
-            damage = ('Pending low-strength power-punch interpretation' if power else '1D4 S.D.C.' if identifier=='kick' else '1 S.D.C.')
+            damage = ('Pending low-strength power-punch interpretation' if power else '1D4 S.D.C.' if 'kick' in identifier else '1 S.D.C.')
         elif ps <= 4:
-            damage='½ × (' + expression + ') S.D.C.'
+            bonus = totals['damage']['value'] or 0
+            damage='½ × (' + expression + (' + ' + str(bonus) if bonus else '') + ') S.D.C.'
         else:
-            damage=expression + (' + ' + str(damage_bonus) if damage_bonus else '') + ' S.D.C.'
-        unarmed.append({'id':identifier,'name':name,'damage':damage,'actions':2 if power else 1})
+            bonus = totals['damage']['value'] or 0
+            damage=expression + (' + ' + str(bonus) if bonus else '') + ' S.D.C.'
+        unarmed.append({'id':identifier,'name':name,'damage':damage,'actions':actions})
     if ps < 3:
         gaps.append('Low-strength power-punch damage remains pending; normal punch/kick exceptions are shown.')
     melee=[]
     for definition in rules['ancient']:
         if definition['id'] not in choices['ancient']: continue
-        if learning_age(character, 'weapon', definition['id']) > 1:
-            definition = {**definition, **{stat: definition.get(stat, 0) + gain for stat, gain in definition.get('level_two', {}).items()}}
+        definition, _, _ = progressed(definition, learning_age(character, 'weapon', definition['id']))
         melee.append({'id':definition['id'],'name':definition['name'], 'source':definition['source'],
                       'strike':total({**totals['strike']['contributions'],'weapon_proficiency':definition['strike']},missing=low_pp),
-                      'parry':total({**totals['parry']['contributions'],'weapon_proficiency':definition['parry']},missing=low_pp)})
+                      'parry':total({**totals['parry']['contributions'],'weapon_proficiency':definition['parry']},missing=low_pp),
+                      'thrown':total({'physical_prowess':pp_bonus,'hand_to_hand':hand.get('thrown_strike',0),
+                                     'weapon_proficiency':definition.get('thrown',0)},missing=low_pp)})
     shooting=[]
     for definition in rules['modern']:
         trained=definition['id'] in choices['modern']
-        gain = definition.get('level_two', {}).get('strike', 0) if learning_age(character, 'weapon', definition['id']) > 1 else 0
-        bonus=definition['strike'] + gain if trained else 0
+        definition, _, _ = progressed(definition, learning_age(character, 'weapon', definition['id']))
+        bonus=definition['strike'] if trained else 0
+        gun_bonus = hand.get('gun_strike', 0)
+        gun_contribution = {'hand_to_hand_guns':gun_bonus} if gun_bonus else {}
         shooting.append({'id':definition['id'],'name':definition['name'],'trained':trained,'source':definition['source'],
-                         'single':total({'weapon_proficiency':bonus},missing=low_pp),
-                         'aimed':total({'weapon_proficiency':bonus,'aimed':2},missing=low_pp or not trained,actions=2),
-                         'burst':total({'weapon_proficiency_halved':bonus//2} if trained else {'untrained':-3},missing=low_pp),
-                         'wild':total({'weapon_proficiency':bonus,'shooting_wild':-6},missing=low_pp)})
+                         'single':total({'weapon_proficiency':bonus,**gun_contribution},missing=low_pp),
+                         'aimed':total({'weapon_proficiency':bonus,**gun_contribution,'aimed':2},missing=low_pp or not trained,actions=2),
+                         'burst':total({'weapon_proficiency_halved':bonus//2,**gun_contribution} if trained else {'untrained':-3,**gun_contribution},missing=low_pp),
+                         'wild':total({'weapon_proficiency':bonus,**gun_contribution,'shooting_wild':-6},missing=low_pp)})
     warnings=[hand['name']+': unverified prerequisite — '+requirement+'. Choice retained.' for requirement in hand.get('unverified_requirements',[])]
     remaining={}
     for family in ('ancient','modern'):
@@ -127,19 +165,32 @@ def project_combat(character, pack):
         if any(count>1 for count in Counter(choices[family]).values()): warnings.append(f'{family.title()}: duplicate proficiency choices are retained without multiplying their bonuses.')
     attribute_source = {'book':'Rifts - Ultimate Edition','pages':[281,283,284]}
     for name,result in totals.items():
-        result['sources'] = [hand['source']] if name=='attacks' else [attribute_source] if name in ('damage','initiative','gun_dodge') else [hand['source'],attribute_source]
+        if name == 'attacks':
+            result['sources'] = [hand['source']]
+        elif name == 'gun_dodge':
+            result['sources'] = [attribute_source]
+        elif name in ('damage', 'initiative'):
+            result['sources'] = [attribute_source]
+            if hand.get(name) and (name != 'damage' or ps >= 8 or 3 <= ps <= 4):
+                result['sources'].append(hand['source'])
+        else:
+            result['sources'] = [hand['source'], attribute_source]
         result['sources'].extend(item['source'] for item in physical['selected'] if name in item.get('combat',{}))
     for item in melee:
-        for stat in ('strike','parry'): item[stat]['sources'] = [hand['source'],attribute_source,item['source']]
-        for stat in ('strike','parry'):
+        for stat in ('strike','parry','thrown'): item[stat]['sources'] = [hand['source'],attribute_source,item['source']]
+        for stat in ('strike','parry','thrown'):
             item[stat]['sources'].extend(skill['source'] for skill in physical['selected'] if stat in skill.get('combat',{}))
     for item in shooting:
-        for context in ('single','aimed','burst','wild'): item[context]['sources'] = [item['source'],{'book':'Rifts - Ultimate Edition','pages':[361]}]
+        for context in ('single','aimed','burst','wild'):
+            item[context]['sources'] = [item['source'],{'book':'Rifts - Ultimate Edition','pages':[361]}]
+            if hand.get('gun_strike'):
+                item[context]['sources'].append(hand['source'])
     notes = ['Shooting contexts are training examples; actual weapon modes, burst lengths, ammunition and capacity remain pending.',
-             'Gun shooting excludes P.P., hand-to-hand strike and strength damage bonuses. Untrained shooters cannot make aimed shots.',
+             'Gun shooting excludes P.P., general hand-to-hand strike and strength damage bonuses. Assassin’s explicit gun-strike gains apply separately from W.P.; bursts halve only the W.P. contribution. Untrained shooters cannot make aimed shots.',
              'Gun dodge requires seeing the attacker and knowing the shot is coming; subtract 10 within 10 feet or 5 within 50 feet. Athletics and hand-to-hand dodge bonuses do not apply to gunfire or energy blasts (p. 361).',
              'Power punch uses two actions and doubles base dice before adding the normal-human strength bonus.',
-             'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.']
+             'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.',
+             *progression_notes]
     return {'catalog':rules,'choices':choices,'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
             'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
             'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':hand['cost']}
@@ -148,7 +199,7 @@ def project_combat(character, pack):
 def compare_combat_views(before, after):
     def index(view):
         result: dict[tuple[Any, ...], dict[str, Any]] = {('total',name): {'name':name.replace('_',' ').title(), 'value':value['value']} for name,value in view['totals'].items()}
-        for group,stats in [('melee',('strike','parry')),('shooting',('single','aimed','burst','wild'))]:
+        for group,stats in [('melee',('strike','parry','thrown')),('shooting',('single','aimed','burst','wild'))]:
             for item in view[group]:
                 for stat in stats:
                     result[(group,item['id'],stat)]={'name':item['name']+' — '+stat, 'value':item[stat]['value']}

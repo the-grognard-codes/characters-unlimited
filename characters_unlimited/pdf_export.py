@@ -328,13 +328,18 @@ def export_rifts_sheet(character, core, skills, combat):
         record = character['advancement']
         sheet_notes += ('\nLevel-two advancement HP die: ' + str(record['hp_roll']) +
                         (' (active).' if record['active'] else ' (undone; retained for replay).'))
+        for event in character.get('later_advancements', []):
+            sheet_notes += ('\nLevel-' + str(event['level']) + ' advancement HP die: ' + str(event['hp_roll']) +
+                            (' (active).' if event['level'] <= character['level'] else ' (undone; retained for replay).'))
         for skill in [*skills['grants'], *skills['selected']]:
             learned = character.get('learning_levels', {}).get(learning_key('skill', skill['id'], skill.get('specialty', '')))
             if learned is not None:
                 sheet_notes += '\n' + skill['name'] + (' - ' + skill['specialty'] if skill.get('specialty') else '') + ': learned at level ' + str(learned) + '.'
     for attack in combat.get('unarmed', []):
         if attack['id'] not in ('punch', 'kick', 'power-punch'):
-            sheet_notes += '\n' + attack['name'] + ': ' + attack['damage'] + '; ' + str(attack['actions']) + ' action(s). Ultimate Edition pp. 345, 348.'
+            sheet_notes += '\n' + attack['name'] + ': ' + (attack['damage'] or 'No damage') + '; ' + str(attack['actions']) + ' action(s). Ultimate Edition pp. 345, 348.'
+    if combat.get('notes'):
+        sheet_notes += '\nCombat conditions (Ultimate Edition pp. 341, 344–348, 361):\n' + '\n'.join(combat['notes'])
     equipment = skills.get('equipment')
     if equipment is not None:
         fill_equipment(writer.pages[0],equipment,values)
@@ -444,6 +449,9 @@ def export_rifts_sheet(character, core, skills, combat):
     for weapon in combat.get('melee', []):
         strike, parry = (weapon[stat]['value'] for stat in ('strike', 'parry'))
         overflow.append(f'{weapon["name"]}: strike {strike if strike is not None else ""}; parry {parry if parry is not None else ""}')
+        if 'thrown' in weapon:
+            thrown = weapon['thrown']['value']
+            overflow.append(f'{weapon["name"]}: thrown strike {thrown if thrown is not None else ""}')
     for weapon in combat.get('shooting', []):
         if weapon['trained']:
             contexts = [f'{context}: {weapon[context]["value"] if weapon[context]["value"] is not None else ""}'

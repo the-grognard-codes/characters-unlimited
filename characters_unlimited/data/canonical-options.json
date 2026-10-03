@@ -1,13 +1,15 @@
 {
   "schema_version": 1,
   "findings": [
-    "Identity audit currently covers 315 source-bound entries across the core games and all eight supplied Rifts books, with the first six Aliens Unlimited racial groups. This remains a partial identity audit, not full corpus coverage or mechanical acceptance.",
+    "Identity audit currently covers 384 source-bound entries across the core games and all eight supplied Rifts books, including Aliens Unlimited racial groups, named branches, generation/shared rules and monster identities. This remains a partial corpus audit, not numerical or release acceptance.",
     "Remaining core child paths, supplement subpaths, other supplied books and supporting mechanical entries remain to be audited. Identity evidence does not certify numerical rules.",
     "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics.",
     "Mercenary NPC profiles include referenced Uteni, Dysasha, Raksasha, Brodkil, tattooed/witch/psionic paths and Dog Pack Wolf examples. Profile-to-existing-option reconciliation and full racial/template evidence remain pending; named personnel are not invented independent O.C.C.s.",
     "Remaining South America 2 occupation adaptations, heritage variants and referenced magic/augmentation systems need full dependency and named content-ticket review. Destroyer Borg remains blocked by the verified damaged page.",
     "Powers Unlimited 2 category and named creation-branch identities are audited. Its genetic options, mental disciplines, weapon specialties, powers and other supporting mechanics still need complete dependency review and content-ticket fan-out; remaining Heroes books stay pending.",
-    "Aliens Unlimited amphibian, aquatic, ape, avian, canine and feline identities are confirmed against original body headings and footers (PDF = printed +1). Darkith and Wardions retain parent relationships; remaining racial groups, generation systems, supporting mechanics and named content-ticket fan-out stay pending."
+    "Aliens Unlimited amphibian, aquatic, ape, avian, canine and feline identities are confirmed against original body headings and footers (PDF = printed +1). Darkith and Wardions retain parent relationships; remaining racial groups, generation systems, supporting mechanics and named content-ticket fan-out stay pending.",
+    "Aliens Unlimited Humanoid/Insect/Mineral/Reptile/Vegetation identities, embedded caste/training/augmentation branches and shared mineral/plant/generation rules are source-bound. Galactic monster mechanics, full source count reconciliation, remaining supporting entries and content-ticket assignments remain pending.",
+    "Galactic Monsters & Evil source guidance defaults to NPC use except explicit player options. Dark Breeze organization is distinct from its monster namesake; Dopplegangers is a shared family. The book introduction names 84 races, while the audited body has 85 ordinary profiles plus named variants/castes and monster entries; reconcile that source count before closing complete coverage. Other Heroes books, supporting rules and all numerical dependencies remain pending."
   ],
   "entries": [
     {
@@ -10046,6 +10048,2211 @@
       ],
       "findings": [
         "Original body heading and printed footer confirm this feline race. Complete attributes, abilities, education, class compatibility, advancement, equipment, edition reconciliation and mechanical dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-aluta",
+      "name": "Aluta",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "da8e81bae9562ebc98d0"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          98
+        ],
+        "pdf_pages": [
+          99
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Aluta. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending.",
+        "Humanoid section/body starts at printed 98 / PDF 99; alphabetical-list section locator 86 conflicts with original body and needs reconciliation."
+      ]
+    },
+    {
+      "id": "au-arerri",
+      "name": "Arerri",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "f787f466af8dddb00d3a"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          99
+        ],
+        "pdf_pages": [
+          100
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Arerri. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-arismal",
+      "name": "Arismal",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "4f7bab2470a3e6019cca"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          100
+        ],
+        "pdf_pages": [
+          101
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Arismal. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-atorians",
+      "name": "Atorians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Fehrans"
+      ],
+      "candidate_ids": [
+        "5b14c11dd061bdf697e4",
+        "992f8308a1e9f3ee02e7"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          102
+        ],
+        "pdf_pages": [
+          103
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Atorians; Fehrans alias in “a.k.a. Fehrans”. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-darakan",
+      "name": "Darakan",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Darkan"
+      ],
+      "candidate_ids": [
+        "dc627012fed137f64111"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          103
+        ],
+        "pdf_pages": [
+          104
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Body spells Darakan; contents index lists “Darkan”. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending.",
+        "Original body spelling Darakan controls the identity; index Darkan is retained for source lookup, not silent normalization."
+      ]
+    },
+    {
+      "id": "au-hatha",
+      "name": "Hatha",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "fb7ba65164ba275df303"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          103
+        ],
+        "pdf_pages": [
+          104
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Hatha; cave/surface variants below. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-kassans",
+      "name": "Kassans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d911e4122e3c8cdf37ae"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          105
+        ],
+        "pdf_pages": [
+          106
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Kassans. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-klikita",
+      "name": "Klikita",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "dfac79a0a4336cb6b789"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          106
+        ],
+        "pdf_pages": [
+          107
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Klikita; distinct race sharing Rizza with Aluta. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-manarr",
+      "name": "Manarr",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "e242c4030b4cc02a231f"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          107
+        ],
+        "pdf_pages": [
+          108
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Manarr. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-naiden",
+      "name": "Naiden",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "c2c64a0fc728adef403c"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          108
+        ],
+        "pdf_pages": [
+          109
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Naiden; Aborea branch below. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-rotharr",
+      "name": "Rotharr",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "0a9fc42f4ec5d6c6e5e0"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          110
+        ],
+        "pdf_pages": [
+          111
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Rotharr. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-shissans",
+      "name": "Shissans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "ac47f2d539e2fc859141"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          111
+        ],
+        "pdf_pages": [
+          112
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Shissans. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-silison",
+      "name": "Silison",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "4af9569acd9ebd8967e0"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          112
+        ],
+        "pdf_pages": [
+          113
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Silison. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-swip",
+      "name": "Swip",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "7b11f60d861c743f2d1b"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          113
+        ],
+        "pdf_pages": [
+          114
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Swip. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-titon",
+      "name": "Titon",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "3a2a03c9c4862ba11475"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          114
+        ],
+        "pdf_pages": [
+          115
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Titon. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-hatha-cave-dweller",
+      "name": "Hatha: Cave Dweller",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "fb7ba65164ba275df303"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          104
+        ],
+        "pdf_pages": [
+          105
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-hatha"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Explicit separate attributes/abilities under Hatha. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-hatha-surface-dweller",
+      "name": "Hatha: Surface Dweller",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "fb7ba65164ba275df303"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          104
+        ],
+        "pdf_pages": [
+          105
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-hatha"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Explicit separate attributes/abilities under Hatha. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-aborea",
+      "name": "Aborea",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "c2c64a0fc728adef403c"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          108
+        ],
+        "pdf_pages": [
+          109
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-naiden"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Named elite Naiden operative/class branch; distinct bonuses. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-danaus",
+      "name": "Danaus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "a4da2006f325721ecf1a"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          116
+        ],
+        "pdf_pages": [
+          117
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. “Danaus (Atorian Empire)”; polity affiliation, not ancestry. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending.",
+        "Atorian Empire association is political/military history, not racial ancestry."
+      ]
+    },
+    {
+      "id": "au-lixilas",
+      "name": "Lixilas",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "3afb47e340548a8d6915"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          117
+        ],
+        "pdf_pages": [
+          118
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Lixilas. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-manteze",
+      "name": "Manteze",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "85073d255ec146b9c56d"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          118
+        ],
+        "pdf_pages": [
+          119
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Manteze; Queen Mother is a ruling office, not another race. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending.",
+        "Queen Mother is a ruling office, not another race."
+      ]
+    },
+    {
+      "id": "au-photins",
+      "name": "Photins",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "338685c7ce7612848788"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          119
+        ],
+        "pdf_pages": [
+          120
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Photins; former Atorian shock troops, not an Atorian variant. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending.",
+        "Atorian Empire association is political/military history, not racial ancestry."
+      ]
+    },
+    {
+      "id": "au-pyralis",
+      "name": "Pyralis",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "6864a432a3a827a02873"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          120
+        ],
+        "pdf_pages": [
+          121
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Pyralis. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-relogians",
+      "name": "Relogians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "f09f4fd000ac7935dfb8"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          121
+        ],
+        "pdf_pages": [
+          122
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Relogians. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-xippus",
+      "name": "Xippus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "94da45e0558dcf01e790"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          122
+        ],
+        "pdf_pages": [
+          123
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Xippus; Queen caste below. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-xippus-queen",
+      "name": "Xippus: Queen",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "94da45e0558dcf01e790"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          122
+        ],
+        "pdf_pages": [
+          123
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-xippus"
+      ],
+      "findings": [
+        "Original body heading and printed footer confirm the identity. Distinct caste with specified powers, ISP, age and horror factor. All numerical rules, restrictions, advancement, equipment and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-basanite",
+      "name": "Basanite",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Basanites"
+      ],
+      "candidate_ids": [
+        "638ff6360ad533142821"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          124
+        ],
+        "pdf_pages": [
+          125
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Contents and later stat label use plural “Basanites”; common mineral rules apply. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-fredulians",
+      "name": "Fredulians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "f9f5555f2e3192fa85a7"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          126
+        ],
+        "pdf_pages": [
+          127
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Common mineral rules apply. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-lassinikes",
+      "name": "Lassinikes",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "e7616401b6375e35be37"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          127
+        ],
+        "pdf_pages": [
+          128
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Rifts note permits magic O.C.C.s (MD 5775); review those external class dependencies. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-liconians",
+      "name": "Liconians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "83167e87949bdf650402"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          128
+        ],
+        "pdf_pages": [
+          129
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Common mineral rules apply. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-miceans",
+      "name": "Miceans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "8b8ca58af8e03aee8606"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          129
+        ],
+        "pdf_pages": [
+          130
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Previously verified original locator; also related to Thisseras through the TMC organization, which is not a race identity. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-raldemeans",
+      "name": "Raldemeans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "2d1a1b2b4c20813a0c98"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          130
+        ],
+        "pdf_pages": [
+          131
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Alphabetical list truncates the label to “Raldeme”; profile heading is “Raldemeans.” All numerical and edition-dependent rules remain pending.",
+        "Truncated OCR index text is a source transcription discrepancy, not an independently confirmed alternate species."
+      ]
+    },
+    {
+      "id": "au-stoans",
+      "name": "Stoans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "5b9ef6b71e47e35ccfa2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          131
+        ],
+        "pdf_pages": [
+          132
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-mineral-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Common mineral rules apply. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-camleans",
+      "name": "Camleans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d40ab5c9cd0f822f8d4e"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          140
+        ],
+        "pdf_pages": [
+          141
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Singer skills are embedded; Kisentite weapons are an external equipment dependency. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-chianas",
+      "name": "Chianas",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Chiana"
+      ],
+      "candidate_ids": [
+        "e08eaf060e0cf91168b1"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          141
+        ],
+        "pdf_pages": [
+          142
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. The separate villain index uses “Chiana”; profile heading is “Chianas.” All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-erythros",
+      "name": "Erythros",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "7ec0b2848f2ee20440a6"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          142
+        ],
+        "pdf_pages": [
+          143
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Alphabetical list truncates to “Erythro”; profile heading is “Erythros.” All numerical and edition-dependent rules remain pending.",
+        "Truncated OCR index text is a source transcription discrepancy, not an independently confirmed alternate species."
+      ]
+    },
+    {
+      "id": "au-kisent",
+      "name": "Kisent",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Kisents"
+      ],
+      "candidate_ids": [
+        "8c46b0099732f0562ce3"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          143
+        ],
+        "pdf_pages": [
+          144
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Stat heading plural “Kisents”; related Kisentite weapon entries are separate equipment identities. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-lachinelians",
+      "name": "Lachinelians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "14afb47054ca35fc4850"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          144
+        ],
+        "pdf_pages": [
+          145
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Source describes magic and psionic paths; review their shared class/power dependencies. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-sprekalians",
+      "name": "Sprekalians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "194202d6777bd54f2ae2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          145
+        ],
+        "pdf_pages": [
+          146
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Ikta is an embedded experimental/enforcer branch, not an independent profile heading. Thilik-3 / Pówerball drug rules are adjacent dependencies, not racial identities. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-tedeschians",
+      "name": "Tedeschians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "4f53efd1f53ec55f36fb"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          147
+        ],
+        "pdf_pages": [
+          148
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-plant-standard",
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Source says most follow magic; review shared magic dependencies. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-aurovax",
+      "name": "Aurovax",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "3d77921b9e940bf2b3e2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          132
+        ],
+        "pdf_pages": [
+          133
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Printed p.132 begins “Reptile Races” and the Aurovax entry; shares alien-generation and reptile section context. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-baccarus",
+      "name": "Baccarus",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "a27c517f1a46d8fbe3ee"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          133
+        ],
+        "pdf_pages": [
+          134
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Alphabetical list OCR truncates page as “13”; rendered page sequence and +1 offset resolve it to printed 133. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-erittima",
+      "name": "Erittima",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Erittimas"
+      ],
+      "candidate_ids": [
+        "e2015ef278a9c1d672a5"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          134
+        ],
+        "pdf_pages": [
+          135
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. First race heading is singular “Erittima”; its stat heading at MD line 6073 is plural “Erittimas.” All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-jenjorans",
+      "name": "Jenjorans",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "59c952cfcc3e04d0dec3"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          135
+        ],
+        "pdf_pages": [
+          136
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Entry contains a named anti-magic warrior role and associated bonuses (MD line 6143); no separate heading/candidate is shown, so treat as an embedded branch. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-nithians",
+      "name": "Nithians",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "433d88317c88b1ccd3ef"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          136
+        ],
+        "pdf_pages": [
+          137
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Species entry has its own selectable power-category proportions; common alien-generation context applies. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-qua-trau",
+      "name": "Qua-Trau",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "40910fa29d50c32bdc9f"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          137
+        ],
+        "pdf_pages": [
+          138
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Species entry includes alternative bionic/robot/hardware-style power paths; common alien-generation context applies. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-thisseras",
+      "name": "Thisseras",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "f1378b0da2e5d3e77c65"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          138
+        ],
+        "pdf_pages": [
+          139
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Distinct from Thissera-Micean Cooperative (organization, not a race); shared TMC cross-reference with Miceans. All numerical and edition-dependent rules remain pending."
+      ]
+    },
+    {
+      "id": "au-jenjoran-anti-magic-warrior",
+      "name": "Jenjoran Anti-Magic Warrior",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "59c952cfcc3e04d0dec3"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          136
+        ],
+        "pdf_pages": [
+          137
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-jenjorans"
+      ],
+      "findings": [
+        "Original printed 136 / PDF 137 explicitly grants trained anti-magic warriors additional bonuses, a recognition skill, psionic protection and distinct PPE. Embedded named training branch, not another race; full mechanics remain pending."
+      ]
+    },
+    {
+      "id": "au-ikta",
+      "name": "Ikta",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "194202d6777bd54f2ae2",
+        "8bc7b6f03ba0a1d368c4"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          145,
+          146
+        ],
+        "pdf_pages": [
+          146,
+          147
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-sprekalians"
+      ],
+      "findings": [
+        "Original printed 145-146 / PDF 146-147 describes a named experimental Anti-Thilik assault division and separate Ikta power/bonus allocation. This records its augmentation branch, not another species or a general organization-as-race rule. Drug and experimental augmentation mechanics remain pending.",
+        "Markdown column ordering puts the actual Ikta power paragraph at lines 6591-6593 inside the adjacent Powerball candidate. Original printed 146 / PDF 147 locates it within Sprekalian abilities. The Sprekalians stat-heading candidate at line 6612 does not contain that paragraph and is excluded; mechanical ingestion must reconcile the columns before acceptance."
+      ]
+    },
+    {
+      "id": "au-mineral-standard",
+      "name": "Mineral Standard Natural Abilities & Features",
+      "kind": "rule",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "c6b032ee0c4a5fc88f55"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          124
+        ],
+        "pdf_pages": [
+          125
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Original printed 124 / PDF 125 confirms shared mineral resistance, healing, respiration and other natural features. Numerical and cross-edition review remain pending; Rifts adaptation notes do not activate cross-game choices."
+      ]
+    },
+    {
+      "id": "au-plant-standard",
+      "name": "Standard Plant Features & Abilities",
+      "kind": "rule",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "81cc558ccae9a0a2fae4",
+        "3d7739f7ce277fbdf2dd",
+        "6b98364500b0a64cd3d4",
+        "188b95a4d28f133125d2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          140
+        ],
+        "pdf_pages": [
+          141
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Original printed 140 / PDF 141 confirms common plant features, three body-armor choices and heightened senses. Complete numerical, sensory, magic and edition reconciliation remain pending."
+      ]
+    },
+    {
+      "id": "au-alien-character-creation",
+      "name": "Alien Character Creation",
+      "kind": "rule",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "6af1f91c87b4dc1d20d9"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          8
+        ],
+        "pdf_pages": [
+          9
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Attributes, powers, education, resources, equipment, advancement, edition reconciliation and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-expanded-alien-generation",
+      "name": "Expanded Alien Character Generation",
+      "kind": "rule",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "5789c226f9befed2847e"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          12
+        ],
+        "pdf_pages": [
+          13
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-alien-character-creation"
+      ],
+      "findings": [
+        "Original body profile and printed footer confirm the identity. Attributes, powers, education, resources, equipment, advancement, edition reconciliation and complete dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-optional-alien-generation",
+      "name": "Optional Alien Generation Tables",
+      "kind": "rule",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "2af9a6a0f26a2f490363"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          18
+        ],
+        "pdf_pages": [
+          19
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "hu2-aliens"
+      ],
+      "findings": [
+        "Original printed 18 / PDF 19 establishes a distinct quick racial generation procedure replacing most standard steps. It allows exceptional attribute bonuses on results 16-18 and none on 19 or higher, including pools greater than 3D6. All formulas, random tables, manual selection, resources, powers, education and edition reconciliation remain pending."
+      ]
+    },
+    {
+      "id": "au-galactic-monster-player-guidance",
+      "name": "Galactic Monster Player Guidance",
+      "kind": "rule",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "ee058cc2162ace6d00a0"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          148
+        ],
+        "pdf_pages": [
+          149
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Section, not a character identity. Intro establishes the default monster-to-PC exclusion unless a specific entry says otherwise.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-brakkana",
+      "name": "Brakkana",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "8cd40546ef0b7a95b299",
+        "9d49b76d7563acf5edf3"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          148
+        ],
+        "pdf_pages": [
+          149
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Supernatural monster species; NPC/antagonist-facing. Body mentions rumored elite warriors and an empress’s bodyguard; these are not separate named characters or race options.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-cyklops-serpentmen",
+      "name": "Cyklops-Serpentmen",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Cyklops"
+      ],
+      "candidate_ids": [
+        "e0505810dc498ba8607e",
+        "caeaa48cc9d50f7f9825"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          149
+        ],
+        "pdf_pages": [
+          150
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Race; explicit optional PC race. Two same-name candidates are overview and stat block for one identity; stat block says GM discretion.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-dark-breeze",
+      "name": "Dark Breeze",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "d471d4875f1893b081e2"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          151
+        ],
+        "pdf_pages": [
+          152
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Monster/entity group; no explicit PC permission. Same label also names a Galactic Organizations entry (MD 2413, separate candidate `4a0acbd5c35667c1c9a1`); keep that organization distinct.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-devourer-mound",
+      "name": "Devourer Mound",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "3fd359bef5bbee62381b"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          151
+        ],
+        "pdf_pages": [
+          152
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Predatory monster; no explicit PC permission. Animal-like trained predator, not a named personnel example.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-dopplegangers",
+      "name": "Dopplegangers",
+      "kind": "option-family",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "5998568fbde19f884473"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          152
+        ],
+        "pdf_pages": [
+          153
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Umbrella race family / transformation group; not a separate species option. Introduces the three doppleganger races below; keep it as a family heading.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-dop-elpoep",
+      "name": "Dop-Elpoep",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Dop-elpoeps"
+      ],
+      "candidate_ids": [
+        "8b0526f45c4821c64b8a",
+        "18b9caddebbc4432cd08"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          152
+        ],
+        "pdf_pages": [
+          153
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-dopplegangers"
+      ],
+      "findings": [
+        "Doppleganger race; NPC/antagonist-facing. Pronunciation/stat heading “Dop-elpoeps” belongs to the same race.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-reipoc",
+      "name": "Reipoc",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "cb88c6d4b78360940c30",
+        "71ca17dd26c49949662d",
+        "dee6a32a1b151fc6a9cb"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          153
+        ],
+        "pdf_pages": [
+          154
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-dopplegangers"
+      ],
+      "findings": [
+        "Doppleganger race; optional PC with source-stated GM approval. Explicit PC marker appears in a separate candidate between overview and stat profile.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-erishiks",
+      "name": "Erishiks",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "eb470bdabd52153cd11d",
+        "48cc75dfc639bf974ff8"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          154
+        ],
+        "pdf_pages": [
+          155
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-dopplegangers"
+      ],
+      "findings": [
+        "Doppleganger race; monster/NPC-facing. Overview and stat heading describe one identity.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-dragonoid",
+      "name": "Dragonoid",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "3a97ec0432ebfc84a3d7"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          155
+        ],
+        "pdf_pages": [
+          156
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Alien race; explicit optional PC race. The prose distinguishes villain/NPC mystics from the narrower PC power set.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-lotha",
+      "name": "Lotha",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "aabf4e649d23b97df11c",
+        "83a8fc231efefb5d2618"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          156
+        ],
+        "pdf_pages": [
+          157
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Host-controlling monster; explicitly NPC-facing. GM note calls for judicious NPC use; do not model it as a player race.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-mendoline",
+      "name": "Mendoline",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "1575190c7a5d5200ef17",
+        "0f53299478ceb0b6b3bf"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          157
+        ],
+        "pdf_pages": [
+          158
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Alien race, presented as evil enforcers/mercenaries; no explicit PC permission. Overview and stat heading are one identity.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-morphos",
+      "name": "Morphos",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "5acf551446f2dca6454f",
+        "4fdcb7fe0cfd4090082a"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          158
+        ],
+        "pdf_pages": [
+          159
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Predatory monster; no explicit PC permission. Repeated “Morphos” in the first Markdown heading is OCR duplication, not a second identity.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-riathenors",
+      "name": "Riathenors",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [],
+      "candidate_ids": [
+        "355bcf77791b9ede6132"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          159
+        ],
+        "pdf_pages": [
+          160
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Other-dimensional mystic race; no explicit PC permission. Candidate inventory retains the pronunciation heading; no independent NPC/personnel option is named.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
+      ]
+    },
+    {
+      "id": "au-vacuum-ghouls",
+      "name": "Vacuum Ghouls",
+      "kind": "race",
+      "book_id": "aliens-unlimited",
+      "aliases": [
+        "Vacuum Ghoul"
+      ],
+      "candidate_ids": [
+        "a23e129bb089042049ba",
+        "3d36916bbcc87938f933"
+      ],
+      "source": {
+        "markdown_sha256": "44b4ebf5c9f1741b8e00dc8c36d4008f67f2cbd2378ed1e9fc7e55c6746e9c6f",
+        "pdf_sha256": "7522ed23a47cfd6b7add90036d0fe1298837fd26560319f0d73458ad33f36702",
+        "printed_pages": [
+          161
+        ],
+        "pdf_pages": [
+          162
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [
+        "au-galactic-monster-player-guidance"
+      ],
+      "findings": [
+        "Supernatural monster group; no explicit PC permission. Group heading and singular “Vacuum Ghoul” stat block refer to one group.",
+        "Section source defaults to monster/NPC use unless an entry explicitly allows a player character. Cyklops-Serpentmen, Reipoc and Dragonoid have such options; player/NPC distinctions are source guidance, not an application access gate. Full mechanics, powers, magic, eligibility and edition dependencies remain pending."
       ]
     }
   ]

@@ -71,4 +71,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 06A: Complete, merged in PR #30; all 113 local checks, both review axes and both Windows frozen-build checks pass. All twelve Heroes education outcomes support percentile rolls, direct choice, retained history and exact education pack pins. Program slots and bonuses, Secondary/Street allowances and literacy/source guidance are shown. Actual program selection, skills and percentages remain unfinished; parent 06 stays open.
 
-- 02B8: In progress. Forty-four Aliens Unlimited racial/branch identities from six original body groups bring the partial catalog to 315. Original offsets, singular/plural aliases and variant/class relationships are retained. No numerical acceptance or automatic builder activation is certified.
+- 02B8: Complete, merged in PR #31; all 114 local checks, both review axes and both Windows frozen-build checks pass. Forty-four Aliens Unlimited racial/branch identities from six original body groups bring the partial catalog to 315. Original offsets, singular/plural aliases and variant/class relationships are retained. No numerical acceptance or automatic builder activation is certified.
+
+- 02B9: In progress. Sixty-nine additional Aliens profiles, branches, generation/shared rules and monster identities bring the partial catalog to 384. Source count reconciliation, supporting mechanical entries, numerical review and content tickets remain pending.

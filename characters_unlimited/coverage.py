@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import TypedDict
 from uuid import uuid4
+from .option_audit import audited_coverage
 
 
 class SourceGap(TypedDict):
@@ -98,11 +99,19 @@ class SourceInventory:
             temporary.unlink(missing_ok=True)
 
     @staticmethod
+    def with_catalog(inventory, catalog):
+        return audited_coverage(inventory, catalog)
+
+    @staticmethod
     def load() -> dict:
         target = Path(__file__).parent / "data" / "source-inventory.json"
         if not target.exists():
-            return {"books": [], "candidates": [], "summary": {"books": 0, "candidates": 0, "fully_automated": 0, "books_reviewed": 0}}
-        return json.loads(target.read_text(encoding="utf-8"))
+            return SourceInventory.with_catalog(
+                {"books": [], "candidates": [], "summary": {"books": 0, "candidates": 0, "fully_automated": 0, "books_reviewed": 0}},
+                {"schema_version": 1, "entries": [], "findings": ["Source inventory is unavailable."]})
+        inventory = json.loads(target.read_text(encoding="utf-8"))
+        catalog = json.loads((target.parent / 'canonical-options.json').read_text(encoding='utf-8'))
+        return SourceInventory.with_catalog(inventory, catalog)
 
 
 def main():

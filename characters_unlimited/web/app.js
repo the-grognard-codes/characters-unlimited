@@ -269,6 +269,27 @@ $('roll-history').onclick = () => {
   $('history-dialog').showModal();
 };
 $('history-close').onclick = () => $('history-dialog').close();
+function renderCoverageOptions() {
+  const query = $('option-search').value.toLowerCase();
+  const matches = coverage.options.filter(entry => `${entry.name} ${entry.aliases.join(' ')} ${entry.book_id}`.toLowerCase().includes(query));
+  $('option-count').textContent = `${matches.length} canonical option identities. Mechanics and dependency review remain pending.`;
+  $('coverage-options').replaceChildren(...matches.map(entry => {
+    const row = document.createElement('details'); row.className = 'source-entry';
+    const title = document.createElement('summary'); title.textContent = `${entry.name} · ${entry.kind.toUpperCase()} · ${entry.identity_review} identity`;
+    const status = document.createElement('p'); status.className = 'help';
+    status.textContent = `${entry.game} · ${entry.book_id} · mechanics: ${entry.mechanical_review} · dependencies: ${entry.dependency_review} · automation: ${entry.automation}`;
+    const source = document.createElement('p'); source.className = 'help';
+    const sections = entry.candidate_ids.map(id => coverage.candidates.find(candidate => candidate.id === id)).map(candidate => `Markdown lines ${candidate.line}–${candidate.end_line}`).join('; ');
+    source.textContent = `Identity evidence: printed pp. ${entry.source.printed_pages.join(', ')} / PDF pp. ${entry.source.pdf_pages.join(', ')} · ${sections}`;
+    const tickets = document.createElement('p'); tickets.className = 'help';
+    tickets.textContent = `Implementation tickets: ${entry.tickets.length ? entry.tickets.join(', ') : 'Awaiting named content batch'}.`;
+    row.append(title, status, source, tickets);
+    if (entry.aliases.length) { const aliases = document.createElement('p'); aliases.className = 'help'; aliases.textContent = 'Aliases: ' + entry.aliases.join(' · '); row.append(aliases); }
+    for (const finding of entry.findings) { const note = document.createElement('p'); note.className = 'help'; note.textContent = finding; row.append(note); }
+    return row;
+  }));
+}
+$('option-search').oninput = renderCoverageOptions;
 function renderCoverageCandidates() {
   const query = $('coverage-search').value.toLowerCase();
   const matches = coverage.candidates.filter(item => `${item.title} ${item.book_id}`.toLowerCase().includes(query));
@@ -292,7 +313,7 @@ $('source-coverage').onclick = async () => {
   try {
     await flushSave(); coverage = await request('/api/coverage');
     $('builder').hidden = true; $('welcome').hidden = true; $('coverage').hidden = false;
-    $('coverage-summary').textContent = `${coverage.summary.books} books · ${coverage.summary.candidates} extracted sections · ${coverage.summary.books_reviewed} books reviewed · ${coverage.summary.fully_automated} fully automated options · ${coverage.summary.source_gaps || 0} source gaps`;
+    $('coverage-summary').textContent = `${coverage.summary.books} books · ${coverage.summary.candidates} extracted sections · ${coverage.summary.books_reviewed} books reviewed · ${coverage.summary.canonical_options} canonical identities · ${coverage.summary.identity_confirmed} identities confirmed · ${coverage.summary.mechanically_reviewed} mechanically reviewed · ${coverage.summary.unassigned_options} awaiting content tickets · ${coverage.summary.fully_automated} fully automated options · ${coverage.summary.source_gaps || 0} source gaps`;
     $('coverage-books').replaceChildren(...coverage.books.map(book => {
       const entry = document.createElement('section'); entry.className = 'panel';
       const title = document.createElement('h3'); title.textContent = book.filename.replace('.md','');
@@ -308,7 +329,9 @@ $('source-coverage').onclick = async () => {
         const warning = document.createElement('p'); warning.textContent = `Source gap at Markdown lines ${gap.line}–${gap.end_line}: ${gap.description}`; entry.append(warning);
       }
       return entry;
-    })); renderCoverageCandidates();
+    }));
+    $('audit-findings').replaceChildren(...coverage.audit_findings.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
+    renderCoverageOptions(); renderCoverageCandidates();
   } catch(error) { showError(error); } finally { lockNavigation(false); }
 };
 $('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };

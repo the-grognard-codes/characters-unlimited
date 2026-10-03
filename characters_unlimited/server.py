@@ -55,7 +55,10 @@ def create_server(application, port=0):
             if path == "/api/bootstrap":
                 self.respond(200, {"token": token, "catalog": application.catalog(), "characters": application.list()})
             elif path == "/api/coverage":
-                self.respond(200, application.coverage())
+                try:
+                    self.respond(200, application.coverage())
+                except (ValueError, OSError) as error:
+                    self.respond(400, {"error": f"Source audit unavailable: {error}"})
             elif path.startswith("/api/characters/"):
                 try:
                     parts = path.strip('/').split('/')

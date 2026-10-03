@@ -1,0 +1,930 @@
+{
+  "schema_version": 1,
+  "findings": [
+    "Initial identity audit covers only the 30 O.C.C. names in Ultimate Edition printed p. 43 / PDF p. 46. It does not complete the core book or the 13-book corpus.",
+    "Dragon species, racial choices, class variants, supporting mechanical entries and all supplement identities remain to be audited. Identity evidence does not certify numerical rules.",
+    "Unassigned entries require named content-ticket fan-out after the complete option/dependency audit. The existing Vagabond ticket covers only part of its required mechanics."
+  ],
+  "entries": [
+    {
+      "id": "rue-combat-cyborg",
+      "name": "Combat Cyborg",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Combat Borg",
+        "Full Conversion Cyborg"
+      ],
+      "candidate_ids": [
+        "8b395abf97b2cfec2442"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-crazy",
+      "name": "Crazy",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Crazies"
+      ],
+      "candidate_ids": [
+        "075f26b28910ef35f3f7"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-cyber-knight",
+      "name": "Cyber-Knight",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "9bdbb79def369900c6cf"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-glitter-boy",
+      "name": "Glitter Boy",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "7fb1ef3f36d67e4d4757"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-headhunter",
+      "name": "Headhunter",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Partial Cyborg",
+        "Headhunter Techno-Warrior"
+      ],
+      "candidate_ids": [
+        "907d3be47ceafa7ff7f5"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-juicer",
+      "name": "Juicer",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "eecf7c4620764a0d8575"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-merc-soldier",
+      "name": "Merc Soldier",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Hired Gun"
+      ],
+      "candidate_ids": [
+        "9307f71c1078439f0db3"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-robot-pilot",
+      "name": "Robot Pilot",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "b803195d6e5d71beaa66"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-body-fixer",
+      "name": "Body Fixer",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Doctor"
+      ],
+      "candidate_ids": [
+        "293fe2f7d306631d2e2e"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-city-rat",
+      "name": "City Rat",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Streetwise Teen Adventurer"
+      ],
+      "candidate_ids": [
+        "6e975552d54995973a47"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-cyber-doc",
+      "name": "Cyber-Doc",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "M.D. in Cybernetics"
+      ],
+      "candidate_ids": [
+        "580fbe065bfbc3a0c6b7"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-operator",
+      "name": "Operator",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Mechanical & Electrical Engineer/Mechanic"
+      ],
+      "candidate_ids": [
+        "dbb8476bfef005ca73a8"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-rogue-scholar",
+      "name": "Rogue Scholar",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "2a92b26b7db667c8d0b0"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-rogue-scientist",
+      "name": "Rogue Scientist",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "a1c11fb874a5c222c226"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-vagabond",
+      "name": "Vagabond",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Jack-of-Many Trades, Master of None"
+      ],
+      "candidate_ids": [
+        "61c86670570bc9561747"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "partial",
+      "tickets": [
+        "05b-complete-rifts-skill-path"
+      ],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-wilderness-scout",
+      "name": "Wilderness Scout",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "4b5980c422c4cfb35c00"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-elemental-fusionist",
+      "name": "Elemental Fusionist",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "37bb0889c196c4a42e2d"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-ley-line-walker",
+      "name": "Ley Line Walker",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "11f2d1c0391ade2d19b7"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-ley-line-rifter",
+      "name": "Ley Line Rifter",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [],
+      "candidate_ids": [
+        "64b31306e02b57d73e3a"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-mystic",
+      "name": "Mystic",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Psychic & Mage"
+      ],
+      "candidate_ids": [
+        "4adc7951b1f0c75cf7d5"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-shifter",
+      "name": "Shifter",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Dimensional Travelers & Summoners"
+      ],
+      "candidate_ids": [
+        "9a1e6321cbf751b170a9"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-techno-wizard",
+      "name": "Techno-Wizard",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Magic & Technology as One"
+      ],
+      "candidate_ids": [
+        "467fe7fde33f2a93d23f"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-burster",
+      "name": "Burster",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Pyrokinesis"
+      ],
+      "candidate_ids": [
+        "6f545ff2292238cfa8fd"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-dog-boy",
+      "name": "Dog Boy",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Dog Boys",
+        "Coalition Dog Pack",
+        "Mutant Canines"
+      ],
+      "candidate_ids": [
+        "97846b8e761d56723544"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "Dog Boy breed traits, military and independent/feral paths require further option audit."
+      ]
+    },
+    {
+      "id": "rue-psi-stalker",
+      "name": "Psi-Stalker",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Psi-Stalkers",
+        "Mutant Humans"
+      ],
+      "candidate_ids": [
+        "fa2d7a6981b6921648c5"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
+        "Civilized and Wild Psi-Stalker paths require separate child-option and dependency audit; this parent identity does not cover both mechanics."
+      ]
+    },
+    {
+      "id": "rue-mind-melter",
+      "name": "Mind Melter",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Master Psychic"
+      ],
+      "candidate_ids": [
+        "fe616d71f6c0fcfc98a1"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-coalition-grunt",
+      "name": "Coalition Grunt",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Soldier"
+      ],
+      "candidate_ids": [
+        "3e4fc64b96f3ee65ca9b"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-coalition-samas-pilot",
+      "name": "Coalition SAMAS Pilot",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "Elite RPA",
+        "Elite Robot & Power Armor Pilot"
+      ],
+      "candidate_ids": [
+        "2ec2627836858cec2133"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-coalition-military-specialist",
+      "name": "Coalition Military Specialist",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "CS Military Specialist"
+      ],
+      "candidate_ids": [
+        "ec919e0ebedd9c384e7f"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    },
+    {
+      "id": "rue-coalition-technical-officer",
+      "name": "Coalition Technical Officer",
+      "kind": "occ",
+      "book_id": "rifts-ultimate-edition",
+      "aliases": [
+        "CS Technical Officer"
+      ],
+      "candidate_ids": [
+        "267260208bc00de422dc"
+      ],
+      "source": {
+        "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+        "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c",
+        "printed_pages": [
+          43
+        ],
+        "pdf_pages": [
+          46
+        ]
+      },
+      "identity_review": "confirmed",
+      "mechanical_review": "pending",
+      "dependency_review": "pending",
+      "automation": "not-implemented",
+      "tickets": [],
+      "dependencies": [],
+      "findings": [
+        "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending."
+      ]
+    }
+  ]
+}

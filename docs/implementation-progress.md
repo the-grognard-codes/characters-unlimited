@@ -21,7 +21,9 @@ South America 2 PDF page 108 / printed page 107 has confirmed damage obscuring D
 - 18B1: Complete, merged in PR #7. Exact saved versions govern generation, skills, and portable definitions; changing a default does not change a saved pin. All 30 checks, both reviews, browser reopening, and Windows CI pass.
 - 05B1 / 18B2: Complete, merged in PR #8. I.Q. bonus chart and domestic-only explicit correction pass both reviews and Windows CI. Version 1.1.0 applies the bonus once, including beyond-30 intervals; 1.0.0 stays accepted for older saves. Preview/cancel/apply, pre-update backups, stale/failure handling, and portable pins pass 34 checks and browser verification. Other 05B and full 18B cases remain pending.
 
-- 05B2: In progress. Reviewed Vagabond language, pilot and repair choices, required grants, Eyeball/Streetwise synergies, and both horsemanship percentages use domestic 1.2.0. Older definitions remain accepted with explicit upgrade previews. Begging, combat choices, remaining categories, conditional effects, and parent 05B stay open.
+- 05B2: Complete, merged in PR #9; 39 checks, both reviews, browser verification and Windows CI pass. Reviewed Vagabond language, pilot and repair choices, required grants, Eyeball/Streetwise synergies, and both horsemanship percentages use domestic 1.2.0. Older definitions remain accepted with explicit upgrade previews. Begging, combat choices, remaining categories, conditional effects, and parent 05B stay open.
+
+- 02B1: In progress. Source-bound canonical identity records cover 30 core-list O.C.C. names, with aliases and source/candidate links. Mechanical/dependency review, complete corpus identities and named content-ticket fan-out stay pending; unassigned identities remain visible.
 
 ## Pending source ruling
 

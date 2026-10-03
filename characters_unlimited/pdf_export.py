@@ -199,7 +199,7 @@ def fill_saving_bonuses(page, bonuses, values):
         values[matches[0]['/T']] = f'{result["value"]:+d}'
 
 
-def append_continuation(writer, lines):
+def append_continuation(writer, lines, title='RIFTS CHARACTER SHEET - CONTINUATION'):
     if not lines:
         return
     if len(lines) > 12000:
@@ -209,7 +209,7 @@ def append_continuation(writer, lines):
     for start in range(0, len(lines), 60):
         page = start // 60 + 3
         canvas.setFont('Times-Bold', 14)
-        canvas.drawCentredString(306, 756, 'RIFTS CHARACTER SHEET - CONTINUATION')
+        canvas.drawCentredString(306, 756, title)
         canvas.setFont('Times-Roman', 9)
         canvas.drawString(40, 736, 'Skills and character notes')
         for index, line in enumerate(lines[start:start + 60]):

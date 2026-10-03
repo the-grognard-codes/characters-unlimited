@@ -114,4 +114,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08C2: Standard short E-Clips with source price ranges, scoped compatibility, ammunition-preserving exchanges and quantity-preserving split UI implemented under equipment 1.4.0; complete in PR #51 as5b4fa49 after Windows checks37151425759/37151429347 passed. All 191 local checks pass. Other ammunition/recharge, class starting choices and parent 08 remain open.
 
-- 08B3A: Representative free Vagabond armor/gun/knife/transport/spare-clip choices implemented under equipment1.5.0, with original receipt retention and explicit missing transport/broader catalog mechanics. Publication pending; parent08 stays open.
+- 08B3A: Representative free Vagabond armor/gun/knife/transport/spare-clip choices implemented under equipment1.5.0, with original receipt retention and explicit missing transport/broader catalog mechanics. Complete in PR #52 as53b8f66 after Windows checks37153441547/37153445623 passed. All193 local checks, both review axes and browser/PDF verification pass; parent08 stays open.
+
+- 21A: Tailored Heroes Unlimited editable sheet for reviewed identity, attributes, education and program/Secondary skills implemented. Exact rule pins, original selections/allowances, Unicode and matching continuations retained; pending powers/combat/resources/equipment blank. Publication pending; full ticket21 remains open.

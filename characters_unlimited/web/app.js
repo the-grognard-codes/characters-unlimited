@@ -13,7 +13,6 @@ function lockNavigation(busy) {
   navigationBusy = busy;
   setEducationBusy();
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
-  if (current?.game === 'heroes-unlimited') $('export-pdf').disabled = true;
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
   setResourcesBusy();
@@ -58,7 +57,7 @@ function render(character) {
   $('combat-controls').closest('section').hidden = heroes;
   $('heroes-pending').hidden = !heroes;
   $('education-panel').hidden = !heroes;
-  $('export-pdf').disabled = heroes || navigationBusy;
+  $('export-pdf').disabled = navigationBusy;
   $('preview-rule-update').disabled = navigationBusy;
   $('name').value = character.name; $('notes').value = character.notes;
   $('summary-name').textContent = character.name || 'Unnamed adventurer';
@@ -427,12 +426,13 @@ $('pdf-export-dialog').addEventListener('close', () => lockNavigation(false));
 $('pdf-export-cancel').onclick = () => $('pdf-export-dialog').close();
 $('pdf-export-download').onclick = async () => {
   const button = $('pdf-export-download'); button.disabled = true;
+  const target = {id:current.id, game:current.game};
   try {
-    const response = await fetch('/api/characters/' + current.id + '/pdf');
+    const response = await fetch('/api/characters/' + target.id + '/pdf');
     if (!response.ok) throw new Error((await response.json()).error || 'PDF export failed');
     const url = URL.createObjectURL(await response.blob());
     const link = document.createElement('a'); link.href = url;
-    link.download = 'rifts-character-sheet.pdf'; document.body.append(link); link.click(); link.remove();
+    link.download = target.game === 'heroes-unlimited' ? 'heroes-unlimited-character-sheet.pdf' : 'rifts-character-sheet.pdf'; document.body.append(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     $('pdf-export-dialog').close();
   } catch(error) {

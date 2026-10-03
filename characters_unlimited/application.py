@@ -228,7 +228,11 @@ class CharacterApplication:
 
         character = self.get(identifier)
         if character['game'] != 'rifts':
-            raise ValueError('Heroes Unlimited editable PDF remains unfinished')
+            from .heroes_pdf import export_heroes_sheet
+            core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
+            return export_heroes_sheet(character, core,
+                project_education(character.get('education'), self.character_education_pack(character)),
+                project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character)))
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
         combat = project_combat(character,pack)

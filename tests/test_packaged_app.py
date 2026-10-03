@@ -176,6 +176,13 @@ class PackagedApplicationTests(unittest.TestCase):
                                {'revision':hero['revision'],'selections':[{'slot':4,'program':'business'}]}, token)
                 programs = request('/api/characters/' + hero['id'] + '/hero-programs')
                 self.assertEqual(next(item for item in programs['skills'] if item['id'] == 'research')['contributions']['education'], 10)
+                hero_pdf = PdfReader(BytesIO(request('/api/characters/'+hero['id']+'/pdf')))
+                hero_fields = hero_pdf.get_fields()
+                assert hero_fields is not None
+                self.assertEqual(hero_fields['NAME']['/V'], 'Packaged Beacon')
+                self.assertEqual(hero_fields['EDUCATION']['/V'], 'Military Specialist')
+                self.assertEqual(hero_fields['HP'].get('/V', ''), '')
+                self.assertTrue(all('HEROES UNLIMITED' in page.extract_text() for page in hero_pdf.pages))
                 hero = request('/api/characters/'+hero['id']+'/hero-programs',
                                {'revision':hero['revision'],'selections':[{'slot':4,'program':'medical-assistant'}]},token)
                 programs = request('/api/characters/'+hero['id']+'/hero-programs')

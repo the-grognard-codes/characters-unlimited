@@ -36,7 +36,7 @@ class HeroesMentalEnduranceTests(unittest.TestCase):
             current = CharacterApplication(directory,die=lambda sides:4)
             self.assertEqual(len(current.hero_powers_view(hero['id'])['catalog']),1)
             preview = current.preview_rule_upgrade(hero['id'])
-            self.assertIn({'pack_id':'heroes-super-abilities','from':'1.0.0','to':'1.1.0'},preview['changes'])
+            self.assertIn({'pack_id':'heroes-super-abilities','from':'1.0.0','to':'1.2.0'},preview['changes'])
             self.assertEqual(current.get(hero['id']),hero)
             updated = current.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(updated['attributes'],hero['attributes'])
@@ -97,9 +97,9 @@ class HeroesMentalEnduranceTests(unittest.TestCase):
             archive = RuleArchive.load()
             definitions = archive.definitions()
             changed = copy.deepcopy(archive.active('heroes-super-abilities'))
-            changed['version']='1.2.0'
+            changed['version']='1.3.0'
             changed['powers'][1]['attribute_floor']['constant']=23
-            incompatible = RuleArchive([*definitions,changed],{**archive.active_versions(),'heroes-super-abilities':'1.2.0'})
+            incompatible = RuleArchive([*definitions,changed],{**archive.active_versions(),'heroes-super-abilities':'1.3.0'})
             current = CharacterApplication(directory,rule_archive=incompatible)
             with self.assertRaisesRegex(ValueError,'acquired power'):
                 current.preview_rule_upgrade(hero['id'])

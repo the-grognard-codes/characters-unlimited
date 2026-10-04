@@ -18,3 +18,5 @@ Browser reopening shows M.E.29, two original D4 faces, two of four Minor selecti
 [Editable sample](09a3-endurance-sample.pdf)
 
 Full Heroes modifiers, trigger-specific drug/illusion effects, psychic categories, remaining powers/resources/combat/advancement and full corpus acceptance remain open. This is a bounded slice, not final delivery or retrospective.
+
+Merged PR69 asa14be9788327d2d57f96c08a51b41872f27c372c after Windows workflows37178847318(5m15s)/37178849111(5m55s) passed, including frozen executable validation.

@@ -99,6 +99,9 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     if powers:
         if powers['trust_intimidate'] is not None:
             power_lines.append(f"Effective M.A. trust/intimidate: {powers['trust_intimidate']}% (attribute chart, printed p.15 / PDF p.16)")
+        if powers.get('charm_impress') is not None:
+            source = powers['charm_source']
+            power_lines.append(f"Effective P.B. charm/impress: {powers['charm_impress']}% ({source['book']}, printed p.{source['printed_page']} / PDF p.{source['pdf_page']})")
         for power in powers['powers']:
             power_lines.append(f"{power['name']}: recorded target {power['target']}; dice {power['rolls']}; Minor")
             power_lines.extend(power['guidance'])

@@ -444,6 +444,9 @@ class CharacterApplication:
                 before_value = before_powers.get('saving_bonuses',{}).get(identifier,{}).get('value')
                 if before_value != row['value']:
                     preview['combat'].append({'name':row['name']+' save bonus','before':before_value,'after':row['value']})
+            for field,name in (('trust_intimidate','Trust/intimidate (%)'),('charm_impress','Charm/impress (%)')):
+                if before_powers.get(field) != after_powers.get(field):
+                    preview['combat'].append({'name':name,'before':before_powers.get(field),'after':after_powers.get(field)})
             preview['scope'] += ' Compatible power catalog additions are included; recorded acquisitions and dice remain unchanged.'
             preview['gaps'].extend(after_powers['warnings'])
             preview['sources'].extend(f"{row['source']['book']}, {row['name']}, printed p.{row['source']['printed_page']} / PDF p.{row['source']['pdf_page']}" for row in target_powers['powers'])

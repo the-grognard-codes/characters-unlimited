@@ -159,6 +159,8 @@ def project_powers(character, pack, budget_pack):
                 'Possession targets depend on the triggering ability and psychic status.',
                 'Ordinary M.E. bonuses stop at 30; below 16 has no exceptional bonus. Below 1 is unreviewed and remains blank.'] if 'mental_endurance_charts' in pack else []),
             'warnings':warnings, 'history':[{'selections':[next(row['power'] for row in record['acquisitions'] if row['id']==identifier) for identifier in frame]} for frame in record['history']] if record else [],
+            'charm_impress':pack.get('physical_beauty_chart',{}).get(str(min(character['attributes']['PB']['value'],30))),
+            'charm_source':deepcopy(pack.get('physical_beauty_source')),
             'trust_source':deepcopy(pack['mental_affinity_source']),
             'source':deepcopy(pack['source']), 'guidance':deepcopy(pack['guidance']),
             'rules':{'id':pack['id'], 'version':pack['version']}}

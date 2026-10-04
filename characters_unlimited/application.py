@@ -18,6 +18,7 @@ from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
 from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
+from .heroes_power_budget import select_budget, validate_budget, project_budget
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical
 from .resources import acquire_resources, project_resources, update_resource
@@ -217,6 +218,28 @@ class CharacterApplication:
     def character_education_pack(self, character):
         return self._character_heroes_pack(character, 'heroes-education')
 
+    def character_power_budget_pack(self, character):
+        pack = self._character_heroes_pack(character, 'heroes-mutant-power-budget')
+        if character['character_class'] != pack['character_class']:
+            raise ValueError('Power outcome budgets are available for Heroes Unlimited Mutants')
+        return pack
+
+    def power_budget_view(self, identifier):
+        character = self.get(identifier)
+        return project_budget(character.get('power_budget'), self.character_power_budget_pack(character))
+
+    def select_power_budget(self, identifier, *, revision, method, outcome_id=None):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting a power outcome.')
+        pack = self.character_power_budget_pack(character)
+        selection = select_budget(pack, method, outcome_id, self.die)
+        record = {'selection':selection, 'history':[*character.get('power_budget', {}).get('history', []), selection]}
+        validate_budget(record, pack)
+        pins = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
+        return self.store.update(identifier, {'power_budget':record, 'additional_rule_packs':pins}, revision)
+
     def education_view(self, identifier):
         character = self.get(identifier)
         return project_education(character.get('education'), self.character_education_pack(character))
@@ -305,7 +328,8 @@ class CharacterApplication:
             core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
             return export_heroes_sheet(character, core,
                 project_education(character.get('education'), self.character_education_pack(character)),
-                project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character)))
+                project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character)),
+                project_budget(character.get('power_budget'), self.character_power_budget_pack(character)))
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
         combat = project_combat(character,pack)

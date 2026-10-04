@@ -7,6 +7,7 @@ from uuid import UUID, uuid4
 from .generation import roll_attribute, generation_settings, racial_formula
 from .attribute_modifiers import attribute_value
 from .education import validate_education
+from .heroes_power_budget import validate_budget
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
 from .resources import validate_resources
@@ -302,6 +303,11 @@ def validate_sources(character, packs, *, history_frame=False):
             raise ValueError('Later advancement source must match its pinned rules')
         validate_character(before, primary_pack(before, historical))
         validate_sources(before, historical, history_frame=True)
+    if 'power_budget' in character:
+        pack = next((item for item in packs if item['id'] == 'heroes-mutant-power-budget'), None)
+        if character['game'] != 'heroes-unlimited' or pack is None or character['character_class'] != pack['character_class']:
+            raise ValueError('Mutant power budgets must retain their accepted rule version pin')
+        validate_budget(character['power_budget'], pack)
     if 'education' in character:
         pack = next((item for item in packs if item['id'] == 'heroes-education'), None)
         if character['game'] != 'heroes-unlimited' or pack is None:

@@ -10,6 +10,9 @@ South America 2 PDF page 108 / printed page 108 has confirmed damage obscuring D
 
 ## Slices
 
+- 07B2: Complete, merged PR #66 as aa55eea after both Windows workflows passed. Power Kick doubles base dice and adds damage bonuses once for source-permitted styles; two-action variants and learned Karate kicks preserve exact rule pins. Other combat coverage remains open.
+- 09A1: In progress. HU Mutant starting power outcome/count foundation supports rolled or chosen outcomes, retained D4 dice/history and exact pins, portable saves, builder and editable PDF. Individual powers/effects and remaining parent09 requirements remain open.
+
 - 01: Complete, merged in PR #1. Local Rifts Human/Vagabond identity, initial attributes, notes, transactional saves, and reopen path work. Type checking, four application workflow tests, Python/JavaScript syntax checks, and narrow/desktop browser checks pass. Windows GitHub CI also passes.
 - 02: In progress, split into 02A (complete, merged in PR #2) and 02B (complete option audit and bounded content tickets). The scan finds 7,053 section candidates in all 13 books; zero candidates are claimed fully automated. Classifying headings is not a completed corpus audit.
 - 02A2: Complete, merged in PR #6. Preserves the initial manifest and fingerprints corrected copies with 7,065 provisional candidates and one marked source gap. All 25 checks, both reviews, browser checks, and Windows CI pass. Parent 02B remains open.

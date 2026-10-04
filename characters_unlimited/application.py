@@ -348,9 +348,27 @@ class CharacterApplication:
             raise ValueError('Choose education before saving Secondary skills')
         pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
         changes = {'hero_secondary_selections':selections,'additional_rule_packs':pins}
+        if 'training_skill_ids' in pack.get('combat', {}) and 'hero_combat_training' not in character:
+            before = project_hero_physical(character,pack,self.character_education_pack(character))
+            if before['active_training'] is not None:
+                changes['hero_combat_training'] = before['active_training']
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
         return self.store.update(identifier,changes,revision)
+
+    def select_hero_training(self, identifier, *, revision, training_id):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting combat training.')
+        pack = self._character_heroes_pack(character,'heroes-program-skills')
+        if 'training_skill_ids' not in pack.get('combat', {}):
+            raise ValueError('Review a rule update before choosing an active training profile')
+        physical = project_hero_physical(character,pack,self.character_education_pack(character))
+        available = {row['id'] for row in physical['training_choices']}
+        if training_id is not None and (not isinstance(training_id,str) or training_id not in available):
+            raise ValueError('Choose an acquired and currently selected training style')
+        return self.store.update(identifier,{'hero_combat_training':training_id},revision)
 
     def export_character(self, identifier):
         return export_bundle(self.get(identifier), self.rule_archive.definitions())

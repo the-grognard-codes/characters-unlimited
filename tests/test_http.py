@@ -122,7 +122,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.12.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.13.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -160,6 +160,25 @@ class LocalBackupAdapterTests(unittest.TestCase):
                     fields = PdfReader(BytesIO(response.read())).get_fields()
                 assert fields is not None
                 self.assertEqual(fields['ATTACKS']['/V'],'4')
+                payload = json.dumps({'revision':saved['revision'],'selections':['hand-to-hand-basic','hand-to-hand-martial-arts']}).encode()
+                with urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                payload = json.dumps({'revision':saved['revision'],'training_id':'hand-to-hand-martial-arts'}).encode()
+                with self.assertRaises(HTTPError) as denied:
+                    urlopen(Request(path+'/hero-training',data=payload),timeout=5)
+                self.assertEqual(denied.exception.code,403)
+                denied.exception.close()
+                with urlopen(Request(path+'/hero-training',data=payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path+'/hero-programs',timeout=5) as response:
+                    combat = json.load(response)['combat']
+                self.assertEqual(combat['training'],'Hand to Hand: Martial Arts')
+                self.assertEqual(combat['totals']['initiative']['value'],2)
+                with self.assertRaises(HTTPError) as stale:
+                    urlopen(Request(path+'/hero-training',data=payload,headers=headers),timeout=5)
+                self.assertEqual(stale.exception.code,409)
+                stale.exception.close()
+                self.assertEqual(app.get(hero['id']),saved)
             finally:
                 server.shutdown();server.server_close();worker.join(timeout=5)
 

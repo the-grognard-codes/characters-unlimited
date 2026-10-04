@@ -3,6 +3,7 @@ let educationReady = false, educationLoadSequence = 0;
 let heroProgramView = null;
 
 function setEducationBusy() {
+  document.querySelectorAll('#hero-training-form select, #hero-training-form button').forEach(element => element.disabled = navigationBusy || !educationReady || !heroProgramView?.combat?.training_selection_supported);
   document.querySelectorAll('#education-panel select, #education-panel button').forEach(element => element.disabled = navigationBusy || !educationReady);
   document.querySelectorAll('#hero-program-form select, #hero-program-form button').forEach(element => element.disabled = navigationBusy || !educationReady || !heroProgramView?.slots.length);
   document.querySelectorAll('#hero-secondary-form select, #hero-secondary-form button').forEach(element => element.disabled = navigationBusy || !educationReady || !heroProgramView?.secondary.supported || !current.education);
@@ -106,7 +107,7 @@ async function loadEducation(character) {
       const terms = Object.entries(skill.effects.attributes).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`);
       terms.push(...Object.entries(skill.effects.resources).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`));
       terms.push(...Object.entries(skill.effects.combat).map(([name, value]) => `${name.replaceAll('_', ' ')} +${value}`));
-      $('hero-program-skills').append(educationLine(`${skill.name}: ${terms.join(' · ')} · Physical effects apply once; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}`));
+      $('hero-program-skills').append(educationLine(`${skill.name}${skill.combat_active === false ? ' (inactive training)' : ''}: ${terms.join(' · ')} · Physical effects apply once; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}`));
       for (const note of skill.guidance || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
     }
   renderHeroCombat(programs.combat);
@@ -146,6 +147,10 @@ async function loadEducation(character) {
 }
 
 function wireEducationEvents() {
+  $('hero-training-form').onsubmit = event => {
+    event.preventDefault();
+    characterAction('hero-training',{training_id:$('hero-training-choice').value || null}).catch(showError);
+  };
   $('education-choose').onclick = () => characterAction('education', {method:'choose', education_id:$('education-choice').value}).catch(showError);
   $('education-roll').onclick = () => characterAction('education', {method:'roll'}).catch(showError);
   $('hero-program-form').onsubmit = event => {
@@ -161,12 +166,18 @@ function wireEducationEvents() {
 function renderHeroCombat(combat) {
   $('hero-combat-panel').hidden = !combat?.supported;
   if (!combat?.supported) return;
+  $('hero-training-form').hidden = !combat.training_selection_supported;
+  $('hero-training-choice').replaceChildren(...[{id:'',name:'No Hand to Hand'},...combat.training_choices].map(style => {
+    const option = document.createElement('option'); option.value = style.id; option.textContent = style.name; return option;
+  }));
+  $('hero-training-choice').value = combat.active_training || '';
   $('hero-combat-training').textContent = `${combat.training} · parry uses ${combat.parry_actions} ${combat.parry_actions === 1 ? 'action' : 'actions'} · dodge uses ${combat.dodge_actions} action`;
   $('hero-combat-totals').replaceChildren(...Object.entries(combat.totals).map(([name, result]) => {
     const terms = Object.entries(result.contributions).map(([label, value]) => `${label} ${value >= 0 ? '+' : ''}${value}`).join(', ');
     return educationLine(`${name.replaceAll('_', ' ')}: ${result.value ?? 'unreviewed'} (${terms || 'no reviewed bonus'})`);
   }));
   $('hero-combat-unarmed').replaceChildren(...combat.unarmed.map(attack => educationLine(`${attack.name}: ${attack.damage ?? 'damage unreviewed'} · ${attack.actions} ${attack.actions === 1 ? 'action' : 'actions'}`)));
+  $('hero-training-receipts').replaceChildren(...combat.training_receipts.map(receipt => educationLine(`${receipt.name}: ${receipt.active ? 'active training' : receipt.selected ? 'selected, inactive training' : 'removed, retained acquisition'} · no acquisition dice · printed pp. ${receipt.source.pages.join(', ')} / PDF pp. ${receipt.source.pdf_pages.join(', ')}`)));
   $('hero-combat-guidance').replaceChildren(...[
     ...combat.guidance,
     ...combat.sources.map(source => `${source.book}, printed pp. ${source.pages.join(', ')} / PDF pp. ${source.pdf_pages.join(', ')}`),

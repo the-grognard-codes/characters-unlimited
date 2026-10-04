@@ -11,7 +11,9 @@ def project_hero_combat(character, pack, physical):
                 'guidance':['Review a rule update to add Heroes Basic combat.']}
     if character['level'] != 1:
         raise ValueError('Heroes combat advancement is not yet supported')
-    trained = any(row['id'] == rules['basic_skill_id'] for row in physical['selected'])
+    active = physical['active_training']
+    trained = active is not None
+    training = next((row['name'] for row in physical['selected'] if row['id'] == active),'No Hand to Hand')
     pp, ps = (character['attributes'][name]['value'] for name in ('PP','PS'))
     pp_supported = 8 <= pp <= rules['pp_max']
     ps_supported = 8 <= ps <= rules['ps_max']
@@ -40,7 +42,11 @@ def project_hero_combat(character, pack, physical):
         guidance.append('P.P. below 8 or above 50: affected combat totals remain blank pending reviewed low-attribute or limit rules.')
     if not ps_supported:
         guidance.append('P.S. below 8 or above the ordinary human limit of 40: damage remains blank pending reviewed low-attribute or enhanced-strength rules.')
-    return {'supported':True,'training':'Hand to Hand: Basic' if trained else 'No Hand to Hand',
+    if len(physical['training_choices']) > 1:
+        guidance.append('Multiple training choices are retained; only the active profile contributes. Choose an active style below. The book permits one Hand to Hand skill; extra choices remain on the honor system.')
+    return {'supported':True,'training':training,'active_training':active,
+            'training_choices':deepcopy(physical['training_choices']),'training_receipts':deepcopy(physical['training_receipts']),
+            'training_selection_supported':'training_skill_ids' in rules,
             'totals':totals,'unarmed':unarmed,'parry_actions':0 if trained else 1,'dodge_actions':1,
             'guidance':guidance,'sources':[deepcopy(rules['source']),deepcopy(rules['attribute_source'])],
             'rules':{'id':pack['id'],'version':pack['version']}}

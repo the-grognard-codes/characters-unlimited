@@ -117,8 +117,10 @@ def project_programs(character, pack, education_pack, power_pack=None):
     if secondary_rules:
         names = {skill['id']:skill['name'] for skill in pack['skills']}
         for identifier,count in Counter(secondary_choices).items():
+            if identifier in secondary_rules.get('conditional_guidance', {}):
+                warnings.append(secondary_rules['conditional_guidance'][identifier])
             if count>1:
-                warnings.append(f"Repeated Secondary {names[identifier]} retained and counted; its proficiency occurs once.")
+                warnings.append(f"Repeated Secondary {names[identifier]} retained and counted; its effects occur once.")
             if identifier not in secondary_rules['eligible_skill_ids']:
                 warnings.append(f"{names[identifier]} is outside the eligible Secondary categories. Choice retained without an education bonus.")
         if secondary_used>allowance:

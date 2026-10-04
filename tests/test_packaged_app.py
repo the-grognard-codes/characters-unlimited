@@ -374,6 +374,14 @@ class PackagedApplicationTests(unittest.TestCase):
                                {'revision':city['revision'],'inventory':city_inventory}, token)
                 self.assertIn('1D6',request(city_path+'/equipment')['melee_attacks'][0]['damage'])
 
+                self.assertNotIn('power-kick',[move['id'] for move in request(city_path+'/skills')['combat']['unarmed']])
+                city = request(city_path+'/combat',
+                               {'revision':city['revision'],'choices':{'hand_to_hand':'expert','ancient':['knife']}}, token)
+                city_view = request(city_path+'/skills')
+                city_moves = {move['id']:move for move in city_view['combat']['unarmed']}
+                self.assertEqual(city_moves['power-kick']['actions'],2)
+                self.assertNotIn('power-karate-kick',city_moves)
+
                 city_portable = request(city_path+'/export')
                 city_imported = request('/api/import', {'bundle':city_portable}, token)
                 self.assertEqual(city_imported['character_class'], 'city-rat')
@@ -389,6 +397,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(city_fields['ARMOR']['/V'], 'Urban Warrior')
                 self.assertEqual(city_fields['HIT POINTS']['/V'], str(city_resources['HP']['value']))
                 self.assertIn('Original starting knife',' '.join(str(field.get('/V','')) for field in city_fields.values()))
+                self.assertIn('Power kick:',' '.join(str(field.get('/V','')) for field in city_fields.values()))
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:

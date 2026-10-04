@@ -14,3 +14,5 @@ Browser independently grants knife first, retains2100credits and leaves armor av
 
 Handgun, M.D. pistol/spare clips, transport, implants and full class/equipment acceptance remain open. No final release or retrospective is claimed.
 Final full local suite after guidance repair:241 tests pass, one frozen-only skip.
+
+Merged PR65 ase670451 after both Windows full/frozen workflows passed.

@@ -4,7 +4,7 @@ import json
 from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
-from .generation import roll_attribute, generation_settings, racial_formula
+from .generation import roll_attribute, generation_settings, racial_formula, racial_sources
 from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
 from .heroes_power_budget import validate_budget
@@ -385,9 +385,11 @@ def validate_sources(character, packs, *, history_frame=False):
                *([resource_snapshot] if resource_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     effects = class_effects(selected_class)
+    race = next(item for item in core['races'] if item['id'] == character['race'])
+    sources = racial_sources(race, core['source'])
     for attributes in records:
         for name, value in attributes.items():
-            if canonical(value['explanation']['source']) != canonical(core['source']):
+            if canonical(value['explanation']['source']) != canonical(sources[name]):
                 raise ValueError('Generated attribute sources must match the pinned rule definition')
             effect = effects.get(name)
             modifiers = []

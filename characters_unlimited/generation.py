@@ -1,5 +1,6 @@
 """Dice-pool generation from accepted racial formulas."""
 
+from copy import deepcopy
 from .attribute_modifiers import ATTRIBUTE_NAMES
 
 
@@ -55,6 +56,19 @@ def racial_formulas(race, settings=None):
         if any(formula['count'] and formula['sides'] == 1 for formula in formulas.values()):
             raise ValueError('Cannot reroll ones on a one-sided die')
     return formulas
+
+
+def racial_sources(race, core_source):
+    overrides = race.get('attribute_sources', {})
+    default = race.get('source', core_source)
+    if not isinstance(overrides, dict) or set(overrides) - set(ATTRIBUTE_NAMES):
+        raise ValueError('Racial attribute sources must reference known attributes')
+    for source in [default, *overrides.values()]:
+        if (not isinstance(source, dict) or
+                any(not isinstance(source.get(key), str) or not source[key].strip()
+                    for key in ('book', 'section'))):
+            raise ValueError('Racial attribute evidence needs a book and section')
+    return {name: deepcopy(overrides.get(name, default)) for name in ATTRIBUTE_NAMES}
 
 
 def racial_formula(race, attribute):

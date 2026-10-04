@@ -22,7 +22,7 @@ from .heroes_power_budget import select_budget, validate_budget, project_budget
 from .heroes_powers import select_powers, project_powers, power_resource_contributions
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical, validate_physical_upgrade
-from .heroes_physical import acquire_hero_physical, project_hero_physical
+from .heroes_physical import acquire_hero_physical, project_hero_physical, preserve_training_choice
 from .heroes_combat import project_hero_combat
 from .resources import acquire_resources, project_resources, update_resource
 from .equipment import validate_inventory, purchase_inventory, split_inventory, reload_inventory, project_equipment, compare_equipment_views
@@ -330,6 +330,7 @@ class CharacterApplication:
             raise ValueError('Choose education before saving scholastic programs')
         pins = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
         changes = {'hero_program_selections':selections, 'additional_rule_packs':pins}
+        changes.update(preserve_training_choice(character,pack,self.character_education_pack(character)))
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
         return self.store.update(identifier, changes, revision)
@@ -350,10 +351,7 @@ class CharacterApplication:
             raise ValueError('Choose education before saving Secondary skills')
         pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
         changes = {'hero_secondary_selections':selections,'additional_rule_packs':pins}
-        if 'training_skill_ids' in pack.get('combat', {}) and 'hero_combat_training' not in character:
-            before = project_hero_physical(character,pack,self.character_education_pack(character))
-            if before['active_training'] is not None:
-                changes['hero_combat_training'] = before['active_training']
+        changes.update(preserve_training_choice(character,pack,self.character_education_pack(character)))
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
         return self.store.update(identifier,changes,revision)

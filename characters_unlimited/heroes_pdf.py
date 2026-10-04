@@ -194,6 +194,17 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
         for group, choices in selection.get('choices', {}).items():
             lines.extend(wrap_lines(f"Recorded choice: {names[selection['program']]} slot {selection['slot']+1} / {group}: "+
                          ', '.join(skill_names[identifier] for identifier in choices), 530))
+    for choice_view in programs.get('program_choices', []):
+        for group in choice_view['groups']:
+            if 'selection_costs' not in group:
+                continue
+            lines.extend(wrap_lines(f"{group['name']}: {group['credited']} selections used / {group['count']} allowed / {group['remaining']} remaining",530))
+            if group.get('credit_certified') is False:
+                lines.extend(wrap_lines('Credit uncertified: repeat choices grant no new skills or Physical effects while the remaining-category entitlement is pending.',530))
+            lines.extend(wrap_lines(group.get('guidance',''),530))
+            source = group['source']
+            lines.extend(wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
+                                    ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])),530))
     if secondary['selections']:
         lines.extend(wrap_lines('Recorded Secondary choices: '+
                      ', '.join(skill_names[identifier] for identifier in secondary['selections']), 530))

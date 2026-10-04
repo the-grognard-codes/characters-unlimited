@@ -122,7 +122,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.17.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.18.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -339,3 +339,25 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 server.shutdown()
                 server.server_close()
                 worker.join(timeout=3)
+
+    def test_physical_program_http_uses_weighted_costs_and_preserves_saved_revision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:4)
+            c=app.create(game='heroes-unlimited')
+            c=app.select_education(c['id'],revision=0,method='choose',education_id='high-school')
+            server=create_server(app);worker=threading.Thread(target=server.serve_forever,daemon=True);worker.start()
+            try:
+                base=f'http://127.0.0.1:{server.server_port}'
+                with urlopen(base+'/api/bootstrap',timeout=5) as response:token=json.load(response)['token']
+                path=base+'/api/characters/'+c['id']+'/hero-programs'
+                payload=json.dumps({'revision':c['revision'],'selections':[{'slot':0,'program':'physical-athletic','choices':{'physical':['boxing','hand-to-hand-martial-arts']}}]}).encode()
+                headers={'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
+                with urlopen(Request(path,data=payload,headers=headers),timeout=5) as response:saved=json.load(response)
+                with urlopen(path,timeout=5) as response:view=json.load(response)
+                self.assertEqual(view['program_choices'][0]['groups'][0]['credited'],4)
+                self.assertEqual(view['combat']['totals']['attacks']['value'],5)
+                self.assertEqual(view['warnings'],[])
+                with self.assertRaises(HTTPError) as stale:urlopen(Request(path,data=payload,headers=headers),timeout=5)
+                self.assertEqual(stale.exception.code,409);stale.exception.close()
+                self.assertEqual(app.get(c['id']),saved)
+            finally:server.shutdown();server.server_close();worker.join(timeout=5)

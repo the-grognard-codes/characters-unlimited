@@ -16,3 +16,5 @@ Browser sample: Basic plus Boxing gives five attacks, parry/dodge2, roll3, P.S.1
 [Editable sample](06p-boxing-sample.pdf)
 
 Physical programs, other skills/maneuvers, Heroes advancement, equipment and full corpus acceptance remain open. Parent06/07/09 remain open.
+
+06P merged in PR81 as f3e484467afb02da9d72ed7448a71351913ee72d after Windows37196033706(4m14s)/37196035909(7m16s) passed, including packaged executable validation.

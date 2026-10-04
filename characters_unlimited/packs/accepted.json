@@ -5,7 +5,7 @@
     "rifts-domestic-skills": "2.12.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
-    "heroes-program-skills": "1.17.0",
+    "heroes-program-skills": "1.18.0",
     "rifts-equipment": "1.10.0",
     "heroes-mutant-power-budget": "1.0.0",
     "heroes-super-abilities": "1.3.0",
@@ -389,6 +389,12 @@
       "version": "1.17.0",
       "filename": "heroes-program-skills-1.17.0.json",
       "sha256": "7266cf6071cfd28a3f553b3966117f50c327ad22d8cd9f2c05099e2afd271d46"
+    },
+    {
+      "id": "heroes-program-skills",
+      "version": "1.18.0",
+      "filename": "heroes-program-skills-1.18.0.json",
+      "sha256": "5f4aa2f1c70f7e7eeb0a0880cdbc5ac487c1b0ce3c3c31ccbf486fd799159cf1"
     }
   ]
 }

@@ -16,7 +16,7 @@ function heroPowerSource(source) {
 }
 
 function heroPowerAttributeLabel(attribute) {
-  return ({MA:'M.A.', ME:'M.E.', IQ:'I.Q.', PS:'P.S.', PP:'P.P.', PE:'P.E.'})[attribute] || attribute.replaceAll('_', ' ');
+  return ({MA:'M.A.', ME:'M.E.', PB:'P.B.', IQ:'I.Q.', PS:'P.S.', PP:'P.P.', PE:'P.E.'})[attribute] || attribute.replaceAll('_', ' ');
 }
 
 function heroPowerDiceFormula(formula) {
@@ -44,6 +44,10 @@ async function loadHeroPowers(character) {
   $('hero-powers-trust').textContent = view.trust_intimidate == null
     ? `Trust/intimidate at effective M.A. ${mentalAffinity}: no exceptional chart percentage.`
     : `Trust/intimidate at effective M.A. ${mentalAffinity}: ${view.trust_intimidate}%`;
+  $('hero-powers-charm').hidden = !view.charm_source;
+  $('hero-powers-charm').textContent = view.charm_impress == null
+    ? `Charm/impress at effective P.B. ${current.attributes.PB.value}: no exceptional chart percentage.`
+    : `Charm/impress at effective P.B. ${current.attributes.PB.value}: ${view.charm_impress}% (${heroPowerSource(view.charm_source)})`;
   const selected = new Set(view.selections);
   const acquired = new Map(view.powers.map(power => [power.id, power]));
   $('hero-powers-list').replaceChildren(...view.catalog.map(definition => {

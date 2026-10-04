@@ -161,3 +161,9 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 09A2: Complete in PR68 as8c37ee4 after Windows full/frozen workflows37177547682/37177550490 passed.
 
 - 09A3: Chosen Extraordinary Mental Endurance, named saving contributions/targets and explicit compatible power-pack updates implemented. Source, browser and editable PDF verified; both review axes approve. Local261 tests pass (one frozen-only skip), mypy93 files, compile/JavaScript checks pass. Windows checks pending; parent09 remains open.
+
+- 09A3: Complete in PR69 asa14be97 after both Windows full/frozen workflows37178847318/37178849111 passed.
+
+- 09A4: Chosen Extraordinary Physical Beauty and supporting Palming under immutable power1.2/skills1.8 implemented. Higher-target, separate charm chart and named skill bonuses/source synergies verified in public worked examples; independent review and full/browser/PDF validation pending. Parent09 remains open.
+
+- 09A4: Both review axes approve after Secondary guidance repair. Final 266 local tests pass (one frozen-only skip), strict mypy94, compile/JS checks, browser remove/reselect and three-page editable PDF verification pass. Windows PR checks pending; parent09 remains open.

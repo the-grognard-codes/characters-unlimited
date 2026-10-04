@@ -1,0 +1,263 @@
+{
+  "id": "heroes-super-abilities",
+  "version": "1.2.0",
+  "game": "heroes-unlimited",
+  "character_class": "mutant",
+  "name": "Reviewed chosen Mutant super abilities",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Extraordinary Mental Affinity",
+    "printed_page": 231,
+    "pdf_page": 232,
+    "markdown_lines": [
+      13829,
+      13837
+    ],
+    "candidate_id": "2d704fa8c1e783f51254"
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "mental_affinity_chart": {
+    "16": 40,
+    "17": 45,
+    "18": 50,
+    "19": 55,
+    "20": 60,
+    "21": 65,
+    "22": 70,
+    "23": 75,
+    "24": 80,
+    "25": 84,
+    "26": 88,
+    "27": 92,
+    "28": 94,
+    "29": 96,
+    "30": 97
+  },
+  "mental_affinity_source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Attribute Bonus Chart",
+    "printed_page": 15,
+    "pdf_page": 16,
+    "markdown_lines": [
+      803,
+      819
+    ],
+    "candidate_id": "434a46446c6eaa474c6d"
+  },
+  "powers": [
+    {
+      "id": "extraordinary-mental-affinity",
+      "name": "Extraordinary Mental Affinity",
+      "category": "minor",
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "section": "Extraordinary Mental Affinity",
+        "printed_page": 231,
+        "pdf_page": 232,
+        "markdown_lines": [
+          13829,
+          13837
+        ],
+        "candidate_id": "2d704fa8c1e783f51254"
+      },
+      "attribute_floor": {
+        "attribute": "MA",
+        "count": 1,
+        "sides": 6,
+        "constant": 24
+      },
+      "skill_bonus": {
+        "amount": 10,
+        "skill_ids": [
+          "seduction",
+          "pick-pockets"
+        ],
+        "tags": [
+          "deception",
+          "sleight-of-hand"
+        ]
+      },
+      "guidance": [
+        "The recorded target raises calculated M.A. only when higher. Manual fixed values and adjustments remain available.",
+        "+10% to seduction, pick pockets and reviewed deception/sleight-of-hand skills; this power grants no skills."
+      ]
+    },
+    {
+      "id": "extraordinary-mental-endurance",
+      "name": "Extraordinary Mental Endurance",
+      "category": "minor",
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "section": "Extraordinary Mental Endurance",
+        "printed_page": 231,
+        "pdf_page": 232,
+        "markdown_lines": [
+          13839,
+          13853
+        ],
+        "candidate_id": "730a462645e78f2dd67c"
+      },
+      "attribute_floor": {
+        "attribute": "ME",
+        "count": 2,
+        "sides": 4,
+        "constant": 21
+      },
+      "saving_bonuses": {
+        "mind-altering-drugs": 6,
+        "horror-factor": 6,
+        "possession": 6,
+        "magical-illusions": 1
+      },
+      "saving_targets": {
+        "psionics": 12
+      },
+      "guidance": [
+        "The recorded target raises calculated M.E. only when higher. Manual fixed values and adjustments remain available.",
+        "Needs 12 to save against psionic attacks, adding the ordinary M.E. bonus.",
+        "Adds 6 against mind-altering drugs, Horror Factor and possession, and 1 against magical illusions. These are named roll bonuses, not universal roll targets."
+      ],
+      "saving_attribute_bonuses": {
+        "possession": {
+          "chart": "psionics",
+          "source": {
+            "book": "Heroes Unlimited - RPG - 2E",
+            "section": "Transferal/Possession: Saving Throw",
+            "printed_page": 295,
+            "pdf_page": 296,
+            "markdown_lines": [
+              18626,
+              18645
+            ],
+            "candidate_id": "e03f0c73cf4161de78d5"
+          }
+        }
+      }
+    },
+    {
+      "id": "extraordinary-physical-beauty",
+      "name": "Extraordinary Physical Beauty",
+      "category": "minor",
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "section": "Extraordinary Physical Beauty",
+        "printed_page": 232,
+        "pdf_page": 233,
+        "markdown_lines": [
+          13899,
+          13908
+        ],
+        "candidate_ids": [
+          "41b37b85c10a2cf0807f",
+          "832ac8c0fc2bb6aa9903"
+        ]
+      },
+      "attribute_floor": {
+        "attribute": "PB",
+        "count": 2,
+        "sides": 4,
+        "constant": 20
+      },
+      "skill_bonus": {
+        "amount": 10,
+        "skill_ids": [
+          "research",
+          "interrogation",
+          "seduction",
+          "palming",
+          "pick-pockets"
+        ],
+        "tags": []
+      },
+      "guidance": [
+        "The recorded target raises calculated P.B. only when higher. Manual fixed values and adjustments remain available.",
+        "Adds 10% to acquired Research, Interrogation, Seduction, Palming and Pick Pockets. No skills are granted; Interrogation still needs a reviewed program path.",
+        "Charm/impress uses the ordinary mortal P.B. chart, with attribute bonuses capped at 30."
+      ]
+    }
+  ],
+  "guidance": [
+    "Chosen Extraordinary Mental Affinity, Mental Endurance and Physical Beauty are available. Other powers and global random selection remain pending.",
+    "Power dice ignore attribute house options. Removing and reselecting the power reuses its recorded acquisition.",
+    "Trust/intimidate uses the ordinary mortal M.A. chart; below16 has no exceptional percentage and above30 uses97%.",
+    "Charm/impress uses the ordinary mortal P.B. chart; below 16 has no exceptional percentage and above 30 uses 92%."
+  ],
+  "mental_endurance_charts": {
+    "psionics": {
+      "16": 1,
+      "17": 1,
+      "18": 2,
+      "19": 2,
+      "20": 3,
+      "21": 3,
+      "22": 4,
+      "23": 4,
+      "24": 5,
+      "25": 5,
+      "26": 6,
+      "27": 6,
+      "28": 7,
+      "29": 7,
+      "30": 8
+    },
+    "insanity": {
+      "16": 1,
+      "17": 1,
+      "18": 2,
+      "19": 2,
+      "20": 3,
+      "21": 4,
+      "22": 5,
+      "23": 6,
+      "24": 7,
+      "25": 8,
+      "26": 9,
+      "27": 10,
+      "28": 11,
+      "29": 12,
+      "30": 13
+    }
+  },
+  "mental_endurance_source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Attribute Bonus Chart",
+    "printed_page": 15,
+    "pdf_page": 16,
+    "markdown_lines": [
+      803,
+      819
+    ],
+    "candidate_id": "434a46446c6eaa474c6d"
+  },
+  "physical_beauty_chart": {
+    "16": 30,
+    "17": 35,
+    "18": 40,
+    "19": 45,
+    "20": 50,
+    "21": 55,
+    "22": 60,
+    "23": 65,
+    "24": 70,
+    "25": 75,
+    "26": 80,
+    "27": 83,
+    "28": 86,
+    "29": 90,
+    "30": 92
+  },
+  "physical_beauty_source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Attribute Bonus Chart",
+    "printed_page": 15,
+    "pdf_page": 16,
+    "markdown_lines": [
+      803,
+      819
+    ],
+    "candidate_id": "434a46446c6eaa474c6d"
+  }
+}

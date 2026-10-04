@@ -11,3 +11,5 @@ Browser generated1800 credits and5000 Black Market item value, granted six fixed
 ![Independent receipt continuation](08b6-armor-continuation.png)
 
 Windows full/frozen validation precedes merge. Other common light armor, City Rat weapons/clips/transport/implants and full class/equipment acceptance remain open. This is not final release acceptance or the retrospective.
+
+Merged PR64 as6545e0f after both Windows full/frozen workflows passed.

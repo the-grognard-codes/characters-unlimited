@@ -336,6 +336,8 @@ def validate_sources(character, packs, *, history_frame=False):
         if character['game']!='heroes-unlimited' or pack is None or 'education' not in character:
             raise ValueError('Heroes Secondary skills must retain education and their accepted rule version pin')
         validate_secondary_selections(character['hero_secondary_selections'],pack)
+    if 'hero_combat_training' in character and character['game'] != 'heroes-unlimited':
+        raise ValueError('Heroes combat training cannot cross game boundaries')
     physical_pack = skill_pack
     if character['game'] == 'heroes-unlimited':
         physical_pack = next((item for item in packs if item['id']=='heroes-program-skills'),None)
@@ -344,7 +346,7 @@ def validate_sources(character, packs, *, history_frame=False):
             validate_hero_physical(character, physical_pack, education_pack)
             for event in character.get('roll_history', []):
                 validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),physical_pack)
-        elif 'physical_acquisitions' in character:
+        elif 'physical_acquisitions' in character or 'hero_combat_training' in character:
             raise ValueError('Heroes Physical acquisitions must retain their skill and education rule pins')
     resource_snapshot = character.get('resource_attribute_snapshot')
     if resource_snapshot is not None:

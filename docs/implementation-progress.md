@@ -191,3 +191,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 09D merged in PR75 as107218415f4319d32a3ed0d05f835ec1504f81ee after Windows37187385452(4m34s)/37187383195(5m45s) passed, including packaged executable validation.
 
 - 06K: Heroes ordinary Human level-one combat and Basic training added under immutable skills1.12. Exact pins, retained acquisitions, duplicate effects, action costs and independent attribute-range guards verified. Both reviews approve after fixed-training and unsupported-contribution repairs. Final303 local tests pass (one frozen-only skip), mypy102, compile/JS/whitespace checks and browser/three-page editable PDF verification pass. Windows checks pending; parent06/07/09 remain open.
+
+06K merged in PR76 as14b19cf49d75b3ec8a6bb10994988eb30b6a4467 after Windows37189357106(4m20s)/37189359767(5m4s) passed, including packaged executable validation.
+
+- 06L: Heroes Expert, Martial Arts and Assassin added under immutable skills1.13, with explicit active-training choice, non-stacking costs/profiles, reversible retained acquisitions and portable validation. Both independent reviews approve after removed-source disclosure repair. Focused training5/Basic5/HTTP7, required mypy104, compile/JS checks and browser/four-page editable PDF verification pass. Final full308 tests pass (one frozen-only skip); Windows pending. Parent06/07/09 remain open.

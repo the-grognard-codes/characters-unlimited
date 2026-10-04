@@ -205,12 +205,19 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
                 terms.append(name+' +'+str(result['value'])+
                              (f" (dice {result['rolls']})" if result['rolls'] else ''))
         terms.extend(name.replace('_',' ')+' +'+str(value) for name,value in skill['effects']['combat'].items())
-        lines += wrap_lines('Physical: '+skill['name']+'; '+', '.join(terms), 530)
+        state = ' (inactive training)' if skill.get('combat_active') is False else ''
+        lines += wrap_lines('Physical: '+skill['name']+state+'; '+', '.join(terms), 530)
         source = skill['source']
         lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
                             ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)
         for note in skill.get('guidance', []):
             lines += wrap_lines(skill['name']+': '+note, 530)
+    for receipt in combat.get('training_receipts', []):
+        if not receipt['selected']:
+            lines += wrap_lines('Retained removed training: '+receipt['name']+'; inactive; no acquisition dice.',530)
+            source = receipt['source']
+            lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
+                                ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])),530)
     if combat.get('supported'):
         lines += wrap_lines(f"Combat: {combat['training']}; parry {combat['parry_actions']} actions; dodge {combat['dodge_actions']} action",530)
         for name,result in combat['totals'].items():

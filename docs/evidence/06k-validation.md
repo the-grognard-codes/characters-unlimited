@@ -16,3 +16,5 @@ Browser selection and reload retain Basic training, four attacks, automatic parr
 [Editable sample](06k-basic-combat-sample.pdf)
 
 Remaining training, Physical skills, proficiencies, enhanced strength, equipment, Heroes advancement and complete corpus acceptance remain open. Parent06/07/09 remain open.
+
+06K merged in PR76 as14b19cf49d75b3ec8a6bb10994988eb30b6a4467 after Windows37189357106(4m20s)/37189359767(5m4s) passed, including packaged executable validation.

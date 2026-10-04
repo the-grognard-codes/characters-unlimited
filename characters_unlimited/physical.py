@@ -4,6 +4,7 @@ from copy import deepcopy
 import json
 
 from .attribute_modifiers import attribute_value
+from .recorded_formulas import validate_formula, formula_value, roll_formula
 
 
 # Activity decimals travel through JSON and browser numbers. Larger manual
@@ -44,14 +45,12 @@ def _active_ids(selections, definitions, grants=()):
 
 
 def _formula(formula):
-    if not isinstance(formula, dict) or set(formula) != {'count', 'sides', 'bonus'}:
+    if (not isinstance(formula, dict) or not {'count', 'sides', 'bonus'} <= set(formula) or
+            set(formula) - {'count', 'sides', 'bonus', 'multiplier'}):
         raise ValueError('Unsupported Physical skill bonus formula')
-    count, sides, bonus = formula['count'], formula['sides'], formula['bonus']
-    if (type(count) is not int or not 0 <= count <= 1000 or
-            type(sides) is not int or sides < 0 or (count and not 1 <= sides <= 1000) or
-            type(bonus) is not int):
-        raise ValueError('Unsupported Physical skill bonus formula')
-    return count, sides, bonus
+    result = {('constant' if key == 'bonus' else key):value for key,value in formula.items()}
+    validate_formula(result)
+    return result
 
 
 def _effects(definition):
@@ -72,23 +71,22 @@ def _validate_acquisitions(acquisitions, definitions):
             raise ValueError('Invalid Physical skill acquisition')
         expected = {}
         for group, name, formula in _effects(definitions[identifier]):
-            count, sides, _ = _formula(formula)
-            if count:
-                expected[_roll_key(group, name)] = (count, sides)
+            numeric = _formula(formula)
+            if numeric['count']:
+                expected[_roll_key(group, name)] = numeric
+            else:
+                formula_value(numeric, [])
         rolls = acquisition['rolls']
         if set(rolls) != expected.keys():
             raise ValueError('Physical skill rolls do not match pinned rules')
-        for key, (count, sides) in expected.items():
-            faces = rolls[key]
-            if (not isinstance(faces, list) or len(faces) != count or
-                    any(type(face) is not int or not 1 <= face <= sides for face in faces)):
-                raise ValueError('Invalid Physical skill die face')
+        for key, numeric in expected.items():
+            formula_value(numeric, rolls[key])
 
 
 def _effect_value(formula, acquisition, group, name):
-    count, _, bonus = _formula(formula)
-    rolls = acquisition['rolls'][_roll_key(group, name)] if count else []
-    return sum(rolls) + bonus, rolls
+    numeric = _formula(formula)
+    rolls = acquisition['rolls'][_roll_key(group, name)] if numeric['count'] else []
+    return formula_value(numeric, rolls), rolls
 
 
 def _expected_modifiers(active, acquisitions, definitions):
@@ -119,14 +117,9 @@ def acquire_physical(character, selections, pack, die):
             continue
         rolls = {}
         for group, name, formula in _effects(definitions[identifier]):
-            count, sides, _ = _formula(formula)
-            if count:
-                faces = []
-                for _ in range(count):
-                    face = die(sides)
-                    if type(face) is not int or not 1 <= face <= sides:
-                        raise ValueError('Dice source returned an invalid Physical skill value')
-                    faces.append(face)
+            numeric = _formula(formula)
+            faces = roll_formula(numeric, die)
+            if numeric['count']:
                 rolls[_roll_key(group, name)] = faces
         acquisitions[identifier] = {'rolls': rolls}
     expected = _expected_modifiers(active, acquisitions, definitions)

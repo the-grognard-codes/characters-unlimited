@@ -1,6 +1,7 @@
 """Recorded class contributions, distinct from racial pools and player edits."""
 
-from .generation import roll_attribute, generation_settings
+from copy import deepcopy
+from .recorded_formulas import formula_value, roll_formula
 
 
 def attribute_value(record):
@@ -14,11 +15,15 @@ def attribute_value(record):
     return calculated + record.get('adjustment', 0)
 
 
+def class_attribute_modifier(selected_class, name, rolls):
+    return {'id': 'class:' + selected_class['id'],
+            'value': formula_value(selected_class['attribute_bonuses'][name], rolls),
+            'rolls': deepcopy(rolls), 'source': deepcopy(selected_class['attribute_bonus_source'])}
+
+
 def roll_class_modifiers(attributes, selected_class, die):
     for name, formula in selected_class.get('attribute_bonuses', {}).items():
-        source = selected_class['attribute_bonus_source']
-        result = roll_attribute(formula, generation_settings(), die, source)
+        rolls = roll_formula(formula, die)
         record = attributes[name]
-        record['modifiers'] = [{'id': 'class:' + selected_class['id'], 'value': result['base'],
-                                'rolls': result['rolls'], 'source': source}]
+        record['modifiers'] = [class_attribute_modifier(selected_class, name, rolls)]
         record['value'] = attribute_value(record)

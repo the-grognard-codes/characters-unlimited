@@ -61,7 +61,7 @@ The regression fixtures use synthetic multiplier definitions to test the import 
 
 ## Implemented selection increment (22B1)
 
-`selection_groups.py` now shares distinct weighted choice accounting across required select groups, scholastic program groups and Minor power allowances. It validates counts, costs and references, and reports duplicate/outside/unresolved credit without granting effects. Referenced identities remain exact; free-text specialties keep their existing normalization. Recorded outcome-count dice also reuse22A formulas. Legacy adapters preserve their warning, grant and active-power behavior. Details and remaining limitations are in `shared-selection-group-contract.md`.
+`selection_groups.py` now shares distinct weighted choice accounting across required select groups, scholastic program groups and Minor power allowances. It validates counts, costs and references, and reports duplicate/outside/unresolved credit without granting effects. Referenced identities remain exact; free-text specialties keep their existing normalization. Recorded outcome-count dice also reuse22A formulas. Legacy adapters preserve their warning, grant and active-power behavior. 22B2A adds explicit entry-count policy for Rifts optional pools and Heroes Secondary selections, retaining their separate grant/bonus rules and validating all declared costs before save. Details and remaining limitations are in `shared-selection-group-contract.md`.
 
 ## Next dependency-ordered increments
 

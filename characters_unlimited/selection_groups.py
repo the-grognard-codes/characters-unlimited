@@ -1,4 +1,4 @@
-"""Distinct, weighted choice accounting independent of game or option family."""
+"""Declarative weighted choice accounting independent of game or option family."""
 
 
 def validate_allowance(count):
@@ -9,9 +9,11 @@ def validate_allowance(count):
 def validate_group(group):
     if (not isinstance(group, dict) or
             not {'count', 'option_ids'} <= set(group) or
-            set(group) - {'count', 'option_ids', 'costs', 'unresolved'}):
+            set(group) - {'count', 'option_ids', 'costs', 'unresolved', 'counting'}):
         raise ValueError('Invalid selection group allowance')
     validate_allowance(group['count'])
+    if group.get('counting', 'distinct') not in ('distinct', 'entries'):
+        raise ValueError('Selection counting must be distinct or entries')
     options = group['option_ids']
     if (not isinstance(options, list) or len(options) > 1000 or
             any(not isinstance(item, str) or not item for item in options) or
@@ -29,7 +31,7 @@ def validate_group(group):
 
 
 def project_group(group, selections, *, certified=True):
-    """Retain entered choices; credit distinct eligible, resolved choices once."""
+    """Retain choices; credit resolved eligible choices using the declared counting policy."""
     validate_group(group)
     if (not isinstance(selections, list) or len(selections) > 1000 or
             any(not isinstance(item, str) for item in selections) or type(certified) is not bool):
@@ -38,7 +40,9 @@ def project_group(group, selections, *, certified=True):
     options = set(group['option_ids'])
     unresolved = [item for item in distinct if item in group.get('unresolved', [])]
     eligible = [item for item in distinct if item in options and item not in unresolved] if certified else []
-    credited = sum(group.get('costs', {}).get(item, 1) for item in eligible)
+    counted = ([item for item in selections if item in eligible]
+               if group.get('counting', 'distinct') == 'entries' else eligible)
+    credited = sum(group.get('costs', {}).get(item, 1) for item in counted)
     return {'eligible': eligible, 'credited': credited, 'remaining': group['count'] - credited,
             'unresolved': unresolved, 'outside': [item for item in distinct if item not in options],
             'duplicates': len(distinct) != len(selections)}

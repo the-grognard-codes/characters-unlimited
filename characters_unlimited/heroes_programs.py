@@ -39,16 +39,22 @@ def validate_secondary_selections(selections, pack):
     return list(selections)
 
 
-def program_choice_view(selection, program, warnings):
+def program_choice_view(selection, program, warnings, *, certified=True):
     groups = []
     for definition in program.get('choice_groups',[]):
         choices = selection.get('choices',{}).get(definition['id'],[])
         unresolved = set(choices).intersection(definition.get('unresolved_skill_ids',[]))
-        eligible = set(choices).intersection(definition['skill_ids'])-unresolved
-        remaining = definition['count']-len(eligible)
+        eligible = (set(choices).intersection(definition['skill_ids'])-unresolved) if certified else set()
+        credited = sum(definition.get('selection_costs',{}).get(identifier,1) for identifier in eligible)
+        remaining = definition['count']-credited
         label = f"{program['name']} slot {selection['slot']+1} — {definition['name']}"
         if remaining:
-            warnings.append(f'{label}: {remaining} distinct eligible choices remaining. Entered choices retained.')
+            if 'selection_costs' in definition:
+                message = (f'{remaining} weighted selections remaining' if remaining>0 else
+                           f'exceeds the allowance by {-remaining} selections')
+                warnings.append(f'{label}: {message}. Entered choices retained.')
+            else:
+                warnings.append(f'{label}: {remaining} distinct eligible choices remaining. Entered choices retained.')
         if len(set(choices))<len(choices):
             warnings.append(f'{label}: repeated choices retained; duplicates do not fill another distinct choice.')
         if set(choices)-set(definition['skill_ids']):
@@ -56,7 +62,7 @@ def program_choice_view(selection, program, warnings):
         if unresolved:
             warnings.append(f'{label}: duplicate fixed-grant choice credit is pending interpretation. Fixed grants remain intact; the extra entitlement is not certified.')
         groups.append({**deepcopy(definition),'selections':deepcopy(choices),'entered':len(choices),
-                       'credited':len(eligible),'remaining':remaining})
+                       'credited':credited,'remaining':remaining,'credit_certified':certified})
     return groups
 
 
@@ -92,11 +98,15 @@ def project_programs(character, pack, education_pack, power_pack=None):
         for identifier in program['skill_ids']:
             bonuses[identifier] = max(bonuses.get(identifier, 0), bonus)
             physical_grants.add(identifier)
-        groups = program_choice_view(selection,program,warnings)
+        groups = program_choice_view(selection,program,warnings,
+                                     certified=not (repeated and program.get('repeat_entitlement_pending',False)))
         program_choices.append({'program':program['id'],'slot':selection['slot'],'groups':groups,'repeat':repeated})
         if repeated and groups:
             warnings.append(f"{program['name']} repeat entitlement is not implemented. Retained first-program group choices receive no new group education bonus and do not certify the repeat's remaining-category choices.")
         for group in groups:
+            if not group['credit_certified']:
+                warnings.append(f"{program['name']} repeat credit is uncertified. Choices retained without new grants until the remaining-category entitlement is reviewed.")
+                continue
             physical_grants.update(set(group['selections']).intersection(group['skill_ids'])
                                    - set(group.get('unresolved_skill_ids', [])))
             for identifier in group['selections']:

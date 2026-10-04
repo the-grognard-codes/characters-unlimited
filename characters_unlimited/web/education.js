@@ -65,15 +65,19 @@ async function loadEducation(character) {
     for (const group of choiceView.groups) {
       const section = document.createElement('div'); section.className = 'help';
       const description = document.createElement('p');
-      description.textContent = `${group.name}: ${group.entered} entered, ${group.credited} distinct eligible, ${group.count} required, ${group.remaining} remaining.${choiceView.repeat ? ' Repeat entitlement pending; these retained first-program choices add no new group education bonus.' : ''}`;
+      description.textContent = `${group.name}: ${group.entered} entered, ${group.credited} ${group.selection_costs ? 'weighted selections credited' : 'distinct eligible'}, ${group.count} required, ${group.remaining} remaining.${choiceView.repeat ? ' Repeat entitlement pending; these retained first-program choices add no new group education bonus.' : ''}`;
+      if (group.credit_certified === false) description.textContent += ' Credit uncertified: repeat choices grant no new skills or Physical effects while the remaining-category entitlement is pending.';
       if (group.guidance) description.textContent += ' ' + group.guidance;
+      if (group.selection_costs) description.textContent += ` ${group.source.book}, printed pp. ${group.source.pages.join(', ')} / PDF pp. ${group.source.pdf_pages.join(', ')}.`;
       section.append(description);
       const select = document.createElement('select');
       select.setAttribute('aria-label',`${group.name} for program ${index + 1}`);
       const entries = [...programs.skill_catalog].sort((a,b) => Number(group.skill_ids.includes(b.id)) - Number(group.skill_ids.includes(a.id)));
       select.replaceChildren(...entries.map(skill => {
         const option = document.createElement('option'); option.value = skill.id;
-        option.textContent = skill.name + (group.skill_ids.includes(skill.id) ? '' : ' · outside this choice group'); return option;
+        const cost = group.selection_costs?.[skill.id] ?? 1;
+        const eligible = group.skill_ids.includes(skill.id);
+        option.textContent = skill.name + (eligible && group.selection_costs ? ` · ${cost} selection${cost === 1 ? '' : 's'}` : '') + (eligible ? '' : ' · outside this choice group'); return option;
       }));
       const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Add program choice';
       const saveChoices = choices => {

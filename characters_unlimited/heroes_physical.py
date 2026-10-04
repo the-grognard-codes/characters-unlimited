@@ -16,6 +16,14 @@ def acquire_hero_physical(character, pack, education_pack, die):
     return acquire_physical(adapted, adapted['skill_selections'], pack, die)
 
 
+def preserve_training_choice(character, pack, education_pack):
+    if 'training_skill_ids' in pack.get('combat', {}) and 'hero_combat_training' not in character:
+        active = project_hero_physical(character,pack,education_pack)['active_training']
+        if active is not None:
+            return {'hero_combat_training':active}
+    return {}
+
+
 def project_hero_physical(character, pack, education_pack, *, power_view=None):
     physical = project_physical(physical_character(character, pack, education_pack), pack)
     active = resolve_training(character, pack, [row['id'] for row in physical['selected']])

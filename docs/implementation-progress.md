@@ -213,3 +213,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06O merged in PR80 as ee85bd4c7fae6a5147b4b85b19f3b92e37ff74e5 after corrected Windows37194674385(6m36s)/37194676213(6m37s) passed, including frozen executable and editable continuation verification.
 
 - 06P: Boxing effects, retained dice and conditional fist knockout/stun guidance added under immutable skills1.17. Corrected source-defined Secondary exclusion; honor-system catalog retention warns instead of falsely labeling eligibility. Both reviews approve; focused20/full327 tests pass (one frozen-only skip), mypy108, compile/JS/whitespace and browser/four-page editable PDF proof pass. Windows pending. Physical programs and parent06/07/09 remain open.
+
+06P merged in PR81 as f3e484467afb02da9d72ed7448a71351913ee72d after Windows37196033706(4m14s)/37196035909(7m16s) passed, including packaged executable validation.
+
+- 06Q: Physical/Athletic program adds four weighted choices and a normal Boxing route under immutable skills1.18. Active training preserved across both selection paths; pending repeat credit/grants corrected after review. Both reviews approve; focused22/full334 tests pass (one frozen-only skip), mypy109, compile/JS/whitespace and browser/four-page editable PDF proof pass. Windows pending. Other Physical catalog/repeat entitlements and parent06/07/09 remain open.

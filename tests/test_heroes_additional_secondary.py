@@ -60,7 +60,7 @@ class HeroesAdditionalSecondaryTests(unittest.TestCase):
             self.assertEqual(imported_old['additional_rule_packs']['heroes-program-skills'],'1.9.0')
             preview=app.preview_rule_upgrade(hero['id'])
             self.assertEqual(app.get(hero['id']),hero)
-            self.assertIn({'pack_id':'heroes-program-skills','from':'1.9.0','to':'1.17.0'},preview['changes'])
+            self.assertIn({'pack_id':'heroes-program-skills','from':'1.9.0','to':'1.18.0'},preview['changes'])
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             hero=app.select_hero_secondary(hero['id'],revision=hero['revision'],selections=['art','photography','general-repair-maintenance','ventriloquism'])
             view=app.hero_program_view(hero['id'])

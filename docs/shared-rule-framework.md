@@ -8,7 +8,7 @@ This review follows the user's 2026-10-04 instruction to prioritize common mecha
 | --- | --- | --- |
 | Sources and versions | Immutable `RuleArchive`, exact portable pins, source references, provisional coverage inventory | There is no complete mechanical draft-to-accepted import workflow. Hash acceptance alone does not validate every mechanic or dependency. |
 | Classes | `class_rules` overlays declarative profiles for required skills, pools, bonuses, resources and progression; equipment profiles overlay starting grants | Default-class fallback and separate pack layouts must become explicit composition. Do not add branches on a new class ID. |
-| Races | Shared generation and replay, caps and exceptional rules | Current race definitions have one common attribute formula. Per-attribute and R.C.C. replacement rules still need a reviewed contract. |
+| Races | Shared uniform/per-attribute generation and replay, caps and exceptional rules | Separate per-race/pool source provenance, R.C.C. replacement precedence and complete nonhuman traits still need reviewed composition. |
 | Skills | Required choice groups, weighted pools, percentile checks, synergies and shared Physical acquisitions | Rifts and Heroes selection adapters use different records; generalized grants and entitlements are incomplete. |
 | Mutant powers | Retained acquisitions, additive/floor effects, skill/saving bonuses, resources and advancement gains | Power shapes and Human Mutant applicability are still restricted; other power categories are not implemented. |
 | Magic and psionics | Source/version infrastructure and the resource model provide foundations | Spell/psychic catalogs, acquisition grants, eligibility, P.P.E./I.S.P. formulas and conditional projections are not implemented. |
@@ -78,6 +78,10 @@ The regression fixtures use synthetic multiplier definitions to test the import 
 ## Starting-resource formula increment (22D1)
 
 Starting-resource formula terms now use the same ordinary acquisition/replay engine as class, Physical and power bonuses. Legacy bonus fields adapt to shared constants and optional whole-formula multipliers; known effective attribute snapshots remain retained. See `shared-resource-formula-contract.md`. Generic level scheduling, nonlinear terms and complete magic/psionic acquisition remain open.
+
+## Per-attribute racial increment (22E1)
+
+`generation.py` resolves complete per-attribute replacement pools, optional defaults and caps without race handlers. Every definition validates before initial dice; whole-profile house preflight preserves single-target rerolls. See `per-attribute-racial-pool-contract.md`. This is a generation seam, not acceptance of a complete nonhuman/R.C.C. path; source composition and other traits remain open.
 
 ## Next dependency-ordered increments
 

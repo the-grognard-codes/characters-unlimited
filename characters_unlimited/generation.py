@@ -1,5 +1,7 @@
 """Dice-pool generation from accepted racial formulas."""
 
+from .attribute_modifiers import ATTRIBUTE_NAMES
+
 
 def generation_settings(value=None):
     if value is None:
@@ -12,18 +14,58 @@ def generation_settings(value=None):
     return settings
 
 
+def validate_attribute_formula(formula):
+    if (not isinstance(formula, dict) or not {'count', 'sides'} <= set(formula) or
+            set(formula) - {'count', 'sides', 'constant', 'exceptional', 'cap'} or
+            type(formula['count']) is not int or not 0 <= formula['count'] <= 1000 or
+            type(formula['sides']) is not int or not 1 <= formula['sides'] <= 1000 or
+            type(formula.get('constant', 0)) is not int):
+        raise ValueError('Unsupported attribute dice formula')
+    if 'cap' in formula and type(formula['cap']) is not int:
+        raise ValueError('Attribute ceiling must be a whole number')
+    if 'exceptional' in formula:
+        exceptional = formula['exceptional']
+        if (not isinstance(exceptional, dict) or set(exceptional) != {'thresholds', 'max_bonus_dice'} or
+                not isinstance(exceptional['thresholds'], list) or len(exceptional['thresholds']) > 1000 or
+                any(type(value) is not int for value in exceptional['thresholds']) or
+                len(set(exceptional['thresholds'])) != len(exceptional['thresholds']) or
+                (exceptional['max_bonus_dice'] is not None and
+                 (type(exceptional['max_bonus_dice']) is not int or not 0 <= exceptional['max_bonus_dice'] <= 1000))):
+            raise ValueError('Unsupported exceptional attribute rule')
+
+
+def racial_formulas(race, settings=None):
+    pools = race.get('attribute_pools', {})
+    caps = race.get('attribute_caps', {})
+    if (not isinstance(pools, dict) or set(pools) - set(ATTRIBUTE_NAMES) or
+            not isinstance(caps, dict) or set(caps) - set(ATTRIBUTE_NAMES) or
+            any(type(value) is not int for value in caps.values())):
+        raise ValueError('Racial pools and ceilings must reference known attributes')
+    default = race.get('attributes')
+    if default is not None:
+        validate_attribute_formula(default)
+    elif set(pools) != set(ATTRIBUTE_NAMES):
+        raise ValueError('A race without a default pool must define all eight attributes')
+    for formula in pools.values():
+        validate_attribute_formula(formula)
+    formulas = {name: {**(pools[name] if name in pools else default),
+                       **({'cap': caps[name]} if name in caps else {})}
+                for name in ATTRIBUTE_NAMES}
+    if settings is not None and generation_settings(settings)['reroll_ones']:
+        if any(formula['count'] and formula['sides'] == 1 for formula in formulas.values()):
+            raise ValueError('Cannot reroll ones on a one-sided die')
+    return formulas
+
+
 def racial_formula(race, attribute):
-    formula = dict(race['attributes'])
-    cap = race.get('attribute_caps', {}).get(attribute)
-    if cap is not None:
-        formula['cap'] = cap
-    return formula
+    if attribute not in ATTRIBUTE_NAMES:
+        raise ValueError('Select a known attribute')
+    return racial_formulas(race)[attribute]
 
 
 def roll_attribute(formula, settings, die, source):
+    validate_attribute_formula(formula)
     count, sides, constant = formula["count"], formula["sides"], formula.get("constant", 0)
-    if type(count) is not int or not 0 <= count <= 1000 or type(sides) is not int or not 1 <= sides <= 1000 or type(constant) is not int:
-        raise ValueError("Unsupported attribute dice formula")
     if count and sides == 1 and settings["reroll_ones"]:
         raise ValueError("Cannot reroll ones on a one-sided die")
     draws = 0

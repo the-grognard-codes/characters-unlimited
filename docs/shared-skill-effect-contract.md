@@ -11,3 +11,5 @@ The percentile projection adds these amounts before its existing98% cap and addi
 This increment supports constant additive effects. Conditional targeting, random/retained skill-bonus acquisitions, level schedules, generic ability activation and full magic/psionic catalogs remain open. No new book definitions are accepted.
 
 Typed power effect acquisition pins its skill catalog and education projection dependencies even before education is chosen. Portable import/export requires those exact pins and projects typed effects before accepting the character. Rifts creation also projects class effects before its first save. Primary and additional-check totals must remain within the shared exact integer range before publication, preventing browser rounding.
+
+The Rifts and Heroes builders append each typed skill effect's display name, book/page citation and section to its skill explanation, using the same source formatter as attribute contributions. Legacy rows without typed effects retain their presentation.

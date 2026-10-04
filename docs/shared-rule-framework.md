@@ -71,6 +71,10 @@ The regression fixtures use synthetic multiplier definitions to test the import 
 
 `effect_operations.py` shares addition/minimum evaluation for class, Physical and power attributes. Classes may declare typed formula/source effects without class-specific handlers. Exact receipt replay, manual ordering and retained resource snapshots remain enforced. See `shared-attribute-effect-contract.md`; broader grants, targets, acquisitions and importer validation remain open.
 
+## Fixed-grant increment (22B2C)
+
+`grants.py` resolves exact identities and catalog selectors once per granted identity. Existing Rifts/Heroes Physical acquisitions and Heroes fixed program skills use it; compiled program IDs preserve the existing UI/PDF contract. All unselected program grants also validate before mutation. See `shared-fixed-grant-contract.md`. This is identity resolution, not complete conditional/level entitlements or generic acquisition scheduling.
+
 ## Next dependency-ordered increments
 
 | Slice | Deliverable | Reuse proof |

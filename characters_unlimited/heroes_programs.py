@@ -9,6 +9,7 @@ from .heroes_powers import power_skill_contributions
 from .heroes_abilities import project_shared_abilities
 from .selection_groups import validate_group, project_group
 from .option_selectors import select_options
+from .grants import resolve_grants
 
 
 def program_group(definition, catalog):
@@ -25,12 +26,26 @@ def program_group(definition, catalog):
     return group
 
 
+def compiled_programs(pack):
+    programs = []
+    for program in pack['programs']:
+        if (not isinstance(program, dict) or
+                ('skill_ids' in program) == ('skill_grants' in program)):
+            raise ValueError('Programs require either legacy skill identities or fixed grant declarations')
+        compiled = deepcopy(program)
+        compiled['skill_ids'] = resolve_grants(program.get('skill_grants', program.get('skill_ids')), pack['skills'])
+        compiled.pop('skill_grants', None)
+        programs.append(compiled)
+    return programs
+
+
 def validate_program_selections(selections, pack):
     if not isinstance(selections, list) or len(selections) > 100:
         raise ValueError('Select at most 100 program entries')
-    programs = {item['id']:item for item in pack['programs']}
+    programs = {item['id']:item for item in compiled_programs(pack)}
     skills = {item['id'] for item in pack['skills']}
-    for program in pack['programs']:
+    resolve_grants(pack['universal_skill_ids'], pack['skills'])
+    for program in programs.values():
         for definition in program.get('choice_groups', []):
             if set(program_group(definition, pack['skills'])['option_ids']) - skills:
                 raise ValueError('Program groups must reference available skill definitions')
@@ -107,7 +122,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
     slots = outcome['program_slots'] if outcome else []
     selections = validate_program_selections(character.get('hero_program_selections', []), pack)
     warnings = []
-    bonuses = {identifier:0 for identifier in pack['universal_skill_ids']}
+    programs = compiled_programs(pack)
+    bonuses = {identifier:0 for identifier in resolve_grants(pack['universal_skill_ids'], pack['skills'])}
     physical_grants = set(bonuses)
     secondary_rules = pack.get('secondary')
     secondary_choices = (validate_secondary_selections(character.get('hero_secondary_selections',[]),pack)
@@ -118,7 +134,7 @@ def project_programs(character, pack, education_pack, power_pack=None):
     seen_programs, seen_slots = set(), set()
     program_choices = []
     for selection in selections:
-        program = next(item for item in pack['programs'] if item['id'] == selection['program'])
+        program = next(item for item in programs if item['id'] == selection['program'])
         slot = slots[selection['slot']] if selection['slot'] < len(slots) else None
         repeated = selection['program'] in seen_programs
         if repeated:
@@ -201,7 +217,7 @@ def project_programs(character, pack, education_pack, power_pack=None):
         skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions,
                            level_steps=character['level']-character.get('learning_levels',{}).get(definition['id'],character['level'])),
                        'secondary_selected':definition['id'] in secondary_choices})
-    return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),
+    return {'catalog':programs, 'selections':selections, 'slots':deepcopy(slots),
             'physical_selections':[{'skill_id':row['id']} for row in pack['skills']
                                    if row.get('kind') == 'physical' and row['id'] in physical_grants],
             'skill_catalog':deepcopy(pack['skills']),

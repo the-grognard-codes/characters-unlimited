@@ -277,7 +277,12 @@ class PackagedApplicationTests(unittest.TestCase):
                 holistic = next(item for item in programs['skills'] if item['id']=='holistic-medicine')
                 self.assertEqual(holistic['contributions']['base'],20)
                 self.assertEqual(holistic['contributions']['education'],0)
+                hero = request('/api/characters/'+hero['id']+'/power-budget',
+                               {'revision':hero['revision'],'method':'choose','outcome_id':'continuous-mutation'},token)
+                power_budget = request('/api/characters/'+hero['id']+'/power-budget')
+                self.assertEqual(power_budget['budgets'], [{'name':'Major super ability OR Super psionic power','count':1}])
                 hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
+                self.assertEqual(hero_imported['power_budget'], hero['power_budget'])
                 self.assertEqual(hero_imported['education'], hero['education'])
                 self.assertEqual(hero_imported['hero_program_selections'], hero['hero_program_selections'])
                 self.assertEqual(hero_imported['hero_secondary_selections'],hero['hero_secondary_selections'])
@@ -421,6 +426,7 @@ class PackagedApplicationTests(unittest.TestCase):
             try:
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
                 self.assertEqual(request('/api/characters/' + hero['id'])['education'], hero['education'])
+                self.assertEqual(request('/api/characters/'+hero['id']+'/power-budget'),power_budget)
                 self.assertEqual(request('/api/characters/'+identifier)['physical_acquisitions'],character['physical_acquisitions'])
                 self.assertEqual(request('/api/characters/'+identifier)['resources'],character['resources'])
                 self.assertEqual(request('/api/characters/'+identifier)['starting_funds'],character['starting_funds'])

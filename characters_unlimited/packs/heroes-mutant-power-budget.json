@@ -1,0 +1,225 @@
+{
+  "id": "heroes-mutant-power-budget",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "character_class": "mutant",
+  "name": "Mutant starting power outcome and budget",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "printed_page": 161,
+    "pdf_page": 162,
+    "printed_pages": [
+      161,
+      162
+    ],
+    "pdf_pages": [
+      162,
+      163
+    ],
+    "markdown_lines": [
+      8731,
+      8791
+    ],
+    "candidate_ids": [
+      "3ba2867451865c045449",
+      "2a40e1a454515d14ee13"
+    ],
+    "section": "The Category & Number of Super Abilities"
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "outcomes": [
+    {
+      "id": "major-three-minor",
+      "name": "One Major and three Minor",
+      "min": 1,
+      "max": 15,
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 1
+        },
+        {
+          "name": "Minor super abilities",
+          "count": 3
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "four-minor",
+      "name": "Four Minor",
+      "min": 16,
+      "max": 30,
+      "budgets": [
+        {
+          "name": "Minor super abilities",
+          "count": 4
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "major-two-minor",
+      "name": "One Major and two Minor",
+      "min": 31,
+      "max": 45,
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 1
+        },
+        {
+          "name": "Minor super abilities",
+          "count": 2
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "two-major",
+      "name": "Two Major",
+      "min": 46,
+      "max": 55,
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 2
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "five-minor",
+      "name": "Five Minor",
+      "min": 56,
+      "max": 65,
+      "budgets": [
+        {
+          "name": "Minor super abilities",
+          "count": 5
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "psionic-mix",
+      "name": "Minor psionics and one Major",
+      "min": 66,
+      "max": 75,
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 1
+        },
+        {
+          "name": "Minor psionic powers (any non-Super category)",
+          "count": 2,
+          "die": 4
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "psychic-mutant",
+      "name": "Psychic Mutant",
+      "min": 76,
+      "max": 80,
+      "budgets": [
+        {
+          "name": "Minor psionic category 1",
+          "count": 0,
+          "die": 4
+        },
+        {
+          "name": "Minor psionic category 2",
+          "count": 0,
+          "die": 4
+        },
+        {
+          "name": "Minor psionic category 3",
+          "count": 0,
+          "die": 4
+        },
+        {
+          "name": "Super psionic powers",
+          "count": 1
+        }
+      ],
+      "guidance": [
+        "Each later experience level allows two additional Minor psionic powers OR one Super psionic ability. New abilities start at level-one proficiency. Category names and power selection remain pending."
+      ]
+    },
+    {
+      "id": "continuous-mutation",
+      "name": "Continuous Mutation",
+      "min": 81,
+      "max": 90,
+      "budgets": [
+        {
+          "name": "Major super ability OR Super psionic power",
+          "count": 1
+        }
+      ],
+      "guidance": [
+        "Starting allowance is one alternative, not both. Later grants: one Minor at level 2; one Major OR Super psionic at level 4; one Minor each at levels 6, 8, 12 and 14. Later grants are not included in starting counts."
+      ]
+    },
+    {
+      "id": "unstable-powers",
+      "name": "Unstable Powers",
+      "min": 91,
+      "max": 100,
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 1
+        },
+        {
+          "name": "Minor super abilities",
+          "count": 2
+        }
+      ],
+      "guidance": [
+        "An additional Unstable Powers Table roll and its behavior remain pending. This character is not treated as having stable powers."
+      ]
+    },
+    {
+      "id": "player-major-one-minor",
+      "name": "Player choice: one Major and one Minor",
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 1
+        },
+        {
+          "name": "Minor super abilities",
+          "count": 1
+        }
+      ],
+      "guidance": []
+    },
+    {
+      "id": "player-major-two-minor",
+      "name": "Player choice: one Major and two Minor",
+      "budgets": [
+        {
+          "name": "Major super abilities",
+          "count": 1
+        },
+        {
+          "name": "Minor super abilities",
+          "count": 2
+        }
+      ],
+      "guidance": []
+    }
+  ],
+  "guidance": [
+    "Counts are starting allowances. Selecting individual powers and calculating their effects remain pending.",
+    "Rolls use unmodified percentile and D4 dice; attribute house options do not apply.",
+    "The book permits player choice by agreement. Player-choice alternatives have no percentile range; this utility uses the agreed honor system."
+  ]
+}

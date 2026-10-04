@@ -9,7 +9,7 @@ from reportlab.pdfgen.canvas import Canvas
 from .pdf_export import append_continuation, fill_values, install_editing_font, wrap_lines
 
 
-def export_heroes_sheet(character, core, education, programs):
+def export_heroes_sheet(character, core, education, programs, power_budget=None):
     stream = BytesIO()
     canvas = Canvas(stream, pagesize=(612, 792))
     canvas.setTitle('Heroes Unlimited character sheet')
@@ -83,7 +83,18 @@ def export_heroes_sheet(character, core, education, programs):
     labelled('Secondary choices used / allowed', 'SECONDARY_ALLOWANCE', 40, 423, 532,
              f"{secondary['used']} / {secondary['allowance']}" if outcome else '')
     heading('Powers & Special Abilities', 40, 390, 532)
-    field('POWERS', 40, 242, 532, 137, multiline=True)
+    power_lines = []
+    if power_budget and power_budget['selection']:
+        power_lines = [power_budget['outcome']['name']]
+        power_lines.extend(f"{row['name']}: {row['count']}" for row in power_budget['budgets'])
+        power_lines.extend(power_budget['guidance'])
+        power_lines.append(f"{power_budget['source']['book']}, printed p. 161 / PDF p. 162; {power_budget['rules']['id']} {power_budget['rules']['version']}")
+        for selection in power_budget['history']:
+            power_lines.append(f"Recorded outcome: {selection['id']}; {selection['method']}; percentile {selection.get('roll', 'none')}; D4 faces {selection['rolls']}")
+    wrapped_powers = [line for text in power_lines for line in wrap_lines(text, 530)]
+    field('POWERS', 40, 242, 532, 137, value='\n'.join(wrapped_powers[:10]), multiline=True)
+    if len(wrapped_powers) > 10:
+        overflow.extend(['Power outcome and starting allowance (continued)', *wrapped_powers[10:]])
     heading('Weapons & Combat Effects', 40, 212, 310)
     field('WEAPONS', 40, 58, 310, 143, multiline=True)
     heading('Armor & Protection', 368, 212, 204)

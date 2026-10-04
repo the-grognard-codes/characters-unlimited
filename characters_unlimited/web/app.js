@@ -13,6 +13,7 @@ function showError(error) { $('error').textContent = error.message; $('error').h
 function lockNavigation(busy) {
   navigationBusy = busy;
   setEducationBusy();
+  setPowerBudgetBusy();
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
@@ -48,6 +49,7 @@ function render(character) {
   $('advancement-tag').textContent = (pack.classes.find(entry => entry.id === character.character_class)?.name || 'Advancement').toUpperCase();
   $('resources-panel').hidden = heroes;
   $('advancement-panel').hidden = heroes;
+  $('power-budget-panel').hidden = !heroes;
   $('skill-learned-label').hidden = heroes || character.level === 1;
   $('skill-learned-level').replaceChildren(...Array.from({length:character.level}, (_, index) => { const option = document.createElement('option'); option.value = index + 1; option.textContent = index + 1; return option; }));
   $('skill-learned-level').value = character.level;
@@ -96,8 +98,8 @@ function render(character) {
   });
   $('completion').replaceChildren(...character.completion.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   $('save-status').textContent = 'Saved on this PC'; library();
-  if (heroes) { ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; loadEducation(character).catch(showError); }
-  else { ++educationLoadSequence; educationReady = false; loadSkills(character).catch(showError); }
+  if (heroes) { ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; loadEducation(character).catch(showError); loadPowerBudget(character).catch(showError); }
+  else { ++educationLoadSequence; educationReady = false; ++powerBudgetSequence; powerBudgetReady = false; setPowerBudgetBusy(); loadSkills(character).catch(showError); }
 }
 let skillsReady = false, skillLoadSequence = 0, skillCatalog = [];
 function filterSkillChoices() {
@@ -290,6 +292,7 @@ async function loadSkills(character) {
 }
 wireCombatEvents();
 wireEducationEvents();
+wirePowerBudgetEvents();
 function readRequiredChoices() {
   const choices = {};
   for (const group of requiredGroups) {

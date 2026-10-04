@@ -12,4 +12,4 @@ Browser City Rat Assassin4/PS20 displays both+9 power kick expressions, two acti
 ![Edited native sheet](07b2-edited-sheet.png)
 ![Power variants and conditions](07b2-power-kick-continuation.png)
 
-PS1–2 power damage remains explicitly pending; other strength types/combat/full class coverage remain open. No final release or retrospective is claimed. Windows full/frozen checks precede merge.
+PS1–2 power damage remains explicitly pending; other strength types/combat/full class coverage remain open. No final release or retrospective is claimed. Merged PR #66 as aa55eeaf33fa8ed242df727b19472cda2a9fcfa7 after both Windows full/frozen workflows passed (37173958829 and 37173965199).

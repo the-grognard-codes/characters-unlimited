@@ -129,7 +129,7 @@ def project_programs(character, pack, education_pack, power_pack=None):
     for definition in pack['skills']:
         if definition['id'] not in bonuses:
             continue
-        if definition.get('kind') == 'physical':
+        if definition.get('kind') == 'physical' and 'base' not in definition:
             continue
         contributions = {'base':definition['base'], 'education':bonuses[definition['id']], 'intelligence':intelligence,
                          **synergy_contributions(definition,set(bonuses)),

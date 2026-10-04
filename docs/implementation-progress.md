@@ -195,3 +195,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06K merged in PR76 as14b19cf49d75b3ec8a6bb10994988eb30b6a4467 after Windows37189357106(4m20s)/37189359767(5m4s) passed, including packaged executable validation.
 
 - 06L: Heroes Expert, Martial Arts and Assassin added under immutable skills1.13, with explicit active-training choice, non-stacking costs/profiles, reversible retained acquisitions and portable validation. Both independent reviews approve after removed-source disclosure repair. Focused training5/Basic5/HTTP7, required mypy104, compile/JS checks and browser/four-page editable PDF verification pass. Final full308 tests pass (one frozen-only skip); Windows pending. Parent06/07/09 remain open.
+
+06L merged in PR77 as403b9233cff76c24d202e93ac58cf113d3114390 after Windows37190505307(6m40s)/37190507594(6m23s) passed, including packaged executable validation.
+
+- 06M: Heroes Climbing/Rappelling and Swimming added under immutable skills1.14. Separate percentile checks, retained Physical receipts, independent effective pace/endurance and fatigue sources verified. Both reviews approve after exact-duration range repair. Full314 local tests pass (one frozen-only skip), required mypy105, compile/JS/whitespace and browser/four-page editable PDF verification pass. Windows pending; parent06/07/09 remain open.

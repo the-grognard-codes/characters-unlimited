@@ -17,3 +17,5 @@ Browser example at P.S.20/P.P.18: Martial Arts4 attacks, initiative2, strike/par
 [Editable sample](06l-training-sample.pdf)
 
 Other Physical skills, weapon proficiencies, enhanced strength, equipment, Heroes advancement and full corpus acceptance remain open. Parent06/07/09 remain open.
+
+06L merged in PR77 as403b9233cff76c24d202e93ac58cf113d3114390 after Windows37190505307(6m40s)/37190507594(6m23s) passed, including packaged executable validation.

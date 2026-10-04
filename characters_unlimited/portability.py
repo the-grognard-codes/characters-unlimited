@@ -8,12 +8,12 @@ from .generation import roll_attribute, generation_settings, racial_formula, rac
 from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
 from .heroes_power_budget import validate_budget
-from .heroes_powers import validate_powers, validate_power_attributes
+from .heroes_powers import validate_powers, validate_power_attributes, power_resource_contributions
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
-from .heroes_physical import validate_hero_physical
+from .heroes_physical import validate_hero_physical, project_hero_physical
 from .heroes_kicks import validate_hero_kicks
-from .resources import validate_resources
+from .resources import validate_resources, project_resources
 from .skills import validate_selections, project_skills
 from .heroes_programs import project_programs
 from .equipment import validate_inventory
@@ -22,7 +22,7 @@ from .starting_gear import validate_starting_gear
 from .starting_choices import validate_starting_choices
 from .starting_groups import validate_starting_groups
 from .advancement import validate_advancement, validate_later_advancements, remember_learning
-from .heroes_advancement import validate_hero_advancement, remembered_learning
+from .heroes_advancement import validate_hero_advancement, remembered_learning, advancement_power_resources
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices
 from .class_rules import class_rules, equipment_class_rules
@@ -423,6 +423,16 @@ def validate_sources(character, packs, *, history_frame=False):
             expected = class_attribute_modifier(selected_class, name, modifier['rolls'])
             if canonical(modifier) != canonical(expected):
                 raise ValueError('Recorded class attribute contribution does not match the pinned rules')
+
+    growth_records = [character.get('advancement', {}), *character.get('later_advancements', [])]
+    if (resource_pack is not None and character.get('advancement', {}).get('active') and
+            any(record.get('resource_gains') for record in growth_records)):
+        physical_resources = power_resources = None
+        if character['game'] == 'heroes-unlimited':
+            physical_resources = project_hero_physical(character, physical_pack, current_hero_pack('heroes-education'))['resources']
+            power_resources = [*power_resource_contributions(character, power_pack),
+                               *advancement_power_resources(character, current_hero_pack('heroes-advancement'))]
+        project_resources(character, resource_pack, physical_resources=physical_resources, power_resources=power_resources)
 
 
 def fresh_copy(character):

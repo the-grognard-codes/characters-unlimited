@@ -287,3 +287,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 22C2 merged in PR98 as `d59bd14d1fa13dd53a9d48ce6f95bb02df093a90` after both exact-head Windows runs37240261936/37240258871 passed, including frozen executable validation.
 
 - 22C2B: Both builders display each typed skill effect's name and pinned book/page/section, reusing the attribute citation formatter. Heroes shared Physical ability members retain their own effect evidence while best-check calculations remain unchanged. Actual browser proofs cover Rifts Cooking67, mutant Basic Mathematics52 and the Acrobatics/Gymnastics shared balance72; syntax/static checks pass. Reviews and Windows/frozen status are recorded in the slice evidence.
+
+22C2B merged in PR99 as `6debd9a12fc69dd541f7f8ff84c3751e84d30475` after both exact-head Windows runs37241071135/37241068412 passed, including frozen executable validation.
+
+- 22D2: Additional resource growth uses shared formulas and retained first/later receipts in both games; projections, undo/replay and portable validation consume exact pinned evidence. Class ownership and safe combined totals are guarded. Seven public tests cover growth, forged data, preflight, undo and both editable PDF exports. Thirty-eight affected tests pass (99.949 seconds); both review axes APPROVE and static/archive checks pass. Final full-suite Windows/frozen validation pending; no book content accepted.

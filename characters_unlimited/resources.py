@@ -186,6 +186,17 @@ def project_resources(character, pack, *, physical_resources=None, power_resourc
                     amounts[label] = event['hp_roll']
                     rolls[label] = [event['hp_roll']]
                     sources.append(deepcopy(event['source']))
+        if advancement and advancement['active']:
+            for level, event in [(2, advancement), *[(row['level'], row) for row in character.get('later_advancements', [])
+                                                   if row['level'] <= character['level']]]:
+                gain = event.get('resource_gains', {}).get(identifier)
+                if gain is not None:
+                    label = 'Additional level ' + str(level)
+                    while label in amounts:
+                        label += ' (growth)'
+                    amounts[label] = gain['value']
+                    rolls[label] = deepcopy(gain['rolls'])
+                    sources.append(deepcopy(gain['source']))
         if identifier == 'SDC':
             for item in physical:
                 if item['resource'] != 'SDC':
@@ -205,6 +216,8 @@ def project_resources(character, pack, *, physical_resources=None, power_resourc
         adjustment = record['adjustment'] if record else 0
         fixed = record['fixed'] if record else None
         calculated = sum(amounts.values()) + adjustment if generated else None
+        if calculated is not None and not _integer(calculated):
+            raise ValueError('Calculated resource total exceeds the exact integer range')
         projected[identifier] = {'name': definition['name'],
                                  'value': fixed if fixed is not None else calculated,
                                  'calculated_value': calculated,

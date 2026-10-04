@@ -19,6 +19,9 @@ def class_rules(pack, character):
         raise ValueError('The pinned skill rules do not support this character class')
     result = {**deepcopy(pack), **deepcopy(profile)}
     result['skill_effects'] = deepcopy(profile.get('skill_effects', []))
+    for field in ('advancement', 'higher_advancement'):
+        if field not in profile and isinstance(result.get(field), dict):
+            result[field].pop('resource_gains', None)
     if any(result.get(key, {}).get('class_id') != identifier for key in ('class_bonuses','advancement')):
         raise ValueError('Class-specific rules must identify their supported class')
     return result

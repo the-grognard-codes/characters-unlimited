@@ -1,5 +1,6 @@
 """Reviewed Human Mutant first advancement, retained gains and learning ages."""
 from copy import deepcopy
+from .level_resource_gains import level_gain_definitions, level_gain_fields, validate_level_resource_gains
 from uuid import UUID
 from .heroes_programs import project_programs
 
@@ -51,6 +52,7 @@ def first_hero_advance(character, rules, method, value, levels, die):
         return {'experience':xp, **({'advancement':{**record,'xp':xp}} if record and record['active'] else {})}
     if 'resources' not in character:
         raise ValueError('Generate starting resources before advancing')
+    level_gain_definitions(rules, character['resources'])
     prior = character.get('advancement')
     face = prior['hp_roll'] if prior else die(rules['hp_die'])
     if type(face) is not int or not 1 <= face <= rules['hp_die']:
@@ -58,7 +60,8 @@ def first_hero_advance(character, rules, method, value, levels, die):
     before = {key:deepcopy(item) for key,item in character.items()
               if key not in ('id','revision','updated_at','advancement','later_advancements')}
     record = {'active':True,'xp':xp,'hp_roll':face,'source':deepcopy(rules['source']), 'before':before,
-              'power_hp_rolls':power_gains(character,rules,die,prior.get('power_hp_rolls') if prior else None)}
+              'power_hp_rolls':power_gains(character,rules,die,prior.get('power_hp_rolls') if prior else None),
+              **level_gain_fields(rules, character['resources'], die, prior)}
     return {'level':2,'experience':xp,'learning_levels':levels,'advancement':record}
 
 
@@ -80,11 +83,13 @@ def validate_hero_advancement(character, rules, skills, education, *, higher=Non
         if character['level'] != 1 or levels is not None or character.get('later_advancements'):
             raise ValueError('Advancement and learning records are required')
         return
-    if (not isinstance(record,dict) or set(record) != {'active','xp','hp_roll','source','before','power_hp_rolls'} or type(record['active']) is not bool or
+    if (not isinstance(record,dict) or set(record) != ({'active','xp','hp_roll','source','before','power_hp_rolls'} |
+        ({'resource_gains'} if rules.get('resource_gains') else set())) or type(record['active']) is not bool or
         (character['level'] < 2 if record['active'] else character['level'] != 1) or type(record['hp_roll']) is not int or not 1 <= record['hp_roll'] <= rules['hp_die'] or
         type(record['xp']) is not int or not rules['xp_ranges'][1][0] <= record['xp'] <= rules['xp_ranges'][1][1] or
         record['source'] != rules['source']):
         raise ValueError('Invalid recorded Heroes advancement')
+    validate_level_resource_gains(record, rules, character.get('resources', {}))
     if record['active'] and character['level'] == 2 and character.get('experience') != record['xp']:
         raise ValueError('Experience must match the active advancement')
     before = record['before']
@@ -155,6 +160,8 @@ def advance_higher_levels(character, rules, higher, method, value, levels, die, 
         return first_hero_advance(character,rules,method,value,levels,die)
     if target == character['level']:
         return {'experience':xp}
+    level_gain_definitions(rules, character.get('resources', {}))
+    level_gain_definitions(higher, character.get('resources', {}))
     candidate = deepcopy(character)
     if candidate['level'] == 1:
         candidate.update(first_hero_advance(candidate,rules,'level',2,levels,die))
@@ -168,7 +175,8 @@ def advance_higher_levels(character, rules, higher, method, value, levels, die, 
             raise ValueError('Invalid later advancement Hit Point die')
         before = {key:deepcopy(item) for key,item in candidate.items() if key not in ('id','revision','updated_at','later_advancements')}
         event = {'level':level,'hp_roll':face,'source':deepcopy(higher['source']),'before':before,
-                 'power_hp_rolls':power_gains(candidate,rules,die,cached.get('power_hp_rolls') if cached else None)}
+                 'power_hp_rolls':power_gains(candidate,rules,die,cached.get('power_hp_rolls') if cached else None),
+                 **level_gain_fields(higher, candidate['resources'], die, cached)}
         events = sorted([event, *(item for item in events if item['level']!=level)],key=lambda item:item['level'])
         candidate.update(level=level,experience=higher['xp_ranges'][level-1][0],later_advancements=events)
     candidate['experience'] = xp
@@ -181,10 +189,12 @@ def validate_higher_gains(character, rules, higher, *, history_frame=False):
         raise ValueError('Later Heroes gains require reviewed extension rules')
     seen = []
     for event in events:
-        if (not isinstance(event,dict) or set(event)!={'level','hp_roll','source','before','power_hp_rolls'} or
+        if (not isinstance(event,dict) or set(event)!=({'level','hp_roll','source','before','power_hp_rolls'} |
+            ({'resource_gains'} if higher.get('resource_gains') else set())) or
             type(event['level']) is not int or not 3 <= event['level'] <= higher['max_level'] or
             type(event['hp_roll']) is not int or not 1 <= event['hp_roll'] <= higher['hp_die'] or event['source'] != higher['source']):
             raise ValueError('Invalid later Heroes advancement')
+        validate_level_resource_gains(event, higher, character.get('resources', {}))
         before = event['before']
         if (not isinstance(before,dict) or before.get('level') != event['level']-1 or
             set(before).intersection({'id','revision','updated_at','later_advancements'}) or

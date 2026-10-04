@@ -5,7 +5,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from .generation import roll_attribute, generation_settings, racial_formula
-from .attribute_modifiers import attribute_value
+from .attribute_modifiers import attribute_value, class_attribute_modifier
 from .education import validate_education
 from .heroes_power_budget import validate_budget
 from .heroes_powers import validate_powers, validate_power_attributes
@@ -405,11 +405,8 @@ def validate_sources(character, packs, *, history_frame=False):
             if len(modifiers) != 1:
                 raise ValueError('The recorded class attribute contribution is required exactly once')
             modifier = modifiers[0]
-            rolls = iter(modifier['rolls'])
-            source = selected_class['attribute_bonus_source']
-            result = roll_attribute(formula, generation_settings(), lambda sides: next(rolls, 0), source)
-            expected = {'id': 'class:' + selected_class['id'], 'value': result['base'], 'rolls': result['rolls'], 'source': source}
-            if next(rolls, None) is not None or canonical(modifier) != canonical(expected):
+            expected = class_attribute_modifier(selected_class, name, modifier['rolls'])
+            if canonical(modifier) != canonical(expected):
                 raise ValueError('Recorded class attribute contribution does not match the pinned rules')
 
 

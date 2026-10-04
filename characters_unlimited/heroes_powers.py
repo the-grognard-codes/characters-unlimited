@@ -7,6 +7,7 @@ from uuid import UUID, uuid4
 
 from .attribute_modifiers import attribute_value
 from .heroes_power_budget import project_budget
+from .recorded_formulas import validate_formula, formula_value, roll_formula
 
 
 def encoded(value):
@@ -20,19 +21,25 @@ def power_formulas(definition):
             'HP-levels':definition['hp_per_level']}
 
 
+def recorded_power_formula(formula):
+    if not isinstance(formula, dict):
+        raise ValueError('Unsupported recorded power formula')
+    result = {key:value for key,value in formula.items() if key != 'attribute'}
+    validate_formula(result)
+    return result
+
+
 def validate_power_rolls(rolls, definition):
     formulas = power_formulas(definition)
     groups = {'attribute':rolls} if 'attribute_floor' in definition else rolls
     if not isinstance(groups,dict) or set(groups) != set(formulas):
         raise ValueError('Power acquisition dice must match the reviewed formula groups')
     for name,formula in formulas.items():
-        dice = groups[name]
-        if not isinstance(dice,list) or len(dice) != formula['count'] or any(type(face) is not int or not 1 <= face <= formula['sides'] for face in dice):
-            raise ValueError('Power acquisition dice must match the reviewed formula')
+        formula_value(recorded_power_formula(formula), groups[name])
 
 
 def power_bonus_value(formula, dice):
-    return (formula['constant']+sum(dice))*formula.get('multiplier',1)
+    return formula_value(recorded_power_formula(formula), dice)
 
 
 def power_attribute_modifier(acquisition, definition):
@@ -127,7 +134,7 @@ def validate_powers(record, pack):
 
 def floor_modifier(acquisition, definition):
     formula = definition['attribute_floor']
-    return {'id':'power-floor:'+acquisition['id'], 'value':formula['constant']+sum(acquisition['rolls']),
+    return {'id':'power-floor:'+acquisition['id'], 'value':power_bonus_value(formula, acquisition['rolls']),
             'rolls':deepcopy(acquisition['rolls']), 'source':deepcopy(definition['source'])}
 
 
@@ -148,7 +155,7 @@ def select_powers(character, selections, pack, die):
         if power not in retained:
             definition = definitions[power]
             formulas = power_formulas(definition)
-            groups = {name:[die(formula['sides']) for _ in range(formula['count'])] for name,formula in formulas.items()}
+            groups = {name:roll_formula(recorded_power_formula(formula), die) for name,formula in formulas.items()}
             acquisition = {'id':str(uuid4()), 'power':power, 'rolls':groups['attribute'] if 'attribute_floor' in definition else groups,
                            'source':deepcopy(definition['source'])}
             record['acquisitions'].append(acquisition); retained[power] = acquisition

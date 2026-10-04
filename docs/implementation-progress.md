@@ -209,3 +209,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 06O: S.C.U.B.A. added under immutable skills1.16 with separate underwater pace, proficiency, prerequisite honor warning, retained empty receipts and fatigue source. Both reviews approve; focused21/full322 tests pass (one frozen-only skip), required mypy107, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; parent06/07/09 remain open.
 
 06O Windows initially exposed a frozen long-sheet expectation; corrected to verify the editable continuation value. New long-sheet regression and final323 tests pass in162.071 seconds (one frozen-only skip); mypy107/compile/whitespace pass. Corrected Windows pending.
+
+06O merged in PR80 as ee85bd4c7fae6a5147b4b85b19f3b92e37ff74e5 after corrected Windows37194674385(6m36s)/37194676213(6m37s) passed, including frozen executable and editable continuation verification.
+
+- 06P: Boxing effects, retained dice and conditional fist knockout/stun guidance added under immutable skills1.17. Corrected source-defined Secondary exclusion; honor-system catalog retention warns instead of falsely labeling eligibility. Both reviews approve; focused20/full327 tests pass (one frozen-only skip), mypy108, compile/JS/whitespace and browser/four-page editable PDF proof pass. Windows pending. Physical programs and parent06/07/09 remain open.

@@ -97,15 +97,21 @@ async function loadEducation(character) {
     }
     return item;
   }));
-  $('hero-program-skills').replaceChildren(...programs.skills.map(skill => {
+  const sharedAbilities = programs.shared_abilities || {skill_ids:[],checks:[]};
+  const ordinarySkills = programs.skills.filter(skill => !sharedAbilities.skill_ids.includes(skill.id));
+  $('hero-program-skills').replaceChildren(...ordinarySkills.map(skill => {
     const item = educationLine(`${skill.name}${skill.primary_check_name ? ' — ' + skill.primary_check_name : ''}: ${skill.percentage}% (+${skill.per_level}% per level) · base ${skill.contributions.base}, education +${skill.contributions.education}, I.Q. +${skill.contributions.intelligence}`);
     const synergies = Object.entries(skill.contributions).filter(([name]) => !['base','education','intelligence'].includes(name)).map(([name,amount]) => `${name} +${amount}%`).join(', ');
     const detail = document.createElement('small'); detail.textContent = ` ${skill.category}; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}${skill.prerequisites.length ? '; requires ' + skill.prerequisites.join(', ') : ''}${synergies ? '; ' + synergies : ''}${skill.secondary_selected ? '; selected as Secondary (no added education bonus)' : ''}`;
     item.append(detail); return item;
   }));
-    for (const skill of programs.skills) {
+    for (const skill of ordinarySkills) {
     for (const check of skill.additional_checks || []) $('hero-program-skills').append(educationLine(`${skill.name} — ${check.name}: ${check.percentage}% (+${check.per_level}% per level)${check.context_of ? ' · applies only in this stated context' : ' · separate roll'}`));
     for (const note of skill.notes || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
+    }
+    for (const check of sharedAbilities.checks) {
+      const origins = check.origins.map(origin => `${origin.skill_name} ${origin.percentage}%`).join(', ');
+      $('hero-program-skills').append(educationLine(`Shared ${check.name}: ${check.percentage}% (+${check.per_level}% per level) · best available proficiency from ${check.skill_name} · base ${check.contributions.base}, education +${check.contributions.education}, I.Q. +${check.contributions.intelligence} · source checks: ${origins}. Percentages and education bonuses are not added together.`));
     }
     for (const skill of programs.physical?.selected || []) {
       const terms = Object.entries(skill.effects.attributes).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`);

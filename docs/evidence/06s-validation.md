@@ -20,3 +20,5 @@ Browser: removing Climbing exposes Acrobatics base climb45% with0 growth; resele
 The existing frozen Athlete verifies Wrestling first, then Acrobatics checks/rates and exact saved projection reopening without adding a fixture. Gymnastics, other maneuvers, Heroes advancement, equipment and full corpus remain open. Parent06/07/09 remain open.
 
 Final full345 tests pass in195.305seconds with one frozen-only skip, after the guidance correction and regenerated PDF evidence. Final mypy111/compile/whitespace pass; browser syntax passed on the unchanged browser scripts. Windows pending.
+
+06S merged in PR84 as25d909dcc669583b70b3ef8a693c83b2b133eb57 after Windows37200399086(8m9s)/37200401184(7m23s) passed, including packaged executable validation.

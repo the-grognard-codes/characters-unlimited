@@ -6,6 +6,7 @@ from collections import Counter
 from .education import project_education
 from .proficiency import project_proficiency, synergy_contributions
 from .heroes_powers import power_skill_contributions
+from .heroes_abilities import project_shared_abilities
 
 
 def validate_program_selections(selections, pack):
@@ -174,7 +175,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
             'physical_selections':[{'skill_id':row['id']} for row in pack['skills']
                                    if row.get('kind') == 'physical' and row['id'] in physical_grants],
             'skill_catalog':deepcopy(pack['skills']),
-            'skills':skills, 'warnings':warnings, 'guidance':deepcopy(pack['guidance']),
+            'skills':skills, 'shared_abilities':project_shared_abilities(skills),
+            'warnings':warnings, 'guidance':deepcopy(pack['guidance']),
             'rules':{'id':pack['id'], 'version':pack['version']}, 'source':deepcopy(pack['source']),
             'program_choices':program_choices,
             'secondary':{'supported':secondary_rules is not None, 'catalog':deepcopy(pack['skills']) if secondary_rules else [],

@@ -225,3 +225,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06R merged in PR83 as53699c59b49cf43b22d02d4c3bae9698b182be53 after Windows37199062051(4m39s)/37199065855(7m33s) passed, including packaged executable validation.
 
 - 06S: Acrobatics adds separate named proficiency rates, conditional fallback checks, retained Physical effects and Climbing/Prowl bonuses under immutable skills1.20. Outside-group Physical proficiency gating repaired; visual-review stale Prowl guidance corrected. Both reviews approve; affected25/finalfull345 tests pass (one frozen-only skip), mypy111, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending. Gymnastics and parent06/07/09 remain open.
+
+06S merged in PR84 as25d909dcc669583b70b3ef8a693c83b2b133eb57 after Windows37200399086(8m9s)/37200401184(7m23s) passed, including packaged executable validation.
+
+- 06T: Gymnastics adds retained Physical bonuses and named checks under immutable skills1.21. Acrobatics/Gymnastics duplicated abilities use their best calculated proficiency, retaining source checks and counting education once. Both reviews approve; affected27/full352 tests pass (one frozen-only skip), mypy113, compile/JS/whitespace and browser/five-page editable PDF checks pass. Windows pending. Initial core Physical entries are available; later maneuvers, Heroes advancement and parent06/07/09/full corpus remain open.

@@ -23,6 +23,7 @@ from .heroes_powers import select_powers, project_powers, power_resource_contrib
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical, validate_physical_upgrade
 from .heroes_physical import acquire_hero_physical, project_hero_physical
+from .heroes_combat import project_hero_combat
 from .resources import acquire_resources, project_resources, update_resource
 from .equipment import validate_inventory, purchase_inventory, split_inventory, reload_inventory, project_equipment, compare_equipment_views
 from .starting_funds import acquire_starting_funds
@@ -312,8 +313,9 @@ class CharacterApplication:
     def _project_hero_programs(self, character):
         pack = self._character_heroes_pack(character, 'heroes-program-skills')
         education = self.character_education_pack(character)
+        physical = project_hero_physical(character, pack, education)
         return {**project_programs(character, pack, education, self.character_hero_powers_pack(character)),
-                'physical':project_hero_physical(character, pack, education)}
+                'physical':physical, 'combat':project_hero_combat(character,pack,physical)}
 
     def select_hero_programs(self, identifier, *, revision, selections):
         require_revision(revision)
@@ -414,6 +416,17 @@ class CharacterApplication:
                                   + ', '.join(map(str, target['source']['pages']))
                                   + ' / PDF pp. ' + ', '.join(map(str, target['source']['pdf_pages']))],
                        'scope':'Heroes scholastic program skills. Education and attributes keep their saved rules.'}
+            before_combat = project_hero_combat(character,previous,project_hero_physical(character,previous,education))
+            after_combat = project_hero_combat(character,target,project_hero_physical(character,target,education))
+            for name,result in after_combat['totals'].items():
+                old_value = before_combat['totals'].get(name,{}).get('value')
+                if old_value != result['value']:
+                    preview['combat'].append({'name':'Heroes '+name.replace('_',' '),'before':old_value,'after':result['value']})
+            for key,label in (('training','Heroes training'),('parry_actions','Heroes parry actions')):
+                if before_combat.get(key) != after_combat.get(key):
+                    preview['combat'].append({'name':label,'before':before_combat.get(key),'after':after_combat.get(key)})
+            if after_combat['supported']:
+                preview['scope'] += ' Reviewed Heroes level-one ordinary combat is included; later advancement remains pending.'
         else:
             previous = self.character_skill_pack(character)
             target = class_rules(self.rule_archive.active('rifts-domestic-skills'), character)

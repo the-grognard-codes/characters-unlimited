@@ -122,11 +122,44 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.11.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.12.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
                 conflict.exception.close()
+            finally:
+                server.shutdown();server.server_close();worker.join(timeout=5)
+
+    def test_heroes_basic_combat_endpoint_preserves_training_on_stale_mutation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory,die=lambda sides:4)
+            hero = app.create(game='heroes-unlimited')
+            hero = app.select_education(hero['id'],revision=0,method='choose',education_id='high-school')
+            server = create_server(app)
+            worker = threading.Thread(target=server.serve_forever,daemon=True)
+            worker.start()
+            try:
+                base = f'http://127.0.0.1:{server.server_port}'
+                with urlopen(base+'/api/bootstrap',timeout=5) as response:
+                    token = json.load(response)['token']
+                path = base+'/api/characters/'+hero['id']
+                headers = {'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
+                payload = json.dumps({'revision':hero['revision'],'selections':['hand-to-hand-basic']}).encode()
+                with urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5) as response:
+                    saved = json.load(response)
+                with urlopen(path+'/hero-programs',timeout=5) as response:
+                    combat = json.load(response)['combat']
+                self.assertEqual(combat['totals']['attacks']['value'],4)
+                self.assertEqual(combat['parry_actions'],0)
+                with self.assertRaises(HTTPError) as stale:
+                    urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5)
+                self.assertEqual(stale.exception.code,409)
+                stale.exception.close()
+                self.assertEqual(app.get(hero['id']),saved)
+                with urlopen(path+'/pdf',timeout=5) as response:
+                    fields = PdfReader(BytesIO(response.read())).get_fields()
+                assert fields is not None
+                self.assertEqual(fields['ATTACKS']['/V'],'4')
             finally:
                 server.shutdown();server.server_close();worker.join(timeout=5)
 

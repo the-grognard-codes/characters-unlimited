@@ -58,10 +58,13 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             value += f"; target {save['target']}"
         labelled(label, key, 40, 691-index*20, 140, value)
     heading('Combat Skill', 198, 716, 150)
-    labelled('Training', 'COMBAT_SKILL', 198, 691, 150)
+    combat = programs.get('combat',{})
+    labelled('Training', 'COMBAT_SKILL', 198, 691, 150, combat.get('training') or '')
     for index, (label, key) in enumerate([('Attacks', 'ATTACKS'), ('Initiative', 'INITIATIVE'),
             ('Strike', 'STRIKE'), ('Parry', 'PARRY'), ('Dodge', 'DODGE'), ('Damage bonus', 'DAMAGE')]):
-        labelled(label, key, 198, 667-index*20, 150)
+        stat = {'ATTACKS':'attacks','INITIATIVE':'initiative','STRIKE':'strike','PARRY':'parry','DODGE':'dodge','DAMAGE':'damage'}[key]
+        value = combat.get('totals',{}).get(stat,{}).get('value')
+        labelled(label, key, 198, 667-index*20, 150, str(value) if value is not None else '')
     heading('Identity', 366, 716, 206)
     race = next(row['name'] for row in core['races'] if row['id'] == character['race'])
     category = next(row['name'] for row in core['classes'] if row['id'] == character['character_class'])
@@ -134,7 +137,11 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     if len(wrapped_powers) > 10:
         overflow.extend(['Power outcome and starting allowance (continued)', *wrapped_powers[10:]])
     heading('Weapons & Combat Effects', 40, 212, 310)
-    field('WEAPONS', 40, 58, 310, 143, multiline=True)
+    unarmed = [line for attack in combat.get('unarmed',[]) for line in wrap_lines(
+        f"{attack['name']}: {attack['damage'] or 'unreviewed'}; {attack['actions']} actions",308)]
+    field('WEAPONS', 40, 58, 310, 143, value='\n'.join(unarmed[:10]), multiline=True)
+    if len(unarmed) > 10:
+        overflow.extend(['Combat effects (continued)', *unarmed[10:]])
     heading('Armor & Protection', 368, 212, 204)
     field('ARMOR', 368, 58, 204, 143, multiline=True)
     canvas.showPage()
@@ -197,12 +204,23 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             for name, result in skill['effects'][group].items():
                 terms.append(name+' +'+str(result['value'])+
                              (f" (dice {result['rolls']})" if result['rolls'] else ''))
+        terms.extend(name.replace('_',' ')+' +'+str(value) for name,value in skill['effects']['combat'].items())
         lines += wrap_lines('Physical: '+skill['name']+'; '+', '.join(terms), 530)
         source = skill['source']
         lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
                             ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)
         for note in skill.get('guidance', []):
             lines += wrap_lines(skill['name']+': '+note, 530)
+    if combat.get('supported'):
+        lines += wrap_lines(f"Combat: {combat['training']}; parry {combat['parry_actions']} actions; dodge {combat['dodge_actions']} action",530)
+        for name,result in combat['totals'].items():
+            parts = '; '.join(f'{label} {value:+d}' for label,value in result['contributions'].items())
+            lines += wrap_lines(f"{name.replace('_',' ')}: {result['value'] if result['value'] is not None else 'unreviewed'}; {parts}",530)
+        for source in combat['sources']:
+            lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
+                                ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])),530)
+        for note in combat['guidance']:
+            lines += wrap_lines(note,530)
     if resources and resources['generated']:
         lines += wrap_lines('Starting resources retain recorded contributions; later attribute changes do not reroll them.', 530)
         for result in resources['resources'].values():

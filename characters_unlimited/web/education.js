@@ -15,6 +15,7 @@ function educationLine(text) {
 async function loadEducation(character) {
   const sequence = ++educationLoadSequence;
   educationReady = false; setEducationBusy();
+  $('hero-combat-panel').hidden = true;
   heroProgramView = null;
   for (const id of ['hero-program-list', 'hero-program-skills', 'hero-program-guidance', 'hero-program-warnings', 'hero-secondary-list', 'hero-secondary-guidance']) $(id).replaceChildren();
   $('education-result').textContent = 'Loading education…';
@@ -104,9 +105,11 @@ async function loadEducation(character) {
     for (const skill of programs.physical?.selected || []) {
       const terms = Object.entries(skill.effects.attributes).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`);
       terms.push(...Object.entries(skill.effects.resources).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`));
+      terms.push(...Object.entries(skill.effects.combat).map(([name, value]) => `${name.replaceAll('_', ' ')} +${value}`));
       $('hero-program-skills').append(educationLine(`${skill.name}: ${terms.join(' · ')} · Physical effects apply once; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}`));
       for (const note of skill.guidance || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
     }
+  renderHeroCombat(programs.combat);
   $('hero-program-warnings').replaceChildren(...programs.warnings.map(educationLine));
   $('hero-program-warnings').hidden = !programs.warnings.length;
   $('hero-program-guidance').replaceChildren(...[...programs.guidance,
@@ -153,4 +156,20 @@ function wireEducationEvents() {
     event.preventDefault();
     characterAction('hero-secondary',{selections:[...heroProgramView.secondary.selections,$('hero-secondary-choice').value]}).catch(showError);
   };
+}
+
+function renderHeroCombat(combat) {
+  $('hero-combat-panel').hidden = !combat?.supported;
+  if (!combat?.supported) return;
+  $('hero-combat-training').textContent = `${combat.training} · parry uses ${combat.parry_actions} ${combat.parry_actions === 1 ? 'action' : 'actions'} · dodge uses ${combat.dodge_actions} action`;
+  $('hero-combat-totals').replaceChildren(...Object.entries(combat.totals).map(([name, result]) => {
+    const terms = Object.entries(result.contributions).map(([label, value]) => `${label} ${value >= 0 ? '+' : ''}${value}`).join(', ');
+    return educationLine(`${name.replaceAll('_', ' ')}: ${result.value ?? 'unreviewed'} (${terms || 'no reviewed bonus'})`);
+  }));
+  $('hero-combat-unarmed').replaceChildren(...combat.unarmed.map(attack => educationLine(`${attack.name}: ${attack.damage ?? 'damage unreviewed'} · ${attack.actions} ${attack.actions === 1 ? 'action' : 'actions'}`)));
+  $('hero-combat-guidance').replaceChildren(...[
+    ...combat.guidance,
+    ...combat.sources.map(source => `${source.book}, printed pp. ${source.pages.join(', ')} / PDF pp. ${source.pdf_pages.join(', ')}`),
+    `Combat rules: ${combat.rules.id} ${combat.rules.version}.`
+  ].map(educationLine));
 }

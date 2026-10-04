@@ -16,3 +16,5 @@ Browser worked example with Body Building/Running plus endurance: P.E.22, HP42, 
 [Editable sample](09d-endurance-sample.pdf)
 
 Heroes advancement remains open; current characters support only level1 and reject unearned level dice. The per-level definition and confirmed ruling remain explicit for the later advancement slice. Full powers/category construction, combat and corpus acceptance remain open; parent09/07 remain open.
+
+09D merged in PR75 as107218415f4319d32a3ed0d05f835ec1504f81ee after Windows37187385452(4m34s)/37187383195(5m45s) passed, including packaged executable validation.

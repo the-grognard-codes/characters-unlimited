@@ -11,11 +11,14 @@ def specialty_key(value):
 
 def selection_policy(definition, pool, pack):
     if 'selection_rules' not in pack:
-        return {'allowed': True, 'bonus': pack['pools'][pool]['bonus']}
+        return {'allowed': True, 'bonus': pack['pools'][pool]['bonus'], 'cost':1}
     rule = pack['selection_rules'][pool].get(definition.get('category', 'domestic'), {})
     allowed = rule.get('allow') == 'any' or definition['id'] in rule.get('allow', [])
     allowed = allowed and definition['id'] not in rule.get('exclude', [])
-    return {'allowed': allowed, 'bonus': rule.get('bonus', 0) if allowed else 0}
+    cost = rule.get('costs', {}).get(definition['id'], 1) if allowed else 1
+    if type(cost) is not int or not 1 <= cost <= 100:
+        raise ValueError('Skill selection costs must be positive whole numbers up to 100')
+    return {'allowed': allowed, 'bonus': rule.get('bonus', 0) if allowed else 0, 'cost':cost}
 
 
 def learned_selection_ids(selections, pack):

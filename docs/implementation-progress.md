@@ -131,3 +131,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 05C1: Complete in PR #58 as864ccc5 after Windows checks37164049347/37164051385 passed all222 and frozen validation. Declarative required groups, legacy updates and browser autosave/reopen passed both review axes.
 - 05C2: Human City Rat foundation in progress; full O.C.C. review remains pending. Scope and open dependencies are recorded in docs/city-rat-contract.md.
+
+- 05C2: Complete in PR #59 as3fcd2c5 after Windows full/frozen runs37166246403/37166240913 passed. Local227 tests, mypy80, both review axes and browser/render/edit/reopen pass. City Rat remains partial, with full mechanics and parent tickets open.
+- 05C3: Source-defined optional skill selection costs in progress; City Rat Paramedic consumes two Related slots under new immutable skills2.10.0. Physical/Rogue minimum interpretation remains pending user response.

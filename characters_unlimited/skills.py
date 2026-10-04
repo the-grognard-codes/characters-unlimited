@@ -23,6 +23,7 @@ def validate_selections(selections, pack=PACK):
     for item in selections:
         if not isinstance(item, dict) or not isinstance(item.get('skill_id'), str) or not isinstance(item.get('pool'), str) or item['skill_id'] not in known or item['pool'] not in pack['pools']:
             raise ValueError("Select an available skill and pool")
+        selection_policy(known[item['skill_id']], item['pool'], pack)
         specialty = item.get('specialty', '')
         if not isinstance(specialty, str):
             raise ValueError("Skill specialty must be text")
@@ -87,7 +88,10 @@ def project_skills(character, pack=PACK):
             rule = intelligence_rule['beyond_30']
             intelligence += ((iq - 30) // rule['step']) * rule['bonus']
     selections = character.get('skill_selections', [])
-    counts = Counter(item['pool'] for item in selections)
+    definitions = {skill['id']:skill for skill in domestic}
+    counts: Counter[str] = Counter()
+    for item in selections:
+        counts[item['pool']] += selection_policy(definitions[item['skill_id']], item['pool'], pack)['cost']
     occurrences = Counter(skill_key(item, pack) for item in selections if skill_key(item, pack) != ('instrument', ''))
     domestic_grants = pack.get('fixed_domestic_grants', [{'id':'cook','bonus':15}])
     bonuses = {}
@@ -123,7 +127,7 @@ def project_skills(character, pack=PACK):
             warnings.append(f"Choose the specialty for each {definition['name']} selection.")
         policy = selection_policy(definition, item['pool'], pack)
         if definition.get('kind') == 'physical' and 'base' not in definition:
-            selected.append({**physical_entries[definition['id']], **item, 'quality':'trained'})
+            selected.append({**physical_entries[definition['id']], **item, 'quality':'trained', 'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
             continue
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
         contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated and is_domestic else 0, 'intelligence': intelligence}
@@ -140,7 +144,8 @@ def project_skills(character, pack=PACK):
         elif definition.get('quality_by_pool'):
             quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
         effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
-        selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions), 'quality': quality})
+        selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions), 'quality': quality,
+                         'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
         remaining[pool] += sum(level <= character['level'] for level in pack.get('higher_advancement', {}).get(pool + '_levels', []))

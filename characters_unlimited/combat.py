@@ -113,6 +113,8 @@ def project_combat(character, pack):
     totals['damage']=total(physical_damage,missing=ps < 1)
     unarmed=[]
     attacks = [('punch','Punch','1D4',False,1,'punch'),('kick','Kick','1D8',False,1,'kick'),('power-punch','Power punch','1D4',True,2,'punch')]
+    if hand.get('power_kick', False):
+        attacks.append(('power-kick','Power kick','1D8',True,2,'kick'))
     for move in learned_moves:
         category = move.get('damage_type', 'kick' if 'kick' in move['id'] else 'punch')
         attacks.append((move['id'], move['name'], move.get('dice'), False, move.get('actions', 1), category))
@@ -127,7 +129,8 @@ def project_combat(character, pack):
             damage='Pending strength interpretation'
         elif ps <= 2:
             damage = ('Pending low-strength maneuver interpretation' if category == 'maneuver' else
-                      'Pending low-strength power-punch interpretation' if power else
+                      ('Pending low-strength power-kick interpretation' if category == 'kick' else
+                       'Pending low-strength power-punch interpretation') if power else
                       '1D4 S.D.C.' if category == 'kick' else '1 S.D.C.')
         elif ps <= 4:
             bonus = totals['damage']['value'] or 0
@@ -137,7 +140,9 @@ def project_combat(character, pack):
             damage=expression + (' + ' + str(bonus) if bonus else '') + ' S.D.C.'
         unarmed.append({'id':identifier,'name':name,'damage':damage,'actions':actions})
     if ps < 3:
-        gaps.append('Low-strength power-punch damage remains pending; normal punch/kick exceptions are shown.')
+        gaps.append('Low-strength power-punch and power-kick damage remains pending; normal punch/kick exceptions are shown.'
+                    if hand.get('power_kick', False) else
+                    'Low-strength power-punch damage remains pending; normal punch/kick exceptions are shown.')
     melee=[]
     for definition in rules['ancient']:
         if definition['id'] not in choices['ancient']: continue

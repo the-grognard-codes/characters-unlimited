@@ -149,3 +149,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08B6: Complete in PR64 as6545e0f after both Windows workflows passed.
 - 08B7: Free City Rat starting knife in progress; other weapons and equipment remain open.
+
+- 08B7: Complete in PR65 ase670451 after both Windows workflows passed.
+- 07B2: Source-permitted Power Kick in progress with user-confirmed base-dice doubling and bonuses once.

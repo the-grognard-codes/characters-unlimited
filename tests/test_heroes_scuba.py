@@ -100,3 +100,19 @@ class HeroesScubaTests(unittest.TestCase):
             c=app.select_hero_secondary(c['id'],revision=c['revision'],selections=['scuba'])
             fields=PdfReader(BytesIO(app.export_pdf(c['id']))).get_fields();assert fields is not None
             self.assertIn('Selection retained on the honor system','\n'.join(str(row.get('/V','')) for row in fields.values()))
+
+    def test_long_sheet_retains_scuba_in_an_editable_continuation_field(self):
+        from io import BytesIO
+        from pypdf import PdfReader
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:4)
+            c=app.create(game='heroes-unlimited')
+            c=app.select_education(c['id'],revision=0,method='choose',education_id='high-school')
+            catalog=app.hero_program_view(c['id'])['skill_catalog']
+            c=app.select_hero_secondary(c['id'],revision=c['revision'],selections=[row['id'] for row in catalog if 'base' in row])
+            fields=PdfReader(BytesIO(app.export_pdf(c['id']))).get_fields();assert fields is not None
+            self.assertNotIn('skills.scuba.percentage',fields)
+            matching=[row for row in fields.values() if row.get('/V')=='S.C.U.B.A. (Advanced Swimming): 50% (+5% per level)']
+            self.assertEqual(len(matching),1)
+            self.assertEqual(matching[0]['/FT'],'/Tx')
+            self.assertFalse(int(matching[0]['/Ff']) & 1)

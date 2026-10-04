@@ -351,7 +351,9 @@ class PackagedApplicationTests(unittest.TestCase):
                 assert resource_pdf is not None
                 self.assertIn('skills.climbing.check0.percentage',resource_pdf)
                 self.assertIn('skills.swimming.percentage',resource_pdf)
-                self.assertIn('skills.scuba.percentage',resource_pdf)
+                scuba_line = f"S.C.U.B.A. (Advanced Swimming): {rogue['scuba']['percentage']}% (+5% per level)"
+                self.assertTrue('skills.scuba.percentage' in resource_pdf or
+                                any(row.get('/V') == scuba_line for row in resource_pdf.values()))
                 self.assertEqual(resource_pdf['COMBAT_SKILL']['/V'],'Hand to Hand: Martial Arts')
                 self.assertEqual(resource_pdf['ATTACKS']['/V'],'4')
                 self.assertEqual(resource_pdf['HP']['/V'],str(hero_resources['resources']['HP']['value']))

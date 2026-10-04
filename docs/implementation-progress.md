@@ -207,3 +207,5 @@ Perform the requested retro only after all slices are completed. Compare functio
 06N merged in PR79 as b17ecea00ef1e72100f3bd96d27621e284d2b653 after Windows37192953719(8m29s)/37192957051(8m0s) passed, including packaged executable validation.
 
 - 06O: S.C.U.B.A. added under immutable skills1.16 with separate underwater pace, proficiency, prerequisite honor warning, retained empty receipts and fatigue source. Both reviews approve; focused21/full322 tests pass (one frozen-only skip), required mypy107, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; parent06/07/09 remain open.
+
+06O Windows initially exposed a frozen long-sheet expectation; corrected to verify the editable continuation value. New long-sheet regression and final323 tests pass in162.071 seconds (one frozen-only skip); mypy107/compile/whitespace pass. Corrected Windows pending.

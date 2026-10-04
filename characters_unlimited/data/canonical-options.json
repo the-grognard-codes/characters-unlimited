@@ -344,7 +344,8 @@
       "dependencies": [],
       "findings": [
         "Identity confirmed against the original class list; complete mechanics, restrictions, advancement, equipment and dependency audit remain pending.",
-        "05C2 Human foundation covers class attributes, Running, required grants/choices, pools, ordinary combat and level-15 progression. Implants, equipment/funds, P.P.E./age, broader skill choices and full dependency review remain pending."
+        "05C2 Human foundation covers class attributes, Running, required grants/choices, pools, ordinary combat and level-15 progression. Implants, equipment/funds, P.P.E./age, broader skill choices and full dependency review remain pending.",
+        "08B4 implements starting credits and separate Black Market item value with once-only dice and exact equipment pins. Item identity, equipment/cybernetics, P.P.E./age and full class review remain pending."
       ]
     },
     {

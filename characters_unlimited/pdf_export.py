@@ -386,7 +386,8 @@ def export_rifts_sheet(character, core, skills, combat):
                             ' + '.join(map(str,record['rolls']))+') x'+str(definition['multiplier'])+'. '+record['source']['book']+
                             ', p. '+', '.join(map(str,record['source']['pages']))+'.')
         if equipment['starting_funds']['generated']:
-            sheet_notes += '\nStarting saleable goods remain goods value; they are not added to current credits automatically.'
+            item_definition = next(item for item in equipment['starting_funds']['definitions'] if item['id']=='saleable_goods')
+            sheet_notes += '\n'+item_definition['name']+' remains recorded item value; it is not added to current credits automatically.'
         if equipment['starting_choices']['generated']:
             starting = equipment['starting_choices']
             names = {item['id']: item['name'] for item in equipment['catalog']}

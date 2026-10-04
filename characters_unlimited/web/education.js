@@ -3,6 +3,7 @@ let educationReady = false, educationLoadSequence = 0;
 let heroProgramView = null;
 
 function setEducationBusy() {
+  document.querySelectorAll('#hero-kicks-form input, #hero-kicks-form button').forEach(element => element.disabled = navigationBusy || !educationReady);
   document.querySelectorAll('#hero-training-form select, #hero-training-form button').forEach(element => element.disabled = navigationBusy || !educationReady || !heroProgramView?.combat?.training_selection_supported);
   document.querySelectorAll('#education-panel select, #education-panel button').forEach(element => element.disabled = navigationBusy || !educationReady);
   document.querySelectorAll('#hero-program-form select, #hero-program-form button').forEach(element => element.disabled = navigationBusy || !educationReady || !heroProgramView?.slots.length);
@@ -167,6 +168,11 @@ async function loadEducation(character) {
 }
 
 function wireEducationEvents() {
+  $('hero-kicks-form').onsubmit = event => {
+    event.preventDefault();
+    const selections = [...$('hero-kicks-options').querySelectorAll('input:checked')].map(input => input.value);
+    characterAction('hero-kicks',{training_id:heroProgramView.combat.active_training,selections}).catch(showError);
+  };
   $('hero-training-form').onsubmit = event => {
     event.preventDefault();
     characterAction('hero-training',{training_id:$('hero-training-choice').value || null}).catch(showError);
@@ -197,8 +203,20 @@ function renderHeroCombat(combat) {
     const terms = Object.entries(result.contributions).map(([label, value]) => `${label} ${value >= 0 ? '+' : ''}${value}`).join(', ');
     return educationLine(`${name.replaceAll('_', ' ')}: ${result.value ?? 'unreviewed'} (${terms || 'no reviewed bonus'})`);
   }));
-  $('hero-combat-unarmed').replaceChildren(...combat.unarmed.map(attack => educationLine(`${attack.name}: ${attack.damage ?? 'damage unreviewed'} · ${attack.actions} ${attack.actions === 1 ? 'action' : 'actions'}`)));
+  const kicks = combat.kick_choices;
+  $('hero-kicks-form').hidden = !kicks?.supported || !combat.active_training;
+  $('hero-kicks-options').replaceChildren(...(kicks?.catalog || []).map(kick => {
+    const label=document.createElement('label'), input=document.createElement('input');
+    input.type='checkbox'; input.value=kick.id; input.checked=kicks.selections.includes(kick.id);
+    label.append(input,document.createTextNode(kick.name+(kicks.allowed.includes(kick.id) ? '' : ' (outside choice entitlement)'))); return label;
+  }));
+  $('hero-kicks-counts').textContent = kicks?.supported ? `${kicks.count} choices allowed · ${kicks.remaining} remaining · training learned age ${kicks.age}${kicks.accepted ? '' : ' · Save choices to record these kick rules'}. Automatic kicks: ${(kicks.automatic || []).map(id => kicks.catalog.find(row => row.id===id).name).join(', ') || 'none'}.` : '';
+  $('hero-kicks-warnings').replaceChildren(...(kicks?.warnings || []).map(educationLine));
+  $('hero-combat-unarmed').replaceChildren(...combat.unarmed.map(attack => educationLine(`${attack.name}: ${attack.damage ?? 'damage unreviewed'} · ${attack.actions === 'all' ? 'all melee attacks' : `${attack.actions} ${attack.actions === 1 ? 'action' : 'actions'}`} ${(attack.notes || []).join(' ')}`)));
   $('hero-training-receipts').replaceChildren(...combat.training_receipts.map(receipt => educationLine(`${receipt.name}: ${receipt.active ? 'active training' : receipt.selected ? 'selected, inactive training' : 'removed, retained acquisition'} · no acquisition dice · printed pp. ${receipt.source.pages.join(', ')} / PDF pp. ${receipt.source.pdf_pages.join(', ')}`)));
+  for (const receipt of kicks?.receipts || []) {
+    $('hero-training-receipts').append(educationLine(`Retained kick choices for ${receipt.training_id}: ${receipt.selections.map(id => kicks.catalog.find(row => row.id===id).name).join(', ') || 'none'} · ${receipt.active ? 'active training' : 'inactive training'}`));
+  }
   $('hero-combat-guidance').replaceChildren(...[
     ...combat.guidance,
     ...combat.sources.map(source => `${source.book}, printed pp. ${source.pages.join(', ')} / PDF pp. ${source.pdf_pages.join(', ')}`),

@@ -24,6 +24,7 @@ from .heroes_programs import validate_program_selections, validate_secondary_sel
 from .physical import acquire_physical, validate_physical_upgrade
 from .heroes_physical import acquire_hero_physical, project_hero_physical, preserve_training_choice
 from .heroes_combat import project_hero_combat
+from .heroes_kicks import validate_kick_selections
 from .resources import acquire_resources, project_resources, update_resource
 from .equipment import validate_inventory, purchase_inventory, split_inventory, reload_inventory, project_equipment, compare_equipment_views
 from .starting_funds import acquire_starting_funds
@@ -418,7 +419,7 @@ class CharacterApplication:
         if character['level'] > 1:
             programs['guidance'] = [note.replace('and advancement remain unfinished.', 'and later advancement remain unfinished.') for note in programs['guidance']]
         return {**programs,
-                'physical':physical, 'combat':project_hero_combat(character,pack,physical,progression=progression,higher=higher),
+                'physical':physical, 'combat':project_hero_combat(character,pack,physical,progression=progression,higher=higher,moves=self._hero_moves_pack(character,available=True)),
                 'advancement':project_hero_advancement(character,progression,self._hero_higher_pack(character,available=True))}
 
     def select_hero_programs(self, identifier, *, revision, selections, learned_level=None):
@@ -475,6 +476,27 @@ class CharacterApplication:
         if training_id is not None and (not isinstance(training_id,str) or training_id not in available):
             raise ValueError('Choose an acquired and currently selected training style')
         return self.store.update(identifier,{'hero_combat_training':training_id},revision)
+
+    def _hero_moves_pack(self, character, *, available=False):
+        version = character.get('additional_rule_packs',{}).get('heroes-combat-moves')
+        if version is not None:return self.rule_archive.resolve('heroes-combat-moves',version)
+        if available and 'heroes-combat-moves' in self.rule_archive.active_versions():return self.rule_archive.active('heroes-combat-moves')
+        return None
+
+    def select_hero_kicks(self, identifier, *, revision, training_id, selections):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting kicks.')
+        pack = self._hero_moves_pack(character) or self.rule_archive.active('heroes-combat-moves')
+        if character['game'] != 'heroes-unlimited' or not isinstance(training_id,str) or training_id not in pack['styles'] or training_id not in character.get('physical_acquisitions',{}):
+            raise ValueError('Choose a retained Heroes training acquisition')
+        selections = validate_kick_selections(selections,pack)
+        records = deepcopy(character.get('hero_kick_choices',{}))
+        records[training_id] = {'selections':selections,'source':deepcopy(pack['source'])}
+        changes = {'hero_kick_choices':records,'additional_rule_packs':{**character.get('additional_rule_packs',{}),pack['id']:pack['version']}}
+        export_bundle({**character,**changes},self.rule_archive.definitions())
+        return self.store.update(identifier,changes,revision)
 
     def export_character(self, identifier):
         return export_bundle(self.get(identifier), self.rule_archive.definitions())
@@ -575,6 +597,14 @@ class CharacterApplication:
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
         targets = [target]
         preview['equipment'] = []
+        if character['game']=='heroes-unlimited' and self._hero_moves_pack(character):
+            previous_moves = self._hero_moves_pack(character)
+            target_moves = self.rule_archive.active('heroes-combat-moves')
+            if character.get('hero_kick_choices') and canonical({k:v for k,v in previous_moves.items() if k!='version'}) != canonical({k:v for k,v in target_moves.items() if k!='version'}):
+                raise ValueError('This update changes recorded Heroes kick rules. Choice/history migration is not yet supported; current rules remain intact.')
+            targets.append(target_moves)
+            if previous_moves['version'] != target_moves['version']:
+                changes.append({'pack_id':target_moves['id'],'from':previous_moves['version'],'to':target_moves['version']})
         if character['game'] == 'heroes-unlimited' and 'heroes-super-abilities' in character.get('additional_rule_packs',{}):
             previous_powers = self.character_hero_powers_pack(character)
             target_powers = self.rule_archive.active('heroes-super-abilities')

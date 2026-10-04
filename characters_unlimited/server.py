@@ -160,6 +160,8 @@ def create_server(application, port=0):
                         self.respond(200, application.select_hero_programs(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'hero-secondary':
                         self.respond(200, application.select_hero_secondary(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'hero-kicks':
+                        self.respond(200, application.select_hero_kicks(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'hero-training':
                         self.respond(200, application.select_hero_training(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'duplicate':

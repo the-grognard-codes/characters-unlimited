@@ -11,7 +11,8 @@
     "heroes-super-abilities": "1.3.0",
     "heroes-resources": "1.0.0",
     "heroes-advancement": "1.0.0",
-    "heroes-higher-advancement": "1.0.0"
+    "heroes-higher-advancement": "1.0.0",
+    "heroes-combat-moves": "1.0.0"
   },
   "definitions": [
     {
@@ -427,6 +428,12 @@
       "version": "1.0.0",
       "filename": "heroes-higher-advancement-1.0.0.json",
       "sha256": "7877f851360d596d2fd1c28d20e7a77c264b2df39261f523276ea56bf48afd8b"
+    },
+    {
+      "id": "heroes-combat-moves",
+      "version": "1.0.0",
+      "filename": "heroes-combat-moves-1.0.0.json",
+      "sha256": "813e337b82a2af1f124e8477669fc43fff03d30e76b4415494ab54b3a1be8b66"
     }
   ]
 }

@@ -1,0 +1,231 @@
+{
+  "id": "heroes-combat-moves",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "schema_version": 1,
+  "name": "Reviewed ordinary-human learned kick choices",
+  "styles": {
+    "hand-to-hand-basic": {
+      "level": 3,
+      "count": 1,
+      "automatic": [],
+      "choices": [
+        "karate-kick",
+        "snap-kick"
+      ]
+    },
+    "hand-to-hand-expert": {
+      "level": 5,
+      "count": 2,
+      "automatic": [
+        "karate-kick"
+      ],
+      "choices": [
+        "snap-kick",
+        "knee",
+        "roundhouse-kick",
+        "wheel-kick",
+        "crescent-kick",
+        "axe-kick",
+        "backward-sweep",
+        "tripping"
+      ]
+    },
+    "hand-to-hand-martial-arts": {
+      "level": 3,
+      "count": 4,
+      "automatic": [
+        "karate-kick"
+      ],
+      "choices": [
+        "snap-kick",
+        "knee",
+        "roundhouse-kick",
+        "wheel-kick",
+        "crescent-kick",
+        "axe-kick",
+        "backward-sweep",
+        "tripping"
+      ],
+      "later_automatic": {
+        "5": [
+          "jump-kick",
+          "flying-jump-kick"
+        ]
+      }
+    },
+    "hand-to-hand-assassin": {
+      "level": 9,
+      "count": 2,
+      "automatic": [
+        "karate-kick"
+      ],
+      "choices": [
+        "snap-kick",
+        "knee",
+        "roundhouse-kick",
+        "wheel-kick",
+        "crescent-kick",
+        "axe-kick",
+        "backward-sweep",
+        "tripping"
+      ]
+    }
+  },
+  "kicks": [
+    {
+      "id": "karate-kick",
+      "name": "Karate kick",
+      "dice": "2D4",
+      "flat": 0,
+      "actions": 1,
+      "power": true,
+      "notes": [
+        "Specific training and kick prose use 2D4; general foot-strike table instead lists 2D6."
+      ]
+    },
+    {
+      "id": "snap-kick",
+      "name": "Snap kick",
+      "dice": "1D6",
+      "flat": 0,
+      "actions": 1,
+      "power": true,
+      "notes": []
+    },
+    {
+      "id": "knee",
+      "name": "Knee",
+      "dice": "1D6",
+      "flat": 0,
+      "actions": 1,
+      "power": true,
+      "notes": []
+    },
+    {
+      "id": "roundhouse-kick",
+      "name": "Roundhouse kick",
+      "dice": "3D6",
+      "flat": 0,
+      "actions": 1,
+      "power": true,
+      "notes": [
+        "Only once per melee; no other kicks that melee."
+      ]
+    },
+    {
+      "id": "wheel-kick",
+      "name": "Wheel kick",
+      "dice": "2D6",
+      "flat": 0,
+      "actions": 1,
+      "power": true,
+      "notes": [
+        "Cannot immediately precede or follow another kick."
+      ]
+    },
+    {
+      "id": "crescent-kick",
+      "name": "Crescent kick",
+      "dice": "2D4",
+      "flat": 2,
+      "actions": 1,
+      "power": true,
+      "notes": []
+    },
+    {
+      "id": "axe-kick",
+      "name": "Axe kick",
+      "dice": "2D6",
+      "flat": 0,
+      "actions": 1,
+      "power": true,
+      "notes": [
+        "Cannot be used in the same melee as other kicks."
+      ]
+    },
+    {
+      "id": "backward-sweep",
+      "name": "Backward sweep",
+      "dice": null,
+      "flat": 0,
+      "actions": 1,
+      "power": false,
+      "notes": [
+        "Only against an opponent behind the character; cannot be parried. Successful strike knocks down, costing the victim one action and initiative."
+      ]
+    },
+    {
+      "id": "tripping",
+      "name": "Tripping / Leg hook",
+      "dice": null,
+      "flat": 0,
+      "actions": 1,
+      "power": false,
+      "notes": [
+        "Cannot be parried; knockdown only."
+      ]
+    },
+    {
+      "id": "jump-kick",
+      "name": "Jump kick",
+      "dice": "6D6",
+      "flat": 0,
+      "actions": "all",
+      "power": false,
+      "notes": [
+        "Martial Arts only, learned level 5. Must be first attack; uses all attacks for that melee. Listed dice already include the jump critical; bonuses add once. Afterward, may only parry, dodge or move into position."
+      ]
+    },
+    {
+      "id": "flying-jump-kick",
+      "name": "Flying jump kick",
+      "dice": "4D6",
+      "flat": 0,
+      "actions": 2,
+      "power": false,
+      "notes": [
+        "Martial Arts only, learned level 5. From long range; two melee attacks."
+      ]
+    }
+  ],
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      67,
+      68,
+      69,
+      71
+    ],
+    "pdf_pages": [
+      68,
+      69,
+      70,
+      72
+    ],
+    "section": "Learned kick choices and damage",
+    "markdown_ranges": [
+      [
+        3673,
+        3847
+      ],
+      [
+        3968,
+        4049
+      ]
+    ],
+    "candidate_ids": [
+      "21ffcfb2753f3c5e0f4b",
+      "a795412c8cd1fec8ffef",
+      "9ebc779f98e2c1465bfa",
+      "a611346864f6460f647d",
+      "7333aa8e24940f2d505f",
+      "615cdd17f539cd7f4472",
+      "9ebce9b643eed875dd4e"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "d1268c9d43c1aca5ca64b08108621f89987134931aaf598ede6a7dbc227e35af",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  }
+}

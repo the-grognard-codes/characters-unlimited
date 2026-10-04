@@ -470,11 +470,15 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(next(iter(athlete['advancement']['power_hp_rolls'].values()))['face'],power_gain)
                 program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
 
+                athlete = request('/api/characters/'+athlete['id']+'/hero-kicks',
+                    {'revision':athlete['revision'],'training_id':'hand-to-hand-basic','selections':['snap-kick']},token)
                 athlete = request('/api/characters/'+athlete['id']+'/advance',
                     {'revision':athlete['revision'],'method':'level','value':15},token)
                 program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
                 higher_dice = program_view['advancement']['dice']
                 self.assertEqual(len(higher_dice),28)
+                self.assertEqual(program_view['combat']['kick_choices']['selections'],['snap-kick'])
+                self.assertIn('power-snap-kick',{row['id'] for row in program_view['combat']['unarmed']})
                 self.assertEqual(program_view['combat']['totals']['parry']['value'],3)
                 self.assertEqual(program_view['combat']['totals']['dodge']['value'],3)
                 self.assertEqual(request('/api/characters/'+athlete['id']+'/resources')['resources']['HP']['value'],
@@ -492,6 +496,7 @@ class PackagedApplicationTests(unittest.TestCase):
                     {'revision':athlete['revision'],'method':'level','value':15},token)
                 program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
                 self.assertEqual(program_view['advancement']['dice'],higher_dice)
+                self.assertEqual(program_view['combat']['kick_choices']['selections'],['snap-kick'])
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

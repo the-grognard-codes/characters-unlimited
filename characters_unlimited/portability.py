@@ -12,6 +12,7 @@ from .heroes_powers import validate_powers, validate_power_attributes
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
 from .heroes_physical import validate_hero_physical
+from .heroes_kicks import validate_hero_kicks
 from .resources import validate_resources
 from .skills import validate_selections, project_skills
 from .equipment import validate_inventory
@@ -371,6 +372,7 @@ def validate_sources(character, packs, *, history_frame=False):
                 validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),physical_pack)
         elif 'physical_acquisitions' in character or 'hero_combat_training' in character:
             raise ValueError('Heroes Physical acquisitions must retain their skill and education rule pins')
+    validate_hero_kicks(character,current_hero_pack('heroes-combat-moves'))
     resource_snapshot = character.get('resource_attribute_snapshot')
     if resource_snapshot is not None:
         race = next(item for item in core['races'] if item['id']==character['race'])

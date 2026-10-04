@@ -291,3 +291,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 22C2B merged in PR99 as `6debd9a12fc69dd541f7f8ff84c3751e84d30475` after both exact-head Windows runs37241071135/37241068412 passed, including frozen executable validation.
 
 - 22D2: Additional resource growth uses shared formulas and retained first/later receipts in both games; projections, undo/replay and portable validation consume exact pinned evidence. Class ownership and safe combined totals are guarded. Seven public tests cover growth, forged data, preflight, undo and both editable PDF exports. Thirty-eight affected tests pass (99.949 seconds); both review axes APPROVE and static/archive checks pass. Final full-suite Windows/frozen validation pending; no book content accepted.
+
+- 22E3: Opt-in explicit class profiles replace every supported class-owned field and reuse shared catalogs. All profile shapes and declared owners validate before generation; default and nondefault synthetic witnesses survive poisoned root mechanics and exact portable reopening. Three focused and full423 tests pass (355.106 seconds, one frozen-only skip), mypy138 and static/archive checks pass. Both independent reviews APPROVE; Windows/frozen validation pending. Nested mechanical/import certification, equipment and race/R.C.C. precedence remain open.
+
+22D2 merged in PR100 as `7f168d187cd1f045a67d631a34985d150890534b` after both exact-head Windows runs37243495491/37243470670 passed, including frozen executable validation.

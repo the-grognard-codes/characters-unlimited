@@ -1,6 +1,7 @@
 """Resolve a class's reviewed rules while retaining the shared pack identity."""
 
 from copy import deepcopy
+from .profile_composition import compose_owned_profile
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -8,8 +9,19 @@ PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection
                   'physical_grants', 'fixed_domestic_grants', 'path_guidance', 'skill_effects'}
 
 
+PROFILE_FIELD_TYPES = {field: (str if field in {'name', 'path_name'} else
+                      list if field in {'physical_grants', 'fixed_domestic_grants', 'path_guidance', 'skill_effects'} else dict)
+                       for field in PROFILE_FIELDS}
+
+
 def class_rules(pack, character):
     identifier = character['character_class']
+    if 'class_profile_format' in pack:
+        result = compose_owned_profile(pack, identifier, PROFILE_FIELD_TYPES)
+        for identity, profile in pack['class_profiles'].items():
+            if any(profile[field].get('class_id') != identity for field in ('class_bonuses', 'advancement')):
+                raise ValueError(identity + ' class-specific rules must identify their owner')
+        return result
     # Before profiles, this archive's sole Rifts class was the Vagabond.
     default = pack.get('default_class', 'vagabond')
     if identifier == default:

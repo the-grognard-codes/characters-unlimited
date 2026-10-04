@@ -384,29 +384,32 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.18.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.19.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.18.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.19.0')
 
                 athlete = request('/api/characters',{'name':'Packaged Athlete','game':'heroes-unlimited'},token)
                 athlete = request('/api/characters/'+athlete['id']+'/education',
                     {'revision':0,'method':'choose','education_id':'high-school'},token)
                 athlete = request('/api/characters/'+athlete['id']+'/hero-programs',
                     {'revision':athlete['revision'],'selections':[{'slot':0,'program':'physical-athletic',
-                     'choices':{'physical':['boxing','hand-to-hand-martial-arts']}}]},token)
+                     'choices':{'physical':['wrestling','boxing','hand-to-hand-basic','swimming']}}]},token)
                 program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
                 physical_group = program_view['program_choices'][0]['groups'][0]
                 self.assertEqual((physical_group['credited'],physical_group['remaining']),(4,0))
                 self.assertEqual(program_view['secondary']['used'],0)
                 self.assertEqual(program_view['warnings'],[])
                 self.assertEqual(program_view['combat']['totals']['attacks']['value'],5)
+                self.assertEqual(len(athlete['physical_acquisitions']['wrestling']['rolls']['resource:SDC']),4)
+                self.assertEqual(program_view['combat']['totals']['roll_with_impact']['contributions']['Wrestling'],1)
                 athlete_pdf = PdfReader(BytesIO(request('/api/characters/'+athlete['id']+'/pdf'))).get_fields()
                 assert athlete_pdf is not None
                 self.assertEqual(athlete_pdf['ATTACKS']['/V'],'5')
                 athlete_text = ' '.join(' '.join(str(row.get('/V','')) for row in athlete_pdf.values()).split())
                 self.assertIn('Physical skills: 4 selections used / 4 allowed / 0 remaining',athlete_text)
                 self.assertNotIn('Boxing is outside the eligible Secondary categories.',athlete_text)
+                self.assertIn('Pin/incapacitate on a roll of 18, 19 or 20',athlete_text)
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

@@ -217,3 +217,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06P merged in PR81 as f3e484467afb02da9d72ed7448a71351913ee72d after Windows37196033706(4m14s)/37196035909(7m16s) passed, including packaged executable validation.
 
 - 06Q: Physical/Athletic program adds four weighted choices and a normal Boxing route under immutable skills1.18. Active training preserved across both selection paths; pending repeat credit/grants corrected after review. Both reviews approve; focused22/full334 tests pass (one frozen-only skip), mypy109, compile/JS/whitespace and browser/four-page editable PDF proof pass. Windows pending. Other Physical catalog/repeat entitlements and parent06/07/09 remain open.
+
+06Q merged in PR82 as7fc09b8049ac3accdf5ca561cb9aad45202cf99c after corrected Windows37198040162(6m14s)/37198041773(7m2s) passed, including frozen executable reopen validation.
+
+- 06R: Wrestling adds retained attribute/S.D.C./roll bonuses and conditional move guidance under immutable skills1.19. Verified source isolation from interleaved Gymnastics. Both reviews approve; focused23/full339 tests pass (one frozen-only skip), mypy110, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; Acrobatics/Gymnastics and parent06/07/09 remain open.

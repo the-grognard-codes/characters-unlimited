@@ -245,7 +245,10 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs, *, history_frame=False):
     core = primary_pack(character, packs)
-    power_pack = next((item for item in packs if item['id']=='heroes-super-abilities'), None)
+    def current_hero_pack(identifier):
+        version = character.get('additional_rule_packs',{}).get(identifier)
+        return next((item for item in packs if item['id']==identifier and item['version']==version),None)
+    power_pack = current_hero_pack('heroes-super-abilities')
     if 'hero_powers' in character:
         if character['game'] != 'heroes-unlimited' or power_pack is None or character['character_class'] != power_pack['character_class']:
             raise ValueError('Heroes powers must retain their accepted rule version pin')
@@ -267,7 +270,7 @@ def validate_sources(character, packs, *, history_frame=False):
         skill_pack = class_rules(skill_pack, character)
     resource_pack = skill_pack
     if character['game'] == 'heroes-unlimited':
-        resource_pack = next((item for item in packs if item['id']=='heroes-resources'),None)
+        resource_pack = current_hero_pack('heroes-resources')
         if resource_pack is not None and (character['character_class'] != resource_pack['character_class'] or
                                          character['race'] != resource_pack['race']):
             raise ValueError('Heroes resources must match their reviewed race and power category')
@@ -286,9 +289,11 @@ def validate_sources(character, packs, *, history_frame=False):
     elif 'physical_acquisitions' in character and character['game'] != 'heroes-unlimited':
         raise ValueError('Physical skill acquisitions must retain their Rifts rule version')
     elif character['game'] == 'heroes-unlimited':
-        validate_hero_advancement(character, next((item for item in packs if item['id']=='heroes-advancement'),None),
-            next((item for item in packs if item['id']=='heroes-program-skills'),None),
-            next((item for item in packs if item['id']=='heroes-education'),None))
+        pins = character.get('additional_rule_packs',{})
+        validate_hero_advancement(character, next((item for item in packs if item['id']=='heroes-advancement' and item['version']==pins.get(item['id'])),None),
+            current_hero_pack('heroes-program-skills'),
+            current_hero_pack('heroes-education'),
+            higher=next((item for item in packs if item['id']=='heroes-higher-advancement' and item['version']==pins.get(item['id'])),None),history_frame=history_frame)
     elif 'advancement' in character or 'later_advancements' in character or 'learning_levels' in character or character['level'] != 1:
         raise ValueError('Advancement must retain its Rifts rule version')
     if 'advancement' in character:
@@ -321,28 +326,36 @@ def validate_sources(character, packs, *, history_frame=False):
         before = {**event['before'], 'id': character['id'], 'revision': 0,
                   'updated_at': character['updated_at']}
         historical = pinned_packs(before, packs)
-        old_skill_pack = class_rules(next(item for item in historical if item['id'] == 'rifts-domestic-skills'), before)
-        if canonical(event['source']) != canonical(old_skill_pack.get('higher_advancement', {}).get('source')):
+        if character['game']=='heroes-unlimited':
+            historical_higher = next((item for item in historical if item['id']=='heroes-higher-advancement' and
+                item['version']==before.get('additional_rule_packs',{}).get(item['id'])),None)
+            if historical_higher is None:
+                raise ValueError('Later Heroes snapshot must retain its exact extension pin')
+            expected_source = historical_higher['source']
+        else:
+            old_skill_pack = class_rules(next(item for item in historical if item['id'] == 'rifts-domestic-skills'), before)
+            expected_source = old_skill_pack.get('higher_advancement',{}).get('source')
+        if canonical(event['source']) != canonical(expected_source):
             raise ValueError('Later advancement source must match its pinned rules')
         validate_character(before, primary_pack(before, historical))
         validate_sources(before, historical, history_frame=True)
     if 'power_budget' in character:
-        pack = next((item for item in packs if item['id'] == 'heroes-mutant-power-budget'), None)
+        pack = current_hero_pack('heroes-mutant-power-budget')
         if character['game'] != 'heroes-unlimited' or pack is None or character['character_class'] != pack['character_class']:
             raise ValueError('Mutant power budgets must retain their accepted rule version pin')
         validate_budget(character['power_budget'], pack)
     if 'education' in character:
-        pack = next((item for item in packs if item['id'] == 'heroes-education'), None)
+        pack = current_hero_pack('heroes-education')
         if character['game'] != 'heroes-unlimited' or pack is None:
             raise ValueError('Heroes education must retain its accepted rule version pin')
         validate_education(character['education'], pack)
     if 'hero_program_selections' in character:
-        pack = next((item for item in packs if item['id'] == 'heroes-program-skills'), None)
+        pack = current_hero_pack('heroes-program-skills')
         if character['game'] != 'heroes-unlimited' or pack is None or 'education' not in character:
             raise ValueError('Heroes programs must retain education and their accepted rule version pin')
         validate_program_selections(character['hero_program_selections'], pack)
     if 'hero_secondary_selections' in character:
-        pack = next((item for item in packs if item['id']=='heroes-program-skills'),None)
+        pack = current_hero_pack('heroes-program-skills')
         if character['game']!='heroes-unlimited' or pack is None or 'education' not in character:
             raise ValueError('Heroes Secondary skills must retain education and their accepted rule version pin')
         validate_secondary_selections(character['hero_secondary_selections'],pack)
@@ -350,8 +363,8 @@ def validate_sources(character, packs, *, history_frame=False):
         raise ValueError('Heroes combat training cannot cross game boundaries')
     physical_pack = skill_pack
     if character['game'] == 'heroes-unlimited':
-        physical_pack = next((item for item in packs if item['id']=='heroes-program-skills'),None)
-        education_pack = next((item for item in packs if item['id']=='heroes-education'),None)
+        physical_pack = current_hero_pack('heroes-program-skills')
+        education_pack = current_hero_pack('heroes-education')
         if physical_pack is not None and education_pack is not None:
             validate_hero_physical(character, physical_pack, education_pack)
             for event in character.get('roll_history', []):

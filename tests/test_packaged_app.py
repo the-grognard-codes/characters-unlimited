@@ -470,6 +470,29 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(next(iter(athlete['advancement']['power_hp_rolls'].values()))['face'],power_gain)
                 program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
 
+                athlete = request('/api/characters/'+athlete['id']+'/advance',
+                    {'revision':athlete['revision'],'method':'level','value':15},token)
+                program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
+                higher_dice = program_view['advancement']['dice']
+                self.assertEqual(len(higher_dice),28)
+                self.assertEqual(program_view['combat']['totals']['parry']['value'],3)
+                self.assertEqual(program_view['combat']['totals']['dodge']['value'],3)
+                self.assertEqual(request('/api/characters/'+athlete['id']+'/resources')['resources']['HP']['value'],
+                                 starting_hp+sum(row['face'] for row in higher_dice))
+                with urlopen(url+'/api/characters/'+athlete['id']+'/pdf',timeout=15) as response:
+                    athlete_pdf = PdfReader(BytesIO(response.read())).get_fields()
+                self.assertIsNotNone(athlete_pdf)
+                assert athlete_pdf is not None
+                self.assertEqual(athlete_pdf['LEVEL']['/V'],'15')
+                self.assertEqual(athlete_pdf['HP']['/V'],str(starting_hp+sum(row['face'] for row in higher_dice)))
+                undone = request('/api/characters/'+athlete['id']+'/undo-advancement',{'revision':athlete['revision']},token)
+                athlete = undone['character']
+                self.assertEqual((athlete['level'],undone['recovery']['level']),(14,15))
+                athlete = request('/api/characters/'+athlete['id']+'/advance',
+                    {'revision':athlete['revision'],'method':'level','value':15},token)
+                program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
+                self.assertEqual(program_view['advancement']['dice'],higher_dice)
+
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)
                 city_path = '/api/characters/' + city['id']
@@ -603,7 +626,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id']+'/hero-programs')['combat'],hero_combat)
-                self.assertEqual(len(bootstrap['characters']), 12)
+                self.assertEqual(len(bootstrap['characters']), 13)
                 self.assertEqual(request('/api/characters/'+athlete['id'])['hero_program_selections'],athlete['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+athlete['id']+'/hero-programs'),program_view)
                 self.assertEqual(request(city_path)['physical_acquisitions'], city['physical_acquisitions'])

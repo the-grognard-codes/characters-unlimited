@@ -233,3 +233,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06T merged in PR85 asada710b649f09d43d2693cb91a17bbf319e62636 after Windows37202070110(9m10s)/37202072886(7m28s) passed, including packaged executable validation.
 
 - 19B1: Heroes Human Mutant levels 1-2 add retained ordinary/power HP dice, XP boundaries, learned-level proficiency and active training growth under immutable advancement1.0. Undo/replay and recovery preserve acquisition timing and exact pins. Both reviews approve after display repairs; final360 local tests pass (one frozen-only skip), required mypy115, compilation/JS/whitespace and browser/five-page editable PDF checks pass. Windows pending. Levels3-15 and parent19/06/07/09/full corpus remain open.
+
+19B1 merged in PR86 asfc4ab7676388f010f9472b5b03289a168362872e after Windows37204896495/37204893051 passed, including packaged executable validation.
+
+- 19B2: Separate Heroes higher-advancement1.0 extends Human Mutant through15 with retained intermediate ordinary/power HP gains, flat snapshots, all-level undo/replay, training-age numeric bonuses and Secondary awards. Both reviews approve after exact current/history pin repairs. Full367 local tests pass (one frozen-only skip), mypy116, compile/JS/whitespace and browser/six-page editablePDF checks pass. Windows pending. Later maneuver choices19B3, special paths and parent19/full corpus remain open.

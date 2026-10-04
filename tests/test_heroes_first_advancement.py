@@ -20,9 +20,13 @@ class HeroesFirstAdvancementTests(unittest.TestCase):
  def test_xp_boundaries_new_character_and_training_levels(self):
   from copy import deepcopy
   from characters_unlimited.storage import SaveConflict
+  from characters_unlimited.rules import RuleArchive
+  archive=RuleArchive.load()
+  first_only=RuleArchive([p for p in archive.definitions() if p['id']!='heroes-higher-advancement'],
+                        {k:v for k,v in archive.active_versions().items() if k!='heroes-higher-advancement'})
   for training,stat,value in [('hand-to-hand-basic','parry',2),('hand-to-hand-expert','parry',3),('hand-to-hand-martial-arts','disarm',2),('hand-to-hand-assassin','attacks',5),(None,'attacks',4)]:
    with self.subTest(training=training),tempfile.TemporaryDirectory() as directory:
-    app=CharacterApplication(directory,die=lambda sides:4);c=app.create(game='heroes-unlimited')
+    app=CharacterApplication(directory,die=lambda sides:4,rule_archive=first_only);c=app.create(game='heroes-unlimited')
     c=app.select_education(c['id'],revision=0,method='choose',education_id='high-school')
     if training:c=app.select_hero_secondary(c['id'],revision=c['revision'],selections=[training])
     c=app.generate_resources(c['id'],revision=c['revision']);prior=deepcopy(c)

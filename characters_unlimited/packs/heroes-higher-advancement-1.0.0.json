@@ -1,0 +1,542 @@
+{
+  "id": "heroes-higher-advancement",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "schema_version": 1,
+  "name": "Reviewed Human Mutant later advancement",
+  "race": "human",
+  "character_class": "mutant",
+  "base_rule": {
+    "id": "heroes-advancement",
+    "version": "1.0.0"
+  },
+  "max_level": 15,
+  "hp_die": 6,
+  "xp_ranges": [
+    [
+      0,
+      2050
+    ],
+    [
+      2051,
+      4100
+    ],
+    [
+      4101,
+      8250
+    ],
+    [
+      8251,
+      16500
+    ],
+    [
+      16501,
+      24600
+    ],
+    [
+      24601,
+      34700
+    ],
+    [
+      34701,
+      49800
+    ],
+    [
+      49801,
+      69900
+    ],
+    [
+      69901,
+      95000
+    ],
+    [
+      95001,
+      130100
+    ],
+    [
+      130101,
+      180200
+    ],
+    [
+      180201,
+      230300
+    ],
+    [
+      230301,
+      280400
+    ],
+    [
+      280401,
+      340500
+    ],
+    [
+      340501,
+      400600
+    ]
+  ],
+  "secondary_awards": {
+    "3": 2,
+    "6": 2,
+    "9": 2,
+    "12": 2,
+    "15": 2
+  },
+  "untrained_attacks": {
+    "1": 1,
+    "2": 1,
+    "5": 1,
+    "10": 1,
+    "15": 1
+  },
+  "training_progression": {
+    "hand-to-hand-basic": [
+      {
+        "level": 2,
+        "bonuses": {
+          "parry": 2,
+          "dodge": 2
+        }
+      },
+      {
+        "level": 3,
+        "moves": [
+          {
+            "id": "karate-kick",
+            "name": "Karate-style kick",
+            "dice": "2D4"
+          },
+          {
+            "id": "snap-kick",
+            "name": "Snap kick",
+            "dice": "1D6"
+          }
+        ],
+        "notes": [
+          "Karate-style kick or Snap Kick."
+        ]
+      },
+      {
+        "level": 4,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 5,
+        "bonuses": {
+          "strike": 1,
+          "initiative": 1
+        }
+      },
+      {
+        "level": 6,
+        "notes": [
+          "Critical strike on natural 19 or 20; double damage."
+        ]
+      },
+      {
+        "level": 7,
+        "bonuses": {
+          "damage": 2
+        }
+      },
+      {
+        "level": 8,
+        "bonuses": {
+          "disarm": 1
+        },
+        "notes": [
+          "Body Throw/Flip."
+        ]
+      },
+      {
+        "level": 9,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 10,
+        "bonuses": {
+          "pull_punch": 2,
+          "roll_with_impact": 2
+        }
+      },
+      {
+        "level": 11,
+        "bonuses": {
+          "parry": 1,
+          "dodge": 1
+        }
+      },
+      {
+        "level": 12,
+        "bonuses": {
+          "strike": 1
+        }
+      },
+      {
+        "level": 13,
+        "notes": [
+          "Critical strike or knockout from behind."
+        ]
+      },
+      {
+        "level": 14,
+        "bonuses": {
+          "damage": 2
+        }
+      },
+      {
+        "level": 15,
+        "bonuses": {
+          "attacks": 1
+        }
+      }
+    ],
+    "hand-to-hand-expert": [
+      {
+        "level": 2,
+        "bonuses": {
+          "parry": 3,
+          "dodge": 3
+        }
+      },
+      {
+        "level": 3,
+        "bonuses": {
+          "strike": 2,
+          "initiative": 2
+        }
+      },
+      {
+        "level": 4,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 5,
+        "notes": [
+          "Karate kick 2D4 and two other kicks of choice."
+        ]
+      },
+      {
+        "level": 6,
+        "notes": [
+          "Critical strike on natural 18-20."
+        ]
+      },
+      {
+        "level": 7,
+        "notes": [
+          "Paired weapons."
+        ]
+      },
+      {
+        "level": 8,
+        "bonuses": {
+          "disarm": 2
+        },
+        "notes": [
+          "Body throw/flip."
+        ]
+      },
+      {
+        "level": 9,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 10,
+        "bonuses": {
+          "damage": 3,
+          "pull_punch": 2
+        }
+      },
+      {
+        "level": 11,
+        "notes": [
+          "Knockout/stun on natural 18-20."
+        ]
+      },
+      {
+        "level": 12,
+        "bonuses": {
+          "parry": 2,
+          "dodge": 2
+        }
+      },
+      {
+        "level": 13,
+        "notes": [
+          "Triple-damage critical strike or knockout from behind."
+        ]
+      },
+      {
+        "level": 14,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 15,
+        "notes": [
+          "Optional death blow on natural 19-20."
+        ]
+      }
+    ],
+    "hand-to-hand-martial-arts": [
+      {
+        "level": 2,
+        "bonuses": {
+          "parry": 3,
+          "dodge": 3,
+          "strike": 2,
+          "disarm": 2
+        },
+        "notes": [
+          "Disarm."
+        ]
+      },
+      {
+        "level": 3,
+        "notes": [
+          "Karate kick 2D4 and four other kicks of choice except jump kicks."
+        ]
+      },
+      {
+        "level": 4,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 5,
+        "notes": [
+          "All jump kicks."
+        ]
+      },
+      {
+        "level": 6,
+        "notes": [
+          "Critical strike on natural 18-20."
+        ]
+      },
+      {
+        "level": 7,
+        "bonuses": {
+          "disarm": 2
+        },
+        "notes": [
+          "Paired weapons."
+        ]
+      },
+      {
+        "level": 8,
+        "notes": [
+          "Leap attack critical strike."
+        ]
+      },
+      {
+        "level": 9,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 10,
+        "bonuses": {
+          "initiative": 1
+        },
+        "notes": [
+          "Body throw/flip."
+        ]
+      },
+      {
+        "level": 11,
+        "bonuses": {
+          "damage": 4
+        }
+      },
+      {
+        "level": 12,
+        "bonuses": {
+          "parry": 2,
+          "dodge": 2
+        }
+      },
+      {
+        "level": 13,
+        "notes": [
+          "Knockout/stun on natural 18-20."
+        ]
+      },
+      {
+        "level": 14,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 15,
+        "notes": [
+          "Optional death blow; announce intention."
+        ]
+      }
+    ],
+    "hand-to-hand-assassin": [
+      {
+        "level": 2,
+        "bonuses": {
+          "attacks": 2
+        }
+      },
+      {
+        "level": 3,
+        "bonuses": {
+          "roll_with_impact": 3,
+          "pull_punch": 3
+        }
+      },
+      {
+        "level": 4,
+        "bonuses": {
+          "damage": 4,
+          "disarm": 3,
+          "initiative": 2
+        }
+      },
+      {
+        "level": 5,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 6,
+        "bonuses": {
+          "parry": 3,
+          "dodge": 3
+        },
+        "notes": [
+          "Body throw/flip."
+        ]
+      },
+      {
+        "level": 7,
+        "notes": [
+          "Optional death blow; announce intention."
+        ]
+      },
+      {
+        "level": 8,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 9,
+        "notes": [
+          "Karate kick 2D4 and two other kicks of choice except jump kicks."
+        ]
+      },
+      {
+        "level": 10,
+        "notes": [
+          "Critical strike on natural 18-20."
+        ]
+      },
+      {
+        "level": 11,
+        "notes": [
+          "Knockout/stun on natural 17-20."
+        ]
+      },
+      {
+        "level": 12,
+        "bonuses": {
+          "initiative": 2,
+          "strike": 2,
+          "disarm": 1
+        }
+      },
+      {
+        "level": 13,
+        "bonuses": {
+          "attacks": 1
+        }
+      },
+      {
+        "level": 14,
+        "bonuses": {
+          "damage": 2,
+          "roll_with_impact": 2
+        }
+      },
+      {
+        "level": 15,
+        "bonuses": {
+          "strike": 2,
+          "initiative": 1
+        }
+      }
+    ]
+  },
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      17,
+      48,
+      69,
+      71,
+      352
+    ],
+    "pdf_pages": [
+      18,
+      49,
+      70,
+      72,
+      353
+    ],
+    "section": "Human Mutant later advancement, Secondary awards and training",
+    "markdown_ranges": [
+      [
+        894,
+        905
+      ],
+      [
+        2678,
+        2681
+      ],
+      [
+        3808,
+        3808
+      ],
+      [
+        3968,
+        4049
+      ],
+      [
+        23385,
+        23401
+      ]
+    ],
+    "candidate_ids": [
+      "d3f6630e8d917ec999bc",
+      "23ac3be1a84ee538a94f",
+      "9ebc779f98e2c1465bfa",
+      "a611346864f6460f647d",
+      "7333aa8e24940f2d505f",
+      "615cdd17f539cd7f4472",
+      "9ebce9b643eed875dd4e",
+      "e1770f3a9e4dbe480161"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "d1268c9d43c1aca5ca64b08108621f89987134931aaf598ede6a7dbc227e35af",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "guidance": "Human Mutant levels 1-15 use the reviewed Mutant XP table. Each new level adds one retained D6 HP; Extraordinary Physical Endurance adds one retained D4 per attained level, including level 1. Skills and active training grow from their own learned level. Two new Secondary selections are earned at levels 3, 6, 9, 12 and 15. Undo restores pre-level values with a recovery save; replay reuses ordinary and power dice. Earned conditional maneuvers are shown as guidance; later attack choices, other power/category progression and special paths remain unfinished."
+}

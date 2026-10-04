@@ -1,0 +1,9 @@
+# Per-attribute racial pools (22E1)
+
+A pinned race may declare a common `attributes` formula, an `attribute_pools` map, or both. Map keys are the eight exact attribute identities. Each map value is a complete replacement formula, not a merge: a4D6 pool does not inherit Human exceptional behavior from the default. A race without a default must define all eight pools. `attribute_caps` applies last to the resolved formula; raw rolled totals remain retained.
+
+Each formula requires integer count0–1000 and sides1–1000, with optional integer constant, integer cap and exceptional rule. Only these fields are permitted. Exceptional rules contain exactly distinct integer `thresholds` and `max_bonus_dice` (null for the existing draw-bounded unlimited path, or integer0–1000). Booleans, unknown targets/fields and malformed rules reject before the first initial-generation die. Every declared pool validates, including later attributes and unused defaults.
+
+Initial generation and whole-profile rerolls preflight impossible reroll-ones/one-sided pools. A single-attribute reroll applies its options only to that attribute. Extra-die/drop-lowest, exceptional draws, manual values/adjustments, class contributions, generation history, resource snapshots, caps and exact portable replay retain their existing ordering. Editable PDF reads the resulting attributes.
+
+Old uniform-pool definitions and saved records retain their shapes. No class/race identity selects executable logic. Synthetic mixed/full-map fixtures prove the import seam, not new accepted races. This increment uses the existing core source provenance; separate per-race/per-pool source composition, R.C.C. replacement precedence, full mechanical importer and source-grounded full nonhuman paths remain open. Atlantis Markdown demonstrates the mixed-pool need but has missing labels/Hit Point text requiring PDF review before acceptance.

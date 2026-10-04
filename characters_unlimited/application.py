@@ -9,7 +9,7 @@ from uuid import uuid4
 
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
-from .generation import generation_settings, roll_attribute, racial_formula
+from .generation import generation_settings, roll_attribute, racial_formulas
 from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
@@ -75,6 +75,7 @@ class CharacterApplication:
             raise ValueError("Name and notes must be text")
         settings = generation_settings(generation)
         class_effects(selected_class)
+        formulas = racial_formulas(racial_rules, settings)
         character = {
             "id": str(uuid4()), "format_version": 1, "game": game,
             "name": name, "notes": notes, "race": race, "character_class": character_class,
@@ -86,7 +87,7 @@ class CharacterApplication:
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         for attribute in ATTRIBUTES:
-            formula = racial_formula(racial_rules, attribute)
+            formula = formulas[attribute]
             character["attributes"][attribute] = roll_attribute(formula, settings, self.die, pack["source"])
         roll_class_modifiers(character['attributes'], selected_class, self.die)
         if skill_pack and skill_pack.get('physical_grants'):
@@ -882,10 +883,11 @@ class CharacterApplication:
         settings = generation_settings(generation if generation is not None else character.get("generation"))
         pack = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         racial_rules = next(item for item in pack["races"] if item["id"] == character["race"])
+        formulas = racial_formulas(racial_rules, settings if attribute is None else None)
         attributes = deepcopy(character["attributes"])
         results = {}
         for name in (ATTRIBUTES if attribute is None else (attribute,)):
-            formula = racial_formula(racial_rules, name)
+            formula = formulas[name]
             result = roll_attribute(formula, settings, self.die, pack["source"])
             previous = attributes[name]
             result["adjustment"] = previous.get("adjustment", 0)

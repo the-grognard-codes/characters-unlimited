@@ -2,9 +2,10 @@
 
 from copy import deepcopy
 from .combat import total
+from .heroes_kicks import project_hero_kicks
 
 
-def project_hero_combat(character, pack, physical, *, progression=None, higher=None):
+def project_hero_combat(character, pack, physical, *, progression=None, higher=None, moves=None):
     rules = pack.get('combat')
     if rules is None:
         return {'supported':False,'training':None,'totals':{},'unarmed':[], 'sources':[],
@@ -52,12 +53,17 @@ def project_hero_combat(character, pack, physical, *, progression=None, higher=N
         bonus = totals['damage']['value']
         damage = expression+(f' + {bonus}' if bonus else '')+' S.D.C.' if bonus is not None else None
         unarmed.append({**deepcopy(definition),'damage':damage})
+    kick_choices,kicks = project_hero_kicks(character,moves,active,totals['damage']['value'])
+    unarmed.extend(kicks)
     guidance = list(rules['guidance'])
     if higher:
         guidance.extend(training+f" learned level {row['level']}: "+note for row in earned for note in row.get('notes',[]))
     if progression and character['level'] > 1:
         guidance = [note.replace('Heroes advancement remain unfinished.','later Heroes advancement remain unfinished.') for note in guidance]
         guidance.append((higher or progression)['guidance'])
+    if kick_choices.get('accepted'):
+        guidance = [note.replace('later attack choices, other power/category progression and special paths remain unfinished.', 'reviewed kick choices apply; other maneuver contexts, power/category progression and special paths remain unfinished.') for note in guidance]
+        guidance.extend(kick_choices['warnings'])
     if not pp_supported:
         guidance.append('P.P. below 8 or above 50: affected combat totals remain blank pending reviewed low-attribute or limit rules.')
     if not ps_supported:
@@ -67,7 +73,8 @@ def project_hero_combat(character, pack, physical, *, progression=None, higher=N
     return {'supported':True,'level':character['level'],'training':training,'active_training':active,
             'training_choices':deepcopy(physical['training_choices']),'training_receipts':deepcopy(physical['training_receipts']),
             'training_selection_supported':'training_skill_ids' in rules,
-            'totals':totals,'unarmed':unarmed,'parry_actions':0 if trained else 1,'dodge_actions':1,
+            'kick_choices':kick_choices,'totals':totals,'unarmed':unarmed,'parry_actions':0 if trained else 1,'dodge_actions':1,
             'guidance':guidance,'sources':[deepcopy(rules['source']),deepcopy(rules['attribute_source']),
+                       *([deepcopy(moves['source'])] if kick_choices.get('accepted') else []),
                        *([deepcopy((higher or progression)['source'])] if progression and character['level']>1 else [])],
             'rules':{'id':pack['id'],'version':pack['version']}}

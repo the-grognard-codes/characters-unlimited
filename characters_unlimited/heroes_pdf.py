@@ -259,6 +259,19 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
         for source in combat['sources']:
             lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
                                 ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])),530)
+        kicks = combat.get('kick_choices',{})
+        if kicks.get('accepted'):
+            names = {row['id']:row['name'] for row in kicks['catalog']}
+            for receipt in kicks['receipts']:
+                state = 'active training' if receipt['active'] else 'inactive training'
+                lines += wrap_lines('Recorded kick choices: '+receipt['training_id']+'; '+state+'; '+', '.join(names[value] for value in receipt['selections']),530)
+            lines += wrap_lines(f"Kick choice allowance: {kicks['count']}; {kicks['remaining']} remaining; training learned age {kicks['age']}.",530)
+            for attack in combat['unarmed']:
+                if not attack.get('power'):
+                    for note in attack.get('notes',[]):lines += wrap_lines(attack['name']+': '+note,530)
+            for note in kicks['warnings']:lines += wrap_lines(note,530)
+            source = kicks['source']
+            lines += wrap_lines(source['book']+', kick choices printed pp. '+', '.join(map(str,source['pages']))+' / PDF pp. '+', '.join(map(str,source['pdf_pages'])),530)
         for note in combat['guidance']:
             lines += wrap_lines(note,530)
     if resources and resources['generated']:

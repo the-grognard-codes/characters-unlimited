@@ -237,3 +237,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 19B1 merged in PR86 asfc4ab7676388f010f9472b5b03289a168362872e after Windows37204896495/37204893051 passed, including packaged executable validation.
 
 - 19B2: Separate Heroes higher-advancement1.0 extends Human Mutant through15 with retained intermediate ordinary/power HP gains, flat snapshots, all-level undo/replay, training-age numeric bonuses and Secondary awards. Both reviews approve after exact current/history pin repairs. Full367 local tests pass (one frozen-only skip), mypy116, compile/JS/whitespace and browser/six-page editablePDF checks pass. Windows pending. Later maneuver choices19B3, special paths and parent19/full corpus remain open.
+
+19B2 merged in PR87 as785d50ec0b18a77f1463f553f45b0831cdd1c744 after exact-head Windows37207721043(9m27s)/37207718099(9m30s) passed, including packaged executable validation.
+
+- 19B3: Immutable combat-moves1.0 records learned kick choices per retained active/inactive style. Source-specific damage, Power dice/bonus separation, no-damage sweeps, automatic Martial jump variants and action/restriction contexts appear in builder/PDF. Exact-source import validation repaired after independent review. Both reviews approve; full374 local tests pass (one frozen-only skip), mypy118, compile/JS/whitespace and browser/five-page editablePDF checks pass. Windows pending. Non-kick conditional maneuvers19B4 and full parent19/corpus remain open.

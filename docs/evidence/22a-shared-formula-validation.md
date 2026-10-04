@@ -21,7 +21,7 @@ APPROVE after repair. One actionable finding, fixed: zero-die Physical resource 
 
 - Initial affected31 tests passed. After review repair, affected20 tests passed, including the new fixed-resource regression.
 - Required mypy passed over120 source files. Python compilation, all browser-script syntax and whitespace checks passed.
-- Final full suite:378 tests passed in298.833 seconds, with one packaged-executable-only skip locally. Windows packaged checks are pending before merge. The earlier full run was deliberately interrupted after the review repair and is not claimed as a final result.
+- Final full suite:378 tests passed in298.833 seconds, with one packaged-executable-only skip locally. Exact-commit Windows37226460205(11m35s) and37226434948(9m55s) passed, including frozen executable checks. PR89 merged as118d15d7a105f385eae6fcf97c5f75ec02c9da45. The earlier full run was deliberately interrupted after the review repair and is not claimed as a final result.
 - Existing automated HTTP and editable-PDF workflow checks exercise the consolidated mechanics; no visual presentation changes or new PDF artwork are part of this increment.
 
 ## Remaining scope

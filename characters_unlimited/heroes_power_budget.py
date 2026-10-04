@@ -1,6 +1,15 @@
 """Retained Mutant outcome dice and source-bound starting power allowances."""
 
 from copy import deepcopy
+from .selection_groups import validate_allowance
+from .recorded_formulas import formula_value, roll_formula
+
+
+def budget_formula(budget):
+    if not isinstance(budget, dict):
+        raise ValueError('Invalid power allowance definition')
+    validate_allowance(budget.get('count'))
+    return {'count': int('die' in budget), 'sides': budget.get('die', 0), 'constant': budget['count']}
 
 
 def select_budget(pack, method, outcome_id=None, die=None):
@@ -20,11 +29,10 @@ def select_budget(pack, method, outcome_id=None, die=None):
         raise ValueError('Roll or choose a Mutant power outcome')
     rolls = []
     for budget in outcome['budgets']:
-        if budget.get('die'):
-            face = die(budget['die'])
-            if type(face) is not int or not 1 <= face <= budget['die']:
-                raise ValueError('Power count dice must return a whole number within the die range')
-            rolls.append(face)
+        formula = budget_formula(budget)
+        faces = roll_formula(formula, die)
+        validate_allowance(formula_value(formula, faces))
+        rolls.extend(faces)
     selection = {'id':outcome['id'], 'method':method, 'rolls':rolls}
     if roll is not None:
         selection['roll'] = roll
@@ -63,7 +71,9 @@ def project_budget(record, pack):
         assert selection is not None
         dice = iter(selection['rolls'])
         for row in outcome['budgets']:
-            budgets.append({'name':row['name'], 'count':row['count'] + (next(dice) if row.get('die') else 0)})
+            formula = budget_formula(row)
+            count = formula_value(formula, [next(dice)] if formula['count'] else [])
+            budgets.append({'name':row['name'], 'count':count})
     return deepcopy({'catalog':pack['outcomes'], 'selection':selection, 'outcome':outcome,
                      'budgets':budgets, 'history':record['history'] if record else [],
                      'source':pack['source'], 'guidance':[

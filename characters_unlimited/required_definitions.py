@@ -2,6 +2,14 @@
 
 from copy import deepcopy
 import re
+from .selection_groups import validate_group
+
+
+def required_selection_group(group):
+    result = {'count': group['count'], 'option_ids': [item['id'] for item in group['options']],
+              'costs': group.get('selection_costs', {})}
+    validate_group(result)
+    return result
 
 
 def required_catalog(pack):
@@ -42,6 +50,7 @@ def required_catalog(pack):
                     any(not isinstance(item,dict) or not isinstance(item.get('id'),str) or not item['id'] for item in options) or
                     len({item['id'] for item in options}) != len(options)):
                 raise ValueError('Invalid required skill group options')
+            required_selection_group(group)
         if group['kind'] == 'text-list' and not isinstance(group.get('skill'),dict):
             raise ValueError('Text skill choices need a skill definition')
     for group in rules['groups']:
@@ -53,5 +62,3 @@ def required_catalog(pack):
                 ('specialty_from' in definition and definition['specialty_from'] not in identifiers)):
             raise ValueError('Invalid required skill grant specialty')
     return rules
-
-

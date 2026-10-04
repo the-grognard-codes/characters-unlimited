@@ -13,3 +13,5 @@ Browser verification created City Rat, generated 1600 starting credits and 10000
 ![Edited native sheet](08b4-edited-sheet.png)
 
 City Rat item identity, starting equipment, cybernetics, full class review and parent tickets remain open. No full-scope completion or final retrospective is claimed.
+
+Merged PR #61 as40def5c after Windows full/frozen runs37168705534 (4m35s) and37168708618 (5m44s) passed.

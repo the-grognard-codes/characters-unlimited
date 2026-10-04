@@ -412,6 +412,21 @@ class CharacterApplication:
                                 + ' / PDF pp. ' + ', '.join(map(str, funds_source['pdf_pages'])))
                     if citation not in preview['sources']:
                         preview['sources'].append(citation)
+            if canonical(previous_equipment.get('starting_gear')) != canonical(target_equipment.get('starting_gear')):
+                gear_source = target_equipment.get('starting_gear', {}).get('source')
+                if gear_source:
+                    preview['sources'].append(f"{gear_source['book']}, starting personal gear printed pp. "
+                                              + ', '.join(map(str, gear_source['pages']))
+                                              + ' / PDF pp. ' + ', '.join(map(str, gear_source['pdf_pages'])))
+            old_items = {item['id']: item for item in previous_equipment['items']}
+            for item in target_equipment['items']:
+                if item != old_items.get(item['id']) and item.get('price_source'):
+                    price_source = item['price_source']
+                    citation = (f"{price_source['book']}, equipment prices printed pp. "
+                                + ', '.join(map(str, price_source['pages']))
+                                + ' / PDF pp. ' + ', '.join(map(str, price_source['pdf_pages'])))
+                    if citation not in preview['sources']:
+                        preview['sources'].append(citation)
             targets.append(target_equipment)
             if previous_equipment['version'] != target_equipment['version']:
                 changes.append({'pack_id': target_equipment['id'], 'from': previous_equipment['version'],

@@ -1,4 +1,4 @@
-"""Source-bound fixed personal gear for the Rifts Vagabond."""
+"""Source-bound fixed personal gear for reviewed Rifts classes."""
 
 from copy import deepcopy
 import json
@@ -35,7 +35,7 @@ def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
         return None
     if (not isinstance(rules, dict)
             or set(rules) != {'character_class', 'grants', 'source', 'guidance'}
-            or rules['character_class'] != 'vagabond'
+            or not isinstance(rules['character_class'], str) or not rules['character_class']
             or not isinstance(rules['grants'], list)
             or not 0 < len(rules['grants']) <= MAX_QUANTITY
             or not isinstance(rules['source'], dict)
@@ -60,10 +60,12 @@ def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
                 or not 1 <= grant['quantity'] <= MAX_QUANTITY):
             raise ValueError('Invalid pinned starting gear grant')
         item = catalog[grant['item_id']]
-        if (item.get('category') != 'gear' or item.get('cost_credits', object()) is not None
+        cost = item.get('cost_credits', object())
+        if (item.get('category') != 'gear'
+                or (cost is not None and (type(cost) is not int or not 0 <= cost <= MAX_SAFE_INTEGER))
                 or item.get('weight_lbs', object()) is not None
                 or _canonical(item.get('source')) != source):
-            raise ValueError('Starting gear grant requires matching unpriced personal gear')
+            raise ValueError('Starting gear grant requires matching personal gear')
         seen.add(grant['item_id'])
     return rules
 
@@ -79,7 +81,7 @@ def validate_starting_gear(character: dict[str, Any], pack: dict[str, Any]) -> N
         return
     rules = _rules(pack)
     if not _supported(character, rules):
-        raise ValueError('Starting gear requires pinned Rifts Vagabond rules')
+        raise ValueError('Starting gear requires pinned Rifts rules for this class')
     assert rules is not None
     receipt = character['starting_gear']
     if (not isinstance(receipt, dict) or set(receipt) != {'grants', 'source'}
@@ -112,7 +114,7 @@ def acquire_starting_gear(
         raise ValueError('Starting gear has already been granted')
     rules = _rules(pack)
     if not _supported(character, rules):
-        raise ValueError('Starting gear is available only to Rifts Vagabonds with pinned rules')
+        raise ValueError('Starting gear requires reviewed rules for the selected Rifts class')
     if not callable(identifier_factory):
         raise ValueError('A possession identity source is required')
     assert rules is not None
@@ -153,9 +155,8 @@ def project_starting_gear(character: dict[str, Any], pack: dict[str, Any]) -> di
     validate_starting_gear(character, pack)
     rules = _rules(pack)
     if not _supported(character, rules):
-        guidance = (['Update the equipment rules to preview Vagabond starting gear.']
-                    if rules is None and character.get('game') == 'rifts'
-                    and character.get('character_class') == 'vagabond' else [])
+        guidance = (['The pinned equipment rules do not provide personal starting gear for this class. Review available equipment rule updates before generation.']
+                    if character.get('game') == 'rifts' else [])
         return {'supported': False, 'generated': False, 'grants': [],
                 'definitions': [], 'source': None, 'guidance': guidance}
     assert rules is not None

@@ -401,6 +401,7 @@ def export_rifts_sheet(character, core, skills, combat):
             sheet_notes += '\nOriginal personal starting gear grant: '+ '; '.join(
                 names[grant['item_id']]+' x'+str(grant['quantity']) for grant in gear['grants'])+'.'
             sheet_notes += ' '+gear['source']['book']+', p. '+', '.join(map(str,gear['source']['pages']))+'. Current possessions may be edited or removed; the original grant is retained.'
+            sheet_notes += ' '+' '.join(gear['guidance'])
         for item in equipment['items']:
             sheet_notes += ('\n'+item['name']+' x'+str(item['quantity'])+'; '+item['location']+
                             ('; equipped' if item['equipped'] else '; unequipped')+

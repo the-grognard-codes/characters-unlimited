@@ -107,3 +107,7 @@ Racial generation resolves a declared race source and optional per-attribute cit
 ## Retained level-resource increment (22D2)
 
 `level_resource_gains.py` shares additional per-level formula acquisition and exact replay across both games. Generated resource identities receive retained, source-bound contributions; inactive caches do not affect totals. Nondefault classes own their extra growth declarations. See `shared-level-resource-gain-contract.md`; ordinary HP growth and legacy class fallback remain unchanged. Conditional schedules, ability grants, full importer certification and magic/psionic content remain open.
+
+## Explicit profile ownership increment (22E3)
+
+The opt-in `owned-v1` format composes class fields through `profile_composition.py`, preserving shared catalogs while eliminating default-class field inheritance. All profile shapes and declared class owners validate before initial dice. See `owned-class-profile-contract.md`; legacy archives are unchanged and full mechanical import certification remains open.

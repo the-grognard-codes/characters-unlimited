@@ -15,3 +15,7 @@ Seven focused tests pass (7.534 seconds); mypy136, compilation, all browser-scri
 Self-review also reproduced a zero-die multiplied overflow drawing two ordinary HP dice before failure. Zero-die gains now evaluate during definition preflight, matching starting-resource behavior. The added subcase validates no dice or saved-state change. Final exact-head CI will cover the complete suite after this repair.
 
 Final affected suite:38 tests pass (99.949 seconds), including existing progression/resource workflows and all seven new public tests. Both final repair reviews APPROVE. Full exact-head Windows/frozen checks remain the merge gate.
+
+The local full420-test run passed (366.300 seconds, one frozen-only skip) before the final zero-die preflight subcase; the final38-test affected suite covers that repair. Exact-head CI remains authoritative for the complete final tree.
+
+PR100 merged as `7f168d187cd1f045a67d631a34985d150890534b` after both exact-head Windows runs37243495491/37243470670 succeeded, including complete regression and frozen executable validation.

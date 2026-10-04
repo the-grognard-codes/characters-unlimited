@@ -31,3 +31,7 @@ Activation requires reviewed evidence and independently calculated characters, n
 The same selectors, grants, formulas, numeric effects and exact dependency pins should serve mutant powers, psionics and magic. Game-specific eligibility belongs in definitions and adapters. Ability selection, costs, ranges, durations, save targets and conditional activation still need a shared contract and representative end-to-end paths before those families can be called complete.
 
 This review is an interim framework assessment. It does not replace the original ticket plan, full-corpus release gate or final retrospective.
+
+## Explicit ownership follow-through (22E3)
+
+The opt-in `owned-v1` class format now requires every supported class, including the default, to declare its complete supported field ownership. Shared root catalogs remain single definitions; all class-owned fields replace whole fields and all profile shapes/owners validate before initial dice. Legacy accepted profiles remain unchanged. See `owned-class-profile-contract.md`. This closes implicit default inheritance for the new format; nested mechanical/dependency validation, equipment and race/R.C.C. precedence and source-grounded certification remain open.

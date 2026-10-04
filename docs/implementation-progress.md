@@ -187,3 +187,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06J merged in PR74 as a978688502364058f08f8063cbd4785856f561f7 after Windows37185966456(6m24s)/37185962664(7m36s) passed, including packaged executable validation.
 
 - 09D: Extraordinary Physical Endurance implemented under immutable powers1.3: additive P.E., retained multi-formula HP/S.D.C. receipts including confirmed level1D4, ordinary P.E. saves/fatigue and independent resource projection. Focused40 and required mypy100 pass; compile/JS/whitespace, browser and four-page editablePDF verification pass. Both reviews approve; full297 tests pass (one frozen-only skip); Windows pending. Heroes advancement and parent09/07 remain open.
+
+09D merged in PR75 as107218415f4319d32a3ed0d05f835ec1504f81ee after Windows37187385452(4m34s)/37187383195(5m45s) passed, including packaged executable validation.
+
+- 06K: Heroes ordinary Human level-one combat and Basic training added under immutable skills1.12. Exact pins, retained acquisitions, duplicate effects, action costs and independent attribute-range guards verified. Both reviews approve after fixed-training and unsupported-contribution repairs. Final303 local tests pass (one frozen-only skip), mypy102, compile/JS/whitespace checks and browser/three-page editable PDF verification pass. Windows checks pending; parent06/07/09 remain open.

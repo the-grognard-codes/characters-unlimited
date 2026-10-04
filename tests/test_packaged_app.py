@@ -302,7 +302,11 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(len(beauty['rolls']),2)
                 self.assertTrue(60 <= hero_powers['charm_impress'] <= 92)
                 hero = request('/api/characters/'+hero['id']+'/hero-secondary',
-                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running']},token)
+                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running','hand-to-hand-basic']},token)
+                hero_combat = request('/api/characters/'+hero['id']+'/hero-programs')['combat']
+                self.assertEqual(hero_combat['training'],'Hand to Hand: Basic')
+                self.assertEqual(hero_combat['totals']['attacks']['value'],4)
+                self.assertEqual(hero_combat['parry_actions'],0)
                 rogue = {row['id']:row for row in request('/api/characters/'+hero['id']+'/hero-programs')['skills']}
                 self.assertEqual(rogue['cardsharp']['contributions']['Palming'],4)
                 self.assertEqual(rogue['cardsharp']['contributions']['Extraordinary Mental Affinity'],10)
@@ -333,6 +337,8 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertTrue(starting_sdc+40 <= hero_resources['resources']['SDC']['value'] <= starting_sdc+160)
                 resource_pdf = PdfReader(BytesIO(request('/api/characters/'+hero['id']+'/pdf'))).get_fields()
                 assert resource_pdf is not None
+                self.assertEqual(resource_pdf['COMBAT_SKILL']['/V'],'Hand to Hand: Basic')
+                self.assertEqual(resource_pdf['ATTACKS']['/V'],'4')
                 self.assertEqual(resource_pdf['HP']['/V'],str(hero_resources['resources']['HP']['value']))
                 self.assertEqual(resource_pdf['SDC']['/V'],str(hero_resources['resources']['SDC']['value']))
                 self.assertEqual(resource_pdf['PPE']['/V'],str(hero_resources['resources']['PPE']['value']))
@@ -358,10 +364,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.11.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.12.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.11.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.12.0')
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

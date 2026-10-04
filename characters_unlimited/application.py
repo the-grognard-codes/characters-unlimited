@@ -351,7 +351,8 @@ class CharacterApplication:
                 project_education(character.get('education'), self.character_education_pack(character)),
                 project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character), self.character_hero_powers_pack(character)),
                 project_budget(character.get('power_budget'), self.character_power_budget_pack(character)),
-                project_powers(character, self.character_hero_powers_pack(character), self.character_power_budget_pack(character)))
+                project_powers(character, self.character_hero_powers_pack(character), self.character_power_budget_pack(character)),
+                project_resources(character, self.character_resource_pack(character)))
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
         combat = project_combat(character,pack)
@@ -555,15 +556,25 @@ class CharacterApplication:
 
     def resource_view(self, identifier):
         character = self.get(identifier)
-        return project_resources(character,self.character_skill_pack(character))
+        return project_resources(character,self.character_resource_pack(character))
+
+    def character_resource_pack(self, character):
+        if character['game'] == 'rifts':
+            return self.character_skill_pack(character)
+        pack = self._character_heroes_pack(character, 'heroes-resources')
+        if character['character_class'] != pack['character_class'] or character['race'] != pack['race']:
+            raise ValueError('Starting resources require the reviewed Human Mutant path')
+        return pack
 
     def generate_resources(self, identifier, *, revision):
         require_revision(revision)
         character = self.get(identifier)
-        pack = self.character_skill_pack(character)
+        pack = self.character_resource_pack(character)
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before generating starting resources.')
         changes = acquire_resources(character,pack,self.die)
+        if character['game'] == 'heroes-unlimited':
+            changes['additional_rule_packs'] = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
         return self.store.update(identifier,changes,revision)
 
     def generate_starting_funds(self, identifier, *, revision):
@@ -619,7 +630,7 @@ class CharacterApplication:
     def set_resource(self, identifier, *, revision, resource, mode, value=None):
         require_revision(revision)
         character = self.get(identifier)
-        pack = self.character_skill_pack(character)
+        pack = self.character_resource_pack(character)
         changes = update_resource(character,pack,resource,mode,value)
         return self.store.update(identifier,changes,revision)
 

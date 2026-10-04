@@ -171,3 +171,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 09A4 merged in PR70 as34ef6c59d84ad6dbd5a1089afb96fdd1e462bb8c after Windows37180579805(5m4s)/37180582307(5m39s) passed, including packaged executable validation.
 
 - 09B: Five reviewed Heroes Rogue Secondaries implemented in immutable skills1.9. Latest user interpretation grants Concealment M.A. bonus. Both reviews approve; final 271 local tests pass (one frozen-only skip), strict mypy95, compile/JS checks, browser recalculation and three-page editable PDF verified. Windows checks pending; parent09 remains open.
+
+09B merged in PR71 as43d097b04d23c07f055aa5568939070a8b90b389 after Windows37181451825(5m44s)/37181454551(5m45s) passed, including packaged executable validation.
+
+- 09C: Human Mutant starting HP, base S.D.C. and general P.P.E. implemented with independent exact resource pins and retained initial P.E. Both reviews approve; final277 local tests pass (one frozen-only skip), required mypy96 files, compile/JS checks, browser edits/reopening and four-page editable PDF verified. Windows checks pending; parent09 remains open.

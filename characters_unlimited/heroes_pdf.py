@@ -9,7 +9,7 @@ from reportlab.pdfgen.canvas import Canvas
 from .pdf_export import append_continuation, fill_values, install_editing_font, wrap_lines
 
 
-def export_heroes_sheet(character, core, education, programs, power_budget=None, powers=None):
+def export_heroes_sheet(character, core, education, programs, power_budget=None, powers=None, resources=None):
     stream = BytesIO()
     canvas = Canvas(stream, pagesize=(612, 792))
     canvas.setTitle('Heroes Unlimited character sheet')
@@ -72,8 +72,10 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     heading('Attributes', 40, 550, 308)
     for index, key in enumerate(('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')):
         labelled(key, key, 40+(index%4)*79, 526-(index//4)*23, 70, character['attributes'][key]['value'])
-    labelled('Hit Points', 'HP', 366, 526, 206)
-    labelled('Physical S.D.C.', 'SDC', 366, 503, 206)
+    resource_values = (resources or {}).get('resources', {})
+    for label, name, y in [('Hit Points', 'HP', 526), ('Physical S.D.C.', 'SDC', 503), ('P.P.E.', 'PPE', 485)]:
+        value = resource_values.get(name, {}).get('value')
+        labelled(label, name, 366, y, 206, '' if value is None else value)
     heading('Education & Scholastic Programs', 40, 474, 532)
     names = {row['id']:row['name'] for row in programs['catalog']}
     program_names = '; '.join(f"Slot {row['slot']+1}: {names[row['program']]}" for row in programs['selections'])
@@ -181,7 +183,20 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     if secondary['selections']:
         lines.extend(wrap_lines('Recorded Secondary choices: '+
                      ', '.join(skill_names[identifier] for identifier in secondary['selections']), 530))
-    lines += wrap_lines('Power, combat, resources and equipment automation remains pending. Uncalculated fields are blank and editable.', 530)
+    lines += wrap_lines('Additional power, combat, resource and equipment automation remains pending. Ungenerated or unreviewed fields remain blank and editable.', 530)
+    if resources and resources['generated']:
+        lines += wrap_lines('Starting resources retain recorded contributions; later attribute changes do not reroll them.', 530)
+        for result in resources['resources'].values():
+            terms = []
+            for name, value in result['contributions'].items():
+                faces = result['rolls'][name]
+                terms.append(name+': '+str(value)+(f' (dice {faces})' if faces else ''))
+            lines += wrap_lines(result['name']+': '+str(result['value'])+'; '+'; '.join(terms), 530)
+            for source in result['sources']:
+                lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
+                                    ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)
+        for note in resources['guidance']:
+            lines += wrap_lines(note, 530)
     for message in dict.fromkeys([*programs['warnings'], *programs['guidance']]):
         lines.extend(wrap_lines(message, 530))
     for skill in programs['skills']:

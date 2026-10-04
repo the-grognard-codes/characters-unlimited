@@ -16,3 +16,5 @@ Browser reopening at I.Q.16, M.A.28 and P.B.28 shows Cardsharp40 (45 against a s
 [Editable sample](09b-rogue-sample.pdf)
 
 Full Rogue catalog, training effects, Heroes advancement, other programs/powers/combat/resources and full corpus acceptance remain open. Parent09 remains open; this is a bounded content slice, not final delivery or retrospective.
+
+09B merged in PR71 as43d097b04d23c07f055aa5568939070a8b90b389 after Windows37181451825(5m44s)/37181454551(5m45s) passed, including packaged executable validation.

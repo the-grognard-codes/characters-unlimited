@@ -1,0 +1,178 @@
+{
+  "id": "heroes-resources",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "schema_version": 1,
+  "name": "Reviewed Human Mutant starting resources",
+  "character_class": "mutant",
+  "race": "human",
+  "path_name": "Human Mutant",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      17,
+      20,
+      158,
+      162
+    ],
+    "pdf_pages": [
+      18,
+      21,
+      159,
+      163
+    ],
+    "section": "General Hit Points and Mutant resources",
+    "candidate_ids": [
+      "51d3869aefc172d06711",
+      "cf4862defb63c88163bb",
+      "a55d4b286d0833d6578c",
+      "7c200ea5fcdc013cfe49"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "resources": {
+    "definitions": [
+      {
+        "id": "HP",
+        "name": "Hit Points",
+        "contributions": [
+          {
+            "id": "starting-physical-endurance",
+            "attribute": "PE",
+            "source": {
+              "book": "Heroes Unlimited - RPG - 2E",
+              "pages": [
+                17,
+                158
+              ],
+              "pdf_pages": [
+                18,
+                159
+              ],
+              "section": "Starting Hit Points",
+              "candidate_ids": [
+                "51d3869aefc172d06711",
+                "cf4862defb63c88163bb"
+              ],
+              "markdown_ranges": [
+                [
+                  899,
+                  905
+                ],
+                [
+                  8578,
+                  8581
+                ]
+              ]
+            }
+          },
+          {
+            "id": "starting-hit-point-die",
+            "formula": {
+              "count": 1,
+              "sides": 6,
+              "bonus": 0
+            },
+            "source": {
+              "book": "Heroes Unlimited - RPG - 2E",
+              "pages": [
+                17,
+                158
+              ],
+              "pdf_pages": [
+                18,
+                159
+              ],
+              "section": "Starting Hit Points",
+              "candidate_ids": [
+                "51d3869aefc172d06711",
+                "cf4862defb63c88163bb"
+              ],
+              "markdown_ranges": [
+                [
+                  899,
+                  905
+                ],
+                [
+                  8578,
+                  8581
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "SDC",
+        "name": "Physical S.D.C.",
+        "contributions": [
+          {
+            "id": "mutant-base",
+            "formula": {
+              "count": 0,
+              "sides": 0,
+              "bonus": 30
+            },
+            "source": {
+              "book": "Heroes Unlimited - RPG - 2E",
+              "pages": [
+                162
+              ],
+              "pdf_pages": [
+                163
+              ],
+              "section": "Mutant resources",
+              "candidate_ids": [
+                "a55d4b286d0833d6578c"
+              ],
+              "markdown_lines": [
+                8804,
+                8806
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "PPE",
+        "name": "Potential Psychic Energy",
+        "contributions": [
+          {
+            "id": "superbeing-potential-energy",
+            "formula": {
+              "count": 6,
+              "sides": 6,
+              "bonus": 0
+            },
+            "source": {
+              "book": "Heroes Unlimited - RPG - 2E",
+              "pages": [
+                20
+              ],
+              "pdf_pages": [
+                21
+              ],
+              "section": "Potential Psychic Energy for superbeings",
+              "candidate_ids": [
+                "7c200ea5fcdc013cfe49"
+              ],
+              "markdown_lines": [
+                1056,
+                1056
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "guidance": [
+      "Starting Hit Points retain effective P.E. when first generated plus one recorded D6. Later attribute edits do not retroactively change that contribution. Attribute generation options do not apply to resource dice.",
+      "Mutant physical S.D.C. starts at 30. Additional Physical skill, unusual characteristic and power S.D.C. contributions remain unfinished.",
+      "Potential Psychic Energy uses the general superbeing 6D6 rule; no Mutant exception is stated. Other category-specific energy rules remain unfinished.",
+      "Heroes advancement, other category resources, money, vehicles and equipment remain unfinished. Manual fixed totals and additive adjustments are available."
+    ]
+  }
+}

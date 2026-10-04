@@ -19,6 +19,7 @@ from .combat import validate_combat_choices, project_combat, compare_combat_view
 from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
 from .heroes_power_budget import select_budget, validate_budget, project_budget
+from .heroes_powers import select_powers, project_powers
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical
 from .resources import acquire_resources, project_resources, update_resource
@@ -228,6 +229,26 @@ class CharacterApplication:
         character = self.get(identifier)
         return project_budget(character.get('power_budget'), self.character_power_budget_pack(character))
 
+    def character_hero_powers_pack(self, character):
+        pack = self._character_heroes_pack(character, 'heroes-super-abilities')
+        if character['character_class'] != pack['character_class']:
+            raise ValueError('Reviewed super abilities are available for Heroes Unlimited Mutants')
+        return pack
+
+    def hero_powers_view(self, identifier):
+        character = self.get(identifier)
+        return project_powers(character, self.character_hero_powers_pack(character), self.character_power_budget_pack(character))
+
+    def select_hero_powers(self, identifier, *, revision, selections):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting powers.')
+        pack = self.character_hero_powers_pack(character)
+        changes = select_powers(character, selections, pack, self.die)
+        changes['additional_rule_packs'] = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
+        return self.store.update(identifier, changes, revision)
+
     def select_power_budget(self, identifier, *, revision, method, outcome_id=None):
         require_revision(revision)
         character = self.get(identifier)
@@ -284,7 +305,7 @@ class CharacterApplication:
 
     def hero_program_view(self, identifier):
         character = self.get(identifier)
-        return {**project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character)),
+        return {**project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character), self.character_hero_powers_pack(character)),
                 'pinned':'heroes-program-skills' in character.get('additional_rule_packs', {})}
 
     def select_hero_programs(self, identifier, *, revision, selections):
@@ -328,8 +349,9 @@ class CharacterApplication:
             core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
             return export_heroes_sheet(character, core,
                 project_education(character.get('education'), self.character_education_pack(character)),
-                project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character)),
-                project_budget(character.get('power_budget'), self.character_power_budget_pack(character)))
+                project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character), self.character_hero_powers_pack(character)),
+                project_budget(character.get('power_budget'), self.character_power_budget_pack(character)),
+                project_powers(character, self.character_hero_powers_pack(character), self.character_power_budget_pack(character)))
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
         combat = project_combat(character,pack)
@@ -365,8 +387,9 @@ class CharacterApplication:
             previous = self._character_heroes_pack(character, 'heroes-program-skills')
             target = self.rule_archive.active('heroes-program-skills')
             education = self.character_education_pack(character)
-            before = project_programs(character, previous, education)
-            after = project_programs(character, target, education)
+            powers = self.character_hero_powers_pack(character)
+            before = project_programs(character, previous, education, powers)
+            after = project_programs(character, target, education, powers)
             preview = {'skills':compare_skill_views({'grants':before['skills'], 'selected':[]},
                                                   {'grants':after['skills'], 'selected':[]}),
                        'combat':[], 'before_remaining':{}, 'after_remaining':{},

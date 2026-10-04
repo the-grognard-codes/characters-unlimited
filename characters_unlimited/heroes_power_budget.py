@@ -66,5 +66,8 @@ def project_budget(record, pack):
             budgets.append({'name':row['name'], 'count':row['count'] + (next(dice) if row.get('die') else 0)})
     return deepcopy({'catalog':pack['outcomes'], 'selection':selection, 'outcome':outcome,
                      'budgets':budgets, 'history':record['history'] if record else [],
-                     'source':pack['source'], 'guidance':[*pack['guidance'], *(outcome.get('guidance', []) if outcome else [])],
+                     'source':pack['source'], 'guidance':[
+                         note.replace('Selecting individual powers and calculating their effects remain pending.',
+                                      'Individual power availability and effects are listed separately; other powers remain pending.')
+                         for note in [*pack['guidance'], *(outcome.get('guidance', []) if outcome else [])]],
                      'rules':{'id':pack['id'], 'version':pack['version']}})

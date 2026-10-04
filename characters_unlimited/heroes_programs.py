@@ -5,6 +5,7 @@ from collections import Counter
 
 from .education import project_education
 from .proficiency import project_proficiency, synergy_contributions
+from .heroes_powers import power_skill_contributions
 
 
 def validate_program_selections(selections, pack):
@@ -59,7 +60,7 @@ def program_choice_view(selection, program, warnings):
     return groups
 
 
-def project_programs(character, pack, education_pack):
+def project_programs(character, pack, education_pack, power_pack=None):
     education = project_education(character.get('education'), education_pack)
     outcome = education['outcome']
     slots = outcome['program_slots'] if outcome else []
@@ -122,8 +123,17 @@ def project_programs(character, pack, education_pack):
         if definition['id'] not in bonuses:
             continue
         contributions = {'base':definition['base'], 'education':bonuses[definition['id']], 'intelligence':intelligence,
-                         **synergy_contributions(definition,set(bonuses))}
-        skills.append({**deepcopy(definition), **project_proficiency(definition, contributions),
+                         **synergy_contributions(definition,set(bonuses)),
+                         **power_skill_contributions(character,definition,power_pack)}
+        for bonus in definition.get('attribute_bonuses', []):
+            value = character['attributes'][bonus['attribute']]['value']
+            if 'cap' in bonus:
+                value = min(value,bonus['cap'])
+            contributions[bonus['name']] = max(0, value-bonus['threshold']) // bonus['step'] * bonus['amount']
+        projected_definition = deepcopy(definition)
+        projected_definition['additional_checks'] = [check for check in definition.get('additional_checks', [])
+                                                    if check.get('requires_skill') is None or check['requires_skill'] in bonuses]
+        skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),
             'skill_catalog':deepcopy(pack['skills']),

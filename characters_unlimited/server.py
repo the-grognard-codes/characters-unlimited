@@ -68,6 +68,8 @@ def create_server(application, port=0):
                         self.respond(200, application.resource_view(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'equipment':
                         self.respond(200, application.equipment_view(parts[2]))
+                    elif len(parts) == 4 and parts[3] == 'hero-powers':
+                        self.respond(200, application.hero_powers_view(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'power-budget':
                         self.respond(200, application.power_budget_view(parts[2]))
                     elif len(parts) == 4 and parts[3] == 'education':
@@ -86,7 +88,7 @@ def create_server(application, port=0):
                     self.respond(400, {"error": str(error)})
                 except OSError:
                     self.respond(400, {"error": "The PDF export could not complete. Your saved character is unchanged."})
-            elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css", "/combat.js", "/education.js", "/power-budget.js", "/resources.js", "/equipment.js"):
+            elif path in ("/", "/app.js", "/style.css", "/coverage.css", "/generation.css", "/combat.js", "/education.js", "/power-budget.js", "/powers.js", "/resources.js", "/equipment.js"):
                 filename = "index.html" if path == "/" else path[1:]
                 content_type = "text/html" if filename == "index.html" else "text/javascript" if filename.endswith(".js") else "text/css"
                 self.respond(200, (assets / filename).read_bytes(), f"{content_type}; charset=utf-8")
@@ -146,6 +148,8 @@ def create_server(application, port=0):
                         self.respond(200, application.generate_resources(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'resource':
                         self.respond(200, application.set_resource(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'hero-powers':
+                        self.respond(200, application.select_hero_powers(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'power-budget':
                         self.respond(200, application.select_power_budget(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'education':

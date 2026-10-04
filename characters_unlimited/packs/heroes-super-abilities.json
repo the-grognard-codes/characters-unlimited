@@ -1,0 +1,94 @@
+{
+  "id": "heroes-super-abilities",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "character_class": "mutant",
+  "name": "Reviewed chosen Mutant super abilities",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Extraordinary Mental Affinity",
+    "printed_page": 231,
+    "pdf_page": 232,
+    "markdown_lines": [
+      13829,
+      13837
+    ],
+    "candidate_id": "2d704fa8c1e783f51254"
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "mental_affinity_chart": {
+    "16": 40,
+    "17": 45,
+    "18": 50,
+    "19": 55,
+    "20": 60,
+    "21": 65,
+    "22": 70,
+    "23": 75,
+    "24": 80,
+    "25": 84,
+    "26": 88,
+    "27": 92,
+    "28": 94,
+    "29": 96,
+    "30": 97
+  },
+  "mental_affinity_source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "section": "Attribute Bonus Chart",
+    "printed_page": 15,
+    "pdf_page": 16,
+    "markdown_lines": [
+      803,
+      819
+    ],
+    "candidate_id": "434a46446c6eaa474c6d"
+  },
+  "powers": [
+    {
+      "id": "extraordinary-mental-affinity",
+      "name": "Extraordinary Mental Affinity",
+      "category": "minor",
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "section": "Extraordinary Mental Affinity",
+        "printed_page": 231,
+        "pdf_page": 232,
+        "markdown_lines": [
+          13829,
+          13837
+        ],
+        "candidate_id": "2d704fa8c1e783f51254"
+      },
+      "attribute_floor": {
+        "attribute": "MA",
+        "count": 1,
+        "sides": 6,
+        "constant": 24
+      },
+      "skill_bonus": {
+        "amount": 10,
+        "skill_ids": [
+          "seduction",
+          "pick-pockets"
+        ],
+        "tags": [
+          "deception",
+          "sleight-of-hand"
+        ]
+      },
+      "guidance": [
+        "The recorded target raises calculated M.A. only when higher. Manual fixed values and adjustments remain available.",
+        "+10% to seduction, pick pockets and reviewed deception/sleight-of-hand skills; this power grants no skills."
+      ]
+    }
+  ],
+  "guidance": [
+    "Only chosen Extraordinary Mental Affinity is available in this slice. Other powers and global random selection remain pending.",
+    "Power dice ignore attribute house options. Removing and reselecting the power reuses its recorded acquisition.",
+    "Trust/intimidate uses the ordinary mortal M.A. chart; below16 has no exceptional percentage and above30 uses97%."
+  ]
+}

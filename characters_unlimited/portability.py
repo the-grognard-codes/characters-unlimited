@@ -8,6 +8,7 @@ from .generation import roll_attribute, generation_settings, racial_formula
 from .attribute_modifiers import attribute_value
 from .education import validate_education
 from .heroes_power_budget import validate_budget
+from .heroes_powers import validate_powers, validate_power_attributes
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
 from .resources import validate_resources
@@ -246,6 +247,12 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs, *, history_frame=False):
     core = primary_pack(character, packs)
+    power_pack = next((item for item in packs if item['id']=='heroes-super-abilities'), None)
+    if 'hero_powers' in character:
+        if character['game'] != 'heroes-unlimited' or power_pack is None or character['character_class'] != power_pack['character_class']:
+            raise ValueError('Heroes powers must retain their accepted rule version pin')
+        validate_powers(character['hero_powers'], power_pack)
+    validate_power_attributes(character, power_pack)
     if 'equipment' in character or 'starting_funds' in character or 'starting_gear' in character or 'starting_choices' in character or 'starting_equipment_groups' in character:
         equipment_pack = next((item for item in packs if item['id']=='rifts-equipment'),None)
         if character['game'] != 'rifts' or equipment_pack is None:
@@ -338,7 +345,9 @@ def validate_sources(character, packs, *, history_frame=False):
             formula = selected_class.get('attribute_bonuses', {}).get(name)
             modifiers = []
             for modifier in value.get('modifiers',[]):
-                if modifier['id'].startswith('physical:'):
+                if modifier['id'].startswith('power-floor:'):
+                    continue  # Validated against retained source-bound acquisitions above.
+                elif modifier['id'].startswith('physical:'):
                     definition = next(item for item in skill_pack['skills'] if item['id']==modifier['id'].removeprefix('physical:')) if skill_pack else None
                     if definition is None or canonical(modifier['source']) != canonical(definition['source']):
                         raise ValueError('Physical modifier sources must match their pinned rules')

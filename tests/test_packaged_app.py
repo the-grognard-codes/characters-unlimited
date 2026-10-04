@@ -302,12 +302,14 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(len(beauty['rolls']),2)
                 self.assertTrue(60 <= hero_powers['charm_impress'] <= 92)
                 hero = request('/api/characters/'+hero['id']+'/hero-secondary',
-                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running','athletics','climbing','swimming','scuba','hand-to-hand-basic','hand-to-hand-expert','hand-to-hand-martial-arts','hand-to-hand-assassin']},token)
+                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running','athletics','climbing','swimming','scuba','boxing','hand-to-hand-basic','hand-to-hand-expert','hand-to-hand-martial-arts','hand-to-hand-assassin']},token)
                 hero = request('/api/characters/'+hero['id']+'/hero-training',{'revision':hero['revision'],'training_id':'hand-to-hand-martial-arts'},token)
                 hero_combat = request('/api/characters/'+hero['id']+'/hero-programs')['combat']
                 self.assertEqual(hero_combat['training'],'Hand to Hand: Martial Arts')
-                self.assertEqual(hero_combat['totals']['attacks']['value'],4)
+                self.assertEqual(hero_combat['totals']['attacks']['value'],5)
                 self.assertEqual(hero_combat['parry_actions'],0)
+                self.assertEqual(hero_combat['totals']['attacks']['contributions']['Boxing'],1)
+                self.assertEqual(hero_combat['totals']['parry']['contributions']['Boxing'],2)
                 self.assertEqual(hero_combat['totals']['parry']['contributions']['Athletics (general)'],1)
                 self.assertEqual(hero_combat['totals']['roll_with_impact']['contributions']['Athletics (general)'],1)
                 rogue = {row['id']:row for row in request('/api/characters/'+hero['id']+'/hero-programs')['skills']}
@@ -320,7 +322,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(rogue['general-repair-maintenance']['additional_checks'][0]['percentage'],rogue['general-repair-maintenance']['percentage']/2)
                 hero = request('/api/characters/'+hero['id']+'/resources',{'revision':hero['revision']},token)
                 hero_resources = request('/api/characters/'+hero['id']+'/resources')
-                self.assertTrue(43 <= hero_resources['resources']['SDC']['value'] <= 54)
+                self.assertTrue(46 <= hero_resources['resources']['SDC']['value'] <= 72)
                 self.assertEqual(hero_resources['resources']['SDC']['contributions']['Physical: Body Building & Weight Lifting'],10)
                 self.assertTrue(6 <= hero_resources['resources']['PPE']['value'] <= 36)
                 self.assertTrue(hero['attributes']['PE']['value']+1 <= hero_resources['resources']['HP']['value'] <= hero['attributes']['PE']['value']+6)
@@ -355,7 +357,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertTrue('skills.scuba.percentage' in resource_pdf or
                                 any(row.get('/V') == scuba_line for row in resource_pdf.values()))
                 self.assertEqual(resource_pdf['COMBAT_SKILL']['/V'],'Hand to Hand: Martial Arts')
-                self.assertEqual(resource_pdf['ATTACKS']['/V'],'4')
+                self.assertEqual(resource_pdf['ATTACKS']['/V'],'5')
                 self.assertEqual(resource_pdf['HP']['/V'],str(hero_resources['resources']['HP']['value']))
                 self.assertEqual(resource_pdf['SDC']['/V'],str(hero_resources['resources']['SDC']['value']))
                 self.assertEqual(resource_pdf['PPE']['/V'],str(hero_resources['resources']['PPE']['value']))
@@ -382,10 +384,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.16.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.17.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.16.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.17.0')
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

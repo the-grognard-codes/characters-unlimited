@@ -122,7 +122,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.16.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.17.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -144,7 +144,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                     token = json.load(response)['token']
                 path = base+'/api/characters/'+hero['id']
                 headers = {'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
-                payload = json.dumps({'revision':hero['revision'],'selections':['hand-to-hand-basic','climbing','swimming','athletics','scuba']}).encode()
+                payload = json.dumps({'revision':hero['revision'],'selections':['hand-to-hand-basic','climbing','swimming','athletics','scuba','boxing']}).encode()
                 with urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5) as response:
                     saved = json.load(response)
                 with urlopen(path+'/hero-programs',timeout=5) as response:
@@ -156,12 +156,13 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 self.assertEqual(skills['swimming']['percentage'],50)
                 self.assertEqual(skills['scuba']['percentage'],50)
                 underwater = next(row for row in view['physical']['selected'] if row['id']=='scuba')['activities'][0]
-                self.assertEqual((underwater['yards_per_melee'],underwater['minutes']),(26,12))
+                self.assertEqual((underwater['yards_per_melee'],underwater['minutes']),(30,12))
                 self.assertEqual(underwater['id'],'underwater-swimming')
                 activity = next(row for row in view['physical']['selected'] if row['id']=='swimming')['activities'][0]
-                self.assertEqual((activity['yards_per_melee'],activity['minutes']),(39,12))
-                self.assertEqual(combat['totals']['attacks']['value'],4)
+                self.assertEqual((activity['yards_per_melee'],activity['minutes']),(45,12))
+                self.assertEqual(combat['totals']['attacks']['value'],5)
                 self.assertEqual(combat['parry_actions'],0)
+                self.assertEqual(combat['totals']['attacks']['contributions']['Boxing'],1)
                 self.assertEqual(combat['totals']['parry']['contributions']['Athletics (general)'],1)
                 with self.assertRaises(HTTPError) as stale:
                     urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5)
@@ -171,7 +172,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 with urlopen(path+'/pdf',timeout=5) as response:
                     fields = PdfReader(BytesIO(response.read())).get_fields()
                 assert fields is not None
-                self.assertEqual(fields['ATTACKS']['/V'],'4')
+                self.assertEqual(fields['ATTACKS']['/V'],'5')
                 payload = json.dumps({'revision':saved['revision'],'selections':['hand-to-hand-basic','hand-to-hand-martial-arts']}).encode()
                 with urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5) as response:
                     saved = json.load(response)

@@ -17,3 +17,5 @@ Browser sample: I.Q.16/P.S.20/P.E.21, Swimming52% and S.C.U.B.A.52%, surface60 a
 Other aquatic races, equipment, Physical skills, Heroes advancement and full corpus acceptance remain open. Parent06/07/09 remain open.
 
 Initial Windows37193930437/37193934745 passed the full suite and build but failed the frozen test: its21st skill correctly moved to an editable continuation field, while the test demanded a main-table field name. The corrected frozen assertion verifies the exact continuation value; a public long-sheet regression confirms one writable text field retains S.C.U.B.A.50%/+5. Product export behavior is unchanged. Final full suite323 tests passes in162.071 seconds (one frozen-only skip); mypy107/compile/whitespace and focused Scuba5 pass. Corrected Windows checks pending.
+
+06O merged in PR80 as ee85bd4c7fae6a5147b4b85b19f3b92e37ff74e5 after corrected Windows37194674385(6m36s)/37194676213(6m37s) passed, including frozen executable and editable continuation verification.

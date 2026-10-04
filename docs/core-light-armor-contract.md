@@ -1,0 +1,9 @@
+# 08D1: Core light armor
+
+Add Urban Warrior and Huntsman from Ultimate Edition printed p.268/PDF271 to immutable equipment1.8.0. Urban Warrior: main50/helmet35/arms16/legs30MDC,11lb,35000credits,-5% movement. Huntsman:45/35/15/25,16lb,24000credits,-10%. Preserve per-location capacities without summing them. Purchases, quantities, carried/store/equip, nonblocking debt and multiple-armor warning use the approved CharacterApplication seam.
+
+Expose environmental status explicitly: Urban Warrior and already-reviewed Plastic Man are environmental; Huntsman is non-environmental. Old1.7 pins retain their archived definitions until review/apply. Environmental armor notes cite p.267/PDF270: temperature control/filtered air and independent five-hour oxygen, shielding to200C, immunity to normal fires with nuclear/plasma/magic fire doing full damage, minimal radiation shielding, adaptive visor and5–10mile radio. These describe protection and do not resolve incoming attacks. Source-specific movement penalties override general classes; they affect mobility-dependent checks, not general speed. Huntsman’s affected-check mapping remains pending rather than borrowing an environmental-only context list.
+
+Builder effects show type, locations, weight/price, source and protection notes. Editable PDF projects native main-body capacity/weight/cost/penalty plus complete continuation notes. Honor-system equipped quantities/storage stay recorded; multiple armor units never stack capacities/protections. City Rat starting armor options, other suits, location damage tracking and contextual skill/incoming damage resolution remain open.
+
+Tests use source literal capacities and worked money/weight, stored effects disappear, source notes/status persist through portable/reopen and exact old-pin updates, PDF fields/notes are editable. Source originals were visually checked. Both independent review axes, local checks and Windows full/frozen checks precede merge.

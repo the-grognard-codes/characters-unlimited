@@ -140,3 +140,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08B4: Complete in PR #61 as40def5c after both Windows full/frozen checks passed. Original City Rat credits/item value, exact pins and editable sheets verified.
 - 08B5: City Rat six-row fixed personal gear grant in progress; full class/equipment review remains open.
+
+- 08B5: Complete in PR #62 as8b9a3d2 after both Windows full/frozen workflows passed.
+- 08D1: Core Urban Warrior/Huntsman light armor and explicit environmental status/notes in progress. Full equipment and contextual resolution remain open.

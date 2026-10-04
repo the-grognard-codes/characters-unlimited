@@ -16,3 +16,5 @@ Browser selection through Technical/Rogue shows four selections used. At I.Q.16,
 [Editable sample](06i-skills-sample.pdf)
 
 Complete programs/catalogs, languages/literacy, training, armor repair, Heroes advancement and full corpus acceptance remain open. Parent06/09 remain open.
+
+06I merged in PR73 as c9fa7185ca605bb69e25f2f562d0a2e4685d4dd3 after Windows37184169547(6m15s)/37184175254(6m20s) passed, including packaged executable validation.

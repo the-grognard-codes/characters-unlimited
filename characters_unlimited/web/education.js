@@ -97,10 +97,16 @@ async function loadEducation(character) {
     const detail = document.createElement('small'); detail.textContent = ` ${skill.category}; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}${skill.prerequisites.length ? '; requires ' + skill.prerequisites.join(', ') : ''}${synergies ? '; ' + synergies : ''}${skill.secondary_selected ? '; selected as Secondary (no added education bonus)' : ''}`;
     item.append(detail); return item;
   }));
-  for (const skill of programs.skills) {
+    for (const skill of programs.skills) {
     for (const check of skill.additional_checks || []) $('hero-program-skills').append(educationLine(`${skill.name} — ${check.name}: ${check.percentage}% (+${check.per_level}% per level)${check.context_of ? ' · applies only in this stated context' : ' · separate roll'}`));
     for (const note of skill.notes || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
-  }
+    }
+    for (const skill of programs.physical?.selected || []) {
+      const terms = Object.entries(skill.effects.attributes).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`);
+      terms.push(...Object.entries(skill.effects.resources).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`));
+      $('hero-program-skills').append(educationLine(`${skill.name}: ${terms.join(' · ')} · Physical effects apply once; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}`));
+      for (const note of skill.guidance || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
+    }
   $('hero-program-warnings').replaceChildren(...programs.warnings.map(educationLine));
   $('hero-program-warnings').hidden = !programs.warnings.length;
   $('hero-program-guidance').replaceChildren(...[...programs.guidance,

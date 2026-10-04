@@ -1,6 +1,7 @@
 """Recorded Physical-skill bonuses from reviewed, pinned skill definitions."""
 
 from copy import deepcopy
+import json
 
 from .attribute_modifiers import attribute_value
 
@@ -8,6 +9,20 @@ from .attribute_modifiers import attribute_value
 # Activity decimals travel through JSON and browser numbers. Larger manual
 # attributes remain saved, but are not safely representable in this projection.
 MAX_ACTIVITY_ATTRIBUTE = 9_007_199_254_740_991
+
+
+def validate_physical_upgrade(character, previous, target, *, entire_definition=False):
+    """Preserve receipts; Rifts still previews non-acquisition activity changes."""
+    before = _definitions(previous)
+    after = _definitions(target)
+    fields = ('kind', 'attributes', 'resources', 'combat', 'source')
+    for identifier in character.get('physical_acquisitions', {}):
+        old = before.get(identifier, {})
+        new = after.get(identifier, {})
+        encoded = lambda row: json.dumps(row if entire_definition else {key:row.get(key) for key in fields}, sort_keys=True,
+                                        ensure_ascii=False, allow_nan=False)
+        if not old or not new or encoded(old) != encoded(new):
+            raise ValueError('This update changes recorded Physical bonus rules. Acquisition/history migration is not yet supported; current rules remain intact.')
 
 
 def _definitions(pack):

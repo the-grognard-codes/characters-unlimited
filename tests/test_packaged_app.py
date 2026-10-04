@@ -302,7 +302,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(len(beauty['rolls']),2)
                 self.assertTrue(60 <= hero_powers['charm_impress'] <= 92)
                 hero = request('/api/characters/'+hero['id']+'/hero-secondary',
-                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance']},token)
+                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running']},token)
                 rogue = {row['id']:row for row in request('/api/characters/'+hero['id']+'/hero-programs')['skills']}
                 self.assertEqual(rogue['cardsharp']['contributions']['Palming'],4)
                 self.assertEqual(rogue['cardsharp']['contributions']['Extraordinary Mental Affinity'],10)
@@ -313,16 +313,18 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(rogue['general-repair-maintenance']['additional_checks'][0]['percentage'],rogue['general-repair-maintenance']['percentage']/2)
                 hero = request('/api/characters/'+hero['id']+'/resources',{'revision':hero['revision']},token)
                 hero_resources = request('/api/characters/'+hero['id']+'/resources')
-                self.assertEqual(hero_resources['resources']['SDC']['value'],30)
+                self.assertTrue(41 <= hero_resources['resources']['SDC']['value'] <= 46)
+                self.assertEqual(hero_resources['resources']['SDC']['contributions']['Physical: Body Building & Weight Lifting'],10)
                 self.assertTrue(6 <= hero_resources['resources']['PPE']['value'] <= 36)
                 self.assertTrue(hero['attributes']['PE']['value']+1 <= hero_resources['resources']['HP']['value'] <= hero['attributes']['PE']['value']+6)
                 resource_pdf = PdfReader(BytesIO(request('/api/characters/'+hero['id']+'/pdf'))).get_fields()
                 assert resource_pdf is not None
                 self.assertEqual(resource_pdf['HP']['/V'],str(hero_resources['resources']['HP']['value']))
-                self.assertEqual(resource_pdf['SDC']['/V'],'30')
+                self.assertEqual(resource_pdf['SDC']['/V'],str(hero_resources['resources']['SDC']['value']))
                 self.assertEqual(resource_pdf['PPE']['/V'],str(hero_resources['resources']['PPE']['value']))
                 hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
                 self.assertEqual(hero_imported['resources'],hero['resources'])
+                self.assertEqual(hero_imported['physical_acquisitions'],hero['physical_acquisitions'])
                 self.assertEqual(hero_imported['resource_attribute_snapshot'],hero['resource_attribute_snapshot'])
                 self.assertEqual(hero_imported['power_budget'], hero['power_budget'])
                 self.assertEqual(hero_imported['hero_powers'], hero['hero_powers'])
@@ -342,10 +344,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.10.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.11.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.10.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.11.0')
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

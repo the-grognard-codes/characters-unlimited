@@ -11,6 +11,7 @@ from .heroes_power_budget import validate_budget
 from .heroes_powers import validate_powers, validate_power_attributes
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
+from .heroes_physical import validate_hero_physical
 from .resources import validate_resources
 from .skills import validate_selections, project_skills
 from .equipment import validate_inventory
@@ -285,7 +286,7 @@ def validate_sources(character, packs, *, history_frame=False):
         validate_physical(character,skill_pack)
         for event in character.get('roll_history', []):
             validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),skill_pack)
-    elif 'physical_acquisitions' in character:
+    elif 'physical_acquisitions' in character and character['game'] != 'heroes-unlimited':
         raise ValueError('Physical skill acquisitions must retain their Rifts rule version')
     elif 'advancement' in character or 'later_advancements' in character or 'learning_levels' in character or character['level'] != 1:
         raise ValueError('Advancement must retain its Rifts rule version')
@@ -335,12 +336,22 @@ def validate_sources(character, packs, *, history_frame=False):
         if character['game']!='heroes-unlimited' or pack is None or 'education' not in character:
             raise ValueError('Heroes Secondary skills must retain education and their accepted rule version pin')
         validate_secondary_selections(character['hero_secondary_selections'],pack)
+    physical_pack = skill_pack
+    if character['game'] == 'heroes-unlimited':
+        physical_pack = next((item for item in packs if item['id']=='heroes-program-skills'),None)
+        education_pack = next((item for item in packs if item['id']=='heroes-education'),None)
+        if physical_pack is not None and education_pack is not None:
+            validate_hero_physical(character, physical_pack, education_pack)
+            for event in character.get('roll_history', []):
+                validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),physical_pack)
+        elif 'physical_acquisitions' in character:
+            raise ValueError('Heroes Physical acquisitions must retain their skill and education rule pins')
     resource_snapshot = character.get('resource_attribute_snapshot')
     if resource_snapshot is not None:
         race = next(item for item in core['races'] if item['id']==character['race'])
         validate_attributes(resource_snapshot,race)
-        if skill_pack is not None:
-            validate_physical_history(resource_snapshot,character.get('physical_acquisitions',{}),skill_pack)
+        if physical_pack is not None:
+            validate_physical_history(resource_snapshot,character.get('physical_acquisitions',{}),physical_pack)
     validate_power_attributes(character, power_pack)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', [])),
                *([resource_snapshot] if resource_snapshot is not None else [])]
@@ -355,7 +366,7 @@ def validate_sources(character, packs, *, history_frame=False):
                 if modifier['id'].startswith('power-floor:'):
                     continue  # Validated against retained source-bound acquisitions above.
                 elif modifier['id'].startswith('physical:'):
-                    definition = next(item for item in skill_pack['skills'] if item['id']==modifier['id'].removeprefix('physical:')) if skill_pack else None
+                    definition = next((item for item in physical_pack['skills'] if item['id']==modifier['id'].removeprefix('physical:')),None) if physical_pack else None
                     if definition is None or canonical(modifier['source']) != canonical(definition['source']):
                         raise ValueError('Physical modifier sources must match their pinned rules')
                 else:

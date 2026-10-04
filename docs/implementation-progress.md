@@ -179,3 +179,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 09C merged in PR72 as ab45fca533753bb52425c085b68910ca51613f12 after Windows37183026472(6m12s)/37183044312(7m46s) passed, including packaged executable validation.
 
 - 06I: Ventriloquism, Art, Photography and General Repair/Maintenance added under immutable skills1.10. Exact half-proficiency, reversible M.A. contribution and legacy update verified. Both reviews approve; final280 local tests pass (one frozen-only skip), required mypy97, compile/JS checks, browser and three-page editablePDF inspected. Windows checks pending; parent06/09 open.
+
+06I merged in PR73 as c9fa7185ca605bb69e25f2f562d0a2e4685d4dd3 after Windows37184169547(6m15s)/37184175254(6m20s) passed, including packaged executable validation.
+
+- 06J: Body Building & Weight Lifting and Running added under immutable skills1.11 with retained Physical receipts, reversible attributes and S.D.C., initial effective P.E. HP snapshot, portable history, separate UI/PDF summaries and full-definition Heroes upgrade protection. Both reviews approve after outside-group grant and Rifts compatibility repairs. Required mypy99, focused15, compile/JS checks and browser/three-page editable PDF verification pass. Final full suite290 tests passes (one frozen-only skip); Windows checks pending. Parent06/07/09 remain open.

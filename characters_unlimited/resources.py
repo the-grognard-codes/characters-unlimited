@@ -167,14 +167,15 @@ def validate_resources(character, pack):
                 raise ValueError('Resource attribute contribution does not match its snapshot')
 
 
-def project_resources(character, pack):
+def project_resources(character, pack, *, physical_resources=None):
     """Show generated totals and active Physical S.D.C. bonuses without rolling."""
     validate_resources(character, pack)
     rules = _rules(pack)
     if rules is None:
         return {'supported': False, 'generated': False, 'resources': {}, 'guidance': []}
     generated = 'resources' in character
-    physical = project_physical(character, pack)['resources'] if 'skills' in pack else []
+    physical = (physical_resources if physical_resources is not None else
+                project_physical(character, pack)['resources'] if 'skills' in pack else [])
     projected = {}
     for definition in rules['definitions']:
         identifier = definition['id']

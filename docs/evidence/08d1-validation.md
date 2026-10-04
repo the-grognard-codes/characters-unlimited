@@ -17,3 +17,5 @@ Browser purchased/equipped Urban with25000credits remaining,11lb and individual 
 City Rat starting armor, other suits, contextual skill/incoming damage resolution and full equipment/class coverage remain open. No final release or retrospective is claimed.
 
 Final local suite:236 tests pass, one frozen-only skip. Subsequent source-heading metadata repair passes focused armor/archive checks.
+
+Merged PR #63 asa6b2f09 after Windows full/frozen runs37170766493 (5m7s) and37170768485 (4m57s) passed.

@@ -136,6 +136,8 @@ def create_server(application, port=0):
                         self.respond(200, application.generate_starting_funds(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'starting-gear':
                         self.respond(200, application.grant_starting_gear(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'starting-group':
+                        self.respond(200, application.grant_starting_group(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'starting-choices':
                         self.respond(200, application.grant_starting_choices(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'resources':

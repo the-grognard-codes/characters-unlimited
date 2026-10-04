@@ -4,6 +4,7 @@ from copy import deepcopy
 from .starting_funds import project_starting_funds
 from .starting_gear import project_starting_gear
 from .starting_choices import project_starting_choices
+from .starting_groups import project_starting_groups
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -350,6 +351,7 @@ def project_equipment(character, pack, combat):
         'starting_funds': funds,
         'starting_gear': gear,
         'starting_choices': starting,
+        'starting_groups': project_starting_groups(character, pack),
         'carried_weight_complete': unknown_weight_quantity == 0,
         'unknown_carried_weight_quantity': unknown_weight_quantity,
     }
@@ -366,6 +368,7 @@ def compare_equipment_views(before, after):
     add('Starting funds rules', before['starting_funds']['definitions'], after['starting_funds']['definitions'])
     add('Starting personal gear rules', before['starting_gear']['definitions'], after['starting_gear']['definitions'])
     add('Starting equipment choice rules', before['starting_choices']['definitions'], after['starting_choices']['definitions'])
+    add('Independent starting equipment groups', before['starting_groups'], after['starting_groups'])
     add('Carried items with unspecified weight', before['unknown_carried_weight_quantity'], after['unknown_carried_weight_quantity'])
     old_catalog = {item['id']: item for item in before['catalog']}
     new_catalog = {item['id']: item for item in after['catalog']}

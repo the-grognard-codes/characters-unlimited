@@ -25,6 +25,7 @@ from .equipment import validate_inventory, purchase_inventory, split_inventory, 
 from .starting_funds import acquire_starting_funds
 from .starting_gear import acquire_starting_gear
 from .starting_choices import acquire_starting_choices
+from .starting_groups import acquire_starting_group, validate_starting_group_upgrade
 from .advancement import first_advance, remember_learning, learning_key, project_advancement
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
@@ -383,6 +384,7 @@ class CharacterApplication:
         if character['game'] == 'rifts' and 'rifts-equipment' in character.get('additional_rule_packs', {}):
             previous_equipment = self.character_equipment_pack(character)
             target_equipment = equipment_class_rules(self.rule_archive.active('rifts-equipment'), character)
+            validate_starting_group_upgrade(character, previous_equipment, target_equipment)
             if 'starting_funds' in character and canonical(previous_equipment.get('starting_funds')) != canonical(target_equipment.get('starting_funds')):
                 raise ValueError('This update changes recorded starting funds rules. History migration is not yet supported; current rules remain intact.')
             if 'starting_gear' in character and canonical(previous_equipment.get('starting_gear')) != canonical(target_equipment.get('starting_gear')):
@@ -425,6 +427,15 @@ class CharacterApplication:
                     citation = (f"{price_source['book']}, equipment prices printed pp. "
                                 + ', '.join(map(str, price_source['pages']))
                                 + ' / PDF pp. ' + ', '.join(map(str, price_source['pdf_pages'])))
+                    if citation not in preview['sources']:
+                        preview['sources'].append(citation)
+            previous_groups = previous_equipment.get('starting_groups', {}).get('groups', {})
+            for group_id, group in target_equipment.get('starting_groups', {}).get('groups', {}).items():
+                if canonical(group) != canonical(previous_groups.get(group_id)):
+                    group_source = group['source']
+                    citation = (f"{group_source['book']}, starting equipment group printed pp. "
+                                + ', '.join(map(str, group_source['pages']))
+                                + ' / PDF pp. ' + ', '.join(map(str, group_source['pdf_pages'])))
                     if citation not in preview['sources']:
                         preview['sources'].append(citation)
             targets.append(target_equipment)
@@ -504,6 +515,18 @@ class CharacterApplication:
         pack = self.character_equipment_pack(character)
         validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
         changes = acquire_starting_choices(character, pack, choices, lambda: str(uuid4()))
+        validate_inventory(changes['equipment'], pack)
+        pins = {**character['additional_rule_packs'], pack['id']: pack['version']}
+        return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)
+
+    def grant_starting_group(self, identifier, *, revision, group_id, selection):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before adding a starting equipment group.')
+        pack = self.character_equipment_pack(character)
+        validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
+        changes = acquire_starting_group(character, pack, group_id, selection, lambda: str(uuid4()))
         validate_inventory(changes['equipment'], pack)
         pins = {**character['additional_rule_packs'], pack['id']: pack['version']}
         return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)

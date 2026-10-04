@@ -13,3 +13,5 @@ Browser created City Rat and added gear through the generic action; expanded rec
 ![Edited native sheet](08b5-edited-sheet.png)
 
 Full City Rat equipment/class and parent tickets remain open. No final release or retrospective is claimed.
+
+Merged PR #62 as8b9a3d2 after Windows full/frozen runs37169609814 (4m41s) and37169611902 (4m31s) passed.

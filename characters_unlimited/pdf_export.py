@@ -308,7 +308,8 @@ def fill_equipment(page, equipment, values):
                        'WEIGHT 1':str(item['weight_lbs'])+' lb',
                        'undefined_7':str(item['locations']['main_body']),
                        'undefined_8':str(item['locations']['main_body'])})
-        cell(533.018,322.582,item['movement_penalty'])
+        if item.get('prowl_penalty') is not None:
+            cell(533.018,322.582,item['prowl_penalty'])
 
 
 def export_rifts_sheet(character, core, skills, combat):
@@ -418,6 +419,9 @@ def export_rifts_sheet(character, core, skills, combat):
             elif item['category'] == 'armor':
                 sheet_notes += ' '+', '.join(name.replace('_',' ')+' '+str(value)+' M.D.C.' for name,value in item['locations'].items())+'.'
                 sheet_notes += ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.'
+                if item.get('environmental') is not None:
+                    sheet_notes += ' '+('Environmental' if item['environmental'] else 'Non-environmental')+' armor.'
+                sheet_notes += ' '+' '.join(item.get('protection_notes', []))
         for attack in equipment['attacks']:
             sheet_notes += '\n'+attack['name']+': '+ '; '.join(
                 context+' strike '+(str(attack[context]['value']) if attack[context]['value'] is not None else 'pending')+

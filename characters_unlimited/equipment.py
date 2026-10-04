@@ -303,11 +303,19 @@ def project_equipment(character, pack, combat):
                 'cost_credits': definition['cost_credits'], 'weight_lbs': definition['weight_lbs'],
                 'locations': deepcopy(definition['locations']),
                 'movement_penalty': definition['movement_penalty'],
+                # Archived catalogs only supported Plastic-Man's reviewed Prowl mapping.
+                'prowl_penalty': definition.get('prowl_penalty',
+                    definition['movement_penalty'] if definition['id'] == 'plastic-man' else None),
                 'source': deepcopy(definition['source']),
                 'movement_source': deepcopy(definition['movement_source']),
+                'environmental': definition.get('environmental'),
+                'protection_notes': deepcopy(definition.get('protection_notes', [])),
+                'protection_source': deepcopy(definition.get('protection_source')),
             })
             if definition['movement_source'] not in sources:
                 sources.append(deepcopy(definition['movement_source']))
+            if definition.get('protection_source') and definition['protection_source'] not in sources:
+                sources.append(deepcopy(definition['protection_source']))
 
     active_armor_quantity = sum(item['quantity'] for item in armor)
     if active_armor_quantity > 1:

@@ -9,6 +9,7 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 import json
 from io import BytesIO
+from copy import deepcopy
 from pypdf import PdfReader
 from characters_unlimited.application import CharacterApplication
 from characters_unlimited.rules import RuleArchive
@@ -351,6 +352,16 @@ class PackagedApplicationTests(unittest.TestCase):
                 city = request(city_path+'/starting-gear', {'revision':city['revision']}, token)
                 self.assertEqual(len(city['starting_gear']['grants']),6)
                 self.assertEqual(request(city_path+'/equipment')['unknown_carried_weight_quantity'],7)
+                city = request(city_path+'/purchase-equipment',
+                               {'revision':city['revision'],'item_id':'urban-warrior','quantity':1}, token)
+                city_inventory = deepcopy(city['equipment'])
+                city_inventory['items'][-1]['equipped'] = True
+                city = request(city_path+'/equipment',
+                               {'revision':city['revision'],'inventory':city_inventory}, token)
+                city_armor = request(city_path+'/equipment')['armor'][0]
+                self.assertEqual(city_armor['locations']['main_body'],50)
+                self.assertTrue(city_armor['environmental'])
+
                 city_portable = request(city_path+'/export')
                 city_imported = request('/api/import', {'bundle':city_portable}, token)
                 self.assertEqual(city_imported['character_class'], 'city-rat')
@@ -362,6 +373,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 assert city_fields is not None
                 self.assertEqual(city_fields['NAME']['/V'], 'Packaged City Rat')
                 self.assertEqual(city_fields['OCC']['/V'], 'City Rat')
+                self.assertEqual(city_fields['ARMOR']['/V'], 'Urban Warrior')
                 self.assertEqual(city_fields['HIT POINTS']['/V'], str(city_resources['HP']['value']))
             finally:
                 process.terminate(); process.wait(timeout=10)

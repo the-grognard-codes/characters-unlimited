@@ -54,10 +54,11 @@ class SharedSelectionGroupTests(unittest.TestCase):
                 skills = installed.active('heroes-program-skills')
                 program = next(row for row in skills['programs'] if row['id'] == 'physical-athletic')
                 mutation(program['choice_groups'][0])
+                original = CharacterApplication(directory, die=lambda sides: 4)
+                hero = original.create(game='heroes-unlimited')
+                hero = original.select_education(hero['id'], revision=0, method='choose', education_id='high-school')
                 app = CharacterApplication(directory, die=lambda sides: 4,
                                            rule_archive=replace_definition(installed, skills))
-                hero = app.create(game='heroes-unlimited')
-                hero = app.select_education(hero['id'], revision=0, method='choose', education_id='high-school')
                 before = deepcopy(app.get(hero['id']))
                 with self.assertRaises(ValueError):
                     app.select_hero_programs(hero['id'], revision=hero['revision'], selections=[

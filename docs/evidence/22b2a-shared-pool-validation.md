@@ -11,6 +11,6 @@ Base: `ec893471c9296ce75e52a1114fc4a2815feb3111`. Scope: entry-count policy shar
 
 ## Checks
 
-23 affected tests passed in9.329 seconds. Required mypy passed over123 source files and Python compilation passed. The fixture import initially conflicted with mypy's test module mapping; isolated archive setup resolved it without changing tool configuration. Standards and Spec reviews both APPROVE. Standards noted a stale distinct-only docstring; corrected before final approval. Reviewers did not rerun tests. Full suite passed:385 tests in243.663 seconds, with one frozen-only skip. Browser-script syntax and whitespace passed. Exact-head Windows/frozen verification remains pending.
+23 affected tests passed in9.329 seconds. Required mypy passed over123 source files and Python compilation passed. The fixture import initially conflicted with mypy's test module mapping; isolated archive setup resolved it without changing tool configuration. Standards and Spec reviews both APPROVE. Standards noted a stale distinct-only docstring; corrected before final approval. Reviewers did not rerun tests. Full suite passed:385 tests in243.663 seconds, with one frozen-only skip. Browser-script syntax and whitespace passed. Exact-head Windows37230219996/37230217073 passed, including frozen executable validation. Merged in PR91 as04df5b68ce951d6fce3e2fa76142cf8d7d69b01a.
 
 No UI/PDF layout changes; existing editable-PDF/HTTP workflows remain in the full suite.

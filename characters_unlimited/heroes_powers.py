@@ -9,6 +9,11 @@ from .attribute_modifiers import attribute_value
 from .heroes_power_budget import project_budget
 from .recorded_formulas import validate_formula, formula_value, roll_formula
 from .selection_groups import project_group
+from .option_selectors import select_options
+
+
+def minor_power_options(pack):
+    return select_options({'any_of': [{'categories': ['minor']}]}, pack['powers'])
 
 
 def encoded(value):
@@ -96,6 +101,7 @@ def additive_power_summary(definition, rolls=None):
 
 
 def validate_powers(record, pack):
+    minor_power_options(pack)
     if not isinstance(record, dict) or set(record) != {'acquisitions','active','history'}:
         raise ValueError('Invalid Heroes power record')
     acquisitions = record['acquisitions']
@@ -146,6 +152,7 @@ def power_modifiers(record, pack, *, active_only=True):
 
 
 def select_powers(character, selections, pack, die):
+    minor_power_options(pack)
     definitions = {row['id']:row for row in pack['powers']}
     if not isinstance(selections,list) or len(selections) > 100 or any(not isinstance(item,str) or item not in definitions for item in selections) or len(set(selections)) != len(selections):
         raise ValueError('Choose distinct reviewed super abilities')
@@ -231,8 +238,7 @@ def project_powers(character, pack, budget_pack, higher=None):
                    {'numerator':1,'denominator':1})
     budget = project_budget(character.get('power_budget'), budget_pack)
     allowance = sum(row['count'] for row in budget['budgets'] if row['name'] == 'Minor super abilities')
-    minor = project_group({'count': allowance, 'option_ids': [row['id'] for row in pack['powers']
-                                                           if row['category'] == 'minor']},
+    minor = project_group({'count': allowance, 'option_ids': minor_power_options(pack)},
                           [row['id'] for row in powers])
     used = minor['credited']
     warnings = []

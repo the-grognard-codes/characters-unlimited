@@ -8,12 +8,17 @@ from .proficiency import project_proficiency, synergy_contributions
 from .heroes_powers import power_skill_contributions
 from .heroes_abilities import project_shared_abilities
 from .selection_groups import validate_group, project_group
+from .option_selectors import select_options
 
 
-def program_group(definition):
+def program_group(definition, catalog):
     if not isinstance(definition, dict):
         raise ValueError('Invalid program selection group')
-    group = {'count': definition.get('count'), 'option_ids': definition.get('skill_ids'),
+    if 'selector' in definition and 'skill_ids' in definition:
+        raise ValueError('Program groups must use explicit options or a selector, not both')
+    options = (select_options(definition['selector'], catalog) if 'selector' in definition
+               else definition.get('skill_ids'))
+    group = {'count': definition.get('count'), 'option_ids': options,
              'costs': definition.get('selection_costs', {}),
              'unresolved': definition.get('unresolved_skill_ids', [])}
     validate_group(group)
@@ -25,14 +30,15 @@ def validate_program_selections(selections, pack):
         raise ValueError('Select at most 100 program entries')
     programs = {item['id']:item for item in pack['programs']}
     skills = {item['id'] for item in pack['skills']}
+    for program in pack['programs']:
+        for definition in program.get('choice_groups', []):
+            if set(program_group(definition, pack['skills'])['option_ids']) - skills:
+                raise ValueError('Program groups must reference available skill definitions')
     for selection in selections:
         if (not isinstance(selection, dict) or not {'slot','program'} <= set(selection) <= {'slot','program','choices'}
                 or type(selection['slot']) is not int or not 0 <= selection['slot'] < 100
                 or not isinstance(selection['program'], str) or selection['program'] not in programs):
             raise ValueError('Select an available program and a whole-number education slot')
-        for definition in programs[selection['program']].get('choice_groups', []):
-            if set(program_group(definition)['option_ids']) - skills:
-                raise ValueError('Program groups must reference available skill definitions')
         if 'choices' in selection:
             groups = {group['id'] for group in programs[selection['program']].get('choice_groups',[])}
             choices = selection['choices']
@@ -63,11 +69,12 @@ def validate_secondary_selections(selections, pack):
     return list(selections)
 
 
-def program_choice_view(selection, program, warnings, *, certified=True):
+def program_choice_view(selection, program, warnings, catalog, *, certified=True):
     groups = []
     for definition in program.get('choice_groups',[]):
         choices = selection.get('choices',{}).get(definition['id'],[])
-        summary = project_group(program_group(definition), choices, certified=certified)
+        group = program_group(definition, catalog)
+        summary = project_group(group, choices, certified=certified)
         credited, remaining = summary['credited'], summary['remaining']
         label = f"{program['name']} slot {selection['slot']+1} — {definition['name']}"
         if remaining:
@@ -83,7 +90,7 @@ def program_choice_view(selection, program, warnings, *, certified=True):
             warnings.append(f'{label}: outside-group choices retained with no group education bonus.')
         if summary['unresolved']:
             warnings.append(f'{label}: duplicate fixed-grant choice credit is pending interpretation. Fixed grants remain intact; the extra entitlement is not certified.')
-        groups.append({**deepcopy(definition),'selections':deepcopy(choices),'entered':len(choices),
+        groups.append({**deepcopy(definition),'skill_ids':group['option_ids'],'selections':deepcopy(choices),'entered':len(choices),
                        'credited':credited,'remaining':remaining,'credit_certified':certified})
     return groups
 
@@ -126,7 +133,7 @@ def project_programs(character, pack, education_pack, power_pack=None):
         for identifier in program['skill_ids']:
             bonuses[identifier] = max(bonuses.get(identifier, 0), bonus)
             physical_grants.add(identifier)
-        groups = program_choice_view(selection,program,warnings,
+        groups = program_choice_view(selection,program,warnings,pack['skills'],
                                      certified=not (repeated and program.get('repeat_entitlement_pending',False)))
         program_choices.append({'program':program['id'],'slot':selection['slot'],'groups':groups,'repeat':repeated})
         if repeated and groups:

@@ -95,3 +95,7 @@ Starting-resource formula terms now use the same ordinary acquisition/replay eng
 | Content batches | Remaining reviewed classes, races, powers and abilities | Add data and worked examples. A new mechanic may extend the framework; a new option using supported mechanics requires no product-code edits. |
 
 Conditional combat work from 19B4 is preserved separately on its original branch in a scoped Git stash. It is deferred behind this framework direction and will be integrated using the shared operations where appropriate. No final retrospective or full-coverage claim is made by this increment.
+
+## Racial citation increment (22E2)
+
+Racial generation resolves a declared race source and optional per-attribute citations with legacy core fallback. Rerolls and portable current/history/resource snapshots use the same pinned resolver. Every declared citation validates before initial dice. See `racial-attribute-source-contract.md`. Core migrations, R.C.C. composition and full importer certification remain open.

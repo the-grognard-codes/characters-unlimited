@@ -29,10 +29,10 @@ The UI and editable-PDF adapters continue to consume the existing remaining/cred
 
 Public `CharacterApplication` and portable-save tests cover weighted required groups, duplicates/excess, category accounting and atomic rejection of malformed program costs and outcome counts. Existing source-grounded group, Physical, program, power, HTTP and editable-PDF tests protect current behavior.
 
-Generalized category/tag criteria, prerequisite composition, automatic grants and specialty identity across all skill pools are22B2 work. Shared typed effects, resource/progression composition, a complete reviewed mechanical importer, and magic/psionic paths remain subsequent increments. No source-extraction candidate becomes an accepted class merely because this framework can count its choices.
+Category/tag/identity selectors are implemented in22B2B; see `shared-option-selector-contract.md`. Prerequisite composition and full automatic grants remain22B2C work. Shared typed effects, resource/progression composition, a complete reviewed mechanical importer, and magic/psionic paths remain subsequent increments. No source-extraction candidate becomes an accepted class merely because this framework can count its choices.
 
 ## Entered-selection pools (22B2A)
 
 Rifts optional pools and Heroes Secondary selections compile their complete pinned catalogs into entry-count groups. Duplicate entries, different specialties, blank specialties and honor-system out-of-category choices still spend their existing costs. Specialty normalization and repeated-skill benefits remain separate. These adapters intentionally include all known identities in their accounting group: category eligibility still controls bonuses and warnings, not slot spending. All declared costs and references are validated, including unselected options; all pool allowances use the shared whole-number validator. No saved record or accepted pack changes are required.
 
-Category/tag selectors, prerequisites and full fixed-grant composition follow in22B2B. This increment does not claim they are implemented.
+Category/tag selectors follow in22B2B and are now documented in `shared-option-selector-contract.md`. Prerequisites and full fixed-grant composition remain22B2C work.

@@ -160,6 +160,10 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             checks = [('', primary_label, row['percentage'], row['per_level']),
                 *[(f'.check{index}', row['name']+': '+check['name'], check['percentage'], check['per_level'])
                   for index, check in enumerate(row.get('additional_checks', []))]]
+            shared = programs.get('shared_abilities', {})
+            if row['id'] in shared.get('skill_ids', []):
+                winners = {check['key_suffix'] for check in shared['checks'] if check['skill_id'] == row['id']}
+                checks = [check for check in checks if check[0] in winners]
             for suffix, label, percentage, rate in checks:
                 if slot >= 20:
                     overflow.extend(wrap_lines(f'{label}: {percentage}% (+{rate}% per level)', 530))

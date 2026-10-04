@@ -1,11 +1,17 @@
 'use strict';
+let resourcesReady = false, resourceLoadSequence = 0;
 function setResourcesBusy() {
   document.querySelectorAll('#resources-panel button, #resource-form button').forEach(element => {
-    element.disabled = navigationBusy || !skillsReady;
+    element.disabled = navigationBusy || !resourcesReady;
   });
 }
 function renderResources(view) {
-  $('resources-tag').textContent = `RIFTS · ${(view.path_name || 'Starting resources').toUpperCase()}`;
+  resourcesReady = view.supported;
+  const game = current.game === 'heroes-unlimited' ? 'HEROES UNLIMITED' : 'RIFTS';
+  $('resources-tag').textContent = `${game} · ${(view.path_name || 'Starting resources').toUpperCase()}`;
+  $('resources-intro').textContent = current.game === 'heroes-unlimited'
+    ? 'Generate after choosing attributes. Starting HP retains effective P.E. at this step. Base Mutant S.D.C. and general P.P.E. are recorded; additional skill and power contributions remain unfinished.'
+    : 'Generate after choosing attributes. Hit Points retain your effective P.E. at this step; S.D.C. includes active Physical bonuses.';
   $('generate-resources').hidden = !view.supported || view.generated;
   $('resources-guidance').textContent = view.supported
     ? view.guidance.join(' ')
@@ -41,6 +47,15 @@ function renderResources(view) {
     return row;
   }));
   setResourcesBusy();
+}
+async function loadHeroResources(character) {
+  const sequence = ++resourceLoadSequence;
+  resourcesReady = false; setResourcesBusy();
+  $('resource-list').replaceChildren();
+  $('resources-guidance').textContent = 'Loading starting resources…';
+  const view = await request(`/api/characters/${character.id}/resources`);
+  if (current.id !== character.id || sequence !== resourceLoadSequence) return;
+  renderResources(view);
 }
 function wireResourcesEvents() {
   $('resource-mode').onchange = () => {

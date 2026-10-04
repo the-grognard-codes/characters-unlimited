@@ -252,7 +252,6 @@ def validate_sources(character, packs, *, history_frame=False):
         if character['game'] != 'heroes-unlimited' or power_pack is None or character['character_class'] != power_pack['character_class']:
             raise ValueError('Heroes powers must retain their accepted rule version pin')
         validate_powers(character['hero_powers'], power_pack)
-    validate_power_attributes(character, power_pack)
     if 'equipment' in character or 'starting_funds' in character or 'starting_gear' in character or 'starting_choices' in character or 'starting_equipment_groups' in character:
         equipment_pack = next((item for item in packs if item['id']=='rifts-equipment'),None)
         if character['game'] != 'rifts' or equipment_pack is None:
@@ -268,7 +267,13 @@ def validate_sources(character, packs, *, history_frame=False):
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
     if skill_pack is not None:
         skill_pack = class_rules(skill_pack, character)
-    validate_resources(character,skill_pack or {})
+    resource_pack = skill_pack
+    if character['game'] == 'heroes-unlimited':
+        resource_pack = next((item for item in packs if item['id']=='heroes-resources'),None)
+        if resource_pack is not None and (character['character_class'] != resource_pack['character_class'] or
+                                         character['race'] != resource_pack['race']):
+            raise ValueError('Heroes resources must match their reviewed race and power category')
+    validate_resources(character,resource_pack or {})
     if skill_pack is not None:
         validate_advancement(character, skill_pack)
         validate_later_advancements(character, skill_pack, history_frame=history_frame)
@@ -334,7 +339,9 @@ def validate_sources(character, packs, *, history_frame=False):
     if resource_snapshot is not None:
         race = next(item for item in core['races'] if item['id']==character['race'])
         validate_attributes(resource_snapshot,race)
-        validate_physical_history(resource_snapshot,character.get('physical_acquisitions',{}),skill_pack)
+        if skill_pack is not None:
+            validate_physical_history(resource_snapshot,character.get('physical_acquisitions',{}),skill_pack)
+    validate_power_attributes(character, power_pack)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', [])),
                *([resource_snapshot] if resource_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])

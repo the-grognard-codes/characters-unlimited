@@ -101,6 +101,8 @@ def validate_power_attributes(character, pack):
     allowed = {modifier['id']:(name,modifier) for name,modifier in power_modifiers(record,pack,active_only=False)} if record else {}
     current = {modifier['id']:(name,modifier) for name,modifier in power_modifiers(record,pack)} if record else {}
     frames = [character['attributes'], *(row['attributes'] for row in character.get('roll_history', []))]
+    if 'resource_attribute_snapshot' in character:
+        frames.append(character['resource_attribute_snapshot'])
     for index, attributes in enumerate(frames):
         found = {}
         for name, value in attributes.items():

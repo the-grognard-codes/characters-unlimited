@@ -53,7 +53,8 @@ function render(character) {
   const pack = gamePacks.find(entry => entry.game === character.game);
   const heroes = character.game === 'heroes-unlimited';
   $('advancement-tag').textContent = (pack.classes.find(entry => entry.id === character.character_class)?.name || 'Advancement').toUpperCase();
-  $('resources-panel').hidden = heroes;
+  $('resources-panel').hidden = heroes && character.character_class !== 'mutant';
+  resourcesReady = false; ++resourceLoadSequence; setResourcesBusy();
   $('advancement-panel').hidden = heroes;
   const mutantPowers = heroes && character.character_class === 'mutant';
   $('power-budget-panel').hidden = !mutantPowers;
@@ -111,7 +112,7 @@ function render(character) {
   $('save-status').textContent = 'Saved on this PC'; library();
   if (heroes) {
     ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; loadEducation(character).catch(showError);
-    if (mutantPowers) { loadPowerBudget(character).catch(showError); loadHeroPowers(character).catch(showError); }
+    if (mutantPowers) { loadPowerBudget(character).catch(showError); loadHeroPowers(character).catch(showError); loadHeroResources(character).catch(showError); }
     else { ++powerBudgetSequence; powerBudgetReady = false; ++heroPowersSequence; heroPowersReady = false; setPowerBudgetBusy(); setHeroPowersBusy(); }
   } else { ++educationLoadSequence; educationReady = false; ++powerBudgetSequence; powerBudgetReady = false; ++heroPowersSequence; heroPowersReady = false; setPowerBudgetBusy(); setHeroPowersBusy(); loadSkills(character).catch(showError); }
 }

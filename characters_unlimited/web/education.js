@@ -15,7 +15,7 @@ function educationLine(text) {
 
 async function loadEducation(character) {
   const sequence = ++educationLoadSequence;
-  educationReady = false; setEducationBusy();
+  educationReady = false; setEducationBusy(); setAdvancementBusy();
   $('hero-combat-panel').hidden = true;
   heroProgramView = null;
   for (const id of ['hero-program-list', 'hero-program-skills', 'hero-program-guidance', 'hero-program-warnings', 'hero-secondary-list', 'hero-secondary-guidance']) $(id).replaceChildren();
@@ -59,7 +59,7 @@ async function loadEducation(character) {
   $('hero-program-list').replaceChildren(...programs.selections.map((selection, index) => {
     const item = educationLine(`${programs.catalog.find(program => program.id === selection.program).name} · slot ${selection.slot + 1}`);
     const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Remove';
-    button.onclick = () => characterAction('hero-programs', {selections:heroProgramView.selections.filter((_, i) => i !== index)}).catch(showError);
+    button.onclick = () => characterAction('hero-programs', {learned_level:Number($('hero-learned-level').value),selections:heroProgramView.selections.filter((_, i) => i !== index)}).catch(showError);
     item.append(button);
     const choiceView = programs.program_choices[index];
     for (const group of choiceView.groups) {
@@ -82,7 +82,7 @@ async function loadEducation(character) {
       const add = document.createElement('button'); add.type = 'button'; add.textContent = 'Add program choice';
       const saveChoices = choices => {
         const selections = heroProgramView.selections.map((entry,i) => i === index ? {...entry,choices:{...entry.choices,[group.id]:choices}} : entry);
-        return characterAction('hero-programs',{selections});
+        return characterAction('hero-programs',{selections,learned_level:Number($('hero-learned-level').value)});
       };
       add.onclick = () => saveChoices([...group.selections,select.value]).catch(showError);
       section.append(select,add);
@@ -111,7 +111,7 @@ async function loadEducation(character) {
     }
     for (const check of sharedAbilities.checks) {
       const origins = check.origins.map(origin => `${origin.skill_name} ${origin.percentage}%`).join(', ');
-      $('hero-program-skills').append(educationLine(`Shared ${check.name}: ${check.percentage}% (+${check.per_level}% per level) · best available proficiency from ${check.skill_name} · base ${check.contributions.base}, education +${check.contributions.education}, I.Q. +${check.contributions.intelligence} · source checks: ${origins}. Percentages and education bonuses are not added together.`));
+      $('hero-program-skills').append(educationLine(`Shared ${check.name}: ${check.percentage}% (+${check.per_level}% per level) · best available proficiency from ${check.skill_name} · base ${check.contributions.base}, education +${check.contributions.education}, I.Q. +${check.contributions.intelligence} · experience +${check.contributions.experience || 0} · source checks: ${origins}. Percentages and education bonuses are not added together.`));
     }
     for (const skill of programs.physical?.selected || []) {
       const terms = Object.entries(skill.effects.attributes).map(([name, result]) => `${name} +${result.value}${result.rolls.length ? ' (dice: ' + result.rolls.join(' + ') + ')' : ''}`);
@@ -153,13 +153,17 @@ async function loadEducation(character) {
     const cost = secondary.selection_costs[identifier];
     const item = educationLine(`${skill.name} · ${cost} selection${cost === 1 ? '' : 's'}`);
     const button = document.createElement('button'); button.type = 'button'; button.textContent = 'Remove';
-    button.onclick = () => characterAction('hero-secondary',{selections:heroProgramView.secondary.selections.filter((_,i) => i !== index)}).catch(showError);
+    button.onclick = () => characterAction('hero-secondary',{learned_level:Number($('hero-learned-level').value),selections:heroProgramView.secondary.selections.filter((_,i) => i !== index)}).catch(showError);
     item.append(button); return item;
   }));
   const secondaryGuidance = [...secondary.guidance];
   if (secondary.source) secondaryGuidance.push(`${secondary.source.book}, printed pp. ${secondary.source.pages.join(', ')} / PDF pp. ${secondary.source.pdf_pages.join(', ')}.`);
   $('hero-secondary-guidance').replaceChildren(...secondaryGuidance.map(educationLine));
   educationReady = true; setEducationBusy();
+  $('hero-learned-label').hidden = character.level === 1;
+  $('hero-learned-level').replaceChildren(...Array.from({length:character.level},(_,index) => {const option=document.createElement('option');option.value=index+1;option.textContent=index+1;return option;}));
+  $('hero-learned-level').value = character.level;
+  renderAdvancement(programs.advancement);
 }
 
 function wireEducationEvents() {
@@ -171,17 +175,18 @@ function wireEducationEvents() {
   $('education-roll').onclick = () => characterAction('education', {method:'roll'}).catch(showError);
   $('hero-program-form').onsubmit = event => {
     event.preventDefault();
-    characterAction('hero-programs', {selections:[...heroProgramView.selections, {slot:Number($('hero-program-slot').value), program:$('hero-program-choice').value}]}).catch(showError);
+    characterAction('hero-programs', {learned_level:Number($('hero-learned-level').value),selections:[...heroProgramView.selections, {slot:Number($('hero-program-slot').value), program:$('hero-program-choice').value}]}).catch(showError);
   };
   $('hero-secondary-form').onsubmit = event => {
     event.preventDefault();
-    characterAction('hero-secondary',{selections:[...heroProgramView.secondary.selections,$('hero-secondary-choice').value]}).catch(showError);
+    characterAction('hero-secondary',{learned_level:Number($('hero-learned-level').value),selections:[...heroProgramView.secondary.selections,$('hero-secondary-choice').value]}).catch(showError);
   };
 }
 
 function renderHeroCombat(combat) {
   $('hero-combat-panel').hidden = !combat?.supported;
   if (!combat?.supported) return;
+  $('hero-combat-level').textContent = `LEVEL ${combat.level}`;
   $('hero-training-form').hidden = !combat.training_selection_supported;
   $('hero-training-choice').replaceChildren(...[{id:'',name:'No Hand to Hand'},...combat.training_choices].map(style => {
     const option = document.createElement('option'); option.value = style.id; option.textContent = style.name; return option;

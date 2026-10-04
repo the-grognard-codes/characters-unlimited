@@ -16,3 +16,5 @@ All five PDF pages and edited Name page were rendered with initialized forms and
 [Editable sample](06t-gymnastics-sample.pdf)
 
 The existing frozen Athlete exercises Wrestling, Acrobatics, then Gymnastics and shared PDF winners before exact save/projection reopening. This completes the initial core Physical catalog entries only. Later maneuvers, Heroes advancement, other books, categories, powers, equipment and the full corpus remain open. Parent06/07/09 remain open; no final retrospective yet.
+
+06T merged in PR85 asada710b649f09d43d2693cb91a17bbf319e62636 after Windows37202070110(9m10s)/37202072886(7m28s) passed, including packaged executable validation.

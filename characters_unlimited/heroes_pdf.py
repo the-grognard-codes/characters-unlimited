@@ -190,6 +190,14 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
                         ', '.join(map(str, education['source']['pages'])), 530)
     lines += wrap_lines('Skills: '+programs['source']['book']+', pp. '+
                         ', '.join(map(str, programs['source']['pages'])), 530)
+    if character.get('advancement'):
+        advancement = programs['advancement']
+        lines += wrap_lines(f"Advancement: Level {advancement['level']}; {advancement['xp']} XP. "+advancement['guidance'],530)
+        source = advancement['source']
+        lines += wrap_lines(source['book']+', advancement printed pp. '+', '.join(map(str,source['pages']))+' / PDF pp. '+', '.join(map(str,source['pdf_pages'])),530)
+        for identifier,level in character.get('learning_levels',{}).items():
+            name = next(row['name'] for row in programs['skill_catalog'] if row['id']==identifier)
+            lines += wrap_lines(name+': learned at level '+str(level),530)
     if outcome:
         for slot in outcome['program_slots']:
             bonus = '' if slot['bonus'] is None else f"; +{slot['bonus']}%"

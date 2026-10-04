@@ -1,0 +1,110 @@
+{
+  "id": "heroes-advancement",
+  "version": "1.0.0",
+  "game": "heroes-unlimited",
+  "schema_version": 1,
+  "name": "Reviewed Human Mutant first advancement",
+  "race": "human",
+  "character_class": "mutant",
+  "max_level": 2,
+  "xp_ranges": [
+    [
+      0,
+      2050
+    ],
+    [
+      2051,
+      4100
+    ]
+  ],
+  "hp_die": 6,
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      17,
+      69,
+      71,
+      352
+    ],
+    "pdf_pages": [
+      18,
+      70,
+      72,
+      353
+    ],
+    "section": "Human Mutant first advancement, Hit Points and combat training",
+    "markdown_ranges": [
+      [
+        895,
+        906
+      ],
+      [
+        3806,
+        3806
+      ],
+      [
+        3966,
+        4047
+      ],
+      [
+        23381,
+        23397
+      ]
+    ],
+    "candidate_ids": [
+      "51d3869aefc172d06711",
+      "21161fa56dbe6740969e",
+      "ea24cd07806e06abf467",
+      "b734c2e2b24abd32acc0",
+      "a33409f23ccaa9125f4a",
+      "142b7891a97a5d487ff1",
+      "11ccf4ee059be3b68a9a"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "training_level_two": {
+    "hand-to-hand-basic": {
+      "parry": 2,
+      "dodge": 2
+    },
+    "hand-to-hand-expert": {
+      "parry": 3,
+      "dodge": 3
+    },
+    "hand-to-hand-martial-arts": {
+      "parry": 3,
+      "dodge": 3,
+      "strike": 2,
+      "disarm": 2
+    },
+    "hand-to-hand-assassin": {
+      "attacks": 2
+    }
+  },
+  "untrained_level_two_attacks": 1,
+  "power_hp_gains": {
+    "extraordinary-physical-endurance": {
+      "name": "Extraordinary Physical Endurance",
+      "sides": 4,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "section": "Extraordinary Physical Endurance",
+        "printed_page": 232,
+        "pdf_page": 233,
+        "markdown_lines": [
+          13887,
+          13897
+        ],
+        "candidate_id": "72459848115be7ab62c6",
+        "source_fingerprints": {
+          "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+          "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+        }
+      }
+    }
+  },
+  "guidance": "Human Mutant levels 1-2 are reviewed: level 2 begins at 2,051 XP and adds one retained D6 Hit Point roll. Skills and active training grow from their recorded learned level; separate checks use their own rates. Extraordinary Physical Endurance includes one retained D4 at every attained level, including level 1. Undo restores the pre-level save and keeps later edits in a recovery copy; replay retains the dice. Level 3 onward, later maneuvers, other categories and other power progression remain unfinished."
+}

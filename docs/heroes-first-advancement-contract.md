@@ -1,0 +1,19 @@
+# 19B1: Heroes Human Mutant first advancement
+
+Bounded first advancement to level2 by direct level or XP2051-4100; level1 range0-2050. New source-bound heroes-advancement pack; earlier pins remain unchanged and an old character pins the new pack when explicitly advancing. Starting HP generation is required. Ordinary HP gains one recorded D6, starting PE snapshot unchanged. Fixed/adjusted resources preserve existing precedence. Ordinary SDC and PPE do not grow.
+
+Original printed17/PDF18 HP, printed69/PDF70 untrained combat, printed71/PDF72 training tables and printed352/PDF353 Mutant XP were visually inspected. Source MD895-906,3806,3966-4047,23381-23397 and checked fingerprint02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282. Source candidate51d3869aefc172d06711/21161fa56dbe6740969e/ea24cd07806e06abf467/b734c2e2b24abd32acc0/a33409f23ccaa9125f4a/142b7891a97a5d487ff1/11ccf4ee059be3b68a9a. No copying XP from Rifts.
+
+At advancement, record currently granted/selected skills and training as learned at1. Later new choices default current level, with a player selection for learned1 when finishing starting choices. Preserve remembered learning levels on removal/reselection. Each percentile check uses its own per-level rate and skill age, capped98. Fallback climb/prowl rates0 remain unchanged. Shared Acro/Gym winner is recalculated after independent source growth. No additional Secondary entitlement at2 (later awards remain pending).
+
+Training bonuses grow with training age, not borrowed character levels. Basic L2 parry/dodge+2; Expert+3; Martial Arts parry/dodge+3 and strike/disarm+2; Assassin adds2 attacks. Existing L1 profile remains once; active profile only. Untrained character gains another action at2 (baseline2+untrained2=4) with parry consuming one action. Boxing/other Physical bonuses remain once. Later kicks/moves are outside this slice.
+
+Extraordinary Physical Endurance keeps existing 3D6 and L1 D4 acquisition dice. Record one additional D4 for level2 in source-bound advancement cache, including retained inactive acquisitions; add it only while selected. A power first acquired at2 gets the same full per-level contribution, with one retained D4 in each level. Removal/reselection cannot reroll or rewrite starting HP. The user's explicit ruling includes level1. Cache records do not activate absent acquisitions.
+
+Advancement snapshot records all prior values/choices/pins. Undo restores exact pre-level state and keeps subsequent edits in a recovery copy; replay uses original ordinary and power HP dice. Validate source-bound cache/learning/XPranges/before snapshots on portable import, reject tampering before save. Earlier rule snapshots remain bundled. Level3+ remains explicitly pending; no full19/corpus or final retro completion.
+
+UI: show existing advancement form for reviewed Human Mutant, XP/direct level/undo with retained rolls and source guidance. Heroes program response contains advancement view. Above-level-one creation at2 generates initial resources then recorded advancement; later starting choices may use learned1. PDF shows level2, grown independent skill checks, combat, HP contributions and source/learning guidance; actual fields editable.
+
+Tests at public application seam: boundary XP, direct2/create2; all4styles+untrained; independent checks/cap/fallback/shared winner; new/reselected learning; EPE inactive/late acquisition/fixedHP/remove/undo/replay and portable tampering; HTTP stale revision; frozen executable flow and PDF field/edit/render. Focused/full required checks, both reviews, browser/PDF and Windows before merge.
+
+Undo retains the progression rule pin needed by its cached replay record; original snapshot pins remain in the before record. Other pre-level values and choices restore exactly. Orphan power gain receipts from undone later acquisition stay inert, validated against the progression pack, and cannot activate absent powers.

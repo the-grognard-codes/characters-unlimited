@@ -1,4 +1,5 @@
 'use strict';
+let heroesStartingMaximumLevel = 1;
 let gamePacks = [], token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
 let requiredFormCharacter, requiredDirtyFlag = false, requiredGroups = [];
 let requiredSlotsCharacter, requiredSlotsSchema, requiredSlotCounts = new Map();
@@ -55,7 +56,7 @@ function render(character) {
   $('advancement-tag').textContent = (pack.classes.find(entry => entry.id === character.character_class)?.name || 'Advancement').toUpperCase();
   $('resources-panel').hidden = heroes && character.character_class !== 'mutant';
   resourcesReady = false; ++resourceLoadSequence; setResourcesBusy();
-  $('advancement-panel').hidden = heroes;
+  $('advancement-panel').hidden = heroes && character.character_class !== 'mutant';
   const mutantPowers = heroes && character.character_class === 'mutant';
   $('power-budget-panel').hidden = !mutantPowers;
   $('hero-powers-panel').hidden = !mutantPowers;
@@ -610,13 +611,13 @@ function updateNewGame() {
       const option = document.createElement('option'); option.value = entry.id; option.textContent = entry.name; return option;
     }));
   }
-  $('new-level').replaceChildren(...Array.from({length:heroes ? 1 : 15}, (_, index) => {
+  $('new-level').replaceChildren(...Array.from({length:heroes ? heroesStartingMaximumLevel : 15}, (_, index) => {
     const option = document.createElement('option');
     option.value = index + 1;
     option.textContent = index === 0 ? '1' : `${index + 1} (includes starting resources and each HP gain)`;
     return option;
   }));
-  $('new-level').disabled = heroes;
+  $('new-level').disabled = false;
   if (heroes) $('new-level').value = '1';
   updateNewIdentity();
 }
@@ -626,7 +627,7 @@ wireResourcesEvents();
 wireAdvancementEvents();
 wireEquipmentEvents();
 request('/api/bootstrap').then(result => {
-  token = result.token; characters = result.characters; gamePacks = result.catalog.packs;
+  token = result.token; characters = result.characters; gamePacks = result.catalog.packs; heroesStartingMaximumLevel = result.catalog.heroes_starting_max_level;
   $('new-game').replaceChildren(...result.catalog.games.map(game => { const option = document.createElement('option'); option.value = game.id; option.textContent = game.name; return option; }));
   updateNewGame(); library();
 }).catch(showError);

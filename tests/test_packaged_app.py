@@ -302,7 +302,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(len(beauty['rolls']),2)
                 self.assertTrue(60 <= hero_powers['charm_impress'] <= 92)
                 hero = request('/api/characters/'+hero['id']+'/hero-secondary',
-                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running','athletics','climbing','swimming','hand-to-hand-basic','hand-to-hand-expert','hand-to-hand-martial-arts','hand-to-hand-assassin']},token)
+                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance','body-building','running','athletics','climbing','swimming','scuba','hand-to-hand-basic','hand-to-hand-expert','hand-to-hand-martial-arts','hand-to-hand-assassin']},token)
                 hero = request('/api/characters/'+hero['id']+'/hero-training',{'revision':hero['revision'],'training_id':'hand-to-hand-martial-arts'},token)
                 hero_combat = request('/api/characters/'+hero['id']+'/hero-programs')['combat']
                 self.assertEqual(hero_combat['training'],'Hand to Hand: Martial Arts')
@@ -340,6 +340,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(activity['ordinary_minutes'],hero['attributes']['PE']['value'])
                 self.assertEqual(activity['minutes'],hero['attributes']['PE']['value']*10)
                 self.assertEqual(activity['fatigue_sources'][0]['printed_page'],232)
+                underwater = next(row for row in request('/api/characters/'+hero['id']+'/hero-programs')['physical']['selected'] if row['id']=='scuba')['activities'][0]
+                self.assertEqual(underwater['id'],'underwater-swimming')
+                self.assertEqual(underwater['yards_per_melee'],hero['attributes']['PS']['value']*2)
+                self.assertEqual(underwater['minutes'],hero['attributes']['PE']['value']*10)
                 hero_resources = request('/api/characters/'+hero['id']+'/resources')
                 self.assertTrue(starting_hp+4 <= hero_resources['resources']['HP']['value'] <= starting_hp+22)
                 self.assertTrue(starting_sdc+40 <= hero_resources['resources']['SDC']['value'] <= starting_sdc+160)
@@ -347,6 +351,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 assert resource_pdf is not None
                 self.assertIn('skills.climbing.check0.percentage',resource_pdf)
                 self.assertIn('skills.swimming.percentage',resource_pdf)
+                self.assertIn('skills.scuba.percentage',resource_pdf)
                 self.assertEqual(resource_pdf['COMBAT_SKILL']['/V'],'Hand to Hand: Martial Arts')
                 self.assertEqual(resource_pdf['ATTACKS']['/V'],'4')
                 self.assertEqual(resource_pdf['HP']['/V'],str(hero_resources['resources']['HP']['value']))
@@ -375,10 +380,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.15.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.16.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.15.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.16.0')
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

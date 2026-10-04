@@ -14,3 +14,5 @@ Browser sample combines Athletics, Body Building, Running, Basic and Swimming: P
 [Editable sample](06n-athletics-sample.pdf)
 
 Other Physical skills, enhanced strength, equipment, Heroes advancement and full source acceptance remain open. Parent06/07/09 remain open.
+
+06N merged in PR79 as b17ecea00ef1e72100f3bd96d27621e284d2b653 after Windows37192953719(8m29s)/37192957051(8m0s) passed, including packaged executable validation.

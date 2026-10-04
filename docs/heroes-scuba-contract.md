@@ -1,0 +1,9 @@
+# Heroes S.C.U.B.A. contract
+
+Enable S.C.U.B.A. (Advanced Swimming) from original Heroes printed56/PDF57, checked Markdown3244, SHA02927f54... . The Markdown paragraph shares its line with unrelated Gymnastics back-flip text; use the original column layout and the S.C.U.B.A. paragraph only.
+
+One Physical Secondary selection, base50+5% per level, ordinary I.Q. once, no scholastic bonus for Secondary. Swimming is required; retain honor-system selection without Swimming and display the missing prerequisite, without granting Swimming. Acquired valid Swimming from a program or Secondary satisfies it; an unrelated saved outside-group choice does not.
+
+Routine underwater pace is twice effective P.S. yards/meters per15-second melee, ordinary duration equals effective P.E. minutes. Preserve surface Swimming separately at three times P.S. No attribute, resource or combat bonus. Empty recorded Physical acquisition binds source/upgrade guards. Routine equipment-assisted underwater activity is light; fast swimming/combat is strenuous. Safe-depth guidance120feet/36.5meters, deeper work requires appropriate equipment/depressurization. Do not simulate decompression or grant/purchase gear.
+
+Current Extraordinary Physical Endurance fatigue1/10 extends duration, with ordinary minutes and the power source separate; pace and proficiency are unaffected. Use distinct underwater activity identity/name in Heroes projection, with safe numeric and independent P.S./P.E. guards. Keep earlier immutable packs unchanged, explicit upgrades, inactive acquisition guards and portable/history integrity. Browser and editable PDF show distinct skills/pace and missing Swimming guidance. Use agreed public application/HTTP/PDF seams, source expected values, full and both Windows checks before merge. Other aquatic races, equipment, advancement and corpus remain open.

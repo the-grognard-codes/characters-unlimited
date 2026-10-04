@@ -203,3 +203,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06M merged in PR78 as fe6896d07c91386be4035e1af4439d8de4d94379 after Windows37192051111(6m27s)/37192053664(6m51s) passed, including packaged executable validation.
 
 - 06N: Athletics added under immutable skills1.15 with retained dice and reversible combat/resource effects. Hybrid Physical percentile upgrade comparison repaired. Both reviews approve; focused20/full318 tests pass (one frozen-only skip), required mypy106, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; parent06/07/09 open.
+
+06N merged in PR79 as b17ecea00ef1e72100f3bd96d27621e284d2b653 after Windows37192953719(8m29s)/37192957051(8m0s) passed, including packaged executable validation.
+
+- 06O: S.C.U.B.A. added under immutable skills1.16 with separate underwater pace, proficiency, prerequisite honor warning, retained empty receipts and fatigue source. Both reviews approve; focused21/full322 tests pass (one frozen-only skip), required mypy107, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; parent06/07/09 remain open.

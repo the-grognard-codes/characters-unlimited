@@ -104,6 +104,7 @@ async function loadEducation(character) {
   $('hero-program-warnings').replaceChildren(...programs.warnings.map(educationLine));
   $('hero-program-warnings').hidden = !programs.warnings.length;
   $('hero-program-guidance').replaceChildren(...[...programs.guidance,
+    ...programs.skills.flatMap(skill => (skill.guidance || []).map(note => `${skill.name}: ${note}`)),
     `${programs.rules.id} ${programs.rules.version} · ${programs.pinned ? 'pinned to this character' : 'preview; saving program choices pins these rules'}`].map(educationLine));
   const secondary = programs.secondary;
   $('hero-secondary-counts').textContent = secondary.supported ? `${secondary.used} selection${secondary.used === 1 ? '' : 's'} used · ${secondary.allowance} allowed · ${secondary.remaining} remaining. Secondary skills receive I.Q. bonuses, with no scholastic bonus.` : 'Review rule updates to add supported Secondary selections to this earlier rule pin.';

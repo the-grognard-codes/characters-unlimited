@@ -18,7 +18,7 @@ def project_proficiency(definition, contributions):
             modifier = check.get('modifier', 0)
             check_contributions = {'normal_proficiency': normal * multiplier, 'context_modifier': modifier}
             value = sum(check_contributions.values())
-            projected = {'name': check['name'], 'percentage': value, 'uncapped_percentage': value,
+            projected = {'name': check['name'], 'percentage': min(value,check['maximum']) if 'maximum' in check else value, 'uncapped_percentage': value,
                          'contributions': check_contributions, 'context_of': check['context_of'],
                          'normal_percentage': normal, 'multiplier': multiplier,
                          'per_level': reference['per_level'] * multiplier}

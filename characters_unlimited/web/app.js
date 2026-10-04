@@ -10,10 +10,16 @@ async function request(path, data) {
   return result;
 }
 function showError(error) { $('error').textContent = error.message; $('error').hidden = false; $('save-status').textContent = 'Check the message below'; }
+function modifierSourceCitation(source) {
+  if (source.pages?.length) return `${source.book}, pp. ${source.pages.join(', ')}`;
+  if (source.printed_page != null) return `${source.book}, printed p. ${source.printed_page}${source.pdf_page == null ? '' : ` (PDF p. ${source.pdf_page})`}`;
+  return source.book;
+}
 function lockNavigation(busy) {
   navigationBusy = busy;
   setEducationBusy();
   setPowerBudgetBusy();
+  setHeroPowersBusy();
   ['name', 'notes', 'new-character', 'source-coverage', 'reroll-ones', 'extra-die', 'reroll-all', 'roll-history', 'import-character', 'backup-characters', 'duplicate-character', 'export-character', 'preview-rule-update', 'export-pdf'].forEach(id => $(id).disabled = busy);
   document.querySelectorAll('#library button, .attribute button').forEach(button => button.disabled = busy);
   document.querySelectorAll('#skill-form input, #skill-form select, #skill-form button, #skill-list button, #combat-controls select, #combat-controls button, #combat-list button, #required-skill-form input, #required-skill-form textarea, #required-skill-form select, #required-skill-form button').forEach(element => element.disabled = busy || !skillsReady);
@@ -49,7 +55,9 @@ function render(character) {
   $('advancement-tag').textContent = (pack.classes.find(entry => entry.id === character.character_class)?.name || 'Advancement').toUpperCase();
   $('resources-panel').hidden = heroes;
   $('advancement-panel').hidden = heroes;
-  $('power-budget-panel').hidden = !heroes;
+  const mutantPowers = heroes && character.character_class === 'mutant';
+  $('power-budget-panel').hidden = !mutantPowers;
+  $('hero-powers-panel').hidden = !mutantPowers;
   $('skill-learned-label').hidden = heroes || character.level === 1;
   $('skill-learned-level').replaceChildren(...Array.from({length:character.level}, (_, index) => { const option = document.createElement('option'); option.value = index + 1; option.textContent = index + 1; return option; }));
   $('skill-learned-level').value = character.level;
@@ -81,7 +89,10 @@ function render(character) {
     const explanation = document.createElement('p');
     explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
     for (const modifier of attribute.modifiers || []) {
-      explanation.textContent += ` · ${modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. bonus'}: +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifier.source.book}, pp. ${modifier.source.pages.join(', ')}`;
+      const powerFloor = modifier.id.startsWith('power-floor:');
+      const label = powerFloor ? `${modifier.source.section} target floor` : modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. bonus';
+      const amount = powerFloor ? modifier.value : `+${modifier.value}`;
+      explanation.textContent += ` · ${label}: ${amount}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifierSourceCitation(modifier.source)}`;
     }
     if (attribute.cap != null) explanation.textContent += ` · Normal automatic ceiling: ${attribute.cap}; full raw total retained. Manual values remain available.`;
     if (attribute.fixed != null) explanation.textContent += ` · Fixed total: ${attribute.fixed}; calculated contributions remain recorded.`;
@@ -98,8 +109,11 @@ function render(character) {
   });
   $('completion').replaceChildren(...character.completion.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   $('save-status').textContent = 'Saved on this PC'; library();
-  if (heroes) { ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; loadEducation(character).catch(showError); loadPowerBudget(character).catch(showError); }
-  else { ++educationLoadSequence; educationReady = false; ++powerBudgetSequence; powerBudgetReady = false; setPowerBudgetBusy(); loadSkills(character).catch(showError); }
+  if (heroes) {
+    ++skillLoadSequence; skillsReady = false; requiredDirtyFlag = false; loadEducation(character).catch(showError);
+    if (mutantPowers) { loadPowerBudget(character).catch(showError); loadHeroPowers(character).catch(showError); }
+    else { ++powerBudgetSequence; powerBudgetReady = false; ++heroPowersSequence; heroPowersReady = false; setPowerBudgetBusy(); setHeroPowersBusy(); }
+  } else { ++educationLoadSequence; educationReady = false; ++powerBudgetSequence; powerBudgetReady = false; ++heroPowersSequence; heroPowersReady = false; setPowerBudgetBusy(); setHeroPowersBusy(); loadSkills(character).catch(showError); }
 }
 let skillsReady = false, skillLoadSequence = 0, skillCatalog = [];
 function filterSkillChoices() {
@@ -470,7 +484,10 @@ $('roll-history').onclick = () => {
       const options = settings ? ` · reroll ones: ${settings.reroll_ones ? 'yes' : 'no'} · extra die: ${settings.extra_die ? 'yes' : 'no'}` : '';
         const text = document.createElement('p'); text.className = 'help'; text.textContent = `${name}: base ${value.base} · dice ${value.rolls.join(', ')}${value.discarded?.length ? ' · dropped ' + value.discarded.join(', ') : ''}${value.bonus_rolls.length ? ' · exceptional ' + value.bonus_rolls.join(', ') : ''}${value.rerolls?.length ? ' · rerolled ones ' + value.rerolls.map(item => item.rolls.join(' → ')).join('; ') : ''}${options}`; entry.append(text);
         for (const modifier of value.modifiers || []) {
-            text.textContent += ` · ${modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. contribution'} +${modifier.value}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(', ') + ')' : ''}`;
+            const powerFloor = modifier.id.startsWith('power-floor:');
+            const label = powerFloor ? `${modifier.source.section} target floor` : modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. contribution';
+            const amount = powerFloor ? modifier.value : `+${modifier.value}`;
+            text.textContent += ` · ${label} ${amount}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(', ') + ')' : ''} · ${modifierSourceCitation(modifier.source)}`;
         }
     }
     return entry;

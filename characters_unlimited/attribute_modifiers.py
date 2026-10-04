@@ -6,7 +6,9 @@ from .generation import roll_attribute, generation_settings
 def attribute_value(record):
     if record.get('fixed') is not None:
         return record['fixed']
-    calculated = record['base'] + sum(item['value'] for item in record.get('modifiers', []))
+    modifiers = record.get('modifiers', [])
+    calculated = record['base'] + sum(item['value'] for item in modifiers if not item['id'].startswith('power-floor:'))
+    calculated = max([calculated, *(item['value'] for item in modifiers if item['id'].startswith('power-floor:'))])
     if 'cap' in record:
         calculated = min(calculated, record['cap'])
     return calculated + record.get('adjustment', 0)

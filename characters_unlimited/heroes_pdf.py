@@ -9,7 +9,7 @@ from reportlab.pdfgen.canvas import Canvas
 from .pdf_export import append_continuation, fill_values, install_editing_font, wrap_lines
 
 
-def export_heroes_sheet(character, core, education, programs, power_budget=None):
+def export_heroes_sheet(character, core, education, programs, power_budget=None, powers=None):
     stream = BytesIO()
     canvas = Canvas(stream, pagesize=(612, 792))
     canvas.setTitle('Heroes Unlimited character sheet')
@@ -91,6 +91,20 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None)
         power_lines.append(f"{power_budget['source']['book']}, printed p. 161 / PDF p. 162; {power_budget['rules']['id']} {power_budget['rules']['version']}")
         for selection in power_budget['history']:
             power_lines.append(f"Recorded outcome: {selection['id']}; {selection['method']}; percentile {selection.get('roll', 'none')}; D4 faces {selection['rolls']}")
+    if powers:
+        if powers['trust_intimidate'] is not None:
+            power_lines.append(f"Effective M.A. trust/intimidate: {powers['trust_intimidate']}% (attribute chart, printed p.15 / PDF p.16)")
+        for power in powers['powers']:
+            power_lines.append(f"{power['name']}: recorded target {power['target']}; dice {power['rolls']}; Minor")
+            power_lines.extend(power['guidance'])
+            power_lines.append(f"{power['source']['book']}, printed p.{power['source']['printed_page']} / PDF p.{power['source']['pdf_page']}")
+        for receipt in powers['receipts']:
+            if not receipt['active']:
+                power_lines.append(f"Retained inactive power: {receipt['name']}; target {receipt['target']}; dice {receipt['rolls']}")
+                power_lines.append(f"{receipt['source']['book']}, printed p.{receipt['source']['printed_page']} / PDF p.{receipt['source']['pdf_page']}")
+        if powers['powers']:
+            power_lines.append(f"Minor selections: {powers['minor']['used']} used / {powers['minor']['allowance']} allowed")
+        power_lines.extend(powers['warnings'])
     wrapped_powers = [line for text in power_lines for line in wrap_lines(text, 530)]
     field('POWERS', 40, 242, 532, 137, value='\n'.join(wrapped_powers[:10]), multiline=True)
     if len(wrapped_powers) > 10:
@@ -155,6 +169,9 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None)
     lines += wrap_lines('Power, combat, resources and equipment automation remains pending. Uncalculated fields are blank and editable.', 530)
     for message in dict.fromkeys([*programs['warnings'], *programs['guidance']]):
         lines.extend(wrap_lines(message, 530))
+    for skill in programs['skills']:
+        for message in skill.get('guidance', []):
+            lines.extend(wrap_lines(skill['name']+': '+message, 530))
     for index, line in enumerate(lines[:12]):
         field(f'NOTES.{index}', 40, 177-index*10, 532, 10, line)
     overflow.extend(lines[12:])

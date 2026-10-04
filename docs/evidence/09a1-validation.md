@@ -12,3 +12,5 @@ Browser creation, selection and reopening preserve the outcome and one allowance
 ![Edited sheet and starting allowance](09a1-power-budget-sheet.png)
 
 Individual power selection/effects, psionic category identities, unstable outcomes, physical mutations, resources and Heroes advancement remain pending. Parent09 and full corpus acceptance remain open; this is not the final delivery or retrospective.
+
+Merged PR #67 as ec35d84da0db30094e03b665736332189e8dc3d1 after both Windows full/frozen workflows passed (37175170720 and 37175182540).

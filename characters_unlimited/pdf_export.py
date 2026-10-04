@@ -396,6 +396,13 @@ def export_rifts_sheet(character, core, skills, combat):
                 names[grant['item_id']]+' x'+str(grant['quantity']) for grant in starting['grants'])+'.'
             sheet_notes += ' '+starting['source']['book']+', p. '+', '.join(map(str,starting['source']['pages']))+'.'
             sheet_notes += ' '+' '.join(starting['guidance'])
+        names = {item['id']: item['name'] for item in equipment['catalog']}
+        for group in equipment['starting_groups']['groups']:
+            if group['generated']:
+                receipt = group['receipt']
+                sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(group['quantity'])+'.'
+                sheet_notes += ' '+receipt['source']['book']+', p. '+', '.join(map(str,receipt['source']['pages']))+'.'
+                sheet_notes += ' '+' '.join(group['guidance'])
         if equipment['starting_gear']['generated']:
             gear = equipment['starting_gear']
             names = {item['id']: item['name'] for item in equipment['catalog']}

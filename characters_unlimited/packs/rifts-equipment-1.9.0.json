@@ -1,0 +1,1284 @@
+{
+  "id": "rifts-equipment",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.9.0",
+  "schema_version": 1,
+  "name": "Reviewed Rifts Equipment",
+  "currency": "credits",
+  "source_fingerprints": {
+    "markdown_sha256": "601c9483f5e1c6c01a828383f0cc1ae41008f94bf1799e9aad4fe0771de029b9",
+    "pdf_sha256": "448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c"
+  },
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "pages": [
+      98,
+      262,
+      267,
+      268,
+      269
+    ],
+    "pdf_pages": [
+      101,
+      265,
+      270,
+      271,
+      272
+    ],
+    "section": "Weapons, Body Armor, Vagabond Starting Money and Standard Equipment; Basic Gear; Standard E-Clip",
+    "candidate_ids": [
+      "75af68e659ce2c3e7d24",
+      "aceb60f33074cf592e94",
+      "b7db76a3325aa1ad13bb",
+      "3a5a7404a4d969496b7d",
+      "4b5980c422c4cfb35c00",
+      "12461ce9deaaa4bf2a0d",
+      "0079d7132518c789d88f"
+    ]
+  },
+  "items": [
+    {
+      "id": "wilks-320",
+      "name": "Wilk's 320 Laser Pistol",
+      "category": "weapon",
+      "cost_credits": 11000,
+      "weight_lbs": 2,
+      "damage": "1D6 M.D.",
+      "range_feet": 1000,
+      "range_meters": 305,
+      "capacity": 20,
+      "aimed_bonus": 2,
+      "proficiency": "energy-pistol",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Wilk's 320 Laser Pistol",
+        "candidate_ids": [
+          "b7db76a3325aa1ad13bb"
+        ]
+      }
+    },
+    {
+      "id": "wilks-447",
+      "name": "Wilk's 447 Laser Rifle",
+      "category": "weapon",
+      "cost_credits": 18000,
+      "weight_lbs": 5,
+      "damage": "3D6 M.D.",
+      "range_feet": 2000,
+      "range_meters": 610,
+      "capacity": 20,
+      "aimed_bonus": 1,
+      "proficiency": "energy-rifle",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          269
+        ],
+        "pdf_pages": [
+          272
+        ],
+        "section": "Wilk's 447 Laser Rifle",
+        "candidate_ids": [
+          "3a5a7404a4d969496b7d"
+        ]
+      }
+    },
+    {
+      "id": "plastic-man",
+      "name": "Plastic-Man Full Environmental Body Armor",
+      "sheet_name": "Plastic-Man",
+      "category": "armor",
+      "cost_credits": 18000,
+      "weight_lbs": 13,
+      "locations": {
+        "main_body": 35,
+        "helmet": 30,
+        "left_arm": 15,
+        "right_arm": 15,
+        "left_leg": 22,
+        "right_leg": 22
+      },
+      "movement_penalty": -10,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Plastic-Man — Full Environmental Body Armor",
+        "candidate_ids": [
+          "aceb60f33074cf592e94"
+        ]
+      },
+      "movement_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          267
+        ],
+        "pdf_pages": [
+          270
+        ],
+        "section": "All environmental body armor have the following properties",
+        "candidate_ids": [
+          "75af68e659ce2c3e7d24"
+        ]
+      },
+      "environmental": true,
+      "protection_notes": [
+        "Environmental protection: filtered circulating air, cooling and temperature regulation. Five-hour independent oxygen supply for contaminated or low-oxygen environments.",
+        "Shielding resists heat up to 200 degrees Celsius. Normal fires cause no damage; nuclear, plasma and magic fires cause full damage. Incoming damage resolution remains pending.",
+        "Minimal radiation shielding, light-sensitive polarized visor, removable faceplate and directional helmet radio with 5–10 mile range. Ultimate Edition p.267 / PDF270."
+      ],
+      "protection_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          267
+        ],
+        "pdf_pages": [
+          270
+        ],
+        "section": "All environmental body armor have the following properties",
+        "candidate_ids": [
+          "75af68e659ce2c3e7d24"
+        ]
+      },
+      "prowl_penalty": -10
+    },
+    {
+      "id": "vagabond-clothes",
+      "name": "Set of clothes",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-baseball-cap",
+      "name": "Baseball cap",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-jacket-or-coat",
+      "name": "Jacket or coat",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-flashlight",
+      "name": "Flashlight",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-backpack",
+      "name": "Backpack",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-sleeping-bag",
+      "name": "Sleeping bag",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-small-duffle-bag",
+      "name": "Small duffle bag",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-wallet-with-id",
+      "name": "Wallet with I.D.",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-bandages",
+      "name": "Bandages",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-aspirin",
+      "name": "Aspirin",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-comb",
+      "name": "Comb",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-toothbrush",
+      "name": "Toothbrush",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-toothpaste",
+      "name": "Toothpaste",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-bar-of-soap",
+      "name": "Bar of soap",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-candy",
+      "name": "Candy (several pieces)",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-sturdy-plastic-bag",
+      "name": "Sturdy plastic bag",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-canteen",
+      "name": "Canteen",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-sunglasses",
+      "name": "Sunglasses",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "knife-large",
+      "name": "Large Knife",
+      "category": "weapon",
+      "weapon_kind": "melee",
+      "cost_credits": null,
+      "cost_credits_range": {
+        "min": 20,
+        "max": 100
+      },
+      "weight_lbs": null,
+      "damage": "1D6 S.D.C.",
+      "proficiency": "knife",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          262
+        ],
+        "pdf_pages": [
+          265
+        ],
+        "section": "Basic Gear",
+        "candidate_ids": [
+          "12461ce9deaaa4bf2a0d"
+        ]
+      }
+    },
+    {
+      "id": "knife-small",
+      "name": "Small Knife",
+      "category": "weapon",
+      "weapon_kind": "melee",
+      "cost_credits": null,
+      "cost_credits_range": {
+        "min": 15,
+        "max": 75
+      },
+      "weight_lbs": null,
+      "damage": "1D4 S.D.C.",
+      "proficiency": "knife",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          262
+        ],
+        "pdf_pages": [
+          265
+        ],
+        "section": "Basic Gear",
+        "candidate_ids": [
+          "12461ce9deaaa4bf2a0d"
+        ]
+      }
+    },
+    {
+      "id": "standard-e-clip",
+      "name": "Standard E-Clip (short)",
+      "category": "ammunition",
+      "cost_credits": null,
+      "cost_credits_range": {
+        "min": 5000,
+        "max": 6000
+      },
+      "weight_lbs": null,
+      "capacity": 20,
+      "compatible_weapons": [
+        "wilks-320",
+        "wilks-447"
+      ],
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Weapons — Standard E-Clip costs",
+        "candidate_ids": [
+          "0079d7132518c789d88f"
+        ]
+      },
+      "compatibility_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268,
+          269
+        ],
+        "pdf_pages": [
+          271,
+          272
+        ],
+        "section": "Wilk's 320 Laser Pistol and Wilk's 447 Laser Rifle payloads",
+        "candidate_ids": [
+          "b7db76a3325aa1ad13bb",
+          "3a5a7404a4d969496b7d"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-junker-car",
+      "name": "Old rusty junker car",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-junker-motorcycle",
+      "name": "Old rusty junker motorcycle",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "vagabond-basic-horse",
+      "name": "Basic horse",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98
+        ],
+        "pdf_pages": [
+          101
+        ],
+        "section": "Vagabond Standard Equipment",
+        "candidate_ids": [
+          "4b5980c422c4cfb35c00"
+        ]
+      }
+    },
+    {
+      "id": "city-rat-working-colors",
+      "name": "Working colors",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89
+        ],
+        "pdf_pages": [
+          92
+        ],
+        "section": "City Rat Standard Equipment",
+        "candidate_ids": [
+          "8a55dcd3bb9ac02ee044"
+        ]
+      }
+    },
+    {
+      "id": "city-rat-flashlight",
+      "name": "Flashlight",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89
+        ],
+        "pdf_pages": [
+          92
+        ],
+        "section": "City Rat Standard Equipment",
+        "candidate_ids": [
+          "8a55dcd3bb9ac02ee044"
+        ]
+      }
+    },
+    {
+      "id": "city-rat-nylon-rope",
+      "name": "900-pound-test nylon cord/rope",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89
+        ],
+        "pdf_pages": [
+          92
+        ],
+        "section": "City Rat Standard Equipment",
+        "candidate_ids": [
+          "8a55dcd3bb9ac02ee044"
+        ]
+      }
+    },
+    {
+      "id": "city-rat-grappling-hook",
+      "name": "Grappling hook",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89
+        ],
+        "pdf_pages": [
+          92
+        ],
+        "section": "City Rat Standard Equipment",
+        "candidate_ids": [
+          "8a55dcd3bb9ac02ee044"
+        ]
+      }
+    },
+    {
+      "id": "city-rat-rmk",
+      "name": "RMK/Robot Medical Kit (Stitcher)",
+      "category": "gear",
+      "cost_credits": 24000,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89
+        ],
+        "pdf_pages": [
+          92
+        ],
+        "section": "City Rat Standard Equipment",
+        "candidate_ids": [
+          "8a55dcd3bb9ac02ee044"
+        ]
+      },
+      "price_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          263
+        ],
+        "pdf_pages": [
+          266
+        ],
+        "section": "Medical Equipment",
+        "candidate_ids": [
+          "1d1045b5f61e947a6de2"
+        ]
+      }
+    },
+    {
+      "id": "city-rat-pdd",
+      "name": "PDD/Pocket Digital Disc player and recorder",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89
+        ],
+        "pdf_pages": [
+          92
+        ],
+        "section": "City Rat Standard Equipment",
+        "candidate_ids": [
+          "8a55dcd3bb9ac02ee044"
+        ]
+      },
+      "price_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          263
+        ],
+        "pdf_pages": [
+          266
+        ],
+        "section": "Communications Equipment",
+        "candidate_ids": [
+          "62dcf80f8d70d9a0e866"
+        ]
+      },
+      "cost_credits_range": {
+        "min": 1200,
+        "max": 2400
+      }
+    },
+    {
+      "id": "urban-warrior",
+      "name": "Urban Warrior Padded Environmental Body Armor",
+      "sheet_name": "Urban Warrior",
+      "category": "armor",
+      "cost_credits": 35000,
+      "weight_lbs": 11,
+      "locations": {
+        "main_body": 50,
+        "helmet": 35,
+        "left_arm": 16,
+        "right_arm": 16,
+        "left_leg": 30,
+        "right_leg": 30
+      },
+      "movement_penalty": -5,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Urban Warrior Body Armor",
+        "candidate_ids": [
+          "ef58925ce2023d192d28"
+        ]
+      },
+      "movement_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          267
+        ],
+        "pdf_pages": [
+          270
+        ],
+        "section": "All environmental body armor have the following properties",
+        "candidate_ids": [
+          "75af68e659ce2c3e7d24"
+        ]
+      },
+      "environmental": true,
+      "protection_notes": [
+        "Environmental protection: filtered circulating air, cooling and temperature regulation. Five-hour independent oxygen supply for contaminated or low-oxygen environments.",
+        "Shielding resists heat up to 200 degrees Celsius. Normal fires cause no damage; nuclear, plasma and magic fires cause full damage. Incoming damage resolution remains pending.",
+        "Minimal radiation shielding, light-sensitive polarized visor, removable faceplate and directional helmet radio with 5–10 mile range. Ultimate Edition p.267 / PDF270."
+      ],
+      "protection_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          267
+        ],
+        "pdf_pages": [
+          270
+        ],
+        "section": "All environmental body armor have the following properties",
+        "candidate_ids": [
+          "75af68e659ce2c3e7d24"
+        ]
+      },
+      "prowl_penalty": -5
+    },
+    {
+      "id": "huntsman",
+      "name": "Huntsman Plate and Padded Armor (non-environmental)",
+      "sheet_name": "Huntsman",
+      "category": "armor",
+      "cost_credits": 24000,
+      "weight_lbs": 16,
+      "locations": {
+        "main_body": 45,
+        "helmet": 35,
+        "left_arm": 15,
+        "right_arm": 15,
+        "left_leg": 25,
+        "right_leg": 25
+      },
+      "movement_penalty": -10,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Huntsman Body Armor",
+        "candidate_ids": [
+          "09b1bc2f43305d51f35c",
+          "85f04164ee2d3ad16a81"
+        ]
+      },
+      "movement_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Huntsman Body Armor",
+        "candidate_ids": [
+          "09b1bc2f43305d51f35c",
+          "85f04164ee2d3ad16a81"
+        ]
+      },
+      "environmental": false,
+      "protection_notes": [
+        "Huntsman is non-environmental armor; environmental life support and protection are not granted. Its source specifies a -10% movement penalty; the affected-check mapping remains pending. Ultimate Edition p.268 / PDF271."
+      ],
+      "protection_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          268
+        ],
+        "pdf_pages": [
+          271
+        ],
+        "section": "Huntsman Body Armor",
+        "candidate_ids": [
+          "09b1bc2f43305d51f35c",
+          "85f04164ee2d3ad16a81"
+        ]
+      },
+      "prowl_penalty": null
+    }
+  ],
+  "starting_funds": {
+    "character_class": "vagabond",
+    "definitions": [
+      {
+        "id": "credits",
+        "name": "Starting credits",
+        "count": 2,
+        "sides": 6,
+        "multiplier": 100,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            98
+          ],
+          "pdf_pages": [
+            101
+          ],
+          "section": "Vagabond — Money",
+          "candidate_ids": [
+            "4b5980c422c4cfb35c00"
+          ]
+        }
+      },
+      {
+        "id": "saleable_goods",
+        "name": "Starting Black Market saleable goods value",
+        "count": 2,
+        "sides": 6,
+        "multiplier": 100,
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            98
+          ],
+          "pdf_pages": [
+            101
+          ],
+          "section": "Vagabond — Money",
+          "candidate_ids": [
+            "4b5980c422c4cfb35c00"
+          ]
+        }
+      }
+    ],
+    "guidance": [
+      "Starting funds are generated once. Four D6 are rolled without attribute house options.",
+      "Starting credits add to the current balance; later purchases or manual balance edits do not change the original rolls.",
+      "Roll starting credits and Black Market saleable goods value separately.",
+      "Saleable goods are recorded as a value; they are not added to credits or converted to equipment.",
+      "The rest of the Vagabond starting equipment is not yet implemented."
+    ]
+  },
+  "starting_gear": {
+    "character_class": "vagabond",
+    "grants": [
+      {
+        "item_id": "vagabond-clothes",
+        "quantity": 2
+      },
+      {
+        "item_id": "vagabond-baseball-cap",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-jacket-or-coat",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-flashlight",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-backpack",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-sleeping-bag",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-small-duffle-bag",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-wallet-with-id",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-bandages",
+        "quantity": 2
+      },
+      {
+        "item_id": "vagabond-aspirin",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-comb",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-toothbrush",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-toothpaste",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-bar-of-soap",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-candy",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-sturdy-plastic-bag",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-canteen",
+        "quantity": 1
+      },
+      {
+        "item_id": "vagabond-sunglasses",
+        "quantity": 1
+      }
+    ],
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        98
+      ],
+      "pdf_pages": [
+        101
+      ],
+      "section": "Vagabond Standard Equipment",
+      "candidate_ids": [
+        "4b5980c422c4cfb35c00"
+      ]
+    },
+    "guidance": [
+      "Grant the fixed personal gear once. It costs no credits and has no reviewed weight or combat effects.",
+      "The receipt records the original grant; later inventory edits or removal do not grant the items again.",
+      "Knife, armor, gun, spare clip and transport choices remain pending."
+    ]
+  },
+  "starting_choices": {
+    "character_class": "vagabond",
+    "options": {
+      "armor": [
+        "plastic-man"
+      ],
+      "gun": [
+        "wilks-320",
+        "wilks-447"
+      ],
+      "knife": [
+        "knife-large",
+        "knife-small"
+      ],
+      "transport": [
+        "vagabond-junker-car",
+        "vagabond-junker-motorcycle",
+        "vagabond-basic-horse"
+      ]
+    },
+    "clips": {
+      "wilks-320": "standard-e-clip",
+      "wilks-447": "standard-e-clip"
+    },
+    "source": {
+      "book": "Rifts - Ultimate Edition",
+      "pages": [
+        98
+      ],
+      "pdf_pages": [
+        101
+      ],
+      "section": "Vagabond Standard Equipment",
+      "candidate_ids": [
+        "4b5980c422c4cfb35c00"
+      ]
+    },
+    "guidance": [
+      "Choose one reviewed armor, gun, knife, and transport option once; the matching spare E-Clip is granted automatically without a credit charge.",
+      "These are representative available options, not the complete range described for Vagabond starting equipment. Broader armor, weapon, and transport choices remain pending source review.",
+      "Plastic Man armor represents the medium M.D.C. armor choice. The source describes starting armor as beaten and battered; no change to its M.D.C. is inferred.",
+      "The old junker car, old junker motorcycle, and basic horse have no reviewed speed, durability, price, or weight here.",
+      "The selected car, motorcycle, or horse is initially stored rather than carried; travel and animal statistics remain pending source review."
+    ]
+  },
+  "class_profiles": {
+    "city-rat": {
+      "starting_funds": {
+        "character_class": "city-rat",
+        "definitions": [
+          {
+            "id": "credits",
+            "name": "Starting credits",
+            "count": 6,
+            "sides": 6,
+            "multiplier": 100,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                89
+              ],
+              "pdf_pages": [
+                92
+              ],
+              "section": "City Rat Money",
+              "candidate_ids": [
+                "8a55dcd3bb9ac02ee044"
+              ]
+            }
+          },
+          {
+            "id": "saleable_goods",
+            "name": "Starting Black Market item value",
+            "count": 3,
+            "sides": 4,
+            "multiplier": 1000,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                89
+              ],
+              "pdf_pages": [
+                92
+              ],
+              "section": "City Rat Money",
+              "candidate_ids": [
+                "8a55dcd3bb9ac02ee044"
+              ]
+            }
+          }
+        ],
+        "guidance": [
+          "Generate starting credits and the Black Market item value once; these dice ignore attribute house options.",
+          "Only starting credits add to the current balance. The item value is recorded separately; it is not spendable credits or a generated possession.",
+          "Original dice and values remain recorded after purchases and manual balance edits. The item identity can be recorded in character notes until item selection is implemented.",
+          "City Rat starting equipment and cybernetics remain pending."
+        ]
+      },
+      "starting_gear": {
+        "character_class": "city-rat",
+        "grants": [
+          {
+            "item_id": "city-rat-working-colors",
+            "quantity": 2
+          },
+          {
+            "item_id": "city-rat-flashlight",
+            "quantity": 1
+          },
+          {
+            "item_id": "city-rat-nylon-rope",
+            "quantity": 1
+          },
+          {
+            "item_id": "city-rat-grappling-hook",
+            "quantity": 1
+          },
+          {
+            "item_id": "city-rat-rmk",
+            "quantity": 1
+          },
+          {
+            "item_id": "city-rat-pdd",
+            "quantity": 1
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            89
+          ],
+          "pdf_pages": [
+            92
+          ],
+          "section": "City Rat Standard Equipment",
+          "candidate_ids": [
+            "8a55dcd3bb9ac02ee044"
+          ]
+        },
+        "guidance": [
+          "Grant these six fixed personal gear rows once without spending credits or rolling dice. Original receipts survive inventory edits and removal; unspecified weights remain unknown.",
+          "The two working-color outfits represent one gang-color or fashion outfit and one casual or disguise outfit. Rope has 900-pound (405 kg) test strength; its length is unspecified.",
+          "The home wardrobe and unspecified personal items remain pending, along with starting armor, weapons, E-Clips, transport and cybernetic choices.",
+          "RMK, called Stitcher in the class list and Knitter in the equipment list: six reusable robots clean and suture external cuts with 90% suturing ability. They do not treat internal injuries, broken bones or severe wounds. This device capability does not change the character's Paramedic skill. Purchase price: 24000 credits. Ultimate Edition p.263 / PDF266.",
+          "PDD plays and records audio on one- and three-inch discs. Blank discs cost 10–20 credits for two or three hours; prerecorded discs cost 20–80 credits. PDD purchase price: 1200–2400 credits. Media selection remains pending. Ultimate Edition p.263 / PDF266.",
+          "The grappling hook does not grant its separate weapon proficiency. Hook attacks and its proficiency-dependent Climbing bonus remain pending."
+        ]
+      },
+      "starting_groups": {
+        "character_class": "city-rat",
+        "groups": {
+          "armor": {
+            "name": "Starting armor",
+            "category": "armor",
+            "options": [
+              "plastic-man",
+              "urban-warrior",
+              "huntsman"
+            ],
+            "quantity": 1,
+            "location": "carried",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                89
+              ],
+              "pdf_pages": [
+                92
+              ],
+              "section": "City Rat Standard Equipment — common light body armor",
+              "candidate_ids": [
+                "8a55dcd3bb9ac02ee044"
+              ]
+            },
+            "guidance": [
+              "Choose one reviewed common light armor suit without spending credits. The original receipt remains after inventory edits or removal; this group cannot be granted again.",
+              "Urban Warrior and Plastic-Man are named class examples; Huntsman is another reviewed light suit. Other common light armor, homemade armor and Dog Boy variants remain pending.",
+              "The suit starts carried and unequipped. Equip or store it through its possession controls; other City Rat weapons, clips, transport and implants remain pending."
+            ]
+          }
+        }
+      }
+    }
+  }
+}

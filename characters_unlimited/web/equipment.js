@@ -1,5 +1,6 @@
 'use strict';
 let equipmentReady = false, equipmentSequence = 0, equipmentView;
+const startingGroupSelections = new Map();
 function setEquipmentBusy() {
   document.querySelectorAll('#equipment-panel input, #equipment-panel select, #equipment-panel button').forEach(element => {
     element.disabled = navigationBusy || !equipmentReady;
@@ -30,6 +31,7 @@ async function loadEquipment(character) {
     row.textContent = `${view.catalog.find(item => item.id === grant.item_id).name} × ${grant.quantity}`; return row;
   }));
   $('starting-choices-source').textContent = starting.generated ? `${starting.source.book}, p. ${starting.source.pages.join(', ')}. Original free grant; later inventory edits do not regenerate these items.` : '';
+  renderStartingGroups(view.starting_groups, view.catalog, character.id);
   const gear = view.starting_gear;
   $('grant-starting-gear').hidden = !gear.supported || gear.generated;
   $('starting-gear-guidance').textContent = gear.guidance.join(' ');
@@ -140,6 +142,57 @@ async function loadEquipment(character) {
   }
   $('equipment-effects').replaceChildren(...explanations);
   equipmentReady = true; setEquipmentBusy();
+}
+function startingGroupSource(source) {
+  return `${source.book}, p. ${source.pages.join(', ')}`;
+}
+function renderStartingGroups(starting, catalog, characterId) {
+  const panel = $('starting-groups'), container = $('starting-groups-list');
+  const groups = starting?.supported ? (starting.groups || []).filter(group => group.generated || group.options?.some(id => catalog.some(item => item.id === id))) : [];
+  panel.hidden = !groups.length;
+  container.replaceChildren(...groups.map(group => {
+    const section = document.createElement('section');
+    const heading = document.createElement('h4');
+    heading.textContent = group.name;
+    section.append(heading);
+    const selectionKey = `${characterId}:${group.id}`;
+    if (group.generated && group.receipt) {
+      const selected = catalog.find(item => item.id === group.receipt.selection);
+      const record = document.createElement('p'); record.className = 'help';
+      record.textContent = `Original selection: ${selected?.name || group.receipt.selection} × ${group.quantity}. This receipt is independent of current inventory and cannot grant this group again.`;
+      section.append(record);
+      const receiptSource = document.createElement('p'); receiptSource.className = 'help';
+      receiptSource.textContent = `Original receipt source: ${startingGroupSource(group.receipt.source)}`;
+      section.append(receiptSource);
+    } else {
+      const form = document.createElement('form');
+      const label = document.createElement('label');
+      label.textContent = `${group.category} choice`;
+      const select = document.createElement('select');
+      const options = group.options.map(id => catalog.find(item => item.id === id)).filter(Boolean);
+      select.replaceChildren(...options.map(item => {
+        const option = document.createElement('option'); option.value = item.id; option.textContent = item.name; return option;
+      }));
+      const previous = startingGroupSelections.get(selectionKey);
+      if (options.some(item => item.id === previous)) select.value = previous;
+      select.onchange = () => startingGroupSelections.set(selectionKey, select.value);
+      label.append(select); form.append(label);
+      const button = document.createElement('button'); button.type = 'submit'; button.textContent = 'Add selected starting equipment';
+      form.append(button);
+      form.onsubmit = event => {
+        event.preventDefault();
+        startingGroupSelections.set(selectionKey, select.value);
+        characterAction('starting-group',{group_id:group.id,selection:select.value}).catch(showError);
+      };
+      section.append(form);
+    }
+    const source = document.createElement('p'); source.className = 'help';
+    source.textContent = `Rule source: ${startingGroupSource(group.source)}`;
+    const guidance = document.createElement('p'); guidance.className = 'help';
+    guidance.textContent = `${group.quantity} item${group.quantity === 1 ? '' : 's'} · ${group.location}. ${group.guidance.join(' ')}`;
+    section.append(source, guidance);
+    return section;
+  }));
 }
 function filterEquipmentCatalog() {
   if (!equipmentView) return;

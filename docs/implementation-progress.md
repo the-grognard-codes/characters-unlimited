@@ -143,3 +143,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08B5: Complete in PR #62 as8b9a3d2 after both Windows full/frozen workflows passed.
 - 08D1: Core Urban Warrior/Huntsman light armor and explicit environmental status/notes in progress. Full equipment and contextual resolution remain open.
+
+- 08D1: Complete in PR #63 asa6b2f09 after both Windows workflows passed.
+- 08B6: Independent City Rat starting armor group in progress; original receipts remain separate from current inventory.

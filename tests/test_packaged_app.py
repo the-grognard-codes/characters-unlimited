@@ -352,8 +352,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 city = request(city_path+'/starting-gear', {'revision':city['revision']}, token)
                 self.assertEqual(len(city['starting_gear']['grants']),6)
                 self.assertEqual(request(city_path+'/equipment')['unknown_carried_weight_quantity'],7)
-                city = request(city_path+'/purchase-equipment',
-                               {'revision':city['revision'],'item_id':'urban-warrior','quantity':1}, token)
+                city = request(city_path+'/starting-group',
+                               {'revision':city['revision'],'group_id':'armor','selection':'urban-warrior'}, token)
+                self.assertEqual(city['starting_equipment_groups']['armor']['selection'],'urban-warrior')
+                self.assertEqual(city['equipment']['credits'],city['starting_funds']['credits']['value'])
                 city_inventory = deepcopy(city['equipment'])
                 city_inventory['items'][-1]['equipped'] = True
                 city = request(city_path+'/equipment',
@@ -369,6 +371,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(city_imported['resources'], city['resources'])
                 self.assertEqual(city_imported['starting_funds'], city['starting_funds'])
                 self.assertEqual(city_imported['starting_gear'], city['starting_gear'])
+                self.assertEqual(city_imported['starting_equipment_groups'], city['starting_equipment_groups'])
                 city_fields = PdfReader(BytesIO(request(city_path+'/pdf'))).get_fields()
                 assert city_fields is not None
                 self.assertEqual(city_fields['NAME']['/V'], 'Packaged City Rat')
@@ -411,6 +414,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request(city_path)['resources'], city['resources'])
                 self.assertEqual(request(city_path)['starting_funds'], city['starting_funds'])
                 self.assertEqual(request(city_path)['starting_gear'], city['starting_gear'])
+                self.assertEqual(request(city_path)['starting_equipment_groups'], city['starting_equipment_groups'])
                 self.assertEqual(request('/api/characters/'+city_imported['id'])['character_class'], 'city-rat')
                 reopened_city = request(city_path+'/skills')
                 self.assertEqual(reopened_city['remaining'], city_view['remaining'])

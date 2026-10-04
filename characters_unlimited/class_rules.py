@@ -32,7 +32,7 @@ def equipment_class_rules(pack, character):
     if profile is None:
         return deepcopy(pack)
     if (not isinstance(profile, dict) or not profile or
-            set(profile) - {'starting_funds', 'starting_gear'} or
+            set(profile) - {'starting_funds', 'starting_gear', 'starting_groups'} or
             any(not isinstance(rules, dict) or rules.get('character_class') != character['character_class']
                 for rules in profile.values())):
         raise ValueError('Starting equipment profile must identify its supported class')

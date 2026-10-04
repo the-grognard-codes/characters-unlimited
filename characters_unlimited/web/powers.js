@@ -55,15 +55,17 @@ async function loadHeroPowers(character) {
     const heading = document.createElement('h3'); heading.textContent = `${definition.name} · ${definition.category}`;
     const details = document.createElement('p'); details.className = 'help';
     const formula = definition.attribute_floor;
-    const attribute = heroPowerAttributeLabel(formula.attribute);
-    details.textContent = `${attribute} target floor: ${formula.constant} + ${heroPowerDiceFormula(formula)}. ${definition.guidance.join(' ')}`;
+    const attribute = formula ? heroPowerAttributeLabel(formula.attribute) : null;
+    details.textContent = definition.effect_summary
+      ? `${definition.effect_summary}. ${definition.guidance.join(' ')}`
+      : `${attribute} target floor: ${formula.constant} + ${heroPowerDiceFormula(formula)}. ${definition.guidance.join(' ')}`;
     const source = document.createElement('p'); source.className = 'help';
     source.textContent = heroPowerSource(definition.source);
     card.append(heading, details, source);
     const acquisition = acquired.get(definition.id);
     if (acquisition) {
       const retained = document.createElement('p'); retained.className = 'help';
-      retained.textContent = `Recorded ${heroPowerDiceFormula(formula)} results: ${acquisition.rolls.join(', ')}. ${attribute} target floor: ${acquisition.target}; it raises calculated ${attribute} only when higher.`;
+      retained.textContent = acquisition.effect_summary || `Recorded ${heroPowerDiceFormula(formula)} results: ${acquisition.rolls.join(', ')}. ${attribute} target floor: ${acquisition.target}; it raises calculated ${attribute} only when higher.`;
       card.append(retained);
     } else {
       const retained = document.createElement('p'); retained.className = 'help';
@@ -85,6 +87,7 @@ async function loadHeroPowers(character) {
   $('hero-powers-warnings').replaceChildren(...view.warnings.map(heroPowerLine));
   const receipts = view.receipts || [];
   $('hero-powers-receipts').replaceChildren(...(receipts.length ? receipts.map(receipt => {
+    if (receipt.effect_summary) return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${receipt.effect_summary} · ${heroPowerSource(receipt.source)}`);
     const formula = receipt.attribute_floor;
     const attribute = heroPowerAttributeLabel(formula.attribute);
     return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${attribute} target floor ${receipt.target} · recorded ${heroPowerDiceFormula(formula)} results ${receipt.rolls.join(', ')} · ${heroPowerSource(receipt.source)}`);
@@ -95,7 +98,8 @@ async function loadHeroPowers(character) {
     const heading = document.createElement('strong'); heading.textContent = bonus.name;
     row.append(heading);
     const value = document.createElement('p'); value.className = 'help';
-    value.textContent = bonus.value == null ? 'Total bonus is not fully determined by reviewed rules.' : `Bonus: ${bonus.value >= 0 ? '+' : ''}${bonus.value}`;
+    const unit = bonus.unit === 'percentage-points' ? '% (percentage points)' : '';
+    value.textContent = bonus.value == null ? 'Total bonus is not fully determined by reviewed rules.' : `Bonus: ${bonus.value >= 0 ? '+' : ''}${bonus.value}${unit}`;
     row.append(value);
     if (bonus.target != null) {
       const target = document.createElement('p'); target.className = 'help'; target.textContent = `Target: ${bonus.target}`;

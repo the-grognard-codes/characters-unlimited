@@ -13,6 +13,80 @@ def encoded(value):
     return json.dumps(value, sort_keys=True, ensure_ascii=False, allow_nan=False)
 
 
+def power_formulas(definition):
+    if 'attribute_floor' in definition:
+        return {'attribute':definition['attribute_floor']}
+    return {'attribute':definition['attribute_bonus'], **definition['resource_bonuses'],
+            'HP-levels':definition['hp_per_level']}
+
+
+def validate_power_rolls(rolls, definition):
+    formulas = power_formulas(definition)
+    groups = {'attribute':rolls} if 'attribute_floor' in definition else rolls
+    if not isinstance(groups,dict) or set(groups) != set(formulas):
+        raise ValueError('Power acquisition dice must match the reviewed formula groups')
+    for name,formula in formulas.items():
+        dice = groups[name]
+        if not isinstance(dice,list) or len(dice) != formula['count'] or any(type(face) is not int or not 1 <= face <= formula['sides'] for face in dice):
+            raise ValueError('Power acquisition dice must match the reviewed formula')
+
+
+def power_bonus_value(formula, dice):
+    return (formula['constant']+sum(dice))*formula.get('multiplier',1)
+
+
+def power_attribute_modifier(acquisition, definition):
+    if 'attribute_floor' in definition:
+        return definition['attribute_floor']['attribute'], floor_modifier(acquisition,definition)
+    formula = definition['attribute_bonus']
+    dice = acquisition['rolls']['attribute']
+    return formula['attribute'], {'id':'power-add:'+acquisition['id'],
+        'value':power_bonus_value(formula,dice), 'rolls':deepcopy(dice), 'source':deepcopy(definition['source'])}
+
+
+def power_resource_contributions(character, pack):
+    record = character.get('hero_powers')
+    if not record:
+        return []
+    validate_powers(record,pack)
+    definitions = {row['id']:row for row in pack['powers']}
+    contributions = []
+    for acquisition in record['acquisitions']:
+        if acquisition['id'] not in record['active']:
+            continue
+        definition = definitions[acquisition['power']]
+        for resource,formula in definition.get('resource_bonuses',{}).items():
+            dice = deepcopy(acquisition['rolls'][resource])
+            value = power_bonus_value(formula,dice)
+            if resource == 'HP':
+                level_dice = acquisition['rolls']['HP-levels']
+                value += power_bonus_value(definition['hp_per_level'],level_dice)
+                dice.extend(level_dice)
+            contributions.append({'resource':resource,'name':definition['name'],'value':value,
+                                  'rolls':dice,'source':deepcopy(definition['source'])})
+    return contributions
+
+
+def additive_power_summary(definition, rolls=None):
+    parts = []
+    for name,formula in power_formulas(definition).items():
+        label = definition['attribute_bonus']['attribute'] if name == 'attribute' else name
+        if label == 'HP-levels':
+            label = 'HP level 1'
+        if rolls is None:
+            text = f"{formula['count']}D{formula['sides']}"
+            if formula['constant']:
+                text += f"+{formula['constant']}"
+            if formula.get('multiplier',1) != 1:
+                text += f" x {formula['multiplier']}"
+            parts.append(f'{label} +{text}')
+        else:
+            parts.append(f"{label} +{power_bonus_value(formula,rolls[name])} (dice {rolls[name]})")
+    rate = definition['fatigue_rate']
+    parts.append(f"Fatigue {rate['numerator']}/{rate['denominator']} normal")
+    return '; '.join(parts)
+
+
 def validate_powers(record, pack):
     if not isinstance(record, dict) or set(record) != {'acquisitions','active','history'}:
         raise ValueError('Invalid Heroes power record')
@@ -35,10 +109,7 @@ def validate_powers(record, pack):
             raise ValueError('Power acquisition identities and powers must be unique and reviewed')
         identifiers.add(identifier); powers.add(power)
         definition = definitions[power]
-        dice = acquisition['rolls']
-        formula = definition['attribute_floor']
-        if not isinstance(dice, list) or len(dice) != formula['count'] or any(type(face) is not int or not 1 <= face <= formula['sides'] for face in dice):
-            raise ValueError('Power acquisition dice must match the reviewed formula')
+        validate_power_rolls(acquisition['rolls'],definition)
         if encoded(acquisition['source']) != encoded(definition['source']):
             raise ValueError('Power acquisition source must match its pinned rules')
     history = record['history']
@@ -62,7 +133,7 @@ def floor_modifier(acquisition, definition):
 
 def power_modifiers(record, pack, *, active_only=True):
     definitions = {row['id']:row for row in pack['powers']}
-    return [(definitions[row['power']]['attribute_floor']['attribute'], floor_modifier(row, definitions[row['power']]))
+    return [power_attribute_modifier(row, definitions[row['power']])
             for row in record['acquisitions'] if not active_only or row['id'] in record['active']]
 
 
@@ -76,8 +147,9 @@ def select_powers(character, selections, pack, die):
     for power in selections:
         if power not in retained:
             definition = definitions[power]
-            formula = definition['attribute_floor']
-            acquisition = {'id':str(uuid4()), 'power':power, 'rolls':[die(formula['sides']) for _ in range(formula['count'])],
+            formulas = power_formulas(definition)
+            groups = {name:[die(formula['sides']) for _ in range(formula['count'])] for name,formula in formulas.items()}
+            acquisition = {'id':str(uuid4()), 'power':power, 'rolls':groups['attribute'] if 'attribute_floor' in definition else groups,
                            'source':deepcopy(definition['source'])}
             record['acquisitions'].append(acquisition); retained[power] = acquisition
         active.append(retained[power]['id'])
@@ -86,7 +158,7 @@ def select_powers(character, selections, pack, die):
     attributes = deepcopy(character['attributes'])
     for value in attributes.values():
         if 'modifiers' in value:
-            value['modifiers'] = [row for row in value['modifiers'] if not row['id'].startswith('power-floor:')]
+            value['modifiers'] = [row for row in value['modifiers'] if not row['id'].startswith(('power-floor:','power-add:'))]
     for name, modifier in power_modifiers(record, pack):
         attributes[name].setdefault('modifiers', []).append(modifier)
     for value in attributes.values():
@@ -107,7 +179,7 @@ def validate_power_attributes(character, pack):
         found = {}
         for name, value in attributes.items():
             for modifier in value.get('modifiers', []):
-                if modifier['id'].startswith('power-floor:'):
+                if modifier['id'].startswith(('power-floor:','power-add:')):
                     if modifier['id'] in found or encoded((name,modifier)) != encoded(allowed.get(modifier['id'])):
                         raise ValueError('Power attribute contribution must match its retained acquisition')
                     found[modifier['id']] = (name,modifier)
@@ -143,8 +215,12 @@ def project_powers(character, pack, budget_pack):
     for acquisition in record['acquisitions'] if record else []:
         definition = definitions[acquisition['power']]
         receipts.append({**deepcopy(definition), 'acquisition_id':acquisition['id'], 'rolls':deepcopy(acquisition['rolls']),
-                         'target':floor_modifier(acquisition,definition)['value'], 'active':acquisition['id'] in active})
+                         'target':floor_modifier(acquisition,definition)['value'] if 'attribute_floor' in definition else None,
+                         **({'effect_summary':additive_power_summary(definition,acquisition['rolls'])} if 'attribute_bonus' in definition else {}),
+                         'active':acquisition['id'] in active})
     powers = [row for row in receipts if row['active']]
+    fatigue = next((deepcopy(row['fatigue_rate']) for row in powers if 'fatigue_rate' in row),
+                   {'numerator':1,'denominator':1})
     budget = project_budget(character.get('power_budget'), budget_pack)
     allowance = sum(row['count'] for row in budget['budgets'] if row['name'] == 'Minor super abilities')
     used = len(powers)
@@ -153,13 +229,16 @@ def project_powers(character, pack, budget_pack):
         warnings.append(f'Minor power selections exceed the recorded starting allowance by {used-allowance}. Selections retained.')
     value = character['attributes']['MA']['value']
     trust = pack['mental_affinity_chart'].get(str(min(value,30)))
-    return {'catalog':deepcopy(pack['powers']), 'selections':[row['id'] for row in powers], 'powers':powers, 'receipts':receipts,
+    catalog = [{**deepcopy(row), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
+    return {'catalog':catalog, 'selections':[row['id'] for row in powers], 'powers':powers, 'receipts':receipts,
             'minor':{'used':used, 'allowance':allowance, 'remaining':allowance-used}, 'trust_intimidate':trust,
             'saving_bonuses':project_power_saves(character,pack,powers),
-            'saving_notes':(['Saving values include reviewed ordinary M.E. and selected power contributions only. Other modifiers remain pending.',
+            'fatigue_rate':fatigue,
+            'saving_notes':([('Saving values include reviewed ordinary M.E., P.E. and selected power contributions only. Other modifiers remain pending.' if 'physical_endurance_charts' in pack else 'Saving values include reviewed ordinary M.E. and selected power contributions only. Other modifiers remain pending.'),
                 'Named power bonuses are roll additions. Unknown targets depend on the triggering drug, Horror Factor, possession or illusion rule.',
                 'Possession targets depend on the triggering ability and psychic status.',
-                'Ordinary M.E. bonuses stop at 30; below 16 has no exceptional bonus. Below 1 is unreviewed and remains blank.'] if 'mental_endurance_charts' in pack else []),
+                'Ordinary M.E. bonuses stop at 30; below 16 has no exceptional bonus. Below 1 is unreviewed and remains blank.',
+                *(['P.E. poison and magic roll bonuses stop at 30. Coma/death bonuses are percentage points; above 30 they continue one point per P.E. point. Targets depend on the triggering rule. Below 16 has no exceptional bonus; below 1 is unreviewed.'] if 'physical_endurance_charts' in pack else [])] if 'mental_endurance_charts' in pack else []),
             'warnings':warnings, 'history':[{'selections':[next(row['power'] for row in record['acquisitions'] if row['id']==identifier) for identifier in frame]} for frame in record['history']] if record else [],
             'charm_impress':pack.get('physical_beauty_chart',{}).get(str(min(character['attributes']['PB']['value'],30))),
             'charm_source':deepcopy(pack.get('physical_beauty_source')),
@@ -199,4 +278,17 @@ def project_power_saves(character, pack, powers):
         for identifier,target in power.get('saving_targets',{}).items():
             results[identifier]['target'] = target
             results[identifier]['sources'].append(deepcopy(power['source']))
+    pe_charts = pack.get('physical_endurance_charts')
+    if pe_charts is not None:
+        pe = character['attributes']['PE']['value']
+        pe_names = {'poison':'Poison / toxins','magic':'Magic','coma-death':'Coma / death'}
+        for identifier,chart in pe_charts.items():
+            value = pe if identifier == 'coma-death' and pe > 30 else chart.get(str(min(pe,30)),0)
+            sources = [deepcopy(pack['physical_endurance_source'])]
+            if identifier == 'coma-death' and pe > 30:
+                sources.append({**deepcopy(pack['physical_endurance_source']),
+                                'printed_page':16,'pdf_page':17,'section':'Attributes beyond 30'})
+            results[identifier] = {'name':pe_names[identifier], 'value':value if pe >= 1 else None,
+                'unit':'percentage-points' if identifier == 'coma-death' else 'roll-bonus',
+                'contributions':{'P.E.':value}, 'target':None, 'sources':sources}
     return results

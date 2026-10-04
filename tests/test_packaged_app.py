@@ -317,6 +317,20 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(hero_resources['resources']['SDC']['contributions']['Physical: Body Building & Weight Lifting'],10)
                 self.assertTrue(6 <= hero_resources['resources']['PPE']['value'] <= 36)
                 self.assertTrue(hero['attributes']['PE']['value']+1 <= hero_resources['resources']['HP']['value'] <= hero['attributes']['PE']['value']+6)
+                starting_hp = hero_resources['resources']['HP']['value']
+                starting_sdc = hero_resources['resources']['SDC']['value']
+                initial_snapshot = hero['resource_attribute_snapshot']
+                hero = request('/api/characters/'+hero['id']+'/hero-powers',
+                               {'revision':hero['revision'],'selections':['extraordinary-mental-affinity','extraordinary-mental-endurance','extraordinary-physical-beauty','extraordinary-physical-endurance']},token)
+                hero_powers = request('/api/characters/'+hero['id']+'/hero-powers')
+                physical_endurance = next(row for row in hero_powers['powers'] if row['id']=='extraordinary-physical-endurance')
+                self.assertEqual(len(physical_endurance['rolls']['HP-levels']),1)
+                self.assertEqual(len(physical_endurance['rolls']['SDC']),4)
+                self.assertEqual(hero['resource_attribute_snapshot'],initial_snapshot)
+                self.assertEqual(hero_powers['fatigue_rate'],{'numerator':1,'denominator':10})
+                hero_resources = request('/api/characters/'+hero['id']+'/resources')
+                self.assertTrue(starting_hp+4 <= hero_resources['resources']['HP']['value'] <= starting_hp+22)
+                self.assertTrue(starting_sdc+40 <= hero_resources['resources']['SDC']['value'] <= starting_sdc+160)
                 resource_pdf = PdfReader(BytesIO(request('/api/characters/'+hero['id']+'/pdf'))).get_fields()
                 assert resource_pdf is not None
                 self.assertEqual(resource_pdf['HP']['/V'],str(hero_resources['resources']['HP']['value']))

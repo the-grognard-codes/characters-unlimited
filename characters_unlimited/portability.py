@@ -363,7 +363,7 @@ def validate_sources(character, packs, *, history_frame=False):
             formula = selected_class.get('attribute_bonuses', {}).get(name)
             modifiers = []
             for modifier in value.get('modifiers',[]):
-                if modifier['id'].startswith('power-floor:'):
+                if modifier['id'].startswith(('power-floor:','power-add:')):
                     continue  # Validated against retained source-bound acquisitions above.
                 elif modifier['id'].startswith('physical:'):
                     definition = next((item for item in physical_pack['skills'] if item['id']==modifier['id'].removeprefix('physical:')),None) if physical_pack else None

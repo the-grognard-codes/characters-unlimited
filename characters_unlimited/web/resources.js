@@ -10,7 +10,7 @@ function renderResources(view) {
   const game = current.game === 'heroes-unlimited' ? 'HEROES UNLIMITED' : 'RIFTS';
   $('resources-tag').textContent = `${game} · ${(view.path_name || 'Starting resources').toUpperCase()}`;
   $('resources-intro').textContent = current.game === 'heroes-unlimited'
-    ? 'Generate after choosing attributes. Starting HP retains effective P.E. at this step. Base Mutant S.D.C. and general P.P.E. are recorded; ' + (view.physical_supported ? 'reviewed Physical bonuses apply when selected. Other skill and power contributions remain unfinished.' : 'additional skill and power contributions remain unfinished.')
+    ? 'Generate after choosing attributes. Starting HP retains effective P.E. at this step. Base Mutant S.D.C. and general P.P.E. are recorded; ' + (view.power_supported ? 'reviewed Physical and Extraordinary Physical Endurance contributions apply when selected. Other skill and power contributions remain unfinished.' : view.physical_supported ? 'reviewed Physical bonuses apply when selected. Other skill and power contributions remain unfinished.' : 'additional skill and power contributions remain unfinished.')
     : 'Generate after choosing attributes. Hit Points retain your effective P.E. at this step; S.D.C. includes active Physical bonuses.';
   $('generate-resources').hidden = !view.supported || view.generated;
   $('resources-guidance').textContent = view.supported
@@ -24,7 +24,7 @@ function renderResources(view) {
       const faces = result.rolls[name];
       return `${name.replaceAll('-', ' ')} ${value}${faces.length ? ' (dice: ' + faces.join(' + ') + ')' : ''}`;
     });
-    terms.push(...new Set(result.sources.map(source => `${source.book}, pp. ${source.pages.join(', ')}`)));
+    terms.push(...new Set(result.sources.map(source => `${source.book}, pp. ${(source.pages || [source.printed_page]).join(', ')}`)));
     if (result.fixed != null) terms.push(`Fixed total ${result.fixed}; calculated value ${result.calculated_value}.`);
     else if (result.adjustment) terms.push(`Player adjustment ${result.adjustment}.`);
     explanation.textContent = terms.join(' · ');

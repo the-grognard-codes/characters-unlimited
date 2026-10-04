@@ -13,6 +13,6 @@ Base: `fba274ef8839bd3cdc41c26f86f1a583157e2aa5`. Contract: `docs/shared-attribu
 
 ## Checks
 
-Final25 affected public tests passed in13.964 seconds. Required mypy passed127 source files. Compilation, all browser-script syntax and whitespace passed. Initial full run was interrupted for review repairs; it is not a final result. Final full suite passed392 tests in256.197 seconds, with one frozen-only skip. Exact-head Windows/frozen results are pending. An archive audit found all3 archived class bonus definitions compatible with the source check.
+Final25 affected public tests passed in13.964 seconds. Required mypy passed127 source files. Compilation, all browser-script syntax and whitespace passed. Initial full run was interrupted for review repairs; it is not a final result. Final full suite passed392 tests in256.197 seconds, with one frozen-only skip. Exact-head Windows37234450988/37234448236 passed, including both frozen executable steps; PR93 merged as20c1c5c1a3e8e9d76f1caed67c29f4c95517e176. An archive audit found all3 archived class bonus definitions compatible with the source check.
 
 Broader targets, shared grants/acquisitions, complete importer and full corpus remain open.

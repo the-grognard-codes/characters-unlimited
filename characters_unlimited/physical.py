@@ -4,6 +4,7 @@ from copy import deepcopy
 import json
 
 from .attribute_modifiers import attribute_value
+from .grants import resolve_grants
 from .recorded_formulas import validate_formula, formula_value, roll_formula
 
 
@@ -31,12 +32,7 @@ def _definitions(pack):
 
 
 def _grant_ids(pack, definitions):
-    grants = pack.get('physical_grants', [])
-    if (not isinstance(grants, list) or
-            any(not isinstance(identifier, str) or identifier not in definitions
-                for identifier in grants)):
-        raise ValueError('Invalid Physical skill grant')
-    return list(dict.fromkeys(grants))
+    return resolve_grants(pack.get('physical_grants', []), list(definitions.values()))
 
 
 def _active_ids(selections, definitions, grants=()):

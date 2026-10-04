@@ -16,6 +16,9 @@ function modifierSourceCitation(source) {
   if (source.printed_page != null) return `${source.book}, printed p. ${source.printed_page}${source.pdf_page == null ? '' : ` (PDF p. ${source.pdf_page})`}`;
   return source.book;
 }
+function skillEffectEvidence(skill) {
+  return (skill.effect_contributions || []).map(effect => `${effect.name}: ${modifierSourceCitation(effect.source)} — ${effect.source.section}`).join(' · ');
+}
 function attributeModifierDisplay(modifier, classLabel) {
   const minimum = modifier.operation === 'minimum' || modifier.id.startsWith('power-floor:');
   return {
@@ -275,6 +278,8 @@ async function loadSkills(character) {
       : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
+    const effectEvidence = skillEffectEvidence(skill);
+    if (effectEvidence) explanation.textContent += ` · ${effectEvidence}`;
     if (skill.selection_cost > 1) {
       const costSource = skill.selection_cost_source;
       explanation.textContent += ` · Selection cost ${skill.selection_cost} ${skill.pool} slots: ${costSource.book}, pp. ${costSource.pages.join(', ')}`;

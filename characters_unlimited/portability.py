@@ -5,7 +5,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from .generation import roll_attribute, generation_settings, racial_formula
-from .attribute_modifiers import attribute_value, class_attribute_modifier
+from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
 from .heroes_power_budget import validate_budget
 from .heroes_powers import validate_powers, validate_power_attributes
@@ -26,7 +26,6 @@ from .required_skills import validate_required_choices
 from .combat import validate_combat_choices
 from .class_rules import class_rules, equipment_class_rules
 
-ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
 
 
@@ -75,8 +74,10 @@ def validate_attributes(attributes, race):
         if not isinstance(modifiers, list) or len(modifiers) > 100:
             raise ValueError('Invalid attribute modifiers')
         for modifier in modifiers:
-            if not isinstance(modifier, dict) or set(modifier) != {'id', 'value', 'rolls', 'source'} or not isinstance(modifier['id'], str) or not integer(modifier['value']):
+            if not isinstance(modifier, dict) or set(modifier) not in ({'id', 'value', 'rolls', 'source'}, {'id', 'value', 'rolls', 'source', 'operation'}) or not isinstance(modifier['id'], str) or not integer(modifier['value']):
                 raise ValueError('Invalid attribute modifier')
+            if 'operation' in modifier and modifier['operation'] not in ('add', 'minimum'):
+                raise ValueError('Unsupported attribute modifier operation')
             if not isinstance(modifier['rolls'], list) or any(not integer(roll) for roll in modifier['rolls']) or not isinstance(modifier['source'], dict):
                 raise ValueError('Invalid attribute modifier rolls or source')
         expected_value = attribute_value(value)
@@ -383,11 +384,12 @@ def validate_sources(character, packs, *, history_frame=False):
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', [])),
                *([resource_snapshot] if resource_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
+    effects = class_effects(selected_class)
     for attributes in records:
         for name, value in attributes.items():
             if canonical(value['explanation']['source']) != canonical(core['source']):
                 raise ValueError('Generated attribute sources must match the pinned rule definition')
-            formula = selected_class.get('attribute_bonuses', {}).get(name)
+            effect = effects.get(name)
             modifiers = []
             for modifier in value.get('modifiers',[]):
                 if modifier['id'].startswith(('power-floor:','power-add:')):
@@ -398,7 +400,7 @@ def validate_sources(character, packs, *, history_frame=False):
                         raise ValueError('Physical modifier sources must match their pinned rules')
                 else:
                     modifiers.append(modifier)
-            if formula is None:
+            if effect is None:
                 if modifiers:
                     raise ValueError('Attribute modifiers are unavailable in this pinned rule version')
                 continue

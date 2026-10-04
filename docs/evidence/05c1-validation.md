@@ -14,3 +14,5 @@ Browser verified the existing level15 save with its old2.7.0 pin, native/other l
 ![Multiple-choice interface fixture](05c1-multiple-browser.png)
 
 Required Windows full/frozen checks precede merge; frozen assertions fill all actual Vagabond groups, then exercise progression/import/PDF/restart. Full parent05 and other O.C.C. automation remain open.
+
+Merged PR #58 as864ccc5 after Windows full/frozen checks37164049347 and37164051385 passed (222 tests).

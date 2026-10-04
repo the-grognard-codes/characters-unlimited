@@ -128,3 +128,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 07B1 merged PR57 as32539cc after corrected Windows runs37162757164/37162760399 passed full and frozen checks. Parent07 remains open.
 - 05C1: Declarative required percentile skill groups and catalog-driven controls in progress; City Rat preparation is recorded in docs/required-skill-groups-contract.md. No additional O.C.C. is activated yet.
+
+- 05C1: Complete in PR #58 as864ccc5 after Windows checks37164049347/37164051385 passed all222 and frozen validation. Declarative required groups, legacy updates and browser autosave/reopen passed both review axes.
+- 05C2: Human City Rat foundation in progress; full O.C.C. review remains pending. Scope and open dependencies are recorded in docs/city-rat-contract.md.

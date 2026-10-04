@@ -45,6 +45,7 @@ function render(character) {
   $('coverage').hidden = true;
   const pack = gamePacks.find(entry => entry.game === character.game);
   const heroes = character.game === 'heroes-unlimited';
+  $('advancement-tag').textContent = (pack.classes.find(entry => entry.id === character.character_class)?.name || 'Advancement').toUpperCase();
   $('resources-panel').hidden = heroes;
   $('advancement-panel').hidden = heroes;
   $('skill-learned-label').hidden = heroes || character.level === 1;
@@ -208,6 +209,14 @@ async function loadSkills(character) {
   if (categories.includes(category)) $('skill-category').value = category;
   filterSkillChoices();
   $('skill-counts').textContent = Object.entries(view.remaining).map(([pool, count]) => `${pool}: ${count} remaining`).join(' · ');
+  const previousPool = $('skill-pool').value;
+  const poolLabels = {domestic:'O.C.C. domestic choice', related:'O.C.C. related', secondary:'Secondary'};
+  $('skill-pool').replaceChildren(...Object.keys(view.pool_catalog).map(pool => {
+    const option = document.createElement('option');
+    option.value = pool; option.textContent = poolLabels[pool] || pool.replaceAll('_', ' ');
+    return option;
+  }));
+  if (Object.hasOwn(view.pool_catalog, previousPool)) $('skill-pool').value = previousPool;
   $('required-skill-form').hidden = !view.required_catalog;
   $('required-skill-counts').hidden = !view.required_catalog;
   if (view.required_catalog) {
@@ -559,10 +568,22 @@ $('pdf-export-download').onclick = async () => {
     $('pdf-export-error').textContent = error.message; $('pdf-export-error').hidden = false;
   } finally { button.disabled = false; }
 };
-$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), game:$('new-game').value, level:Number($('new-level').value), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
+$('create-form').onsubmit = async event => { event.preventDefault(); const button = event.submitter; button.disabled = true; try { render(await request('/api/characters', {name:new FormData(event.target).get('name'), game:$('new-game').value, race:$('new-race').value, character_class:$('new-character-class').value, level:Number($('new-level').value), generation:{reroll_ones:$('new-reroll-ones').checked, extra_die:$('new-extra-die').checked}})); $('new-dialog').close(); event.target.reset(); updateNewGame(); } catch(error) { $('create-error').textContent = error.message; $('create-error').hidden = false; } finally { button.disabled = false; } };
 function updateNewIdentity() {
   const pack = gamePacks.find(entry => entry.game === $('new-game').value);
+  const race = pack.races.find(entry => entry.id === $('new-race').value);
+  const characterClass = pack.classes.find(entry => entry.id === $('new-character-class').value);
+  $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${race?.name || ''} · ${characterClass?.name || ''}. Initial attributes follow the selected game rules.`;
+}
+function updateNewGame() {
+  const pack = gamePacks.find(entry => entry.game === $('new-game').value);
   const heroes = pack.game === 'heroes-unlimited';
+  $('new-class-label').textContent = pack.class_label || 'Occupational character class';
+  for (const [element, entries] of [[$('new-race'), pack.races], [$('new-character-class'), pack.classes]]) {
+    element.replaceChildren(...entries.map(entry => {
+      const option = document.createElement('option'); option.value = entry.id; option.textContent = entry.name; return option;
+    }));
+  }
   $('new-level').replaceChildren(...Array.from({length:heroes ? 1 : 15}, (_, index) => {
     const option = document.createElement('option');
     option.value = index + 1;
@@ -571,14 +592,15 @@ function updateNewIdentity() {
   }));
   $('new-level').disabled = heroes;
   if (heroes) $('new-level').value = '1';
-  $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${pack.races[0].name} · ${pack.classes[0].name}. Initial attributes follow the core book. Other creation paths remain unfinished.`;
+  updateNewIdentity();
 }
-$('new-game').onchange = updateNewIdentity;
+$('new-game').onchange = updateNewGame;
+['new-race','new-character-class'].forEach(id => $(id).onchange = updateNewIdentity);
 wireResourcesEvents();
 wireAdvancementEvents();
 wireEquipmentEvents();
 request('/api/bootstrap').then(result => {
   token = result.token; characters = result.characters; gamePacks = result.catalog.packs;
   $('new-game').replaceChildren(...result.catalog.games.map(game => { const option = document.createElement('option'); option.value = game.id; option.textContent = game.name; return option; }));
-  updateNewIdentity(); library();
+  updateNewGame(); library();
 }).catch(showError);

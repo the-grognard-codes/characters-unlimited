@@ -31,7 +31,7 @@ def remember_learning(character, skill_view, combat_choices):
 def first_advance(character, pack, method, value, levels, die):
     rules = pack.get('advancement')
     if not rules or character['character_class'] != rules['class_id']:
-        raise ValueError('Preview a rule update to enable reviewed Vagabond advancement')
+        raise ValueError('Preview a rule update to enable reviewed class advancement')
     if method not in ('xp', 'level') or type(value) is not int:
         raise ValueError('Choose XP or a whole-number level')
     if 'higher_advancement' in pack and (character['level'] > 2 or
@@ -211,9 +211,9 @@ def project_advancement(character, pack):
             'xp': character.get('experience', 0), 'active': bool(record and record['active']),
             'hp_roll': record['hp_roll'] if record else None,
             'source': deepcopy(rules['source']) if rules else None,
-            'guidance': (f'Reviewed Vagabond progression covers levels 1–{maximum} (0–{maximum_xp} XP). '
+            'guidance': (f'Reviewed {pack.get("path_name", "Vagabond")} progression covers levels 1–{maximum} (0–{maximum_xp} XP). '
                          'Generate starting resources before gaining a level. Newly added optional skills and training start at the current level; '
                          'required O.C.C. choices belong to level one. Removed and reselected skills retain their learned level. '
                          'Undo restores the complete pre-level save and keeps later edits as a separate recovery character. '
                          'Replay reuses the recorded HP die.' if supported else
-                         'Review a rule update to enable first Vagabond advancement.')}
+                         'Review a rule update to enable class advancement.')}

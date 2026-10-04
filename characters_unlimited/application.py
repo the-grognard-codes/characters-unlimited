@@ -13,6 +13,7 @@ from .generation import generation_settings, roll_attribute, racial_formula
 from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
+from .class_rules import class_rules
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
 from .attribute_modifiers import attribute_value, roll_class_modifiers
@@ -54,15 +55,16 @@ class CharacterApplication:
         pack = {"rifts": self.pack, "heroes-unlimited": self.heroes_pack}.get(game)
         if pack is None:
             raise ValueError("Select an available game")
-        maximum = self.skill_pack.get('higher_advancement', {}).get('max_level', 2) if game == 'rifts' else 1
-        if type(level) is not int or not 1 <= level <= maximum:
-            raise ValueError('Choose a reviewed starting level')
         if character_class is None:
             character_class = pack["classes"][0]["id"]
         racial_rules = next((item for item in pack["races"] if item["id"] == race), None)
         selected_class = next((item for item in pack["classes"] if item["id"] == character_class), None)
         if racial_rules is None or selected_class is None:
             raise ValueError("Select an available race and class from the selected game")
+        skill_pack = class_rules(self.skill_pack, {'character_class':character_class}) if game == 'rifts' else None
+        maximum = skill_pack.get('higher_advancement', {}).get('max_level', 2) if skill_pack else 1
+        if type(level) is not int or not 1 <= level <= maximum:
+            raise ValueError('Choose a reviewed starting level')
         if not isinstance(name, str) or not isinstance(notes, str):
             raise ValueError("Name and notes must be text")
         settings = generation_settings(generation)
@@ -80,12 +82,15 @@ class CharacterApplication:
             formula = racial_formula(racial_rules, attribute)
             character["attributes"][attribute] = roll_attribute(formula, settings, self.die, pack["source"])
         roll_class_modifiers(character['attributes'], selected_class, self.die)
+        if skill_pack and skill_pack.get('physical_grants'):
+            character.update(acquire_physical(character, [], skill_pack, self.die))
         character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
         if level > 1:
-            character.update(acquire_resources(character, self.skill_pack, self.die))
-            choices = validate_combat_choices({}, self.skill_pack)
-            levels = remember_learning(character, project_skills(character, self.skill_pack), choices)
-            character.update(first_advance(character, self.skill_pack, 'level', level, levels, self.die))
+            assert skill_pack is not None
+            character.update(acquire_resources(character, skill_pack, self.die))
+            choices = validate_combat_choices({}, skill_pack)
+            levels = remember_learning(character, project_skills(character, skill_pack), choices)
+            character.update(first_advance(character, skill_pack, 'level', level, levels, self.die))
             export_bundle(character, self.rule_archive.definitions())
         self.store.put(character)
         return character
@@ -272,7 +277,7 @@ class CharacterApplication:
     def character_skill_pack(self, character):
         if character['game'] != 'rifts':
             raise ValueError('Heroes Unlimited education and skill rules remain unfinished')
-        return self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills'])
+        return class_rules(self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills']), character)
 
     def select_hero_secondary(self, identifier, *, revision, selections):
         require_revision(revision)
@@ -347,7 +352,7 @@ class CharacterApplication:
                        'scope':'Heroes scholastic program skills. Education, attributes and other rules keep their saved versions.'}
         else:
             previous = self.character_skill_pack(character)
-            target = self.rule_archive.active('rifts-domestic-skills')
+            target = class_rules(self.rule_archive.active('rifts-domestic-skills'), character)
             if 'advancement' in character and canonical(previous.get('advancement')) != canonical(target.get('advancement')):
                 raise ValueError('This update changes recorded advancement rules. History migration is not yet supported; current rules remain intact.')
             if character.get('later_advancements') and canonical(previous.get('higher_advancement')) != canonical(target.get('higher_advancement')):
@@ -369,7 +374,7 @@ class CharacterApplication:
                        'before_remaining': before['remaining'], 'after_remaining': after['remaining'],
                        'before_required_remaining': before['required_remaining'], 'after_required_remaining': after['required_remaining'],
                        'gaps': [*after['gaps'], *combat_after['gaps']], 'sources': after['sources'],
-                       'scope': 'Vagabond skills, reviewed Physical effects, class bonuses, combat training and starting-resource definitions. Resource dice are generated separately; recorded attribute/acquisition dice stay unchanged. Changes to acquired Physical or resource definitions require a separate migration.'}
+                       'scope': 'Selected class skills, reviewed Physical effects, class bonuses, combat training and starting-resource definitions. Resource dice are generated separately; recorded attribute/acquisition dice stay unchanged. Changes to acquired Physical or resource definitions require a separate migration.'}
         changes = [] if previous['version'] == target['version'] else [
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
         targets = [target]

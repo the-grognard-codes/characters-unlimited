@@ -212,7 +212,7 @@ def project_resources(character, pack):
                                  'sources': sources, 'adjustment': adjustment,
                                  'fixed': fixed}
     return {'supported': True, 'generated': generated, 'resources': projected,
-            'guidance': list(rules['guidance'])}
+            'guidance': list(rules['guidance']), 'path_name': pack.get('path_name','Human Vagabond')}
 
 
 def update_resource(character, pack, resource, mode, value=None):

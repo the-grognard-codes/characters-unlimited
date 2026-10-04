@@ -14,9 +14,18 @@ def _definitions(pack):
     return {skill['id']: skill for skill in pack['skills'] if skill.get('kind') == 'physical'}
 
 
-def _active_ids(selections, definitions):
-    return list(dict.fromkeys(item['skill_id'] for item in selections
-                              if item['skill_id'] in definitions))
+def _grant_ids(pack, definitions):
+    grants = pack.get('physical_grants', [])
+    if (not isinstance(grants, list) or
+            any(not isinstance(identifier, str) or identifier not in definitions
+                for identifier in grants)):
+        raise ValueError('Invalid Physical skill grant')
+    return list(dict.fromkeys(grants))
+
+
+def _active_ids(selections, definitions, grants=()):
+    return list(dict.fromkeys([*grants, *(item['skill_id'] for item in selections
+                              if item['skill_id'] in definitions)]))
 
 
 def _formula(formula):
@@ -87,7 +96,7 @@ def _physical_modifier(item):
 def acquire_physical(character, selections, pack, die):
     """Acquire missing rolls and synchronize active Physical attribute bonuses."""
     definitions = _definitions(pack)
-    active = _active_ids(selections, definitions)
+    active = _active_ids(selections, definitions, _grant_ids(pack, definitions))
     acquisitions = deepcopy(character.get('physical_acquisitions', {}))
     _validate_acquisitions(acquisitions, definitions)
     for identifier in active:
@@ -119,7 +128,8 @@ def acquire_physical(character, selections, pack, die):
 def validate_physical(character, pack):
     """Reject altered acquisitions and Physical modifiers on a saved character."""
     definitions = _definitions(pack)
-    active = _active_ids(character.get('skill_selections', []), definitions)
+    active = _active_ids(character.get('skill_selections', []), definitions,
+                         _grant_ids(pack, definitions))
     acquisitions = character.get('physical_acquisitions', {})
     _validate_acquisitions(acquisitions, definitions)
     if any(identifier not in acquisitions for identifier in active):
@@ -158,8 +168,12 @@ def validate_physical_history(attributes, acquisitions, pack):
 def project_physical(character, pack):
     """Project active bonuses without rolling or inventing resource baselines."""
     definitions = _definitions(pack)
-    active = _active_ids(character.get('skill_selections', []), definitions)
+    grants = _grant_ids(pack, definitions)
+    active = _active_ids(character.get('skill_selections', []), definitions, grants)
     acquisitions = character.get('physical_acquisitions', {})
+    _validate_acquisitions(acquisitions, definitions)
+    if any(identifier not in acquisitions for identifier in active):
+        raise ValueError('Missing Physical skill acquisition')
     selected, resources, sources = [], [], []
     combat: dict[str, dict] = {}
     for identifier in active:
@@ -175,8 +189,11 @@ def project_physical(character, pack):
                                   'source': deepcopy(source)})
         for stat, bonus in effects['combat'].items():
             combat.setdefault(stat, {})[definition['name']] = bonus
-        selection = next(item for item in character.get('skill_selections', []) if item['skill_id'] == identifier)
+        selection = next((item for item in character.get('skill_selections', [])
+                          if item['skill_id'] == identifier), {'skill_id': identifier})
         projected = {**deepcopy(definition), **deepcopy(selection), 'effects': effects}
+        if identifier in grants:
+            projected['grant'] = True
         if 'activities' in definition:
             projected['activities'] = (_swimming_activities(character, definition['activities'])
                 if set(definition['activities']) == {'swimming'} else _running_activities(character, definition['activities']))

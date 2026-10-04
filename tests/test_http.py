@@ -122,7 +122,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.9.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.10.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)

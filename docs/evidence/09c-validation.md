@@ -16,3 +16,5 @@ The browser generates HP20 / S.D.C.30 / P.P.E.24 from effective P.E.16 and deter
 [Editable sample](09c-resources-sample.pdf)
 
 Physical skills, unusual traits and power resource additions, Heroes advancement, money, vehicles, equipment and full corpus acceptance remain open. Parent09 remains open. Windows CI checks are pending.
+
+09C merged in PR72 as ab45fca533753bb52425c085b68910ca51613f12 after Windows37183026472(6m12s)/37183044312(7m46s) passed, including packaged executable validation.

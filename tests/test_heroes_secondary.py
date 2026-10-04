@@ -101,10 +101,10 @@ class HeroesSecondaryWorkflowTests(unittest.TestCase):
             hero = current.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             hero = current.select_hero_secondary(hero['id'],revision=hero['revision'],selections=['research'])
             correction = archive.active('heroes-program-skills')
-            correction['version']='1.10.0'
+            correction['version']='99.0.0'
             next(skill for skill in correction['skills'] if skill['id']=='research')['base']=55
             next_app = CharacterApplication(directory,rule_archive=RuleArchive([*archive.definitions(),correction],
-                {**archive.active_versions(),'heroes-program-skills':'1.10.0'}))
+                {**archive.active_versions(),'heroes-program-skills':'99.0.0'}))
             preview = next_app.preview_rule_upgrade(hero['id'])
             research = next(skill for skill in preview['skills'] if skill['name']=='Research')
             self.assertEqual((research['before'],research['after']),(50,55))

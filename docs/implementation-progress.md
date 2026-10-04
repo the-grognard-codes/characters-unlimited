@@ -175,3 +175,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 09B merged in PR71 as43d097b04d23c07f055aa5568939070a8b90b389 after Windows37181451825(5m44s)/37181454551(5m45s) passed, including packaged executable validation.
 
 - 09C: Human Mutant starting HP, base S.D.C. and general P.P.E. implemented with independent exact resource pins and retained initial P.E. Both reviews approve; final277 local tests pass (one frozen-only skip), required mypy96 files, compile/JS checks, browser edits/reopening and four-page editable PDF verified. Windows checks pending; parent09 remains open.
+
+09C merged in PR72 as ab45fca533753bb52425c085b68910ca51613f12 after Windows37183026472(6m12s)/37183044312(7m46s) passed, including packaged executable validation.
+
+- 06I: Ventriloquism, Art, Photography and General Repair/Maintenance added under immutable skills1.10. Exact half-proficiency, reversible M.A. contribution and legacy update verified. Both reviews approve; final280 local tests pass (one frozen-only skip), required mypy97, compile/JS checks, browser and three-page editablePDF inspected. Windows checks pending; parent06/09 open.

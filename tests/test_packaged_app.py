@@ -384,10 +384,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.19.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.20.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.19.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.20.0')
 
                 athlete = request('/api/characters',{'name':'Packaged Athlete','game':'heroes-unlimited'},token)
                 athlete = request('/api/characters/'+athlete['id']+'/education',
@@ -410,6 +410,20 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertIn('Physical skills: 4 selections used / 4 allowed / 0 remaining',athlete_text)
                 self.assertNotIn('Boxing is outside the eligible Secondary categories.',athlete_text)
                 self.assertIn('Pin/incapacitate on a roll of 18, 19 or 20',athlete_text)
+
+                athlete = request('/api/characters/'+athlete['id']+'/hero-programs',
+                    {'revision':athlete['revision'],'selections':[{'slot':0,'program':'physical-athletic',
+                     'choices':{'physical':['acrobatics','climbing','hand-to-hand-basic','swimming']}}]},token)
+                program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
+                self.assertEqual(program_view['warnings'],[])
+                acrobatics = next(row for row in program_view['skills'] if row['id']=='acrobatics')
+                self.assertEqual([row['per_level'] for row in acrobatics['additional_checks']],[3,2,5,0])
+                self.assertEqual(len(athlete['physical_acquisitions']['acrobatics']['rolls']['resource:SDC']),1)
+                athlete_pdf = PdfReader(BytesIO(request('/api/characters/'+athlete['id']+'/pdf'))).get_fields()
+                assert athlete_pdf is not None
+                self.assertEqual(athlete_pdf['skills.acrobatics.name']['/V'],'Acrobatics: Sense of balance')
+                self.assertEqual(athlete_pdf['skills.acrobatics.check0.rate']['/V'],'3')
+                self.assertEqual(athlete_pdf['skills.acrobatics.check3.rate']['/V'],'0')
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

@@ -122,7 +122,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.19.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.20.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -350,15 +350,17 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 base=f'http://127.0.0.1:{server.server_port}'
                 with urlopen(base+'/api/bootstrap',timeout=5) as response:token=json.load(response)['token']
                 path=base+'/api/characters/'+c['id']+'/hero-programs'
-                payload=json.dumps({'revision':c['revision'],'selections':[{'slot':0,'program':'physical-athletic','choices':{'physical':['wrestling','boxing','hand-to-hand-basic','swimming']}}]}).encode()
+                payload=json.dumps({'revision':c['revision'],'selections':[{'slot':0,'program':'physical-athletic','choices':{'physical':['acrobatics','climbing','hand-to-hand-basic','swimming']}}]}).encode()
                 headers={'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
                 with urlopen(Request(path,data=payload,headers=headers),timeout=5) as response:saved=json.load(response)
                 with urlopen(path,timeout=5) as response:view=json.load(response)
                 self.assertEqual(view['program_choices'][0]['groups'][0]['credited'],4)
-                self.assertEqual(view['combat']['totals']['attacks']['value'],5)
+                self.assertEqual(view['combat']['totals']['attacks']['value'],4)
                 self.assertEqual(saved['attributes']['PE']['value'],13)
-                self.assertEqual(saved['physical_acquisitions']['wrestling']['rolls']['resource:SDC'],[4,4,4,4])
+                self.assertEqual(saved['physical_acquisitions']['acrobatics']['rolls']['resource:SDC'],[4])
                 self.assertEqual(view['combat']['totals']['roll_with_impact']['value'],4)
+                acrobatics=next(row for row in view['skills'] if row['id']=='acrobatics')
+                self.assertEqual([row['per_level'] for row in acrobatics['additional_checks']],[3,2,5,0])
                 self.assertEqual(view['warnings'],[])
                 with self.assertRaises(HTTPError) as stale:urlopen(Request(path,data=payload,headers=headers),timeout=5)
                 self.assertEqual(stale.exception.code,409);stale.exception.close()

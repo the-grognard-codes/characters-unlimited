@@ -66,6 +66,12 @@ def program_choice_view(selection, program, warnings, *, certified=True):
     return groups
 
 
+def physical_skill_contributions(identifier, pack, physical_grants):
+    return {skill['name']:bonus['amount'] for skill in pack['skills']
+            if skill['id'] in physical_grants
+            for bonus in skill.get('skill_bonuses', []) if bonus['skill_id'] == identifier}
+
+
 def project_programs(character, pack, education_pack, power_pack=None):
     education = project_education(character.get('education'), education_pack)
     outcome = education['outcome']
@@ -141,14 +147,17 @@ def project_programs(character, pack, education_pack, power_pack=None):
                 if required not in physical_grants:
                     name = next(row['name'] for row in pack['skills'] if row['id'] == required)
                     warnings.append(f"{definition['name']} requires {name}. Selection retained on the honor system; the prerequisite is not granted.")
+    available = set(bonuses) - {row['id'] for row in pack['skills']
+                                if row.get('kind') == 'physical' and row['id'] not in physical_grants}
     skills = []
     for definition in pack['skills']:
-        if definition['id'] not in bonuses:
+        if definition['id'] not in available:
             continue
         if definition.get('kind') == 'physical' and 'base' not in definition:
             continue
         contributions = {'base':definition['base'], 'education':bonuses[definition['id']], 'intelligence':intelligence,
-                         **synergy_contributions(definition,set(bonuses)),
+                         **synergy_contributions(definition,available),
+                         **physical_skill_contributions(definition['id'],pack,physical_grants),
                          **power_skill_contributions(character,definition,power_pack)}
         for bonus in definition.get('attribute_bonuses', []):
             value = character['attributes'][bonus['attribute']]['value']
@@ -157,7 +166,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
             contributions[bonus['name']] = max(0, value-bonus['threshold']) // bonus['step'] * bonus['amount']
         projected_definition = deepcopy(definition)
         projected_definition['additional_checks'] = [check for check in definition.get('additional_checks', [])
-                                                    if check.get('requires_skill') is None or check['requires_skill'] in bonuses]
+                                                    if (check.get('requires_skill') is None or check['requires_skill'] in available)
+                                                    and check.get('unless_skill') not in available]
         skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),

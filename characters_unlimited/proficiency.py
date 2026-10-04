@@ -26,7 +26,7 @@ def project_proficiency(definition, contributions):
             check_contributions = {**contributions, 'base': check['base']}
             value = sum(check_contributions.values())
             projected = {'name': check['name'], 'percentage': min(98, value),
-                         'uncapped_percentage': value, 'contributions': check_contributions, 'per_level': definition['per_level']}
+                         'uncapped_percentage': value, 'contributions': check_contributions, 'per_level': check.get('per_level',definition['per_level'])}
         checks.append(projected)
         normal_checks[check['name']] = projected
     return {'percentage': min(98, uncapped), 'uncapped_percentage': uncapped,

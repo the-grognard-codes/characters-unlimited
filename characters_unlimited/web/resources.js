@@ -5,6 +5,7 @@ function setResourcesBusy() {
   });
 }
 function renderResources(view) {
+  $('resources-tag').textContent = `RIFTS · ${(view.path_name || 'Starting resources').toUpperCase()}`;
   $('generate-resources').hidden = !view.supported || view.generated;
   $('resources-guidance').textContent = view.supported
     ? view.guidance.join(' ')

@@ -73,7 +73,7 @@ def project_combat(character, pack):
     gaps = ['Other Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
     if 'advancement' in pack:
         if pack.get('higher_advancement', {}).get('max_level', 2) > 2:
-            gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and other character paths remain pending. Reviewed Vagabond advancement ends at level fifteen.'
+            gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and other character paths remain pending. Reviewed class advancement ends at level fifteen.'
         else:
             gaps[0] = 'Other Physical skills, remaining proficiencies, other saving modifiers and targets, enhanced strength types and progression after level two remain pending.'
     if character['rules']['version'] == '1.0.0':
@@ -161,16 +161,22 @@ def project_combat(character, pack):
                          'wild':total({'weapon_proficiency':bonus,**gun_contribution,'shooting_wild':-6},missing=low_pp)})
     warnings=[hand['name']+': unverified prerequisite — '+requirement+'. Choice retained.' for requirement in hand.get('unverified_requirements',[])]
     remaining={}
+    eligible_count = 0
     for family in ('ancient','modern'):
         allowed=rules['required_proficiencies'][family]
-        eligible=[identifier for identifier in choices[family] if allowed=='any' or identifier in allowed]
-        remaining[family]=1-len(eligible)
-        if len(eligible) != len(choices[family]):
-            guidance = 'choose an eligible energy weapon.' if remaining[family] > 0 else 'required slot is filled; extra training is retained.'
+        eligible={identifier for identifier in choices[family] if allowed=='any' or identifier in allowed}
+        eligible_count += len(eligible)
+        if 'combined_proficiency_count' not in rules:
+            remaining[family]=1-sum(identifier in eligible for identifier in choices[family])
+        if any(identifier not in eligible for identifier in choices[family]):
+            guidance = 'choose an eligible energy weapon.' if remaining.get(family, 1) > 0 else 'required slot is filled; extra training is retained.'
             warnings.append(f'{family.title()}: retained proficiency does not satisfy the required O.C.C. slot; {guidance}')
-    for family in remaining:
-        if remaining[family]<0: warnings.append(f'{family.title()} proficiencies: {-remaining[family]} selection(s) over the allowance; retained.')
-        if any(count>1 for count in Counter(choices[family]).values()): warnings.append(f'{family.title()}: duplicate proficiency choices are retained without multiplying their bonuses.')
+        if any(count>1 for count in Counter(choices[family]).values()):
+            warnings.append(f'{family.title()}: duplicate proficiency choices are retained without multiplying their bonuses.')
+    if 'combined_proficiency_count' in rules:
+        remaining['proficiencies'] = rules['combined_proficiency_count'] - eligible_count
+    for family, count in remaining.items():
+        if count<0: warnings.append(f'{family.title()}: {-count} selection(s) over the allowance; retained.')
     attribute_source = {'book':'Rifts - Ultimate Edition','pages':[281,283,284]}
     for name,result in totals.items():
         if name == 'attacks':

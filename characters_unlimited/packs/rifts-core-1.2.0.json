@@ -1,0 +1,110 @@
+{
+  "id": "rifts-core",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.2.0",
+  "schema_version": 1,
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Character Creation, Step 1: The Eight Attributes",
+    "markdown_lines": [
+      15895,
+      15899
+    ]
+  },
+  "races": [
+    {
+      "id": "human",
+      "name": "Human",
+      "attributes": {
+        "count": 3,
+        "sides": 6,
+        "constant": 0,
+        "exceptional": {
+          "thresholds": [
+            16,
+            17,
+            18
+          ],
+          "max_bonus_dice": 2
+        }
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "vagabond",
+      "name": "Vagabond",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C."
+      },
+      "automation_gaps": [
+        "Class-specific skills, abilities, resources, equipment, and advancement await their implementation slices."
+      ],
+      "attribute_bonuses": {
+        "MA": {
+          "count": 1,
+          "sides": 4
+        },
+        "PS": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PE": {
+          "count": 0,
+          "sides": 6,
+          "constant": 2
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C. Bonuses",
+        "pages": [
+          97
+        ]
+      }
+    },
+    {
+      "id": "city-rat",
+      "name": "City Rat",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "City Rat O.C.C. Stats",
+        "pages": [
+          88,
+          89
+        ],
+        "pdf_pages": [
+          91,
+          92
+        ]
+      },
+      "automation_gaps": [
+        "Attribute-role thresholds are descriptive rather than enforced; the class has no general attribute requirement.",
+        "P.P.E. +1D10+4 and its age-22 halving, including age/base/rounding, are not automated.",
+        "Starting credits, Black Market item, equipment, body armor, and 1D4+2 cybernetic implants are not automated.",
+        "The minimum of three Physical or Rogue related skills is not enforced, including whether Hand to Hand upgrades count toward it.",
+        "The complete class skill catalog and prerequisites are not present; category permissions are represented only where the catalog supports them."
+      ],
+      "attribute_bonuses": {
+        "SPD": {
+          "count": 1,
+          "sides": 6,
+          "constant": 1
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          88
+        ],
+        "section": "City Rat O.C.C. Bonuses",
+        "pdf_pages": [
+          91
+        ]
+      }
+    }
+  ]
+}

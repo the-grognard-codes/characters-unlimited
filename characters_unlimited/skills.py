@@ -89,19 +89,24 @@ def project_skills(character, pack=PACK):
     selections = character.get('skill_selections', [])
     counts = Counter(item['pool'] for item in selections)
     occurrences = Counter(skill_key(item, pack) for item in selections if skill_key(item, pack) != ('instrument', ''))
-    occurrences[('cook', '')] += 1
-    bonuses = {('cook', ''): 15}
+    domestic_grants = pack.get('fixed_domestic_grants', [{'id':'cook','bonus':15}])
+    bonuses = {}
+    for grant in domestic_grants:
+        key = (grant['id'], '')
+        occurrences[key] += 1
+        bonuses[key] = grant['bonus']
     for item in selections:
         key = skill_key(item, pack)
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
         bonuses[key] = max(bonuses.get(key, 0), selection_policy(definition, item['pool'], pack)['bonus'])
     required = project_required_skills(character, pack, intelligence)
     granted = {item['id'] for item in required['grants']}
-    warnings = choice_guidance(selections, pack, required['grants'])
+    physical = project_physical(character,pack)
+    automatic_physical = [{**item, 'quality':'trained'} for item in physical['selected'] if item.get('grant')]
+    warnings = choice_guidance(selections, pack, [*required['grants'], *automatic_physical])
     available = learned_selection_ids(selections, pack)
     available.update(granted)
     selected = []
-    physical = project_physical(character,pack)
     physical_entries = {item['id']:item for item in physical['selected']}
     for item in selections:
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
@@ -124,7 +129,7 @@ def project_skills(character, pack=PACK):
         contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated and is_domestic else 0, 'intelligence': intelligence}
         if character['level'] > 1:
             contributions['advancement'] = (learning_age(character, 'skill', definition['id'], item.get('specialty', '')) - 1) * definition['per_level']
-        if 'class_ability' in definition:
+        if 'class_ability' in definition and character['character_class'] == pack.get('default_class', 'vagabond'):
             contributions['class_ability'] = definition['class_ability']
         if not is_domestic and repetition:
             contributions['repeated_skill'] = repetition['bonus'] if repeated else 0
@@ -143,10 +148,16 @@ def project_skills(character, pack=PACK):
     for pool, count in remaining.items():
         if count < 0:
             warnings.append(f"{pool.title()}: {-count} selection(s) over the current level allowance.")
-    repeat_cook = 10 if occurrences[('cook', '')] >= 2 else 0
-    cook = next(skill for skill in domestic if skill['id'] == 'cook')
-    cook_gain = (learning_age(character, 'skill', 'cook') - 1) * cook['per_level']
-    uncapped_cook = cook['base'] + 15 + repeat_cook + intelligence + cook_gain
+    fixed_grants = []
+    for grant in domestic_grants:
+        definition = next(skill for skill in domestic if skill['id'] == grant['id'])
+        repeated_bonus = 10 if occurrences[(grant['id'], '')] >= 2 else 0
+        gain = (learning_age(character, 'skill', grant['id']) - 1) * definition['per_level']
+        contributions = {'base':definition['base'], 'class':grant['bonus'],
+                         'repeated_domestic':repeated_bonus, 'intelligence':intelligence}
+        if character['level'] > 1:
+            contributions['advancement'] = gain
+        fixed_grants.append({**definition, **project_proficiency(definition, contributions), 'quality':'professional'})
     gaps = ['Other required choices and skill categories are pending.',
             'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']
     if not intelligence_rule:
@@ -170,8 +181,14 @@ def project_skills(character, pack=PACK):
         gaps[1] = ('Other attribute-related skill effects and progression for other character paths remain pending.'
                    if 'higher_advancement' in pack else 'Other attribute-related skill effects and progression after level two remain pending.')
         sources.append('Recorded learned levels determine proficiency growth; new skills begin at base: pp. 98, 300. First advancement and XP table: pp. 287, 295.')
-    return {'catalog': domestic, 'physical':physical, 'grants': [{**cook, 'percentage': min(98, uncapped_cook), 'uncapped_percentage': uncapped_cook, 'quality': 'professional',
-             'contributions': {'base': cook['base'], 'class': 15, 'repeated_domestic': repeat_cook, 'intelligence': intelligence, **({'advancement': cook_gain} if character['level'] > 1 else {})}}, *required['grants']], 'selected': selected, 'remaining': remaining,
+    if pack.get('path_guidance'):
+        gaps = list(pack['path_guidance'])
+        sources = [f"{pack['source']['book']}, class rules printed pp. " + ', '.join(map(str,pack['source']['pages'])),
+                   'General skill growth, secondary restrictions and percentage cap: pp. 300–301.',
+                   'Physical bonuses apply once per skill: pp. 316–317.',
+                   'I.Q. bonuses: pp. 281, 284. HP growth and class XP: pp. 287, 295.']
+    return {'catalog': domestic, 'physical':physical, 'grants': [*fixed_grants, *required['grants'], *automatic_physical], 'selected': selected, 'remaining': remaining,
+            'pool_catalog':pools,
             'required_remaining': required['remaining'], 'required_catalog': required['catalog'],
             'warnings': list(dict.fromkeys([*warnings, *required['warnings']])),
             'sources': sources, 'gaps': gaps,

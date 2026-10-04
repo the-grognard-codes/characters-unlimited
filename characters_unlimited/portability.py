@@ -18,6 +18,7 @@ from .starting_choices import validate_starting_choices
 from .advancement import validate_advancement, validate_later_advancements, remember_learning
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices
+from .class_rules import class_rules
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -254,6 +255,8 @@ def validate_sources(character, packs, *, history_frame=False):
         validate_starting_gear(character,equipment_pack)
         validate_starting_choices(character,equipment_pack)
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
+    if skill_pack is not None:
+        skill_pack = class_rules(skill_pack, character)
     validate_resources(character,skill_pack or {})
     if skill_pack is not None:
         validate_advancement(character, skill_pack)
@@ -277,7 +280,7 @@ def validate_sources(character, packs, *, history_frame=False):
         validate_character(before, primary_pack(before, historical))
         validate_sources(before, historical)
         if character['advancement']['active']:
-            old_skill_pack = next(item for item in historical if item['id'] == 'rifts-domestic-skills')
+            old_skill_pack = class_rules(next(item for item in historical if item['id'] == 'rifts-domestic-skills'), before)
             initial = remember_learning(before, project_skills(before, old_skill_pack),
                 validate_combat_choices(before.get('combat_choices', {}), old_skill_pack))
             levels = character['learning_levels']
@@ -291,7 +294,7 @@ def validate_sources(character, packs, *, history_frame=False):
         before = {**event['before'], 'id': character['id'], 'revision': 0,
                   'updated_at': character['updated_at']}
         historical = pinned_packs(before, packs)
-        old_skill_pack = next(item for item in historical if item['id'] == 'rifts-domestic-skills')
+        old_skill_pack = class_rules(next(item for item in historical if item['id'] == 'rifts-domestic-skills'), before)
         if canonical(event['source']) != canonical(old_skill_pack.get('higher_advancement', {}).get('source')):
             raise ValueError('Later advancement source must match its pinned rules')
         validate_character(before, primary_pack(before, historical))

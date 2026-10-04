@@ -297,6 +297,55 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
                 self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.6.0')
+
+                city = request('/api/characters',
+                               {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)
+                city_path = '/api/characters/' + city['id']
+                self.assertEqual(city['character_class'], 'city-rat')
+                running_rolls = city['physical_acquisitions']['running']['rolls']
+                self.assertEqual(len(running_rolls['attribute:SPD']), 4)
+                self.assertTrue(all(1 <= face <= 4 for face in running_rolls['attribute:SPD']))
+                self.assertEqual(len(running_rolls['resource:SDC']), 1)
+                self.assertTrue(1 <= running_rolls['resource:SDC'][0] <= 6)
+                city_view = request(city_path+'/skills')
+                self.assertEqual(city_view['remaining'], {'related':10,'secondary':8})
+                self.assertEqual(city_view['combat']['class_bonuses']['perception']['value'], 3)
+                self.assertEqual(len([item for item in city_view['grants'] if item['id']=='running']), 1)
+                self.assertTrue(next(item for item in city_view['physical']['selected']
+                                     if item['id']=='running')['grant'])
+                city = request(city_path+'/required-skills',
+                               {'revision':city['revision'], 'choices':{
+                                   'native_language':'English','other_languages':['French'],
+                                   'vehicle':'hovercycle'}}, token)
+                city = request(city_path+'/combat',
+                               {'revision':city['revision'], 'choices':{
+                                   'hand_to_hand':'basic','ancient':['knife']}}, token)
+                city_view = request(city_path+'/skills')
+                self.assertTrue(all(remaining == 0 for remaining in city_view['required_remaining'].values()))
+                self.assertEqual(city_view['combat']['remaining'], {'proficiencies':0})
+                self.assertTrue(any(item['id']=='hovercycle' for item in city_view['grants']))
+                city = request(city_path+'/resources', {'revision':city['revision']}, token)
+                city_resources = request(city_path+'/resources')['resources']
+                hp = {item['id']:item for item in city['resources']['HP']['contributions']}
+                self.assertEqual(hp['starting-pe']['value'], city['attributes']['PE']['value'])
+                self.assertEqual(city_resources['HP']['value'],
+                                 hp['starting-pe']['value'] + hp['level-one']['value'])
+                sdc = {item['id']:item for item in city['resources']['SDC']['contributions']}
+                self.assertEqual(len(sdc['city-rat']['rolls']), 2)
+                self.assertTrue(all(1 <= face <= 4 for face in sdc['city-rat']['rolls']))
+                self.assertEqual(city_resources['SDC']['value'],
+                                 sum(item['value'] for item in sdc.values())
+                                 + running_rolls['resource:SDC'][0])
+                city_portable = request(city_path+'/export')
+                city_imported = request('/api/import', {'bundle':city_portable}, token)
+                self.assertEqual(city_imported['character_class'], 'city-rat')
+                self.assertEqual(city_imported['physical_acquisitions'], city['physical_acquisitions'])
+                self.assertEqual(city_imported['resources'], city['resources'])
+                city_fields = PdfReader(BytesIO(request(city_path+'/pdf'))).get_fields()
+                assert city_fields is not None
+                self.assertEqual(city_fields['NAME']['/V'], 'Packaged City Rat')
+                self.assertEqual(city_fields['OCC']['/V'], 'City Rat')
+                self.assertEqual(city_fields['HIT POINTS']['/V'], str(city_resources['HP']['value']))
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:
@@ -328,7 +377,14 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/'+identifier)['equipment'],character['equipment'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
-                self.assertEqual(len(bootstrap['characters']), 8)
+                self.assertEqual(len(bootstrap['characters']), 10)
+                self.assertEqual(request(city_path)['physical_acquisitions'], city['physical_acquisitions'])
+                self.assertEqual(request(city_path)['resources'], city['resources'])
+                self.assertEqual(request('/api/characters/'+city_imported['id'])['character_class'], 'city-rat')
+                reopened_city = request(city_path+'/skills')
+                self.assertEqual(reopened_city['remaining'], city_view['remaining'])
+                self.assertEqual(reopened_city['combat']['remaining'], {'proficiencies':0})
+                self.assertEqual(len([item for item in reopened_city['grants'] if item['id']=='running']), 1)
                 self.assertEqual(request('/api/characters/'+identifier)['level'],15)
                 self.assertEqual(request('/api/characters/'+identifier)['advancement']['hp_roll'],advancement_die)
                 self.assertEqual([event['hp_roll'] for event in request('/api/characters/'+identifier)['later_advancements']],later_dice)

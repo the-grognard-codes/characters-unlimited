@@ -443,7 +443,9 @@ def export_rifts_sheet(character, core, skills, combat):
         references = list(dict.fromkeys(source['book']+', pp. '+', '.join(map(str,source['pages'])) for source in result['sources']))
         sheet_notes += '\n'+result['name']+': '+'; '.join([*terms,*references])+'.'
     if combat.get('class_bonuses'):
-        sheet_notes += '\nPerception O.C.C. bonus: +'+str(combat['class_bonuses']['perception']['value'])+' (Ultimate Edition p. 97). Other Perception contributions remain separate.'
+        perception = combat['class_bonuses']['perception']
+        perception_references = '; '.join(source['book']+', pp. '+', '.join(map(str,source['pages'])) for source in perception['sources'])
+        sheet_notes += '\nPerception O.C.C. bonus: +'+str(perception['value'])+' ('+perception_references+'). Other Perception contributions remain separate.'
     for skill in skills.get('physical',{}).get('selected',[]):
         effects = []
         for group,bonuses in skill['effects'].items():

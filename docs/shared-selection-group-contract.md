@@ -1,4 +1,4 @@
-# Shared selection groups (22B1)
+# Shared selection groups (22B1/22B2A)
 
 This increment implements the first selection portion of `shared-rule-framework.md`. It composes existing rule data; it introduces no class/race-specific handlers, new published options or accepted pack revisions.
 
@@ -9,9 +9,10 @@ This increment implements the first selection portion of `shared-rule-framework.
 - `count`: whole-number allowance from0 through1000.
 - `option_ids`: up to1000 distinct nonempty referenced identities, compiled by the game/family adapter from its reviewed catalog.
 - Optional `costs`: a mapping of those identities to whole-number costs from1 through100. Unspecified costs are1.
+- Optional `counting`: `distinct` by default or `entries`. Distinct groups debit each eligible identity once; entry groups debit each entered eligible occurrence. This controls spending, not grants or proficiency stacking.
 - Optional `unresolved`: distinct group identities whose selection credit remains uncertified.
 
-Unknown normalized fields, invalid counts/costs, duplicate option definitions, and cost/unresolved references outside the group are rule-data errors. Selections remain entered data. Distinct eligible identities count once; outside-group and unresolved choices earn no group credit. Uncertified repeat entitlements earn no credit. The projection returns eligible identities, credited weight, remaining allowance, duplicate/outside/unresolved indicators. It never rolls, saves, grants an ability, or decides class eligibility.
+Unknown normalized fields, invalid counts/costs, duplicate option definitions, and cost/unresolved references outside the group are rule-data errors. Selections remain entered data. Eligible identities count according to the declared policy; outside-group and unresolved choices earn no group credit. Uncertified repeat entitlements earn no credit. The projection returns eligible identities, credited weight, remaining allowance, duplicate/outside/unresolved indicators. It never rolls, saves, grants an ability, or decides class eligibility.
 
 ## Current adapters
 
@@ -29,3 +30,9 @@ The UI and editable-PDF adapters continue to consume the existing remaining/cred
 Public `CharacterApplication` and portable-save tests cover weighted required groups, duplicates/excess, category accounting and atomic rejection of malformed program costs and outcome counts. Existing source-grounded group, Physical, program, power, HTTP and editable-PDF tests protect current behavior.
 
 Generalized category/tag criteria, prerequisite composition, automatic grants and specialty identity across all skill pools are22B2 work. Shared typed effects, resource/progression composition, a complete reviewed mechanical importer, and magic/psionic paths remain subsequent increments. No source-extraction candidate becomes an accepted class merely because this framework can count its choices.
+
+## Entered-selection pools (22B2A)
+
+Rifts optional pools and Heroes Secondary selections compile their complete pinned catalogs into entry-count groups. Duplicate entries, different specialties, blank specialties and honor-system out-of-category choices still spend their existing costs. Specialty normalization and repeated-skill benefits remain separate. These adapters intentionally include all known identities in their accounting group: category eligibility still controls bonuses and warnings, not slot spending. All declared costs and references are validated, including unselected options; all pool allowances use the shared whole-number validator. No saved record or accepted pack changes are required.
+
+Category/tag selectors, prerequisites and full fixed-grant composition follow in22B2B. This increment does not claim they are implemented.

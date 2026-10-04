@@ -24,5 +24,5 @@ APPROVE after exact-ID correction. One new bounded regression was identified and
 
 - Final affected37 tests passed in16.861 seconds across shared-group, required-group, Heroes Physical/program/Communications, power and budget workflows.
 - Required mypy passed over122 source files; Python compilation, browser-script syntax and whitespace checks passed.
-- The initial full run was interrupted after the review repair and is not a final result. Final full suite passed: 383 tests in 252.753 seconds, with one frozen-only skip. Exact-commit Windows/frozen outcomes remain pending.
+- The initial full run was interrupted after the review repair and is not a final result. Final full suite passed: 383 tests in 252.753 seconds, with one frozen-only skip. Exact-commit Windows37228954932/37228951577 passed, including frozen executable validation; merged in PR90 as ec893471c9296ce75e52a1114fc4a2815feb3111.
 - Existing HTTP and editable-PDF tests protect retained projections; this increment changes no visual/media element.

@@ -44,9 +44,18 @@ def validate_program_selections(selections, pack):
     return deepcopy(selections)
 
 
+def secondary_group(pack, count):
+    rules = pack['secondary']
+    group = {'count': count, 'option_ids': [row['id'] for row in pack['skills']],
+             'costs': rules.get('selection_costs', {}), 'counting': 'entries'}
+    validate_group(group)
+    return group
+
+
 def validate_secondary_selections(selections, pack):
     if 'secondary' not in pack:
         raise ValueError('Review and apply current program rules before selecting Secondary skills')
+    secondary_group(pack, 0)
     identifiers = {skill['id'] for skill in pack['skills']}
     if (not isinstance(selections,list) or len(selections)>100
             or any(not isinstance(item,str) or item not in identifiers for item in selections)):
@@ -141,8 +150,9 @@ def project_programs(character, pack, education_pack, power_pack=None):
         warnings.append('I.Q. above 30 uses the reviewed +16% chart limit; further skill bonuses remain pending.')
     secondary_costs = {skill['id']:secondary_rules['selection_costs'].get(skill['id'],1)
                        for skill in pack['skills']} if secondary_rules else {}
-    secondary_used = sum(secondary_costs[identifier] for identifier in secondary_choices)
     allowance = outcome['secondary_count'] if outcome else 0
+    secondary_used = (project_group(secondary_group(pack, allowance), secondary_choices)['credited']
+                      if secondary_rules else 0)
     if secondary_rules:
         names = {skill['id']:skill['name'] for skill in pack['skills']}
         for identifier,count in Counter(secondary_choices).items():

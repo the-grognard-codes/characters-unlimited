@@ -9,15 +9,32 @@ from .proficiency import synergy_contributions, project_proficiency
 from .combat import combat_skill_cost
 from .physical import project_physical
 from .advancement import learning_age
+from .selection_groups import validate_group, project_group
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
 POOLS = PACK['pools']
 
 
+def optional_pool_groups(pack):
+    identifiers = [definition['id'] for definition in pack['skills']]
+    for categories in pack.get('selection_rules', {}).values():
+        for rule in categories.values():
+            validate_group({'count': 0, 'option_ids': identifiers, 'costs': rule.get('costs', {})})
+    groups = {}
+    for pool, rule in pack['pools'].items():
+        group = {'count': rule['count'], 'option_ids': identifiers, 'counting': 'entries',
+                 'costs': {definition['id']: selection_policy(definition, pool, pack)['cost']
+                           for definition in pack['skills']}}
+        validate_group(group)
+        groups[pool] = group
+    return groups
+
+
 def validate_selections(selections, pack=PACK):
     if not isinstance(selections, list) or len(selections) > 1000:
         raise ValueError("Provide a skill selection list with at most 1000 entries")
+    optional_pool_groups(pack)
     known = {skill['id']: skill for skill in pack['skills']}
     result = []
     for item in selections:
@@ -88,10 +105,10 @@ def project_skills(character, pack=PACK):
             rule = intelligence_rule['beyond_30']
             intelligence += ((iq - 30) // rule['step']) * rule['bonus']
     selections = character.get('skill_selections', [])
-    definitions = {skill['id']:skill for skill in domestic}
-    counts: Counter[str] = Counter()
-    for item in selections:
-        counts[item['pool']] += selection_policy(definitions[item['skill_id']], item['pool'], pack)['cost']
+    groups = optional_pool_groups(pack)
+    counts = {pool: project_group(group, [item['skill_id'] for item in selections
+                                        if item['pool'] == pool])['credited']
+              for pool, group in groups.items()}
     occurrences = Counter(skill_key(item, pack) for item in selections if skill_key(item, pack) != ('instrument', ''))
     domestic_grants = pack.get('fixed_domestic_grants', [{'id':'cook','bonus':15}])
     bonuses = {}

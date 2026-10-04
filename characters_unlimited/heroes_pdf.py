@@ -207,6 +207,15 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
         terms.extend(name.replace('_',' ')+' +'+str(value) for name,value in skill['effects']['combat'].items())
         state = ' (inactive training)' if skill.get('combat_active') is False else ''
         lines += wrap_lines('Physical: '+skill['name']+state+'; '+', '.join(terms), 530)
+        for activity in skill.get('activities', []):
+            rate = activity['fatigue_rate']
+            pace = activity['yards_per_melee'] if activity['yards_per_melee'] is not None else 'unreviewed'
+            duration = activity['minutes'] if activity['minutes'] is not None else 'unreviewed'
+            ordinary = activity['ordinary_minutes'] if activity['ordinary_minutes'] is not None else 'unreviewed'
+            lines += wrap_lines(f"{skill['name']} pace: {pace} yards/meters per melee; {duration} minutes; ordinary {ordinary} minutes; fatigue {rate['numerator']}/{rate['denominator']} normal.",530)
+            lines += wrap_lines(activity['guidance'],530)
+            for fatigue_source in activity['fatigue_sources']:
+                lines += wrap_lines(f"Fatigue source: {fatigue_source['book']}, printed p.{fatigue_source['printed_page']} / PDF p.{fatigue_source['pdf_page']}",530)
         source = skill['source']
         lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
                             ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)

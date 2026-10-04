@@ -225,13 +225,13 @@ def _swimming_activities(character, rules):
             or any(type(value) is not int or not 1 <= value <= 1000 for value in swimming.values())):
         raise ValueError('Invalid Swimming activity rules')
     ps, pe = character['attributes']['PS']['value'], character['attributes']['PE']['value']
-    supported = (0 < ps <= MAX_ACTIVITY_ATTRIBUTE/max(swimming['yards_per_ps'], swimming['meters_per_ps'])
-                 and 0 < pe <= MAX_ACTIVITY_ATTRIBUTE/swimming['minutes_per_pe'])
+    ps_supported = 0 < ps <= MAX_ACTIVITY_ATTRIBUTE/max(swimming['yards_per_ps'], swimming['meters_per_ps'])
+    pe_supported = 0 < pe <= MAX_ACTIVITY_ATTRIBUTE/swimming['minutes_per_pe']
     return [{'id':'surface-swimming', 'name':'Surface swimming',
-             'yards_per_melee':ps*swimming['yards_per_ps'] if supported else None,
-             'meters_per_melee':ps*swimming['meters_per_ps'] if supported else None,
-             'minutes':pe*swimming['minutes_per_pe'] if supported else None,
-             'guidance':'Routine pace until fatigue; distance uses current effective P.S., duration uses current effective P.E.' if supported
+             'yards_per_melee':ps*swimming['yards_per_ps'] if ps_supported else None,
+             'meters_per_melee':ps*swimming['meters_per_ps'] if ps_supported else None,
+             'minutes':pe*swimming['minutes_per_pe'] if pe_supported else None,
+             'guidance':'Routine pace until fatigue; distance uses current effective P.S., duration uses current effective P.E.' if ps_supported and pe_supported
                         else 'Positive effective P.S. and P.E. within the supported numeric range are needed for Swimming limits.'}]
 
 

@@ -122,7 +122,7 @@ class LocalBackupAdapterTests(unittest.TestCase):
                 payload = json.dumps({'revision':hero['revision'],'token':preview['token']}).encode()
                 with urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5) as response:
                     result = json.load(response)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.13.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.14.0')
                 with self.assertRaises(HTTPError) as conflict:
                     urlopen(Request(path+'/rule-upgrade',data=payload,headers=headers),timeout=5)
                 self.assertEqual(conflict.exception.code,409)
@@ -144,11 +144,18 @@ class LocalBackupAdapterTests(unittest.TestCase):
                     token = json.load(response)['token']
                 path = base+'/api/characters/'+hero['id']
                 headers = {'Content-Type':'application/json','X-Session-Token':token,'Origin':base}
-                payload = json.dumps({'revision':hero['revision'],'selections':['hand-to-hand-basic']}).encode()
+                payload = json.dumps({'revision':hero['revision'],'selections':['hand-to-hand-basic','climbing','swimming']}).encode()
                 with urlopen(Request(path+'/hero-secondary',data=payload,headers=headers),timeout=5) as response:
                     saved = json.load(response)
                 with urlopen(path+'/hero-programs',timeout=5) as response:
-                    combat = json.load(response)['combat']
+                    view = json.load(response)
+                    combat = view['combat']
+                skills = {row['id']:row for row in view['skills']}
+                self.assertEqual(skills['climbing']['percentage'],40)
+                self.assertEqual(skills['climbing']['additional_checks'][0]['percentage'],30)
+                self.assertEqual(skills['swimming']['percentage'],50)
+                activity = next(row for row in view['physical']['selected'] if row['id']=='swimming')['activities'][0]
+                self.assertEqual((activity['yards_per_melee'],activity['minutes']),(36,12))
                 self.assertEqual(combat['totals']['attacks']['value'],4)
                 self.assertEqual(combat['parry_actions'],0)
                 with self.assertRaises(HTTPError) as stale:

@@ -3,7 +3,7 @@
 from copy import deepcopy
 from .heroes_programs import project_programs
 from .heroes_training import resolve_training, training_ids
-from .physical import acquire_physical, project_physical, validate_physical
+from .physical import MAX_ACTIVITY_ATTRIBUTE, acquire_physical, project_physical, validate_physical
 
 
 def physical_character(character, pack, education_pack):
@@ -16,7 +16,7 @@ def acquire_hero_physical(character, pack, education_pack, die):
     return acquire_physical(adapted, adapted['skill_selections'], pack, die)
 
 
-def project_hero_physical(character, pack, education_pack):
+def project_hero_physical(character, pack, education_pack, *, power_view=None):
     physical = project_physical(physical_character(character, pack, education_pack), pack)
     active = resolve_training(character, pack, [row['id'] for row in physical['selected']])
     physical['active_training'] = active
@@ -37,6 +37,23 @@ def project_hero_physical(character, pack, education_pack):
                     row['effects']['combat'] = {}
             for stat, bonus in row['effects']['combat'].items():
                 physical['combat'].setdefault(stat, {})[row['name']] = bonus
+    for skill in physical['selected']:
+        for activity in skill.get('activities', []):
+            if activity['id'] == 'surface-swimming':
+                rate = power_view['fatigue_rate'] if power_view else {'numerator':1,'denominator':1}
+                activity['ordinary_minutes'] = activity['minutes']
+                activity['fatigue_rate'] = deepcopy(rate)
+                activity['fatigue_sources'] = [deepcopy(row['source']) for row in power_view['powers']
+                                               if row.get('fatigue_rate') == rate] if power_view else []
+                activity['guidance'] = 'Routine surface pace uses effective P.S. Ordinary duration uses effective P.E.; selected fatigue rate changes endurance time, not pace or proficiency.'
+                if activity['minutes'] is not None:
+                    scaled = activity['minutes'] * rate['denominator']
+                    if scaled > MAX_ACTIVITY_ATTRIBUTE * rate['numerator']:
+                        activity['minutes'] = None
+                        activity['guidance'] += ' Fatigue-adjusted duration exceeds the supported numeric range; ordinary duration and pace remain available.'
+                    else:
+                        quotient, remainder = divmod(scaled, rate['numerator'])
+                        activity['minutes'] = quotient if remainder == 0 else scaled / rate['numerator']
     return physical
 
 

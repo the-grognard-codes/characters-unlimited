@@ -313,8 +313,10 @@ class CharacterApplication:
     def _project_hero_programs(self, character):
         pack = self._character_heroes_pack(character, 'heroes-program-skills')
         education = self.character_education_pack(character)
-        physical = project_hero_physical(character, pack, education)
-        return {**project_programs(character, pack, education, self.character_hero_powers_pack(character)),
+        power_pack = self.character_hero_powers_pack(character)
+        powers = project_powers(character,power_pack,self.character_power_budget_pack(character))
+        physical = project_hero_physical(character, pack, education,power_view=powers)
+        return {**project_programs(character, pack, education, power_pack),
                 'physical':physical, 'combat':project_hero_combat(character,pack,physical)}
 
     def select_hero_programs(self, identifier, *, revision, selections):

@@ -199,3 +199,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06L merged in PR77 as403b9233cff76c24d202e93ac58cf113d3114390 after Windows37190505307(6m40s)/37190507594(6m23s) passed, including packaged executable validation.
 
 - 06M: Heroes Climbing/Rappelling and Swimming added under immutable skills1.14. Separate percentile checks, retained Physical receipts, independent effective pace/endurance and fatigue sources verified. Both reviews approve after exact-duration range repair. Full314 local tests pass (one frozen-only skip), required mypy105, compile/JS/whitespace and browser/four-page editable PDF verification pass. Windows pending; parent06/07/09 remain open.
+
+06M merged in PR78 as fe6896d07c91386be4035e1af4439d8de4d94379 after Windows37192051111(6m27s)/37192053664(6m51s) passed, including packaged executable validation.
+
+- 06N: Athletics added under immutable skills1.15 with retained dice and reversible combat/resource effects. Hybrid Physical percentile upgrade comparison repaired. Both reviews approve; focused20/full318 tests pass (one frozen-only skip), required mypy106, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; parent06/07/09 open.

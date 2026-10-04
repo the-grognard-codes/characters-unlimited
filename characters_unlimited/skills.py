@@ -46,7 +46,7 @@ def compare_skill_views(before, after):
                 identity = (group, skill['id'], specialty_key(skill.get('specialty', '')))
                 occurrence = occurrences[identity]
                 occurrences[identity] += 1
-                if skill.get('kind') == 'physical':
+                if skill.get('kind') == 'physical' and 'effects' in skill:
                     for effect_group,effects in skill['effects'].items():
                         for name,value in effects.items():
                             result[(*identity,occurrence,'effect:'+effect_group+':'+name)] = {

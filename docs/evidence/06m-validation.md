@@ -16,3 +16,5 @@ Browser sample: I.Q.16/P.S.20, Climbing42%, Rappelling32%, Swimming52%. Ordinary
 [Editable sample](06m-proficiency-sample.pdf)
 
 Other Physical skills, equipment, proficiencies, enhanced strength, Heroes advancement and complete source acceptance remain open. Parent06/07/09 remain open.
+
+06M merged in PR78 as fe6896d07c91386be4035e1af4439d8de4d94379 after Windows37192051111(6m27s)/37192053664(6m51s) passed, including packaged executable validation.

@@ -68,7 +68,7 @@ class HeroesRogueTests(unittest.TestCase):
                 app.select_hero_secondary(hero['id'],revision=hero['revision'],selections=['cardsharp'])
             preview=app.preview_rule_upgrade(hero['id'])
             self.assertEqual(app.get(hero['id']),hero)
-            self.assertIn({'pack_id':'heroes-program-skills','from':'1.8.0','to':'1.14.0'},preview['changes'])
+            self.assertIn({'pack_id':'heroes-program-skills','from':'1.8.0','to':'1.15.0'},preview['changes'])
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             choices=['cardsharp','palming','seduction','concealment','pick-locks','prowl','streetwise']
             hero=app.select_hero_secondary(hero['id'],revision=hero['revision'],selections=choices)

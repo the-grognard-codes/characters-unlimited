@@ -5,7 +5,7 @@ from copy import deepcopy
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
                   'combat', 'class_bonuses', 'resources', 'advancement', 'higher_advancement',
-                  'physical_grants', 'fixed_domestic_grants', 'path_guidance'}
+                  'physical_grants', 'fixed_domestic_grants', 'path_guidance', 'skill_effects'}
 
 
 def class_rules(pack, character):
@@ -18,6 +18,7 @@ def class_rules(pack, character):
     if not isinstance(profile, dict) or set(profile) - PROFILE_FIELDS:
         raise ValueError('The pinned skill rules do not support this character class')
     result = {**deepcopy(pack), **deepcopy(profile)}
+    result['skill_effects'] = deepcopy(profile.get('skill_effects', []))
     if any(result.get(key, {}).get('class_id') != identifier for key in ('class_bonuses','advancement')):
         raise ValueError('Class-specific rules must identify their supported class')
     return result

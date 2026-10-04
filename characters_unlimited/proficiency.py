@@ -1,15 +1,24 @@
 """Shared percentile projection for primary and additional source-defined checks."""
 
+from .recorded_formulas import MAX_INTEGER
+
 
 def synergy_contributions(definition, available):
     return {synergy['name']: synergy['amount'] for synergy in definition.get('synergies', [])
             if available.intersection(synergy.get('any_of', [synergy.get('skill_id')]))}
 
 
-def project_proficiency(definition, contributions, *, level_steps=0):
+def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None):
+    effects = effect_contributions or []
+    contributions = dict(contributions)
+    for effect in effects:
+        label = 'Effect: ' + effect['name']
+        contributions[label] = contributions.get(label, 0) + effect['value']
     if level_steps:
         contributions = {**contributions, 'experience':definition['per_level']*level_steps}
     uncapped = sum(contributions.values())
+    if effects and abs(uncapped) > MAX_INTEGER:
+        raise ValueError('Skill effect total exceeds the exact integer range')
     checks = []
     normal_checks = {'primary': {'percentage': min(98, uncapped), 'per_level': definition['per_level']}}
     for check in definition.get('additional_checks', []):
@@ -31,7 +40,9 @@ def project_proficiency(definition, contributions, *, level_steps=0):
             value = sum(check_contributions.values())
             projected = {'name': check['name'], 'percentage': min(98, value),
                          'uncapped_percentage': value, 'contributions': check_contributions, 'per_level': check.get('per_level',definition['per_level'])}
+        if effects and abs(projected['uncapped_percentage']) > MAX_INTEGER:
+            raise ValueError('Skill effect check total exceeds the exact integer range')
         checks.append(projected)
         normal_checks[check['name']] = projected
-    return {'percentage': min(98, uncapped), 'uncapped_percentage': uncapped,
+    return {**({'effect_contributions': effects} if effects else {}), 'percentage': min(98, uncapped), 'uncapped_percentage': uncapped,
             'contributions': contributions, 'additional_checks': checks}

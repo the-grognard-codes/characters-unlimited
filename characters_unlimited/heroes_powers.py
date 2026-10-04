@@ -10,6 +10,7 @@ from .heroes_power_budget import project_budget
 from .recorded_formulas import validate_formula, formula_value, roll_formula
 from .selection_groups import project_group
 from .option_selectors import select_options
+from .skill_effects import compile_skill_effects
 
 
 def minor_power_options(pack):
@@ -200,6 +201,19 @@ def validate_power_attributes(character, pack):
                     found[modifier['id']] = (name,modifier)
         if index == 0 and encoded(found) != encoded(current):
             raise ValueError('Current power attribute contributions must match active powers')
+
+
+def power_skill_effects(character, pack, catalog):
+    if pack is None:
+        return []
+    compiled = {power['id']: compile_skill_effects(power.get('skill_effects', []), catalog)
+                for power in pack['powers']}
+    record = character.get('hero_powers', {'acquisitions': [], 'active': []})
+    return [{**effect, 'id': power['id'] + ':' + effect['id'],
+             'name': power['name'] + ' — ' + effect['name']}
+            for acquisition in record['acquisitions'] if acquisition['id'] in record['active']
+            for power in pack['powers'] if power['id'] == acquisition['power']
+            for effect in compiled[power['id']]]
 
 
 def power_skill_contributions(character, definition, pack):

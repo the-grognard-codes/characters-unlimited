@@ -7,3 +7,5 @@ The public race-default/per-attribute citation fixture was RED: I.Q. retained th
 Legacy core fallback with a single Heroes attribute override passes. Seven malformed default/override declarations reject before any die. These safeguards passed first execution against the implementation. An initial fallback test used the wrong public game identifier; correcting the fixture to `heroes-unlimited` resolved that test error.
 
 Fourteen affected public tests pass in9.290 seconds. Full regression passed405 tests in315.473 seconds, with one frozen-only skip. Required mypy passed132 source files; compilation, all browser syntax and whitespace passed. Independent Standards and Spec reviews both APPROVE without rerunning tests. Compatibility audit validated4 core archives/4 races/32 unchanged legacy citations. Exact-head Windows/frozen validation is pending. No accepted book definitions change. The contract is bounded to citations, not complete class import or source certification.
+
+Both exact-head Windows runs37238915371/37238913105 passed, including frozen executable validation. PR97 merged as `c074870950295374f7831e12ebaf3dd8d4538e66`.

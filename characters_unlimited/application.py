@@ -10,6 +10,8 @@ from uuid import uuid4
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute, racial_formulas, racial_sources
+from .skill_effects import pack_skill_effects
+from .heroes_powers import power_skill_effects
 from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
@@ -67,6 +69,8 @@ class CharacterApplication:
         if racial_rules is None or selected_class is None:
             raise ValueError("Select an available race and class from the selected game")
         skill_pack = class_rules(self.skill_pack, {'character_class':character_class}) if game == 'rifts' else None
+        if skill_pack:
+            pack_skill_effects(skill_pack)
         maximum = (skill_pack.get('higher_advancement', {}).get('max_level', 2) if skill_pack else
                    (self._hero_higher_pack({},available=True) or self.rule_archive.active('heroes-advancement'))['max_level'])
         if type(level) is not int or not 1 <= level <= maximum:
@@ -109,6 +113,8 @@ class CharacterApplication:
             levels = remember_learning(character, project_skills(character, skill_pack), choices)
             character.update(first_advance(character, skill_pack, 'level', level, levels, self.die))
             export_bundle(character, self.rule_archive.definitions())
+        if skill_pack and skill_pack.get('skill_effects'):
+            project_skills(character, skill_pack)
         self.store.put(character)
         return character
 
@@ -310,8 +316,13 @@ class CharacterApplication:
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before selecting powers.')
         pack = self.character_hero_powers_pack(character)
+        skills = self._character_heroes_pack(character, 'heroes-program-skills')
+        power_skill_effects(character, pack, skills['skills'])
         changes = select_powers(character, selections, pack, self.die)
         changes['additional_rule_packs'] = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
+        if any(power.get('skill_effects') for power in pack['powers']):
+            education = self.character_education_pack(character)
+            changes['additional_rule_packs'].update({skills['id']: skills['version'], education['id']: education['version']})
         if character['level'] > 1:
             record = deepcopy(character['advancement'])
             record['power_hp_rolls'] = power_gains({**character, **changes},

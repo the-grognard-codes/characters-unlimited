@@ -6,6 +6,7 @@ from .proficiency import synergy_contributions, project_proficiency
 from .advancement import learning_age
 from .required_definitions import required_catalog, required_selection_group
 from .selection_groups import project_group
+from .skill_effects import pack_skill_effects, matching_skill_effects
 
 
 def required_choice_identity(group, value):
@@ -33,6 +34,7 @@ def validate_required_choices(choices, pack):
 
 
 def project_required_skills(character, pack, intelligence):
+    skill_effects = pack_skill_effects(pack)
     rules = required_catalog(pack)
     if rules is None:
         return {'grants': [], 'remaining': {}, 'warnings': [], 'catalog': None}
@@ -88,5 +90,5 @@ def project_required_skills(character, pack, intelligence):
         if 'class_ability' in definition:
             contributions['class_ability'] = definition['class_ability']
         contributions.update(synergy_contributions(definition, available))
-        grants.append({**definition, 'specialty': specialty, **project_proficiency(definition, contributions), 'quality': 'trained'})
+        grants.append({**definition, 'specialty': specialty, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': 'trained'})
     return {'grants': grants, 'remaining': remaining, 'warnings': warnings, 'catalog': rules}

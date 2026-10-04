@@ -5,7 +5,8 @@ from collections import Counter
 
 from .education import project_education
 from .proficiency import project_proficiency, synergy_contributions
-from .heroes_powers import power_skill_contributions
+from .heroes_powers import power_skill_contributions, power_skill_effects
+from .skill_effects import pack_skill_effects, matching_skill_effects
 from .heroes_abilities import project_shared_abilities
 from .selection_groups import validate_group, project_group
 from .option_selectors import select_options
@@ -117,6 +118,7 @@ def physical_skill_contributions(identifier, pack, physical_grants):
 
 
 def project_programs(character, pack, education_pack, power_pack=None):
+    skill_effects = [*pack_skill_effects(pack), *power_skill_effects(character, power_pack, pack['skills'])]
     education = project_education(character.get('education'), education_pack)
     outcome = education['outcome']
     slots = outcome['program_slots'] if outcome else []
@@ -215,7 +217,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
                                                     if (check.get('requires_skill') is None or check['requires_skill'] in available)
                                                     and check.get('unless_skill') not in available]
         skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions,
-                           level_steps=character['level']-character.get('learning_levels',{}).get(definition['id'],character['level'])),
+                           level_steps=character['level']-character.get('learning_levels',{}).get(definition['id'],character['level']),
+                           effect_contributions=matching_skill_effects(definition['id'], skill_effects)),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':programs, 'selections':selections, 'slots':deepcopy(slots),
             'physical_selections':[{'skill_id':row['id']} for row in pack['skills']

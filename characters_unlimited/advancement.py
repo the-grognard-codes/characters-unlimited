@@ -1,6 +1,7 @@
 """Recorded first advancement and the experience age of each learned skill."""
 
 from copy import deepcopy
+from .required_definitions import required_catalog
 import json
 
 
@@ -136,12 +137,12 @@ def validate_advancement(character, pack):
     if not isinstance(levels, dict) or len(levels) > 4000:
         raise ValueError('Invalid learned-level records')
     skill_ids = {item['id'] for item in pack['skills']}
-    required = pack.get('required', {})
-    skill_ids.update(item['id'] for item in required.get('grants', []))
-    for name in ('pilot', 'repair'):
-        skill_ids.update(item['id'] for item in required.get(name, {}).get('options', []))
-    if 'other_languages' in required:
-        skill_ids.add(required['other_languages']['skill']['id'])
+    required = required_catalog(pack) or {'grants':[], 'groups':[]}
+    skill_ids.update(item['id'] for item in required['grants'])
+    for group in required['groups']:
+        skill_ids.update(item['id'] for item in group.get('options', []))
+        if 'skill' in group:
+            skill_ids.add(group['skill']['id'])
     allowed = {'skill': skill_ids,
                'hand': {item['id'] for item in pack['combat']['hand_to_hand']},
                'weapon': {item['id'] for family in ('ancient', 'modern') for item in pack['combat'][family]}}

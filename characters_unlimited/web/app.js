@@ -1,6 +1,7 @@
 'use strict';
 let gamePacks = [], token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
-let requiredFormCharacter, requiredDirtyFlag = false;
+let requiredFormCharacter, requiredDirtyFlag = false, requiredGroups = [];
+let requiredSlotsCharacter, requiredSlotsSchema, requiredSlotCounts = new Map();
 const $ = id => document.getElementById(id);
 async function request(path, data) {
   const response = await fetch(path, data === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json','X-Session-Token':token}, body:JSON.stringify(data)});
@@ -105,6 +106,90 @@ function filterSkillChoices() {
   $('skill-choice').replaceChildren(...matches.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
   if (matches.some(skill => skill.id === previous)) $('skill-choice').value = previous;
 }
+function requiredOption(skill) {
+  const option = document.createElement('option');
+  option.value = skill.id; option.textContent = skill.name;
+  return option;
+}
+function requiredSelect(group, value, index) {
+  const label = document.createElement('label');
+  label.textContent = group.count > 1 ? `${group.name} ${index + 1}` : group.name;
+  const select = document.createElement('select');
+  select.dataset.requiredGroup = group.id;
+  if (group.count > 1) select.dataset.requiredIndex = index;
+  const blank = document.createElement('option'); blank.value = ''; blank.textContent = 'Choose one…';
+  select.replaceChildren(blank, ...(group.options || []).map(requiredOption));
+  if (value && ![...select.options].some(option => option.value === value)) {
+    const unavailable = document.createElement('option');
+    unavailable.value = value; unavailable.textContent = `${value} (unavailable)`;
+    select.append(unavailable);
+  }
+  select.value = value || '';
+  select.disabled = navigationBusy || !skillsReady;
+  label.append(select);
+  return label;
+}
+function renderRequiredGroups(groups, choices) {
+  const schema = JSON.stringify(groups.map(group => [group.id, group.kind, group.count, (group.options || []).map(skill => skill.id)]));
+  if (requiredSlotsCharacter !== current.id || requiredSlotsSchema !== schema) {
+    requiredSlotCounts = new Map();
+  }
+  requiredSlotsCharacter = current.id;
+  requiredSlotsSchema = schema;
+  requiredGroups = groups;
+  const container = $('required-skill-groups');
+  container.replaceChildren();
+  const guidance = group => {
+    if (!group.different_from?.length) return null;
+    const note = document.createElement('p'); note.className = 'help';
+    note.textContent = `Choose values different from ${group.different_from.map(id => groups.find(other => other.id === id)?.name || id).join(', ')}.`;
+    return note;
+  };
+  for (const group of groups) {
+    if (group.kind === 'select' && group.count > 1) {
+      const section = document.createElement('div');
+      section.dataset.requiredGroupSlots = group.id;
+      const values = Array.isArray(choices[group.id]) ? choices[group.id] : [];
+      const slotCount = Math.max(group.count, values.length, requiredSlotCounts.get(group.id) || 0);
+      requiredSlotCounts.set(group.id, slotCount);
+      for (let index = 0; index < slotCount; index++) {
+        section.append(requiredSelect(group, values[index], index));
+      }
+      const add = document.createElement('button');
+      add.type = 'button'; add.textContent = `Add another ${group.name.toLowerCase()} choice`;
+      add.disabled = navigationBusy || !skillsReady;
+      add.onclick = () => {
+        if (navigationBusy || !skillsReady) return;
+        const index = section.querySelectorAll('select').length;
+        section.insertBefore(requiredSelect(group, '', index), add);
+        requiredSlotCounts.set(group.id, index + 1);
+      };
+      section.append(add); container.append(section);
+      const note = guidance(group); if (note) container.append(note);
+      continue;
+    }
+    if (group.kind === 'select') {
+      container.append(requiredSelect(group, choices[group.id]));
+      const note = guidance(group); if (note) container.append(note);
+      continue;
+    }
+    const label = document.createElement('label');
+    label.textContent = group.kind === 'text-list' ? `${group.name} (one per line)` : group.name;
+    const input = document.createElement(group.kind === 'text-list' ? 'textarea' : 'input');
+    input.dataset.requiredGroup = group.id;
+    if (group.kind === 'text-list') {
+      input.rows = Math.max(3, group.count + 1);
+      input.placeholder = `Choose ${group.count} different choices`;
+      input.value = (choices[group.id] || []).join('\n');
+    } else {
+      input.placeholder = group.name;
+      input.value = choices[group.id] || '';
+    }
+    input.disabled = navigationBusy || !skillsReady;
+    label.append(input); container.append(label);
+    const note = guidance(group); if (note) container.append(note);
+  }
+}
 $('skill-category').onchange = filterSkillChoices;
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
@@ -128,17 +213,18 @@ async function loadSkills(character) {
   if (view.required_catalog) {
     $('required-skill-counts').textContent = Object.entries(view.required_remaining).map(([name,count]) => `${name.replaceAll('_',' ')}: ${count} remaining`).join(' · ');
     if (!requiredNeedsSave()) {
-      const choices = character.required_skill_choices || {};
-      $('required-native').value = choices.native_language || '';
-      $('required-languages').value = (choices.other_languages || []).join('\n');
-      for (const name of ['pilot', 'repair']) {
-        const blank = document.createElement('option'); blank.value = ''; blank.textContent = 'Choose one…';
-        $('required-' + name).replaceChildren(blank, ...view.required_catalog[name].options.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
-        $('required-' + name).value = choices[name] || '';
-      }
+      renderRequiredGroups(view.required_catalog.groups, character.required_skill_choices || {});
       requiredDirtyFlag = false;
     }
     requiredFormCharacter = current.id;
+  } else {
+    requiredGroups = [];
+    requiredFormCharacter = undefined;
+    requiredDirtyFlag = false;
+    requiredSlotsCharacter = undefined;
+    requiredSlotsSchema = undefined;
+    requiredSlotCounts = new Map();
+    $('required-skill-groups').replaceChildren();
   }
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
@@ -191,13 +277,27 @@ async function loadSkills(character) {
 wireCombatEvents();
 wireEducationEvents();
 function readRequiredChoices() {
-  return {native_language:$('required-native').value.trim(), pilot:$('required-pilot').value, repair:$('required-repair').value,
-    other_languages:$('required-languages').value.trim() ? $('required-languages').value.split(/\r?\n/).map(value => value.trim()) : []};
+  const choices = {};
+  for (const group of requiredGroups) {
+    const fields = [...$('required-skill-groups').querySelectorAll('[data-required-group]')].filter(field => field.dataset.requiredGroup === group.id);
+    if (group.kind === 'text-list') {
+      const value = fields[0].value;
+      choices[group.id] = value.trim() ? value.split(/\r?\n/).map(item => item.trim()) : [];
+    } else if (group.kind === 'select' && group.count > 1) {
+      choices[group.id] = fields.map(field => field.value).filter(Boolean);
+    } else {
+      choices[group.id] = group.kind === 'text' ? fields[0].value.trim() : fields[0].value;
+    }
+  }
+  return choices;
 }
 function requiredNeedsSave() {
   if (!current || requiredFormCharacter !== current.id || !requiredDirtyFlag || $('required-skill-form').hidden) return false;
   const choices = readRequiredChoices(), saved = current.required_skill_choices || {};
-  return ['native_language','pilot','repair'].some(name => choices[name] !== (saved[name] || '')) || JSON.stringify(choices.other_languages) !== JSON.stringify(saved.other_languages || []);
+  return requiredGroups.some(group => {
+    const empty = group.kind === 'text-list' || (group.kind === 'select' && group.count > 1) ? [] : '';
+    return JSON.stringify(choices[group.id]) !== JSON.stringify(saved[group.id] ?? empty);
+  });
 }
 $('required-skill-form').onsubmit = async event => {
   event.preventDefault(); if (navigationBusy || !skillsReady) return;
@@ -300,7 +400,17 @@ async function flushSave() {
   })();
   try { await savePromise; } finally { savePromise = null; }
 }
-['name','notes','required-native','required-languages','required-pilot','required-repair'].forEach(id => $(id).oninput = () => { if (id.startsWith('required-')) requiredDirtyFlag = true; $('save-status').textContent = 'Unsaved changes'; clearTimeout(saveTimer); saveTimer = setTimeout(() => flushSave().catch(showError), 400); });
+function queueAutosave() {
+  $('save-status').textContent = 'Unsaved changes';
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => flushSave().catch(showError), 400);
+}
+['name','notes'].forEach(id => $(id).oninput = queueAutosave);
+$('required-skill-form').oninput = event => {
+  if (!event.target.matches('[data-required-group]')) return;
+  requiredDirtyFlag = true;
+  queueAutosave();
+};
 window.addEventListener('beforeunload', event => { if (current && ($('name').value !== current.name || $('notes').value !== current.notes || requiredNeedsSave())) { event.preventDefault(); event.returnValue = ''; } });
 const start = async () => { try { await flushSave(); $('new-dialog').showModal(); } catch(error) { showError(error); } };
 $('start').onclick = start; $('new-character').onclick = start;

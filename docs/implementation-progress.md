@@ -125,3 +125,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 19B: Human/Vagabond XP/direct/create progression through15 under skills2.6.0, per-level HP/cache/flat historical snapshots, new skill allowances, earned combat/W.P. tables, equipped effects and editable conditional notes implemented. Earlier learned-level combat choices support completing higher-level creation. Complete in PR #56 as4a12a74 after Windows checks37160859638/37160862556 passed. All216 local checks, mypy74, separate reviews and browser/PDF verification pass. Full attack resolution, other paths and parent19 remain open.
 
 - 07B1: Current four ordinary Hand to Hand styles gain source natural-roll conditions, Knee/Body Flip, Martial sweep/trip and native condition/Leap fields under immutable skills2.7.0. Local218 and focused19 checks, mypy75, both independent reviews and browser/render/edit/reopen verification pass; Windows frozen checks precede merge. Parent07 and full combat resolution remain open.
+
+- 07B1 merged PR57 as32539cc after corrected Windows runs37162757164/37162760399 passed full and frozen checks. Parent07 remains open.
+- 05C1: Declarative required percentile skill groups and catalog-driven controls in progress; City Rat preparation is recorded in docs/required-skill-groups-contract.md. No additional O.C.C. is activated yet.

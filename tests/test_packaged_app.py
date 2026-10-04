@@ -62,6 +62,13 @@ class PackagedApplicationTests(unittest.TestCase):
                 token = bootstrap['token']
                 character = request('/api/characters', {'name':'Packaged Rowan'}, token)
                 identifier = character['id']
+                character = request('/api/characters/'+identifier+'/required-skills',
+                    {'revision':character['revision'],'choices':{'native_language':'American',
+                     'other_languages':['Spanish','Dragonese'],'pilot':'automobile','repair':'general-repair'}},token)
+                required = request('/api/characters/'+identifier+'/skills')
+                self.assertEqual(required['required_remaining'],
+                                 {'native_language':0,'other_languages':0,'pilot':0,'repair':0})
+                self.assertEqual(len(required['required_catalog']['groups']),4)
                 self.assertEqual(len(character['attributes']), 8)
                 self.assertEqual(request('/api/characters/' + identifier)['name'], 'Packaged Rowan')
                 before_physical = character['attributes']

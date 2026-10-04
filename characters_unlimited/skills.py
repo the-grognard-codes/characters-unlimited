@@ -10,6 +10,7 @@ from .combat import combat_skill_cost
 from .physical import project_physical
 from .advancement import learning_age
 from .selection_groups import validate_group, project_group
+from .skill_effects import pack_skill_effects, matching_skill_effects
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -96,6 +97,7 @@ def compare_skill_views(before, after):
 
 def project_skills(character, pack=PACK):
     domestic, pools = pack['skills'], pack['pools']
+    skill_effects = pack_skill_effects(pack)
     intelligence_rule = pack.get('intelligence')
     iq = character['attributes']['IQ']['value']
     intelligence = 0
@@ -161,7 +163,7 @@ def project_skills(character, pack=PACK):
         elif definition.get('quality_by_pool'):
             quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
         effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
-        selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions), 'quality': quality,
+        selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': quality,
                          'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
@@ -179,7 +181,7 @@ def project_skills(character, pack=PACK):
                          'repeated_domestic':repeated_bonus, 'intelligence':intelligence}
         if character['level'] > 1:
             contributions['advancement'] = gain
-        fixed_grants.append({**definition, **project_proficiency(definition, contributions), 'quality':'professional'})
+        fixed_grants.append({**definition, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality':'professional'})
     gaps = ['Other required choices and skill categories are pending.',
             'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']
     if not intelligence_rule:

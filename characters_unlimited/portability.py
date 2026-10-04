@@ -15,6 +15,7 @@ from .heroes_physical import validate_hero_physical
 from .heroes_kicks import validate_hero_kicks
 from .resources import validate_resources
 from .skills import validate_selections, project_skills
+from .heroes_programs import project_programs
 from .equipment import validate_inventory
 from .starting_funds import validate_starting_funds
 from .starting_gear import validate_starting_gear
@@ -286,6 +287,8 @@ def validate_sources(character, packs, *, history_frame=False):
         if 'combat_choices' in character:
             validate_combat_choices(character['combat_choices'], skill_pack)
         validate_physical(character,skill_pack)
+        if skill_pack.get('skill_effects'):
+            project_skills(character, skill_pack)
         for event in character.get('roll_history', []):
             validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),skill_pack)
     elif 'physical_acquisitions' in character and character['game'] != 'heroes-unlimited':
@@ -373,6 +376,14 @@ def validate_sources(character, packs, *, history_frame=False):
                 validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),physical_pack)
         elif 'physical_acquisitions' in character or 'hero_combat_training' in character:
             raise ValueError('Heroes Physical acquisitions must retain their skill and education rule pins')
+    if character['game'] == 'heroes-unlimited':
+        typed_powers = power_pack is not None and any(power.get('skill_effects') for power in power_pack['powers'])
+        typed_skills = physical_pack is not None and physical_pack.get('skill_effects')
+        if typed_powers or typed_skills:
+            education_pack = current_hero_pack('heroes-education')
+            if physical_pack is None or education_pack is None:
+                raise ValueError('Typed skill effects require their exact skill and education pins')
+            project_programs(character, physical_pack, education_pack, power_pack)
     validate_hero_kicks(character,current_hero_pack('heroes-combat-moves'))
     resource_snapshot = character.get('resource_attribute_snapshot')
     if resource_snapshot is not None:

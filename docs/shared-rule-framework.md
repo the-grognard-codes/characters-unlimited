@@ -99,3 +99,7 @@ Conditional combat work from 19B4 is preserved separately on its original branch
 ## Racial citation increment (22E2)
 
 Racial generation resolves a declared race source and optional per-attribute citations with legacy core fallback. Rerolls and portable current/history/resource snapshots use the same pinned resolver. Every declared citation validates before initial dice. See `racial-attribute-source-contract.md`. Core migrations, R.C.C. composition and full importer certification remain open.
+
+## Percentile skill-effect increment (22C2)
+
+`skill_effects.py` compiles source-bound additive percentile effects through the shared selector engine. Rifts class skill projections, Heroes program packs and active mutant powers use the same targets and numeric projection, retaining detailed source contributions and existing caps/contextual checks. Effects grant no skills. See `shared-skill-effect-contract.md`; conditional/level effects and generic magic/psionic activation remain open.

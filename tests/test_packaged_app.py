@@ -329,6 +329,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 weighted = request(city_path+'/skills')
                 self.assertEqual(weighted['remaining']['related'],8)
                 self.assertEqual(weighted['selected'][0]['selection_cost'],2)
+                city_view = weighted
                 city = request(city_path+'/resources', {'revision':city['revision']}, token)
                 city_resources = request(city_path+'/resources')['resources']
                 hp = {item['id']:item for item in city['resources']['HP']['contributions']}

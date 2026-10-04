@@ -1,0 +1,11 @@
+# Heroes Wrestling contract
+
+Original Heroes printed56/PDF57 was visually checked at tmp/hu-physical-source-57.png. Markdown interleaves columns: Wrestling introduction3246 is followed by Gymnastics bonuses3250–3262. Wrestling's own moves/bonuses are3280–3292 (SHA02927f54..., candidates9e02bd07fb2418301a76/39537a5bf6651d011cb8). Never transfer Gymnastics climbing/Prowl/P.P./2D6 bonuses to Wrestling.
+
+Wrestling costs one Physical/Athletic program choice. It is explicitly excluded from Secondary eligibility (printed47/PDF48); keep the existing honor-system catalog/retention/warning. No percentile proficiency, training profile, attacks/parry/dodge bonus or automatic parry. Apply once: P.S.+2, P.E.+1, S.D.C.+4D6, roll with impact+1. Record dice once and retain across remove/reselect/portable/history. Starting HP keeps the effective P.E. snapshot from initial generation; later Wrestling changes do not rewrite it.
+
+Show source-grounded conditional move guidance in browser and editable PDF: body block/tackle1D4, opponent dodges/parries to avoid knockdown, loses one melee attack if knocked down; pin/incapacitate on roll18/19/20 (do not invent a natural-roll condition); crush/squeeze1D4 per squeeze attack. These describe encounter moves rather than target simulation. Do not grant generic knockout, immobilization duration or unreviewed skill percentages.
+
+Worked example allbase12, dice4, High School Physical Wrestling+Boxing+Basic+Swimming: four program selections/noSecondaryusage, P.S.16/P.E.13, attacks5/damage1/parry2/dodge2/roll4, Swimming55%, pace48/13ordinaryminutes. Generate resources after selection: S.D.C.58 and startingHP17. Untrained Wrestling alone: attacks3, roll1, parry costsone action. Boxing remains independent; duplicates warn/creditonce; pending repeated program cannot acquire Wrestling. Normal program grants and Secondary honor choices remain distinct.
+
+Pre-agreed public tests: CharacterApplication, persistence/portable/history/upgrade, HTTP and editable PDF. Full/Windows checks, both review axes, browser remove/reselect/reload and rendered editable PDF edit/reopen before merge. Other Physical skills, moves/advancement, equipment and full corpus remain open.

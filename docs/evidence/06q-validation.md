@@ -19,3 +19,5 @@ Browser: Boxing plus Martial Arts uses four weighted selections, no Secondary al
 Other Physical skills/maneuvers, repeated-program remaining-category entitlements, Physical Training, Heroes advancement, equipment and full corpus remain open. Parent06/07/09 remain open.
 
 Initial Windows37197526411/37197529132 passed tests/build/new program/PDF checks but failed the final reopen count: the additional Athlete fixture makes11 saved characters, while the assertion still expected10. Corrected that test expectation and added exact Athlete program/projection reopen checks. Product behavior is unchanged. Corrected Windows pending.
+
+Corrected Windows37198040162(6m14s)/37198041773(7m2s) passed, including exact Athlete reopen checks. PR82 merged as7fc09b8049ac3accdf5ca561cb9aad45202cf99c.

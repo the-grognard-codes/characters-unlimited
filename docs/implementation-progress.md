@@ -167,3 +167,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 09A4: Chosen Extraordinary Physical Beauty and supporting Palming under immutable power1.2/skills1.8 implemented. Higher-target, separate charm chart and named skill bonuses/source synergies verified in public worked examples; independent review and full/browser/PDF validation pending. Parent09 remains open.
 
 - 09A4: Both review axes approve after Secondary guidance repair. Final 266 local tests pass (one frozen-only skip), strict mypy94, compile/JS checks, browser remove/reselect and three-page editable PDF verification pass. Windows PR checks pending; parent09 remains open.
+
+09A4 merged in PR70 as34ef6c59d84ad6dbd5a1089afb96fdd1e462bb8c after Windows37180579805(5m4s)/37180582307(5m39s) passed, including packaged executable validation.
+
+- 09B: Five reviewed Heroes Rogue Secondaries implemented in immutable skills1.9. Latest user interpretation grants Concealment M.A. bonus. Both reviews approve; final 271 local tests pass (one frozen-only skip), strict mypy95, compile/JS checks, browser recalculation and three-page editable PDF verified. Windows checks pending; parent09 remains open.

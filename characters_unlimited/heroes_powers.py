@@ -8,6 +8,7 @@ from uuid import UUID, uuid4
 from .attribute_modifiers import attribute_value
 from .heroes_power_budget import project_budget
 from .recorded_formulas import validate_formula, formula_value, roll_formula
+from .selection_groups import project_group
 
 
 def encoded(value):
@@ -230,7 +231,10 @@ def project_powers(character, pack, budget_pack, higher=None):
                    {'numerator':1,'denominator':1})
     budget = project_budget(character.get('power_budget'), budget_pack)
     allowance = sum(row['count'] for row in budget['budgets'] if row['name'] == 'Minor super abilities')
-    used = len(powers)
+    minor = project_group({'count': allowance, 'option_ids': [row['id'] for row in pack['powers']
+                                                           if row['category'] == 'minor']},
+                          [row['id'] for row in powers])
+    used = minor['credited']
     warnings = []
     if used > allowance:
         warnings.append(f'Minor power selections exceed the recorded starting allowance by {used-allowance}. Selections retained.')
@@ -248,7 +252,7 @@ def project_powers(character, pack, budget_pack, higher=None):
                 if gain and 'effect_summary' in row:
                     row['effect_summary'] += f"; HP level {level} +{gain['face']} (dice [{gain['face']}])"
     return {'catalog':catalog, 'selections':[row['id'] for row in powers], 'powers':powers, 'receipts':receipts,
-            'minor':{'used':used, 'allowance':allowance, 'remaining':allowance-used}, 'trust_intimidate':trust,
+            'minor':{'used':used, 'allowance':allowance, 'remaining':minor['remaining']}, 'trust_intimidate':trust,
             'saving_bonuses':project_power_saves(character,pack,powers),
             'fatigue_rate':fatigue,
             'saving_notes':([('Saving values include reviewed ordinary M.E., P.E. and selected power contributions only. Other modifiers remain pending.' if 'physical_endurance_charts' in pack else 'Saving values include reviewed ordinary M.E. and selected power contributions only. Other modifiers remain pending.'),

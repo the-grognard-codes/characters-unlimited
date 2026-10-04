@@ -59,6 +59,10 @@ These are bonus dice, so reroll-ones, extra-die/drop-lowest and exceptional-attr
 
 The regression fixtures use synthetic multiplier definitions to test the import contract; they are not new book rulings or published content. Existing source-grounded tests verify actual class, skill and power behavior, including retained resource dice and advancement.
 
+## Implemented selection increment (22B1)
+
+`selection_groups.py` now shares distinct weighted choice accounting across required select groups, scholastic program groups and Minor power allowances. It validates counts, costs and references, and reports duplicate/outside/unresolved credit without granting effects. Referenced identities remain exact; free-text specialties keep their existing normalization. Recorded outcome-count dice also reuse22A formulas. Legacy adapters preserve their warning, grant and active-power behavior. Details and remaining limitations are in `shared-selection-group-contract.md`.
+
 ## Next dependency-ordered increments
 
 | Slice | Deliverable | Reuse proof |

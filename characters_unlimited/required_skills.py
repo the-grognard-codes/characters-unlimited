@@ -4,7 +4,12 @@ from typing import Any
 from .skill_choices import learned_selection_ids, specialty_key
 from .proficiency import synergy_contributions, project_proficiency
 from .advancement import learning_age
-from .required_definitions import required_catalog
+from .required_definitions import required_catalog, required_selection_group
+from .selection_groups import project_group
+
+
+def required_choice_identity(group, value):
+    return value if group['kind'] == 'select' else specialty_key(value)
 
 
 def validate_required_choices(choices, pack):
@@ -43,10 +48,11 @@ def project_required_skills(character, pack, intelligence):
         excluded: set[str] = set()
         for identifier in group.get('different_from', []):
             target = choices[identifier]
-            excluded.update(specialty_key(item) for item in (target if isinstance(target,list) else [target]) if item)
+            excluded.update(required_choice_identity(group, item)
+                            for item in (target if isinstance(target,list) else [target]) if item)
         unique = set()
         for value in values:
-            key = specialty_key(value)
+            key = required_choice_identity(group, value)
             if not key:
                 if value or group['kind'] == 'text-list':
                     warnings.append(f"{group['name']}: name every choice.")
@@ -62,7 +68,8 @@ def project_required_skills(character, pack, intelligence):
                 definitions.append((next(item for item in group['options'] if item['id'] == value), ''))
             elif 'skill' in group:
                 definitions.append((group['skill'], value))
-        remaining[group['id']] = group['count'] - len(unique)
+        remaining[group['id']] = (project_group(required_selection_group(group), list(unique))['remaining']
+            if group['kind'] == 'select' else group['count'] - len(unique))
         if remaining[group['id']] < 0:
             warnings.append(f"{group['name']}: {-remaining[group['id']]} selection(s) over the allowance.")
     available = {definition['id'] for definition, _ in definitions}

@@ -7,6 +7,17 @@ from .education import project_education
 from .proficiency import project_proficiency, synergy_contributions
 from .heroes_powers import power_skill_contributions
 from .heroes_abilities import project_shared_abilities
+from .selection_groups import validate_group, project_group
+
+
+def program_group(definition):
+    if not isinstance(definition, dict):
+        raise ValueError('Invalid program selection group')
+    group = {'count': definition.get('count'), 'option_ids': definition.get('skill_ids'),
+             'costs': definition.get('selection_costs', {}),
+             'unresolved': definition.get('unresolved_skill_ids', [])}
+    validate_group(group)
+    return group
 
 
 def validate_program_selections(selections, pack):
@@ -19,6 +30,9 @@ def validate_program_selections(selections, pack):
                 or type(selection['slot']) is not int or not 0 <= selection['slot'] < 100
                 or not isinstance(selection['program'], str) or selection['program'] not in programs):
             raise ValueError('Select an available program and a whole-number education slot')
+        for definition in programs[selection['program']].get('choice_groups', []):
+            if set(program_group(definition)['option_ids']) - skills:
+                raise ValueError('Program groups must reference available skill definitions')
         if 'choices' in selection:
             groups = {group['id'] for group in programs[selection['program']].get('choice_groups',[])}
             choices = selection['choices']
@@ -44,10 +58,8 @@ def program_choice_view(selection, program, warnings, *, certified=True):
     groups = []
     for definition in program.get('choice_groups',[]):
         choices = selection.get('choices',{}).get(definition['id'],[])
-        unresolved = set(choices).intersection(definition.get('unresolved_skill_ids',[]))
-        eligible = (set(choices).intersection(definition['skill_ids'])-unresolved) if certified else set()
-        credited = sum(definition.get('selection_costs',{}).get(identifier,1) for identifier in eligible)
-        remaining = definition['count']-credited
+        summary = project_group(program_group(definition), choices, certified=certified)
+        credited, remaining = summary['credited'], summary['remaining']
         label = f"{program['name']} slot {selection['slot']+1} — {definition['name']}"
         if remaining:
             if 'selection_costs' in definition:
@@ -56,11 +68,11 @@ def program_choice_view(selection, program, warnings, *, certified=True):
                 warnings.append(f'{label}: {message}. Entered choices retained.')
             else:
                 warnings.append(f'{label}: {remaining} distinct eligible choices remaining. Entered choices retained.')
-        if len(set(choices))<len(choices):
+        if summary['duplicates']:
             warnings.append(f'{label}: repeated choices retained; duplicates do not fill another distinct choice.')
-        if set(choices)-set(definition['skill_ids']):
+        if summary['outside']:
             warnings.append(f'{label}: outside-group choices retained with no group education bonus.')
-        if unresolved:
+        if summary['unresolved']:
             warnings.append(f'{label}: duplicate fixed-grant choice credit is pending interpretation. Fixed grants remain intact; the extra entitlement is not certified.')
         groups.append({**deepcopy(definition),'selections':deepcopy(choices),'entered':len(choices),
                        'credited':credited,'remaining':remaining,'credit_certified':certified})

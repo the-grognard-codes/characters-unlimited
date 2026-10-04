@@ -16,7 +16,7 @@ from .rules import RuleArchive
 from .class_rules import class_rules, equipment_class_rules
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
-from .attribute_modifiers import attribute_value, roll_class_modifiers
+from .attribute_modifiers import attribute_value, roll_class_modifiers, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import education_selection, validate_education, project_education
 from .heroes_power_budget import select_budget, validate_budget, project_budget
 from .heroes_powers import select_powers, project_powers, power_resource_contributions
@@ -33,9 +33,6 @@ from .starting_choices import acquire_starting_choices
 from .starting_groups import acquire_starting_group, validate_starting_group_upgrade
 from .advancement import first_advance, remember_learning, learning_key, project_advancement
 from .heroes_advancement import first_hero_advance, advance_higher_levels, remembered_learning, power_gains, project_hero_advancement, advancement_power_resources
-
-ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
-
 
 def require_revision(revision):
     if type(revision) is not int or revision < 0:
@@ -77,6 +74,7 @@ class CharacterApplication:
         if not isinstance(name, str) or not isinstance(notes, str):
             raise ValueError("Name and notes must be text")
         settings = generation_settings(generation)
+        class_effects(selected_class)
         character = {
             "id": str(uuid4()), "format_version": 1, "game": game,
             "name": name, "notes": notes, "race": race, "character_class": character_class,

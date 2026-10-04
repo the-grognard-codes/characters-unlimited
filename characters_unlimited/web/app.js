@@ -16,6 +16,13 @@ function modifierSourceCitation(source) {
   if (source.printed_page != null) return `${source.book}, printed p. ${source.printed_page}${source.pdf_page == null ? '' : ` (PDF p. ${source.pdf_page})`}`;
   return source.book;
 }
+function attributeModifierDisplay(modifier, classLabel) {
+  const minimum = modifier.operation === 'minimum' || modifier.id.startsWith('power-floor:');
+  return {
+    label: minimum ? `${modifier.source.section || 'O.C.C. attribute'} target floor` : modifier.id.startsWith('physical:') ? modifier.source.section : classLabel,
+    amount: minimum ? modifier.value : `+${modifier.value}`
+  };
+}
 function lockNavigation(busy) {
   navigationBusy = busy;
   setEducationBusy();
@@ -91,9 +98,7 @@ function render(character) {
     const explanation = document.createElement('p');
     explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
     for (const modifier of attribute.modifiers || []) {
-      const powerFloor = modifier.id.startsWith('power-floor:');
-      const label = powerFloor ? `${modifier.source.section} target floor` : modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. bonus';
-      const amount = powerFloor ? modifier.value : `+${modifier.value}`;
+      const {label, amount} = attributeModifierDisplay(modifier, 'O.C.C. bonus');
       explanation.textContent += ` · ${label}: ${amount}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifierSourceCitation(modifier.source)}`;
     }
     if (attribute.cap != null) explanation.textContent += ` · Normal automatic ceiling: ${attribute.cap}; full raw total retained. Manual values remain available.`;
@@ -486,9 +491,7 @@ $('roll-history').onclick = () => {
       const options = settings ? ` · reroll ones: ${settings.reroll_ones ? 'yes' : 'no'} · extra die: ${settings.extra_die ? 'yes' : 'no'}` : '';
         const text = document.createElement('p'); text.className = 'help'; text.textContent = `${name}: base ${value.base} · dice ${value.rolls.join(', ')}${value.discarded?.length ? ' · dropped ' + value.discarded.join(', ') : ''}${value.bonus_rolls.length ? ' · exceptional ' + value.bonus_rolls.join(', ') : ''}${value.rerolls?.length ? ' · rerolled ones ' + value.rerolls.map(item => item.rolls.join(' → ')).join('; ') : ''}${options}`; entry.append(text);
         for (const modifier of value.modifiers || []) {
-            const powerFloor = modifier.id.startsWith('power-floor:');
-            const label = powerFloor ? `${modifier.source.section} target floor` : modifier.id.startsWith('physical:') ? modifier.source.section : 'O.C.C. contribution';
-            const amount = powerFloor ? modifier.value : `+${modifier.value}`;
+            const {label, amount} = attributeModifierDisplay(modifier, 'O.C.C. contribution');
             text.textContent += ` · ${label} ${amount}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(', ') + ')' : ''} · ${modifierSourceCitation(modifier.source)}`;
         }
     }

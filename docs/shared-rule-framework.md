@@ -67,6 +67,10 @@ The regression fixtures use synthetic multiplier definitions to test the import 
 
 `option_selectors.py` compiles exact category/tag/identity criteria and exclusions for program groups and Minor power allowances. Details are in `shared-option-selector-contract.md`. It does not grant effects or certify missing catalog dependencies; shared grants remain22B2C work.
 
+## Typed attribute increment (22C1)
+
+`effect_operations.py` shares addition/minimum evaluation for class, Physical and power attributes. Classes may declare typed formula/source effects without class-specific handlers. Exact receipt replay, manual ordering and retained resource snapshots remain enforced. See `shared-attribute-effect-contract.md`; broader grants, targets, acquisitions and importer validation remain open.
+
 ## Next dependency-ordered increments
 
 | Slice | Deliverable | Reuse proof |

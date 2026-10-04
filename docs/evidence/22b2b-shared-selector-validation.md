@@ -13,6 +13,6 @@ Base:`04df5b68ce951d6fce3e2fa76142cf8d7d69b01a`. Implemented contract:`docs/shar
 
 ## Checks
 
-Final33 affected tests passed in14.307 seconds. Required mypy passed over125 source files. Python compilation and all browser-script syntax passed. Standards and Spec both APPROVE after the all-program validation repair. Reviewers did not rerun tests. The initial full suite was interrupted for this repair and is not a final result; final full suite passed389 tests in230.433 seconds, with one frozen-only skip. Whitespace passed. Exact-head Windows/frozen results remain pending.
+Final33 affected tests passed in14.307 seconds. Required mypy passed over125 source files. Python compilation and all browser-script syntax passed. Standards and Spec both APPROVE after the all-program validation repair. Reviewers did not rerun tests. The initial full suite was interrupted for this repair and is not a final result; final full suite passed389 tests in230.433 seconds, with one frozen-only skip. Whitespace passed. Exact-head Windows37231949706/37231946474 passed, including both frozen steps; PR92 merged as fba274ef8839bd3cdc41c26f86f1a583157e2aa5.
 
 Missing full catalog dependencies remain importer/coverage work. For example the current Extraordinary P.B. effect references Interrogation, not yet in the reviewed skill catalog; selectors must not be mistaken for complete book support. Existing `power_bonus_tags` effect targeting remains in its adapter pending22C.

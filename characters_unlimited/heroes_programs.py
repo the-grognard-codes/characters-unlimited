@@ -169,7 +169,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
         projected_definition['additional_checks'] = [check for check in definition.get('additional_checks', [])
                                                     if (check.get('requires_skill') is None or check['requires_skill'] in available)
                                                     and check.get('unless_skill') not in available]
-        skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions),
+        skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions,
+                           level_steps=character['level']-character.get('learning_levels',{}).get(definition['id'],character['level'])),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),
             'physical_selections':[{'skill_id':row['id']} for row in pack['skills']

@@ -229,3 +229,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06S merged in PR84 as25d909dcc669583b70b3ef8a693c83b2b133eb57 after Windows37200399086(8m9s)/37200401184(7m23s) passed, including packaged executable validation.
 
 - 06T: Gymnastics adds retained Physical bonuses and named checks under immutable skills1.21. Acrobatics/Gymnastics duplicated abilities use their best calculated proficiency, retaining source checks and counting education once. Both reviews approve; affected27/full352 tests pass (one frozen-only skip), mypy113, compile/JS/whitespace and browser/five-page editable PDF checks pass. Windows pending. Initial core Physical entries are available; later maneuvers, Heroes advancement and parent06/07/09/full corpus remain open.
+
+06T merged in PR85 asada710b649f09d43d2693cb91a17bbf319e62636 after Windows37202070110(9m10s)/37202072886(7m28s) passed, including packaged executable validation.
+
+- 19B1: Heroes Human Mutant levels 1-2 add retained ordinary/power HP dice, XP boundaries, learned-level proficiency and active training growth under immutable advancement1.0. Undo/replay and recovery preserve acquisition timing and exact pins. Both reviews approve after display repairs; final360 local tests pass (one frozen-only skip), required mypy115, compilation/JS/whitespace and browser/five-page editable PDF checks pass. Windows pending. Levels3-15 and parent19/06/07/09/full corpus remain open.

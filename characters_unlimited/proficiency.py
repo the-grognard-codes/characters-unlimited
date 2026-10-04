@@ -6,7 +6,9 @@ def synergy_contributions(definition, available):
             if available.intersection(synergy.get('any_of', [synergy.get('skill_id')]))}
 
 
-def project_proficiency(definition, contributions):
+def project_proficiency(definition, contributions, *, level_steps=0):
+    if level_steps:
+        contributions = {**contributions, 'experience':definition['per_level']*level_steps}
     uncapped = sum(contributions.values())
     checks = []
     normal_checks = {'primary': {'percentage': min(98, uncapped), 'per_level': definition['per_level']}}
@@ -24,6 +26,8 @@ def project_proficiency(definition, contributions):
                          'per_level': reference['per_level'] * multiplier}
         else:
             check_contributions = {**contributions, 'base': check['base']}
+            if level_steps:
+                check_contributions['experience'] = check.get('per_level',definition['per_level'])*level_steps
             value = sum(check_contributions.values())
             projected = {'name': check['name'], 'percentage': min(98, value),
                          'uncapped_percentage': value, 'contributions': check_contributions, 'per_level': check.get('per_level',definition['per_level'])}

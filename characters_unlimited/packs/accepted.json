@@ -9,7 +9,8 @@
     "rifts-equipment": "1.10.0",
     "heroes-mutant-power-budget": "1.0.0",
     "heroes-super-abilities": "1.3.0",
-    "heroes-resources": "1.0.0"
+    "heroes-resources": "1.0.0",
+    "heroes-advancement": "1.0.0"
   },
   "definitions": [
     {
@@ -413,6 +414,12 @@
       "version": "1.21.0",
       "filename": "heroes-program-skills-1.21.0.json",
       "sha256": "995240bdd9e6a80104214fa8cf06e6b1c88ff3c25a34fec78122702ddda6526e"
+    },
+    {
+      "id": "heroes-advancement",
+      "version": "1.0.0",
+      "filename": "heroes-advancement-1.0.0.json",
+      "sha256": "54108159c0e9264d14ee350256385174e9fd835c3d8a0351bdd3c5787331d03f"
     }
   ]
 }

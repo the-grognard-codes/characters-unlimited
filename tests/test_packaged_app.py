@@ -440,6 +440,36 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertNotIn('skills.acrobatics.check2.name',athlete_pdf)
                 self.assertEqual(athlete_pdf['skills.gymnastics.check2.rate']['/V'],'2')
 
+                athlete = request('/api/characters/'+athlete['id']+'/attribute',
+                    {'revision':athlete['revision'],'attribute':'PP','mode':'fixed','value':12},token)
+                athlete = request('/api/characters/'+athlete['id']+'/hero-powers',
+                    {'revision':athlete['revision'],'selections':['extraordinary-physical-endurance']},token)
+                athlete = request('/api/characters/'+athlete['id']+'/resources',{'revision':athlete['revision']},token)
+                starting_hp = request('/api/characters/'+athlete['id']+'/resources')['resources']['HP']['value']
+                before_level = athlete
+                athlete = request('/api/characters/'+athlete['id']+'/advance',
+                    {'revision':athlete['revision'],'method':'xp','value':2051},token)
+                power_gain = next(iter(athlete['advancement']['power_hp_rolls'].values()))['face']
+                hp_gain = athlete['advancement']['hp_roll']
+                self.assertEqual(request('/api/characters/'+athlete['id']+'/resources')['resources']['HP']['value'],starting_hp+hp_gain+power_gain)
+                program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
+                self.assertEqual(program_view['combat']['totals']['parry']['value'],2)
+                self.assertEqual(program_view['combat']['totals']['dodge']['value'],2)
+                self.assertEqual(program_view['advancement']['level'],2)
+                athlete_pdf = PdfReader(BytesIO(request('/api/characters/'+athlete['id']+'/pdf'))).get_fields()
+                assert athlete_pdf is not None
+                self.assertEqual(athlete_pdf['LEVEL']['/V'],'2')
+                self.assertEqual(athlete_pdf['HP']['/V'],str(starting_hp+hp_gain+power_gain))
+                undone = request('/api/characters/'+athlete['id']+'/undo-advancement',{'revision':athlete['revision']},token)
+                athlete = undone['character']
+                self.assertEqual(athlete['attributes'],before_level['attributes'])
+                self.assertEqual(undone['recovery']['level'],2)
+                athlete = request('/api/characters/'+athlete['id']+'/advance',
+                    {'revision':athlete['revision'],'method':'level','value':2},token)
+                self.assertEqual(athlete['advancement']['hp_roll'],hp_gain)
+                self.assertEqual(next(iter(athlete['advancement']['power_hp_rolls'].values()))['face'],power_gain)
+                program_view = request('/api/characters/'+athlete['id']+'/hero-programs')
+
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)
                 city_path = '/api/characters/' + city['id']
@@ -573,7 +603,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_program_selections'],hero['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id'])['hero_secondary_selections'],hero['hero_secondary_selections'])
                 self.assertEqual(request('/api/characters/'+hero['id']+'/hero-programs')['combat'],hero_combat)
-                self.assertEqual(len(bootstrap['characters']), 11)
+                self.assertEqual(len(bootstrap['characters']), 12)
                 self.assertEqual(request('/api/characters/'+athlete['id'])['hero_program_selections'],athlete['hero_program_selections'])
                 self.assertEqual(request('/api/characters/'+athlete['id']+'/hero-programs'),program_view)
                 self.assertEqual(request(city_path)['physical_acquisitions'], city['physical_acquisitions'])

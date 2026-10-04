@@ -31,6 +31,7 @@ from .starting_gear import acquire_starting_gear
 from .starting_choices import acquire_starting_choices
 from .starting_groups import acquire_starting_group, validate_starting_group_upgrade
 from .advancement import first_advance, remember_learning, learning_key, project_advancement
+from .heroes_advancement import first_hero_advance, remembered_learning, power_gains, project_hero_advancement, advancement_power_resources
 
 ATTRIBUTES = ("IQ", "ME", "MA", "PS", "PP", "PE", "PB", "SPD")
 
@@ -51,7 +52,8 @@ class CharacterApplication:
         self.store = CharacterStore(directory)
 
     def catalog(self):
-        return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}, {"id": "heroes-unlimited", "name": self.heroes_pack["name"]}], "packs": [deepcopy(self.pack), deepcopy(self.heroes_pack)]}
+        return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}, {"id": "heroes-unlimited", "name": self.heroes_pack["name"]}], "packs": [deepcopy(self.pack), deepcopy(self.heroes_pack)],
+                "heroes_starting_max_level":self.rule_archive.active('heroes-advancement')['max_level']}
 
     def coverage(self):
         return SourceInventory.load()
@@ -67,7 +69,8 @@ class CharacterApplication:
         if racial_rules is None or selected_class is None:
             raise ValueError("Select an available race and class from the selected game")
         skill_pack = class_rules(self.skill_pack, {'character_class':character_class}) if game == 'rifts' else None
-        maximum = skill_pack.get('higher_advancement', {}).get('max_level', 2) if skill_pack else 1
+        maximum = (skill_pack.get('higher_advancement', {}).get('max_level', 2) if skill_pack else
+                   self.rule_archive.active('heroes-advancement')['max_level'])
         if type(level) is not int or not 1 <= level <= maximum:
             raise ValueError('Choose a reviewed starting level')
         if not isinstance(name, str) or not isinstance(notes, str):
@@ -91,6 +94,14 @@ class CharacterApplication:
             character.update(acquire_physical(character, [], skill_pack, self.die))
         character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
         if level > 1:
+            if game == 'heroes-unlimited':
+                resource_pack = self.character_resource_pack(character)
+                character.update(acquire_resources(character, resource_pack, self.die))
+                character['additional_rule_packs'][resource_pack['id']] = resource_pack['version']
+                character.update(self._hero_advance_changes(character, 'level', level))
+                export_bundle(character, self.rule_archive.definitions())
+                self.store.put(character)
+                return character
             assert skill_pack is not None
             character.update(acquire_resources(character, skill_pack, self.die))
             choices = validate_combat_choices({}, skill_pack)
@@ -126,12 +137,38 @@ class CharacterApplication:
         character = self.get(identifier)
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before advancing.')
-        pack = self.character_skill_pack(character)
-        choices = validate_combat_choices(character.get('combat_choices', {}), pack)
-        levels = remember_learning(character, project_skills(character, pack), choices)
-        changes = first_advance(character, pack, method, value, levels, self.die)
+        if character['game'] == 'heroes-unlimited':
+            changes = self._hero_advance_changes(character, method, value)
+        else:
+            pack = self.character_skill_pack(character)
+            choices = validate_combat_choices(character.get('combat_choices', {}), pack)
+            levels = remember_learning(character, project_skills(character, pack), choices)
+            changes = first_advance(character, pack, method, value, levels, self.die)
         export_bundle({**character, **changes}, self.rule_archive.definitions())
         return self.store.update(identifier, changes, revision)
+
+    def _hero_advance_changes(self, character, method, value):
+        rules = self._character_heroes_pack(character, 'heroes-advancement')
+        skills = self._character_heroes_pack(character, 'heroes-program-skills')
+        education = self.character_education_pack(character)
+        if 'training_skill_ids' not in skills.get('combat', {}):
+            raise ValueError('Review a rule update before Heroes advancement')
+        levels = remembered_learning(character, skills, education)
+        changes = first_hero_advance(character, rules, method, value, levels, self.die)
+        pins = {**character.get('additional_rule_packs', {}), rules['id']:rules['version']}
+        if changes.get('level') == 2:
+            pins.update({skills['id']:skills['version'], education['id']:education['version']})
+        return {**changes, 'additional_rule_packs':pins}
+
+    def _hero_learning_changes(self, character, changes, *, learned_level=None):
+        if learned_level is not None and (type(learned_level) is not int or not 1 <= learned_level <= character['level']):
+            raise ValueError('Choose a learned level no later than the current level')
+        if character['level'] == 1:
+            return changes
+        candidate = {**character, **changes}
+        levels = remembered_learning(candidate, self._character_heroes_pack(candidate,'heroes-program-skills'),
+                                     self.character_education_pack(candidate), learned_level=learned_level)
+        return {**changes, 'learning_levels':levels}
 
     def undo_advancement(self, identifier, *, revision):
         require_revision(revision)
@@ -151,6 +188,9 @@ class CharacterApplication:
                         'advancement': {**deepcopy(record), 'active': False}}
         if 'later_advancements' in character:
             restored['later_advancements'] = deepcopy(character['later_advancements'])
+        if character['game'] == 'heroes-unlimited':
+            restored['additional_rule_packs'] = {**restored.get('additional_rule_packs',{}),
+                'heroes-advancement':character['additional_rule_packs']['heroes-advancement']}
         recovery = fresh_copy(character)
         recovery['recovery_of'] = identifier
         export_bundle(restored, self.rule_archive.definitions())
@@ -249,6 +289,12 @@ class CharacterApplication:
         pack = self.character_hero_powers_pack(character)
         changes = select_powers(character, selections, pack, self.die)
         changes['additional_rule_packs'] = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
+        if character['level'] > 1:
+            record = deepcopy(character['advancement'])
+            record['power_hp_rolls'] = power_gains({**character, **changes},
+                self._character_heroes_pack(character,'heroes-advancement'),self.die,record['power_hp_rolls'])
+            changes['advancement'] = record
+        export_bundle({**character, **changes},self.rule_archive.definitions())
         return self.store.update(identifier, changes, revision)
 
     def select_power_budget(self, identifier, *, revision, method, outcome_id=None):
@@ -316,10 +362,21 @@ class CharacterApplication:
         power_pack = self.character_hero_powers_pack(character)
         powers = project_powers(character,power_pack,self.character_power_budget_pack(character))
         physical = project_hero_physical(character, pack, education,power_view=powers)
-        return {**project_programs(character, pack, education, power_pack),
-                'physical':physical, 'combat':project_hero_combat(character,pack,physical)}
+        if character['level'] > 1:
+            for row in physical['selected']:
+                row['guidance'] = [note.replace('Heroes advancement remains unfinished; later training bonuses and maneuvers are not yet active.',
+                    'Reviewed training bonuses through learned level 2 apply in combat; later training bonuses and maneuvers remain unfinished.') for note in row.get('guidance',[])]
+                row['guidance'] = [note.replace('Later bonuses and maneuvers await Heroes advancement; current characters support level 1 only.',
+                    'Reviewed training bonuses through learned level 2 apply in combat; later bonuses and maneuvers remain unfinished.') for note in row['guidance']]
+        progression = self._character_heroes_pack(character,'heroes-advancement')
+        programs = project_programs(character, pack, education, power_pack)
+        if character['level'] > 1:
+            programs['guidance'] = [note.replace('and advancement remain unfinished.', 'and later advancement remain unfinished.') for note in programs['guidance']]
+        return {**programs,
+                'physical':physical, 'combat':project_hero_combat(character,pack,physical,progression=progression),
+                'advancement':project_hero_advancement(character,progression)}
 
-    def select_hero_programs(self, identifier, *, revision, selections):
+    def select_hero_programs(self, identifier, *, revision, selections, learned_level=None):
         require_revision(revision)
         character = self.get(identifier)
         if revision != character['revision']:
@@ -333,6 +390,8 @@ class CharacterApplication:
         changes.update(preserve_training_choice(character,pack,self.character_education_pack(character)))
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
+        changes = self._hero_learning_changes(character,changes,learned_level=learned_level)
+        export_bundle({**character, **changes},self.rule_archive.definitions())
         return self.store.update(identifier, changes, revision)
 
     def character_skill_pack(self, character):
@@ -340,7 +399,7 @@ class CharacterApplication:
             raise ValueError('Heroes Unlimited education and skill rules remain unfinished')
         return class_rules(self.rule_archive.resolve('rifts-domestic-skills', character['additional_rule_packs']['rifts-domestic-skills']), character)
 
-    def select_hero_secondary(self, identifier, *, revision, selections):
+    def select_hero_secondary(self, identifier, *, revision, selections, learned_level=None):
         require_revision(revision)
         character = self.get(identifier)
         if revision != character['revision']:
@@ -354,6 +413,8 @@ class CharacterApplication:
         changes.update(preserve_training_choice(character,pack,self.character_education_pack(character)))
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
+        changes = self._hero_learning_changes(character,changes,learned_level=learned_level)
+        export_bundle({**character, **changes},self.rule_archive.definitions())
         return self.store.update(identifier,changes,revision)
 
     def select_hero_training(self, identifier, *, revision, training_id):
@@ -434,8 +495,8 @@ class CharacterApplication:
                                   + ', '.join(map(str, target['source']['pages']))
                                   + ' / PDF pp. ' + ', '.join(map(str, target['source']['pdf_pages']))],
                        'scope':'Heroes scholastic program skills. Education and attributes keep their saved rules.'}
-            before_combat = project_hero_combat(character,previous,project_hero_physical(character,previous,education))
-            after_combat = project_hero_combat(character,target,project_hero_physical(character,target,education))
+            before_combat = project_hero_combat(character,previous,project_hero_physical(character,previous,education),progression=self._character_heroes_pack(character,'heroes-advancement'))
+            after_combat = project_hero_combat(character,target,project_hero_physical(character,target,education),progression=self._character_heroes_pack(character,'heroes-advancement'))
             for name,result in after_combat['totals'].items():
                 old_value = before_combat['totals'].get(name,{}).get('value')
                 if old_value != result['value']:
@@ -444,7 +505,7 @@ class CharacterApplication:
                 if before_combat.get(key) != after_combat.get(key):
                     preview['combat'].append({'name':label,'before':before_combat.get(key),'after':after_combat.get(key)})
             if after_combat['supported']:
-                preview['scope'] += ' Reviewed Heroes level-one ordinary combat is included; later advancement remains pending.'
+                preview['scope'] += f" Reviewed Heroes ordinary combat through level {character['level']} is included; later advancement remains pending."
         else:
             previous = self.character_skill_pack(character)
             target = class_rules(self.rule_archive.active('rifts-domestic-skills'), character)
@@ -555,6 +616,14 @@ class CharacterApplication:
             if previous_equipment['version'] != target_equipment['version']:
                 changes.append({'pack_id': target_equipment['id'], 'from': previous_equipment['version'],
                                 'to': target_equipment['version']})
+        if character['game'] == 'heroes-unlimited' and 'heroes-advancement' in character.get('additional_rule_packs',{}):
+            previous_progression = self._character_heroes_pack(character,'heroes-advancement')
+            target_progression = self.rule_archive.active('heroes-advancement')
+            if 'advancement' in character and canonical(previous_progression) != canonical(target_progression):
+                raise ValueError('This update changes recorded Heroes advancement rules. History migration remains pending; current rules stay intact.')
+            targets.append(target_progression)
+            if previous_progression['version'] != target_progression['version']:
+                changes.append({'pack_id':target_progression['id'],'from':previous_progression['version'],'to':target_progression['version']})
         preview.update(revision=character['revision'], changes=changes)
         preview['token'] = hashlib.sha256(canonical({'character_id': identifier, 'preview': preview, 'targets': targets})).hexdigest()
         return preview
@@ -611,6 +680,9 @@ class CharacterApplication:
             power_supported = 'physical_endurance_charts' in self.character_hero_powers_pack(character)
         power_resources = (power_resource_contributions(character,self.character_hero_powers_pack(character))
                            if character['game'] == 'heroes-unlimited' else None)
+        if character['game'] == 'heroes-unlimited':
+            power_resources = [*(power_resources or []), *advancement_power_resources(character,
+                self._character_heroes_pack(character,'heroes-advancement'))]
         view = project_resources(character, self.character_resource_pack(character), physical_resources=physical,
                                  power_resources=power_resources)
         if physical_supported:
@@ -624,7 +696,10 @@ class CharacterApplication:
             if power_supported:
                 view['guidance'] = [note.replace('Other Physical skill, unusual characteristic and power contributions remain unfinished.',
                     'Other Physical skill, unusual characteristic and other power contributions remain unfinished.') for note in view['guidance']]
-                view['guidance'].append('Extraordinary Physical Endurance adds its recorded HP and S.D.C. dice while active, including one retained level-1 D4. Its P.E. addition affects the starting HP snapshot only if active at initial generation. Later removal or acquisition never rewrites that snapshot. Other power resources and Heroes advancement remain unfinished.')
+                view['guidance'].append('Extraordinary Physical Endurance adds its recorded HP and S.D.C. dice while active, including one retained D4 for each attained level, starting at level 1. Its P.E. addition affects the starting HP snapshot only if active at initial generation. Later removal or acquisition never rewrites that snapshot. Other power resources and Heroes advancement remain unfinished.')
+        if character['game'] == 'heroes-unlimited' and character.get('advancement'):
+            view['guidance'] = [note.replace('Heroes advancement remain unfinished.', 'later Heroes advancement remain unfinished.').replace('Heroes advancement, other category resources,', 'Later Heroes advancement, other category resources,') for note in view['guidance']]
+            view['guidance'].append(self._character_heroes_pack(character,'heroes-advancement')['guidance'])
         return view
 
     def character_resource_pack(self, character):

@@ -85,14 +85,14 @@ let advancementMaximumLevel = 2;
 let advancementMaximumXP = 3750;
 function setAdvancementBusy() {
   document.querySelectorAll('#advancement-panel input, #advancement-panel select, #advancement-panel button').forEach(element => {
-    element.disabled = navigationBusy || !skillsReady || !advancementSupported;
+    element.disabled = navigationBusy || !(current?.game === 'heroes-unlimited' ? educationReady : skillsReady) || !advancementSupported;
   });
 }
 function renderAdvancement(view) {
   advancementSupported = view.supported;
   advancementMaximumLevel = view.max_level;
   advancementMaximumXP = view.max_xp;
-  const dice = view.dice.map(roll => `L${roll.level}: ${roll.face}${roll.active ? '' : ' (retained for replay)'}`).join(', ');
+  const dice = view.dice.map(roll => `L${roll.level}${roll.power ? " endurance power" : ""}: ${roll.face}${roll.active ? '' : ' (retained for replay)'}`).join(', ');
   $('advancement-status').textContent = `Level ${view.level} · ${view.xp} XP${dice ? ' · HP dice ' + dice : ''}`;
   $('advancement-guidance').textContent = view.guidance;
   $('undo-advancement').hidden = !view.active;
@@ -111,7 +111,7 @@ function wireAdvancementEvents() {
   };
   $('advancement-form').onsubmit = async event => {
     event.preventDefault();
-    if (!advancementSupported || navigationBusy || !skillsReady) return;
+    if (!advancementSupported || navigationBusy || !(current?.game === 'heroes-unlimited' ? educationReady : skillsReady)) return;
     const value = Number($('advancement-value').value);
     if (!Number.isSafeInteger(value)) return showError(new Error('Enter a whole-number XP or level'));
     await characterAction('advance', {method:$('advancement-method').value, value}).catch(showError);

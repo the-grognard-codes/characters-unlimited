@@ -230,6 +230,15 @@ def project_powers(character, pack, budget_pack):
     value = character['attributes']['MA']['value']
     trust = pack['mental_affinity_chart'].get(str(min(value,30)))
     catalog = [{**deepcopy(row), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
+    if character['level'] > 1:
+        for row in [*catalog,*receipts]:
+            row['guidance'] = [note.replace('Heroes advancement is not yet implemented; current characters support level 1 only.',
+                'Reviewed Human Mutant advancement through level 2 adds its retained per-level Hit Point dice; later advancement remains unfinished.') for note in row.get('guidance',[])]
+        gains = character.get('advancement',{}).get('power_hp_rolls',{})
+        for row in receipts:
+            gain = gains.get(row['acquisition_id'])
+            if gain and 'effect_summary' in row:
+                row['effect_summary'] += f"; HP level 2 +{gain['face']} (dice [{gain['face']}])"
     return {'catalog':catalog, 'selections':[row['id'] for row in powers], 'powers':powers, 'receipts':receipts,
             'minor':{'used':used, 'allowance':allowance, 'remaining':allowance-used}, 'trust_intimidate':trust,
             'saving_bonuses':project_power_saves(character,pack,powers),

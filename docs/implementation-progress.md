@@ -183,3 +183,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06I merged in PR73 as c9fa7185ca605bb69e25f2f562d0a2e4685d4dd3 after Windows37184169547(6m15s)/37184175254(6m20s) passed, including packaged executable validation.
 
 - 06J: Body Building & Weight Lifting and Running added under immutable skills1.11 with retained Physical receipts, reversible attributes and S.D.C., initial effective P.E. HP snapshot, portable history, separate UI/PDF summaries and full-definition Heroes upgrade protection. Both reviews approve after outside-group grant and Rifts compatibility repairs. Required mypy99, focused15, compile/JS checks and browser/three-page editable PDF verification pass. Final full suite290 tests passes (one frozen-only skip); Windows checks pending. Parent06/07/09 remain open.
+
+06J merged in PR74 as a978688502364058f08f8063cbd4785856f561f7 after Windows37185966456(6m24s)/37185962664(7m36s) passed, including packaged executable validation.
+
+- 09D: Extraordinary Physical Endurance implemented under immutable powers1.3: additive P.E., retained multi-formula HP/S.D.C. receipts including confirmed level1D4, ordinary P.E. saves/fatigue and independent resource projection. Focused40 and required mypy100 pass; compile/JS/whitespace, browser and four-page editablePDF verification pass. Both reviews approve; full297 tests pass (one frozen-only skip); Windows pending. Heroes advancement and parent09/07 remain open.

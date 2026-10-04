@@ -16,3 +16,5 @@ Browser selection gives P.S.14/P.E.13/Spd.28 and HP17/S.D.C.44/P.P.E.24 with raw
 [Editable sample](06j-skills-sample.pdf)
 
 Complete Physical catalogs, combat training, Heroes advancement, other powers/category construction and full corpus acceptance remain open. Parent06/07/09 remain open. Extraordinary Physical Endurance timing is separately confirmed: one retained D4 for every attained level including1; its implementation is a later slice.
+
+06J merged in PR74 as a978688502364058f08f8063cbd4785856f561f7 after Windows37185966456(6m24s)/37185962664(7m36s) passed, including packaged executable validation.

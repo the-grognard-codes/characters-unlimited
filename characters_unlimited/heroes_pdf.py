@@ -48,9 +48,12 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     heading('Saving Throws', 40, 716, 140)
     for index, (label, key) in enumerate([('Magic', 'SAVE_MAGIC'), ('Psionics', 'SAVE_PSIONICS'),
             ('Poison', 'SAVE_POISON'), ('Insanity', 'SAVE_INSANITY'), ('Coma / death', 'SAVE_COMA')]):
-        save_id = {'SAVE_PSIONICS':'psionics','SAVE_INSANITY':'insanity'}.get(key)
+        save_id = {'SAVE_PSIONICS':'psionics','SAVE_INSANITY':'insanity','SAVE_MAGIC':'magic',
+                   'SAVE_POISON':'poison','SAVE_COMA':'coma-death'}.get(key)
         save = (powers or {}).get('saving_bonuses',{}).get(save_id,{})
         value = f"{save['value']:+d}" if save.get('value') is not None else ''
+        if value and save.get('unit') == 'percentage-points':
+            value += '%'
         if value and save.get('target') is not None:
             value += f"; target {save['target']}"
         labelled(label, key, 40, 691-index*20, 140, value)
@@ -105,17 +108,21 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             source = powers['charm_source']
             power_lines.append(f"Effective P.B. charm/impress: {powers['charm_impress']}% ({source['book']}, printed p.{source['printed_page']} / PDF p.{source['pdf_page']})")
         for power in powers['powers']:
-            power_lines.append(f"{power['name']}: recorded target {power['target']}; dice {power['rolls']}; Minor")
+            detail = power.get('effect_summary',f"recorded target {power['target']}; dice {power['rolls']}")
+            power_lines.append(f"{power['name']}: {detail}; Minor")
             power_lines.extend(power['guidance'])
             power_lines.append(f"{power['source']['book']}, printed p.{power['source']['printed_page']} / PDF p.{power['source']['pdf_page']}")
         for receipt in powers['receipts']:
             if not receipt['active']:
-                power_lines.append(f"Retained inactive power: {receipt['name']}; target {receipt['target']}; dice {receipt['rolls']}")
+                detail = receipt.get('effect_summary',f"target {receipt['target']}; dice {receipt['rolls']}")
+                power_lines.append(f"Retained inactive power: {receipt['name']}; {detail}")
                 power_lines.append(f"{receipt['source']['book']}, printed p.{receipt['source']['printed_page']} / PDF p.{receipt['source']['pdf_page']}")
         if powers['powers']:
             power_lines.append(f"Minor selections: {powers['minor']['used']} used / {powers['minor']['allowance']} allowed")
         for save in powers.get('saving_bonuses',{}).values():
             bonus = f"{save['value']:+d}" if save['value'] is not None else 'unreviewed'
+            if save.get('unit') == 'percentage-points':
+                bonus += '% (percentage points)'
             target = f"; roll target {save['target']}" if save['target'] is not None else '; target depends on the triggering rule'
             parts = '; '.join(f'{label} {amount:+d}' for label,amount in save['contributions'].items())
             power_lines.append(f"{save['name']}: {bonus}{target}; {parts}")
@@ -205,8 +212,8 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
                 terms.append(name+': '+str(value)+(f' (dice {faces})' if faces else ''))
             lines += wrap_lines(result['name']+': '+str(result['value'])+'; '+'; '.join(terms), 530)
             for source in result['sources']:
-                lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
-                                    ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)
+                lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source.get('pages',[source.get('printed_page')])))+
+                                    ' / PDF pp. '+', '.join(map(str,source.get('pdf_pages',[source.get('pdf_page')]))), 530)
         for note in resources['guidance']:
             lines += wrap_lines(note, 530)
     for message in dict.fromkeys([*programs['warnings'], *programs['guidance']]):

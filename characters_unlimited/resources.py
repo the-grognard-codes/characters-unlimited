@@ -167,7 +167,7 @@ def validate_resources(character, pack):
                 raise ValueError('Resource attribute contribution does not match its snapshot')
 
 
-def project_resources(character, pack, *, physical_resources=None):
+def project_resources(character, pack, *, physical_resources=None, power_resources=None):
     """Show generated totals and active Physical S.D.C. bonuses without rolling."""
     validate_resources(character, pack)
     rules = _rules(pack)
@@ -199,6 +199,13 @@ def project_resources(character, pack, *, physical_resources=None):
                 if item['resource'] != 'SDC':
                     continue
                 label = 'Physical: ' + item['name']
+                amounts[label] = item['value']
+                rolls[label] = deepcopy(item['rolls'])
+                if item['source'] not in sources:
+                    sources.append(deepcopy(item['source']))
+        for item in power_resources or []:
+            if item['resource'] == identifier:
+                label = 'Power: ' + item['name']
                 amounts[label] = item['value']
                 rolls[label] = deepcopy(item['rolls'])
                 if item['source'] not in sources:

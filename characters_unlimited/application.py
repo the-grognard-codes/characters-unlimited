@@ -19,7 +19,7 @@ from .combat import validate_combat_choices, project_combat, compare_combat_view
 from .attribute_modifiers import attribute_value, roll_class_modifiers
 from .education import education_selection, validate_education, project_education
 from .heroes_power_budget import select_budget, validate_budget, project_budget
-from .heroes_powers import select_powers, project_powers
+from .heroes_powers import select_powers, project_powers, power_resource_contributions
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
 from .physical import acquire_physical, validate_physical_upgrade
 from .heroes_physical import acquire_hero_physical, project_hero_physical
@@ -570,13 +570,18 @@ class CharacterApplication:
     def _project_character_resources(self, character):
         physical = None
         physical_supported = False
+        power_supported = False
         if character['game'] == 'heroes-unlimited':
             pack = self._character_heroes_pack(character, 'heroes-program-skills')
             physical_supported = any(row.get('kind') == 'physical' for row in pack['skills'])
             physical = project_hero_physical(character,
                 pack,
                 self.character_education_pack(character))['resources']
-        view = project_resources(character, self.character_resource_pack(character), physical_resources=physical)
+            power_supported = 'physical_endurance_charts' in self.character_hero_powers_pack(character)
+        power_resources = (power_resource_contributions(character,self.character_hero_powers_pack(character))
+                           if character['game'] == 'heroes-unlimited' else None)
+        view = project_resources(character, self.character_resource_pack(character), physical_resources=physical,
+                                 power_resources=power_resources)
         if physical_supported:
             view['guidance'] = [note.replace(
                 'Additional Physical skill, unusual characteristic and power S.D.C. contributions remain unfinished.',
@@ -584,6 +589,11 @@ class CharacterApplication:
                 for note in view['guidance']]
         if character['game'] == 'heroes-unlimited':
             view['physical_supported'] = physical_supported
+            view['power_supported'] = power_supported
+            if power_supported:
+                view['guidance'] = [note.replace('Other Physical skill, unusual characteristic and power contributions remain unfinished.',
+                    'Other Physical skill, unusual characteristic and other power contributions remain unfinished.') for note in view['guidance']]
+                view['guidance'].append('Extraordinary Physical Endurance adds its recorded HP and S.D.C. dice while active, including one retained level-1 D4. Its P.E. addition affects the starting HP snapshot only if active at initial generation. Later removal or acquisition never rewrites that snapshot. Other power resources and Heroes advancement remain unfinished.')
         return view
 
     def character_resource_pack(self, character):

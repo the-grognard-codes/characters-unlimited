@@ -157,3 +157,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 07B2: Source-permitted Power Kick in progress with user-confirmed base-dice doubling and bonuses once.
 
 - 09A2: Chosen Extraordinary Mental Affinity, retained acquisitions, trust/intimidate chart and supporting Pick Pockets/Seduction percentages implemented. User confirmed keeping the higher calculated M.A. Source-defined power floor, exact pins, portable history, browser and editable PDF verified. Parent09 and full corpus acceptance remain open; Windows validation pending.
+
+- 09A2: Complete in PR68 as8c37ee4 after Windows full/frozen workflows37177547682/37177550490 passed.
+
+- 09A3: Chosen Extraordinary Mental Endurance, named saving contributions/targets and explicit compatible power-pack updates implemented. Source, browser and editable PDF verified; both review axes approve. Local261 tests pass (one frozen-only skip), mypy93 files, compile/JavaScript checks pass. Windows checks pending; parent09 remains open.

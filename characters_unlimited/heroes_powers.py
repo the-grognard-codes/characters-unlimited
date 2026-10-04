@@ -1,6 +1,7 @@
 """Reviewed power acquisitions, retained dice and source-bound effects."""
 
 import json
+from typing import Any
 from copy import deepcopy
 from uuid import UUID, uuid4
 
@@ -122,7 +123,9 @@ def power_skill_contributions(character, definition, pack):
         if acquisition['id'] not in record['active']:
             continue
         power = definitions[acquisition['power']]
-        bonus = power['skill_bonus']
+        bonus = power.get('skill_bonus')
+        if bonus is None:
+            continue
         if definition['id'] in bonus['skill_ids'] or set(definition.get('power_bonus_tags',[])).intersection(bonus['tags']):
             contributions[power['name']] = bonus['amount']
     return contributions
@@ -150,7 +153,46 @@ def project_powers(character, pack, budget_pack):
     trust = pack['mental_affinity_chart'].get(str(min(value,30)))
     return {'catalog':deepcopy(pack['powers']), 'selections':[row['id'] for row in powers], 'powers':powers, 'receipts':receipts,
             'minor':{'used':used, 'allowance':allowance, 'remaining':allowance-used}, 'trust_intimidate':trust,
+            'saving_bonuses':project_power_saves(character,pack,powers),
+            'saving_notes':(['Saving values include reviewed ordinary M.E. and selected power contributions only. Other modifiers remain pending.',
+                'Named power bonuses are roll additions. Unknown targets depend on the triggering drug, Horror Factor, possession or illusion rule.',
+                'Possession targets depend on the triggering ability and psychic status.',
+                'Ordinary M.E. bonuses stop at 30; below 16 has no exceptional bonus. Below 1 is unreviewed and remains blank.'] if 'mental_endurance_charts' in pack else []),
             'warnings':warnings, 'history':[{'selections':[next(row['power'] for row in record['acquisitions'] if row['id']==identifier) for identifier in frame]} for frame in record['history']] if record else [],
             'trust_source':deepcopy(pack['mental_affinity_source']),
             'source':deepcopy(pack['source']), 'guidance':deepcopy(pack['guidance']),
             'rules':{'id':pack['id'], 'version':pack['version']}}
+
+
+def project_power_saves(character, pack, powers):
+    charts = pack.get('mental_endurance_charts')
+    if charts is None:
+        return {}
+    score = character['attributes']['ME']['value']
+    results: dict[str, Any] = {}
+    names = {'psionics':'Psionic attacks', 'insanity':'Insanity',
+             'mind-altering-drugs':'Mind-altering drugs', 'horror-factor':'Horror Factor',
+             'possession':'Possession', 'magical-illusions':'Magical illusions'}
+    for identifier,chart in charts.items():
+        contribution = chart.get(str(min(score,30)),0)
+        results[identifier] = {'name':names[identifier], 'value':contribution if score >= 1 else None,
+            'contributions':{'M.E.':contribution}, 'target':None,
+            'sources':[deepcopy(pack['mental_endurance_source'])]}
+    for power in powers:
+        for identifier,amount in power.get('saving_bonuses',{}).items():
+            result = results.setdefault(identifier, {'name':names[identifier], 'value':0,
+                'contributions':{}, 'target':None, 'sources':[]})
+            result['contributions'][power['name']] = amount
+            if result['value'] is not None:
+                result['value'] += amount
+            result['sources'].append(deepcopy(power['source']))
+        for identifier,rule in power.get('saving_attribute_bonuses',{}).items():
+            result = results[identifier]
+            contribution = charts[rule['chart']].get(str(min(score,30)),0)
+            result['contributions']['M.E.'] = contribution
+            result['value'] = result['value'] + contribution if score >= 1 else None
+            result['sources'].extend([deepcopy(pack['mental_endurance_source']),deepcopy(rule['source'])])
+        for identifier,target in power.get('saving_targets',{}).items():
+            results[identifier]['target'] = target
+            results[identifier]['sources'].append(deepcopy(power['source']))
+    return results

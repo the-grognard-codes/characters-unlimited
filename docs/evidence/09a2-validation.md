@@ -20,3 +20,5 @@ Browser proof: target28/D6[4], trust94%, one of four Minor allowances, Pick Pock
 [Editable sample](09a2-affinity-sample.pdf)
 
 Other powers, complete Rogue catalogs, target combat effects, Heroes combat/resources/advancement, other character categories and full supplied-book acceptance remain open. This is a bounded slice, not final delivery or retrospective.
+
+Merged PR68 as8c37ee4520799abdf655e78cd48585ae61e789ef after both Windows workflows passed (37177547682,5m23s;37177550490,5m1s), including frozen executable validation.

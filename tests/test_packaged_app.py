@@ -302,13 +302,15 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(len(beauty['rolls']),2)
                 self.assertTrue(60 <= hero_powers['charm_impress'] <= 92)
                 hero = request('/api/characters/'+hero['id']+'/hero-secondary',
-                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction']},token)
+                               {'revision':hero['revision'],'selections':['cardsharp','palming','concealment','pick-locks','prowl','streetwise','seduction','ventriloquism','art','photography','general-repair-maintenance']},token)
                 rogue = {row['id']:row for row in request('/api/characters/'+hero['id']+'/hero-programs')['skills']}
                 self.assertEqual(rogue['cardsharp']['contributions']['Palming'],4)
                 self.assertEqual(rogue['cardsharp']['contributions']['Extraordinary Mental Affinity'],10)
                 self.assertEqual(rogue['concealment']['contributions']['Extraordinary Mental Affinity'],10)
                 self.assertNotIn('Extraordinary Physical Beauty',rogue['cardsharp']['contributions'])
                 self.assertEqual(rogue['pick-locks']['per_level'],5)
+                self.assertEqual(rogue['ventriloquism']['contributions']['Extraordinary Mental Affinity'],10)
+                self.assertEqual(rogue['general-repair-maintenance']['additional_checks'][0]['percentage'],rogue['general-repair-maintenance']['percentage']/2)
                 hero = request('/api/characters/'+hero['id']+'/resources',{'revision':hero['revision']},token)
                 hero_resources = request('/api/characters/'+hero['id']+'/resources')
                 self.assertEqual(hero_resources['resources']['SDC']['value'],30)
@@ -340,10 +342,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 research = next(skill for skill in preview['skills'] if skill['name']=='Research')
                 self.assertEqual((research['before'],research['after']),(57,52))
                 result = request(legacy_path+'/rule-upgrade',{'revision':legacy_imported['revision'],'token':preview['token']},token)
-                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.9.0')
+                self.assertEqual(result['character']['additional_rule_packs']['heroes-program-skills'],'1.10.0')
                 self.assertEqual(result['character']['attributes'],legacy_imported['attributes'])
                 self.assertEqual(result['character']['education'],legacy_imported['education'])
-                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.9.0')
+                self.assertEqual(request(legacy_path+'/hero-programs')['rules']['version'],'1.10.0')
 
                 city = request('/api/characters',
                                {'name':'Packaged City Rat','race':'human','character_class':'city-rat'}, token)

@@ -324,6 +324,11 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertTrue(all(remaining == 0 for remaining in city_view['required_remaining'].values()))
                 self.assertEqual(city_view['combat']['remaining'], {'proficiencies':0})
                 self.assertTrue(any(item['id']=='hovercycle' for item in city_view['grants']))
+                city = request(city_path+'/skills', {'revision':city['revision'],
+                    'selections':[{'skill_id':'paramedic','pool':'related'}]}, token)
+                weighted = request(city_path+'/skills')
+                self.assertEqual(weighted['remaining']['related'],8)
+                self.assertEqual(weighted['selected'][0]['selection_cost'],2)
                 city = request(city_path+'/resources', {'revision':city['revision']}, token)
                 city_resources = request(city_path+'/resources')['resources']
                 hp = {item['id']:item for item in city['resources']['HP']['contributions']}

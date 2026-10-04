@@ -238,6 +238,7 @@ async function loadSkills(character) {
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
     heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.percentage == null ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
+    if (skill.selection_cost > 1) heading.textContent += ` · ${skill.selection_cost} ${skill.pool} slots`;
     const explanation = document.createElement('p'); explanation.className = 'help';
     explanation.textContent = skill.kind === 'physical'
       ? Object.entries(skill.effects).flatMap(([group, effects]) => Object.entries(effects).map(([name, effect]) => {
@@ -251,6 +252,10 @@ async function loadSkills(character) {
       : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
+    if (skill.selection_cost > 1) {
+      const costSource = skill.selection_cost_source;
+      explanation.textContent += ` · Selection cost ${skill.selection_cost} ${skill.pool} slots: ${costSource.book}, pp. ${costSource.pages.join(', ')}`;
+    }
     if (view.intelligence_source && skill.percentage != null) explanation.textContent += ` · I.Q. chart: ${view.intelligence_source.book}, pp. ${view.intelligence_source.pages.join(', ')}`;
     if (skill.uncapped_percentage > 98) explanation.textContent += ` · Capped at 98% from ${skill.uncapped_percentage}% (Ultimate Edition, p. 301).`;
     for (const check of skill.additional_checks || []) {

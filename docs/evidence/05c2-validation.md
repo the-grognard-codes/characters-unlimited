@@ -17,3 +17,5 @@ PDF inspection: three-page editable export retains native artwork, class/identit
 Full mechanical City Rat review and parent tickets stay open. This evidence is not the final project retrospective.
 
 Final local full suite:227 tests pass, one frozen-only skip. Affected33, mypy80, compileall, browser syntax and source-coverage/audit checks pass. Windows full/frozen CI precedes merge.
+
+Merged PR #59 as3fcd2c5 after Windows full/frozen checks37166246403 and37166240913 passed.

@@ -221,3 +221,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 06Q merged in PR82 as7fc09b8049ac3accdf5ca561cb9aad45202cf99c after corrected Windows37198040162(6m14s)/37198041773(7m2s) passed, including frozen executable reopen validation.
 
 - 06R: Wrestling adds retained attribute/S.D.C./roll bonuses and conditional move guidance under immutable skills1.19. Verified source isolation from interleaved Gymnastics. Both reviews approve; focused23/full339 tests pass (one frozen-only skip), mypy110, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending; Acrobatics/Gymnastics and parent06/07/09 remain open.
+
+06R merged in PR83 as53699c59b49cf43b22d02d4c3bae9698b182be53 after Windows37199062051(4m39s)/37199065855(7m33s) passed, including packaged executable validation.
+
+- 06S: Acrobatics adds separate named proficiency rates, conditional fallback checks, retained Physical effects and Climbing/Prowl bonuses under immutable skills1.20. Outside-group Physical proficiency gating repaired; visual-review stale Prowl guidance corrected. Both reviews approve; affected25/finalfull345 tests pass (one frozen-only skip), mypy111, compile/JS/whitespace and browser/four-page editable PDF checks pass. Windows pending. Gymnastics and parent06/07/09 remain open.

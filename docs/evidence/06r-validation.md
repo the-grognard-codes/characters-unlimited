@@ -16,3 +16,5 @@ Browser removal reduces credit to3 and Swimming pace/duration to42/12; reselecti
 [Editable sample](06r-wrestling-sample.pdf)
 
 Acrobatics/Gymnastics, other maneuvers, Heroes advancement, equipment and full corpus remain open. Parent06/07/09 remain open.
+
+06R merged in PR83 as53699c59b49cf43b22d02d4c3bae9698b182be53 after Windows37199062051(4m39s)/37199065855(7m33s) passed, including packaged executable validation.

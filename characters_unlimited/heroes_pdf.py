@@ -156,7 +156,8 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
         rows = [row for row in programs['skills'] if bool(row['secondary_selected']) == secondary_column]
         slot = 0
         for row in rows:
-            checks = [('', row['name'], row['percentage'], row['per_level']),
+            primary_label = row['name']+((': '+row['primary_check_name']) if row.get('primary_check_name') else '')
+            checks = [('', primary_label, row['percentage'], row['per_level']),
                 *[(f'.check{index}', row['name']+': '+check['name'], check['percentage'], check['per_level'])
                   for index, check in enumerate(row.get('additional_checks', []))]]
             for suffix, label, percentage, rate in checks:

@@ -1,0 +1,15 @@
+# 19B2 draft contract: Human Mutant levels 3–15
+
+Extend first advancement with a separate immutable `heroes-higher-advancement` pack. Keep `heroes-advancement 1.0.0`, its source, acquisition cache and snapshots unchanged. Explicit advancement above two pins the extension before producing intermediate snapshots; old characters and portable bundles retain their prior rule versions. Mere viewing must not rewrite saves.
+
+Original printed48/PDF49 confirms two new Secondary selections at3/6/9/12/15 and first-level proficiency when learned. Original printed71/PDF72 confirms all four training progressions, including Martial Arts level2 +2 disarm (old raw progression omitted this but first-advancement pack corrects it). Printed17/PDF18 ordinary HP,69/PDF70 untrained actions and352/PDF353 Mutant XP already visually verified. Current Markdown fingerprint D1268C9D43C1ACA5CA64B08108621F89987134931AAF598EDE6A7DBC227E35AF differs from the historical first pack as ingestion continues; cite the current source for new extension only.
+
+Implement all XP ranges through400600, direct levels1–15, intermediate flat snapshots, one retained ordinary D6 per new level, no ordinary SDC/PPE growth, own-rate skill growth/cap and Secondary awards. Training numeric bonuses accumulate with its own learned age and active profile, never duplicate Physical bonuses. Show earned conditional move guidance, but actual later attack-choice resolution remains19B3 and must be disclosed.
+
+Reserve one source-bound power D4 per attained level for every retained EPE acquisition. Activate only selected power acquisitions at attained levels. Late acquisition gets one recorded D4 for every attained level; inactive/future cached receipts never add resources. Removal/reselection, undo and replay reuse original receipts. Preserve initial HP effectivePE snapshot.
+
+Undo restores full pre-level values/choices and keeps a recovery; retain later cache for replay. Historical snapshots are validated with their exact pins and an explicit history-frame mode for intentionally omitted later cache. Import rejects missing intermediate levels, duplicate/order/source/dice/learning tampering and state inconsistent with active advancement; no write on failure. Changed recorded extension definitions stay blocked without migration.
+
+Agreed public seams: CharacterApplication progression, portable import/export/history, HTTP stale revision/auth, edited and rendered PDF, packaged Windows workflow. Independent examples: ordinaryPE12/D6=4 givesHP72 at15; EPE before initial generation givesHP153; lateEPE after ordinary15 givesHP144. Baseline2 plus untrained increments at1/2/5/10/15 gives7 actions. Basic15 totals attacks7/parry3/dodge3/strike2/init1/damage4/roll4/pull4/disarm1. Expert15 attacks7/parry5/dodge5/strike2/init2/damage3/roll2/pull4/disarm2. MA15 attacks7/parry5/dodge5/strike2/init3/damage4/roll3/pull3/disarm4. Assassin15 attacks8/parry3/dodge3/strike6/init6/damage6/roll5/pull5/disarm4. High School allowance20 at15.
+
+Full ticket19 includes other categories/special paths; parents and full corpus stay open. No final retro yet.

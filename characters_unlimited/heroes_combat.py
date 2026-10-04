@@ -4,12 +4,12 @@ from copy import deepcopy
 from .combat import total
 
 
-def project_hero_combat(character, pack, physical, *, progression=None):
+def project_hero_combat(character, pack, physical, *, progression=None, higher=None):
     rules = pack.get('combat')
     if rules is None:
         return {'supported':False,'training':None,'totals':{},'unarmed':[], 'sources':[],
                 'guidance':['Review a rule update to add Heroes Basic combat.']}
-    if character['level'] != 1 and (progression is None or character['level'] > progression['max_level']):
+    if character['level'] != 1 and (progression is None or character['level'] > (higher or progression)['max_level']):
         raise ValueError('Heroes combat advancement requires its reviewed levels')
     active = physical['active_training']
     trained = active is not None
@@ -20,13 +20,23 @@ def project_hero_combat(character, pack, physical, *, progression=None):
     pp_bonus = rules['pp_bonuses'].get(str(min(pp,30)),0)
     initiative = max(0,(pp-rules['pp_initiative_start'])//rules['pp_initiative_step']+1)
     physical_combat = deepcopy(physical['combat'])
-    if progression and trained and character['level']-character.get('learning_levels',{}).get(active,character['level']) >= 1:
+    age = character['level']-character.get('learning_levels',{}).get(active,character['level'])+1
+    earned = []
+    if higher and trained:
+        earned = [row for row in higher['training_progression'][active] if row['level'] <= age]
+        for row in earned:
+            for stat,amount in row.get('bonuses',{}).items():
+                physical_combat.setdefault(stat,{})[training+' level '+str(row['level'])] = amount
+    elif progression and trained and age >= 2:
         for stat,amount in progression['training_level_two'][active].items():
             physical_combat.setdefault(stat,{})[training+' level 2'] = amount
     attacks = {'Hero baseline':rules['baseline_attacks'], **physical_combat.get('attacks',{})}
     if not trained:
         attacks['Untrained level 1'] = rules['untrained_level_one_attacks']
-        if character['level'] >= 2 and progression:
+        if higher:
+            for level,amount in higher['untrained_attacks'].items():
+                if 2 <= int(level) <= character['level']:attacks['Untrained level '+level] = amount
+        elif character['level'] >= 2 and progression:
             attacks['Untrained level 2'] = progression['untrained_level_two_attacks']
     totals = {'attacks':total(attacks),
               'initiative':total({**({'P.P.':initiative} if pp_supported else {}), **physical_combat.get('initiative',{})},missing=not pp_supported),
@@ -43,9 +53,11 @@ def project_hero_combat(character, pack, physical, *, progression=None):
         damage = expression+(f' + {bonus}' if bonus else '')+' S.D.C.' if bonus is not None else None
         unarmed.append({**deepcopy(definition),'damage':damage})
     guidance = list(rules['guidance'])
+    if higher:
+        guidance.extend(training+f" learned level {row['level']}: "+note for row in earned for note in row.get('notes',[]))
     if progression and character['level'] > 1:
         guidance = [note.replace('Heroes advancement remain unfinished.','later Heroes advancement remain unfinished.') for note in guidance]
-        guidance.append(progression['guidance'])
+        guidance.append((higher or progression)['guidance'])
     if not pp_supported:
         guidance.append('P.P. below 8 or above 50: affected combat totals remain blank pending reviewed low-attribute or limit rules.')
     if not ps_supported:
@@ -57,5 +69,5 @@ def project_hero_combat(character, pack, physical, *, progression=None):
             'training_selection_supported':'training_skill_ids' in rules,
             'totals':totals,'unarmed':unarmed,'parry_actions':0 if trained else 1,'dodge_actions':1,
             'guidance':guidance,'sources':[deepcopy(rules['source']),deepcopy(rules['attribute_source']),
-                       *([deepcopy(progression['source'])] if progression and character['level']>1 else [])],
+                       *([deepcopy((higher or progression)['source'])] if progression and character['level']>1 else [])],
             'rules':{'id':pack['id'],'version':pack['version']}}

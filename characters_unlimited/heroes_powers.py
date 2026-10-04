@@ -205,7 +205,7 @@ def power_skill_contributions(character, definition, pack):
     return contributions
 
 
-def project_powers(character, pack, budget_pack):
+def project_powers(character, pack, budget_pack, higher=None):
     record = character.get('hero_powers')
     if record is not None:
         validate_powers(record, pack)
@@ -233,12 +233,13 @@ def project_powers(character, pack, budget_pack):
     if character['level'] > 1:
         for row in [*catalog,*receipts]:
             row['guidance'] = [note.replace('Heroes advancement is not yet implemented; current characters support level 1 only.',
-                'Reviewed Human Mutant advancement through level 2 adds its retained per-level Hit Point dice; later advancement remains unfinished.') for note in row.get('guidance',[])]
-        gains = character.get('advancement',{}).get('power_hp_rolls',{})
+                f"Reviewed Human Mutant advancement through level {higher['max_level'] if higher else 2} adds its retained per-level Hit Point dice; other power/category progression remains unfinished.") for note in row.get('guidance',[])]
+        events = [(2,character.get('advancement',{})), *((event['level'],event) for event in character.get('later_advancements',[]) if event['level'] <= character['level'])]
         for row in receipts:
-            gain = gains.get(row['acquisition_id'])
-            if gain and 'effect_summary' in row:
-                row['effect_summary'] += f"; HP level 2 +{gain['face']} (dice [{gain['face']}])"
+            for level,event in events:
+                gain = event.get('power_hp_rolls',{}).get(row['acquisition_id'])
+                if gain and 'effect_summary' in row:
+                    row['effect_summary'] += f"; HP level {level} +{gain['face']} (dice [{gain['face']}])"
     return {'catalog':catalog, 'selections':[row['id'] for row in powers], 'powers':powers, 'receipts':receipts,
             'minor':{'used':used, 'allowance':allowance, 'remaining':allowance-used}, 'trust_intimidate':trust,
             'saving_bonuses':project_power_saves(character,pack,powers),

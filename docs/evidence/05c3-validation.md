@@ -17,3 +17,5 @@ Physical/Rogue minimum is separate, pending user interpretation. Full City Rat r
 Final local full suite:229 tests pass, one frozen-only skip. Mypy81, compileall, browser syntax and diff whitespace pass.
 
 Initial Windows runs37167019055/37167013946 passed full tests/build and correctly reopened City Rat at Related8, but the frozen test compared against its pre-Paramedic snapshot10. The expected snapshot now refreshes after the choice; product behavior required no change. Corrected Windows runs precede merge.
+
+Merged PR #60 as4ac78d3 after corrected Windows runs37167359410 and37167357481 passed full/frozen validation.

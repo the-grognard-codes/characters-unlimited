@@ -45,7 +45,7 @@ class EquipmentUpgradeTests(unittest.TestCase):
             self.assertEqual(before['carried_weight_lbs'],17)
             self.assertEqual(before['attacks'][0]['aimed']['value'],5)
             preview = current.preview_rule_upgrade(character['id'])
-            self.assertEqual(preview['changes'],[{'pack_id':'rifts-equipment','from':'1.5.0','to':'99.0.0'}])
+            self.assertEqual(preview['changes'],[{'pack_id':'rifts-equipment','from':'1.6.0','to':'99.0.0'}])
             changes = {row['name']:(row['before'],row['after']) for row in preview['equipment']}
             self.assertEqual(changes['Carried weight (lb)'],(17,19))
             self.assertTrue(any('aimed' in name and values == (5,7) for name,values in changes.items()))
@@ -87,7 +87,7 @@ class EquipmentUpgradeTests(unittest.TestCase):
                 connection.execute('DROP TRIGGER interrupt_upgrade')
             result = current.apply_rule_upgrade(character['id'],revision=1,token=preview['token'])
             self.assertEqual(result['character']['additional_rule_packs'],
-                             {'rifts-domestic-skills':'2.10.0','rifts-equipment':'99.0.0'})
+                             {'rifts-domestic-skills':'2.11.0','rifts-equipment':'99.0.0'})
             self.assertEqual(result['character']['equipment'],character['equipment'])
 
     def test_incompatible_missing_items_or_capacity_do_not_modify_saved_inventory(self):

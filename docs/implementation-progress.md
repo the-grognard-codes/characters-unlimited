@@ -134,3 +134,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 05C2: Complete in PR #59 as3fcd2c5 after Windows full/frozen runs37166246403/37166240913 passed. Local227 tests, mypy80, both review axes and browser/render/edit/reopen pass. City Rat remains partial, with full mechanics and parent tickets open.
 - 05C3: Source-defined optional skill selection costs in progress; City Rat Paramedic consumes two Related slots under new immutable skills2.10.0. Physical/Rogue minimum interpretation remains pending user response.
+
+- 05C3: Complete in PR #60 as4ac78d3 after corrected Windows full/frozen runs37167359410/37167357481 passed. Local229 tests, both reviews and browser/render/edit/reopen pass. Physical/Rogue minimum remains independent pending interpretation.
+- 08B4: City Rat starting credits and separate Black Market item value in progress under equipment1.6.0; equipment/cybernetics and parent08 remain open.

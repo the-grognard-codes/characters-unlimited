@@ -13,7 +13,7 @@ from .generation import generation_settings, roll_attribute, racial_formula
 from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
-from .class_rules import class_rules
+from .class_rules import class_rules, equipment_class_rules
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices, project_combat, compare_combat_views
 from .attribute_modifiers import attribute_value, roll_class_modifiers
@@ -163,8 +163,9 @@ class CharacterApplication:
         if character['game'] != 'rifts':
             raise ValueError('Heroes Unlimited equipment remains unfinished')
         version = character.get('additional_rule_packs',{}).get('rifts-equipment')
-        return (self.rule_archive.resolve('rifts-equipment',version) if version is not None
+        pack = (self.rule_archive.resolve('rifts-equipment',version) if version is not None
                 else self.rule_archive.active('rifts-equipment'))
+        return equipment_class_rules(pack, character)
 
     def equipment_view(self, identifier):
         character = self.get(identifier)
@@ -381,7 +382,7 @@ class CharacterApplication:
         preview['equipment'] = []
         if character['game'] == 'rifts' and 'rifts-equipment' in character.get('additional_rule_packs', {}):
             previous_equipment = self.character_equipment_pack(character)
-            target_equipment = self.rule_archive.active('rifts-equipment')
+            target_equipment = equipment_class_rules(self.rule_archive.active('rifts-equipment'), character)
             if 'starting_funds' in character and canonical(previous_equipment.get('starting_funds')) != canonical(target_equipment.get('starting_funds')):
                 raise ValueError('This update changes recorded starting funds rules. History migration is not yet supported; current rules remain intact.')
             if 'starting_gear' in character and canonical(previous_equipment.get('starting_gear')) != canonical(target_equipment.get('starting_gear')):
@@ -402,6 +403,15 @@ class CharacterApplication:
             preview['sources'].append(f"{source['book']}, equipment printed pp. "
                                      + ', '.join(map(str, source['pages']))
                                      + ' / PDF pp. ' + ', '.join(map(str, source['pdf_pages'])))
+            if canonical(previous_equipment.get('starting_funds')) != canonical(target_equipment.get('starting_funds')):
+                funds_rules = target_equipment.get('starting_funds', {})
+                for definition in funds_rules.get('definitions', []):
+                    funds_source = definition['source']
+                    citation = (f"{funds_source['book']}, starting funds printed pp. "
+                                + ', '.join(map(str, funds_source['pages']))
+                                + ' / PDF pp. ' + ', '.join(map(str, funds_source['pdf_pages'])))
+                    if citation not in preview['sources']:
+                        preview['sources'].append(citation)
             targets.append(target_equipment)
             if previous_equipment['version'] != target_equipment['version']:
                 changes.append({'pack_id': target_equipment['id'], 'from': previous_equipment['version'],

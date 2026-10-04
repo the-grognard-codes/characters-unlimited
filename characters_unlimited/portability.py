@@ -18,7 +18,7 @@ from .starting_choices import validate_starting_choices
 from .advancement import validate_advancement, validate_later_advancements, remember_learning
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices
-from .class_rules import class_rules
+from .class_rules import class_rules, equipment_class_rules
 
 ATTRIBUTES = ('IQ', 'ME', 'MA', 'PS', 'PP', 'PE', 'PB', 'SPD')
 MAX_BYTES = 10_000_000
@@ -250,6 +250,7 @@ def validate_sources(character, packs, *, history_frame=False):
             raise ValueError('Rifts equipment must retain its accepted rule version pin')
         if 'equipment' not in character:
             raise ValueError('Starting funds require their recorded equipment inventory')
+        equipment_pack = equipment_class_rules(equipment_pack, character)
         validate_inventory(character['equipment'],equipment_pack)
         validate_starting_funds(character,equipment_pack)
         validate_starting_gear(character,equipment_pack)

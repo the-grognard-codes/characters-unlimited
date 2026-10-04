@@ -1,4 +1,4 @@
-"""Source-bound starting money for the Rifts Vagabond."""
+"""Source-bound starting money for reviewed Rifts classes."""
 
 from copy import deepcopy
 import json
@@ -26,7 +26,7 @@ def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
     if rules is None:
         return None
     if (not isinstance(rules, dict) or set(rules) != {'character_class', 'definitions', 'guidance'}
-            or rules['character_class'] != 'vagabond'
+            or not isinstance(rules['character_class'],str) or not rules['character_class']
             or not isinstance(rules['definitions'], list)
             or len(rules['definitions']) != 2
             or not isinstance(rules['guidance'], list)
@@ -64,7 +64,7 @@ def validate_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> 
         return
     rules = _rules(pack)
     if not _supported(character, rules):
-        raise ValueError('Starting funds require pinned Rifts Vagabond rules')
+        raise ValueError('Starting funds require pinned Rifts rules for this class')
     assert rules is not None
     records = character['starting_funds']
     definitions = {item['id']: item for item in rules['definitions']}
@@ -91,7 +91,7 @@ def acquire_starting_funds(
         raise ValueError('Starting funds have already been generated')
     rules = _rules(pack)
     if not _supported(character, rules):
-        raise ValueError('Starting funds are available only to Rifts Vagabonds with pinned rules')
+        raise ValueError('Starting funds require reviewed rules for the selected Rifts class')
     if not callable(die):
         raise ValueError('A dice source is required')
     assert rules is not None
@@ -125,10 +125,8 @@ def project_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> d
     rules = _rules(pack)
     supported = _supported(character, rules)
     if not supported:
-        guidance = (['Update the equipment rules to preview Vagabond starting funds.']
-                    if rules is None and character.get('game') == 'rifts'
-                    and character.get('character_class') == 'vagabond'
-                    else [])
+        guidance = (['The pinned equipment rules do not provide starting funds for this class. Review available equipment rule updates before generation.']
+                    if character.get('game') == 'rifts' else [])
         return {'supported': False, 'generated': False, 'funds': {},
                 'definitions': [], 'guidance': guidance}
     assert rules is not None

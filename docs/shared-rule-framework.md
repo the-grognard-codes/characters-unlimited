@@ -111,3 +111,7 @@ Racial generation resolves a declared race source and optional per-attribute cit
 ## Explicit profile ownership increment (22E3)
 
 The opt-in `owned-v1` format composes class fields through `profile_composition.py`, preserving shared catalogs while eliminating default-class field inheritance. All profile shapes and declared class owners validate before initial dice. See `owned-class-profile-contract.md`; legacy archives are unchanged and full mechanical import certification remains open.
+
+## Shared profile catalog increment (22E4)
+
+Owned mapping fields resolve explicit, source-bound common catalog references with disjoint class keys. Every catalog/reference validates before dice; no recursive merge or class handlers are introduced. See `shared-profile-catalog-contract.md`. Source-grounded imports and nested mechanical validation remain open.

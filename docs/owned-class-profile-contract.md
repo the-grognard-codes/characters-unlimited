@@ -16,4 +16,4 @@ Every supported class, including `default_class`, has an explicit entry in `clas
 
 The format proves explicit ownership, not complete mechanical acceptance. Nested operation/dependency validation, source review, equipment/race/R.C.C. precedence, importer findings and two source-grounded classes plus a nonhuman proof remain required before full import certification. Synthetic witnesses exercise independent skill allowances, automatic Physical grants and resource/growth totals with poisoned root mechanics; they do not accept new book content.
 
-Mixed mappings such as `combat` currently include catalogs and class choices in one owned field. The plain format replaces that complete mapping; explicit shared mapping fragments are follow-up work to avoid copying those nested catalogs into every imported profile.
+Mixed mappings such as `combat` currently include catalogs and class choices in one owned field. The plain format replaces that complete mapping; explicit shared mapping fragments are now available through22E4 to avoid copying those nested catalogs into every imported profile. See `shared-profile-catalog-contract.md`.

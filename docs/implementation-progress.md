@@ -295,3 +295,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 22E3: Opt-in explicit class profiles replace every supported class-owned field and reuse shared catalogs. All profile shapes and declared owners validate before generation; default and nondefault synthetic witnesses survive poisoned root mechanics and exact portable reopening. Three focused and full423 tests pass (355.106 seconds, one frozen-only skip), mypy138 and static/archive checks pass. Both independent reviews APPROVE; Windows/frozen validation pending. Nested mechanical/import certification, equipment and race/R.C.C. precedence remain open.
 
 22D2 merged in PR100 as `7f168d187cd1f045a67d631a34985d150890534b` after both exact-head Windows runs37243495491/37243470670 passed, including frozen executable validation.
+
+- 22E4: Owned class mappings reference shared source-bound catalogs and supply disjoint class choices. All declarations validate before generation; existing combat selection/projection and portable replay reuse the resolved data. Nine affected tests pass (7.384 seconds); full425 passes (359.811 seconds, one frozen-only skip) before the supplemental progression witness. Both reviews APPROVE; mypy140/static/archive checks pass. Final426-test Windows/frozen validation pending. No accepted data changes; nested mechanical certification remains open.
+
+22E3 merged in PR101 as `30b8da6590aed44024b544c40b6b7df1d340663f` after both exact-head Windows runs37244277796/37244275193 passed, including frozen executable validation.

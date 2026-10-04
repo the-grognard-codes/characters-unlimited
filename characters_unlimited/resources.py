@@ -3,8 +3,9 @@
 from copy import deepcopy
 import json
 
-from .attribute_modifiers import attribute_value
+from .attribute_modifiers import attribute_value, ATTRIBUTE_NAMES
 from .physical import project_physical
+from .recorded_formulas import validate_formula, formula_value, roll_formula
 
 
 MAX_INTEGER = 9_007_199_254_740_991
@@ -49,20 +50,20 @@ def _rules(pack):
             contribution_ids.add(contribution['id'])
             if 'formula' in contribution:
                 _formula(contribution['formula'])
-            elif not isinstance(contribution['attribute'], str) or not contribution['attribute']:
+            elif contribution['attribute'] not in ATTRIBUTE_NAMES:
                 raise ValueError('Invalid resource attribute contribution')
     return rules
 
 
 def _formula(formula):
-    if not isinstance(formula, dict) or set(formula) != {'count', 'sides', 'bonus'}:
+    if (not isinstance(formula, dict) or not {'count', 'sides', 'bonus'} <= set(formula) or
+            set(formula) - {'count', 'sides', 'bonus', 'multiplier'}):
         raise ValueError('Invalid pinned resource dice formula')
-    count, sides, bonus = formula['count'], formula['sides'], formula['bonus']
-    if (type(count) is not int or not 0 <= count <= 1000 or
-            type(sides) is not int or sides < 0 or (count and not 1 <= sides <= 1000) or
-            not _integer(bonus)):
-        raise ValueError('Invalid pinned resource dice formula')
-    return count, sides, bonus
+    normalized = {('constant' if key == 'bonus' else key): value for key, value in formula.items()}
+    validate_formula(normalized)
+    if normalized['count'] == 0:
+        formula_value(normalized, [])
+    return normalized
 
 
 def _snapshot_names(rules):
@@ -88,14 +89,9 @@ def acquire_resources(character, pack, die):
         contributions = []
         for item in definition['contributions']:
             if 'formula' in item:
-                count, sides, bonus = _formula(item['formula'])
-                rolls = []
-                for _ in range(count):
-                    face = die(sides)
-                    if type(face) is not int or not 1 <= face <= sides:
-                        raise ValueError('Dice source returned an invalid resource value')
-                    rolls.append(face)
-                value = sum(rolls) + bonus
+                formula = _formula(item['formula'])
+                rolls = roll_formula(formula, die)
+                value = formula_value(formula, rolls)
             else:
                 value, rolls = snapshot[item['attribute']]['value'], []
             if not _integer(value):
@@ -156,11 +152,7 @@ def validate_resources(character, pack):
             seen.add(contribution['id'])
             rule = expected[contribution['id']]
             if 'formula' in rule:
-                count, sides, bonus = _formula(rule['formula'])
-                faces = contribution['rolls']
-                if (len(faces) != count or
-                        any(type(face) is not int or not 1 <= face <= sides for face in faces) or
-                        contribution['value'] != sum(faces) + bonus):
+                if contribution['value'] != formula_value(_formula(rule['formula']), contribution['rolls']):
                     raise ValueError('Resource dice do not match pinned rules')
             elif (contribution['rolls'] or
                   contribution['value'] != snapshot[rule['attribute']]['value']):

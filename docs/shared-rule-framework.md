@@ -75,6 +75,10 @@ The regression fixtures use synthetic multiplier definitions to test the import 
 
 `grants.py` resolves exact identities and catalog selectors once per granted identity. Existing Rifts/Heroes Physical acquisitions and Heroes fixed program skills use it; compiled program IDs preserve the existing UI/PDF contract. All unselected program grants also validate before mutation. See `shared-fixed-grant-contract.md`. This is identity resolution, not complete conditional/level entitlements or generic acquisition scheduling.
 
+## Starting-resource formula increment (22D1)
+
+Starting-resource formula terms now use the same ordinary acquisition/replay engine as class, Physical and power bonuses. Legacy bonus fields adapt to shared constants and optional whole-formula multipliers; known effective attribute snapshots remain retained. See `shared-resource-formula-contract.md`. Generic level scheduling, nonlinear terms and complete magic/psionic acquisition remain open.
+
 ## Next dependency-ordered increments
 
 | Slice | Deliverable | Reuse proof |

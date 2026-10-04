@@ -398,7 +398,7 @@ class CharacterApplication:
                        'sources':[f"{target['source']['book']}, printed pp. "
                                   + ', '.join(map(str, target['source']['pages']))
                                   + ' / PDF pp. ' + ', '.join(map(str, target['source']['pdf_pages']))],
-                       'scope':'Heroes scholastic program skills. Education, attributes and other rules keep their saved versions.'}
+                       'scope':'Heroes scholastic program skills. Education and attributes keep their saved rules.'}
         else:
             previous = self.character_skill_pack(character)
             target = class_rules(self.rule_archive.active('rifts-domestic-skills'), character)
@@ -428,6 +428,28 @@ class CharacterApplication:
             {'pack_id': target['id'], 'from': previous['version'], 'to': target['version']}]
         targets = [target]
         preview['equipment'] = []
+        if character['game'] == 'heroes-unlimited' and 'heroes-super-abilities' in character.get('additional_rule_packs',{}):
+            previous_powers = self.character_hero_powers_pack(character)
+            target_powers = self.rule_archive.active('heroes-super-abilities')
+            old_definitions = {row['id']:row for row in previous_powers['powers']}
+            new_definitions = {row['id']:row for row in target_powers['powers']}
+            for acquisition in character.get('hero_powers',{}).get('acquisitions',[]):
+                identifier = acquisition['power']
+                if canonical(old_definitions[identifier]) != canonical(new_definitions.get(identifier)):
+                    raise ValueError('This update changes an acquired power definition. Acquisition/history migration is not yet supported; current rules remain intact.')
+            budget = self.character_power_budget_pack(character)
+            before_powers = project_powers(character,previous_powers,budget)
+            after_powers = project_powers(character,target_powers,budget)
+            for identifier,row in after_powers.get('saving_bonuses',{}).items():
+                before_value = before_powers.get('saving_bonuses',{}).get(identifier,{}).get('value')
+                if before_value != row['value']:
+                    preview['combat'].append({'name':row['name']+' save bonus','before':before_value,'after':row['value']})
+            preview['scope'] += ' Compatible power catalog additions are included; recorded acquisitions and dice remain unchanged.'
+            preview['gaps'].extend(after_powers['warnings'])
+            preview['sources'].extend(f"{row['source']['book']}, {row['name']}, printed p.{row['source']['printed_page']} / PDF p.{row['source']['pdf_page']}" for row in target_powers['powers'])
+            targets.append(target_powers)
+            if previous_powers['version'] != target_powers['version']:
+                changes.append({'pack_id':target_powers['id'],'from':previous_powers['version'],'to':target_powers['version']})
         if character['game'] == 'rifts' and 'rifts-equipment' in character.get('additional_rule_packs', {}):
             previous_equipment = self.character_equipment_pack(character)
             target_equipment = equipment_class_rules(self.rule_archive.active('rifts-equipment'), character)

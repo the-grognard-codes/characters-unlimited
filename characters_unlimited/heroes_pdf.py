@@ -48,7 +48,12 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     heading('Saving Throws', 40, 716, 140)
     for index, (label, key) in enumerate([('Magic', 'SAVE_MAGIC'), ('Psionics', 'SAVE_PSIONICS'),
             ('Poison', 'SAVE_POISON'), ('Insanity', 'SAVE_INSANITY'), ('Coma / death', 'SAVE_COMA')]):
-        labelled(label, key, 40, 691-index*20, 140)
+        save_id = {'SAVE_PSIONICS':'psionics','SAVE_INSANITY':'insanity'}.get(key)
+        save = (powers or {}).get('saving_bonuses',{}).get(save_id,{})
+        value = f"{save['value']:+d}" if save.get('value') is not None else ''
+        if value and save.get('target') is not None:
+            value += f"; target {save['target']}"
+        labelled(label, key, 40, 691-index*20, 140, value)
     heading('Combat Skill', 198, 716, 150)
     labelled('Training', 'COMBAT_SKILL', 198, 691, 150)
     for index, (label, key) in enumerate([('Attacks', 'ATTACKS'), ('Initiative', 'INITIATIVE'),
@@ -104,6 +109,13 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
                 power_lines.append(f"{receipt['source']['book']}, printed p.{receipt['source']['printed_page']} / PDF p.{receipt['source']['pdf_page']}")
         if powers['powers']:
             power_lines.append(f"Minor selections: {powers['minor']['used']} used / {powers['minor']['allowance']} allowed")
+        for save in powers.get('saving_bonuses',{}).values():
+            bonus = f"{save['value']:+d}" if save['value'] is not None else 'unreviewed'
+            target = f"; roll target {save['target']}" if save['target'] is not None else '; target depends on the triggering rule'
+            parts = '; '.join(f'{label} {amount:+d}' for label,amount in save['contributions'].items())
+            power_lines.append(f"{save['name']}: {bonus}{target}; {parts}")
+            power_lines.extend(f"{source['book']}, printed p.{source['printed_page']} / PDF p.{source['pdf_page']}" for source in save['sources'])
+        power_lines.extend(powers.get('saving_notes',[]))
         power_lines.extend(powers['warnings'])
     wrapped_powers = [line for text in power_lines for line in wrap_lines(text, 530)]
     field('POWERS', 40, 242, 532, 137, value='\n'.join(wrapped_powers[:10]), multiline=True)

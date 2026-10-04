@@ -287,6 +287,13 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertTrue(25 <= hero_powers['powers'][0]['target'] <= 30)
                 self.assertEqual(hero_powers['powers'][0]['rolls'],hero['hero_powers']['acquisitions'][0]['rolls'])
                 self.assertGreaterEqual(hero['attributes']['MA']['value'],hero_powers['powers'][0]['target'])
+                hero = request('/api/characters/'+hero['id']+'/hero-powers',
+                               {'revision':hero['revision'],'selections':['extraordinary-mental-affinity','extraordinary-mental-endurance']},token)
+                hero_powers = request('/api/characters/'+hero['id']+'/hero-powers')
+                endurance = next(row for row in hero_powers['powers'] if row['id']=='extraordinary-mental-endurance')
+                self.assertTrue(23 <= endurance['target'] <= 29)
+                self.assertEqual(len(endurance['rolls']),2)
+                self.assertEqual(hero_powers['saving_bonuses']['psionics']['target'],12)
                 hero_imported = request('/api/import', {'bundle':request('/api/characters/' + hero['id'] + '/export')}, token)
                 self.assertEqual(hero_imported['power_budget'], hero['power_budget'])
                 self.assertEqual(hero_imported['hero_powers'], hero['hero_powers'])

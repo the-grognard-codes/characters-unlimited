@@ -25,8 +25,11 @@ class HeroesPdfWorkflowTests(unittest.TestCase):
             self.assertEqual(fields['skills.research.percentage']['/V'], '62')
             self.assertEqual(fields['skills.research.rate']['/V'], '5')
             self.assertIn('Business', fields['PROGRAMS']['/V'])
-            for key in ('HP', 'SDC', 'STRIKE', 'POWERS', 'EQUIPMENT'):
+            for key in ('HP', 'SDC', 'STRIKE', 'EQUIPMENT'):
                 self.assertEqual(fields[key].get('/V', ''), '')
+            self.assertEqual(fields['SAVE_PSIONICS']['/V'], '+0')
+            self.assertEqual(fields['SAVE_INSANITY']['/V'], '+0')
+            self.assertIn('Psionic attacks: +0', fields['POWERS']['/V'])
             self.assertEqual(app.get(hero['id']), before)
             text = '\n'.join(page.extract_text() for page in reader.pages)
             self.assertIn('HEROES UNLIMITED', text)

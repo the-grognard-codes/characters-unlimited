@@ -15,6 +15,14 @@ function heroPowerSource(source) {
   return `${source.book}, printed p. ${source.printed_page} (PDF p. ${source.pdf_page})`;
 }
 
+function heroPowerAttributeLabel(attribute) {
+  return ({MA:'M.A.', ME:'M.E.', IQ:'I.Q.', PS:'P.S.', PP:'P.P.', PE:'P.E.'})[attribute] || attribute.replaceAll('_', ' ');
+}
+
+function heroPowerDiceFormula(formula) {
+  return `${formula.count}D${formula.sides}`;
+}
+
 function heroPowerNames(identifiers, catalog) {
   return identifiers.map(id => catalog.find(power => power.id === id)?.name || id).join(', ') || 'No powers selected';
 }
@@ -24,6 +32,7 @@ async function loadHeroPowers(character) {
   heroPowersReady = false; heroPowersView = null; setHeroPowersBusy();
   $('hero-powers-status').textContent = 'Loading reviewed powers…';
   $('hero-powers-list').replaceChildren(); $('hero-powers-history').replaceChildren(); $('hero-powers-receipts').replaceChildren();
+  $('hero-powers-saving-bonuses').replaceChildren(); $('hero-powers-saving-notes').replaceChildren();
   $('hero-powers-warnings').replaceChildren(); $('hero-powers-guidance').replaceChildren();
   if (character.game !== 'heroes-unlimited' || character.character_class !== 'mutant') return;
   const view = await request(`/api/characters/${character.id}/hero-powers`);
@@ -42,15 +51,15 @@ async function loadHeroPowers(character) {
     const heading = document.createElement('h3'); heading.textContent = `${definition.name} · ${definition.category}`;
     const details = document.createElement('p'); details.className = 'help';
     const formula = definition.attribute_floor;
-    const attribute = formula.attribute === 'MA' ? 'M.A.' : formula.attribute;
-    details.textContent = `${attribute} target: ${formula.constant} + ${formula.count}D${formula.sides}. ${definition.guidance.join(' ')}`;
+    const attribute = heroPowerAttributeLabel(formula.attribute);
+    details.textContent = `${attribute} target floor: ${formula.constant} + ${heroPowerDiceFormula(formula)}. ${definition.guidance.join(' ')}`;
     const source = document.createElement('p'); source.className = 'help';
     source.textContent = heroPowerSource(definition.source);
     card.append(heading, details, source);
     const acquisition = acquired.get(definition.id);
     if (acquisition) {
       const retained = document.createElement('p'); retained.className = 'help';
-      retained.textContent = `Recorded D6 rolls: ${acquisition.rolls.join(', ')}. ${attribute} target floor: ${acquisition.target}; it raises calculated M.A. only when higher.`;
+      retained.textContent = `Recorded ${heroPowerDiceFormula(formula)} results: ${acquisition.rolls.join(', ')}. ${attribute} target floor: ${acquisition.target}; it raises calculated ${attribute} only when higher.`;
       card.append(retained);
     } else {
       const retained = document.createElement('p'); retained.className = 'help';
@@ -73,9 +82,30 @@ async function loadHeroPowers(character) {
   const receipts = view.receipts || [];
   $('hero-powers-receipts').replaceChildren(...(receipts.length ? receipts.map(receipt => {
     const formula = receipt.attribute_floor;
-    const attribute = formula.attribute === 'MA' ? 'M.A.' : formula.attribute;
-    return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${attribute} target floor ${receipt.target} · recorded D6 rolls ${receipt.rolls.join(', ')} · ${heroPowerSource(receipt.source)}`);
+    const attribute = heroPowerAttributeLabel(formula.attribute);
+    return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${attribute} target floor ${receipt.target} · recorded ${heroPowerDiceFormula(formula)} results ${receipt.rolls.join(', ')} · ${heroPowerSource(receipt.source)}`);
   }) : [heroPowerLine('No power acquisitions recorded.') ]));
+  const savingBonuses = Object.values(view.saving_bonuses || {});
+  $('hero-powers-saving-bonuses').replaceChildren(...(savingBonuses.length ? savingBonuses.map(bonus => {
+    const row = document.createElement('li');
+    const heading = document.createElement('strong'); heading.textContent = bonus.name;
+    row.append(heading);
+    const value = document.createElement('p'); value.className = 'help';
+    value.textContent = bonus.value == null ? 'Total bonus is not fully determined by reviewed rules.' : `Bonus: ${bonus.value >= 0 ? '+' : ''}${bonus.value}`;
+    row.append(value);
+    if (bonus.target != null) {
+      const target = document.createElement('p'); target.className = 'help'; target.textContent = `Target: ${bonus.target}`;
+      row.append(target);
+    }
+    const contributions = document.createElement('ul'); contributions.className = 'help';
+    contributions.replaceChildren(...Object.entries(bonus.contributions).map(([label, amount]) => heroPowerLine(`${label}: ${amount >= 0 ? '+' : ''}${amount}`)));
+    row.append(contributions);
+    const sources = document.createElement('ul'); sources.className = 'help';
+    sources.replaceChildren(...bonus.sources.map(source => heroPowerLine(heroPowerSource(source))));
+    row.append(sources);
+    return row;
+  }) : [heroPowerLine('No reviewed saving bonuses are available.') ]));
+  $('hero-powers-saving-notes').replaceChildren(...(view.saving_notes || []).map(heroPowerLine));
   $('hero-powers-history').replaceChildren(...view.history.map((entry, index) =>
     heroPowerLine(`${index + 1}. ${heroPowerNames(entry.selections, view.catalog)}`)));
   $('hero-powers-guidance').replaceChildren(...[

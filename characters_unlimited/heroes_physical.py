@@ -45,7 +45,12 @@ def project_hero_physical(character, pack, education_pack, *, power_view=None):
                 activity['fatigue_rate'] = deepcopy(rate)
                 activity['fatigue_sources'] = [deepcopy(row['source']) for row in power_view['powers']
                                                if row.get('fatigue_rate') == rate] if power_view else []
-                activity['guidance'] = 'Routine surface pace uses effective P.S. Ordinary duration uses effective P.E.; selected fatigue rate changes endurance time, not pace or proficiency.'
+                underwater = skill['id'] == 'scuba'
+                if underwater:
+                    activity['id'] = 'underwater-swimming'
+                    activity['name'] = 'Equipment-assisted underwater swimming'
+                context = 'equipment-assisted underwater' if underwater else 'surface'
+                activity['guidance'] = f'Routine {context} pace uses effective P.S. Ordinary duration uses effective P.E.; selected fatigue rate changes endurance time, not pace or proficiency.'
                 if activity['minutes'] is not None:
                     scaled = activity['minutes'] * rate['denominator']
                     if scaled > MAX_ACTIVITY_ATTRIBUTE * rate['numerator']:

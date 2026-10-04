@@ -125,6 +125,12 @@ def project_programs(character, pack, education_pack, power_pack=None):
                 warnings.append(f"{names[identifier]} is outside the eligible Secondary categories. Choice retained without an education bonus.")
         if secondary_used>allowance:
             warnings.append(f'Secondary selections exceed the education allowance by {secondary_used-allowance}. Choices retained.')
+    for definition in pack['skills']:
+        if definition['id'] in physical_grants:
+            for required in definition.get('requires_skill_ids', []):
+                if required not in physical_grants:
+                    name = next(row['name'] for row in pack['skills'] if row['id'] == required)
+                    warnings.append(f"{definition['name']} requires {name}. Selection retained on the honor system; the prerequisite is not granted.")
     skills = []
     for definition in pack['skills']:
         if definition['id'] not in bonuses:

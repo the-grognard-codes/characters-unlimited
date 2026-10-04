@@ -1,0 +1,1612 @@
+{
+  "id": "heroes-program-skills",
+  "version": "1.11.0",
+  "game": "heroes-unlimited",
+  "schema_version": 1,
+  "name": "Heroes supported programs, choices and Secondary skill definitions",
+  "source": {
+    "book": "Heroes Unlimited - RPG - 2E",
+    "pages": [
+      15,
+      45,
+      46,
+      47,
+      48,
+      50,
+      51,
+      53,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "pdf_pages": [
+      16,
+      46,
+      47,
+      48,
+      49,
+      51,
+      52,
+      54,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61
+    ],
+    "section": "Business program, universal skills, proficiency and I.Q. chart; High School program restriction item 1; Medical Assistant grants, Biology and Paramedic; supported Secondary category restrictions; Computer program alternatives, Electrical and Radio definitions; Communications program and skills, Optic/Video synergy and short-study Cryptography; First Aid and Holistic Medicine definitions and Secondary costs; named Rogue Secondary skills and Extraordinary M.A. supporting effects; Ventriloquism, Art, General Repair/Maintenance and Photography; Body Building and Running Physical bonuses",
+    "candidate_ids": [
+      "434a46446c6eaa474c6d",
+      "a58c1581b0b40748045a",
+      "5ad856c28b8b10feadd2",
+      "1a76bf3bd8c875d13eff",
+      "41b4236cb3aa6e330247",
+      "1661f180465a72ed7b8c",
+      "541d3dcc41d904060382",
+      "fb1f532f3f4c588b382b",
+      "0e0c38f19e828319d75b",
+      "535463d8581ea602f2b4",
+      "cc8860798e71e6fd009a",
+      "f1f1d9c2f4d185556d8e",
+      "c60f1f33bbd889b38af6",
+      "7e3b5a2518c932fb1861",
+      "d6f64556671383005f77",
+      "fc9e5ef4d6b28659b362",
+      "6de717b0516ab661620b",
+      "959908cc1439bf659b71",
+      "4f6849fdab68a732d7c9",
+      "6e18f652aef50288a0cd",
+      "0039a934683bdc96dc46",
+      "39537a5bf6651d011cb8"
+    ]
+  },
+  "source_fingerprints": {
+    "markdown_sha256": "02927f54f7ebfc544629092464cb7c3430daa84683ced4ebf8a3e0607af77282",
+    "pdf_sha256": "5041e03b8132aa73161c3845af1248de07e853b63a31eab97b9210442d49a706"
+  },
+  "intelligence": {
+    "bonuses": {
+      "16": 2,
+      "17": 3,
+      "18": 4,
+      "19": 5,
+      "20": 6,
+      "21": 7,
+      "22": 8,
+      "23": 9,
+      "24": 10,
+      "25": 11,
+      "26": 12,
+      "27": 13,
+      "28": 14,
+      "29": 15,
+      "30": 16
+    },
+    "source": {
+      "book": "Heroes Unlimited - RPG - 2E",
+      "pages": [
+        15
+      ],
+      "pdf_pages": [
+        16
+      ],
+      "section": "Attribute Bonus Chart",
+      "candidate_ids": [
+        "434a46446c6eaa474c6d"
+      ]
+    }
+  },
+  "programs": [
+    {
+      "id": "business",
+      "name": "Business",
+      "skill_ids": [
+        "research",
+        "mathematics-basic",
+        "computer-operation",
+        "business-finance",
+        "law-general"
+      ],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          46
+        ],
+        "pdf_pages": [
+          47
+        ],
+        "section": "Business Program",
+        "candidate_ids": [
+          "5ad856c28b8b10feadd2"
+        ]
+      },
+      "eligible_slots": {
+        "street-schooled": [],
+        "high-school": [],
+        "military": [
+          2
+        ],
+        "trade-school": [
+          0,
+          1
+        ],
+        "college-one": [
+          0,
+          1
+        ],
+        "college-two": [
+          0,
+          1
+        ],
+        "college-three": [
+          0,
+          1,
+          2
+        ],
+        "college-four": [
+          0,
+          1,
+          2
+        ],
+        "military-specialist": [
+          4
+        ],
+        "bachelors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "masters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "doctorate": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "medical-assistant",
+      "name": "Medical Assistant",
+      "skill_ids": [
+        "mathematics-basic",
+        "business-finance",
+        "computer-operation",
+        "biology",
+        "paramedic"
+      ],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          46
+        ],
+        "pdf_pages": [
+          47
+        ],
+        "section": "Medical Assistant Program",
+        "candidate_ids": [
+          "41b4236cb3aa6e330247"
+        ]
+      },
+      "eligible_slots": {
+        "street-schooled": [],
+        "high-school": [],
+        "military": [
+          2
+        ],
+        "trade-school": [
+          0,
+          1
+        ],
+        "college-one": [
+          0,
+          1
+        ],
+        "college-two": [
+          0,
+          1
+        ],
+        "college-three": [
+          0,
+          1,
+          2
+        ],
+        "college-four": [
+          0,
+          1,
+          2
+        ],
+        "military-specialist": [
+          4
+        ],
+        "bachelors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "masters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "doctorate": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "computer",
+      "name": "Computer",
+      "skill_ids": [
+        "electronics-basic",
+        "computer-operation",
+        "computer-programming"
+      ],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          46
+        ],
+        "pdf_pages": [
+          47
+        ],
+        "section": "Computer Program",
+        "candidate_ids": [
+          "535463d8581ea602f2b4"
+        ]
+      },
+      "eligible_slots": {
+        "street-schooled": [],
+        "high-school": [
+          0,
+          1
+        ],
+        "military": [
+          2
+        ],
+        "trade-school": [
+          0,
+          1
+        ],
+        "college-one": [
+          0,
+          1
+        ],
+        "college-two": [
+          0,
+          1
+        ],
+        "college-three": [
+          0,
+          1,
+          2
+        ],
+        "college-four": [
+          0,
+          1,
+          2
+        ],
+        "military-specialist": [
+          4
+        ],
+        "bachelors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "masters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "doctorate": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "choice_groups": [
+        {
+          "id": "repair-radio",
+          "name": "Computer Repair or one Radio skill",
+          "count": 1,
+          "skill_ids": [
+            "computer-repair",
+            "radio-basic",
+            "radio-scramblers",
+            "radio-satellite"
+          ],
+          "source": {
+            "book": "Heroes Unlimited - RPG - 2E",
+            "pages": [
+              46
+            ],
+            "pdf_pages": [
+              47
+            ],
+            "section": "Computer Program",
+            "candidate_ids": [
+              "535463d8581ea602f2b4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "communications",
+      "name": "Communications",
+      "skill_ids": [
+        "electronics-basic",
+        "radio-scramblers",
+        "radio-basic",
+        "tv-video"
+      ],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          46
+        ],
+        "pdf_pages": [
+          47
+        ],
+        "section": "Communications Program",
+        "candidate_ids": [
+          "c60f1f33bbd889b38af6"
+        ]
+      },
+      "eligible_slots": {
+        "street-schooled": [],
+        "high-school": [],
+        "military": [
+          2
+        ],
+        "trade-school": [
+          0,
+          1
+        ],
+        "college-one": [
+          0,
+          1
+        ],
+        "college-two": [
+          0,
+          1
+        ],
+        "college-three": [
+          0,
+          1,
+          2
+        ],
+        "college-four": [
+          0,
+          1,
+          2
+        ],
+        "military-specialist": [
+          4
+        ],
+        "bachelors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "masters": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "doctorate": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "choice_groups": [
+        {
+          "id": "communications",
+          "name": "One Communications skill",
+          "count": 1,
+          "skill_ids": [
+            "cryptography",
+            "laser",
+            "optic-systems",
+            "surveillance-systems",
+            "tv-video",
+            "radio-basic",
+            "radio-scramblers",
+            "radio-satellite",
+            "read-sensory-equipment"
+          ],
+          "source": {
+            "book": "Heroes Unlimited - RPG - 2E",
+            "pages": [
+              46
+            ],
+            "pdf_pages": [
+              47
+            ],
+            "section": "Communications Program",
+            "candidate_ids": [
+              "c60f1f33bbd889b38af6"
+            ]
+          },
+          "unresolved_skill_ids": [
+            "radio-basic",
+            "radio-scramblers",
+            "tv-video"
+          ],
+          "guidance": "Whether the extra choice may duplicate a fixed grant is unresolved. Such choices remain saved without certifying that entitlement; the fixed grant and its proficiency remain intact."
+        }
+      ]
+    }
+  ],
+  "universal_skill_ids": [
+    "pilot-automobile",
+    "mathematics-basic"
+  ],
+  "skills": [
+    {
+      "id": "pilot-automobile",
+      "name": "Pilot Automobile",
+      "category": "Pilot, Basic",
+      "base": 60,
+      "per_level": 2,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          56
+        ],
+        "pdf_pages": [
+          57
+        ],
+        "section": "Pilot, Basic",
+        "candidate_ids": [
+          "29c529c997172bafa9af"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "mathematics-basic",
+      "name": "Mathematics: Basic",
+      "category": "Science",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59
+        ],
+        "pdf_pages": [
+          60
+        ],
+        "section": "Science",
+        "candidate_ids": [
+          "541d3dcc41d904060382"
+        ]
+      },
+      "prerequisites": [
+        "Literacy"
+      ]
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "category": "Technical",
+      "base": 50,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "computer-operation",
+      "name": "Computer Operation",
+      "category": "Technical",
+      "base": 40,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": [
+        "Literacy"
+      ]
+    },
+    {
+      "id": "business-finance",
+      "name": "Business & Finance",
+      "category": "Technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59,
+          60
+        ],
+        "pdf_pages": [
+          60,
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "law-general",
+      "name": "Law (general)",
+      "category": "Technical",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "biology",
+      "name": "Biology",
+      "category": "Science",
+      "base": 30,
+      "per_level": 5,
+      "prerequisites": [],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59
+        ],
+        "pdf_pages": [
+          60
+        ],
+        "section": "Science",
+        "candidate_ids": [
+          "541d3dcc41d904060382"
+        ]
+      }
+    },
+    {
+      "id": "paramedic",
+      "name": "Paramedic",
+      "category": "Medical",
+      "base": 40,
+      "per_level": 5,
+      "prerequisites": [],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ],
+        "section": "Medical",
+        "candidate_ids": [
+          "1661f180465a72ed7b8c"
+        ]
+      }
+    },
+    {
+      "id": "electronics-basic",
+      "name": "Basic Electronics",
+      "category": "Electrical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          51
+        ],
+        "pdf_pages": [
+          52
+        ],
+        "section": "Electrical",
+        "candidate_ids": [
+          "cc8860798e71e6fd009a"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "computer-repair",
+      "name": "Computer Repair",
+      "category": "Electrical",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          51
+        ],
+        "pdf_pages": [
+          52
+        ],
+        "section": "Electrical",
+        "candidate_ids": [
+          "cc8860798e71e6fd009a"
+        ]
+      },
+      "prerequisites": [],
+      "primary_check_name": "Determine repair/sabotage procedure",
+      "additional_checks": [
+        {
+          "name": "Actual repair/sabotage",
+          "base": 25
+        }
+      ],
+      "notes": [
+        "The source requires separate procedure and actual repair/sabotage rolls; a failed repair does not work and may be tried again. Computer Operation and Programming are not required."
+      ]
+    },
+    {
+      "id": "computer-programming",
+      "name": "Computer Programming",
+      "category": "Technical",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ]
+      },
+      "prerequisites": [
+        "Computer Operation",
+        "Literacy"
+      ],
+      "additional_checks": [
+        {
+          "name": "Hacking without Computer Hacking",
+          "context_of": "primary",
+          "modifier": -40
+        }
+      ],
+      "notes": [
+        "This context applies only without Computer Hacking. That separate Rogue skill and its cross-skill condition remain unsupported; normal programming proficiency is unchanged."
+      ]
+    },
+    {
+      "id": "radio-basic",
+      "name": "Radio: Basic",
+      "category": "Communications",
+      "base": 45,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "f1f1d9c2f4d185556d8e"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "radio-scramblers",
+      "name": "Radio: Scramblers",
+      "category": "Communications",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "f1f1d9c2f4d185556d8e"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "radio-satellite",
+      "name": "Radio: Satellite",
+      "category": "Communications",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "f1f1d9c2f4d185556d8e"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "tv-video",
+      "name": "T.V./Video",
+      "category": "Communications",
+      "base": 25,
+      "per_level": 4,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "7e3b5a2518c932fb1861"
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [
+        {
+          "name": "Optic Systems",
+          "amount": 5,
+          "skill_id": "optic-systems"
+        }
+      ]
+    },
+    {
+      "id": "cryptography",
+      "name": "Cryptography",
+      "category": "Communications",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "7e3b5a2518c932fb1861"
+        ]
+      },
+      "prerequisites": [
+        "Literacy"
+      ],
+      "additional_checks": [
+        {
+          "name": "After only ten minutes of study",
+          "context_of": "primary",
+          "modifier": -30
+        }
+      ],
+      "notes": [
+        "Normally requires two hours of study; a failed attempt requires another two hours before retrying. The displayed short-study check applies after only ten minutes."
+      ]
+    },
+    {
+      "id": "laser",
+      "name": "Laser",
+      "category": "Communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "7e3b5a2518c932fb1861"
+        ]
+      },
+      "prerequisites": [
+        "Radio Basic",
+        "Electrical Engineer",
+        "Computer Operation"
+      ]
+    },
+    {
+      "id": "optic-systems",
+      "name": "Optic Systems",
+      "category": "Communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "7e3b5a2518c932fb1861"
+        ]
+      },
+      "prerequisites": []
+    },
+    {
+      "id": "surveillance-systems",
+      "name": "Surveillance Systems",
+      "category": "Communications",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50
+        ],
+        "pdf_pages": [
+          51
+        ],
+        "section": "Communications",
+        "candidate_ids": [
+          "7e3b5a2518c932fb1861"
+        ]
+      },
+      "prerequisites": [
+        "Basic Electronics or Electrical Engineering"
+      ],
+      "notes": [
+        "Computer Operation and Literacy are additionally required for complex, high-tech systems. This definition includes tailing and stake-outs; a failed tailing check alerts the subject. Equipment failure impairs surveillance; failed concealment leaves a bug easily discovered."
+      ]
+    },
+    {
+      "id": "read-sensory-equipment",
+      "name": "Read Sensory Equipment",
+      "category": "Communications",
+      "base": 30,
+      "per_level": 5,
+      "prerequisites": [],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          50,
+          57
+        ],
+        "pdf_pages": [
+          51,
+          58
+        ],
+        "section": "Communications cross-reference to Pilot Related Skills",
+        "candidate_ids": [
+          "7e3b5a2518c932fb1861",
+          "d6f64556671383005f77"
+        ]
+      },
+      "notes": [
+        "Available under Communications through the explicit Pilot Related cross-reference. This proficiency covers operating and interpreting conventional sensory devices."
+      ]
+    },
+    {
+      "id": "first-aid",
+      "name": "First Aid",
+      "category": "Medical",
+      "base": 45,
+      "per_level": 5,
+      "prerequisites": [],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ],
+        "section": "Medical â€” First Aid and Holistic Medicine",
+        "candidate_ids": [
+          "1661f180465a72ed7b8c"
+        ]
+      },
+      "notes": [
+        "Rudimentary treatment includes bandaging, stopping bleeding, CPR and common antiseptics or painkillers."
+      ]
+    },
+    {
+      "id": "holistic-medicine",
+      "name": "Holistic Medicine",
+      "category": "Medical",
+      "base": 20,
+      "per_level": 5,
+      "prerequisites": [],
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          53
+        ],
+        "pdf_pages": [
+          54
+        ],
+        "section": "Medical â€” First Aid and Holistic Medicine",
+        "candidate_ids": [
+          "1661f180465a72ed7b8c"
+        ]
+      },
+      "notes": [
+        "Successful treatment with suitable natural remedies can help wounds heal twice as quickly as normal.",
+        "Failed treatment or concoction rolls do not work. Suitable plants may be seasonal or found only in remote regions."
+      ]
+    },
+    {
+      "id": "pick-pockets",
+      "name": "Pick Pockets",
+      "category": "Rogue",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Pick Pockets, Palming and Seduction",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3364,
+          3380
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [
+        {
+          "name": "Palming",
+          "amount": 5,
+          "skill_id": "palming"
+        }
+      ],
+      "additional_checks": [
+        {
+          "name": "Successfully seduced target",
+          "context_of": "primary",
+          "modifier": 5,
+          "maximum": 98,
+          "requires_skill": "seduction"
+        }
+      ],
+      "guidance": [
+        "Failure leaves the item in place and has a 67% chance that the intended victim recognizes the attempt. The seduced-target check applies only when this character has successfully seduced that victim."
+      ]
+    },
+    {
+      "id": "seduction",
+      "name": "Seduction",
+      "category": "Rogue",
+      "base": 20,
+      "per_level": 3,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Pick Pockets, Palming and Seduction",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3364,
+          3380
+        ]
+      },
+      "prerequisites": [],
+      "attribute_bonuses": [
+        {
+          "name": "Seduction M.A.",
+          "attribute": "MA",
+          "threshold": 20,
+          "step": 1,
+          "amount": 1,
+          "cap": 30
+        },
+        {
+          "name": "Seduction P.B.",
+          "attribute": "PB",
+          "threshold": 17,
+          "step": 2,
+          "amount": 1,
+          "cap": 30
+        }
+      ],
+      "additional_checks": [
+        {
+          "name": "Target affected by alcohol",
+          "context_of": "primary",
+          "modifier": 5,
+          "maximum": 98
+        }
+      ],
+      "guidance": [
+        "Successfully seduced victims perform skills at half proficiency and take twice as long; they have no initiative, and initiative bonuses halve when attacked by someone other than the seducer.",
+        "The seducer acts first against that victim; any roll above 4 succeeds. The victim cannot defend against the first attack and loses one action from surprise or horror. These target combat effects remain source guidance until Heroes combat support is complete.",
+        "+5% Pick Pockets, Palming/planting, Cardsharp, Sing and Dance against a successfully seduced victim; available Pick Pockets, Palming and Cardsharp contexts are projected here.",
+        "One additional target may be influenced per three experience levels; Heroes advancement remains pending.",
+        "Normal mortal M.A./P.B. bonuses stop at 30 even when a manual attribute value exceeds that limit; god/alien exceptions remain pending."
+      ]
+    },
+    {
+      "id": "palming",
+      "name": "Palming",
+      "category": "Rogue",
+      "base": 20,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Palming",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3368,
+          3368
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "power_bonus_tags": [
+        "sleight-of-hand"
+      ],
+      "additional_checks": [
+        {
+          "name": "Successfully seduced target",
+          "context_of": "primary",
+          "modifier": 5,
+          "maximum": 98,
+          "requires_skill": "seduction"
+        }
+      ],
+      "guidance": [
+        "Conceal a small object in the hand so it seems to disappear. When acquired, adds 5% to Pick Pockets.",
+        "A successfully seduced victim gives a conditional +5% Palming check when Seduction is acquired. This is not a general bonus against other targets."
+      ]
+    },
+    {
+      "id": "cardsharp",
+      "name": "Cardsharp",
+      "category": "Rogue",
+      "base": 24,
+      "per_level": 4,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Cardsharp",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3354,
+          3360
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [
+        {
+          "name": "Palming",
+          "skill_id": "palming",
+          "amount": 4
+        }
+      ],
+      "power_bonus_tags": [
+        "sleight-of-hand"
+      ],
+      "additional_checks": [
+        {
+          "name": "Successfully seduced target",
+          "context_of": "primary",
+          "modifier": 5,
+          "maximum": 98,
+          "requires_skill": "seduction"
+        }
+      ],
+      "guidance": [
+        "Card handling, marked cards, counting and odds. A failed check fumbles the trick, misreads markings or exposes cheating.",
+        "Acquired Palming adds 4%. Acquired Seduction permits a conditional 5% against a successfully seduced target."
+      ]
+    },
+    {
+      "id": "concealment",
+      "name": "Concealment",
+      "category": "Rogue",
+      "base": 20,
+      "per_level": 4,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Concealment",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3364,
+          3364
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "additional_checks": [
+        {
+          "name": "Small, light object",
+          "context_of": "primary",
+          "modifier": 5,
+          "maximum": 98
+        },
+        {
+          "name": "Handgun or knife under clothes",
+          "context_of": "primary",
+          "modifier": 5,
+          "maximum": 98
+        }
+      ],
+      "guidance": [
+        "Objects must be no more than 14 inches long/high, 6 inches wide and 10 pounds.",
+        "Small/light items and handguns or knives hidden under clothes each have a stated 5% context. These alternative contexts are displayed separately; no combined 10% is assumed.",
+        "Concealment receives Extraordinary M.A. as reviewed sleight-of-hand under the selected interpretation."
+      ],
+      "power_bonus_tags": [
+        "sleight-of-hand"
+      ]
+    },
+    {
+      "id": "pick-locks",
+      "name": "Pick Locks",
+      "category": "Rogue",
+      "base": 30,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Pick Locks",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3370,
+          3370
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Mechanical locks only; sophisticated computer/electronic locks are excluded. Each attempt takes 1D6 melee rounds; a failed attempt leaves the lock holding and may be retried."
+      ]
+    },
+    {
+      "id": "prowl",
+      "name": "Prowl",
+      "category": "Rogue",
+      "base": 25,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58
+        ],
+        "pdf_pages": [
+          59
+        ],
+        "section": "Rogue Skills: Prowl",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3374,
+          3374
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Successful stealth avoids being seen or heard and permits a sneak attack. This creator displays proficiency; it does not resolve an attack. Acrobatics/Gymnastics included Prowl and their training bonuses remain separate unfinished work."
+      ]
+    },
+    {
+      "id": "streetwise",
+      "name": "Streetwise",
+      "category": "Rogue",
+      "base": 20,
+      "per_level": 4,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          58,
+          59
+        ],
+        "pdf_pages": [
+          59,
+          60
+        ],
+        "section": "Rogue Skills: Streetwise",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3382,
+          3384
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Recognize gangs, dangerous locations, criminal contacts, dealers, drugs and undercover agents by a skill check."
+      ]
+    },
+    {
+      "id": "ventriloquism",
+      "name": "Ventriloquism",
+      "category": "Rogue",
+      "base": 16,
+      "per_level": 4,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59
+        ],
+        "pdf_pages": [
+          60
+        ],
+        "section": "Rogue Skills: Ventriloquism",
+        "candidate_ids": [
+          "fc9e5ef4d6b28659b362"
+        ],
+        "markdown_lines": [
+          3386,
+          3386
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Throw the voice up to 10 feet (3 m). A poorly thrown voice or visible mouth movement makes the trick fail.",
+        "Extraordinary M.A. applies under the reviewed deception classification: the skill explicitly disguises the origin of a voice. This is an interpretation, not a separately stated Ventriloquism bonus."
+      ],
+      "power_bonus_tags": [
+        "deception"
+      ]
+    },
+    {
+      "id": "art",
+      "name": "Art",
+      "category": "Technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          59
+        ],
+        "pdf_pages": [
+          60
+        ],
+        "section": "Technical Skills: Art",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ],
+        "markdown_lines": [
+          3418,
+          3418
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Secondary Art is talented amateur work; professional quality requires scholastic training."
+      ]
+    },
+    {
+      "id": "general-repair-maintenance",
+      "name": "General Repair/Maintenance",
+      "category": "Technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical Skills: General Repair/Maintenance",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ],
+        "markdown_lines": [
+          3426,
+          3428
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Roll separately to diagnose the problem and to make the repair. After failure, at most two retries are allowed.",
+        "Minor armor patchwork restores 2D6 S.D.C. under the source rule; equipment repair is not yet automated and does not change character starting S.D.C.",
+        "Difficult items are extremely damaged, complex, high-tech or alien. That context halves normal capped proficiency exactly; fractional percentages are retained without invented rounding."
+      ],
+      "additional_checks": [
+        {
+          "name": "Difficult item",
+          "context_of": "primary",
+          "multiplier": 0.5
+        }
+      ]
+    },
+    {
+      "id": "photography",
+      "name": "Photography",
+      "category": "Technical",
+      "base": 35,
+      "per_level": 5,
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          60
+        ],
+        "pdf_pages": [
+          61
+        ],
+        "section": "Technical Skills: Photography",
+        "candidate_ids": [
+          "959908cc1439bf659b71"
+        ],
+        "markdown_lines": [
+          3436,
+          3436
+        ]
+      },
+      "prerequisites": [],
+      "synergies": [],
+      "guidance": [
+        "Still photography, lighting, camera equipment and film storage, development, enlargement and duplication."
+      ]
+    },
+    {
+      "id": "body-building",
+      "name": "Body Building & Weight Lifting",
+      "kind": "physical",
+      "category": "Physical",
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          55
+        ],
+        "pdf_pages": [
+          56
+        ],
+        "section": "Physical Skills: Body Building & Weight Lifting",
+        "candidate_ids": [
+          "4f6849fdab68a732d7c9",
+          "6e18f652aef50288a0cd"
+        ],
+        "markdown_lines": [
+          3207,
+          3214
+        ]
+      },
+      "prerequisites": [],
+      "attributes": {
+        "PS": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 2
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 10
+        }
+      },
+      "guidance": [
+        "Physical effects apply once per acquired skill. Recorded dice are retained on removal and reselection. Attribute house rules and exceptional bonus dice do not apply to these bonuses."
+      ]
+    },
+    {
+      "id": "running",
+      "name": "Running",
+      "kind": "physical",
+      "category": "Physical",
+      "source": {
+        "book": "Heroes Unlimited - RPG - 2E",
+        "pages": [
+          56
+        ],
+        "pdf_pages": [
+          57
+        ],
+        "section": "Physical Skills: Running",
+        "candidate_ids": [
+          "0039a934683bdc96dc46",
+          "39537a5bf6651d011cb8"
+        ],
+        "markdown_lines": [
+          3266,
+          3274
+        ]
+      },
+      "prerequisites": [],
+      "attributes": {
+        "PE": {
+          "count": 0,
+          "sides": 0,
+          "bonus": 1
+        },
+        "SPD": {
+          "count": 4,
+          "sides": 4,
+          "bonus": 0
+        }
+      },
+      "resources": {
+        "SDC": {
+          "count": 1,
+          "sides": 6,
+          "bonus": 0
+        }
+      },
+      "guidance": [
+        "Physical effects apply once per acquired skill. Recorded dice are retained on removal and reselection. Attribute house rules and exceptional bonus dice do not apply to these bonuses."
+      ]
+    }
+  ],
+  "guidance": [
+    "Shared grants occur once with the highest eligible program bonus. Universal Basic Mathematics receives its scholastic bonus once when selected in a supported program; this duplicate-grant reconciliation is an explicit implementation interpretation. Secondary selections never add an education bonus.",
+    "Business, Medical Assistant, Computer and Communications fixed grants/explicit alternatives, supported Secondary selections and two universal percentages are automated. Other programs, remaining skill catalogs, repeated-program category choices, Street literacy trades and advancement remain unfinished.",
+    "Universal Speak Native Language (+25%) and Read/Write Native Language (+20%) remain source guidance. Native speaking base is unspecified; educated native literacy is 98%, and Street Schooled literacy is 30% +2% per level unless trading a skill. Their arithmetic interaction remains pending.",
+    "Education bonuses apply once to scholastic skills; I.Q. bonuses apply once to all supported skills. Ordinary proficiency is capped at 98%.",
+    "High School does not permit Business, Medical Assistant or Communications (original printed 45 / PDF 46, restriction item 1). Honor-system choices stay saved without an ineligible scholastic bonus. Earlier exact pins require an explicit reviewed update.",
+    "Paramedic treatment procedures remain source guidance: serious injury/coma uses two successes out of three checks; a failed attempt can be retried by another character or after six minutes concentrating. This creator displays proficiency, not an in-session treatment simulator."
+  ],
+  "secondary": {
+    "eligible_skill_ids": [
+      "pilot-automobile",
+      "mathematics-basic",
+      "research",
+      "computer-operation",
+      "business-finance",
+      "law-general",
+      "electronics-basic",
+      "computer-programming",
+      "radio-basic",
+      "tv-video",
+      "first-aid",
+      "holistic-medicine",
+      "pick-pockets",
+      "seduction",
+      "palming",
+      "cardsharp",
+      "concealment",
+      "pick-locks",
+      "prowl",
+      "streetwise",
+      "ventriloquism",
+      "art",
+      "general-repair-maintenance",
+      "photography",
+      "body-building",
+      "running"
+    ],
+    "selection_costs": {
+      "holistic-medicine": 2
+    },
+    "source": {
+      "book": "Heroes Unlimited - RPG - 2E",
+      "pages": [
+        47
+      ],
+      "pdf_pages": [
+        48
+      ],
+      "section": "Secondary Skills and Secondary Skill List",
+      "candidate_ids": [
+        "fb1f532f3f4c588b382b",
+        "0e0c38f19e828319d75b"
+      ]
+    },
+    "guidance": [
+      "Secondary skills receive no education bonus. I.Q. applies once. Reviewed selected-power bonuses apply separately; other power-category bonuses remain pending.",
+      "Technical: any; Pilot Basic: any; Science: Astronomy/Mathematics only; Electrical: Basic Electronics only; Communications: Radio Basic or TV/Video only. Biology, Paramedic, Computer Repair, Radio Scramblers and Radio Satellite are outside these eligible categories. Only currently defined skills are covered. Medical: First Aid or Holistic Medicine; Holistic Medicine uses two selections.",
+      "Secondary proficiency does not imply professional or commercial quality. A shared program grant retains its program quality; a skill solely selected as Secondary is competent, non-professional.",
+      "Other Secondary categories and special selection costs, including hand-to-hand training, remain unfinished. Street skill choices and literacy trades remain separate pending work.",
+      "Rogue Secondary: any except Computer Hacking, Find Contraband and Safecracking. Reviewed available Rogue skills each cost one selection.",
+      "Physical Secondaries: any except Acrobatics, Gymnastics, Boxing and Wrestling. Reviewed Body Building and Running each cost one selection; other training definitions remain unfinished."
+    ]
+  }
+}

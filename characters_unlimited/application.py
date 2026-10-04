@@ -21,7 +21,8 @@ from .education import education_selection, validate_education, project_educatio
 from .heroes_power_budget import select_budget, validate_budget, project_budget
 from .heroes_powers import select_powers, project_powers
 from .heroes_programs import validate_program_selections, validate_secondary_selections, project_programs
-from .physical import acquire_physical
+from .physical import acquire_physical, validate_physical_upgrade
+from .heroes_physical import acquire_hero_physical, project_hero_physical
 from .resources import acquire_resources, project_resources, update_resource
 from .equipment import validate_inventory, purchase_inventory, split_inventory, reload_inventory, project_equipment, compare_equipment_views
 from .starting_funds import acquire_starting_funds
@@ -305,8 +306,14 @@ class CharacterApplication:
 
     def hero_program_view(self, identifier):
         character = self.get(identifier)
-        return {**project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character), self.character_hero_powers_pack(character)),
+        return {**self._project_hero_programs(character),
                 'pinned':'heroes-program-skills' in character.get('additional_rule_packs', {})}
+
+    def _project_hero_programs(self, character):
+        pack = self._character_heroes_pack(character, 'heroes-program-skills')
+        education = self.character_education_pack(character)
+        return {**project_programs(character, pack, education, self.character_hero_powers_pack(character)),
+                'physical':project_hero_physical(character, pack, education)}
 
     def select_hero_programs(self, identifier, *, revision, selections):
         require_revision(revision)
@@ -318,7 +325,10 @@ class CharacterApplication:
         if 'education' not in character:
             raise ValueError('Choose education before saving scholastic programs')
         pins = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
-        return self.store.update(identifier, {'hero_program_selections':selections, 'additional_rule_packs':pins}, revision)
+        changes = {'hero_program_selections':selections, 'additional_rule_packs':pins}
+        changes.update(acquire_hero_physical({**character, **changes}, pack,
+                                           self.character_education_pack(character), self.die))
+        return self.store.update(identifier, changes, revision)
 
     def character_skill_pack(self, character):
         if character['game'] != 'rifts':
@@ -335,7 +345,10 @@ class CharacterApplication:
         if 'education' not in character:
             raise ValueError('Choose education before saving Secondary skills')
         pins = {**character.get('additional_rule_packs',{}),pack['id']:pack['version']}
-        return self.store.update(identifier,{'hero_secondary_selections':selections,'additional_rule_packs':pins},revision)
+        changes = {'hero_secondary_selections':selections,'additional_rule_packs':pins}
+        changes.update(acquire_hero_physical({**character, **changes}, pack,
+                                           self.character_education_pack(character), self.die))
+        return self.store.update(identifier,changes,revision)
 
     def export_character(self, identifier):
         return export_bundle(self.get(identifier), self.rule_archive.definitions())
@@ -349,10 +362,10 @@ class CharacterApplication:
             core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
             return export_heroes_sheet(character, core,
                 project_education(character.get('education'), self.character_education_pack(character)),
-                project_programs(character, self._character_heroes_pack(character, 'heroes-program-skills'), self.character_education_pack(character), self.character_hero_powers_pack(character)),
+                self._project_hero_programs(character),
                 project_budget(character.get('power_budget'), self.character_power_budget_pack(character)),
                 project_powers(character, self.character_hero_powers_pack(character), self.character_power_budget_pack(character)),
-                project_resources(character, self.character_resource_pack(character)))
+                self._project_character_resources(character))
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         pack = self.character_skill_pack(character)
         combat = project_combat(character,pack)
@@ -387,6 +400,7 @@ class CharacterApplication:
         if character['game'] == 'heroes-unlimited':
             previous = self._character_heroes_pack(character, 'heroes-program-skills')
             target = self.rule_archive.active('heroes-program-skills')
+            validate_physical_upgrade(character, previous, target, entire_definition=True)
             education = self.character_education_pack(character)
             powers = self.character_hero_powers_pack(character)
             before = project_programs(character, previous, education, powers)
@@ -409,12 +423,7 @@ class CharacterApplication:
                 raise ValueError('This update changes recorded later advancement rules. History migration is not yet supported; current rules remain intact.')
             if 'resources' in character and canonical(previous.get('resources',{}).get('definitions')) != canonical(target.get('resources',{}).get('definitions')):
                 raise ValueError('This update changes recorded resource rules. Resource migration is not yet supported; current rules remain intact.')
-            for skill_id in character.get('physical_acquisitions',{}):
-                before_definition = next(item for item in previous['skills'] if item['id']==skill_id)
-                after_definition: dict = next((item for item in target['skills'] if item['id']==skill_id),{})
-                fields = ('kind','attributes','resources','combat','source')
-                if canonical({key:before_definition.get(key) for key in fields}) != canonical({key:after_definition.get(key) for key in fields}):
-                    raise ValueError('This update changes recorded Physical bonus rules. Acquisition/history migration is not yet supported; current rules remain intact.')
+            validate_physical_upgrade(character, previous, target)
             validate_selections(character.get('skill_selections', []), target)
             before = project_skills(character, previous)
             after = project_skills(character, target)
@@ -556,7 +565,26 @@ class CharacterApplication:
 
     def resource_view(self, identifier):
         character = self.get(identifier)
-        return project_resources(character,self.character_resource_pack(character))
+        return self._project_character_resources(character)
+
+    def _project_character_resources(self, character):
+        physical = None
+        physical_supported = False
+        if character['game'] == 'heroes-unlimited':
+            pack = self._character_heroes_pack(character, 'heroes-program-skills')
+            physical_supported = any(row.get('kind') == 'physical' for row in pack['skills'])
+            physical = project_hero_physical(character,
+                pack,
+                self.character_education_pack(character))['resources']
+        view = project_resources(character, self.character_resource_pack(character), physical_resources=physical)
+        if physical_supported:
+            view['guidance'] = [note.replace(
+                'Additional Physical skill, unusual characteristic and power S.D.C. contributions remain unfinished.',
+                'Reviewed Body Building and Running contributions apply when selected. Other Physical skill, unusual characteristic and power contributions remain unfinished.')
+                for note in view['guidance']]
+        if character['game'] == 'heroes-unlimited':
+            view['physical_supported'] = physical_supported
+        return view
 
     def character_resource_pack(self, character):
         if character['game'] == 'rifts':

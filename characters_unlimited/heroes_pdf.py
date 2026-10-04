@@ -184,6 +184,18 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
         lines.extend(wrap_lines('Recorded Secondary choices: '+
                      ', '.join(skill_names[identifier] for identifier in secondary['selections']), 530))
     lines += wrap_lines('Additional power, combat, resource and equipment automation remains pending. Ungenerated or unreviewed fields remain blank and editable.', 530)
+    for skill in programs.get('physical', {}).get('selected', []):
+        terms = []
+        for group in ('attributes', 'resources'):
+            for name, result in skill['effects'][group].items():
+                terms.append(name+' +'+str(result['value'])+
+                             (f" (dice {result['rolls']})" if result['rolls'] else ''))
+        lines += wrap_lines('Physical: '+skill['name']+'; '+', '.join(terms), 530)
+        source = skill['source']
+        lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
+                            ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)
+        for note in skill.get('guidance', []):
+            lines += wrap_lines(skill['name']+': '+note, 530)
     if resources and resources['generated']:
         lines += wrap_lines('Starting resources retain recorded contributions; later attribute changes do not reroll them.', 530)
         for result in resources['resources'].values():

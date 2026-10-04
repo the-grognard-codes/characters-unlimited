@@ -67,11 +67,13 @@ def project_programs(character, pack, education_pack, power_pack=None):
     selections = validate_program_selections(character.get('hero_program_selections', []), pack)
     warnings = []
     bonuses = {identifier:0 for identifier in pack['universal_skill_ids']}
+    physical_grants = set(bonuses)
     secondary_rules = pack.get('secondary')
     secondary_choices = (validate_secondary_selections(character.get('hero_secondary_selections',[]),pack)
                          if secondary_rules else [])
     for identifier in secondary_choices:
         bonuses.setdefault(identifier,0)
+        physical_grants.add(identifier)
     seen_programs, seen_slots = set(), set()
     program_choices = []
     for selection in selections:
@@ -89,11 +91,14 @@ def project_programs(character, pack, education_pack, power_pack=None):
         bonus = slot['bonus'] if valid and slot is not None and slot['bonus'] is not None else 0
         for identifier in program['skill_ids']:
             bonuses[identifier] = max(bonuses.get(identifier, 0), bonus)
+            physical_grants.add(identifier)
         groups = program_choice_view(selection,program,warnings)
         program_choices.append({'program':program['id'],'slot':selection['slot'],'groups':groups,'repeat':repeated})
         if repeated and groups:
             warnings.append(f"{program['name']} repeat entitlement is not implemented. Retained first-program group choices receive no new group education bonus and do not certify the repeat's remaining-category choices.")
         for group in groups:
+            physical_grants.update(set(group['selections']).intersection(group['skill_ids'])
+                                   - set(group.get('unresolved_skill_ids', [])))
             for identifier in group['selections']:
                 choice_bonus = bonus if not repeated and identifier in group['skill_ids'] else 0
                 bonuses[identifier] = max(bonuses.get(identifier,0),choice_bonus)
@@ -122,6 +127,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
     for definition in pack['skills']:
         if definition['id'] not in bonuses:
             continue
+        if definition.get('kind') == 'physical':
+            continue
         contributions = {'base':definition['base'], 'education':bonuses[definition['id']], 'intelligence':intelligence,
                          **synergy_contributions(definition,set(bonuses)),
                          **power_skill_contributions(character,definition,power_pack)}
@@ -136,6 +143,8 @@ def project_programs(character, pack, education_pack, power_pack=None):
         skills.append({**deepcopy(definition), **project_proficiency(projected_definition, contributions),
                        'secondary_selected':definition['id'] in secondary_choices})
     return {'catalog':deepcopy(pack['programs']), 'selections':selections, 'slots':deepcopy(slots),
+            'physical_selections':[{'skill_id':row['id']} for row in pack['skills']
+                                   if row.get('kind') == 'physical' and row['id'] in physical_grants],
             'skill_catalog':deepcopy(pack['skills']),
             'skills':skills, 'warnings':warnings, 'guidance':deepcopy(pack['guidance']),
             'rules':{'id':pack['id'], 'version':pack['version']}, 'source':deepcopy(pack['source']),

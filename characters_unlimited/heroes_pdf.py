@@ -6,7 +6,7 @@ from pypdf import PdfReader, PdfWriter
 from reportlab.lib.colors import black, white
 from reportlab.pdfgen.canvas import Canvas
 
-from .pdf_export import append_continuation, fill_values, install_editing_font, wrap_lines
+from .pdf_export import append_continuation, fill_values, install_editing_font, wrap_lines, resource_source_citation
 
 
 def export_heroes_sheet(character, core, education, programs, power_budget=None, powers=None, resources=None):
@@ -283,8 +283,7 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
                 terms.append(name+': '+str(value)+(f' (dice {faces})' if faces else ''))
             lines += wrap_lines(result['name']+': '+str(result['value'])+'; '+'; '.join(terms), 530)
             for source in result['sources']:
-                lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source.get('pages',[source.get('printed_page')])))+
-                                    ' / PDF pp. '+', '.join(map(str,source.get('pdf_pages',[source.get('pdf_page')]))), 530)
+                lines += wrap_lines(resource_source_citation(source), 530)
         for note in resources['guidance']:
             lines += wrap_lines(note, 530)
     for message in dict.fromkeys([*programs['warnings'], *programs['guidance']]):

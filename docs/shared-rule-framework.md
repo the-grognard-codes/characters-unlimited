@@ -103,3 +103,7 @@ Racial generation resolves a declared race source and optional per-attribute cit
 ## Percentile skill-effect increment (22C2)
 
 `skill_effects.py` compiles source-bound additive percentile effects through the shared selector engine. Rifts class skill projections, Heroes program packs and active mutant powers use the same targets and numeric projection, retaining detailed source contributions and existing caps/contextual checks. Effects grant no skills. See `shared-skill-effect-contract.md`; conditional/level effects and generic magic/psionic activation remain open.
+
+## Retained level-resource increment (22D2)
+
+`level_resource_gains.py` shares additional per-level formula acquisition and exact replay across both games. Generated resource identities receive retained, source-bound contributions; inactive caches do not affect totals. Nondefault classes own their extra growth declarations. See `shared-level-resource-gain-contract.md`; ordinary HP growth and legacy class fallback remain unchanged. Conditional schedules, ability grants, full importer certification and magic/psionic content remain open.

@@ -1,6 +1,7 @@
 """Recorded first advancement and the experience age of each learned skill."""
 
 from copy import deepcopy
+from .level_resource_gains import level_gain_definitions, level_gain_fields, validate_level_resource_gains
 from .required_definitions import required_catalog
 import json
 
@@ -56,19 +57,23 @@ def first_advance(character, pack, method, value, levels, die):
         raise ValueError('This character has already reached level two')
     if 'resources' not in character:
         raise ValueError('Generate starting resources before advancing')
+    level_gain_definitions(rules, character['resources'])
     prior = character.get('advancement')
     face = prior['hp_roll'] if prior else die(rules['hp_die'])
     if type(face) is not int or not 1 <= face <= rules['hp_die']:
         raise ValueError('Invalid advancement Hit Point die')
     before = {key: deepcopy(value) for key, value in character.items()
               if key not in ('id', 'revision', 'updated_at', 'advancement', 'later_advancements')}
-    record = {'active': True, 'xp': xp, 'hp_roll': face, 'source': deepcopy(rules['source']), 'before': before}
+    record = {'active': True, 'xp': xp, 'hp_roll': face, 'source': deepcopy(rules['source']), 'before': before,
+              **level_gain_fields(rules, character['resources'], die, prior)}
     return {'level': 2, 'experience': xp, 'learning_levels': levels, 'advancement': record}
 
 
 def advance_levels(character, pack, method, value, levels, die):
     """Build each intermediate snapshot without nesting the later-level cache."""
     rules = pack['higher_advancement']
+    level_gain_definitions(pack['advancement'], character.get('resources', {}))
+    level_gain_definitions(rules, character.get('resources', {}))
     if method == 'xp':
         target = next((level for level, (low, high) in enumerate(rules['xp_ranges'], 1)
                        if low <= value <= high), None)
@@ -97,7 +102,8 @@ def advance_levels(character, pack, method, value, levels, die):
             raise ValueError('Invalid advancement Hit Point die')
         before = {key: deepcopy(item) for key, item in candidate.items()
                   if key not in ('id', 'revision', 'updated_at', 'later_advancements')}
-        event = {'level': level, 'hp_roll': face, 'source': deepcopy(rules['source']), 'before': before}
+        event = {'level': level, 'hp_roll': face, 'source': deepcopy(rules['source']), 'before': before,
+                 **level_gain_fields(rules, candidate['resources'], die, cached)}
         events = sorted([event, *(item for item in events if item['level'] != level)], key=lambda item: item['level'])
         candidate.update(level=level, experience=rules['xp_ranges'][level - 1][0],
                          later_advancements=events)
@@ -116,12 +122,14 @@ def validate_advancement(character, pack):
     rules = pack.get('advancement')
     if not rules or character['game'] != 'rifts' or character['character_class'] != rules['class_id']:
         raise ValueError('Advancement requires its reviewed class and pinned rules')
-    if (not isinstance(record, dict) or set(record) != {'active', 'xp', 'hp_roll', 'source', 'before'} or
+    if (not isinstance(record, dict) or set(record) != ({'active', 'xp', 'hp_roll', 'source', 'before'} |
+                ({'resource_gains'} if rules.get('resource_gains') else set())) or
             type(record['active']) is not bool or (character['level'] < 2 if record['active'] else character['level'] != 1) or
             type(record['hp_roll']) is not int or not 1 <= record['hp_roll'] <= rules['hp_die'] or
             type(record['xp']) is not int or not rules['xp_ranges'][1][0] <= record['xp'] <= rules['xp_ranges'][1][1] or
             json.dumps(record['source'], sort_keys=True) != json.dumps(rules['source'], sort_keys=True)):
         raise ValueError('Invalid recorded advancement')
+    validate_level_resource_gains(record, rules, character.get('resources', {}))
     if record['active'] and character['level'] == 2 and character.get('experience') != record['xp']:
         raise ValueError('Experience must match the active advancement')
     before = record['before']
@@ -179,10 +187,12 @@ def validate_later_advancements(character, pack, *, history_frame=False):
         raise ValueError('Experience must match a reviewed level range')
     seen = []
     for event in events:
-        if (not isinstance(event, dict) or set(event) != {'level', 'hp_roll', 'source', 'before'} or
+        if (not isinstance(event, dict) or set(event) != ({'level', 'hp_roll', 'source', 'before'} |
+                    ({'resource_gains'} if rules.get('resource_gains') else set())) or
                 type(event['level']) is not int or not 3 <= event['level'] <= rules['max_level'] or
                 type(event['hp_roll']) is not int or not 1 <= event['hp_roll'] <= rules['hp_die']):
             raise ValueError('Invalid later advancement record')
+        validate_level_resource_gains(event, rules, character.get('resources', {}))
         before = event['before']
         if (not isinstance(before, dict) or before.get('level') != event['level'] - 1 or
                 set(before).intersection({'id', 'revision', 'updated_at', 'later_advancements'}) or

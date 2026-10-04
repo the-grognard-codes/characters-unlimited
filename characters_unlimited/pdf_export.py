@@ -312,6 +312,18 @@ def fill_equipment(page, equipment, values):
             cell(533.018,322.582,item['prowl_penalty'])
 
 
+def resource_source_citation(source):
+    parts = [source['book']]
+    for label, plural, singular in [('printed pp.', 'pages', 'printed_page'),
+                                    ('PDF pp.', 'pdf_pages', 'pdf_page')]:
+        pages = source.get(plural, [source[singular]] if source.get(singular) is not None else [])
+        if pages:
+            parts.append(label + ' ' + ', '.join(map(str, pages)))
+    if source.get('section'):
+        parts.append(source['section'])
+    return ', '.join(parts)
+
+
 def export_rifts_sheet(character, core, skills, combat):
     writer = PdfWriter()
     writer.clone_document_from_reader(PdfReader(TEMPLATE))
@@ -453,7 +465,7 @@ def export_rifts_sheet(character, core, skills, combat):
             terms.append('Fixed total: '+str(result['fixed']))
         elif result['adjustment']:
             terms.append('Player adjustment: '+str(result['adjustment']))
-        references = list(dict.fromkeys(source['book']+', pp. '+', '.join(map(str,source['pages'])) for source in result['sources']))
+        references = list(dict.fromkeys(resource_source_citation(source) for source in result['sources']))
         sheet_notes += '\n'+result['name']+': '+'; '.join([*terms,*references])+'.'
     if combat.get('class_bonuses'):
         perception = combat['class_bonuses']['perception']

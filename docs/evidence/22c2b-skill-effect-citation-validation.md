@@ -8,3 +8,5 @@ Browser verification confirmed Rifts Cooking67 with `Synthetic framework fixture
 
 
 The Spec review found that Heroes shared ability rows hide the ordinary Acrobatics/Gymnastics rows. A per-member evidence loop now shows both effect citations without changing best-proficiency calculations. Actual browser verification through Physical/Athletic confirmed both sources and shared balance72 rather than adding72+62; the third screenshot records this path. No new automated test was added for this presentation-only change; browser verification covers all three affected display paths. Required mypy134 and compilation pass as well.
+
+PR99 merged as `6debd9a12fc69dd541f7f8ff84c3751e84d30475` after both exact-head Windows runs37241071135/37241068412 succeeded, including frozen executable validation.

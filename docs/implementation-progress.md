@@ -137,3 +137,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 05C3: Complete in PR #60 as4ac78d3 after corrected Windows full/frozen runs37167359410/37167357481 passed. Local229 tests, both reviews and browser/render/edit/reopen pass. Physical/Rogue minimum remains independent pending interpretation.
 - 08B4: City Rat starting credits and separate Black Market item value in progress under equipment1.6.0; equipment/cybernetics and parent08 remain open.
+
+- 08B4: Complete in PR #61 as40def5c after both Windows full/frozen checks passed. Original City Rat credits/item value, exact pins and editable sheets verified.
+- 08B5: City Rat six-row fixed personal gear grant in progress; full class/equipment review remains open.

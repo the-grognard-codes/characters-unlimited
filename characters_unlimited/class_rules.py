@@ -24,15 +24,16 @@ def class_rules(pack, character):
 
 
 def equipment_class_rules(pack, character):
-    """Resolve starting funds; unsupported classes retain the guarded base rules."""
+    """Resolve class starting equipment; unsupported classes retain guarded base rules."""
     profiles = pack.get('class_profiles', {})
     if not isinstance(profiles, dict):
         raise ValueError('Equipment class profiles must be a mapping')
     profile = profiles.get(character['character_class'])
     if profile is None:
         return deepcopy(pack)
-    if (not isinstance(profile, dict) or set(profile) != {'starting_funds'} or
-            not isinstance(profile['starting_funds'], dict) or
-            profile['starting_funds'].get('character_class') != character['character_class']):
-        raise ValueError('Starting funds profile must identify its supported class')
+    if (not isinstance(profile, dict) or not profile or
+            set(profile) - {'starting_funds', 'starting_gear'} or
+            any(not isinstance(rules, dict) or rules.get('character_class') != character['character_class']
+                for rules in profile.values())):
+        raise ValueError('Starting equipment profile must identify its supported class')
     return {**deepcopy(pack), **deepcopy(profile)}

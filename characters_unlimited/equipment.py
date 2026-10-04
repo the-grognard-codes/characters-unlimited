@@ -337,12 +337,22 @@ def project_equipment(character, pack, combat):
     funds = project_starting_funds(character, pack)
     gear = project_starting_gear(character, pack)
     starting = project_starting_choices(character, pack)
+    groups = project_starting_groups(character, pack)
     if starting['supported']:
         # Historical pack guidance remains immutable; show the currently available path.
         funds['guidance'] = [note for note in funds['guidance']
                              if note != 'The rest of the Vagabond starting equipment is not yet implemented.']
         gear['guidance'] = [note for note in gear['guidance']
                             if note != 'Knife, armor, gun, spare clip and transport choices remain pending.']
+    if character.get('character_class') == 'city-rat':
+        # Preserve archived entitlement definitions and receipts; refresh display-only gap text.
+        available = {group['id'] for group in groups['groups']}
+        if 'armor' in available:
+            gear['guidance'] = [note.replace('starting armor, weapons, E-Clips', 'weapons, E-Clips')
+                                for note in gear['guidance']]
+        if 'knife' in available:
+            gear['guidance'] = [note.replace('weapons, E-Clips', 'S.D.C. handgun and M.D. pistol, E-Clips')
+                                for note in gear['guidance']]
     return {
         'catalog': deepcopy(pack['items']), 'inventory': inventory, 'items': selected,
         'attacks': attacks, 'melee_attacks': melee_attacks,
@@ -351,7 +361,7 @@ def project_equipment(character, pack, combat):
         'starting_funds': funds,
         'starting_gear': gear,
         'starting_choices': starting,
-        'starting_groups': project_starting_groups(character, pack),
+        'starting_groups': groups,
         'carried_weight_complete': unknown_weight_quantity == 0,
         'unknown_carried_weight_quantity': unknown_weight_quantity,
     }

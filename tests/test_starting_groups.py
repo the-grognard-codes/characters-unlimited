@@ -83,7 +83,8 @@ class StartingGroupsTests(unittest.TestCase):
             preview=extended.preview_rule_upgrade(hero['id'])
             result=extended.apply_rule_upgrade(hero['id'],revision=restored['revision'],token=preview['token'])['character']
             self.assertEqual(result['starting_equipment_groups'],restored['starting_equipment_groups'])
-            self.assertFalse(extended.equipment_view(hero['id'])['starting_groups']['groups'][1]['generated'])
+            self.assertFalse(next(group for group in extended.equipment_view(hero['id'])['starting_groups']['groups']
+                                  if group['id']=='personal')['generated'])
             extension['version']='group-change-fixture';groups['armor']['quantity']=2
             changed_archive=RuleArchive([*extended_archive.definitions(),extension],{**extended_archive.active_versions(),'rifts-equipment':extension['version']})
             changed=CharacterApplication(directory,rule_archive=changed_archive)

@@ -146,3 +146,6 @@ Perform the requested retro only after all slices are completed. Compare functio
 
 - 08D1: Complete in PR #63 asa6b2f09 after both Windows workflows passed.
 - 08B6: Independent City Rat starting armor group in progress; original receipts remain separate from current inventory.
+
+- 08B6: Complete in PR64 as6545e0f after both Windows workflows passed.
+- 08B7: Free City Rat starting knife in progress; other weapons and equipment remain open.

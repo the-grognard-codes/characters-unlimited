@@ -364,6 +364,16 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(city_armor['locations']['main_body'],50)
                 self.assertTrue(city_armor['environmental'])
 
+                city = request(city_path+'/starting-group',
+                               {'revision':city['revision'],'group_id':'knife','selection':'knife-large'}, token)
+                self.assertEqual(city['equipment']['credits'],city['starting_funds']['credits']['value'])
+                self.assertEqual(city['starting_equipment_groups']['knife']['selection'],'knife-large')
+                city_inventory = deepcopy(city['equipment'])
+                city_inventory['items'][-1]['equipped'] = True
+                city = request(city_path+'/equipment',
+                               {'revision':city['revision'],'inventory':city_inventory}, token)
+                self.assertIn('1D6',request(city_path+'/equipment')['melee_attacks'][0]['damage'])
+
                 city_portable = request(city_path+'/export')
                 city_imported = request('/api/import', {'bundle':city_portable}, token)
                 self.assertEqual(city_imported['character_class'], 'city-rat')
@@ -378,6 +388,7 @@ class PackagedApplicationTests(unittest.TestCase):
                 self.assertEqual(city_fields['OCC']['/V'], 'City Rat')
                 self.assertEqual(city_fields['ARMOR']['/V'], 'Urban Warrior')
                 self.assertEqual(city_fields['HIT POINTS']['/V'], str(city_resources['HP']['value']))
+                self.assertIn('Original starting knife',' '.join(str(field.get('/V','')) for field in city_fields.values()))
             finally:
                 process.terminate(); process.wait(timeout=10)
             with socket.socket() as occupied:

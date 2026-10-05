@@ -3,7 +3,7 @@
 from copy import deepcopy
 import json
 
-from .attribute_modifiers import attribute_value
+from .attribute_modifiers import attribute_value, ATTRIBUTE_NAMES
 from .grants import resolve_grants
 from .recorded_formulas import validate_formula, formula_value
 from .retained_acquisitions import validate_cached_acquisitions, acquire_selected
@@ -68,6 +68,21 @@ def _acquisition_catalog(definitions):
 
 def _validate_acquisitions(acquisitions, definitions):
     validate_cached_acquisitions(_acquisition_catalog(definitions), acquisitions, record_constants=False)
+
+
+def validate_physical_rules(pack, resource_ids):
+    """Validate every supported Physical formula, target and fixed grant."""
+    definitions = _definitions(pack)
+    _grant_ids(pack, definitions)
+    _validate_acquisitions({}, definitions)
+    for definition in definitions.values():
+        source = definition.get('source')
+        if (not isinstance(source, dict) or any(not isinstance(source.get(key), str) or
+                not source[key].strip() for key in ('book', 'section'))):
+            raise ValueError('Physical definitions need book and section evidence')
+        if (set(definition.get('attributes', {})) - set(ATTRIBUTE_NAMES) or
+                set(definition.get('resources', {})) - set(resource_ids)):
+            raise ValueError('Physical effects must target known attributes and resources')
 
 
 def _effect_value(formula, acquisition, group, name):

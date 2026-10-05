@@ -6,6 +6,7 @@ import json
 from .attribute_modifiers import attribute_value, ATTRIBUTE_NAMES
 from .physical import project_physical
 from .recorded_formulas import validate_formula, formula_value, roll_formula
+from .retained_acquisitions import validate_acquisition_catalog
 
 
 MAX_INTEGER = 9_007_199_254_740_991
@@ -64,6 +65,24 @@ def _formula(formula):
     if normalized['count'] == 0:
         formula_value(normalized, [])
     return normalized
+
+
+def validate_resource_rules(pack):
+    """Preflight source-bound starting definitions without a character or dice."""
+    rules = _rules(pack)
+    if rules is None:
+        raise ValueError('Class resources require declared definitions')
+    catalog: dict[str, dict[str, dict[str, int]]] = {}
+    for definition in rules['definitions']:
+        catalog[definition['id']] = {}
+        for item in definition['contributions']:
+            source = item['source']
+            if any(not isinstance(source.get(key), str) or not source[key].strip() for key in ('book', 'section')):
+                raise ValueError('Resource contributions need book and section evidence')
+            if 'formula' in item:
+                catalog[definition['id']][item['id']] = _formula(item['formula'])
+    validate_acquisition_catalog(catalog)
+    return {row['id']: row for row in rules['definitions']}
 
 
 def _snapshot_names(rules):

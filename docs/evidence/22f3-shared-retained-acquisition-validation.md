@@ -11,3 +11,5 @@ Initial required type checking found heterogeneous malformed-cache fixtures need
 Final24 affected tests pass (17.481 seconds), including existing Physical/resource/power/public portability witnesses. Mypy146, compilation, all JavaScript syntax, whitespace and archived4-power/24-Physical formula catalogs pass. Standards and Spec reviews both APPROVE with no actionable findings; neither reran tests. Final full regression and Windows/frozen gates pending.
 
 Final full438 tests pass (370.078 seconds, one frozen-only skip). No product-code changes followed this run; both review axes and all static/archive checks pass. Exact-head Windows/frozen validation remains required before merge.
+
+PR105 merged asb9bf1790e239882823c072ba4bcaeea56023a2de. Both Windows37248264225/37248267640 passed at exact headb5a67c27b6eb2cbaa1681f3ff025b26c746a79cc, including frozen executable checks. Thread attachment failed at100 identity cap; no existing attachments removed.

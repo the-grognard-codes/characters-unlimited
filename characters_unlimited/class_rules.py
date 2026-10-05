@@ -4,6 +4,7 @@ from copy import deepcopy
 from .profile_composition import compose_owned_profile
 from .profile_preflight import preflight_owned_profiles
 from .class_contributions import class_numeric_contributions
+from .equipment_profiles import owned_equipment_rules
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -46,6 +47,8 @@ def class_rules(pack, character):
 
 def equipment_class_rules(pack, character):
     """Resolve class starting equipment; unsupported classes retain guarded base rules."""
+    if 'class_profile_format' in pack:
+        return owned_equipment_rules(pack, character)
     profiles = pack.get('class_profiles', {})
     if not isinstance(profiles, dict):
         raise ValueError('Equipment class profiles must be a mapping')

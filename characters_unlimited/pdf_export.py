@@ -395,10 +395,11 @@ def export_rifts_sheet(character, core, skills, combat):
             sheet_notes += '\n'+str(equipment['unknown_carried_weight_quantity'])+' carried item(s) have unspecified weight; the weight total is incomplete.'
         for identifier, record in equipment['starting_funds']['funds'].items():
             definition = next(item for item in equipment['starting_funds']['definitions'] if item['id']==identifier)
+            terms = [*map(str,record['rolls']), *([str(definition['constant'])] if definition.get('constant') else [])]
+            calculation = ' + '.join(terms) or '0'
             sheet_notes += ('\n'+definition['name']+': '+str(record['value'])+' credits = ('+
-                            ' + '.join(map(str,record['rolls']))+') x'+str(definition['multiplier'])+'. '+record['source']['book']+
-                            ', p. '+', '.join(map(str,record['source']['pages']))+'.')
-        if equipment['starting_funds']['generated']:
+                            calculation+') x'+str(definition['multiplier'])+'. '+resource_source_citation(record['source'])+'.')
+        if 'saleable_goods' in equipment['starting_funds']['funds']:
             item_definition = next(item for item in equipment['starting_funds']['definitions'] if item['id']=='saleable_goods')
             sheet_notes += '\n'+item_definition['name']+' remains recorded item value; it is not added to current credits automatically.'
         if equipment['starting_choices']['generated']:
@@ -406,21 +407,21 @@ def export_rifts_sheet(character, core, skills, combat):
             names = {item['id']: item['name'] for item in equipment['catalog']}
             sheet_notes += '\nOriginal free starting equipment choices: '+ '; '.join(
                 names[grant['item_id']]+' x'+str(grant['quantity']) for grant in starting['grants'])+'.'
-            sheet_notes += ' '+starting['source']['book']+', p. '+', '.join(map(str,starting['source']['pages']))+'.'
+            sheet_notes += ' '+resource_source_citation(starting['source'])+'.'
             sheet_notes += ' '+' '.join(starting['guidance'])
         names = {item['id']: item['name'] for item in equipment['catalog']}
         for group in equipment['starting_groups']['groups']:
             if group['generated']:
                 receipt = group['receipt']
                 sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(group['quantity'])+'.'
-                sheet_notes += ' '+receipt['source']['book']+', p. '+', '.join(map(str,receipt['source']['pages']))+'.'
+                sheet_notes += ' '+resource_source_citation(receipt['source'])+'.'
                 sheet_notes += ' '+' '.join(group['guidance'])
         if equipment['starting_gear']['generated']:
             gear = equipment['starting_gear']
             names = {item['id']: item['name'] for item in equipment['catalog']}
             sheet_notes += '\nOriginal personal starting gear grant: '+ '; '.join(
                 names[grant['item_id']]+' x'+str(grant['quantity']) for grant in gear['grants'])+'.'
-            sheet_notes += ' '+gear['source']['book']+', p. '+', '.join(map(str,gear['source']['pages']))+'. Current possessions may be edited or removed; the original grant is retained.'
+            sheet_notes += ' '+resource_source_citation(gear['source'])+'. Current possessions may be edited or removed; the original grant is retained.'
             sheet_notes += ' '+' '.join(gear['guidance'])
         for item in equipment['items']:
             sheet_notes += ('\n'+item['name']+' x'+str(item['quantity'])+'; '+item['location']+

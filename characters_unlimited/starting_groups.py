@@ -24,7 +24,8 @@ def _possession_id(value):
         return False
 
 
-def _rules(character, pack):
+def starting_group_rules(character, pack):
+    """Compile equipment groups for a declared game/class identity without receipts."""
     if pack.get('id') != 'rifts-equipment' or pack.get('game') != 'rifts':
         raise ValueError('Unsupported starting equipment group pack')
     rules = pack.get('starting_groups')
@@ -75,7 +76,7 @@ def validate_starting_groups(character, pack):
     """Bind every original grant to its exact selected class rules."""
     if 'starting_equipment_groups' not in character:
         return
-    groups = _rules(character, pack)
+    groups = starting_group_rules(character, pack)
     receipts = character['starting_equipment_groups']
     if (not groups or not isinstance(receipts, dict) or not 0 < len(receipts) <= MAX_QUANTITY
             or set(receipts) - set(groups)):
@@ -100,7 +101,7 @@ def validate_starting_groups(character, pack):
 def acquire_starting_group(character, pack, group_id, selection, identifier_factory):
     """Add one free selected grant once, preserving funds and current possessions."""
     validate_starting_groups(character, pack)
-    groups = _rules(character, pack)
+    groups = starting_group_rules(character, pack)
     if not isinstance(group_id, str) or group_id not in groups:
         raise ValueError('Select an available starting equipment group')
     receipts = deepcopy(character.get('starting_equipment_groups', {}))
@@ -134,7 +135,7 @@ def acquire_starting_group(character, pack, group_id, selection, identifier_fact
 def project_starting_groups(character, pack):
     """Project available groups and original receipts without granting possessions."""
     validate_starting_groups(character, pack)
-    groups = _rules(character, pack)
+    groups = starting_group_rules(character, pack)
     receipts = character.get('starting_equipment_groups', {})
     return {'supported': bool(groups), 'groups': [
         {'id': identifier, **deepcopy(group), 'generated': identifier in receipts,
@@ -144,7 +145,7 @@ def project_starting_groups(character, pack):
 def validate_starting_group_upgrade(character, previous, target):
     """Permit added groups but require acquired definitions to stay unchanged."""
     validate_starting_groups(character, previous)
-    before, after = _rules(character, previous), _rules(character, target)
+    before, after = starting_group_rules(character, previous), starting_group_rules(character, target)
     for identifier in character.get('starting_equipment_groups', {}):
         if _canonical(before.get(identifier)) != _canonical(after.get(identifier)):
             raise ValueError('This update changes recorded starting equipment group rules. '

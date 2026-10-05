@@ -3,6 +3,7 @@
 from copy import deepcopy
 import json
 from typing import Any, Callable
+from .recorded_formulas import validate_formula, formula_value, roll_formula
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
 
@@ -18,17 +19,23 @@ def _canonical(value: Any) -> str:
         raise ValueError('Invalid starting funds source evidence') from error
 
 
-def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
+def _formula(definition):
+    return {key: definition[key] for key in ('count', 'sides', 'constant', 'multiplier') if key in definition}
+
+
+def starting_funds_rules(pack: dict[str, Any]) -> dict[str, Any] | None:
+    """Compile pinned definitions without drawing dice or validating receipts."""
     if (not isinstance(pack, dict) or pack.get('id') != 'rifts-equipment'
             or pack.get('game') != 'rifts'):
         raise ValueError('Unsupported starting funds rule pack')
     rules = pack.get('starting_funds')
     if rules is None:
         return None
+    owned = pack.get('class_profile_format') == 'owned-v1'
     if (not isinstance(rules, dict) or set(rules) != {'character_class', 'definitions', 'guidance'}
             or not isinstance(rules['character_class'],str) or not rules['character_class']
             or not isinstance(rules['definitions'], list)
-            or len(rules['definitions']) != 2
+            or not (1 <= len(rules['definitions']) <= 2 if owned else len(rules['definitions']) == 2)
             or not isinstance(rules['guidance'], list)
             or len(rules['guidance']) > 100
             or any(not isinstance(note, str) for note in rules['guidance'])):
@@ -36,19 +43,23 @@ def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
     identifiers = set()
     for definition in rules['definitions']:
         if (not isinstance(definition, dict)
-                or set(definition) != {'id', 'name', 'count', 'sides', 'multiplier', 'source'}
+                or not {'id', 'name', 'count', 'sides', 'multiplier', 'source'} <= set(definition)
+                or set(definition) - {'id', 'name', 'count', 'sides', 'multiplier', 'source', *(['constant'] if owned else [])}
                 or definition['id'] not in ('credits', 'saleable_goods')
                 or definition['id'] in identifiers
                 or not isinstance(definition['name'], str) or not definition['name']
-                or type(definition['count']) is not int or not 1 <= definition['count'] <= 1000
-                or type(definition['sides']) is not int or not 1 <= definition['sides'] <= 1000
-                or type(definition['multiplier']) is not int or not 1 <= definition['multiplier'] <= MAX_SAFE_INTEGER
-                or definition['count'] * definition['sides'] * definition['multiplier'] > MAX_SAFE_INTEGER
+                or (not owned and (type(definition['count']) is not int or definition['count'] < 1
+                                  or type(definition['sides']) is not int or definition['sides'] < 1))
                 or not isinstance(definition['source'], dict)):
             raise ValueError('Invalid pinned starting funds definition')
+        formula = _formula(definition)
+        validate_formula(formula)
+        if (formula.get('constant', 0) < 0 or
+                (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula['multiplier'] > MAX_SAFE_INTEGER):
+            raise ValueError('Starting funds exceed the supported nonnegative range')
         _canonical(definition['source'])
         identifiers.add(definition['id'])
-    if identifiers != {'credits', 'saleable_goods'}:
+    if 'credits' not in identifiers or (not owned and identifiers != {'credits', 'saleable_goods'}):
         raise ValueError('Incomplete pinned starting funds definitions')
     return rules
 
@@ -62,7 +73,7 @@ def validate_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> 
     """Validate saved rolls and evidence against their pinned definitions."""
     if 'starting_funds' not in character:
         return
-    rules = _rules(pack)
+    rules = starting_funds_rules(pack)
     if not _supported(character, rules):
         raise ValueError('Starting funds require pinned Rifts rules for this class')
     assert rules is not None
@@ -78,7 +89,7 @@ def validate_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> 
                 or any(type(face) is not int or not 1 <= face <= definition['sides']
                        for face in record['rolls'])
                 or not _safe_integer(record['value'])
-                or record['value'] != sum(record['rolls']) * definition['multiplier']
+                or record['value'] != formula_value(_formula(definition), record['rolls'])
                 or _canonical(record['source']) != _canonical(definition['source'])):
             raise ValueError('Invalid starting funds record')
 
@@ -86,10 +97,10 @@ def validate_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> 
 def acquire_starting_funds(
         character: dict[str, Any], pack: dict[str, Any], die: Callable[[int], int]
 ) -> dict[str, Any]:
-    """Draw the two separate money amounts once and add only credits to inventory."""
+    """Draw declared money amounts once and add only credits to inventory."""
     if 'starting_funds' in character:
         raise ValueError('Starting funds have already been generated')
-    rules = _rules(pack)
+    rules = starting_funds_rules(pack)
     if not _supported(character, rules):
         raise ValueError('Starting funds require reviewed rules for the selected Rifts class')
     if not callable(die):
@@ -101,15 +112,10 @@ def acquire_starting_funds(
         raise ValueError('Invalid equipment inventory')
     records = {}
     for definition in rules['definitions']:
-        rolls = []
-        for _ in range(definition['count']):
-            face = die(definition['sides'])
-            if type(face) is not int or not 1 <= face <= definition['sides']:
-                raise ValueError('Dice source returned an invalid starting funds value')
-            rolls.append(face)
+        rolls = roll_formula(_formula(definition), die)
         records[definition['id']] = {
             'rolls': rolls,
-            'value': sum(rolls) * definition['multiplier'],
+            'value': formula_value(_formula(definition), rolls),
             'source': deepcopy(definition['source']),
         }
     credits = inventory['credits'] + records['credits']['value']
@@ -122,7 +128,7 @@ def acquire_starting_funds(
 def project_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]:
     """Show recorded money and pinned rules without drawing dice."""
     validate_starting_funds(character, pack)
-    rules = _rules(pack)
+    rules = starting_funds_rules(pack)
     supported = _supported(character, rules)
     if not supported:
         guidance = (['The pinned equipment rules do not provide starting funds for this class. Review available equipment rule updates before generation.']

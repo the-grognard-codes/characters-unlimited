@@ -15,3 +15,7 @@ User amendment excludes general insanity, HU Mega Heroes, super-vehicle/base des
 A final expectation search found one legacy SAVE_INSANITY assertion in the general HU PDF workflow. It now asserts absence; all three editable-PDF workflow tests pass (3.368 seconds). No product changes followed the reviewed/visually verified implementation. Combined focused coverage: 33 passing tests.
 
 The first final-head Windows integration run exercised all 452 tests (519.331 seconds) and found one remaining legacy running-distance PDF expectation. Its two assertions now verify absence of derived miles/km; both affected endurance workflows pass (2.153 seconds). A focused search confirms remaining activity assertions concern preserved backend behavior or descriptive source limits. Product code is unchanged. Combined local affected coverage: 35 passing tests. The corrected final head must pass the full Windows/package gate before merge.
+
+## Final Windows and merge evidence
+
+PR108 merged as `071e80fb83d9c22866cff32e96fe55f5c36f69bd`. Final head `d2d4800d4cf6231415f1f7ee7029489db4b0bd0f`; Windows runs37265040415/37265036825 both pass, including frozen executable validation. Full suite452 tests, one frozen-only skip exercised separately; local affected35 tests, mypy153/static checks and both independent reviews pass. The successful full-suite run recorded460.886 seconds; its frozen workflow passed separately in60.760 seconds.

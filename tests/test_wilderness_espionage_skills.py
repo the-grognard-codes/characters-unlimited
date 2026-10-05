@@ -67,6 +67,24 @@ class WildernessEspionageWorkflowTests(unittest.TestCase):
             rows={row['id']:row for row in app.skill_view(hero['id'])['selected']}
             self.assertEqual([rows[key]['percentage'] for key in targets],[25,20,30,40,20,34,50,45])
 
+    def test_existing_source_training_grants_new_targets_once_and_removes_cleanly(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:4)
+            hero=app.create()
+            targets=('impersonation','undercover-ops','identify-plants-fruit','preserve-food')
+            parents=('research','performance','imitate-voices','holistic-medicine')
+            hero=app.select_skills(hero['id'],revision=0,selections=selections(*targets,*parents,*parents))
+            view=app.skill_view(hero['id'])
+            rows={row['id']:row for row in view['selected']}
+            self.assertEqual([rows[key]['percentage'] for key in targets],[45,45,35,40])
+            self.assertEqual(rows['impersonation']['additional_checks'][0]['percentage'],31)
+            imported=app.import_character(app.export_character(hero['id']))
+            self.assertEqual(app.skill_view(imported['id'])['selected'],view['selected'])
+            app.select_skills(hero['id'],revision=hero['revision'],selections=selections(*targets))
+            rows={row['id']:row for row in app.skill_view(hero['id'])['selected']}
+            self.assertEqual([rows[key]['percentage'] for key in targets],[30,40,25,30])
+            self.assertEqual(rows['impersonation']['additional_checks'][0]['percentage'],16)
+
     def test_late_learning_import_reselection_and_undo_retain_both_normal_ages(self):
         with tempfile.TemporaryDirectory() as directory:
             app=CharacterApplication(directory,die=lambda sides:4)

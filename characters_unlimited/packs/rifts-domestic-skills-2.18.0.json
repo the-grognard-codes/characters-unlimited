@@ -666,7 +666,7 @@
         }
       ],
       "notes": [
-        "Adds 5% to Undercover Ops and Impersonation; these target skills remain pending."
+        "Adds 5% to Undercover Ops and Impersonation."
       ]
     },
     {
@@ -1348,7 +1348,7 @@
         }
       ],
       "notes": [
-        "Diagnosis is the primary check; treatment is separate. Cannot perform surgery or amputation. Combined treatment contexts and +10% Identify Plants & Fruits / Preserve Food target definitions remain pending."
+        "Diagnosis is the primary check; treatment is separate. Cannot perform surgery or amputation. Combined treatment contexts remain pending. Adds 10% to Identify Plants & Fruit and Preserve Food."
       ]
     },
     {
@@ -3498,7 +3498,14 @@
           333
         ]
       },
-      "description": "Identify wild vegetation, edible foods, herbs and medicinal plants while avoiding poisonous varieties. Searching time remains descriptive."
+      "description": "Identify wild vegetation, edible foods, herbs and medicinal plants while avoiding poisonous varieties. Searching time remains descriptive.",
+      "synergies": [
+        {
+          "name": "Holistic Medicine",
+          "skill_id": "holistic-medicine",
+          "amount": 10
+        }
+      ]
     },
     {
       "id": "land-navigation",
@@ -3534,7 +3541,14 @@
           333
         ]
       },
-      "description": "Prepare foods for storage by canning, drying, smoking, salting or pickling."
+      "description": "Prepare foods for storage by canning, drying, smoking, salting or pickling.",
+      "synergies": [
+        {
+          "name": "Holistic Medicine",
+          "skill_id": "holistic-medicine",
+          "amount": 10
+        }
+      ]
     },
     {
       "id": "skin-prepare-hides",
@@ -3743,6 +3757,21 @@
           "name": "Disguise",
           "skill_id": "disguise",
           "amount": 5
+        },
+        {
+          "name": "Research",
+          "skill_id": "research",
+          "amount": 5
+        },
+        {
+          "name": "Performance",
+          "skill_id": "performance",
+          "amount": 5
+        },
+        {
+          "name": "Imitate Voices & Sounds",
+          "skill_id": "imitate-voices",
+          "amount": 5
         }
       ]
     },
@@ -3829,6 +3858,11 @@
           "name": "Impersonation",
           "skill_id": "impersonation",
           "amount": 10
+        },
+        {
+          "name": "Performance",
+          "skill_id": "performance",
+          "amount": 5
         }
       ]
     }
@@ -9660,7 +9694,8 @@
     "interpretations": [
       "Shared Pick Locks/Pick Pockets and Wilderness Survival use one canonical acquired identity.",
       "Hunting/Sniper have no ordinary percentile and await shared meaningful selectable descriptive training.",
-      "Conditional creature, survival, tracking and movement outcomes remain descriptions."
+      "Conditional creature, survival, tracking and movement outcomes remain descriptions.",
+      "Existing Research, Performance, Imitate Voices and Holistic Medicine grant their normal incoming bonuses when the new targets are acquired."
     ]
   }
 }

@@ -18,7 +18,7 @@ def class_rules(pack, character):
     identifier = character['character_class']
     if 'class_profile_format' in pack:
         result = compose_owned_profile(pack, identifier, PROFILE_FIELD_TYPES)
-        for identity, profile in pack['class_profiles'].items():
+        for identity, profile in result['class_profiles'].items():
             if any(profile[field].get('class_id') != identity for field in ('class_bonuses', 'advancement')):
                 raise ValueError(identity + ' class-specific rules must identify their owner')
         return result

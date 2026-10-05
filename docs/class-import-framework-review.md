@@ -12,7 +12,7 @@ The framework supports adding options through reviewed data for several common m
 | Percentile skill effects | Source-bound selectors and additive projection in `skill_effects.py` | Constant effects only; legacy adapters remain for existing definitions. |
 | Resource generation | Shared ordinary formulas and retained attribute snapshots | Full resource/progression composition and generic ability costs remain incomplete. |
 | Exact saves | Immutable rule versions, retained rolls, source replay and portable dependencies | Core-generation migrations remain unsupported. |
-| Class composition | Data profiles in `class_rules.py` | Profiles are overlays, not a certified mechanical import schema. |
+| Class composition | Data profiles in `class_rules.py` | Legacy overlays remain; owned profiles and explicit shared catalogs isolate field ownership. Complete mechanical import certification remains open. |
 
 ## Ownership and composition
 
@@ -35,3 +35,7 @@ This review is an interim framework assessment. It does not replace the original
 ## Explicit ownership follow-through (22E3)
 
 The opt-in `owned-v1` class format now requires every supported class, including the default, to declare its complete supported field ownership. Shared root catalogs remain single definitions; all class-owned fields replace whole fields and all profile shapes/owners validate before initial dice. Legacy accepted profiles remain unchanged. See `owned-class-profile-contract.md`. This closes implicit default inheritance for the new format; nested mechanical/dependency validation, equipment and race/R.C.C. precedence and source-grounded certification remain open.
+
+## Shared nested catalog follow-through (22E4)
+
+Owned mapping fields can now explicitly reference one source-bound catalog and supply disjoint class keys. The same resolver validates all references before generation; catalog-owned keys cannot be overwritten. See `shared-profile-catalog-contract.md`. This avoids duplicating common combat catalogs across classes; nested mechanical/source certification and other composition families remain open.

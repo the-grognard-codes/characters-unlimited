@@ -11,3 +11,5 @@ Three focused tests pass (1.917 seconds); mypy138 passes. No accepted rule bytes
 Both independent reviews APPROVE. Compilation, all browser syntax/whitespace checks and27 archived legacy class projections pass. Mapping-valued fields such as combat currently replace whole mappings; explicit shared fragments are a follow-up to avoid duplicating nested catalogs across broad class imports.
 
 Final full423 tests pass (355.106 seconds, one frozen-only skip). Both reviews approve; mypy138, compilation, browser syntax, whitespace and27 legacy projections pass. Exact-head Windows/frozen checks remain the publication/merge gate.
+
+PR101 merged as `30b8da6590aed44024b544c40b6b7df1d340663f` after both exact-head Windows runs37244277796/37244275193 passed, including frozen executable validation. App attachment failed because the thread already has100 attachments; the PR remains available at its GitHub URL and no older attachments were removed.

@@ -11,3 +11,5 @@ Browser verification shows the synthetic descriptive ability, unchanged attribut
 Current editable PDF: 3 pages, 204 fields, no SAVE_INSANITY. Rendered page 1 is legible with the ability, source and four general saving fields; earlier continuation rendering remains legible. Focused public PDF tests confirm normal skill percentages remain and calculated swimming pace/endurance strings are absent. Historical backend calculations and receipts stay compatible.
 
 User amendment excludes general insanity, HU Mega Heroes, super-vehicle/base design, while preserving Crazy traits/permanent injuries and required robot/bionic construction. Canonical audit entries are retained; two known excluded identities are annotated separately. No accepted book definitions change. Broader class/race/ability catalogs and construction remain open.
+
+A final expectation search found one legacy SAVE_INSANITY assertion in the general HU PDF workflow. It now asserts absence; all three editable-PDF workflow tests pass (3.368 seconds). No product changes followed the reviewed/visually verified implementation. Combined focused coverage: 33 passing tests.

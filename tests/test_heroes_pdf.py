@@ -30,7 +30,7 @@ class HeroesPdfWorkflowTests(unittest.TestCase):
             self.assertEqual(fields['STRIKE']['/V'],'0')
             self.assertEqual(fields['ATTACKS']['/V'],'3')
             self.assertEqual(fields['SAVE_PSIONICS']['/V'], '+0')
-            self.assertEqual(fields['SAVE_INSANITY']['/V'], '+0')
+            self.assertNotIn('SAVE_INSANITY', fields)
             self.assertIn('Psionic attacks: +0', fields['POWERS']['/V'])
             self.assertEqual(app.get(hero['id']), before)
             text = '\n'.join(page.extract_text() for page in reader.pages)

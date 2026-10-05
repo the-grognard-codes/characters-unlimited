@@ -12,6 +12,7 @@ from .retained_acquisitions import validate_acquisition_catalog, acquire_selecte
 from .selection_groups import project_group
 from .option_selectors import select_options
 from .skill_effects import compile_skill_effects
+from .numeric_contributions import compile_numeric_contributions, apply_numeric_contributions
 from .ability_parameters import project_ability_parameters
 from .ability_requirements import compile_ability_requirements, project_ability_requirements
 
@@ -120,10 +121,28 @@ def power_requirement_definitions(pack):
             for power in pack['powers']}
 
 
+POWER_SAVE_NAMES = {'psionics': 'Psionic attacks', 'insanity': 'Insanity',
+    'mind-altering-drugs': 'Mind-altering drugs', 'horror-factor': 'Horror Factor',
+    'possession': 'Possession', 'magical-illusions': 'Magical illusions'}
+
+
+def power_numeric_contributions(pack):
+    rows: list[dict[str, Any]] = []
+    for power in pack['powers']:
+        bonuses = power.get('saving_bonuses', {})
+        if not isinstance(bonuses, dict) or any(not isinstance(key, str) or not key.strip() for key in bonuses):
+            raise ValueError('Power saving bonuses require a mapping')
+        rows.extend({'id': 'power:' + power['id'] + ':' + target, 'name': power['name'],
+                     'operation': 'add', 'target': target, 'amount': amount, 'source': power['source']}
+                    for target, amount in bonuses.items())
+    return compile_numeric_contributions(rows, set(POWER_SAVE_NAMES))
+
+
 def validate_powers(record, pack, level=1):
     power_parameter_views(pack, level)
     power_requirement_definitions(pack)
     power_formula_catalog(pack)
+    power_numeric_contributions(pack)
     minor_power_options(pack)
     if not isinstance(record, dict) or set(record) != {'acquisitions','active','history'}:
         raise ValueError('Invalid Heroes power record')
@@ -178,6 +197,7 @@ def select_powers(character, selections, pack, die):
     power_parameter_views(pack, character['level'])
     power_requirement_definitions(pack)
     power_formula_catalog(pack)
+    power_numeric_contributions(pack)
     minor_power_options(pack)
     definitions = {row['id']:row for row in pack['powers']}
     if not isinstance(selections,list) or len(selections) > 100 or any(not isinstance(item,str) or item not in definitions for item in selections) or len(set(selections)) != len(selections):
@@ -264,6 +284,7 @@ def power_skill_contributions(character, definition, pack):
 
 
 def project_powers(character, pack, budget_pack, higher=None):
+    power_numeric_contributions(pack)
     parameters = power_parameter_views(pack, character['level'])
     record = character.get('hero_powers')
     if record is not None:
@@ -330,27 +351,23 @@ def project_powers(character, pack, budget_pack, higher=None):
 
 
 def project_power_saves(character, pack, powers):
+    effects = power_numeric_contributions(pack)
     charts = pack.get('mental_endurance_charts')
     if charts is None:
         return {}
     score = character['attributes']['ME']['value']
     results: dict[str, Any] = {}
-    names = {'psionics':'Psionic attacks', 'insanity':'Insanity',
-             'mind-altering-drugs':'Mind-altering drugs', 'horror-factor':'Horror Factor',
-             'possession':'Possession', 'magical-illusions':'Magical illusions'}
+    names = POWER_SAVE_NAMES
     for identifier,chart in charts.items():
         contribution = chart.get(str(min(score,30)),0)
         results[identifier] = {'name':names[identifier], 'value':contribution if score >= 1 else None,
             'contributions':{'M.E.':contribution}, 'target':None,
             'sources':[deepcopy(pack['mental_endurance_source'])]}
     for power in powers:
-        for identifier,amount in power.get('saving_bonuses',{}).items():
-            result = results.setdefault(identifier, {'name':names[identifier], 'value':0,
-                'contributions':{}, 'target':None, 'sources':[]})
-            result['contributions'][power['name']] = amount
-            if result['value'] is not None:
-                result['value'] += amount
-            result['sources'].append(deepcopy(power['source']))
+        for identifier in power.get('saving_bonuses', {}):
+            results.setdefault(identifier, {'name': names[identifier], 'value': 0,
+                'contributions': {}, 'target': None, 'sources': []})
+    for power in powers:
         for identifier,rule in power.get('saving_attribute_bonuses',{}).items():
             result = results[identifier]
             contribution = charts[rule['chart']].get(str(min(score,30)),0)
@@ -360,6 +377,15 @@ def project_power_saves(character, pack, powers):
         for identifier,target in power.get('saving_targets',{}).items():
             results[identifier]['target'] = target
             results[identifier]['sources'].append(deepcopy(power['source']))
+    selected = {'power:' + power['id'] + ':' + target for power in powers
+                for target in power.get('saving_bonuses', {})}
+    for identifier in names:
+        target_effects = [effect for effect in effects if effect['target'] == identifier
+                          and effect['id'] in selected]
+        if target_effects:
+            result = results.setdefault(identifier, {'name': names[identifier], 'value': 0,
+                'contributions': {}, 'target': None, 'sources': []})
+            results[identifier] = apply_numeric_contributions(result, target_effects, identifier)
     pe_charts = pack.get('physical_endurance_charts')
     if pe_charts is not None:
         pe = character['attributes']['PE']['value']

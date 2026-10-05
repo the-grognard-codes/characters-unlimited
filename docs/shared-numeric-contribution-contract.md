@@ -1,0 +1,9 @@
+# Shared numeric contribution contract
+
+`numeric_contributions.py` compiles at most 1000 exact rows: `id`, `name`, `operation`, `target`, `amount`, `source`. Only `add` is supported. IDs are distinct; targets come from the caller's known catalog; amounts are exact whole numbers bounded by the shared safe integer limit. Every row has book and section evidence. There is no expression execution, implicit target discovery, dice, or owner-name dispatch.
+
+Projection accepts an existing numeric result, preserves a `None` unreviewed base, rejects unsafe known bases/totals when effects are present, and copies the input. With no effects it preserves the existing result, including legacy unbounded manual attribute-chart values. Each effect retains its stable identity/source in `effect_contributions`; legacy display dictionaries use deterministic numbered suffixes when names collide. Saving targets remain separate from roll additions. Adapters compile the entire declaration catalog before selection, then apply only the current owner's active effects.
+
+Rifts `class_contributions.py` translates legacy class saving/perception metadata. All resolved owned profiles preflight this component before initial attributes; legacy selected profiles also validate. Heroes translates named mental-save additions from all powers. Its attribute charts and psionic targets remain authoritative. Existing portable pins/receipts are unchanged. Current and historical portable states validate numeric projections; direct attribute edits and rerolls also reject unsafe totals before saving.
+
+This seam supports imported class mechanics through data, without bespoke class logic. Conditional activation, combat bonuses, save-target conflicts, generic race/RCC composition, spell/psionic game adapters and complete mechanical/source importer certification remain open. No accepted book definitions change.

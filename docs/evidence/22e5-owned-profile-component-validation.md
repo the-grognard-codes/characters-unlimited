@@ -13,3 +13,5 @@ Mypy148 passes after the noted typing repair. Archived component checks pass for
 Final nine affected tests pass (8.051 seconds), mypy148, compilation, all JavaScript syntax and whitespace pass. Both independent review axes APPROVE with no actionable findings; neither reran tests. Full regression and exact-head Windows/frozen gates pending.
 
 Final full441 tests pass (365.620 seconds, one frozen-only skip); no subsequent product changes. Both reviews and local static/archive checks pass. Exact-head Windows/frozen gates required before merge.
+
+22E5 merged in PR106 as `8bcf7927ca50fd8a8cebf4e9e4f4786567d75594` after both exact-head Windows runs37249174366/37249177133 passed, including frozen executable validation.

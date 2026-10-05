@@ -49,3 +49,9 @@ Ability parameters and current-state requirement guidance now use shared source-
 ## Supported nested component follow-through (22E5)
 
 Every resolved owned profile now preflights supported starting resources, pool/category cost declarations, fixed/required/typed-effect references, Physical targets/acquisition formulas, default combat identity and XP/HP/resource growth before generation. Shared catalog resolution occurs first; class/component errors identify the affected declaration. See `owned-profile-component-preflight-contract.md`. This is supported-component coverage, not complete mechanical/source certification: full proficiency/conditional combat schemas, unavailable legacy allow/exclusion catalog content, unreferenced fragments, equipment/RCC precedence and source-grounded activation remain open.
+
+22C3 adds shared source-bound additive numeric contributions for class saving/perception and mutant named saving bonuses, with distinct identities, collision-safe explanations, exact pins and safe-total persistence guards. Owned class declarations preflight before dice. See `shared-numeric-contribution-contract.md`; conditional effects and complete importer certification remain open.
+
+## Archive acceptance boundary
+
+`RuleArchive` verifies identities, immutable canonical bytes and manifest fingerprints; it does not certify full mechanical/source completeness. Runtime component preflights are shared validators, not a completed maintainer conversion/activation report. The future activation workflow must aggregate those validators with catalog completeness, source review and independently calculated class/nonhuman witnesses before declaring a new import complete.

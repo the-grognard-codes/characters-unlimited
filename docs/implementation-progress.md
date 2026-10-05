@@ -319,3 +319,9 @@ Perform the requested retro only after all slices are completed. Compare functio
 22F3 merged in PR105 as `b9bf1790e239882823c072ba4bcaeea56023a2de` after both exact-head Windows runs37248264225/37248267640 passed, including frozen executable validation.
 
 Final full441 tests pass (365.620 seconds, one frozen-only skip); no subsequent product changes. Both reviews and local static/archive checks pass. Exact-head Windows/frozen gates required before merge.
+
+22E5 merged in PR106 as `8bcf7927ca50fd8a8cebf4e9e4f4786567d75594` after both exact-head Windows runs37249174366/37249177133 passed, including frozen executable validation.
+
+22C3 introduces shared source-bound numeric additions for class saving/perception and mutant named saving bonuses. Stable identities preserve colliding display names; malformed whole catalogs preflight before dice, exact pins persist, and direct edit/reroll guards reject unsafe totals before save.21 affected tests pass16.346 seconds, mypy151/static/archive compatibility pass. Full regression/reviews and Windows/frozen checks pending; conditional effects/full importer/magic/psionic activation remain open.
+
+Final full447 tests pass (364.515 seconds, one frozen-only skip). No subsequent product changes. Both review axes approve the final compatibility repair; all required local checks pass. Exact-head Windows/frozen gates remain required before merge.

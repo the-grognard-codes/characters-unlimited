@@ -1,5 +1,6 @@
 """Player-facing character workflows; all derived results enter through this seam."""
 
+
 import secrets
 import hashlib
 from copy import deepcopy
@@ -7,6 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
+from .saving_bonuses import project_saving_bonuses
+from .heroes_powers import project_power_saves
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
 from .generation import generation_settings, roll_attribute, racial_formulas, racial_sources
@@ -115,8 +118,18 @@ class CharacterApplication:
             export_bundle(character, self.rule_archive.definitions())
         if skill_pack and skill_pack.get('skill_effects'):
             project_skills(character, skill_pack)
+        self._validate_numeric_state(character)
         self.store.put(character)
         return character
+
+    def _validate_numeric_state(self, character):
+        if character['game'] == 'rifts':
+            project_saving_bonuses(character, self.character_skill_pack(character))
+        elif character.get('hero_powers'):
+            pack = self.character_hero_powers_pack(character)
+            record = character['hero_powers']
+            selected = {row['power'] for row in record['acquisitions'] if row['id'] in record['active']}
+            project_power_saves(character, pack, [row for row in pack['powers'] if row['id'] in selected])
 
     def get(self, identifier):
         character = self.store.get(identifier)
@@ -892,6 +905,7 @@ class CharacterApplication:
         character = self.get(identifier)
         if attribute is not None and attribute not in ATTRIBUTES:
             raise ValueError("Select a known attribute")
+        self._validate_numeric_state(character)
         settings = generation_settings(generation if generation is not None else character.get("generation"))
         pack = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         racial_rules = next(item for item in pack["races"] if item["id"] == character["race"])
@@ -912,6 +926,7 @@ class CharacterApplication:
             results[name] = deepcopy(result)
         history = character.get("roll_history", [{"kind": "previous", "at": None, "attributes": deepcopy(character["attributes"])}])
         history.append({"kind": "reroll", "at": datetime.now(timezone.utc).isoformat(), "generation": settings, "attributes": results})
+        self._validate_numeric_state({**character, "attributes": attributes})
         return self.store.update(identifier, {"attributes": attributes, "generation": settings, "roll_history": history}, revision)
 
     def set_attribute(self, identifier, *, revision, attribute, mode, value=None):
@@ -928,4 +943,5 @@ class CharacterApplication:
         result["fixed"] = value if mode == "fixed" else None
         result["adjustment"] = value if mode == "adjustment" else 0
         result["value"] = attribute_value(result)
+        self._validate_numeric_state({**character, "attributes": attributes})
         return self.store.update(identifier, {"attributes": attributes}, revision)

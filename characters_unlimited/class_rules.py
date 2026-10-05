@@ -3,6 +3,7 @@
 from copy import deepcopy
 from .profile_composition import compose_owned_profile
 from .profile_preflight import preflight_owned_profiles
+from .class_contributions import class_numeric_contributions
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -27,6 +28,7 @@ def class_rules(pack, character):
     # Before profiles, this archive's sole Rifts class was the Vagabond.
     default = pack.get('default_class', 'vagabond')
     if identifier == default:
+        class_numeric_contributions(pack)
         return deepcopy(pack)
     profile = pack.get('class_profiles', {}).get(identifier)
     if not isinstance(profile, dict) or set(profile) - PROFILE_FIELDS:
@@ -38,6 +40,7 @@ def class_rules(pack, character):
             result[field].pop('resource_gains', None)
     if any(result.get(key, {}).get('class_id') != identifier for key in ('class_bonuses','advancement')):
         raise ValueError('Class-specific rules must identify their supported class')
+    class_numeric_contributions(result)
     return result
 
 

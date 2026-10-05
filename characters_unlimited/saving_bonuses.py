@@ -1,6 +1,10 @@
 """Versioned attribute contributions to saving rolls, separate from roll targets."""
 
 
+from .class_contributions import class_numeric_contributions
+from .numeric_contributions import apply_numeric_contributions
+
+
 def project_saving_bonuses(character, pack):
     rules = pack.get('attribute_saves')
     if not rules:
@@ -20,14 +24,12 @@ def project_saving_bonuses(character, pack):
         results[definition['id']] = {'name': definition['name'], 'unit': definition['unit'],
             'value': None if missing else sum(contributions.values()), 'contributions': contributions,
             'sources': [definition['source']]}
-    class_rules = pack.get('class_bonuses',{})
-    if character['character_class'] == class_rules.get('class_id'):
-        for identifier,bonus in class_rules['saving'].items():
-            result = results[identifier]
-            result['contributions']['O.C.C.'] = bonus
-            if result['value'] is not None:
-                result['value'] += bonus
-            result['sources'].append(class_rules['source'])
+    effects = class_numeric_contributions(pack)
+    if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
+        for identifier, result in results.items():
+            target = 'saving:' + identifier
+            results[identifier] = apply_numeric_contributions(result,
+                [effect for effect in effects if effect['target'] == target], target)
     notes = list(rules['notes'])
     for condition in rules['conditions']:
         score = character['attributes'][condition['attribute']]['value']

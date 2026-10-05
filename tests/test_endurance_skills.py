@@ -79,7 +79,7 @@ class EnduranceSkillWorkflowTests(unittest.TestCase):
                 app.select_skills(character['id'],revision=0,selections=choices)
             preview = app.preview_rule_upgrade(character['id'])
             character = app.apply_rule_upgrade(character['id'],revision=0,token=preview['token'])['character']
-            self.assertEqual(character['additional_rule_packs']['rifts-domestic-skills'],'2.13.0')
+            self.assertEqual(character['additional_rule_packs']['rifts-domestic-skills'],'2.14.0')
             for face in (True,0,5):
                 app.die = lambda sides:face
                 with self.assertRaises(ValueError):

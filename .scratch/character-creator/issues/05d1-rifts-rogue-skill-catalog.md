@@ -1,6 +1,6 @@
 # 05D1: Complete the shared Rifts Rogue skill catalog
 
-**Status:** ready-for-agent. **Parent:**05/05B/22. **Depends on:**22I2 merged after exact-head Windows/frozen checks. **Branch:**codex/rifts-rogue-skill-catalog.
+**Status:** in-progress. **Parent:**05/05B/22. **Depends on:**22I2 merged after exact-head Windows/frozen checks. **Branch:**codex/rifts-rogue-skill-catalog. Resumed explicitly on the desktop 2026-10-05; implementation and focused checks pass, independent reviews and exact-head Windows/frozen gates pending.
 
 Enable the17 Rogue checklist identities from Ultimate Edition: Cardsharp, Computer Hacking, Concealment, Find Contraband, Gambling (Standard), Gambling (Dirty Tricks), I.D. Undercover Agent, Imitate Voices & Sounds, Palming, Pick Locks, Pick Pockets, Prowl, Roadwise, Safe-Cracking, Seduction, Streetwise and Tailing. Reconcile any already supported required-grant identity rather than duplicating effects. Body section begins Markdown18561; the checklist at17835 is evidence only and merged columns must be verified against original printed pages.
 

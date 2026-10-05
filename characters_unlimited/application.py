@@ -16,6 +16,7 @@ from .coverage import SourceInventory
 from .creation_profiles import creation_classes, creation_pair
 from .generation import generation_settings, roll_attribute, racial_formulas, racial_sources
 from .skill_effects import pack_skill_effects
+from .skill_attribute_bonuses import needs_numeric_skill_projection
 from .heroes_powers import power_skill_effects
 from .skills import validate_selections, project_skills, compare_skill_views
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
@@ -145,15 +146,16 @@ class CharacterApplication:
             levels = remember_learning(character, project_skills(character, skill_pack), choices)
             character.update(first_advance(character, skill_pack, 'level', level, levels, self.die))
             export_bundle(character, self.rule_archive.definitions())
-        if skill_pack and skill_pack.get('skill_effects'):
-            project_skills(character, skill_pack)
         self._validate_numeric_state(character)
         self.store.put(character)
         return character
 
     def _validate_numeric_state(self, character):
         if character['game'] == 'rifts':
-            project_saving_bonuses(character, self.character_skill_pack(character))
+            pack = self.character_skill_pack(character)
+            project_saving_bonuses(character, pack)
+            if needs_numeric_skill_projection(pack):
+                project_skills(character, pack)
         elif character.get('hero_powers'):
             pack = self.character_hero_powers_pack(character)
             record = character['hero_powers']
@@ -296,6 +298,8 @@ class CharacterApplication:
 
     def _learning_changes(self, character, changes, pack):
         if character['level'] == 1:
+            if needs_numeric_skill_projection(pack):
+                project_skills({**character, **changes}, pack)
             return changes
         candidate = {**character, **changes}
         choices = validate_combat_choices(candidate.get('combat_choices', {}), pack)
@@ -824,6 +828,7 @@ class CharacterApplication:
                 key = learning_key('skill', item['skill_id'], item['specialty'])
                 if key not in character.get('learning_levels', {}):
                     changes['learning_levels'][key] = learned_level
+        self._validate_numeric_state({**character, **changes})
         return self.store.update(identifier, changes, revision)
 
     def resource_view(self, identifier):

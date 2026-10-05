@@ -11,6 +11,7 @@ from .physical import project_physical
 from .advancement import learning_age
 from .selection_groups import validate_group, project_group
 from .skill_effects import pack_skill_effects, matching_skill_effects
+from .skill_attribute_bonuses import attribute_bonus_rules, attribute_contributions
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -18,6 +19,8 @@ POOLS = PACK['pools']
 
 
 def optional_pool_groups(pack):
+    for definition in pack['skills']:
+        attribute_bonus_rules(definition)
     identifiers = [definition['id'] for definition in pack['skills']]
     for categories in pack.get('selection_rules', {}).values():
         for rule in categories.values():
@@ -157,6 +160,7 @@ def project_skills(character, pack=PACK):
         if not is_domestic and repetition:
             contributions['repeated_skill'] = repetition['bonus'] if repeated else 0
         contributions.update(synergy_contributions(definition, available))
+        contributions.update(attribute_contributions(definition, character['attributes']))
         quality = 'trained'
         if is_domestic:
             quality = 'professional' if item['pool'] != 'secondary' or repeated else 'amateur'
@@ -181,6 +185,7 @@ def project_skills(character, pack=PACK):
                          'repeated_domestic':repeated_bonus, 'intelligence':intelligence}
         if character['level'] > 1:
             contributions['advancement'] = gain
+        contributions.update(attribute_contributions(definition, character['attributes']))
         fixed_grants.append({**definition, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality':'professional'})
     gaps = ['Other required choices and skill categories are pending.',
             'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']

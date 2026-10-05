@@ -62,6 +62,12 @@ async function loadHeroPowers(character) {
     const source = document.createElement('p'); source.className = 'help';
     source.textContent = heroPowerSource(definition.source);
     card.append(heading, details, source);
+    if (definition.parameters?.length) {
+      const parameters = document.createElement('ul'); parameters.className = 'help';
+      parameters.replaceChildren(...definition.parameters.map(parameter => heroPowerLine(
+        `${parameter.text} \u2014 ${modifierSourceCitation(parameter.source)} \u2014 ${parameter.source.section}`)));
+      card.append(parameters);
+    }
     const acquisition = acquired.get(definition.id);
     if (acquisition) {
       const retained = document.createElement('p'); retained.className = 'help';
@@ -87,10 +93,13 @@ async function loadHeroPowers(character) {
   $('hero-powers-warnings').replaceChildren(...view.warnings.map(heroPowerLine));
   const receipts = view.receipts || [];
   $('hero-powers-receipts').replaceChildren(...(receipts.length ? receipts.map(receipt => {
-    if (receipt.effect_summary) return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${receipt.effect_summary} · ${heroPowerSource(receipt.source)}`);
+    const parameters = (receipt.parameters || []).map(parameter =>
+      `${parameter.text} \u2014 ${modifierSourceCitation(parameter.source)} \u2014 ${parameter.source.section}`).join('; ');
+    const suffix = parameters ? ` \u00b7 ${parameters}` : '';
+    if (receipt.effect_summary) return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${receipt.effect_summary} · ${heroPowerSource(receipt.source)}${suffix}`);
     const formula = receipt.attribute_floor;
     const attribute = heroPowerAttributeLabel(formula.attribute);
-    return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${attribute} target floor ${receipt.target} · recorded ${heroPowerDiceFormula(formula)} results ${receipt.rolls.join(', ')} · ${heroPowerSource(receipt.source)}`);
+    return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${attribute} target floor ${receipt.target} · recorded ${heroPowerDiceFormula(formula)} results ${receipt.rolls.join(', ')} · ${heroPowerSource(receipt.source)}${suffix}`);
   }) : [heroPowerLine('No power acquisitions recorded.') ]));
   const savingBonuses = Object.values(view.saving_bonuses || {});
   $('hero-powers-saving-bonuses').replaceChildren(...(savingBonuses.length ? savingBonuses.map(bonus => {

@@ -114,11 +114,15 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             detail = power.get('effect_summary',f"recorded target {power['target']}; dice {power['rolls']}")
             power_lines.append(f"{power['name']}: {detail}; Minor")
             power_lines.extend(power['guidance'])
+            power_lines.extend(parameter['text']+'; '+resource_source_citation(parameter['source'])
+                               for parameter in power.get('parameters', []))
             power_lines.append(f"{power['source']['book']}, printed p.{power['source']['printed_page']} / PDF p.{power['source']['pdf_page']}")
         for receipt in powers['receipts']:
             if not receipt['active']:
                 detail = receipt.get('effect_summary',f"target {receipt['target']}; dice {receipt['rolls']}")
                 power_lines.append(f"Retained inactive power: {receipt['name']}; {detail}")
+                power_lines.extend(parameter['text']+'; '+resource_source_citation(parameter['source'])
+                                   for parameter in receipt.get('parameters', []))
                 power_lines.append(f"{receipt['source']['book']}, printed p.{receipt['source']['printed_page']} / PDF p.{receipt['source']['pdf_page']}")
         if powers['powers']:
             power_lines.append(f"Minor selections: {powers['minor']['used']} used / {powers['minor']['allowance']} allowed")

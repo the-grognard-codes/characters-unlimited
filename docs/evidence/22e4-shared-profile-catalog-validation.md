@@ -13,3 +13,5 @@ Required type checking found fixture modules named twice under the namespace tes
 Both independent reviews APPROVE. Mypy140, compilation, all browser syntax/whitespace and27 archived legacy class projections pass. Full regression and exact-head Windows/frozen checks remain pending.
 
 Full425 tests pass (359.811 seconds, one frozen-only skip). A supplemental progression-reference witness then passed in the9-test affected suite (7.384 seconds): the same resolver validates resolved class owners and distinct HP29/28 totals through portable reopening. Both focused re-reviews APPROVE and mypy140 passes; final exact-head CI will rerun all426 tests.
+
+PR102 merged as f98dc05d1381e358f098a677a0dccdef5ae18e73. Both Windows runs37245098538/37245095773 passed at head5dee95d1dbb2332e2b3cded2070e4ad9ff44c412, including frozen executable checks and final426-test regression.

@@ -7,7 +7,8 @@ from uuid import UUID, uuid4
 
 from .attribute_modifiers import attribute_value, ATTRIBUTE_NAMES
 from .heroes_power_budget import project_budget
-from .recorded_formulas import validate_formula, formula_value, roll_formula
+from .recorded_formulas import validate_formula, formula_value
+from .retained_acquisitions import validate_acquisition_catalog, acquire_selected
 from .selection_groups import project_group
 from .option_selectors import select_options
 from .skill_effects import compile_skill_effects
@@ -36,6 +37,13 @@ def recorded_power_formula(formula):
     result = {key:value for key,value in formula.items() if key != 'attribute'}
     validate_formula(result)
     return result
+
+
+def power_formula_catalog(pack):
+    catalog = {row['id']: {name: recorded_power_formula(formula) for name, formula in power_formulas(row).items()}
+               for row in pack['powers']}
+    validate_acquisition_catalog(catalog)
+    return catalog
 
 
 def validate_power_rolls(rolls, definition):
@@ -115,6 +123,7 @@ def power_requirement_definitions(pack):
 def validate_powers(record, pack, level=1):
     power_parameter_views(pack, level)
     power_requirement_definitions(pack)
+    power_formula_catalog(pack)
     minor_power_options(pack)
     if not isinstance(record, dict) or set(record) != {'acquisitions','active','history'}:
         raise ValueError('Invalid Heroes power record')
@@ -168,18 +177,23 @@ def power_modifiers(record, pack, *, active_only=True):
 def select_powers(character, selections, pack, die):
     power_parameter_views(pack, character['level'])
     power_requirement_definitions(pack)
+    power_formula_catalog(pack)
     minor_power_options(pack)
     definitions = {row['id']:row for row in pack['powers']}
     if not isinstance(selections,list) or len(selections) > 100 or any(not isinstance(item,str) or item not in definitions for item in selections) or len(set(selections)) != len(selections):
         raise ValueError('Choose distinct reviewed super abilities')
     record = deepcopy(character.get('hero_powers', {'acquisitions':[], 'active':[], 'history':[]}))
+    if 'hero_powers' in character:
+        validate_powers(record, pack, character['level'])
     retained = {row['power']:row for row in record['acquisitions']}
+    cached = {power: {'rolls': {'attribute': row['rolls']} if 'attribute_floor' in definitions[power] else row['rolls']}
+              for power, row in retained.items()}
+    acquired = acquire_selected(power_formula_catalog(pack), cached, selections, die)
     active = []
     for power in selections:
         if power not in retained:
             definition = definitions[power]
-            formulas = power_formulas(definition)
-            groups = {name:roll_formula(recorded_power_formula(formula), die) for name,formula in formulas.items()}
+            groups = acquired[power]['rolls']
             acquisition = {'id':str(uuid4()), 'power':power, 'rolls':groups['attribute'] if 'attribute_floor' in definition else groups,
                            'source':deepcopy(definition['source'])}
             record['acquisitions'].append(acquisition); retained[power] = acquisition

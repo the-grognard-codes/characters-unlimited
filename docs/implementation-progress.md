@@ -307,3 +307,9 @@ Perform the requested retro only after all slices are completed. Compare functio
 22F2 adds a common source-bound requirement compiler/projector for level, effective attribute minima and distinct catalog-selected prerequisites. Heroes powers use cited current-state honor-system guidance without discarding choices/effects; every unselected declaration preflights. Full magic/psionic adapters, activation, timing and source-reviewed catalogs remain open. See `shared-ability-requirement-contract.md`.
 
 22F1 merged in PR103 as `563bcee20757dd9f9332b4e21424d8e1af4cc0e4` after both exact-head Windows runs37246351844/37246382013 passed, including frozen executable validation.22F2 has eight affected/full434 passing tests (364.319 seconds, one frozen-only skip), mypy144/static/archive checks, actual active/inactive browser proofs and both review axes APPROVE. Windows/frozen gates pending.
+
+22F3 consolidates whole-catalog formula validation, exact inactive cache replay, first acquisition and reselection in `retained_acquisitions.py`. Both shared Physical skills and mutant powers consume it while preserving their legacy receipt/source/history formats. Generic effects, schedules and source-grounded psychic/magic paths remain open. See `shared-retained-acquisition-contract.md`.
+
+22F3 local validation complete:24 affected/full438 tests pass (370.078 seconds, one frozen-only skip), mypy146, compilation/all JS/whitespace,4 power/24 Physical archive bounds audits, and both independent reviews APPROVE. Windows/frozen merge gates remain pending.
+
+22F2 merged in PR104 as `5f10b8d16698af5c789d49381c435dacf87fe0c0` after both exact-head Windows runs37247361712/37247390783 passed, including frozen executable validation.

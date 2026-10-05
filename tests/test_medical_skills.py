@@ -69,9 +69,9 @@ class MedicalSkillWorkflowTests(unittest.TestCase):
             app = CharacterApplication(directory)
             self.assertNotIn('animal-husbandry', {s['id'] for s in app.skill_view(hero['id'])['catalog']})
             preview = app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'], '2.15.0')
+            self.assertEqual(preview['changes'][0]['to'], '2.16.0')
             updated = app.apply_rule_upgrade(hero['id'], revision=0, token=preview['token'])['character']
-            self.assertEqual(len(app.skill_view(hero['id'])['catalog']), 100)
+            self.assertEqual(len(app.skill_view(hero['id'])['catalog']), 114)
             app.select_skills(hero['id'], revision=updated['revision'], selections=[{'skill_id':'animal-husbandry','pool':'secondary'}])
             check = app.skill_view(hero['id'])['selected'][0]['additional_checks'][0]
             self.assertEqual(check['per_level'], 2.5)

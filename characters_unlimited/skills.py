@@ -13,6 +13,7 @@ from .selection_groups import validate_group, project_group
 from .skill_effects import pack_skill_effects, matching_skill_effects
 from .skill_attribute_bonuses import attribute_bonus_rules, attribute_contributions
 from .skill_grants import skill_grant_rules, resolve_skill_grants
+from .skill_training import training_rules, resolve_skill_training
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -20,6 +21,7 @@ POOLS = PACK['pools']
 
 
 def optional_pool_groups(pack):
+    training_rules(pack)
     skill_grant_rules(pack)
     for definition in pack['skills']:
         attribute_bonus_rules(definition)
@@ -133,7 +135,8 @@ def project_skills(character, pack=PACK):
     roots.extend({'id': item['skill_id'], 'specialty': item.get('specialty', '')} for item in selections
                  if not needs_specialty(next(row for row in domestic if row['id'] == item['skill_id'])) or item.get('specialty'))
     derived = resolve_skill_grants(character, pack, roots)
-    exact_grants = any(row.get('granted_skills') for row in domestic)
+    aliases = training_rules(pack)
+    exact_grants = aliases is not None or any(row.get('granted_skills') for row in domestic)
     if derived:
         for identifier, training in derived.items():
             definition = next(row for row in domestic if row['id'] == identifier)
@@ -142,7 +145,9 @@ def project_skills(character, pack=PACK):
                 *[row['bonus'] for row in domestic_grants if row['id'] == identifier],
                 *[selection_policy(definition, item['pool'], pack)['bonus'] for item in selections if item['skill_id'] == identifier],
                 0])
-        required = project_required_skills(character, pack, intelligence, skill_grants=derived)
+    training_rows = resolve_skill_training(character, pack, required['grants'], domestic_grants, selections, derived, aliases)
+    if training_rows:
+        required = project_required_skills(character, pack, intelligence, skill_grants=training_rows)
     granted = {item['id'] for item in required['grants']}
     physical = project_physical(character,pack)
     automatic_physical = [{**item, 'quality':'trained'} for item in physical['selected'] if item.get('grant')]
@@ -172,17 +177,20 @@ def project_skills(character, pack=PACK):
             continue
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
         contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated and is_domestic else 0, 'intelligence': intelligence}
-        training = derived.get(definition['id']) if not needs_specialty(definition) else None
+        training = training_rows.get(definition['id']) if not needs_specialty(definition) else None
         if training:
             bonus = max(bonus, training['ordinary_bonus'])
             contributions['class'] = bonus
-            contributions['Skill grant training'] = max(0, training['bonus'] - bonus)
+            if training['origins']:
+                contributions['Skill grant training'] = max(0, training['bonus'] - bonus)
         if character['level'] > 1:
             age = learning_age(character, 'skill', definition['id'], item.get('specialty', ''))
             if training:
                 age = character['level'] - training['learned_level'] + 1
             contributions['advancement'] = (age - 1) * definition['per_level']
-        if 'class_ability' in definition and character['character_class'] == pack.get('default_class', 'vagabond'):
+        if aliases is not None and training and training.get('class_ability'):
+            contributions['class_ability'] = training['class_ability']
+        elif aliases is None and 'class_ability' in definition and character['character_class'] == pack.get('default_class', 'vagabond'):
             contributions['class_ability'] = definition['class_ability']
         if not is_domestic and repetition:
             contributions['repeated_skill'] = repetition['bonus'] if repeated else 0
@@ -194,7 +202,7 @@ def project_skills(character, pack=PACK):
         elif definition.get('quality_by_pool'):
             quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
         effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
-        selected.append({**definition, **effects, **item, **({'grant_origins': training['origins'], 'learned_level': training['learned_level']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=exact_grants), 'quality': quality,
+        selected.append({**definition, **effects, **item, **({'grant_origins': training['origins'], 'learned_level': training['learned_level']} if training and training['origins'] else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=exact_grants), 'quality': quality,
                          'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
@@ -210,18 +218,21 @@ def project_skills(character, pack=PACK):
         gain = (learning_age(character, 'skill', grant['id']) - 1) * definition['per_level']
         contributions = {'base':definition['base'], 'class':grant['bonus'],
                          'repeated_domestic':repeated_bonus, 'intelligence':intelligence}
-        training = derived.get(grant['id'])
+        training = training_rows.get(grant['id'])
         if training:
             contributions['class'] = max(grant['bonus'], training['ordinary_bonus'])
-            contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
+            if training['origins']:
+                contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
         if character['level'] > 1:
-            contributions['advancement'] = gain
+            contributions['advancement'] = ((character['level'] - training['learned_level']) * definition['per_level']
+                                          if training and aliases is not None else gain)
         if exact_grants:
             contributions.update(synergy_contributions(definition, available))
         contributions.update(attribute_contributions(definition, character['attributes']))
-        fixed_grants.append({**definition, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=exact_grants), 'quality':'professional'})
+        fixed_grants.append({**definition, **({'grant_origins': training['origins']} if training and training['origins'] else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=exact_grants), 'quality':'professional'})
     derived_grants = []
-    for identifier, training in derived.items():
+    for identifier in derived:
+        training = training_rows[identifier]
         if identifier in granted or any(grant['id'] == identifier for grant in domestic_grants):
             continue
         definition = next(row for row in domestic if row['id'] == identifier)

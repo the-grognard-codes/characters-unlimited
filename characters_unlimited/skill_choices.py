@@ -38,7 +38,9 @@ def choice_guidance(selections, pack, granted=()):
     for item in selections:
         definition = known[item['skill_id']]
         if not selection_policy(definition, item['pool'], pack)['allowed']:
-            warnings.append(f"{definition['name']}: not available in the {item['pool']} pool under these rules; the choice is retained without an O.C.C. bonus.")
+            training = ('without additional pool training' if pack.get('required_skill_training') is not None
+                        else 'without an O.C.C. bonus')
+            warnings.append(f"{definition['name']}: not available in the {item['pool']} pool under these rules; the choice is retained {training}.")
         if definition['id'] in granted_ids and not needs_specialty(definition):
             owner = 'an acquired skill' if any(row['id'] == definition['id'] and row.get('grant_origins') for row in granted) else 'the O.C.C.'
             warnings.append(f"{definition['name']}: already granted by {owner}; the extra choice is retained without another proficiency bonus.")

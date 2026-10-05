@@ -12,6 +12,7 @@ from .advancement import learning_age
 from .selection_groups import validate_group, project_group
 from .skill_effects import pack_skill_effects, matching_skill_effects
 from .skill_attribute_bonuses import attribute_bonus_rules, attribute_contributions
+from .skill_grants import skill_grant_rules, resolve_skill_grants
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -19,6 +20,7 @@ POOLS = PACK['pools']
 
 
 def optional_pool_groups(pack):
+    skill_grant_rules(pack)
     for definition in pack['skills']:
         attribute_bonus_rules(definition)
     identifiers = [definition['id'] for definition in pack['skills']]
@@ -126,12 +128,28 @@ def project_skills(character, pack=PACK):
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
         bonuses[key] = max(bonuses.get(key, 0), selection_policy(definition, item['pool'], pack)['bonus'])
     required = project_required_skills(character, pack, intelligence)
+    roots = [{'id': grant['id'], 'learned_level': 1} for grant in domestic_grants]
+    roots.extend({**row, 'learned_level': 1} for row in required['grants'])
+    roots.extend({'id': item['skill_id'], 'specialty': item.get('specialty', '')} for item in selections
+                 if not needs_specialty(next(row for row in domestic if row['id'] == item['skill_id'])) or item.get('specialty'))
+    derived = resolve_skill_grants(character, pack, roots)
+    if derived:
+        for identifier, training in derived.items():
+            definition = next(row for row in domestic if row['id'] == identifier)
+            training['ordinary_bonus'] = max([
+                *[row['contributions']['class'] for row in required['grants'] if row['id'] == identifier and not row.get('specialty')],
+                *[row['bonus'] for row in domestic_grants if row['id'] == identifier],
+                *[selection_policy(definition, item['pool'], pack)['bonus'] for item in selections if item['skill_id'] == identifier],
+                0])
+        required = project_required_skills(character, pack, intelligence, skill_grants=derived)
     granted = {item['id'] for item in required['grants']}
     physical = project_physical(character,pack)
     automatic_physical = [{**item, 'quality':'trained'} for item in physical['selected'] if item.get('grant')]
-    warnings = choice_guidance(selections, pack, [*required['grants'], *automatic_physical])
+    warnings = choice_guidance(selections, pack, [*required['grants'], *automatic_physical,
+        *[{'id': identifier, 'grant_origins': row['origins']} for identifier, row in derived.items()]])
     available = learned_selection_ids(selections, pack)
     available.update(granted)
+    available.update(derived)
     selected = []
     physical_entries = {item['id']:item for item in physical['selected']}
     for item in selections:
@@ -153,8 +171,16 @@ def project_skills(character, pack=PACK):
             continue
         bonus = bonuses[key] if is_domestic and key != ('instrument', '') else policy['bonus']
         contributions = {'base': definition['base'], 'class': bonus, 'repeated_domestic': 10 if repeated and is_domestic else 0, 'intelligence': intelligence}
+        training = derived.get(definition['id']) if not needs_specialty(definition) else None
+        if training:
+            bonus = max(bonus, training['ordinary_bonus'])
+            contributions['class'] = bonus
+            contributions['Skill grant training'] = max(0, training['bonus'] - bonus)
         if character['level'] > 1:
-            contributions['advancement'] = (learning_age(character, 'skill', definition['id'], item.get('specialty', '')) - 1) * definition['per_level']
+            age = learning_age(character, 'skill', definition['id'], item.get('specialty', ''))
+            if training:
+                age = character['level'] - training['learned_level'] + 1
+            contributions['advancement'] = (age - 1) * definition['per_level']
         if 'class_ability' in definition and character['character_class'] == pack.get('default_class', 'vagabond'):
             contributions['class_ability'] = definition['class_ability']
         if not is_domestic and repetition:
@@ -167,7 +193,7 @@ def project_skills(character, pack=PACK):
         elif definition.get('quality_by_pool'):
             quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
         effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
-        selected.append({**definition, **effects, **item, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': quality,
+        selected.append({**definition, **effects, **item, **({'grant_origins': training['origins'], 'learned_level': training['learned_level']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': quality,
                          'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
@@ -183,10 +209,31 @@ def project_skills(character, pack=PACK):
         gain = (learning_age(character, 'skill', grant['id']) - 1) * definition['per_level']
         contributions = {'base':definition['base'], 'class':grant['bonus'],
                          'repeated_domestic':repeated_bonus, 'intelligence':intelligence}
+        training = derived.get(grant['id'])
+        if training:
+            contributions['class'] = max(grant['bonus'], training['ordinary_bonus'])
+            contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
         if character['level'] > 1:
             contributions['advancement'] = gain
         contributions.update(attribute_contributions(definition, character['attributes']))
-        fixed_grants.append({**definition, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality':'professional'})
+        fixed_grants.append({**definition, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality':'professional'})
+    derived_grants = []
+    for identifier, training in derived.items():
+        if identifier in granted or any(grant['id'] == identifier for grant in domestic_grants):
+            continue
+        definition = next(row for row in domestic if row['id'] == identifier)
+        optional_bonus = training['ordinary_bonus']
+        contributions = {'base': definition['base'], 'class': optional_bonus,
+                         'Skill grant training': max(0, training['bonus'] - optional_bonus), 'intelligence': intelligence}
+        if character['level'] > 1:
+            contributions['advancement'] = (character['level'] - training['learned_level']) * definition['per_level']
+        contributions.update(synergy_contributions(definition, available))
+        contributions.update(attribute_contributions(definition, character['attributes']))
+        parents = ', '.join(dict.fromkeys(next(row['name'] for row in domestic if row['id'] == origin['parent_id'])
+                                         for origin in training['origins']))
+        derived_grants.append({**definition, 'description': definition.get('description', '') + f' Automatically granted by {parents}.',
+            'grant_origins': training['origins'], 'learned_level': training['learned_level'],
+            **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(identifier, skill_effects)), 'quality': 'trained'})
     gaps = ['Other required choices and skill categories are pending.',
             'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']
     if not intelligence_rule:
@@ -216,7 +263,7 @@ def project_skills(character, pack=PACK):
                    'General skill growth, secondary restrictions and percentage cap: pp. 300–301.',
                    'Physical bonuses apply once per skill: pp. 316–317.',
                    'I.Q. bonuses: pp. 281, 284. HP growth and class XP: pp. 287, 295.']
-    return {'catalog': domestic, 'physical':physical, 'grants': [*fixed_grants, *required['grants'], *automatic_physical], 'selected': selected, 'remaining': remaining,
+    return {'catalog': domestic, 'physical':physical, 'grants': [*fixed_grants, *required['grants'], *automatic_physical, *derived_grants], 'selected': selected, 'remaining': remaining,
             'pool_catalog':pools,
             'required_remaining': required['remaining'], 'required_catalog': required['catalog'],
             'warnings': list(dict.fromkeys([*warnings, *required['warnings']])),

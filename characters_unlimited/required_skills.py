@@ -34,7 +34,7 @@ def validate_required_choices(choices, pack):
     return result
 
 
-def project_required_skills(character, pack, intelligence):
+def project_required_skills(character, pack, intelligence, *, skill_grants=None):
     skill_effects = pack_skill_effects(pack)
     rules = required_catalog(pack)
     if rules is None:
@@ -77,6 +77,7 @@ def project_required_skills(character, pack, intelligence):
             warnings.append(f"{group['name']}: {-remaining[group['id']]} selection(s) over the allowance.")
     available = {definition['id'] for definition, _ in definitions}
     available.update(learned_selection_ids(character.get('skill_selections', []), pack))
+    available.update(skill_grants or {})
     grants = []
     seen = set()
     for definition, specialty in definitions:
@@ -86,11 +87,15 @@ def project_required_skills(character, pack, intelligence):
             continue
         seen.add(identity)
         contributions = {'base': definition['base'], 'class': definition['class_bonus'], 'intelligence': intelligence}
+        training = (skill_grants or {}).get(definition['id']) if not specialty else None
+        if training:
+            contributions['class'] = max(definition['class_bonus'], training['ordinary_bonus'])
+            contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
         if character['level'] > 1:
             contributions['advancement'] = (learning_age(character, 'skill', definition['id'], specialty) - 1) * definition['per_level']
         if 'class_ability' in definition:
             contributions['class_ability'] = definition['class_ability']
         contributions.update(synergy_contributions(definition, available))
         contributions.update(attribute_contributions(definition, character['attributes']))
-        grants.append({**definition, 'specialty': specialty, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': 'trained'})
+        grants.append({**definition, 'specialty': specialty, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': 'trained'})
     return {'grants': grants, 'remaining': remaining, 'warnings': warnings, 'catalog': rules}

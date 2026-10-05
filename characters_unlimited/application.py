@@ -822,6 +822,11 @@ class CharacterApplication:
         packs = character.get('additional_rule_packs', {})
         selections = validate_selections(selections,pack)
         changes = acquire_physical(character,selections,pack,self.die)
+        if character['level'] > 1 and learned_level is not None and any(row.get('granted_skills') for row in pack['skills']):
+            levels = deepcopy(character.get('learning_levels', {}))
+            for item in selections:
+                levels.setdefault(learning_key('skill', item['skill_id'], item['specialty']), learned_level)
+            changes['learning_levels'] = levels
         changes = self._learning_changes(character, {'skill_selections': selections, 'additional_rule_packs': packs, **changes}, pack)
         if character['level'] > 1 and learned_level is not None:
             for item in selections:

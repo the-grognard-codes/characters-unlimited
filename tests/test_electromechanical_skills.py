@@ -12,7 +12,7 @@ class ElectromechanicalSkillWorkflowTests(unittest.TestCase):
         expected = {'basic-electronics':30,'computer-repair':30,'electrical-engineer':35,
             'electricity-generation':50,'robot-electronics':30,'aircraft-mechanics':25,
             'automotive-mechanics':25,'basic-mechanics':30,'bioware-mechanics':30,
-            'locksmith':25,'mechanical-engineer':25,'robot-mechanics':20,'weapons-engineer':25}
+            'locksmith':25,'mechanical-engineer':25,'robot-mechanics':20,'weapons-engineer':25,'vehicle-armorer':30}
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory,die=lambda sides:4)
             hero = app.create()
@@ -92,9 +92,9 @@ class ElectromechanicalSkillWorkflowTests(unittest.TestCase):
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),90)
             self.assertEqual(app.skill_view(hero['id'])['selected'][0]['additional_checks'],[])
             preview = app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.14.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.15.0')
             hero = app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
-            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),99)
+            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),100)
             self.assertEqual(app.skill_view(hero['id'])['selected'][0]['additional_checks'][0]['percentage'],40)
             hero = app.select_skills(hero['id'],revision=hero['revision'],learned_level=3,selections=[{'skill_id':'mechanical-engineer','pool':'related'}])
             self.assertEqual(app.skill_view(hero['id'])['selected'][0]['percentage'],25)

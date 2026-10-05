@@ -17,7 +17,8 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
     if level_steps:
         contributions = {**contributions, 'experience':definition['per_level']*level_steps}
     uncapped = sum(contributions.values())
-    if (effects or definition.get('attribute_bonuses')) and abs(uncapped) > MAX_INTEGER:
+    guarded = effects or definition.get('attribute_bonuses') or 'Skill grant training' in contributions
+    if guarded and abs(uncapped) > MAX_INTEGER:
         raise ValueError('Skill effect total exceeds the exact integer range')
     checks = []
     normal_checks = {'primary': {'percentage': min(98, uncapped), 'per_level': definition['per_level']}}
@@ -40,7 +41,7 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
             value = sum(check_contributions.values())
             projected = {'name': check['name'], 'percentage': min(98, value),
                          'uncapped_percentage': value, 'contributions': check_contributions, 'per_level': check.get('per_level',definition['per_level'])}
-        if (effects or definition.get('attribute_bonuses')) and abs(projected['uncapped_percentage']) > MAX_INTEGER:
+        if guarded and abs(projected['uncapped_percentage']) > MAX_INTEGER:
             raise ValueError('Skill effect check total exceeds the exact integer range')
         checks.append(projected)
         normal_checks[check['name']] = projected

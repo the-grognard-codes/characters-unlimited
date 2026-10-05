@@ -6,7 +6,7 @@ from .recorded_formulas import MAX_INTEGER
 
 def needs_numeric_skill_projection(pack):
     return bool(pack.get('skill_effects') or
-                any(skill.get('attribute_bonuses') for skill in pack.get('skills', [])))
+                any(skill.get('attribute_bonuses') or skill.get('granted_skills') for skill in pack.get('skills', [])))
 
 
 def attribute_bonus_rules(definition):

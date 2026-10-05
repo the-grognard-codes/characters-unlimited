@@ -379,6 +379,9 @@ def export_rifts_sheet(character, core, skills, combat):
             described_skills.add(skill['id'])
             sheet_notes += '\n' + skill['name'] + ': ' + skill['description']
             sheet_notes += ' (' + skill['source']['book'] + ', pp. ' + ', '.join(map(str, skill['source']['pages'])) + ').'
+            for origin in skill.get('grant_origins', []):
+                parent = next(row['name'] for row in skills['catalog'] if row['id'] == origin['parent_id'])
+                sheet_notes += f' Granted by {parent}: training +{origin["bonus"]}% (' + resource_source_citation(origin['source']) + ').'
             attribute_bonuses = {name: amount for name, amount in skill['contributions'].items()
                                 if name.startswith('Attribute: ')}
             if attribute_bonuses:

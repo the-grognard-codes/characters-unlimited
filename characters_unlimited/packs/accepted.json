@@ -2,7 +2,7 @@
   "schema_version": 1,
   "active": {
     "rifts-core": "1.2.0",
-    "rifts-domestic-skills": "2.17.0",
+    "rifts-domestic-skills": "2.18.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.21.0",
@@ -471,6 +471,12 @@
       "version": "2.17.0",
       "filename": "rifts-domestic-skills-2.17.0.json",
       "sha256": "a383489747e2e9ea1a0ab2fbccecad429ac19cdb9e715c38771a6917d88869d7"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "2.18.0",
+      "filename": "rifts-domestic-skills-2.18.0.json",
+      "sha256": "0bc8f84c8f6dfd9a4a3a36ecc9c2b1163c5b1d3d867a3b5eb27606f41b691edc"
     }
   ]
 }

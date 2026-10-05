@@ -126,10 +126,7 @@ async function loadEducation(character) {
       terms.push(...Object.entries(skill.effects.combat).map(([name, value]) => `${name.replaceAll('_', ' ')} +${value}`));
       if (terms.length || !Object.hasOwn(skill, 'base')) $('hero-program-skills').append(educationLine(`${skill.name}${skill.combat_active === false ? ' (inactive training)' : ''}: ${terms.join(' · ')} · Physical effects apply once; printed pp. ${skill.source.pages.join(', ')} / PDF pp. ${skill.source.pdf_pages.join(', ')}`));
       for (const activity of skill.activities || []) {
-        const rate = activity.fatigue_rate;
-        $('hero-program-skills').append(educationLine(`${skill.name} pace: ${activity.yards_per_melee ?? 'unreviewed'} yards/meters per melee; ${activity.minutes ?? 'unreviewed'} minutes; ordinary ${activity.ordinary_minutes ?? 'unreviewed'} minutes; fatigue ${rate.numerator}/${rate.denominator} normal.`));
         $('hero-program-skills').append(educationLine(activity.guidance));
-        for (const source of activity.fatigue_sources) $('hero-program-skills').append(educationLine(`Fatigue source: ${source.book}, printed p. ${source.printed_page} / PDF p. ${source.pdf_page}`));
       }
       for (const note of skill.guidance || []) $('hero-program-skills').append(educationLine(`${skill.name}: ${note}`));
     }

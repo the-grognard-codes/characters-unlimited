@@ -325,3 +325,13 @@ Final full441 tests pass (365.620 seconds, one frozen-only skip); no subsequent 
 22C3 introduces shared source-bound numeric additions for class saving/perception and mutant named saving bonuses. Stable identities preserve colliding display names; malformed whole catalogs preflight before dice, exact pins persist, and direct edit/reroll guards reject unsafe totals before save.21 affected tests pass16.346 seconds, mypy151/static/archive compatibility pass. Full regression/reviews and Windows/frozen checks pending; conditional effects/full importer/magic/psionic activation remain open.
 
 Final full447 tests pass (364.515 seconds, one frozen-only skip). No subsequent product changes. Both review axes approve the final compatibility repair; all required local checks pass. Exact-head Windows/frozen gates remain required before merge.
+
+## User-approved scope simplification — 2026-10-05
+
+Prioritize character choices, attributes, resulting skill percentages and applicable bonuses, equipment, saves and editable sheets. Stop extending detailed combat maneuvers, activity speeds and situational calculations as release gates. Resolve ordinary rules ambiguity with agent judgment rather than repeated user questions. Preserve original plan for retrospective comparison; authoritative amendment is `player-focused-scope.md`. Continue shared class/race import and broader source coverage in coherent batches. The non-attribute ability adapter remains useful to this simplified scope.
+
+22C3 merged in PR107 as `f5bdffcf77a91ca892f18266e6a063c2dcb0b7da`; both Windows/package checks passed. Subsequent work follows the user-approved player-focused scope amendment.
+
+User cleanup on2026-10-05: general insanity projections/automatic HU sheet fields are removed. Source-specific Crazy traits/permanent injuries remain in scope. HU Mega Heroes and super-vehicle/base design are excluded; robot/bionic construction remains required. Existing optional combat/activity work is compatible legacy support, not a further implementation or release gate. Refer to `player-focused-scope.md`.
+
+22F4 and scope cleanup validated locally: 30 affected tests, mypy153/static checks, both reviews approve, actual browser and editable-sheet proofs. Ordinary descriptive ability selections use retained receipts without artificial attribute bonuses. Full Windows/package CI remains the merge gate.

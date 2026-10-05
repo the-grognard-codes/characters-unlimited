@@ -20,7 +20,7 @@ class HeroesMentalEnduranceTests(unittest.TestCase):
             saves = view['saving_bonuses']
             self.assertEqual(saves['psionics']['value'],7)
             self.assertEqual(saves['psionics']['target'],12)
-            self.assertEqual(saves['insanity']['value'],12)
+            self.assertNotIn('insanity', saves)
             self.assertEqual(saves['mind-altering-drugs']['value'],6)
             self.assertEqual(saves['horror-factor']['value'],6)
             self.assertEqual(saves['possession']['value'],13)
@@ -52,7 +52,7 @@ class HeroesMentalEnduranceTests(unittest.TestCase):
             fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields()
             assert fields is not None
             self.assertEqual(fields['SAVE_PSIONICS']['/V'],'+7; target 12')
-            self.assertEqual(fields['SAVE_INSANITY']['/V'],'+12')
+            self.assertNotIn('SAVE_INSANITY', fields)
             text = '\n'.join(str(row.get('/V','')) for row in fields.values())
             self.assertIn('Mind-altering drugs: +6',text)
             self.assertIn('Magical illusions: +1',text)
@@ -68,7 +68,7 @@ class HeroesMentalEnduranceTests(unittest.TestCase):
             self.assertEqual(app.hero_powers_view(hero['id'])['saving_bonuses']['psionics']['value'],8)
             hero = app.set_attribute(hero['id'],revision=hero['revision'],attribute='ME',mode='fixed',value=40)
             self.assertEqual(hero['attributes']['ME']['value'],40)
-            self.assertEqual(app.hero_powers_view(hero['id'])['saving_bonuses']['insanity']['value'],13)
+            self.assertNotIn('insanity', app.hero_powers_view(hero['id'])['saving_bonuses'])
             hero = app.select_hero_powers(hero['id'],revision=hero['revision'],selections=[])
             app.die = lambda sides: self.fail('Reselection must reuse power dice')
             hero = app.select_hero_powers(hero['id'],revision=hero['revision'],selections=['extraordinary-mental-endurance'])

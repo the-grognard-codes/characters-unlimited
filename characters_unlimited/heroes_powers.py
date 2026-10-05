@@ -26,8 +26,26 @@ def encoded(value):
 
 
 def power_formulas(definition):
+    if 'acquisition_formulas' in definition:
+        allowed = {'id', 'name', 'category', 'source', 'guidance', 'acquisition_formulas',
+                   'parameters', 'requirements', 'saving_bonuses', 'skill_effects', 'tags'}
+        if (set(definition) - allowed or
+                any(not isinstance(definition.get(key), str) or not definition[key].strip()
+                    for key in ('id', 'name', 'category')) or
+                not isinstance(definition.get('guidance'), list) or len(definition['guidance']) > 1000 or
+                any(not isinstance(note, str) or not note.strip() for note in definition['guidance'])):
+            raise ValueError('Unsupported ordinary ability acquisition declaration')
+        source = definition.get('source')
+        if (not isinstance(source, dict) or any(not isinstance(source.get(key), str) or
+                not source[key].strip() for key in ('book', 'section'))):
+            raise ValueError('Ordinary abilities need book and section evidence')
+        groups = definition['acquisition_formulas']
+        validate_acquisition_catalog({definition['id']: groups})
+        return groups
     if 'attribute_floor' in definition:
         return {'attribute':definition['attribute_floor']}
+    if 'attribute_bonus' not in definition:
+        raise ValueError('Abilities need a supported acquisition declaration')
     return {'attribute':definition['attribute_bonus'], **definition['resource_bonuses'],
             'HP-levels':definition['hp_per_level']}
 
@@ -41,6 +59,7 @@ def recorded_power_formula(formula):
 
 
 def power_formula_catalog(pack):
+    minor_power_options(pack)
     catalog = {row['id']: {name: recorded_power_formula(formula) for name, formula in power_formulas(row).items()}
                for row in pack['powers']}
     validate_acquisition_catalog(catalog)
@@ -112,7 +131,24 @@ def additive_power_summary(definition, rolls=None):
     return '; '.join(parts)
 
 
+def ordinary_power_summary(definition, rolls=None):
+    parts = []
+    for name, formula in power_formulas(definition).items():
+        label = name.replace('-', ' ').replace('_', ' ')
+        if rolls is not None:
+            text = str(power_bonus_value(formula, rolls[name])) + ' (dice ' + str(rolls[name]) + ')'
+        else:
+            text = str(formula.get('constant', 0)) if not formula['count'] else f"{formula['count']}D{formula['sides']}"
+            if formula['count'] and formula.get('constant', 0):
+                text += f"{formula['constant']:+d}"
+            if formula.get('multiplier', 1) != 1:
+                text = '(' + text + ') x ' + str(formula['multiplier'])
+        parts.append(label + ': ' + text)
+    return '; '.join(parts) if parts else 'Selection has no random acquisition gains'
+
+
 def power_parameter_views(pack, level):
+    minor_power_options(pack)
     return {power['id']: project_ability_parameters(power, level) for power in pack['powers']}
 
 
@@ -190,7 +226,8 @@ def floor_modifier(acquisition, definition):
 def power_modifiers(record, pack, *, active_only=True):
     definitions = {row['id']:row for row in pack['powers']}
     return [power_attribute_modifier(row, definitions[row['power']])
-            for row in record['acquisitions'] if not active_only or row['id'] in record['active']]
+            for row in record['acquisitions'] if (not active_only or row['id'] in record['active'])
+            and 'acquisition_formulas' not in definitions[row['power']]]
 
 
 def select_powers(character, selections, pack, die):
@@ -296,7 +333,8 @@ def project_powers(character, pack, budget_pack, higher=None):
         definition = definitions[acquisition['power']]
         receipts.append({**deepcopy(definition), 'acquisition_id':acquisition['id'], 'rolls':deepcopy(acquisition['rolls']),
                          'target':floor_modifier(acquisition,definition)['value'] if 'attribute_floor' in definition else None,
-                         **({'effect_summary':additive_power_summary(definition,acquisition['rolls'])} if 'attribute_bonus' in definition else {}),
+                         **({'effect_summary':additive_power_summary(definition,acquisition['rolls'])} if 'attribute_bonus' in definition else
+                            {'effect_summary':ordinary_power_summary(definition,acquisition['rolls'])} if 'acquisition_formulas' in definition else {}),
                          'active':acquisition['id'] in active,
                          **({'parameters': deepcopy(parameters[definition['id']])} if parameters[definition['id']] else {})})
     powers = [row for row in receipts if row['active']]
@@ -322,7 +360,8 @@ def project_powers(character, pack, budget_pack, higher=None):
         warnings.append(f'Minor power selections exceed the recorded starting allowance by {used-allowance}. Selections retained.')
     value = character['attributes']['MA']['value']
     trust = pack['mental_affinity_chart'].get(str(min(value,30)))
-    catalog = [{**deepcopy(row), **({'requirements': deepcopy(requirements[row['id']])} if requirements[row['id']] else {}), **({'parameters': deepcopy(parameters[row['id']])} if parameters[row['id']] else {}), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
+    catalog = [{**deepcopy(row), **({'requirements': deepcopy(requirements[row['id']])} if requirements[row['id']] else {}), **({'parameters': deepcopy(parameters[row['id']])} if parameters[row['id']] else {}), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else
+                    {'effect_summary':ordinary_power_summary(row)} if 'acquisition_formulas' in row else {})} for row in pack['powers']]
     if character['level'] > 1:
         for row in [*catalog,*receipts]:
             row['guidance'] = [note.replace('Heroes advancement is not yet implemented; current characters support level 1 only.',
@@ -357,8 +396,12 @@ def project_power_saves(character, pack, powers):
         return {}
     score = character['attributes']['ME']['value']
     results: dict[str, Any] = {}
-    names = POWER_SAVE_NAMES
+    names = {key: value for key, value in POWER_SAVE_NAMES.items() if key != 'insanity'}
+    powers = [{**power, **{field: {key: value for key, value in power.get(field, {}).items() if key in names}
+              for field in ('saving_bonuses', 'saving_attribute_bonuses', 'saving_targets')}} for power in powers]
     for identifier,chart in charts.items():
+        if identifier not in names:
+            continue
         contribution = chart.get(str(min(score,30)),0)
         results[identifier] = {'name':names[identifier], 'value':contribution if score >= 1 else None,
             'contributions':{'M.E.':contribution}, 'target':None,

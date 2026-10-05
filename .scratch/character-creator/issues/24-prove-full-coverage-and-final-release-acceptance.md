@@ -1,6 +1,6 @@
 # 24: Prove full coverage and final release acceptance
 
-**What to build:** Reconcile every supplied option and mechanical dependency, run source-grounded representative end-to-end characters, resolve or explicitly report remaining review findings, and verify packaged offline operation and editable PDFs. Any automation gap prevents claiming full scope completion.
+**What to build:** Reconcile every supplied option and mechanical dependency, run source-grounded representative end-to-end characters, resolve or explicitly report remaining review findings, and verify packaged offline operation and editable PDFs. Missing required character-creation behavior prevents claiming completion. Descriptive optional effects and explicitly excluded systems do not. Assess coverage against docs/player-focused-scope.md, including required robot and bionic design.
 
 **Blocked by:** 13–17, 19, 22, 23, every content batch
 

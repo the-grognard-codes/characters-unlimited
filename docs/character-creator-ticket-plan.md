@@ -1,5 +1,7 @@
 # Character creator ticket breakdown
 
+> Scope update (2026-10-05): [Player-focused scope amendment](player-focused-scope.md) supersedes conflicting exhaustive calculation requirements. The original text is retained for retrospective comparison.
+
 Status: Review draft. These are proposed vertical slices, not published ready-for-agent issues. Specification: the character creator specification. Review test seams, granularity, and blocking edges before publication.
 
 Each slice includes the applicable rule/schema support, character interface, player or maintainer UI, and meaningful behavioral checks. Initial slices prove representative source-grounded options; they do not substitute for complete corpus coverage. Keep slices small enough for a fresh implementation context. If source inventory reveals a larger slice, split it into named, dependency-ordered cases before implementation.

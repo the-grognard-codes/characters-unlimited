@@ -42,8 +42,8 @@ class SwimmingWorkflowTests(unittest.TestCase):
             fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields()
             assert fields is not None
             values = ' '.join(' '.join(field.get('/V','') for field in fields.values()).split())
-            self.assertIn('60 yards / 60 meters per melee', values)
-            self.assertIn('16 minutes', values)
+            self.assertNotIn('60 yards / 60 meters per melee', values)
+            self.assertNotIn('16 minutes', values)
             self.assertIn('three consecutive', values.lower())
 
     def test_old_pins_and_activity_corrections_remain_explicit_and_atomic(self):
@@ -86,4 +86,4 @@ class SwimmingWorkflowTests(unittest.TestCase):
             fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields()
             assert fields is not None
             values = ' '.join(' '.join(field.get('/V','') for field in fields.values()).split())
-            self.assertIn('3703701 yards / 3703701 meters per melee for 1234567 minutes', values)
+            self.assertNotIn('3703701 yards / 3703701 meters per melee for 1234567 minutes', values)

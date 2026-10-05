@@ -27,3 +27,7 @@
 - Keep ticket ownership stable. Advance identity/mechanical/dependency review or automation state only when its own evidence and acceptance checks are complete; ticket assignment does not certify review or automation.
 
 **Dependency contract:** the manifest mirrors canonical `dependencies` to owning tickets, plus actual parent workflow and verified source-recovery prerequisites. Other dependencies remain pending and must not be silently treated as resolved.
+
+## User-approved scope amendment (2026-10-05)
+
+`hu2-hardware-super-vehicle` design is excluded. Other Hardware specializations remain in scope. This does not exclude ordinary vehicle equipment or required robot and bionic construction. Follow `docs/player-focused-scope.md` for required creation mechanics and descriptive optional effects.

@@ -29,7 +29,7 @@ class HeroesPhysicalProficiencyTests(unittest.TestCase):
             self.assertEqual(swimming['yards_per_melee'],60)
             self.assertEqual(swimming['fatigue_rate'],{'numerator':1,'denominator':10})
 
-    def test_pdf_shows_separate_climbing_checks_and_source_bound_swimming_limits(self):
+    def test_pdf_shows_skill_checks_without_calculated_swimming_limits(self):
         from io import BytesIO
         from pypdf import PdfReader
         with tempfile.TemporaryDirectory() as directory:
@@ -42,8 +42,8 @@ class HeroesPhysicalProficiencyTests(unittest.TestCase):
             self.assertEqual(fields['skills.climbing.check0.percentage']['/V'],'30')
             self.assertEqual(fields['skills.swimming.percentage']['/V'],'50')
             text='\n'.join(str(row.get('/V','')) for row in fields.values())
-            self.assertIn('Swimming pace: 36 yards/meters per melee',text)
-            self.assertIn('12 minutes; ordinary 12 minutes; fatigue 1/1 normal',text)
+            self.assertNotIn('Swimming pace: 36 yards/meters per melee',text)
+            self.assertNotIn('12 minutes; ordinary 12 minutes; fatigue 1/1 normal',text)
 
     def test_activity_changes_retain_receipts_hp_snapshot_and_independent_proficiency(self):
         from copy import deepcopy

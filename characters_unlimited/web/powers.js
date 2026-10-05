@@ -12,7 +12,7 @@ function heroPowerLine(text) {
 }
 
 function heroPowerSource(source) {
-  return `${source.book}, printed p. ${source.printed_page} (PDF p. ${source.pdf_page})`;
+  return modifierSourceCitation(source) + (source.section ? ` \u2014 ${source.section}` : '');
 }
 
 function heroPowerAttributeLabel(attribute) {

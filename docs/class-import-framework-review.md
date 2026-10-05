@@ -10,7 +10,7 @@ The framework supports adding options through reviewed data for several common m
 | Skill entitlements | Weighted selection groups, catalog selectors, fixed grants | Conditional/level entitlements and all prerequisite families remain incomplete. |
 | Acquired numeric bonuses | Retained formulas and additive/minimum attribute effects | Generic acquisition scheduling and broader target types remain incomplete. |
 | Percentile skill effects | Source-bound selectors and additive projection in `skill_effects.py` | Constant effects only; legacy adapters remain for existing definitions. |
-| Resource generation | Shared ordinary formulas and retained attribute snapshots | Full resource/progression composition and generic ability costs remain incomplete. |
+| Resource generation | Shared ordinary formulas, retained attribute snapshots and additional per-level gains | Conditional schedules and generic ability costs remain incomplete. |
 | Exact saves | Immutable rule versions, retained rolls, source replay and portable dependencies | Core-generation migrations remain unsupported. |
 | Class composition | Data profiles in `class_rules.py` | Legacy overlays remain; owned profiles and explicit shared catalogs isolate field ownership. Complete mechanical import certification remains open. |
 
@@ -39,3 +39,7 @@ The opt-in `owned-v1` class format now requires every supported class, including
 ## Shared nested catalog follow-through (22E4)
 
 Owned mapping fields can now explicitly reference one source-bound catalog and supply disjoint class keys. The same resolver validates all references before generation; catalog-owned keys cannot be overwritten. See `shared-profile-catalog-contract.md`. This avoids duplicating common combat catalogs across classes; nested mechanical/source certification and other composition families remain open.
+
+## Common ability follow-through (22F1/22F2)
+
+Ability parameters and current-state requirement guidance now use shared source-bound projectors. Heroes powers consume them without ability/class identity dispatch; synthetic spell/psychic catalogs exercise the same requirement boundary. Exact pins, all unselected dependency preflight, effective attributes, distinct option counts and honor-system retention are covered. These seams do not yet provide a generic ability acquisition/effect lifecycle: the current mutant adapter still acquires its established attribute/resource formula families. Initial-only timing, conditional activation, complete class imports and source-grounded magic/psionic adapters remain open.

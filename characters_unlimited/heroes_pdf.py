@@ -117,12 +117,16 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             power_lines.extend(parameter['text']+'; '+resource_source_citation(parameter['source'])
                                for parameter in power.get('parameters', []))
             power_lines.append(f"{power['source']['book']}, printed p.{power['source']['printed_page']} / PDF p.{power['source']['pdf_page']}")
+            power_lines.extend(requirement['text']+'; '+('met' if requirement['satisfied'] else 'unmet')+'; '+resource_source_citation(requirement['source'])
+                               for requirement in power.get('requirements', []))
         for receipt in powers['receipts']:
             if not receipt['active']:
                 detail = receipt.get('effect_summary',f"target {receipt['target']}; dice {receipt['rolls']}")
                 power_lines.append(f"Retained inactive power: {receipt['name']}; {detail}")
                 power_lines.extend(parameter['text']+'; '+resource_source_citation(parameter['source'])
                                    for parameter in receipt.get('parameters', []))
+                power_lines.extend(requirement['text']+'; '+('met' if requirement['satisfied'] else 'unmet')+'; '+resource_source_citation(requirement['source'])
+                                   for requirement in receipt.get('requirements', []))
                 power_lines.append(f"{receipt['source']['book']}, printed p.{receipt['source']['printed_page']} / PDF p.{receipt['source']['pdf_page']}")
         if powers['powers']:
             power_lines.append(f"Minor selections: {powers['minor']['used']} used / {powers['minor']['allowance']} allowed")

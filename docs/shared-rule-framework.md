@@ -119,3 +119,5 @@ Owned mapping fields resolve explicit, source-bound common catalog references wi
 ## Common ability parameter increment (22F1)
 
 `ability_parameters.py` projects source-bound literal guidance or exact whole-number base/per-level quantities independently of game or ability names. Heroes power selection preflights all declarations, and active/inactive builder/PDF views and portable validation derive current-level values from exact pins. Costs are displayed; spending, conditional activation and complete magic/psionic eligibility/catalogs remain open. See `shared-ability-parameter-contract.md`.
+
+22F2 adds a common source-bound requirement compiler/projector for level, effective attribute minima and distinct catalog-selected prerequisites. Heroes powers use cited current-state honor-system guidance without discarding choices/effects; every unselected declaration preflights. Full magic/psionic adapters, activation, timing and source-reviewed catalogs remain open. See `shared-ability-requirement-contract.md`.

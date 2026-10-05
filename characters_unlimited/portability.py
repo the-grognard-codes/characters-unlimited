@@ -8,7 +8,7 @@ from .generation import roll_attribute, generation_settings, racial_formula, rac
 from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
 from .heroes_power_budget import validate_budget
-from .heroes_powers import validate_powers, validate_power_attributes, power_resource_contributions
+from .heroes_powers import validate_powers, validate_power_attributes, power_resource_contributions, power_parameter_views
 from .heroes_programs import validate_program_selections, validate_secondary_selections
 from .physical import validate_physical, validate_physical_history
 from .heroes_physical import validate_hero_physical, project_hero_physical
@@ -252,6 +252,8 @@ def validate_sources(character, packs, *, history_frame=False):
         version = character.get('additional_rule_packs',{}).get(identifier)
         return next((item for item in packs if item['id']==identifier and item['version']==version),None)
     power_pack = current_hero_pack('heroes-super-abilities')
+    if power_pack is not None:
+        power_parameter_views(power_pack, character['level'])
     if 'hero_powers' in character:
         if character['game'] != 'heroes-unlimited' or power_pack is None or character['character_class'] != power_pack['character_class']:
             raise ValueError('Heroes powers must retain their accepted rule version pin')

@@ -115,3 +115,7 @@ The opt-in `owned-v1` format composes class fields through `profile_composition.
 ## Shared profile catalog increment (22E4)
 
 Owned mapping fields resolve explicit, source-bound common catalog references with disjoint class keys. Every catalog/reference validates before dice; no recursive merge or class handlers are introduced. See `shared-profile-catalog-contract.md`. Source-grounded imports and nested mechanical validation remain open.
+
+## Common ability parameter increment (22F1)
+
+`ability_parameters.py` projects source-bound literal guidance or exact whole-number base/per-level quantities independently of game or ability names. Heroes power selection preflights all declarations, and active/inactive builder/PDF views and portable validation derive current-level values from exact pins. Costs are displayed; spending, conditional activation and complete magic/psionic eligibility/catalogs remain open. See `shared-ability-parameter-contract.md`.

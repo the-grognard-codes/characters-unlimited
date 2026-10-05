@@ -299,3 +299,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 22E4: Owned class mappings reference shared source-bound catalogs and supply disjoint class choices. All declarations validate before generation; existing combat selection/projection and portable replay reuse the resolved data. Nine affected tests pass (7.384 seconds); full425 passes (359.811 seconds, one frozen-only skip) before the supplemental progression witness. Both reviews APPROVE; mypy140/static/archive checks pass. Final426-test Windows/frozen validation pending. No accepted data changes; nested mechanical certification remains open.
 
 22E3 merged in PR101 as `30b8da6590aed44024b544c40b6b7df1d340663f` after both exact-head Windows runs37244277796/37244275193 passed, including frozen executable validation.
+
+- 22F1: Shared source-bound ability parameters project literal conditions and level-scaled quantities for power catalogs/active/inactive views and editable PDFs. Unselected declarations preflight before power dice; exact older pins survive newer catalogs. Four focused tests pass; final static/full regression, browser verification, reviews and Windows/frozen checks pending. Costs display only; full magic/psionic acquisition and activation remain open.
+
+22E4 merged in PR102 as `f98dc05d1381e358f098a677a0dccdef5ae18e73` after both exact-head Windows runs37245098538/37245095773 passed, including frozen executable validation.

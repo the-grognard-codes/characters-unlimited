@@ -11,6 +11,7 @@ from .recorded_formulas import validate_formula, formula_value, roll_formula
 from .selection_groups import project_group
 from .option_selectors import select_options
 from .skill_effects import compile_skill_effects
+from .ability_parameters import project_ability_parameters
 
 
 def minor_power_options(pack):
@@ -101,7 +102,12 @@ def additive_power_summary(definition, rolls=None):
     return '; '.join(parts)
 
 
-def validate_powers(record, pack):
+def power_parameter_views(pack, level):
+    return {power['id']: project_ability_parameters(power, level) for power in pack['powers']}
+
+
+def validate_powers(record, pack, level=1):
+    power_parameter_views(pack, level)
     minor_power_options(pack)
     if not isinstance(record, dict) or set(record) != {'acquisitions','active','history'}:
         raise ValueError('Invalid Heroes power record')
@@ -153,6 +159,7 @@ def power_modifiers(record, pack, *, active_only=True):
 
 
 def select_powers(character, selections, pack, die):
+    power_parameter_views(pack, character['level'])
     minor_power_options(pack)
     definitions = {row['id']:row for row in pack['powers']}
     if not isinstance(selections,list) or len(selections) > 100 or any(not isinstance(item,str) or item not in definitions for item in selections) or len(set(selections)) != len(selections):
@@ -235,6 +242,7 @@ def power_skill_contributions(character, definition, pack):
 
 
 def project_powers(character, pack, budget_pack, higher=None):
+    parameters = power_parameter_views(pack, character['level'])
     record = character.get('hero_powers')
     if record is not None:
         validate_powers(record, pack)
@@ -246,7 +254,8 @@ def project_powers(character, pack, budget_pack, higher=None):
         receipts.append({**deepcopy(definition), 'acquisition_id':acquisition['id'], 'rolls':deepcopy(acquisition['rolls']),
                          'target':floor_modifier(acquisition,definition)['value'] if 'attribute_floor' in definition else None,
                          **({'effect_summary':additive_power_summary(definition,acquisition['rolls'])} if 'attribute_bonus' in definition else {}),
-                         'active':acquisition['id'] in active})
+                         'active':acquisition['id'] in active,
+                         **({'parameters': deepcopy(parameters[definition['id']])} if parameters[definition['id']] else {})})
     powers = [row for row in receipts if row['active']]
     fatigue = next((deepcopy(row['fatigue_rate']) for row in powers if 'fatigue_rate' in row),
                    {'numerator':1,'denominator':1})
@@ -260,7 +269,7 @@ def project_powers(character, pack, budget_pack, higher=None):
         warnings.append(f'Minor power selections exceed the recorded starting allowance by {used-allowance}. Selections retained.')
     value = character['attributes']['MA']['value']
     trust = pack['mental_affinity_chart'].get(str(min(value,30)))
-    catalog = [{**deepcopy(row), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
+    catalog = [{**deepcopy(row), **({'parameters': deepcopy(parameters[row['id']])} if parameters[row['id']] else {}), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
     if character['level'] > 1:
         for row in [*catalog,*receipts]:
             row['guidance'] = [note.replace('Heroes advancement is not yet implemented; current characters support level 1 only.',

@@ -298,6 +298,8 @@ class CharacterApplication:
 
     def _learning_changes(self, character, changes, pack):
         if character['level'] == 1:
+            if needs_numeric_skill_projection(pack):
+                project_skills({**character, **changes}, pack)
             return changes
         candidate = {**character, **changes}
         choices = validate_combat_choices(candidate.get('combat_choices', {}), pack)
@@ -453,6 +455,7 @@ class CharacterApplication:
             for key in keys:
                 if key not in character.get('learning_levels', {}):
                     changes['learning_levels'][key] = learned_level
+            self._validate_numeric_state({**character, **changes})
         return self.store.update(identifier, changes, revision)
 
     def _character_heroes_pack(self, character, identifier):

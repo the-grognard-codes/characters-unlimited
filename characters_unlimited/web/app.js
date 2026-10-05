@@ -37,6 +37,7 @@ function lockNavigation(busy) {
   setResourcesBusy();
   setAdvancementBusy();
   setEquipmentBusy();
+  setPsionicsBusy();
 }
 function library() {
   $('library').replaceChildren();
@@ -58,6 +59,7 @@ function library() {
 function render(character) {
   const expanded = new Set([...document.querySelectorAll('.attribute[open]')].map(element => element.dataset.attribute));
   current = character;
+  loadPsionics(character).catch(showError);
   characters = [character, ...characters.filter(item => item.id !== character.id)];
   $('welcome').hidden = true; $('builder').hidden = false; $('error').hidden = true;
   $('coverage').hidden = true;

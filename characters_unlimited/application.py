@@ -9,6 +9,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from .saving_bonuses import project_saving_bonuses
+from .ability_paths import update_path, project_path
 from .heroes_powers import project_power_saves
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
@@ -63,6 +64,32 @@ class CharacterApplication:
 
     def coverage(self):
         return SourceInventory.load()
+
+    def psionic_pack(self, character):
+        if character['game'] != 'rifts':
+            raise ValueError('Natural psionics belong to Rifts')
+        identifier = 'rifts-natural-psionics'
+        version = character.get('additional_rule_packs', {}).get(identifier)
+        return self.rule_archive.resolve(identifier, version) if version else self.rule_archive.active(identifier)
+
+    def psionic_view(self, identifier):
+        character = self.get(identifier)
+        if character.get('psionics'):
+            export_bundle(character, self.rule_archive.definitions())
+        return project_path(character, self.psionic_pack(character), character.get('psionics'))
+
+    def select_psionics(self, identifier, *, revision, **choices):
+        require_revision(revision)
+        character = self.get(identifier)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting psionics.')
+        pack = self.psionic_pack(character)
+        export_bundle(character, self.rule_archive.definitions())
+        state = update_path(character, pack, character.get('psionics'), self.die, **choices)
+        changes = {'psionics': state, 'additional_rule_packs': {
+            **character.get('additional_rule_packs', {}), pack['id']: pack['version']}}
+        export_bundle({**character, **changes}, self.rule_archive.definitions())
+        return self.store.update(identifier, changes, revision)
 
     def create(self, name="", race="human", character_class=None, notes="", generation=None, game="rifts", level=1):
         pack = {"rifts": self.pack, "heroes-unlimited": self.heroes_pack}.get(game)
@@ -159,6 +186,8 @@ class CharacterApplication:
         character = self.get(identifier)
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before advancing.')
+        if character.get('psionics'):
+            export_bundle(character, self.rule_archive.definitions())
         if character['game'] == 'heroes-unlimited':
             changes = self._hero_advance_changes(character, method, value)
         else:
@@ -166,6 +195,16 @@ class CharacterApplication:
             choices = validate_combat_choices(character.get('combat_choices', {}), pack)
             levels = remember_learning(character, project_skills(character, pack), choices)
             changes = first_advance(character, pack, method, value, levels, self.die)
+        if character.get('psionics'):
+            candidate = {**character, **changes}
+            changes['psionics'] = update_path(candidate, self.psionic_pack(character), character['psionics'],
+                self.die, enabled=character['psionics']['enabled'])
+            for event in changes.get('later_advancements', []):
+                before = event['before']
+                if before.get('psionics') and any(str(level) not in before['psionics']['gains']
+                        for level in range(2, before['level'] + 1)):
+                    before['psionics'] = {**deepcopy(before['psionics']),
+                                          'gains': deepcopy(changes['psionics']['gains'])}
         export_bundle({**character, **changes}, self.rule_archive.definitions())
         return self.store.update(identifier, changes, revision)
 
@@ -228,6 +267,20 @@ class CharacterApplication:
                         'advancement': {**deepcopy(record), 'active': False}}
         if 'later_advancements' in character:
             restored['later_advancements'] = deepcopy(character['later_advancements'])
+        if character.get('psionics'):
+            cache = deepcopy(character['psionics'])
+            if restored.get('psionics'):
+                prior = deepcopy(restored['psionics'])
+                if prior['pin'] == cache['pin'] and prior['face'] == cache['face']:
+                    prior['gains'] = cache['gains']
+                    prior['abilities']['acquisitions'] = {**prior['abilities']['acquisitions'],
+                                                         **cache['abilities']['acquisitions']}
+                cache = prior
+            else:
+                cache['enabled'] = False
+            restored['psionics'] = cache
+            restored['additional_rule_packs'] = {**restored.get('additional_rule_packs', {}),
+                'rifts-natural-psionics': cache['pin']['version']}
         if character['game'] == 'heroes-unlimited':
             restored['additional_rule_packs'] = {**restored.get('additional_rule_packs',{}),
                 'heroes-advancement':character['additional_rule_packs']['heroes-advancement']}
@@ -544,6 +597,7 @@ class CharacterApplication:
         pack = self.character_skill_pack(character)
         combat = project_combat(character,pack)
         return export_rifts_sheet(character, core, {**project_skills(character, pack),
+            'psionics':self.psionic_view(identifier) if 'psionics' in character else None,
             'resources':project_resources(character,pack),
             'equipment':project_equipment(character,self.character_equipment_pack(character),combat)
                         if 'equipment' in character else None}, combat)

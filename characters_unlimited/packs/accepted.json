@@ -12,7 +12,8 @@
     "heroes-resources": "1.0.0",
     "heroes-advancement": "1.0.0",
     "heroes-higher-advancement": "1.0.0",
-    "heroes-combat-moves": "1.0.0"
+    "heroes-combat-moves": "1.0.0",
+    "rifts-natural-psionics": "1.0.0"
   },
   "definitions": [
     {
@@ -434,6 +435,12 @@
       "version": "1.0.0",
       "filename": "heroes-combat-moves-1.0.0.json",
       "sha256": "813e337b82a2af1f124e8477669fc43fff03d30e76b4415494ab54b3a1be8b66"
+    },
+    {
+      "id": "rifts-natural-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-natural-psionics.json",
+      "sha256": "3a4c8b9b1a2d3749c112f6cde6cfc3af0b0bfa804e69ac0e135e329bb6ac10a3"
     }
   ]
 }

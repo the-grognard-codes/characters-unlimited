@@ -10,7 +10,7 @@ import hashlib
 from .ability_parameters import project_ability_parameters
 from .ability_requirements import compile_ability_requirements, project_ability_requirements
 from .option_selectors import select_options
-from .portability import canonical
+from .json_data import canonical
 from .recorded_formulas import formula_value, MAX_INTEGER
 from .retained_acquisitions import acquire_selected, validate_cached_acquisitions
 from .selection_groups import validate_group, project_group

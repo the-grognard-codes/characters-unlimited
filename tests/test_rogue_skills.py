@@ -23,7 +23,8 @@ class RogueSkillWorkflowTests(unittest.TestCase):
             grant = next(row for row in app.skill_view(hero['id'])['grants'] if row['id']=='seduction')
             self.assertEqual(grant['contributions']['Attribute: M.A. attraction'],4)
             self.assertEqual(grant['contributions']['Attribute: P.B. attraction'],3)
-            self.assertEqual(grant['percentage'],31)
+            self.assertEqual(grant['contributions']['eyeball'],10)
+            self.assertEqual(grant['percentage'],41)
 
     def test_attribute_bonus_overflow_rejects_before_save_or_portable_acceptance(self):
         with tempfile.TemporaryDirectory() as directory:

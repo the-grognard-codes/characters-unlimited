@@ -8,7 +8,7 @@ def synergy_contributions(definition, available):
             if available.intersection(synergy.get('any_of', [synergy.get('skill_id')]))}
 
 
-def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None):
+def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None, exact=False):
     effects = effect_contributions or []
     contributions = dict(contributions)
     for effect in effects:
@@ -17,7 +17,7 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
     if level_steps:
         contributions = {**contributions, 'experience':definition['per_level']*level_steps}
     uncapped = sum(contributions.values())
-    guarded = effects or definition.get('attribute_bonuses') or 'Skill grant training' in contributions
+    guarded = exact or effects or definition.get('attribute_bonuses') or 'Skill grant training' in contributions
     if guarded and abs(uncapped) > MAX_INTEGER:
         raise ValueError('Skill effect total exceeds the exact integer range')
     checks = []

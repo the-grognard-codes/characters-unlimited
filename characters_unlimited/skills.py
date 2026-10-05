@@ -133,6 +133,7 @@ def project_skills(character, pack=PACK):
     roots.extend({'id': item['skill_id'], 'specialty': item.get('specialty', '')} for item in selections
                  if not needs_specialty(next(row for row in domestic if row['id'] == item['skill_id'])) or item.get('specialty'))
     derived = resolve_skill_grants(character, pack, roots)
+    exact_grants = any(row.get('granted_skills') for row in domestic)
     if derived:
         for identifier, training in derived.items():
             definition = next(row for row in domestic if row['id'] == identifier)
@@ -193,7 +194,7 @@ def project_skills(character, pack=PACK):
         elif definition.get('quality_by_pool'):
             quality = 'professional' if repeated else definition['quality_by_pool'].get(item['pool'], 'trained')
         effects = physical_entries.get(definition['id'], {}) if definition.get('kind') == 'physical' else {}
-        selected.append({**definition, **effects, **item, **({'grant_origins': training['origins'], 'learned_level': training['learned_level']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': quality,
+        selected.append({**definition, **effects, **item, **({'grant_origins': training['origins'], 'learned_level': training['learned_level']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=exact_grants), 'quality': quality,
                          'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
@@ -215,8 +216,10 @@ def project_skills(character, pack=PACK):
             contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
         if character['level'] > 1:
             contributions['advancement'] = gain
+        if exact_grants:
+            contributions.update(synergy_contributions(definition, available))
         contributions.update(attribute_contributions(definition, character['attributes']))
-        fixed_grants.append({**definition, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality':'professional'})
+        fixed_grants.append({**definition, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=exact_grants), 'quality':'professional'})
     derived_grants = []
     for identifier, training in derived.items():
         if identifier in granted or any(grant['id'] == identifier for grant in domestic_grants):
@@ -233,7 +236,7 @@ def project_skills(character, pack=PACK):
                                          for origin in training['origins']))
         derived_grants.append({**definition, 'description': definition.get('description', '') + f' Automatically granted by {parents}.',
             'grant_origins': training['origins'], 'learned_level': training['learned_level'],
-            **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(identifier, skill_effects)), 'quality': 'trained'})
+            **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(identifier, skill_effects), exact=exact_grants), 'quality': 'trained'})
     gaps = ['Other required choices and skill categories are pending.',
             'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']
     if not intelligence_rule:

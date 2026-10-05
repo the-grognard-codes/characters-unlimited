@@ -97,5 +97,5 @@ def project_required_skills(character, pack, intelligence, *, skill_grants=None)
             contributions['class_ability'] = definition['class_ability']
         contributions.update(synergy_contributions(definition, available))
         contributions.update(attribute_contributions(definition, character['attributes']))
-        grants.append({**definition, 'specialty': specialty, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality': 'trained'})
+        grants.append({**definition, 'specialty': specialty, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=any(row.get('granted_skills') for row in pack['skills'])), 'quality': 'trained'})
     return {'grants': grants, 'remaining': remaining, 'warnings': warnings, 'catalog': rules}

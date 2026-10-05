@@ -146,6 +146,20 @@ class SkillDerivedGrantWorkflowTests(unittest.TestCase):
             self.assertEqual(next(row for row in view['selected'] if row['id']=='basic-mechanics')['percentage'],70)
             self.assertEqual(sum(row['id']=='basic-mechanics' for row in view['grants']),1)
 
+    def test_fixed_class_grant_receives_vehicle_armorer_synergy_once(self):
+        pack = owned_pack()
+        pack['class_profiles']['vagabond']['fixed_domestic_grants']=[{'id':'automotive-mechanics','bonus':5}]
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory,die=lambda sides:4,rule_archive=archive_with(pack))
+            hero = app.create()
+            hero = app.select_skills(hero['id'],revision=0,selections=selections('vehicle-armorer','vehicle-armorer'))
+            grant = next(row for row in app.skill_view(hero['id'])['grants'] if row['id']=='automotive-mechanics')
+            self.assertEqual(grant['percentage'],40)
+            self.assertEqual(grant['contributions']['vehicle_armorer'],10)
+            hero = app.select_skills(hero['id'],revision=hero['revision'],selections=[])
+            self.assertEqual(next(row for row in app.skill_view(hero['id'])['grants'] if row['id']=='automotive-mechanics')['percentage'],30)
+            app.export_character(hero['id'])
+
     def test_training_overflow_is_atomic_at_selection_and_portable_boundaries(self):
         pack = owned_pack()
         parent = next(row for row in pack['skills'] if row['id']=='vehicle-armorer')
@@ -168,6 +182,21 @@ class SkillDerivedGrantWorkflowTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'exact integer range'):
                 app.import_character(bundle)
             self.assertEqual(app.list(),[before])
+
+    def test_parent_and_additional_check_totals_reject_overflow_atomically(self):
+        for additional in (False,True):
+            with self.subTest(additional=additional), tempfile.TemporaryDirectory() as directory:
+                pack = owned_pack()
+                parent = next(row for row in pack['skills'] if row['id']=='vehicle-armorer')
+                if additional:
+                    parent['additional_checks']=[{'name':'Synthetic ordinary check','base':MAX_INTEGER-8}]
+                else:
+                    parent['base']=MAX_INTEGER-8
+                app = CharacterApplication(directory,die=lambda sides:4,rule_archive=archive_with(pack))
+                hero = app.create(level=3)
+                with self.assertRaisesRegex(ValueError,'exact integer range'):
+                    app.select_skills(hero['id'],revision=0,learned_level=1,selections=selections('vehicle-armorer'))
+                self.assertEqual(app.get(hero['id']),hero)
 
     def test_old_exact_pin_and_explicit_upgrade_preserve_selected_skills(self):
         archive = RuleArchive.load()

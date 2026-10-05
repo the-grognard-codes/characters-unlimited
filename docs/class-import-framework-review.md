@@ -43,3 +43,5 @@ Owned mapping fields can now explicitly reference one source-bound catalog and s
 ## Common ability follow-through (22F1/22F2)
 
 Ability parameters and current-state requirement guidance now use shared source-bound projectors. Heroes powers consume them without ability/class identity dispatch; synthetic spell/psychic catalogs exercise the same requirement boundary. Exact pins, all unselected dependency preflight, effective attributes, distinct option counts and honor-system retention are covered. These seams do not yet provide a generic ability acquisition/effect lifecycle: the current mutant adapter still acquires its established attribute/resource formula families. Initial-only timing, conditional activation, complete class imports and source-grounded magic/psionic adapters remain open.
+
+22F3 shares ordinary first acquisition, whole-catalog formula preflight and inactive/reselection cache replay between Physical skills and mutant powers. Existing source/UUID/history/effect adapters remain authoritative. This closes duplicate retained-dice lifecycle logic; generic ability effect activation, learned-level timing and complete importer certification remain open.

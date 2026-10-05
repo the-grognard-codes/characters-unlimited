@@ -5,7 +5,8 @@ import json
 
 from .attribute_modifiers import attribute_value
 from .grants import resolve_grants
-from .recorded_formulas import validate_formula, formula_value, roll_formula
+from .recorded_formulas import validate_formula, formula_value
+from .retained_acquisitions import validate_cached_acquisitions, acquire_selected
 
 
 # Activity decimals travel through JSON and browser numbers. Larger manual
@@ -59,24 +60,14 @@ def _roll_key(group, name):
     return ('attribute' if group == 'attributes' else 'resource') + ':' + name
 
 
+def _acquisition_catalog(definitions):
+    return {identifier: {_roll_key(group, name): _formula(formula)
+                        for group, name, formula in _effects(definition)}
+            for identifier, definition in definitions.items()}
+
+
 def _validate_acquisitions(acquisitions, definitions):
-    if not isinstance(acquisitions, dict) or set(acquisitions) - definitions.keys():
-        raise ValueError('Unknown Physical skill acquisition')
-    for identifier, acquisition in acquisitions.items():
-        if not isinstance(acquisition, dict) or set(acquisition) != {'rolls'} or not isinstance(acquisition['rolls'], dict):
-            raise ValueError('Invalid Physical skill acquisition')
-        expected = {}
-        for group, name, formula in _effects(definitions[identifier]):
-            numeric = _formula(formula)
-            if numeric['count']:
-                expected[_roll_key(group, name)] = numeric
-            else:
-                formula_value(numeric, [])
-        rolls = acquisition['rolls']
-        if set(rolls) != expected.keys():
-            raise ValueError('Physical skill rolls do not match pinned rules')
-        for key, numeric in expected.items():
-            formula_value(numeric, rolls[key])
+    validate_cached_acquisitions(_acquisition_catalog(definitions), acquisitions, record_constants=False)
 
 
 def _effect_value(formula, acquisition, group, name):
@@ -106,18 +97,8 @@ def acquire_physical(character, selections, pack, die):
     """Acquire missing rolls and synchronize active Physical attribute bonuses."""
     definitions = _definitions(pack)
     active = _active_ids(selections, definitions, _grant_ids(pack, definitions))
-    acquisitions = deepcopy(character.get('physical_acquisitions', {}))
-    _validate_acquisitions(acquisitions, definitions)
-    for identifier in active:
-        if identifier in acquisitions:
-            continue
-        rolls = {}
-        for group, name, formula in _effects(definitions[identifier]):
-            numeric = _formula(formula)
-            faces = roll_formula(numeric, die)
-            if numeric['count']:
-                rolls[_roll_key(group, name)] = faces
-        acquisitions[identifier] = {'rolls': rolls}
+    acquisitions = acquire_selected(_acquisition_catalog(definitions),
+        character.get('physical_acquisitions', {}), active, die, record_constants=False)
     expected = _expected_modifiers(active, acquisitions, definitions)
     attributes = deepcopy(character['attributes'])
     for name, record in attributes.items():

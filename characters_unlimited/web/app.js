@@ -99,7 +99,7 @@ function render(character) {
     const heading = document.createElement('summary'); heading.textContent = name;
     const value = document.createElement('strong'); value.textContent = attribute.value; heading.append(value);
     const explanation = document.createElement('p');
-    explanation.textContent = `Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
+    explanation.textContent = `Formula: ${attribute.explanation.formula}. Dice: ${attribute.rolls.join(' + ')}${attribute.discarded?.length ? '; dropped: ' + attribute.discarded.join(' + ') : ''}${attribute.bonus_rolls.length ? '; exceptional: ' + attribute.bonus_rolls.join(' + ') : ''}. Base: ${attribute.base}. ${attribute.explanation.source.book} — ${attribute.explanation.source.section}`;
     for (const modifier of attribute.modifiers || []) {
       const {label, amount} = attributeModifierDisplay(modifier, 'O.C.C. bonus');
       explanation.textContent += ` · ${label}: ${amount}${modifier.rolls.length ? ' (dice: ' + modifier.rolls.join(' + ') + ')' : ''} · ${modifierSourceCitation(modifier.source)}`;
@@ -607,6 +607,17 @@ function updateNewIdentity() {
   const characterClass = pack.classes.find(entry => entry.id === $('new-character-class').value);
   $('new-identity').textContent = `${pack.name || 'Rifts Ultimate Edition'} · ${race?.name || ''} · ${characterClass?.name || ''}. Initial attributes follow the selected game rules.`;
 }
+function updateNewRaceClasses(preserveSelection = true) {
+  const pack = gamePacks.find(entry => entry.game === $('new-game').value);
+  const profile = pack.creation_profiles?.find(entry => entry.race === $('new-race').value);
+  const entries = profile ? profile.classes.map(id => pack.classes.find(entry => entry.id === id)) : pack.classes;
+  const previous = preserveSelection ? $('new-character-class').value : null;
+  $('new-character-class').replaceChildren(...entries.map(entry => {
+    const option = document.createElement('option'); option.value = entry.id; option.textContent = entry.name; return option;
+  }));
+  if (entries.some(entry => entry.id === previous)) $('new-character-class').value = previous;
+  updateNewIdentity();
+}
 function updateNewGame() {
   const pack = gamePacks.find(entry => entry.game === $('new-game').value);
   const heroes = pack.game === 'heroes-unlimited';
@@ -624,10 +635,11 @@ function updateNewGame() {
   }));
   $('new-level').disabled = false;
   if (heroes) $('new-level').value = '1';
-  updateNewIdentity();
+  updateNewRaceClasses(false);
 }
 $('new-game').onchange = updateNewGame;
-['new-race','new-character-class'].forEach(id => $(id).onchange = updateNewIdentity);
+$('new-race').onchange = () => updateNewRaceClasses();
+$('new-character-class').onchange = updateNewIdentity;
 wireResourcesEvents();
 wireAdvancementEvents();
 wireEquipmentEvents();

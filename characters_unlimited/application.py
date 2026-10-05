@@ -12,6 +12,7 @@ from .saving_bonuses import project_saving_bonuses
 from .heroes_powers import project_power_saves
 from .storage import CharacterStore, SaveConflict
 from .coverage import SourceInventory
+from .creation_profiles import creation_classes, creation_pair
 from .generation import generation_settings, roll_attribute, racial_formulas, racial_sources
 from .skill_effects import pack_skill_effects
 from .heroes_powers import power_skill_effects
@@ -55,6 +56,8 @@ class CharacterApplication:
         self.store = CharacterStore(directory)
 
     def catalog(self):
+        for pack in (self.pack, self.heroes_pack):
+            creation_classes(pack)
         return {"games": [{"id": "rifts", "name": "Rifts Ultimate Edition"}, {"id": "heroes-unlimited", "name": self.heroes_pack["name"]}], "packs": [deepcopy(self.pack), deepcopy(self.heroes_pack)],
                 "heroes_starting_max_level":(self._hero_higher_pack({},available=True) or self.rule_archive.active('heroes-advancement'))['max_level']}
 
@@ -65,12 +68,8 @@ class CharacterApplication:
         pack = {"rifts": self.pack, "heroes-unlimited": self.heroes_pack}.get(game)
         if pack is None:
             raise ValueError("Select an available game")
-        if character_class is None:
-            character_class = pack["classes"][0]["id"]
-        racial_rules = next((item for item in pack["races"] if item["id"] == race), None)
-        selected_class = next((item for item in pack["classes"] if item["id"] == character_class), None)
-        if racial_rules is None or selected_class is None:
-            raise ValueError("Select an available race and class from the selected game")
+        racial_rules, selected_class = creation_pair(pack, race, character_class)
+        character_class = selected_class['id']
         skill_pack = class_rules(self.skill_pack, {'character_class':character_class}) if game == 'rifts' else None
         if skill_pack:
             pack_skill_effects(skill_pack)

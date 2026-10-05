@@ -1,6 +1,6 @@
 # 22I2: Source-backed Rifts natural psionics
 
-**Status:** in-progress; implementation and both reviews pass, exact-head Windows/frozen gates pending. **Parent:**22I. **Depends on:**22I1 merged and exact-head Windows/frozen validation complete. Use a new `codex/` branch after that merge.
+**Status:** done. **Parent:**22I. **Depends on:**22I1 merged and exact-head Windows/frozen validation complete. Use a new `codex/` branch after that merge.
 
 Integrate ordinary natural psionics through the neutral boundary in a coherent source/content/UI batch. Ultimate Edition Step4 (Markdown16308–16324) supports skipping, percentile major1–10/minor11–25/none26–100, major8 powers in one category or6 across2–3, minor2 in one category. The checklist at7224–7354 lists15 Healing,21 Physical and24 Sensitive entries (56 unique powers after shared entries). Source-review full descriptions in7416–8290; use concise descriptions for conditional effects, range, duration and costs. No encounter simulator or detailed activity/maneuver automation. Do not silently certify Super Psionics as natural choices.
 
@@ -11,3 +11,5 @@ Reuse neutral retained selection state and source-bound allowance primitives. Ke
 Retain percentile outcome and optional skip, starting ISP effectiveM.E.+2D6 minor or+4D6 major, then D6 minor/D6+1 major for each later attained level. Use existing resource snapshot/gain helpers, validate snapshots through the existing attribute-source/history validation seam, preserve rolls on reselection/advancement undo and portable save/import. Psychic saving target12 for major/minor,15 for ordinary nonpsychic; targets are distinct from M.E./class saving bonuses (source20931–20937). Resolve ordinary timing/ordering with agent judgment.
 
 Wire builder selections/counts/descriptions, resource projection and editable sheet notes using shared projections. Representative expected-percent/resource/save checks, browser and PDF proof, Standards/Spec reviews and exact-head Windows/frozen gates required. Do not count synthetic22I1 fixtures as source acceptance. Parent22I remains open until integrated behavior passes; other magic, HU category/powers, supplied class/race batches and robot/bionic construction remain required.
+
+PR112 merged as8a30948f3b807b7656ca7c6c07b3b77a82e40461; head a5b9255a8dbc0f35e15058c2c00315b9d35ac662. Both exact-head Windows runs37354701718/37354708432 pass full474 tests (one frozen-only skip, exercised separately) and frozen executable checks. Both independent reviews approve. User requested stopping after this slice; hourly continuation is PAUSED, and no next implementation has started.

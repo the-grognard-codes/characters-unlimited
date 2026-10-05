@@ -1,6 +1,6 @@
 # 22I: Common ability paths
 
-**Status:** in-progress. **Base:** e0faf49ff33aa9810925677a9cf84e2201a8eea7 (PR110). **Branch:** codex/common-ability-paths. Child22I1 establishes the neutral selection state/contract; source-backed natural psionics and application integration remain required before this parent closes.
+**Status:** done. **Base:** e0faf49ff33aa9810925677a9cf84e2201a8eea7 (PR110). **Branch:** codex/common-ability-paths. Child22I1 establishes the neutral selection state/contract; source-backed natural psionics and application integration are completed by22I2.
 
 22I1 merged PR111 (`d2c5c196f77846201cfaf015600a28d3d75c2499`), full468 Windows/frozen gates pass. Continue child22I2 on `codex/rifts-natural-psionics`; the parent remains open.
 
@@ -9,3 +9,6 @@ Build a neutral, game-separated ability selection adapter using existing selecti
 Expose selection/remaining counts and descriptions in the builder and editable sheet. Source-review actual ability definitions and independent expected results before activation; synthetic generic spell/mutant fixtures can prove the neutral boundary but do not certify those game catalogs. Do not invent a Dragon/ordinary O.C.C. pairing from22H numeric fixtures. Keep class/race composition declarative, and identify any remaining ordinary-human combat/HP assumptions that incorrectly gate otherwise complete core imports under player-focused-scope.md.
 
 Required next work still includes complete source options, Heroes category composition, source-grounded magic, nonhuman/RCC traits and compatible saved-identity revision, robot/bionic design, maintainer conversion/activation reporting and final release acceptance. Do not expand optional maneuvers, activity rates, general insanity, Mega Heroes or base/super-vehicle design.
+
+PR112 merged as8a30948f3b807b7656ca7c6c07b3b77a82e40461; head a5b9255a8dbc0f35e15058c2c00315b9d35ac662. Both exact-head Windows runs37354701718/37354708432 pass full474 tests (one frozen-only skip, exercised separately) and frozen executable checks. Both independent reviews approve. User requested stopping after this slice; hourly continuation is PAUSED, and no next implementation has started.
+Broader game families and corpus requirements remain open in their own tickets.

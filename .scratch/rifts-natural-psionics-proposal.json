@@ -1,0 +1,2860 @@
+{
+  "id": "rifts-natural-psionics",
+  "version": "1.0.0",
+  "name": "Natural psionics",
+  "game": "rifts",
+  "source": {
+    "book": "Rifts Ultimate Edition",
+    "section": "Step4: Determine Psionics; Psionic Saving Throws"
+  },
+  "format": "ability-paths-v1",
+  "categories": [
+    "Healing",
+    "Physical",
+    "Sensitive"
+  ],
+  "skip_path": "none",
+  "catalog": {
+    "id": "rifts-ordinary-psionic-powers",
+    "version": "1.0.0",
+    "game": "rifts",
+    "format": "abilities-v1",
+    "options": [
+      {
+        "id": "bio-regenerate-self",
+        "name": "Bio-Regenerate (self)",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Bio-Regeneration"
+        },
+        "description": "The ability to will oneself free of disease or poison and back to health, and heal physical damage and injury. Unfortunately, this ability cannot be used to heal others. The process requires one full minute of concentration, which means the character cannot use any other psionic power during that time. Bio-Regeneration does not restore missing limbs, but it does restore 2D6 Hit Points or 3D6 physical S.D.C. points per melee round. In addition, when cuts and scrapes are healed through Bio-Regeneration there is no scarring. This power can be used as often as once every two minutes (every eight melee rounds). Note: Recovering more than half of one's Hit Points or S.D.C. this way in less than an hour takes a toll on the character, causing some weakness for 1D4+2 hours: reduce the P.S., P.E. and Spd attributes by 30%. Adjust attribute bonuses accordingly.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Permanent.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            }
+          }
+        ]
+      },
+      {
+        "id": "deaden-pain",
+        "name": "Deaden Pain",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Deaden Pain"
+        },
+        "description": "The ability to deaden pain can be used as a painkiller which temporarily negates existing pain or as an anesthetic to be used for surgery.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Immediate proximity, touch or within 3 feet (0.9 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One hour per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "Two minutes (8 melee rounds).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            }
+          }
+        ]
+      },
+      {
+        "id": "detect-psionics",
+        "name": "Detect Psionics",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Detect Psionics"
+        },
+        "description": "This is a mental probe that will indicate the presence of psionic energy within the immediate area. The probe cannot be used to pinpoint the exact location of psychic energy, nor the level of power other than a vague sense of weak, medium, or powerful.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self. Sensing range is 30 feet (9 m) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Detect Psionics"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One minute per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Detect Psionics"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Detect Psionics"
+            }
+          }
+        ]
+      },
+      {
+        "id": "exorcism",
+        "name": "Exorcism",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Exorcism"
+        },
+        "description": "TLnr s in a or in or a tg to expel the loathsome being from its mortal, host body. A completely successful exorcism will free the victim of the supernatural force that controls him and send it back to its own non-earthly realm. A partially successful exorcism will drive the evil force out of the possessed person or animal, but does not send the damnable thing back to its own dimension. Thus, it can try to possess the psychic healer or flee to wander the Earth in search of a new victim. An exorcism can only be used on living people and animals whose bodies are inhabited by a supernatural entity or other type of invasive spirit, not symbiotes or psychic possession.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Immediate area, touch or within 8 feet (2.4 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Exorcism"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Instant, if successful.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Exorcism"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "30 minutes of preparation and 6D6 minutes with the possessed person or animal. Note: Can only exorcize the living.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Exorcism"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "L.S.P.",
+            "text": "10",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Exorcism"
+            }
+          }
+        ]
+      },
+      {
+        "id": "healing-touch",
+        "name": "Healing Touch",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Healing Touch"
+        },
+        "description": "The Healing Touch is a remarkable healing ability that can instantly heal cuts, burns, bruises and similar physical wounds. The touch restores 2D4 Hit Points or 2D6 S.D.C. The Healing Touch can only be used on other living creatures, never on the psychic himself.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Healing Touch"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Instant, with lasting effects.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Healing Touch"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "Two minutes (8 melee rounds).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Healing Touch"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Healing Touch"
+            }
+          }
+        ]
+      },
+      {
+        "id": "increased-healing",
+        "name": "Increased Healing",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Increased Healing"
+        },
+        "description": "The healer is able to stimulate another person's healing energies, dramatically increasing one's recuperative powers. Hit Points and S.D.C. recovery are double the normal professional treatment rate. That's recovery of 4 Hit Points a day for the first two days and 8 H.P. for each subsequent day until restored to full strength or the psionic energy fadea, whichever comes first. S.D.C. is healed at a whopping 12 points per day from the very beginning.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch or within 3 feet (0.9 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Increased Healing"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2D4 days.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Increased Healing"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "1D6 hours. Length of Trance: 1D6 hours.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Increased Healing"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "10 L.S.P.: 10",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Increased Healing"
+            }
+          }
+        ]
+      },
+      {
+        "id": "induce-sleep",
+        "name": "Induce Sleep",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Induce Sleep"
+        },
+        "description": "This is not an offensive ability, but is intended to be a recuperative power to induce sleep on those who are ill, exhausted, or an insomniac. The person will fall into a normal, restful sleep from which he can be easily roused. Unwilling victims of the Induce Sleep psi-power get a +5 bonus to save. A character must want rest (can not be involved in combat or some other activity and be forced to fall asleep).",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch or within 6 feet (1.8 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Induce Sleep"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One hour per level of experience (or until awakened).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Induce Sleep"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "Two minute preparatory meditation.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Induce Sleep"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Induce Sleep"
+            }
+          },
+          {
+            "id": "metadata-4",
+            "name": "Saving Throw",
+            "text": "Standard; unwilling victims are +5 to save vs psychic attack.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Induce Sleep"
+            }
+          }
+        ]
+      },
+      {
+        "id": "meditation",
+        "name": "Meditation",
+        "category": "Healing",
+        "tags": [
+          "Healing",
+          "Physical",
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Meditation"
+        },
+        "description": "Meditation is a trance state of consciousness in which the individual can calm his emotions and focus on relaxation of mind and body. In a meditative state, the psychic finds peace and harmony between mind, body and spirit, and it is in this state of being that he can regenerate his Inner Strength (I.S.P.). Recovers Base I.S.P. at a rate as indicated under each psychic O.C.C., otherwise six I.S.P. per hour of meditation.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "As needed; at least one hour of meditation is required.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "None, zero.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            }
+          }
+        ]
+      },
+      {
+        "id": "psychic-diagnosis",
+        "name": "Psychic Diagnosis",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Psychic Diagnosis"
+        },
+        "description": "The psychic healer can sense physical pain and damage, external and internal injury, disease and possession with absolute clarity. This pinpoint accuracy enables the character to suggest treatment or to conduct psychic surgery.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch or within 3 feet (0.9 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Diagnosis"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Immediate knowledge.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Diagnosis"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "2D4 melees of meditation/focus.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Diagnosis"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Diagnosis"
+            }
+          },
+          {
+            "id": "metadata-4",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Diagnosis"
+            }
+          }
+        ]
+      },
+      {
+        "id": "psychic-purification",
+        "name": "Psychic Purification",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Psychic Purification"
+        },
+        "description": "The healer can use his abilities to slow a person's metabolism and destroy chemicals, drugs, poisons, and toxins in the body. The effects of the drugs/impurities are immediately halted at the beginning of the meditation, and completely destroyed/negated by its end. Damage sustained prior to the psychic's intervention still remains.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Purification"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Immediate.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Purification"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "6D6 minutes of meditation.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Purification"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "8",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Purification"
+            }
+          },
+          {
+            "id": "metadata-4",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Purification"
+            }
+          }
+        ]
+      },
+      {
+        "id": "psychic-surgery",
+        "name": "Psychic Surgery",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Psychic Surgery"
+        },
+        "description": "Psychic Surgery is used to repair broken bones, and internal injuries, and for the removal of foreign objects (bullets, arrows, etc.) using only one's bare hands; no tools or instruments. Can also be used to heal a character who has suffered so much damage that he or she has lapsed into a coma (zero Hit Points or less). Psychic Surgery is the equivalent of \"professional hospital\" treatment. The recovery from a coma (near death) is equal to treatment from a hospital, 1-66%. Note that there is minimal bleeding and pain, and absolutely no scarring from Psychic Surgery (no pain if the Deaden Pain ability is used). Note: A Psychic Diagnosis must be made before surgery is possible.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Surgery"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Varies with injury.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Surgery"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "2D6 minutes of preparatory meditation, plus the duration of the surgery (which is half the time of conventional modern medicine).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Surgery"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "14",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Psychic Surgery"
+            }
+          }
+        ]
+      },
+      {
+        "id": "resist-fatigue",
+        "name": "Resist Fatigue",
+        "category": "Healing",
+        "tags": [
+          "Healing",
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Fatigue"
+        },
+        "description": "A mind over matter discipline which enables the character to engage in physical activity without suffering from exhaustion. However, fatigue is only temporarily suspended, so the psychic feels extremely tired and may even collapse when the duration of this power elapses.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One hour plus 20 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "1D6 melees of preparatory meditation.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          }
+        ]
+      },
+      {
+        "id": "restore-p-p-e",
+        "name": "Restore P.P.E",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Restore P.P.E"
+        },
+        "description": "This power allows the psychic to convert some of his I.S.P. into P.P.E. energy and transfer that energy to another person. Two I.S.P.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Restore P.P.E"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Permanent.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Restore P.P.E"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4 plus the amount of P.P.E. transferred.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Restore P.P.E"
+            }
+          }
+        ]
+      },
+      {
+        "id": "stop-bleeding",
+        "name": "Stop Bleeding",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Stop Bleeding"
+        },
+        "description": "Another type of bio-feedback, mind over matter power, in which the psychic stops bleeding from wounds and internal injury using the power of his mind. This means stopping additional damage from blood loss and being able to function relatively unimpaired. As impressive and potentially lifesaving as this ability may be, it is only a stopgap measure. The injury is NOT being healed and the character still needs medical attention or he will, eventually, die from his injuries. If rendered unconscious, the bleeding and blood loss damage immediately begins. Note: Stops the bleeding from all sources, however, additional/ new Hit Point damage suffered after the Stop Bleeding requires additional concentration and another two I.S.P. to stop the bleeding from the new wound(s).",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self or other by touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Stop Bleeding"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Indefinitely, as long as the healer keeps his hand on or near the injury and concentrates on stopping the bleeding. Four minutes per experience level of the psi-healer if the character uses this temporary tourniquet and leaves his patient to do other things.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Stop Bleeding"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2 for self, 4 for others.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Stop Bleeding"
+            }
+          }
+        ]
+      },
+      {
+        "id": "suppress-fear",
+        "name": "Suppress Fear",
+        "category": "Healing",
+        "tags": [
+          "Healing"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Suppress Fear"
+        },
+        "description": "This power temporarily suppresses the chemical and psychological components of fear in the recipient. As a result, the character is unable to feel fear or is barely frightened even if intellectually he realizes he is in grave danger, or is facing a terrifying monster or situation. This enables the character to think rationally and take calm, calculated action, rather than respond with the typical \"fight or flight\" reactions of those who are scared. While this power is activated, the character automatically succeeds on any roll to resist Horror Factor, even if magically induced. This power can be used on the psychic himself or on one or two others.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self or others by touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Suppress Fear"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One minute per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Suppress Fear"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "8",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Suppress Fear"
+            }
+          }
+        ]
+      },
+      {
+        "id": "alter-aura",
+        "name": "Alter Aura",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Alter Aura"
+        },
+        "description": "Temporarily disguise the information revealed by your aura, such as alignment, psychic potential and magical energy.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One hour per each level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            }
+          }
+        ]
+      },
+      {
+        "id": "deaden-senses",
+        "name": "Deaden Senses",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Deaden Senses"
+        },
+        "description": "A form of bio-manipulation that is so subtle that its victims seldom realize they have fallen under the influence of this psionic attack. The psychic is able to induce a physical influence on a single character to make him or her momentarily less alert and attentive to the things around him. Small sounds, odors, movements, and details go unnoticed (+10% to the psychic on the following skills when used against this befuddled character: Camouflage, Prowl, Concealment, Palming, Pick Pockets, Cardsharp, Forgery, Seduction, Disguise and Impersonation). And the deadened character is also slow to react; reduce Spd by 10%, -I on initiative, and -5% on skill performance. This power is typically used on guards, sentries, and investigators to make them miss something in a search, not notice the psychic, etc.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "160 feet (48.8 m); line of sight.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2D6 minutes; roll for random determination of duration.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "-1 to save.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            }
+          }
+        ]
+      },
+      {
+        "id": "death-trance",
+        "name": "Death Trance",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Death Trance"
+        },
+        "description": "A state of mind over matter that slows the metabolism to such a degree that it creates a temporary state of suspended animation, simulating death. Without hospital facilities, even a medical doctor is likely to believe the character is dead (1-89% likelihood). The effects of drugs, toxins and chemicals are slowed to a crawl, doing minimal damage or effect, but will take full effect the instant the death trance is stopped (unless treatment is administered first). While in the death-like state, the psychic can not be roused or respond to any type of stimulation, including psychic probes. This means he is incapable of attacking or defending himself in any way until the trance is broken.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Death Trance"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "As long as the psychic senses he must feign death, up to a maximum of four days.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Death Trance"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "1, because physical psychics find it easy to control their bodies.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Death Trance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ectoplasm",
+        "name": "Ectoplasm",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Ectoplasm"
+        },
+        "description": "This mystifying ability enables the psychic to create a slightly luminous, vapor-like substance that is exuded from the pores. Ectoplasm has two forms: an invisible vapor and a luminous, solid state.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "40 feet +5 feet (12.2 +1.5 m) per level of experience. Duration: 4 minutes (16 melees) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Ectoplasm"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "I.S.P. (Vapor)",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Ectoplasm"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P. (Solid)",
+            "text": "12",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Ectoplasm"
+            }
+          }
+        ]
+      },
+      {
+        "id": "ectoplasmic-disguise",
+        "name": "Ectoplasmic Disguise",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Ectoplasmic Disguise"
+        },
+        "description": "This is an enhanced control over ectoplasm that gives the psychic the ability to cover and disguise his physical features. Ectoplasm is created as normal, with the mysterious pseudo-substance rising from the pores of the skin. Instead of forming wispy tentacles, the ectoplasm covers the face. As it solidifies, it becomes a sort of putty-like material that can be mentally shaped and molded by the psychic. Once the desired shapes and features are achieved, the psychic can make the ectoplasm look like real flesh. The best way to create an Ectoplasmic Disguise is for the psychic to look at a photograph or a frozen video image and concentrate on that image while the ectoplasm automatically molds into that shape/image, including skin color. Not only can the psychic create a mask to hide his facial features, but he can also change the shape and bulk of his body with ectoplasm, adding a pot belly, muscles, a tail or extra eye, etc.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Ectoplasmic Disguise"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "10 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Ectoplasmic Disguise"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "12",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Ectoplasmic Disguise"
+            }
+          }
+        ]
+      },
+      {
+        "id": "impervious-to-cold",
+        "name": "Impervious to Cold",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Impervious to Cold"
+        },
+        "description": "A mind over matter discipline which enables the character to suffer absolutely no ill effects or discomfort from exposure to even extreme sub-zero freezing conditions.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Cold"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "20 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Cold"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "1D4 melees for preparatory meditation.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Cold"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Cold"
+            }
+          }
+        ]
+      },
+      {
+        "id": "impervious-to-fire",
+        "name": "Impervious to Fire",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Impervious to Fire"
+        },
+        "description": "Another mind over matter discipline enabling the psychic to endure intense heat, fire, boiling water, hot coals, and so on, without suffering pain, damage, injury or scarring. Magic fires inflict half damiage.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Fire"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "3 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Fire"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "2D4 melees for preparatory meditation.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Fire"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Fire"
+            }
+          }
+        ]
+      },
+      {
+        "id": "impervious-to-poison",
+        "name": "Impervious to Poison",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Impervious to Poison/Toxin"
+        },
+        "description": "The character can negate the full effects of poisons and toxic chemicals which he has ingested (eaten or drank) or introduced into the bloodstream, as long as he has advance knowledge of its deadly properties. A poison, toxin, or drug which has been unknowingly inflicted (and starting to take effect) can be negated too, but will do half damage or effect before it can be completely negated. Bonuses: Identify poisons: 30% +4% per level of experience; +2 to save vs poisons and drugs whenever this power is in place.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Poison/Toxin"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes (8 melees).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Poison/Toxin"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Impervious to Poison/Toxin"
+            }
+          }
+        ]
+      },
+      {
+        "id": "levitation",
+        "name": "Levitation",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Levitation"
+        },
+        "description": "Levitation is a limited form of Telekinesis that can raise an object or a person straight up into the air and suspend it there, hovering in the air. Sideways movement is NOT possible.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Up to 60 feet (18.3 m) away.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "Small: 2, medium: 6, large: 6 plus 1 per every 10 lbs (4.5 kg) over 20 lbs (9 kg).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mind-block",
+        "name": "Mind Block",
+        "category": "Physical",
+        "tags": [
+          "Physical",
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mind Block"
+        },
+        "description": "This is the ability to completely close or block oneself from all psychic/mental emanations. When intentionally closed to supernatural or psychic forces the character can not sense anything, can not use psychic abilities, nor be influenced by others. A Mind Block will prevent penetration of Telepathy, Empathy, Hypnotic Suggestion, Day Dream and Empathic Transmission. It can be an invaluable protective mask when dealing with malevolent psychic forces. Adds a bonus of +1 to save vs all psychic and mental attacks. Note: Mind Block only blocks psionic attacks that affect the psychic's mind or emotional state (i.e. Telepathy, Empathy, Hypnotic Suggestion, etc.). It offers not protection from magic.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "10 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4 (per each duration period).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            }
+          }
+        ]
+      },
+      {
+        "id": "nightvision",
+        "name": "Nightvision",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Nightvision"
+        },
+        "description": "The psionic can adjust his visual capabilities through a form of biomanipulation. The eyes are made to become much more light sensitive and basically work on the same principles of mechanical light amplification. The eyes simply amplify existing light, such as candlelight or star and moonlight, to see clearly. There must be some source of light to see (can not see in total darkness).",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self, visual range about 600 feet (183 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Nightvision"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "10 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Nightvision"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Nightvision"
+            }
+          }
+        ]
+      },
+      {
+        "id": "resist-hunger",
+        "name": "Resist Hunger",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Hunger"
+        },
+        "description": "Another mind over matter discipline that subdues any feeling of hunger, allowing the character to function at full effectiveness without nourishment. It is important to point out that while the psi-power maint uy un uins i su nd starvation. Loses 3 lbs (1.35 kg) of weight per day. Note: A psychic can survive up to 60 days, functioning as normal, without any food by continually using Resist Hunger. On day 61 the character will lapse into a coma. Under this extreme condition, 60 days of food deprivation while still fully active physically, the character is -20% to save vs coma death.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Hunger"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "6 hours.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Hunger"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Hunger"
+            }
+          }
+        ]
+      },
+      {
+        "id": "resist-thirst",
+        "name": "Resist Thirst",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Thirst"
+        },
+        "description": "This ability is identical to the Resist Hunger psi-power except it applies to the consumption of water. It does not negate the long-range damage from dehydration.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Thirst"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "6 hours.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Thirst"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Thirst"
+            }
+          }
+        ]
+      },
+      {
+        "id": "summon-inner-strength",
+        "name": "Summon Inner Strength",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Summon Inner Strength"
+        },
+        "description": "Draw on inner reserves to ward off pain and fatigue. While active, gain10 S.D.C., +2 against poison/toxins and +5% against coma/death.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Summon Inner Strength"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "10 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Summon Inner Strength"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4 (per each duration period).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Summon Inner Strength"
+            }
+          }
+        ]
+      },
+      {
+        "id": "telekinesis",
+        "name": "Telekinesis",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telekinesis"
+        },
+        "description": "Telekinesis is the ability to move objects without any other means than directed psychic energy. The character can make an object hop, fall, roll, rise into the air, suspend it there (hover) or make it fly across the room.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Up to 60 feet (18.3 m) away.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinesis"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinesis"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "Small: 3, medium: 8, large (over 20 lbs/9 kg): 8 +1 per every 10 lbs (4.5 kg) of weight.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinesis"
+            }
+          }
+        ]
+      },
+      {
+        "id": "telekinetic-leap",
+        "name": "Telekinetic Leap",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telekinetic Leap"
+        },
+        "description": "Use telekinetic force to increase leaping distance. Apply the situational leap guidance in the source during play.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self. Range: Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Leap"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One melee attack/action; in this case, a leap.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Leap"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "8 I.S.P.: 8",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Leap"
+            }
+          }
+        ]
+      },
+      {
+        "id": "telekinetic-lift",
+        "name": "Telekinetic Lift",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telekinetic Lift"
+        },
+        "description": "Rather than moving objects solely with the power of the mind, this use of telekinesis increases the character's ability to lift and carry heavy weights. The psychic creates a telekinetic field around the object and lifts both physically and mentally (via telekinesis). This enables the psychic to lift and carry weights 20% heavier than his P.S. normally allows. This use of telekinetics is limited exclusively to lifting and carrying heavy weights and cannot be used to hurl boulders and heavy objects as weapons, nor can it be used to augment the damage inflicted by a punch, kick or other physical attacks.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self or Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Lift"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 melees per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Lift"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Lift"
+            }
+          }
+        ]
+      },
+      {
+        "id": "telekinetic-punch",
+        "name": "Telekinetic Punch",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telekinetic Punch"
+        },
+        "description": "This telekinetic power enables the psychic to deliver a powerful punch or kick-like force through telekinetic energy. The character must actually make a physical punch or kick, but a successful strike delivers a telekinetically enhanced blow. A Telekinetic Punch will inflict 3D6 S.D.C./Hit Point damage plus P.S. bonus (if any), and a kick will do 4D6 S.D.C. plus P.S. bonus. The I.S.P. is spent whether or not the punch or kick actually hits the target (roll to strike as normal). The power is used in conjunction with a normal, physical attack that can be -d t s umd m chic must make a save of 14 or higher or he will take 1D6 points of damage himself as a result of wrenched muscles or a dislocated joint from the extra strain on his body.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "By touch or one foot (0.3 m) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Punch"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Instant.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Punch"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Punch"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Dodge or parry as usual.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Punch"
+            }
+          }
+        ]
+      },
+      {
+        "id": "telekinetic-push",
+        "name": "Telekinetic Push",
+        "category": "Physical",
+        "tags": [
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telekinetic Push"
+        },
+        "description": "The psychic can effectively create a telekinetic force that pushes away an attacker or anything within range (a door, chair, cart, statue, etc.). The pushing force has the rough equivalent of a P.S. 16 +1 per level of the psychic. The Telekinetic Push is roughly equal to a body block and does 1D4 S.D.C. or Hit Point damage, will knock most ordinary humans back two yards/meters and has a 01-60% chance of knocking the person off his feet (if so, that character loses initiative and one melee action). Characters weighing more than 200 pounds (90 kg) or who possess Robotic P.S. or Supernatural P.S. are only shoved a foot or two and there is only a 01-12% chance of being knocked off their l ( s t t \"pushed\" or slid across the ground twice as far, roughly four yards/meters (12 feet/3.6 m). kr or or or fe te",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "By touch or one foot (0.3 m) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Push"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Instant.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Push"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Push"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinetic Push"
+            }
+          }
+        ]
+      },
+      {
+        "id": "astral-projection",
+        "name": "Astral Projection",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Astral Projection"
+        },
+        "description": "Through intense concentration/meditation (4D4 minutes of preparation) the psychic can free his mind, or inner self, from his physical body. This psychic inner self is the Astral Body, a whitish, transparent, ghostly image of the character's physical form. A long silver thread or cord connects the Astral Body with its physical self. If the cord is severed the character is likely to die of sudden shock as body and soul are torn asunder. There is only a 30% chance the Astral Self can locate its physical body without the silver umbilical cord (roll best 2 out of 3).",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Astral Projection"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "5 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Astral Projection"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "8",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Astral Projection"
+            }
+          }
+        ]
+      },
+      {
+        "id": "clairvoyance",
+        "name": "Clairvoyance",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Clairvoyance"
+        },
+        "description": "This allows the psychic to see or feel glimpses of the possible future. This is achieved through meditation or intense concentration in which the clairvoyant thinks about a particular person, event or place. Add +5% to the base skill if the person involved is a friend or loved one.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self (although the image could pertain to people or places thousands of miles away.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "6D6 melees.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Base Skill",
+            "text": "58% +2% per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            }
+          }
+        ]
+      },
+      {
+        "id": "commune-with-spirits",
+        "name": "Commune with Spirits",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Commune with Spirits"
+        },
+        "description": "Using this power, a psychic can \"feel\" (not see) the presence of spirits. The term \"spirit\" includes Entities (including ghosts and possessing ones), invisible Astral Travelers/Astral Beings the splintered life essence of a god or Alien Intelligence, the mysterious Indian Spirits, a spirit or demon (or god) possessing a Familiar or Witch, and imprisoned souls and life essences in rune weapons and similar magical prisons.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Two minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Standard.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            }
+          }
+        ]
+      },
+      {
+        "id": "empathy",
+        "name": "Empathy",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Empathy"
+        },
+        "description": "Empathy is a psi-ability that makes the psychic aware of, or feel, the emotions of other people, animals and supernatural creatures. The strongest emotions are easiest to sense: hate, anger, terror, love. Feeling for emotions can often be used to establish that somebody or something is nearby, but can NOT be used to pinpoint an invisible or hiding person/ creature. Empathy can be especially helpful in recognizing and communicating with ghosts and other supernatural creatures.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "100 foot (30.5 m) area.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Two minutes (8 melees) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I",
+            "text": "S.P.: 4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Standard; a save vs Empathy means the psychic can onans saa at r sne r nr a n o vs Empathy the person must roll to save once each melee that the psychic is using Empathy. Mind Block will prevent any empathic emanations from the blocked person.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            }
+          }
+        ]
+      },
+      {
+        "id": "intuitive-combat",
+        "name": "Intuitive Combat",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Intuitive Combat"
+        },
+        "description": "This is a form of telepathy geared to give the psychic an advantage in melee combat. To put this ability in place, the psychic must concentrate for one melee round (15 seconds), putting himself in a Zen-like state of awareness. For the next two melee rounds, the Intuitive Combat sense makes the character one with his body and weapon, reacting quickly and efficiently with amazing reflex action, balance and grace. Note: The psychic is unable to use any other psionic power, including Mind Block, while this power is in use. He can cancel it with a thought.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Intuitive Combat"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Two melee rounds per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Intuitive Combat"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "10",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Intuitive Combat"
+            }
+          }
+        ]
+      },
+      {
+        "id": "machine-ghost",
+        "name": "Machine Ghost",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Machine Ghost"
+        },
+        "description": "The psychic goes into a trance as he focuses his concentration on entering a computer or most any type of artificial intelligence (not applicable to sentient, self-aware machines like Archie-3). This power is limited to the acquisition or reading of information only. The psychic cannot input, program, or delete data on the machine. He can also access information stored by most electronic means, including computer disks, video and audio disks, film or audio tape, and hard drives. Reading electronically encoded disks and tapes is similar to Object Read, except in this case, he hears and sees the data as if he were playing it on a computer or disk player, only he perceives the information 10 times faster. Thus, the character can read (never input) information from disks or broken computers without a physical \"jack\" connection or an actual display device, i.e. computer and monitor, CD player, etc.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self; computer by touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Three minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "12",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Not applicable.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mask-i-s-p-psionics",
+        "name": "Mask I.S.P. & Psionics",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mask I.S.P. & Psionics"
+        },
+        "description": "This is a psionic power that enables the character to completely mask all spiritual aspects of his psionic energy and powers. Even the aura is temporarily altered. As a result, other psychics, Dog Boys, PsiStalkers, and creatures who can Detect Psionics or See Aura will not sense psionics in a character who is masked. However, the masked psychic must \"block\" himself from the world, which means he cannot use ai o ni s s s o eis i is le pathic impressions until he lets the mask go.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask I.S.P. & Psionics"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "10 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask I.S.P. & Psionics"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "7",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask I.S.P. & Psionics"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mask-p-p-e",
+        "name": "Mask P.P.E.",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mask P.P.E."
+        },
+        "description": "A psionic power that enables the character to completely mask all but 1D4 P.P.E. of his personal P.P.E. base. Characters who can sense magic energy or see aura will regard this character as having an insignificant amount of P.P.E. This power is especially good as protection against Psi-Stalkers and other P.P.E. vampires. Mystics can easily hide their magical powers through this psionic concealment.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask P.P.E."
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Ten minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask P.P.E."
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask P.P.E."
+            }
+          }
+        ]
+      },
+      {
+        "id": "object-read",
+        "name": "Object Read",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Object Read"
+        },
+        "description": "Also known as Psychometry, this uncanny ability enables the psychic sensitive to receive impressions and images from an object regarding its use, history and last owner. This is done by holding the object and concentrating on a specific line of thought or opening up to general impressions (the latter is always more vague and random). Just as a psychic must open himself to sense evil or magic, he must open himself to the object. If successful, he will receive impressions and/or images revealing bits of information.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Varies; usually about 2D6 minutes.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-4",
+            "name": "Base Skill",
+            "text": "Impressions: 56% +2% per level of experience. Images: 48% +2% per level. Present: 38% +2% per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          }
+        ]
+      },
+      {
+        "id": "presence-sense",
+        "name": "Presence Sense",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Presence Sense"
+        },
+        "description": "Presence Sense is a psionic probe and awareness that alerts the psychic to the presence of supernatural beings, creatures of magic and other monstrous life forms. The ability cannot pinpoint the location of the presence, but will give the psychic the impression of whether it is near (within 50 feet/15.2 m) or far (beyond 90 feet/27.4 m). It will also give the character a vague idea of how many presences there are; one or two, a few (3 to 6), several (7 to 15), many (20-70) or an army or a swarm (100 or more). The psychic can also tell if one or more of the supernatural presences is small (something not too powerful), medium (Lesser Demon and most Supernatural Predators), big (Greater Demon and nasty monsters) or huge (Demon Lords, Dark Gods, Ancient Evil or Alien Intelligence).",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "120 feet (36.6 m) area.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes (8 melees) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            }
+          }
+        ]
+      },
+      {
+        "id": "read-dimensional-portal",
+        "name": "Read Dimensional Portal",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Read Dimensional Portal"
+        },
+        "description": "Read information about an active dimensional portal, its destination and, where applicable, how to operate the gateway.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch or one foot (0.3 m) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One melee round per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Not applicable.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            }
+          },
+          {
+            "id": "metadata-4",
+            "name": "Limitations",
+            "text": "Applicable only to active (open) dimensional portals and devices that can create a dimensional portal.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            }
+          }
+        ]
+      },
+      {
+        "id": "remote-viewing",
+        "name": "Remote Viewing",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Remote Viewing"
+        },
+        "description": "To use this power, the psychic needs a photo or video image to focus on, even if he knows the person or place intimately. When focused on a particular person, the psychic can see in his mind what the person is doing at that moment for 2D6+6 seconds. The image appears as if the character were looking down through a skylight. He sees only a glimpse of things and may not remember all details. Likewise, he may not see other people outside his line of vision, because the focus is a particular person, not the entire room. If the target is moving, walking, or driving, the remote viewer will know this and follow along for a few seconds, although he may not have a clear idea of his surroundings, but enough of an impression to recognize it if he sees it personally.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2D6+6 second flash of insight or vision of current events.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "10",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Special. Other psychics can feel or sense when somebody is trying to observe them and can try to resist it by concentrating (uses up one I.S.P.); standard save vs psionic attack (in this case, psionic intrusion). Failure means the psychic is seen via Remote Viewing. Success means the psychic trying to view is blocked, and he knows that the target has deliberately done so. Otherwise, the target of this power gets no impression from being viewed remotely and has no idea why he is being watched or by whom.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            }
+          }
+        ]
+      },
+      {
+        "id": "see-aura",
+        "name": "See Aura",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: See Aura"
+        },
+        "description": "Read an aura to estimate experience and detect magic, psychic potential, health and supernatural influences. A Mind Block conceals some information.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "60 feet (18.3 m) and must be visible.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 melees (30 seconds).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None, but a Mind Block will hide the presence of psychic abilities, the level of P.P.E., and possession by a supernatural force.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            }
+          }
+        ]
+      },
+      {
+        "id": "see-the-invisible",
+        "name": "See the Invisible",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: See the Invisible"
+        },
+        "description": "The character can see entities, beings, forces, objects and creatures which can turn invisible or are naturally invisible. Even if the creature has no form per se, the psychic will be able to discern the vaporous image or energy sphere which is the being. This includes ghosts, Entities, Elementals and Astral Beings.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "120 feet (36.6 m); double on a ley line.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "1 minute per each level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sense-dimensional-anomaly",
+        "name": "Sense Dimensional Anomaly",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Dimensional Anomaly"
+        },
+        "description": "This power detects the presence of a dimensional anomaly like an open/active dimensional portal or Rift, the random opening and closing of a Rift, Ley Line Storms, and dimensional triangles (e.g. the Devil's Sea/Bermuda Triangle), as well as any disturbances caused by teleportation, the use of Temporal or Ley Line Magic or other powers that disrupt the fabric of reality. The psychic knows when it happens, when it ends/closes, the general direction, and whether it is far or near, but no exact knowledge of its location or what is happening because of it.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "100 feet (30.5 m) radius per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sense-evil",
+        "name": "Sense Evil",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Evil"
+        },
+        "description": "This psi-power is a much more refined ability to feel the presence of evil. All supernatural creatures radiate their alignment, good or evil. A psychic sensitive will automatically feel supernatural evil without spending a single I.S.P. point. However, to get a clearer picture of the evil force(s) the character must open himself and use the Sense Evil ability.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "140 feet (42.7 m) area.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes (8 melees) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sense-magic",
+        "name": "Sense Magic",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Magic"
+        },
+        "description": "Sense nearby magical energy and follow its emanations toward their source.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "120 feet (36.6 m) area.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "3",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sense-time",
+        "name": "Sense Time",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Time"
+        },
+        "description": "The psychic is able to accurately measure the passage of time, down to within 1D4 seconds. This can be useful when in an environment where the passage of time can be lost, and especially when the character must meet with or do something at a precise moment in time, like gauging exactly when a bomb will detonate, when a switch must be turned on or off, and so on.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "15 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sixth-sense",
+        "name": "Sixth Sense",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sixth Sense"
+        },
+        "description": "An automatic precognitive warning of imminent, unexpected life-threatening danger. The initial danger round grants+6 initiative, +2 parry and +3 dodge; it does not reveal the danger or operate when ISP is exhausted.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "90 feet (27.4 m).",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Until the danger passes or happens. Bonuses apply only to",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            }
+          }
+        ]
+      },
+      {
+        "id": "speed-reading",
+        "name": "Speed Reading",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Speed Reading Speed Reading"
+        },
+        "description": "This is the ability to read and comprehend the written word extremely quickly. Speed of reading is 30 pages per minute (4 melee rounds). The psychic will retain the information as he would normally. Highly technical texts will reduce the speed reading by half (15 pages per minute) and may require two readings to remember in detail. This is the ability to read and comprehend the written word extremely quickly. Speed of reading is 30 pages per minute (4 melee rounds). The psychic will retain the information as he would normally. Highly technical texts will reduce the speed reading by half (15 pages per minute) and may require two readings to remember in detail.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self Range: Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "3 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2 I.S.P.: 2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            }
+          }
+        ]
+      },
+      {
+        "id": "telepathy",
+        "name": "Telepathy",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telepathy"
+        },
+        "description": "The power of Telepathy allows the psychic to eavesdrop on what another person is thinking at a particular moment. This is done by focusing on that one individual and picking up on his or her surface thoughts. Surface thoughts are those thoughts and musings uppermost in a target's mind. A deep probe into memory is not possible. Although the psychic can read the thoughts of several people, he can only do so by focusing on one person at a time. Simultaneous, multiple mind reading is impossible for the character.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Read surface thoughts up to 60 feet (18.3 m) away or two-way telepathic communication up to 140 feet (42.7 m) +40 feet (12.2 m) per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Conditional. When a character suspects he is being telepathically probed he can resist, getting the standard saving throw. Mind Blocks will completely prevent telepathic probes or communications as long as the block is up.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            }
+          }
+        ]
+      },
+      {
+        "id": "total-recall",
+        "name": "Total Recall",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Total Recall"
+        },
+        "description": "The character remembers every word he reads. Specific blocks of written and visual information can be recalled in perfect detail at will. Each block of information costs 3 I.S.P. to recall in absolute detail. If all I.S.P. have been expended the memory is a little fuzzy, so that exact quotes and details may be impossible to recall. Roll percentile to see how much is retained:",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Permanent.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            }
+          }
+        ]
+      }
+    ],
+    "groups": []
+  },
+  "chance_table": [
+    {
+      "maximum": 10,
+      "path": "major"
+    },
+    {
+      "maximum": 25,
+      "path": "minor"
+    },
+    {
+      "maximum": 100,
+      "path": "none"
+    }
+  ],
+  "paths": [
+    {
+      "id": "none",
+      "name": "Not psychic",
+      "source": {
+        "book": "Rifts Ultimate Edition",
+        "section": "Step4: Determine Psionics; Psionic Saving Throws"
+      },
+      "save_target": 15,
+      "allowances": {
+        "single": {
+          "count": 0,
+          "minimum_categories": 0,
+          "maximum_categories": 0
+        }
+      },
+      "resources": null,
+      "growth": {}
+    },
+    {
+      "id": "minor",
+      "name": "Minor psychic",
+      "source": {
+        "book": "Rifts Ultimate Edition",
+        "section": "Step4: Determine Psionics; Psionic Saving Throws"
+      },
+      "save_target": 12,
+      "allowances": {
+        "single": {
+          "count": 2,
+          "minimum_categories": 1,
+          "maximum_categories": 1
+        }
+      },
+      "resources": {
+        "definitions": [
+          {
+            "id": "ISP",
+            "name": "Inner Strength Points",
+            "contributions": [
+              {
+                "id": "starting-ME",
+                "attribute": "ME",
+                "source": {
+                  "book": "Rifts Ultimate Edition",
+                  "section": "Step4: Determine Psionics; Psionic Saving Throws"
+                }
+              },
+              {
+                "id": "starting-dice",
+                "formula": {
+                  "count": 2,
+                  "sides": 6,
+                  "bonus": 0
+                },
+                "source": {
+                  "book": "Rifts Ultimate Edition",
+                  "section": "Step4: Determine Psionics; Psionic Saving Throws"
+                }
+              }
+            ]
+          }
+        ],
+        "guidance": [
+          "Starting M.E. is recorded when ISP is first generated."
+        ]
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "count": 1,
+            "sides": 6,
+            "constant": 0
+          },
+          "source": {
+            "book": "Rifts Ultimate Edition",
+            "section": "Step4: Determine Psionics; Psionic Saving Throws"
+          }
+        }
+      }
+    },
+    {
+      "id": "major",
+      "name": "Major psychic",
+      "source": {
+        "book": "Rifts Ultimate Edition",
+        "section": "Step4: Determine Psionics; Psionic Saving Throws"
+      },
+      "save_target": 12,
+      "allowances": {
+        "single": {
+          "count": 8,
+          "minimum_categories": 1,
+          "maximum_categories": 1
+        },
+        "mixed": {
+          "count": 6,
+          "minimum_categories": 2,
+          "maximum_categories": 3
+        }
+      },
+      "resources": {
+        "definitions": [
+          {
+            "id": "ISP",
+            "name": "Inner Strength Points",
+            "contributions": [
+              {
+                "id": "starting-ME",
+                "attribute": "ME",
+                "source": {
+                  "book": "Rifts Ultimate Edition",
+                  "section": "Step4: Determine Psionics; Psionic Saving Throws"
+                }
+              },
+              {
+                "id": "starting-dice",
+                "formula": {
+                  "count": 4,
+                  "sides": 6,
+                  "bonus": 0
+                },
+                "source": {
+                  "book": "Rifts Ultimate Edition",
+                  "section": "Step4: Determine Psionics; Psionic Saving Throws"
+                }
+              }
+            ]
+          }
+        ],
+        "guidance": [
+          "Starting M.E. is recorded when ISP is first generated."
+        ]
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "count": 1,
+            "sides": 6,
+            "constant": 1
+          },
+          "source": {
+            "book": "Rifts Ultimate Edition",
+            "section": "Step4: Determine Psionics; Psionic Saving Throws"
+          }
+        }
+      }
+    }
+  ]
+}

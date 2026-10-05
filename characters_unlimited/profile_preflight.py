@@ -1,5 +1,6 @@
 """Preflight supported owned-profile components before generation draws."""
 
+from .class_contributions import class_numeric_contributions
 from .resources import validate_resource_rules
 from .physical import validate_physical_rules
 from .skills import optional_pool_groups
@@ -92,6 +93,8 @@ def preflight_owned_profiles(pack):
             _skill_rules(composed)
             field = 'physical'
             validate_physical_rules(composed, resources)
+            field = 'class_bonuses'
+            class_numeric_contributions(composed)
             field = 'combat'
             validate_combat_choices({}, composed)
             for field in ('advancement', 'higher_advancement'):

@@ -1,7 +1,10 @@
 """Reviewed level-one ordinary-human combat, with missing mechanics left absent."""
 
+
 from collections import Counter
 from copy import deepcopy
+from .class_contributions import class_numeric_contributions
+from .numeric_contributions import apply_numeric_contributions
 from .saving_bonuses import project_saving_bonuses
 from .physical import project_physical
 from typing import Any
@@ -65,10 +68,12 @@ def progressed(definition, age):
 
 def project_combat(character, pack):
     saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
-    class_rules = pack.get('class_bonuses',{})
-    class_bonuses = ({'perception':{'value':class_rules['perception'],
-        'contributions':{'O.C.C.':class_rules['perception']},'sources':[class_rules['source']]}}
-        if character['character_class'] == class_rules.get('class_id') else {})
+    effects = class_numeric_contributions(pack)
+    class_bonuses = {}
+    if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
+        class_bonuses['perception'] = apply_numeric_contributions(
+            {'value': 0, 'contributions': {}, 'sources': []},
+            [effect for effect in effects if effect['target'] == 'perception'], 'perception')
     rules = pack.get('combat')
     gaps = ['Other Physical skills, remaining proficiencies, equipment attacks, other saving modifiers and targets, enhanced strength types and combat advancement are pending.']
     if 'advancement' in pack:

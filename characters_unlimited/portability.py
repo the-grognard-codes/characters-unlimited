@@ -1,9 +1,12 @@
 """Portable save validation. Bundles contain data and never execute rule prose."""
 
+
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
+from .saving_bonuses import project_saving_bonuses
+from .heroes_powers import power_numeric_contributions, project_power_saves
 from .generation import roll_attribute, generation_settings, racial_formula, racial_sources
 from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
@@ -256,10 +259,14 @@ def validate_sources(character, packs, *, history_frame=False):
         power_parameter_views(power_pack, character['level'])
         power_requirement_definitions(power_pack)
         power_formula_catalog(power_pack)
+        power_numeric_contributions(power_pack)
     if 'hero_powers' in character:
         if character['game'] != 'heroes-unlimited' or power_pack is None or character['character_class'] != power_pack['character_class']:
             raise ValueError('Heroes powers must retain their accepted rule version pin')
         validate_powers(character['hero_powers'], power_pack)
+        active = character['hero_powers']['active']
+        selected = {row['power'] for row in character['hero_powers']['acquisitions'] if row['id'] in active}
+        project_power_saves(character, power_pack, [row for row in power_pack['powers'] if row['id'] in selected])
     if 'equipment' in character or 'starting_funds' in character or 'starting_gear' in character or 'starting_choices' in character or 'starting_equipment_groups' in character:
         equipment_pack = next((item for item in packs if item['id']=='rifts-equipment'),None)
         if character['game'] != 'rifts' or equipment_pack is None:
@@ -275,6 +282,7 @@ def validate_sources(character, packs, *, history_frame=False):
     skill_pack = next((item for item in packs if item['id']=='rifts-domestic-skills'),None)
     if skill_pack is not None:
         skill_pack = class_rules(skill_pack, character)
+        project_saving_bonuses(character, skill_pack)
     resource_pack = skill_pack
     if character['game'] == 'heroes-unlimited':
         resource_pack = current_hero_pack('heroes-resources')

@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 from .attribute_modifiers import ATTRIBUTE_NAMES
+from .recorded_formulas import MAX_INTEGER
 
 
 def generation_settings(value=None):
@@ -17,12 +18,17 @@ def generation_settings(value=None):
 
 def validate_attribute_formula(formula):
     if (not isinstance(formula, dict) or not {'count', 'sides'} <= set(formula) or
-            set(formula) - {'count', 'sides', 'constant', 'exceptional', 'cap'} or
+            set(formula) - {'count', 'sides', 'constant', 'exceptional', 'cap', 'multiplier'} or
             type(formula['count']) is not int or not 0 <= formula['count'] <= 1000 or
             type(formula['sides']) is not int or not 1 <= formula['sides'] <= 1000 or
-            type(formula.get('constant', 0)) is not int):
+            type(formula.get('constant', 0)) is not int or
+            abs(formula.get('constant', 0)) > MAX_INTEGER or
+            type(formula.get('multiplier', 1)) is not int or
+            not 1 <= formula.get('multiplier', 1) <= MAX_INTEGER or
+            formula['count'] * formula['sides'] * formula.get('multiplier', 1) +
+            abs(formula.get('constant', 0)) > MAX_INTEGER):
         raise ValueError('Unsupported attribute dice formula')
-    if 'cap' in formula and type(formula['cap']) is not int:
+    if 'cap' in formula and (type(formula['cap']) is not int or abs(formula['cap']) > MAX_INTEGER):
         raise ValueError('Attribute ceiling must be a whole number')
     if 'exceptional' in formula:
         exceptional = formula['exceptional']
@@ -33,6 +39,17 @@ def validate_attribute_formula(formula):
                 (exceptional['max_bonus_dice'] is not None and
                  (type(exceptional['max_bonus_dice']) is not int or not 0 <= exceptional['max_bonus_dice'] <= 1000))):
             raise ValueError('Unsupported exceptional attribute rule')
+        multiplier = formula.get('multiplier', 1)
+        constant = formula.get('constant', 0)
+        minimum = formula['count'] * multiplier + constant
+        maximum = formula['count'] * formula['sides'] * multiplier + constant
+        limit = exceptional['max_bonus_dice']
+        # Unbounded exploding dice still share roll_attribute's 10,000-draw cap.
+        bonus_limit = 10000 if limit is None else min(limit, 10000)
+        if any(minimum <= threshold <= maximum and (threshold - constant) % multiplier == 0 and
+               threshold + bonus_limit * formula['sides'] > MAX_INTEGER
+               for threshold in exceptional['thresholds']):
+            raise ValueError('Exceptional attributes exceed the supported whole-number range')
 
 
 def racial_formulas(race, settings=None):
@@ -109,7 +126,7 @@ def roll_attribute(formula, settings, die, source):
     discarded = []
     if settings["extra_die"] and count:
         discarded.append(kept.pop(kept.index(min(kept))))
-    total = sum(kept) + constant
+    total = sum(kept) * formula.get("multiplier", 1) + constant
     bonus_rolls: list[int] = []
     exceptional = formula.get("exceptional")
     if exceptional and total in exceptional["thresholds"]:
@@ -120,11 +137,18 @@ def roll_attribute(formula, settings, die, source):
             total += bonus
             if bonus != sides:
                 break
+    if abs(total) > MAX_INTEGER:
+        raise ValueError('Generated attribute exceeds the supported whole-number range')
+    expression = f"{count}D{sides}"
+    if formula.get('multiplier', 1) != 1:
+        expression += ' × ' + str(formula['multiplier'])
+    if constant:
+        expression += f"{constant:+d}"
     return {
         **({"cap": formula["cap"]} if "cap" in formula else {}),
         "base": total, "value": min(total, formula["cap"]) if "cap" in formula else total, "adjustment": 0, "fixed": None,
         "rolls": pool, "original_rolls": originals, "kept": kept, "discarded": discarded,
         "rerolls": rerolls, "bonus_rolls": bonus_rolls,
         "generation": settings,
-        "explanation": {"formula": f"{count}D{sides}{constant:+d}" if constant else f"{count}D{sides}", "source": source},
+        "explanation": {"formula": expression, "source": source},
     }

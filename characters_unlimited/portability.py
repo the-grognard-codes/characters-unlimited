@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from .saving_bonuses import project_saving_bonuses
 from .heroes_powers import power_numeric_contributions, project_power_saves
+from .creation_profiles import creation_pair
 from .generation import roll_attribute, generation_settings, racial_formula, racial_sources
 from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
@@ -128,6 +129,7 @@ def validate_character(character, core):
         raise ValueError('Unsupported character format version')
     if character.get('game') != core['game'] or not any(r['id'] == character.get('race') for r in core['races']) or not any(c['id'] == character.get('character_class') for c in core['classes']):
         raise ValueError('This application version cannot reopen that game or character option')
+    creation_pair(core, character['race'], character['character_class'])
     try:
         UUID(character['id'])
     except (KeyError, TypeError, ValueError, AttributeError) as error:

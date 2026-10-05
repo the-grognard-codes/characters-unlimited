@@ -373,6 +373,17 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    described_skills = set()
+    for skill in [*skills['grants'], *skills['selected']]:
+        if skill.get('description') and skill['id'] not in described_skills:
+            described_skills.add(skill['id'])
+            sheet_notes += '\n' + skill['name'] + ': ' + skill['description']
+            sheet_notes += ' (' + skill['source']['book'] + ', pp. ' + ', '.join(map(str, skill['source']['pages'])) + ').'
+            attribute_bonuses = {name: amount for name, amount in skill['contributions'].items()
+                                if name.startswith('Attribute: ')}
+            if attribute_bonuses:
+                sheet_notes += ' Normal attribute contributions: ' + '; '.join(
+                    name.removeprefix('Attribute: ') + f' {amount:+}%' for name, amount in attribute_bonuses.items()) + '.'
     psychic = skills.get('psionics')
     if psychic:
         sheet_notes += '\nNatural psionics: ' + psychic.get('path', 'Not determined')

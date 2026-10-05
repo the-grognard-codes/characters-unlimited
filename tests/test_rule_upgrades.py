@@ -25,7 +25,7 @@ class SkillRuleUpgradeWorkflowTests(unittest.TestCase):
             current = CharacterApplication(directory)
             self.assertEqual(current.skill_view(character['id'])['grants'][0]['percentage'], 50)
             preview = current.preview_rule_upgrade(character['id'])
-            self.assertEqual(preview['changes'], [{'pack_id': 'rifts-domestic-skills', 'from': '1.0.0', 'to': '2.12.0'}])
+            self.assertEqual(preview['changes'], [{'pack_id': 'rifts-domestic-skills', 'from': '1.0.0', 'to': '2.13.0'}])
             self.assertEqual(preview['skills'][0]['before'], 50)
             self.assertEqual(preview['skills'][0]['after'], 52)
             self.assertEqual(current.get(character['id']), character)
@@ -45,7 +45,7 @@ class SkillRuleUpgradeWorkflowTests(unittest.TestCase):
                 self.assertEqual(restored.get(character['id']), character)
             with tempfile.TemporaryDirectory() as destination:
                 imported = CharacterApplication(destination).import_character(current.export_character(character['id']))
-                self.assertEqual(imported['additional_rule_packs']['rifts-domestic-skills'], '2.12.0')
+                self.assertEqual(imported['additional_rule_packs']['rifts-domestic-skills'], '2.13.0')
 
     def test_stale_tampered_or_failed_upgrade_preserves_the_save(self):
         with tempfile.TemporaryDirectory() as directory:

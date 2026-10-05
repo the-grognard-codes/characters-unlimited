@@ -134,7 +134,20 @@ function filterSkillChoices() {
   const matches = skillCatalog.filter(skill => !category || (skill.category || 'domestic') === category);
   $('skill-choice').replaceChildren(...matches.map(skill => { const option = document.createElement('option'); option.value = skill.id; option.textContent = skill.name; return option; }));
   if (matches.some(skill => skill.id === previous)) $('skill-choice').value = previous;
+  showSkillDescription();
 }
+function showSkillDescription() {
+  let note = $('skill-choice-description');
+  if (!note) {
+    note = document.createElement('p'); note.id = 'skill-choice-description'; note.className = 'help';
+    $('skill-choice').closest('label').after(note);
+  }
+  const skill = skillCatalog.find(item => item.id === $('skill-choice').value);
+  note.textContent = skill?.description
+    ? `${skill.description} ${skill.source.book}, pp. ${skill.source.pages.join(', ')}.` : '';
+  note.hidden = !note.textContent;
+}
+$('skill-choice').onchange = showSkillDescription;
 function requiredOption(skill) {
   const option = document.createElement('option');
   option.value = skill.id; option.textContent = skill.name;
@@ -280,6 +293,7 @@ async function loadSkills(character) {
       : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
+    if (skill.description) explanation.textContent += ` · ${skill.description}`;
     const effectEvidence = skillEffectEvidence(skill);
     if (effectEvidence) explanation.textContent += ` · ${effectEvidence}`;
     if (skill.selection_cost > 1) {

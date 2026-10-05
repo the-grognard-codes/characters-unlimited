@@ -278,7 +278,7 @@ async function loadSkills(character) {
   }
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
-    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.percentage == null ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? 'O.C.C. grant' : skill.pool} · ${skill.quality}`;
+    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.percentage == null ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? (skill.grant_origins ? 'Skill grant' : 'O.C.C. grant') : skill.pool} · ${skill.quality}`;
     if (skill.selection_cost > 1) heading.textContent += ` · ${skill.selection_cost} ${skill.pool} slots`;
     const explanation = document.createElement('p'); explanation.className = 'help';
     explanation.textContent = skill.kind === 'physical'
@@ -294,6 +294,10 @@ async function loadSkills(character) {
     if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
     if (skill.description) explanation.textContent += ` · ${skill.description}`;
+    for (const origin of skill.grant_origins || []) {
+      const parent = view.catalog.find(option => option.id === origin.parent_id);
+      explanation.textContent += ` · Granted by ${parent?.name || origin.parent_id}: training +${origin.bonus}% (${origin.source.book}, ${origin.source.section}${origin.source.pages ? ', pp. ' + origin.source.pages.join(', ') : ''})`;
+    }
     const effectEvidence = skillEffectEvidence(skill);
     if (effectEvidence) explanation.textContent += ` · ${effectEvidence}`;
     if (skill.selection_cost > 1) {

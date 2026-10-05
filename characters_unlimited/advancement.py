@@ -21,7 +21,8 @@ def remember_learning(character, skill_view, combat_choices):
     levels = deepcopy(character.get('learning_levels', {}))
     for group in ('grants', 'selected'):
         for skill in skill_view[group]:
-            levels.setdefault(learning_key('skill', skill['id'], skill.get('specialty', '')), 1 if group == 'grants' else character['level'])
+            levels.setdefault(learning_key('skill', skill['id'], skill.get('specialty', '')),
+                              skill.get('learned_level', 1 if group == 'grants' else character['level']))
     levels.setdefault(learning_key('hand', combat_choices['hand_to_hand']), character['level'])
     for family in ('ancient', 'modern'):
         for identifier in combat_choices[family]:

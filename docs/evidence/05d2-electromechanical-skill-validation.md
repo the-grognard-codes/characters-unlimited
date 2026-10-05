@@ -32,7 +32,7 @@ At I.Q.12: Locksmith25 +5 Electrical Engineer +5 Mechanical Engineer =35. Duplic
 
 Vagabond related Basic Electronics/Computer Repair/Basic Mechanics/Automotive Mechanics are35/30/35/30; City Rat35/35/40/35. Secondary values30/30/30/25 have no class bonus. Retained Secondary Electrical Engineer/Robot Mechanics are35/20 with explicit availability/prerequisite guidance. Mechanical Engineer learned at character level3 starts25, reaches30 at character level4, and all three ordinary checks grow together. Exact2.13.0 saves retain90 catalog entries and old check metadata until an explicit upgrade to99 entries.
 
-Five new public workflow tests plus29 affected Rogue, Communications, Medical, owned-profile and upgrade tests pass (34 total,19.215 seconds). Typing165, compileall, all Node22 browser syntax checks and whitespace checks pass. Final full regression, independent Standards/Spec reviews and exact-head hosted Windows/frozen checks remain pending.
+Five new public workflow tests plus29 affected Rogue, Communications, Medical, owned-profile and upgrade tests pass (34 total,19.215 seconds). Typing165, compileall, all Node22 browser syntax checks and whitespace checks pass. Standards and Spec independently APPROVE final head460b36f7923ef10df1bc46c94bb962c35d995a85. Local full regression passes490 tests in417.368 seconds (one frozen-only skip); the rebuilt Windows executable separately passes its frozen workflow in37.885 seconds. Exact-head hosted Windows/full/frozen runs37377127256 and37377132769 pass490 tests (646.149/631.689 seconds) and separate frozen checks (37.154/36.593 seconds). PR114 merged asa90ddf5f27cc74bec09c08e440a26eb14fb0145a;05D2 is done.
 
 ## Actual browser and editable PDF
 

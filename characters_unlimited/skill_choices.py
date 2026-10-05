@@ -40,7 +40,8 @@ def choice_guidance(selections, pack, granted=()):
         if not selection_policy(definition, item['pool'], pack)['allowed']:
             warnings.append(f"{definition['name']}: not available in the {item['pool']} pool under these rules; the choice is retained without an O.C.C. bonus.")
         if definition['id'] in granted_ids and not needs_specialty(definition):
-            warnings.append(f"{definition['name']}: already granted by the O.C.C.; the extra choice is retained without another proficiency bonus.")
+            owner = 'an acquired skill' if any(row['id'] == definition['id'] and row.get('grant_origins') for row in granted) else 'the O.C.C.'
+            warnings.append(f"{definition['name']}: already granted by {owner}; the extra choice is retained without another proficiency bonus.")
         if definition['id'] == 'language-other' and specialty_key(item.get('specialty', '')) in granted_languages:
             warnings.append(f"{definition['name']} — {item['specialty']}: already granted; the retained choice does not create another language proficiency.")
         for dependency in definition.get('pending_prerequisites', []):

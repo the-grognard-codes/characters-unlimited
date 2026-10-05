@@ -2,6 +2,8 @@
 
 
 import json
+from .json_data import canonical, MAX_BYTES
+from .ability_paths import project_path
 from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
@@ -30,19 +32,6 @@ from .heroes_advancement import validate_hero_advancement, remembered_learning, 
 from .required_skills import validate_required_choices
 from .combat import validate_combat_choices
 from .class_rules import class_rules, equipment_class_rules
-
-MAX_BYTES = 10_000_000
-
-
-def canonical(value):
-    try:
-        encoded = json.dumps(value, sort_keys=True, ensure_ascii=False, allow_nan=False).encode('utf-8')
-    except (ValueError, TypeError, RecursionError) as error:
-        raise ValueError('The bundle must contain finite JSON data') from error
-    if len(encoded) > MAX_BYTES:
-        raise ValueError('The portable character exceeds the 10 MB limit')
-    return encoded
-
 
 def integer(value):
     return type(value) is int and abs(value) <= 9_007_199_254_740_991
@@ -253,6 +242,18 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs, *, history_frame=False):
     core = primary_pack(character, packs)
+    psychic_snapshot = None
+    if 'psionics' in character:
+        version = character.get('additional_rule_packs', {}).get('rifts-natural-psionics')
+        psychic_pack = next((row for row in packs if row['id'] == 'rifts-natural-psionics' and row['version'] == version), None)
+        if character['game'] != 'rifts' or psychic_pack is None:
+            raise ValueError('Natural psionics must retain their exact Rifts rule pin')
+        project_path(character, psychic_pack, character['psionics'])
+        record = character['psionics']['resource_record']
+        if record is not None:
+            psychic_snapshot = record['resource_attribute_snapshot']
+            race = next(row for row in core['races'] if row['id'] == character['race'])
+            validate_attributes(psychic_snapshot, race)
     def current_hero_pack(identifier):
         version = character.get('additional_rule_packs',{}).get(identifier)
         return next((item for item in packs if item['id']==identifier and item['version']==version),None)
@@ -406,8 +407,11 @@ def validate_sources(character, packs, *, history_frame=False):
         if physical_pack is not None:
             validate_physical_history(resource_snapshot,character.get('physical_acquisitions',{}),physical_pack)
     validate_power_attributes(character, power_pack)
+    if psychic_snapshot is not None and physical_pack is not None:
+        validate_physical_history(psychic_snapshot, character.get('physical_acquisitions', {}), physical_pack)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', [])),
-               *([resource_snapshot] if resource_snapshot is not None else [])]
+               *([resource_snapshot] if resource_snapshot is not None else []),
+               *([psychic_snapshot] if psychic_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     effects = class_effects(selected_class)
     race = next(item for item in core['races'] if item['id'] == character['race'])

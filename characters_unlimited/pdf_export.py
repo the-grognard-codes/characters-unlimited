@@ -333,6 +333,11 @@ def export_rifts_sheet(character, core, skills, combat):
     values = {'NAME': character['name'], 'RACE': race, 'OCC': occupation,
               'EXPERIENCE LEVEL': str(character['level'])}
     values.update({name: str(value['value']) for name, value in character['attributes'].items()})
+    psychic_capacity = skills.get('psionics', {}) or {}
+    isp = psychic_capacity.get('resources', {}).get('ISP', {}).get('value')
+    if isp is not None:
+        values['ISP'] = str(isp)
+        values['ISP_2'] = str(isp)
     resources = skills.get('resources',{}).get('resources',{})
     if resources.get('HP',{}).get('value') is not None:
         values['HIT POINTS'] = str(resources['HP']['value'])
@@ -368,6 +373,18 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    psychic = skills.get('psionics')
+    if psychic:
+        sheet_notes += '\nNatural psionics: ' + psychic.get('path', 'Not determined')
+        sheet_notes += '; potential roll ' + str(psychic['state']['face'])
+        sheet_notes += '; save target ' + str(psychic['save_target']) + ' (attribute/class bonuses apply separately).'
+        for resource in psychic['resources'].values():
+            sheet_notes += '\n' + resource['name'] + ': ' + str(resource['value']) + '; ' + str(resource['contributions'])
+        sheet_notes += '\n' + ' '.join(psychic.get('guidance', []))
+        for ability in psychic['abilities']:
+            sheet_notes += '\n' + ability['name'] + ': ' + ability['description']
+            sheet_notes += ' ' + '; '.join(row['text'] for row in ability['parameters'])
+            sheet_notes += ' (' + ability['source']['book'] + ', ' + ability['source']['section'] + ').'
     if 'experience' in character:
         sheet_notes += '\nExperience: ' + str(character['experience']) + ' XP.'
     if character.get('advancement'):

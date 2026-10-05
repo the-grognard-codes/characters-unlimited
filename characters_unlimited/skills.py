@@ -185,6 +185,7 @@ def project_skills(character, pack=PACK):
                          'repeated_domestic':repeated_bonus, 'intelligence':intelligence}
         if character['level'] > 1:
             contributions['advancement'] = gain
+        contributions.update(attribute_contributions(definition, character['attributes']))
         fixed_grants.append({**definition, **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects)), 'quality':'professional'})
     gaps = ['Other required choices and skill categories are pending.',
             'Other attribute-related skill effects and acquired-level advancement are pending; percentages omit these modifiers.']

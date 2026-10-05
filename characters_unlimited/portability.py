@@ -8,6 +8,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from .saving_bonuses import project_saving_bonuses
+from .skill_attribute_bonuses import needs_numeric_skill_projection
 from .heroes_powers import power_numeric_contributions, project_power_saves
 from .creation_profiles import creation_pair
 from .generation import roll_attribute, generation_settings, racial_formula, racial_sources
@@ -302,7 +303,7 @@ def validate_sources(character, packs, *, history_frame=False):
         if 'combat_choices' in character:
             validate_combat_choices(character['combat_choices'], skill_pack)
         validate_physical(character,skill_pack)
-        if skill_pack.get('skill_effects'):
+        if needs_numeric_skill_projection(skill_pack):
             project_skills(character, skill_pack)
         for event in character.get('roll_history', []):
             validate_physical_history(event['attributes'],character.get('physical_acquisitions',{}),skill_pack)

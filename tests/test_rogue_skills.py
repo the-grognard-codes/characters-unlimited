@@ -6,9 +6,46 @@ import unittest
 from pypdf import PdfReader
 from characters_unlimited.application import CharacterApplication
 from characters_unlimited.rules import RuleArchive
+from characters_unlimited.recorded_formulas import MAX_INTEGER
+from characters_unlimited.portability import export_bundle
+from tests.test_owned_class_profiles import owned_pack, archive_with
 
 
 class RogueSkillWorkflowTests(unittest.TestCase):
+    def test_fixed_grants_receive_attribute_contributions(self):
+        pack = owned_pack()
+        pack['class_profiles']['vagabond']['fixed_domestic_grants'] = [{'id':'seduction','bonus':4}]
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory, die=lambda sides:4, rule_archive=archive_with(pack))
+            hero = app.create()
+            for attribute,value in [('MA',24),('PB',23)]:
+                hero = app.set_attribute(hero['id'],revision=hero['revision'],attribute=attribute,mode='fixed',value=value)
+            grant = next(row for row in app.skill_view(hero['id'])['grants'] if row['id']=='seduction')
+            self.assertEqual(grant['contributions']['Attribute: M.A. attraction'],4)
+            self.assertEqual(grant['contributions']['Attribute: P.B. attraction'],3)
+            self.assertEqual(grant['percentage'],31)
+
+    def test_attribute_bonus_overflow_rejects_before_save_or_portable_acceptance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory, die=lambda sides:4)
+            hero = app.create()
+            hero = app.select_skills(hero['id'],revision=0,selections=[{'skill_id':'seduction','pool':'related'}])
+            hero = app.set_attribute(hero['id'],revision=hero['revision'],attribute='MA',mode='fixed',value=MAX_INTEGER-100)
+            before = deepcopy(hero)
+            with self.assertRaisesRegex(ValueError, 'exact integer range'):
+                app.set_attribute(hero['id'],revision=hero['revision'],attribute='PB',mode='fixed',value=MAX_INTEGER-100)
+            self.assertEqual(app.get(hero['id']),before)
+            invalid = deepcopy(hero)
+            invalid['attributes']['PB']['fixed'] = MAX_INTEGER-100
+            invalid['attributes']['PB']['value'] = MAX_INTEGER-100
+            with self.assertRaisesRegex(ValueError, 'exact integer range'):
+                export_bundle(invalid, app.rule_archive.definitions())
+            bundle = app.export_character(hero['id'])
+            bundle['character'] = invalid
+            with self.assertRaisesRegex(ValueError, 'exact integer range'):
+                app.import_character(bundle)
+            self.assertEqual(app.list(),[before])
+
     def test_source_reviewed_catalog_and_separate_voice_percentages(self):
         # UE printed pp.320-321, plus cross-references pp.309 and317.
         expected = {'cardsharp': (24,4), 'computer-hacking': (20,5), 'concealment': (20,4),

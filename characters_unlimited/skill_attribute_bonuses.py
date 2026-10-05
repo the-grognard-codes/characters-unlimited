@@ -4,6 +4,11 @@ from .attribute_modifiers import ATTRIBUTE_NAMES
 from .recorded_formulas import MAX_INTEGER
 
 
+def needs_numeric_skill_projection(pack):
+    return bool(pack.get('skill_effects') or
+                any(skill.get('attribute_bonuses') for skill in pack.get('skills', [])))
+
+
 def attribute_bonus_rules(definition):
     rules = definition.get('attribute_bonuses', [])
     if not isinstance(rules, list) or len(rules) > 16:

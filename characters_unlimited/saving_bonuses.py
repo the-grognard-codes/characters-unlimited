@@ -11,6 +11,8 @@ def project_saving_bonuses(character, pack):
         return {}, []
     results = {}
     for definition in rules['definitions']:
+        if definition['id'] == 'insanity':
+            continue  # General insanity is outside the player-focused scope.
         contributions = {}
         missing = False
         for rule in definition['contributions']:

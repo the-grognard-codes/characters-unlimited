@@ -295,10 +295,7 @@ async function loadSkills(character) {
     row.append(heading, explanation);
     for (const activity of skill.activities || []) {
       const details = document.createElement('p'); details.className = 'help';
-      details.textContent = 'yards_per_melee' in activity ? (activity.yards_per_melee == null ? activity.guidance
-        : `${activity.name}: ${activity.yards_per_melee.toLocaleString()} yards / ${activity.meters_per_melee.toLocaleString()} meters per melee for ${activity.minutes.toLocaleString()} minutes. ${activity.guidance}`)
-        : activity.miles == null ? activity.guidance
-        : `${activity.name}: Spd ${activity.speed_attribute.toLocaleString()} · ${activity.miles.toLocaleString(undefined,{maximumFractionDigits:3})} miles / ${activity.kilometers.toLocaleString(undefined,{maximumFractionDigits:3})} km. ${activity.guidance}`;
+      details.textContent = activity.guidance;
       row.append(details);
     }
     if (!skill.grant) {
@@ -513,7 +510,7 @@ function renderCoverageOptions() {
     const row = document.createElement('details'); row.className = 'source-entry';
     const title = document.createElement('summary'); title.textContent = `${entry.name} · ${entry.kind.toUpperCase()} · ${entry.identity_review} identity`;
     const status = document.createElement('p'); status.className = 'help';
-    status.textContent = `${entry.game} · ${entry.book_id} · mechanics: ${entry.mechanical_review} · dependencies: ${entry.dependency_review} · automation: ${entry.automation}`;
+    status.textContent = `${entry.game} · ${entry.book_id} · scope: ${entry.scope || 'included'}${entry.scope_reason ? ' (' + entry.scope_reason + ')' : ''} · mechanics: ${entry.mechanical_review} · dependencies: ${entry.dependency_review} · automation: ${entry.automation}`;
     const source = document.createElement('p'); source.className = 'help';
     const sections = entry.candidate_ids.map(id => coverage.candidates.find(candidate => candidate.id === id)).map(candidate => `Markdown lines ${candidate.line}–${candidate.end_line}`).join('; ');
     source.textContent = `Identity evidence: printed pp. ${entry.source.printed_pages.join(', ')} / PDF pp. ${entry.source.pdf_pages.join(', ')} · ${sections}`;

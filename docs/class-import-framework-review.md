@@ -1,5 +1,7 @@
 # Class-import framework review
 
+> The [player-focused scope amendment](player-focused-scope.md) changes the activation gate: exhaustive combat/activity simulation is optional. Core attribute and skill calculations, selectable content, saves and sheets remain required.
+
 The framework supports adding options through reviewed data for several common mechanics, but it does not yet certify a complete imported class or race. New classes must not require a class-named handler. Unsupported mechanics must remain explicit dependencies until a reusable operation is implemented and verified.
 
 ## Current seams
@@ -55,3 +57,5 @@ Every resolved owned profile now preflights supported starting resources, pool/c
 ## Archive acceptance boundary
 
 `RuleArchive` verifies identities, immutable canonical bytes and manifest fingerprints; it does not certify full mechanical/source completeness. Runtime component preflights are shared validators, not a completed maintainer conversion/activation report. The future activation workflow must aggregate those validators with catalog completeness, source review and independently calculated class/nonhuman witnesses before declaring a new import complete.
+
+User cleanup on2026-10-05: general insanity projections/automatic HU sheet fields are removed. Source-specific Crazy traits/permanent injuries remain in scope. HU Mega Heroes and super-vehicle/base design are excluded; robot/bionic construction remains required. Existing optional combat/activity work is compatible legacy support, not a further implementation or release gate. Refer to `player-focused-scope.md`.

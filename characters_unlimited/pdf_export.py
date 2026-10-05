@@ -487,16 +487,7 @@ def export_rifts_sheet(character, core, skills, combat):
         if skill.get('notes'):
             sheet_notes += ' ' + ' '.join(skill['notes'])
         for activity in skill.get('activities', []):
-            sheet_notes += '\n'+activity['name']+': '
-            if 'yards_per_melee' in activity:
-                sheet_notes += (activity['guidance'] if activity['yards_per_melee'] is None else
-                    f"{activity['yards_per_melee']} yards / {activity['meters_per_melee']} meters per melee for {activity['minutes']} minutes. "+activity['guidance'])
-                continue
-            if activity['miles'] is None:
-                sheet_notes += activity['guidance']
-            else:
-                sheet_notes += (f"Spd {activity['speed_attribute']:g}; {activity['miles']:.3f} miles / "
-                                f"{activity['kilometers']:.3f} km. "+activity['guidance'])
+            sheet_notes += '\n' + activity['name'] + ': ' + activity['guidance']
     if saving_bonuses:
         sheet_notes += '\nSaving fields show reviewed bonuses.'
         additional = [f'{saving_bonuses[key]["name"]}: {saving_bonuses[key]["value"]:+d}'

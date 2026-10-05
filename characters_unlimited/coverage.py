@@ -151,7 +151,18 @@ class SourceInventory:
     @staticmethod
     def with_catalog(inventory, catalog, ticket_manifest=None):
         coverage = audited_coverage(inventory, catalog)
-        return with_content_tickets(coverage, ticket_manifest) if ticket_manifest is not None else coverage
+        result = with_content_tickets(coverage, ticket_manifest) if ticket_manifest is not None else coverage
+        excluded = {'hu2-mega-hero': 'Heroes Unlimited Mega Heroes are excluded by the user.',
+                    'hu2-hardware-super-vehicle': 'Super-vehicle design is excluded by the user.'}
+        for option in result['options']:
+            option['scope'] = 'excluded' if option['id'] in excluded else 'included'
+            if option['id'] in excluded:
+                option['scope_reason'] = excluded[option['id']]
+        for ticket in result.get('content_tickets', []):
+            ticket['scope'] = 'excluded' if all(identity in excluded for identity in ticket['option_ids']) else 'included'
+        result['summary']['excluded_options'] = sum(option['scope'] == 'excluded' for option in result['options'])
+        result['summary']['in_scope_options'] = len(result['options']) - result['summary']['excluded_options']
+        return result
 
     @staticmethod
     def load() -> dict:

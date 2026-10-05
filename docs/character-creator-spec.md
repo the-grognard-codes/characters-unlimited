@@ -1,5 +1,7 @@
 # Characters Unlimited specification
 
+> Scope update (2026-10-05): [Player-focused scope amendment](player-focused-scope.md) supersedes conflicting exhaustive calculation requirements. The original text is retained for retrospective comparison.
+
 Status: Review draft, synthesized from the confirmed design interview of 2026-10-02. Product requirements below are confirmed; proposed implementation and testing contracts await review. Tracker destination and ticket breakdown await approval.
 
 ## Problem Statement

@@ -22,3 +22,7 @@
 - Keep ticket ownership stable. Advance identity/mechanical/dependency review or automation state only when its own evidence and acceptance checks are complete; ticket assignment does not certify review or automation.
 
 **Dependency contract:** the manifest mirrors canonical `dependencies` to owning tickets, plus actual parent workflow and verified source-recovery prerequisites. Other dependencies remain pending and must not be silently treated as resolved.
+
+## Scope decision — 2026-10-05
+
+Heroes Unlimited Mega Heroes are excluded by the user. Retain this source record for audit; no implementation or release acceptance is required.

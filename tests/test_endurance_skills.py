@@ -55,8 +55,8 @@ class EnduranceSkillWorkflowTests(unittest.TestCase):
             fields = PdfReader(BytesIO(app.export_pdf(character['id']))).get_fields()
             assert fields is not None
             notes = [str(field.get('/V','')) for field in fields.values()]
-            self.assertTrue(any('Running at half speed: Spd 11; 8.000 miles' in value for value in notes))
-            self.assertTrue(any('12.800 km' in value for value in notes))
+            self.assertFalse(any('Running at half speed: Spd 11; 8.000 miles' in value for value in notes))
+            self.assertFalse(any('12.800 km' in value for value in notes))
             character = app.select_skills(character['id'],revision=character['revision'],selections=[
                 {'skill_id':'physical-labor','pool':'secondary'},
                 {'skill_id':'running','pool':'secondary'}])

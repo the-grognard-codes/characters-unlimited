@@ -12,3 +12,5 @@
 - [ ] Scoped changes are committed, the pull request is opened, and the merge is recorded.
 
 Scope is defined by this delivery and the approved character-creator specification. Representative paths do not close remaining corpus coverage.
+
+Activation follows `docs/player-focused-scope.md`: attributes, normal skill percentages/entitlements, ability choices/descriptions, equipment, saves and sheets are required; exhaustive situational effect simulation is not. General insanity, HU Mega Heroes, super-vehicle and base design are excluded; robot/bionic construction remains required.

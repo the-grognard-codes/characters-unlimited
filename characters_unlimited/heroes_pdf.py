@@ -47,8 +47,8 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
     page_header(1)
     heading('Saving Throws', 40, 716, 140)
     for index, (label, key) in enumerate([('Magic', 'SAVE_MAGIC'), ('Psionics', 'SAVE_PSIONICS'),
-            ('Poison', 'SAVE_POISON'), ('Insanity', 'SAVE_INSANITY'), ('Coma / death', 'SAVE_COMA')]):
-        save_id = {'SAVE_PSIONICS':'psionics','SAVE_INSANITY':'insanity','SAVE_MAGIC':'magic',
+            ('Poison', 'SAVE_POISON'), ('Coma / death', 'SAVE_COMA')]):
+        save_id = {'SAVE_PSIONICS':'psionics','SAVE_MAGIC':'magic',
                    'SAVE_POISON':'poison','SAVE_COMA':'coma-death'}.get(key)
         save = (powers or {}).get('saving_bonuses',{}).get(save_id,{})
         value = f"{save['value']:+d}" if save.get('value') is not None else ''
@@ -116,7 +116,7 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             power_lines.extend(power['guidance'])
             power_lines.extend(parameter['text']+'; '+resource_source_citation(parameter['source'])
                                for parameter in power.get('parameters', []))
-            power_lines.append(f"{power['source']['book']}, printed p.{power['source']['printed_page']} / PDF p.{power['source']['pdf_page']}")
+            power_lines.append(resource_source_citation(power['source']))
             power_lines.extend(requirement['text']+'; '+('met' if requirement['satisfied'] else 'unmet')+'; '+resource_source_citation(requirement['source'])
                                for requirement in power.get('requirements', []))
         for receipt in powers['receipts']:
@@ -127,7 +127,7 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
                                    for parameter in receipt.get('parameters', []))
                 power_lines.extend(requirement['text']+'; '+('met' if requirement['satisfied'] else 'unmet')+'; '+resource_source_citation(requirement['source'])
                                    for requirement in receipt.get('requirements', []))
-                power_lines.append(f"{receipt['source']['book']}, printed p.{receipt['source']['printed_page']} / PDF p.{receipt['source']['pdf_page']}")
+                power_lines.append(resource_source_citation(receipt['source']))
         if powers['powers']:
             power_lines.append(f"Minor selections: {powers['minor']['used']} used / {powers['minor']['allowance']} allowed")
         for save in powers.get('saving_bonuses',{}).values():
@@ -137,7 +137,7 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
             target = f"; roll target {save['target']}" if save['target'] is not None else '; target depends on the triggering rule'
             parts = '; '.join(f'{label} {amount:+d}' for label,amount in save['contributions'].items())
             power_lines.append(f"{save['name']}: {bonus}{target}; {parts}")
-            power_lines.extend(f"{source['book']}, printed p.{source['printed_page']} / PDF p.{source['pdf_page']}" for source in save['sources'])
+            power_lines.extend(resource_source_citation(source) for source in save['sources'])
         power_lines.extend(powers.get('saving_notes',[]))
         power_lines.extend(powers['warnings'])
     wrapped_powers = [line for text in power_lines for line in wrap_lines(text, 530)]
@@ -240,14 +240,7 @@ def export_heroes_sheet(character, core, education, programs, power_budget=None,
         state = ' (inactive training)' if skill.get('combat_active') is False else ''
         lines += wrap_lines('Physical: '+skill['name']+state+'; '+', '.join(terms), 530)
         for activity in skill.get('activities', []):
-            rate = activity['fatigue_rate']
-            pace = activity['yards_per_melee'] if activity['yards_per_melee'] is not None else 'unreviewed'
-            duration = activity['minutes'] if activity['minutes'] is not None else 'unreviewed'
-            ordinary = activity['ordinary_minutes'] if activity['ordinary_minutes'] is not None else 'unreviewed'
-            lines += wrap_lines(f"{skill['name']} pace: {pace} yards/meters per melee; {duration} minutes; ordinary {ordinary} minutes; fatigue {rate['numerator']}/{rate['denominator']} normal.",530)
-            lines += wrap_lines(activity['guidance'],530)
-            for fatigue_source in activity['fatigue_sources']:
-                lines += wrap_lines(f"Fatigue source: {fatigue_source['book']}, printed p.{fatigue_source['printed_page']} / PDF p.{fatigue_source['pdf_page']}",530)
+            lines += wrap_lines(activity['guidance'], 530)
         source = skill['source']
         lines += wrap_lines(source['book']+', printed pp. '+', '.join(map(str,source['pages']))+
                             ' / PDF pp. '+', '.join(map(str,source['pdf_pages'])), 530)

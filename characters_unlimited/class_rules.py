@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 from .profile_composition import compose_owned_profile
+from .profile_preflight import preflight_owned_profiles
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -21,6 +22,7 @@ def class_rules(pack, character):
         for identity, profile in result['class_profiles'].items():
             if any(profile[field].get('class_id') != identity for field in ('class_bonuses', 'advancement')):
                 raise ValueError(identity + ' class-specific rules must identify their owner')
+        preflight_owned_profiles(result)
         return result
     # Before profiles, this archive's sole Rifts class was the Vagabond.
     default = pack.get('default_class', 'vagabond')

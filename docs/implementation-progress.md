@@ -313,3 +313,9 @@ Perform the requested retro only after all slices are completed. Compare functio
 22F3 local validation complete:24 affected/full438 tests pass (370.078 seconds, one frozen-only skip), mypy146, compilation/all JS/whitespace,4 power/24 Physical archive bounds audits, and both independent reviews APPROVE. Windows/frozen merge gates remain pending.
 
 22F2 merged in PR104 as `5f10b8d16698af5c789d49381c435dacf87fe0c0` after both exact-head Windows runs37247361712/37247390783 passed, including frozen executable validation.
+
+22E5 preflights supported nested resources, pool/category costs, fixed/required/Physical grants and effects, default combat references and progression/resource dependencies for every resolved owned profile before generation. Legacy overlays remain compatible; complete proficiency/conditional combat, unreferenced fragment mechanics, equipment/race/RCC precedence and source-grounded importer certification remain open. See `owned-profile-component-preflight-contract.md`.
+
+22F3 merged in PR105 as `b9bf1790e239882823c072ba4bcaeea56023a2de` after both exact-head Windows runs37248264225/37248267640 passed, including frozen executable validation.
+
+Final full441 tests pass (365.620 seconds, one frozen-only skip); no subsequent product changes. Both reviews and local static/archive checks pass. Exact-head Windows/frozen gates required before merge.

@@ -68,6 +68,12 @@ async function loadHeroPowers(character) {
         `${parameter.text} \u2014 ${modifierSourceCitation(parameter.source)} \u2014 ${parameter.source.section}`)));
       card.append(parameters);
     }
+    if ((definition.requirements || []).length) {
+      const requirements = document.createElement('ul'); requirements.className = 'help';
+      requirements.replaceChildren(...definition.requirements.map(requirement => heroPowerLine(
+        `${requirement.text}; ${requirement.satisfied ? 'met' : 'unmet'}; ${modifierSourceCitation(requirement.source)}; ${requirement.source.section}`)));
+      card.append(requirements);
+    }
     const acquisition = acquired.get(definition.id);
     if (acquisition) {
       const retained = document.createElement('p'); retained.className = 'help';
@@ -95,7 +101,10 @@ async function loadHeroPowers(character) {
   $('hero-powers-receipts').replaceChildren(...(receipts.length ? receipts.map(receipt => {
     const parameters = (receipt.parameters || []).map(parameter =>
       `${parameter.text} \u2014 ${modifierSourceCitation(parameter.source)} \u2014 ${parameter.source.section}`).join('; ');
-    const suffix = parameters ? ` \u00b7 ${parameters}` : '';
+    const requirements = (receipt.requirements || []).map(requirement =>
+      `${requirement.text}; ${requirement.satisfied ? 'met' : 'unmet'}; ${modifierSourceCitation(requirement.source)}; ${requirement.source.section}`).join('; ');
+    const evidence = [parameters, requirements].filter(Boolean).join('; ');
+    const suffix = evidence ? ` \u00b7 ${evidence}` : '';
     if (receipt.effect_summary) return heroPowerLine(`${receipt.name} · ${receipt.active ? 'active' : 'inactive'} · ${receipt.effect_summary} · ${heroPowerSource(receipt.source)}${suffix}`);
     const formula = receipt.attribute_floor;
     const attribute = heroPowerAttributeLabel(formula.attribute);

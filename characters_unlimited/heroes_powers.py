@@ -5,13 +5,14 @@ from typing import Any
 from copy import deepcopy
 from uuid import UUID, uuid4
 
-from .attribute_modifiers import attribute_value
+from .attribute_modifiers import attribute_value, ATTRIBUTE_NAMES
 from .heroes_power_budget import project_budget
 from .recorded_formulas import validate_formula, formula_value, roll_formula
 from .selection_groups import project_group
 from .option_selectors import select_options
 from .skill_effects import compile_skill_effects
 from .ability_parameters import project_ability_parameters
+from .ability_requirements import compile_ability_requirements, project_ability_requirements
 
 
 def minor_power_options(pack):
@@ -106,8 +107,14 @@ def power_parameter_views(pack, level):
     return {power['id']: project_ability_parameters(power, level) for power in pack['powers']}
 
 
+def power_requirement_definitions(pack):
+    return {power['id']: compile_ability_requirements(power, {'powers': pack['powers']}, ATTRIBUTE_NAMES)
+            for power in pack['powers']}
+
+
 def validate_powers(record, pack, level=1):
     power_parameter_views(pack, level)
+    power_requirement_definitions(pack)
     minor_power_options(pack)
     if not isinstance(record, dict) or set(record) != {'acquisitions','active','history'}:
         raise ValueError('Invalid Heroes power record')
@@ -160,6 +167,7 @@ def power_modifiers(record, pack, *, active_only=True):
 
 def select_powers(character, selections, pack, die):
     power_parameter_views(pack, character['level'])
+    power_requirement_definitions(pack)
     minor_power_options(pack)
     definitions = {row['id']:row for row in pack['powers']}
     if not isinstance(selections,list) or len(selections) > 100 or any(not isinstance(item,str) or item not in definitions for item in selections) or len(set(selections)) != len(selections):
@@ -257,6 +265,13 @@ def project_powers(character, pack, budget_pack, higher=None):
                          'active':acquisition['id'] in active,
                          **({'parameters': deepcopy(parameters[definition['id']])} if parameters[definition['id']] else {})})
     powers = [row for row in receipts if row['active']]
+    compiled_requirements = power_requirement_definitions(pack)
+    requirements = {identifier: project_ability_requirements(rows, level=character['level'],
+        attributes={name: attribute_value(value) for name, value in character['attributes'].items()},
+        selections={'powers': [row['id'] for row in powers]}) for identifier, rows in compiled_requirements.items()}
+    for receipt in receipts:
+        if requirements[receipt['id']]:
+            receipt['requirements'] = deepcopy(requirements[receipt['id']])
     fatigue = next((deepcopy(row['fatigue_rate']) for row in powers if 'fatigue_rate' in row),
                    {'numerator':1,'denominator':1})
     budget = project_budget(character.get('power_budget'), budget_pack)
@@ -264,12 +279,15 @@ def project_powers(character, pack, budget_pack, higher=None):
     minor = project_group({'count': allowance, 'option_ids': minor_power_options(pack)},
                           [row['id'] for row in powers])
     used = minor['credited']
-    warnings = []
+    warnings = [power['name'] + ': unmet requirement ' + requirement['text'] + '; ' +
+                requirement['source']['book'] + ' / ' + requirement['source']['section'] +
+                '. Selection retained on the honor system.'
+                for power in powers for requirement in requirements[power['id']] if not requirement['satisfied']]
     if used > allowance:
         warnings.append(f'Minor power selections exceed the recorded starting allowance by {used-allowance}. Selections retained.')
     value = character['attributes']['MA']['value']
     trust = pack['mental_affinity_chart'].get(str(min(value,30)))
-    catalog = [{**deepcopy(row), **({'parameters': deepcopy(parameters[row['id']])} if parameters[row['id']] else {}), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
+    catalog = [{**deepcopy(row), **({'requirements': deepcopy(requirements[row['id']])} if requirements[row['id']] else {}), **({'parameters': deepcopy(parameters[row['id']])} if parameters[row['id']] else {}), **({'effect_summary':additive_power_summary(row)} if 'attribute_bonus' in row else {})} for row in pack['powers']]
     if character['level'] > 1:
         for row in [*catalog,*receipts]:
             row['guidance'] = [note.replace('Heroes advancement is not yet implemented; current characters support level 1 only.',

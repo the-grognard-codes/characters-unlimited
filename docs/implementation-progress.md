@@ -303,3 +303,7 @@ Perform the requested retro only after all slices are completed. Compare functio
 - 22F1: Shared source-bound ability parameters project literal conditions and level-scaled quantities for power catalogs/active/inactive views and editable PDFs. Unselected declarations preflight before power dice; exact older pins survive newer catalogs. Four focused tests pass; final static/full regression, browser verification, reviews and Windows/frozen checks pending. Costs display only; full magic/psionic acquisition and activation remain open.
 
 22E4 merged in PR102 as `f98dc05d1381e358f098a677a0dccdef5ae18e73` after both exact-head Windows runs37245098538/37245095773 passed, including frozen executable validation.
+
+22F2 adds a common source-bound requirement compiler/projector for level, effective attribute minima and distinct catalog-selected prerequisites. Heroes powers use cited current-state honor-system guidance without discarding choices/effects; every unselected declaration preflights. Full magic/psionic adapters, activation, timing and source-reviewed catalogs remain open. See `shared-ability-requirement-contract.md`.
+
+22F1 merged in PR103 as `563bcee20757dd9f9332b4e21424d8e1af4cc0e4` after both exact-head Windows runs37246351844/37246382013 passed, including frozen executable validation.22F2 has eight affected/full434 passing tests (364.319 seconds, one frozen-only skip), mypy144/static/archive checks, actual active/inactive browser proofs and both review axes APPROVE. Windows/frozen gates pending.

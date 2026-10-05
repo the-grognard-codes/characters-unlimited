@@ -58,6 +58,18 @@ class RogueSkillWorkflowTests(unittest.TestCase):
             self.assertEqual(app.get(hero['id']),before)
             self.assertFalse(app.skill_view(hero['id'])['selected'])
 
+    def test_attribute_bonus_overflow_rejects_explicit_earlier_learned_level(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory, die=lambda sides:4)
+            hero = app.create(level=3)
+            hero = app.set_attribute(hero['id'],revision=hero['revision'],attribute='MA',mode='fixed',value=MAX_INTEGER-16)
+            before = deepcopy(hero)
+            with self.assertRaisesRegex(ValueError, 'exact integer range'):
+                app.select_skills(hero['id'],revision=hero['revision'],learned_level=1,selections=[{'skill_id':'seduction','pool':'related'}])
+            self.assertEqual(app.get(hero['id']),before)
+            hero = app.select_skills(hero['id'],revision=hero['revision'],learned_level=3,selections=[{'skill_id':'seduction','pool':'related'}])
+            self.assertEqual(app.skill_view(hero['id'])['selected'][0]['percentage'],98)
+
     def test_source_reviewed_catalog_and_separate_voice_percentages(self):
         # UE printed pp.320-321, plus cross-references pp.309 and317.
         expected = {'cardsharp': (24,4), 'computer-hacking': (20,5), 'concealment': (20,4),

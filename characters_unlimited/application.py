@@ -74,6 +74,9 @@ class CharacterApplication:
         skill_pack = class_rules(self.skill_pack, {'character_class':character_class}) if game == 'rifts' else None
         if skill_pack:
             pack_skill_effects(skill_pack)
+            equipment_pack = self.rule_archive.active('rifts-equipment')
+            if 'class_profile_format' in equipment_pack:
+                equipment_class_rules(equipment_pack, {'game':game, 'character_class':character_class})
         maximum = (skill_pack.get('higher_advancement', {}).get('max_level', 2) if skill_pack else
                    (self._hero_higher_pack({},available=True) or self.rule_archive.active('heroes-advancement'))['max_level'])
         if type(level) is not int or not 1 <= level <= maximum:

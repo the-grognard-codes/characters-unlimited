@@ -30,7 +30,7 @@ async function loadEquipment(character) {
     const row = document.createElement('li');
     row.textContent = `${view.catalog.find(item => item.id === grant.item_id).name} × ${grant.quantity}`; return row;
   }));
-  $('starting-choices-source').textContent = starting.generated ? `${starting.source.book}, p. ${starting.source.pages.join(', ')}. Original free grant; later inventory edits do not regenerate these items.` : '';
+  $('starting-choices-source').textContent = starting.generated ? `${equipmentSourceCitation(starting.source)}. Original free grant; later inventory edits do not regenerate these items.` : '';
   renderStartingGroups(view.starting_groups, view.catalog, character.id);
   const gear = view.starting_gear;
   $('grant-starting-gear').hidden = !gear.supported || gear.generated;
@@ -41,14 +41,14 @@ async function loadEquipment(character) {
     const row = document.createElement('li');
     row.textContent = `${view.catalog.find(item => item.id === grant.item_id).name} × ${grant.quantity}`; return row;
   }));
-  $('starting-gear-source').textContent = gear.generated ? `${gear.source.book}, p. ${gear.source.pages.join(', ')}. This is the original grant; current possessions are listed below.` : '';
+  $('starting-gear-source').textContent = gear.generated ? `${equipmentSourceCitation(gear.source)}. This is the original grant; current possessions are listed below.` : '';
   const funds = view.starting_funds;
   $('generate-starting-funds').hidden = !funds.supported || funds.generated;
   $('starting-funds-guidance').textContent = funds.guidance.join(' ');
   $('starting-funds-record').replaceChildren(...Object.entries(funds.funds).map(([id,record]) => {
     const row = document.createElement('p'); row.className = 'help';
     const definition = funds.definitions.find(entry => entry.id === id);
-    row.textContent = `${definition.name}: ${record.value.toLocaleString()} credits = (${record.rolls.join(' + ')}) × ${definition.multiplier}. ${record.source.book}, p. ${record.source.pages.join(', ')}.`;
+    row.textContent = `${definition.name}: ${record.value.toLocaleString()} credits = (${[...record.rolls, ...(definition.constant ? [definition.constant] : [])].join(' + ') || '0'}) × ${definition.multiplier}. ${equipmentSourceCitation(record.source)}.`;
     return row;
   }));
   $('equipment-credits').value = view.inventory.credits;
@@ -67,7 +67,7 @@ async function loadEquipment(character) {
     const row = document.createElement('details'), heading = document.createElement('summary');
     heading.textContent = `${item.name} × ${item.quantity} · ${item.location}${item.equipped ? ' · equipped' : ''}`;
     const source = document.createElement('p'); source.className = 'help';
-    source.textContent = `${item.source.book}, pp. ${item.source.pages.join(', ')} · ${item.weight_lbs == null ? 'weight unspecified' : item.weight_lbs + ' lb each'}${item.cost_credits_range ? ` · ${item.cost_credits_range.min}–${item.cost_credits_range.max} credits each` : item.cost_credits == null ? ' · purchase price unspecified' : ''}`;
+    source.textContent = `${equipmentSourceCitation(item.source)} · ${item.weight_lbs == null ? 'weight unspecified' : item.weight_lbs + ' lb each'}${item.cost_credits_range ? ` · ${item.cost_credits_range.min}–${item.cost_credits_range.max} credits each` : item.cost_credits == null ? ' · purchase price unspecified' : ''}`;
     const form = document.createElement('form');
     const input = (text,type,value) => {
       const label = document.createElement('label'), field = document.createElement('input');
@@ -143,8 +143,8 @@ async function loadEquipment(character) {
   $('equipment-effects').replaceChildren(...explanations);
   equipmentReady = true; setEquipmentBusy();
 }
-function startingGroupSource(source) {
-  return `${source.book}, p. ${source.pages.join(', ')}`;
+function equipmentSourceCitation(source) {
+  return modifierSourceCitation(source) + (source.section ? '; ' + source.section : '');
 }
 function renderStartingGroups(starting, catalog, characterId) {
   const panel = $('starting-groups'), container = $('starting-groups-list');
@@ -162,7 +162,7 @@ function renderStartingGroups(starting, catalog, characterId) {
       record.textContent = `Original selection: ${selected?.name || group.receipt.selection} × ${group.quantity}. This receipt is independent of current inventory and cannot grant this group again.`;
       section.append(record);
       const receiptSource = document.createElement('p'); receiptSource.className = 'help';
-      receiptSource.textContent = `Original receipt source: ${startingGroupSource(group.receipt.source)}`;
+      receiptSource.textContent = `Original receipt source: ${equipmentSourceCitation(group.receipt.source)}`;
       section.append(receiptSource);
     } else {
       const form = document.createElement('form');
@@ -187,7 +187,7 @@ function renderStartingGroups(starting, catalog, characterId) {
       section.append(form);
     }
     const source = document.createElement('p'); source.className = 'help';
-    source.textContent = `Rule source: ${startingGroupSource(group.source)}`;
+    source.textContent = `Rule source: ${equipmentSourceCitation(group.source)}`;
     const guidance = document.createElement('p'); guidance.className = 'help';
     guidance.textContent = `${group.quantity} item${group.quantity === 1 ? '' : 's'} · ${group.location}. ${group.guidance.join(' ')}`;
     section.append(source, guidance);

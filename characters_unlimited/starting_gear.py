@@ -26,7 +26,8 @@ def _possession_id(value: Any) -> bool:
         return False
 
 
-def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
+def starting_gear_rules(pack: dict[str, Any]) -> dict[str, Any] | None:
+    """Compile pinned definitions without drawing dice or validating receipts."""
     if (not isinstance(pack, dict) or pack.get('id') != 'rifts-equipment'
             or pack.get('game') != 'rifts'):
         raise ValueError('Unsupported starting gear rule pack')
@@ -79,7 +80,7 @@ def validate_starting_gear(character: dict[str, Any], pack: dict[str, Any]) -> N
     """Check the original grant receipt against the exact pinned rules."""
     if 'starting_gear' not in character:
         return
-    rules = _rules(pack)
+    rules = starting_gear_rules(pack)
     if not _supported(character, rules):
         raise ValueError('Starting gear requires pinned Rifts rules for this class')
     assert rules is not None
@@ -112,7 +113,7 @@ def acquire_starting_gear(
     """Append each free fixed grant and return the original receipt for one save."""
     if 'starting_gear' in character:
         raise ValueError('Starting gear has already been granted')
-    rules = _rules(pack)
+    rules = starting_gear_rules(pack)
     if not _supported(character, rules):
         raise ValueError('Starting gear requires reviewed rules for the selected Rifts class')
     if not callable(identifier_factory):
@@ -153,7 +154,7 @@ def acquire_starting_gear(
 def project_starting_gear(character: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]:
     """Show fixed grants and the saved receipt without adding possessions."""
     validate_starting_gear(character, pack)
-    rules = _rules(pack)
+    rules = starting_gear_rules(pack)
     if not _supported(character, rules):
         guidance = (['The pinned equipment rules do not provide personal starting gear for this class. Review available equipment rule updates before generation.']
                     if character.get('game') == 'rifts' else [])

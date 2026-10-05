@@ -40,7 +40,8 @@ def _catalog(pack: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return catalog
 
 
-def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
+def starting_choice_rules(pack: dict[str, Any]) -> dict[str, Any] | None:
+    """Compile pinned definitions without drawing dice or validating receipts."""
     if (not isinstance(pack, dict) or pack.get('id') != 'rifts-equipment'
             or pack.get('game') != 'rifts'):
         raise ValueError('Unsupported starting choices rule pack')
@@ -49,7 +50,7 @@ def _rules(pack: dict[str, Any]) -> dict[str, Any] | None:
         return None
     if (not isinstance(rules, dict)
             or set(rules) != {'character_class', 'options', 'clips', 'source', 'guidance'}
-            or rules['character_class'] != 'vagabond'
+            or not isinstance(rules['character_class'], str) or not rules['character_class']
             or not isinstance(rules['options'], dict)
             or set(rules['options']) != set(CHOICE_GROUPS)
             or not isinstance(rules['clips'], dict)
@@ -113,9 +114,9 @@ def validate_starting_choices(character: dict[str, Any], pack: dict[str, Any]) -
     """Check saved selections and grant identities against their pinned rules."""
     if 'starting_choices' not in character:
         return
-    rules = _rules(pack)
+    rules = starting_choice_rules(pack)
     if not _supported(character, rules):
-        raise ValueError('Starting choices require pinned Rifts Vagabond rules')
+        raise ValueError('Starting choices require pinned Rifts rules for this class')
     assert rules is not None
     receipt = character['starting_choices']
     if (not isinstance(receipt, dict) or set(receipt) != {'choices', 'grants', 'source'}
@@ -144,9 +145,9 @@ def acquire_starting_choices(
     """Append five free selected possessions and retain their original receipt."""
     if 'starting_choices' in character:
         raise ValueError('Starting choices have already been granted')
-    rules = _rules(pack)
+    rules = starting_choice_rules(pack)
     if not _supported(character, rules):
-        raise ValueError('Starting choices are available only to Rifts Vagabonds with pinned rules')
+        raise ValueError('Starting choices need reviewed rules for the selected Rifts class')
     if not callable(identifier_factory):
         raise ValueError('A possession identity source is required')
     assert rules is not None
@@ -189,11 +190,11 @@ def acquire_starting_choices(
 def project_starting_choices(character: dict[str, Any], pack: dict[str, Any]) -> dict[str, Any]:
     """Show the recorded choice receipt and reviewed options without changing inventory."""
     validate_starting_choices(character, pack)
-    rules = _rules(pack)
+    rules = starting_choice_rules(pack)
     if not _supported(character, rules):
-        guidance = (['Update the equipment rules to preview Vagabond starting choices.']
+        guidance = (['The pinned equipment rules do not grant a starting choice set for this class.']
                     if rules is None and character.get('game') == 'rifts'
-                    and character.get('character_class') == 'vagabond' else [])
+                    else [])
         return {'supported': False, 'generated': False, 'choices': {},
                 'grants': [], 'definitions': {}, 'source': None, 'guidance': guidance}
     assert rules is not None

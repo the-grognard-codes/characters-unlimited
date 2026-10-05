@@ -1,6 +1,6 @@
 # 05D3: Shared skill-derived grants and Vehicle Armorer
 
-**Status:** in-progress. **Parent:**05/05B/22. **Depends on:**05D2 merged asa90ddf5f27cc74bec09c08e440a26eb14fb0145a after passing review and exact-head validation. **Planned branch:**codex/rifts-skill-derived-grants.
+**Status:** done. **Parent:**05/05B/22. **Depends on:**05D2 merged asa90ddf5f27cc74bec09c08e440a26eb14fb0145a after passing review and exact-head validation. **Planned branch:**codex/rifts-skill-derived-grants.
 
 Add a source-bound declarative seam for an acquired percentile skill to grant another ordinary percentile skill with a fixed training bonus. Resolve declarations against the exact pinned catalog, reject malformed declarations, unknown targets, unsupported specialty/Physical targets and cycles before saving, including declarations on unselected skills. Preserve existing archives and absent-declaration behavior. Do not introduce class-specific handlers.
 
@@ -11,3 +11,5 @@ Interpretation: granted training bonus and ordinary class/selection training bon
 Validate representative source percentages: at IQ12, Vehicle Armorer30 and automatically granted Basic Mechanics50; duplicate armorer grants still50. Vagabond related Automotive Mechanics25+5+10=40, City Rat25+10+10=45. Related Basic Mechanics alongside armorer remains50, not55/60. Removing armorer retains independently selected Basic Mechanics with ordinary class bonus and removes the Automotive synergy. At character level3 a newly acquired parent and target start30/50, then35/55 at level4; earlier acquisition and undo/reselection preserve recorded age.
 
 Protect exact integer totals, invalid declaration and portable-state rejection, stale revisions and atomic save behavior. Exercise exact old-pin upgrade, save/reopen/import, actual browser selection/removal and editable PDF. Run a focused manifest covering derived grants, Electrical/Mechanical, Rogue, prerequisites, advancement, portability, rule upgrades and owned-profile preflight, then required Windows/full/frozen checks. Obtain independent Standards/Spec approval before the scoped PR merges. This slice does not certify complete class/race coverage or robot/bionic construction.
+
+Merged PR115 as9197e66c9f6f1b4fde87c74256e323a15f84ccfd after both reviews approved exact headf29bb1283dbfa211117ce6acc4a5cc10fd327153.49 affected tests,501 local full tests and rebuilt frozen validation pass. Both exact-head hosted Windows runs37380938046/37380938259 pass501 tests and separate packaged workflows. Broader parent tickets remain open.

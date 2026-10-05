@@ -161,3 +161,20 @@ class PilotSkillWorkflowTests(unittest.TestCase):
                 with self.assertRaises(ValueError): app.create()
                 self.assertEqual(calls,[])
                 self.assertEqual(app.list(),[])
+
+    def test_legacy_adapter_validates_unselected_root_and_profiles_before_dice(self):
+        for owner in ('vagabond','city-rat'):
+            for selected in ('vagabond','city-rat'):
+                with self.subTest(owner=owner,selected=selected),tempfile.TemporaryDirectory() as directory:
+                    pack=RuleArchive.load().active('rifts-domestic-skills')
+                    required=pack['required'] if owner=='vagabond' else pack['class_profiles'][owner]['required']
+                    if owner=='vagabond':
+                        group=next(row for row in required['groups'] if row['id']=='pilot')
+                        group['options'][0]['catalog_skill_id']='missing'
+                    else:
+                        required['grants'][0]['catalog_skill_id']='missing'
+                    def die(sides):
+                        self.fail('Malformed unselected required training must reject before dice')
+                    app=CharacterApplication(directory,die=die,rule_archive=archive_with(pack))
+                    with self.assertRaises(ValueError): app.create(character_class=selected)
+                    self.assertEqual(app.list(),[])

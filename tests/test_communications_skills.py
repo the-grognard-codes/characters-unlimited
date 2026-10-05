@@ -64,7 +64,7 @@ class CommunicationsSkillWorkflowTests(unittest.TestCase):
             choices=[{'skill_id':'barter','pool':'related'},{'skill_id':'laser-communications','pool':'related'},{'skill_id':'surveillance','pool':'related'}]
             app.select_skills(character['id'],revision=0,selections=choices)
             view=app.skill_view(character['id'])
-            self.assertEqual(view['selected'][0]['percentage'],40)
+            self.assertEqual(view['selected'][0]['percentage'],56)  # required class16 + Eyeball10 + base30
             self.assertEqual(view['selected'][0]['contributions']['class_ability'],10)
             self.assertTrue(any('Electrical Engineer' in warning for warning in view['warnings']))
             self.assertTrue(any('Basic Electronics' in warning for warning in view['warnings']))

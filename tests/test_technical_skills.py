@@ -47,7 +47,7 @@ class TechnicalSkillWorkflowTests(unittest.TestCase):
             reopened=CharacterApplication(other)
             imported=reopened.import_character(app.export_character(character['id']))
             skills=reopened.skill_view(imported['id'])['selected']
-            self.assertEqual([(skill['percentage'],skill['quality']) for skill in skills[:2]],[(40,'professional'),(35,'amateur')])
+            self.assertEqual([(skill['percentage'],skill['quality']) for skill in skills[:2]],[(40,'professional'),(40,'amateur')])
             self.assertEqual(skills[2]['specialty'],'Military history')
             self.assertEqual(skills[2]['additional_checks'][0]['percentage'],24)
 

@@ -136,6 +136,23 @@ class PilotSkillWorkflowTests(unittest.TestCase):
             hero=app.select_skills(hero['id'],revision=hero['revision'],selections=choices('ships-seamanship'))
             self.assertEqual(app.skill_view(hero['id'])['selected'][0]['additional_checks'][0]['percentage'],45)
 
+    def test_old_archive_keeps_separate_optional_percentages_until_explicit_upgrade(self):
+        archive=RuleArchive.load()
+        old=RuleArchive(archive.definitions(),{**archive.active_versions(),'rifts-domestic-skills':'2.16.0'})
+        with tempfile.TemporaryDirectory() as directory:
+            earlier=CharacterApplication(directory,die=lambda sides:4,rule_archive=old)
+            for path,before,after in [('vagabond',[40,40,35],[56,40,40]),('city-rat',[44,45,35],[49,45,45])]:
+                hero=earlier.create(character_class=path)
+                earlier.select_skills(hero['id'],revision=0,selections=[*choices('barter','art'),*choices('art',pool='secondary')])
+                app=CharacterApplication(directory)
+                view=app.skill_view(hero['id'])
+                self.assertEqual([row['percentage'] for row in view['selected']],before)
+                imported=app.import_character(app.export_character(hero['id']))
+                self.assertEqual(app.skill_view(imported['id'])['selected'],view['selected'])
+                preview=app.preview_rule_upgrade(hero['id'])
+                hero=app.apply_rule_upgrade(hero['id'],revision=1,token=preview['token'])['character']
+                self.assertEqual([row['percentage'] for row in app.skill_view(hero['id'])['selected']],after)
+
     def test_malformed_unselected_catalog_references_reject_before_dice(self):
         for invalid in ('unknown','type','physical','specialty','base','bonus','source','format','absent','unselected-choice'):
             with self.subTest(invalid=invalid),tempfile.TemporaryDirectory() as directory:

@@ -139,7 +139,7 @@ class RogueSkillWorkflowTests(unittest.TestCase):
                 {'skill_id':'prowl','pool':'related'}, {'skill_id':'tailing','pool':'related'},
                 {'skill_id':'gambling-standard','pool':'secondary'}, {'skill_id':'palming','pool':'secondary'}])
             view = app.skill_view(hero['id'])
-            self.assertEqual([row['percentage'] for row in view['selected']], [40,50,30,20])
+            self.assertEqual([row['percentage'] for row in view['selected']], [40,55,30,20])
             self.assertEqual(next(row for row in view['grants'] if row['id']=='tailing')['percentage'],55)
             self.assertEqual(next(row for row in view['grants'] if row['id']=='math-basic')['percentage'],60)
             self.assertTrue(any('Palming: not available' in note for note in view['warnings']))

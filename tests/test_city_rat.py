@@ -61,6 +61,6 @@ class CityRatWorkflowTests(unittest.TestCase):
             hero = app.select_skills(hero['id'], revision=hero['revision'],
                 selections=[{'skill_id':'barter','pool':'related'}])
             barter = app.skill_view(hero['id'])['selected'][0]
-            self.assertEqual(barter['percentage'],44)  # base30 + Related10 + Math/Literacy4
+            self.assertEqual(barter['percentage'],49)  # base30 + required training15 + Math/Literacy4
             self.assertNotIn('class_ability',barter['contributions'])
             self.assertTrue(any('already granted' in item for item in app.skill_view(hero['id'])['warnings']))

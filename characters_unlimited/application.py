@@ -807,8 +807,14 @@ class CharacterApplication:
         pins = dict(character['additional_rule_packs'])
         for change in preview['changes']:
             pins[change['pack_id']] = change['to']
-        export_bundle({**character, 'additional_rule_packs': pins}, self.rule_archive.definitions())
-        updated = self.store.update(identifier, {'additional_rule_packs': pins}, revision)
+        changes = {'additional_rule_packs': pins}
+        candidate = {**character, **changes}
+        if character['game'] == 'rifts':
+            target_skills = self.character_skill_pack(candidate)
+            if target_skills.get('required_skill_training') is not None:
+                changes = self._learning_changes(character, changes, target_skills)
+        export_bundle({**character, **changes}, self.rule_archive.definitions())
+        updated = self.store.update(identifier, changes, revision)
         return {'character': updated, 'backup': backup}
 
     def select_skills(self, identifier, *, revision, selections, learned_level=None):

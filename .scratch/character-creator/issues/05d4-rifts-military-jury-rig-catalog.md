@@ -1,6 +1,6 @@
 # 05D4: Shared Military percentile catalog and Jury-Rig
 
-**Status:** in-progress. **Parent:**05/05B/22. **Depends on:**05D3 reviewed and merged. **Planned branch:**codex/rifts-military-jury-rig-skills.
+**Status:** done. **Parent:**05/05B/22. **Depends on:**05D3 reviewed and merged. **Planned branch:**codex/rifts-military-jury-rig-skills.
 
 Review and expose13 ordinary Military percentile skills plus Technical Jury-Rig using existing shared declarations in a new immutable archive. Original printed314–316 (PDF317–319) and Jury-Rig printed324 (PDF327) were visually reviewed during preparation. Reconcile OCR with these pages. Expected base/per-level: Camouflage20/5; Demolitions60/3; Demolitions Disposal60/3; Demolitions Underwater56/4; Field Armorer & Munitions Expert40/5; Military Etiquette35/5; Military Fortification30/5; Naval History30/5; Naval Tactics25/5; NBC Warfare35/5; Parachuting40/5; Recognize Weapon Quality25/5; Trap & Mine Detection20/5; Jury-Rig25/5.
 
@@ -11,3 +11,5 @@ Vagabond and City Rat Military permissions remain None; new Military choices are
 At IQ12: Field Armorer40 and automatic Basic Mechanics30; adding Vehicle Armorer changes Basic Mechanics50 once and removing it restores30. Jury-Rig with an engineer or Field Armorer is40 for Vagabond related,45 for City Rat related,35 for Secondary; without those parents subtract10. Acquired at character level3, new parent and automatic target start40/30 then45/35 at level4, retaining recorded ages through save/import and reselection. Engineer alternatives satisfy electronics/mechanics prerequisites independently.
 
 Situational demolitions/disposal outcomes, equipment-assisted trap detection, observational weapon-quality modifiers, parachuting damage/landing, military operations and temporary jury-rig reliability remain concise descriptions. No encounter or construction simulator. Preserve exact old pins, upgrade previews, learned levels, saves/reopen/import and editable sheets. Validate source table, grant overlap/removal, synergy alternatives/prerequisites, class/Secondary guidance, later acquisition, old-pin upgrade, actual browser/PDF proof, two independent reviews and appropriate Windows/full/frozen integration checks before the scoped PR merges. Broader amended class/race/ability coverage and robot/bionic construction remain required.
+
+Merged PR116 as9f80ed3860a99c683d283ed37e7f44eb4845fa77 after both reviews approved exact head19778b78bc3c8d24a0e058f15ac75ec3b3c56ad4.44 actual affected tests,507 local full tests and rebuilt frozen validation pass. Both exact-head hosted Windows runs37383449965/37383455538 pass507 tests and separate packaged workflows. Broader parents remain open.

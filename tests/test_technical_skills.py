@@ -47,7 +47,7 @@ class TechnicalSkillWorkflowTests(unittest.TestCase):
             reopened=CharacterApplication(other)
             imported=reopened.import_character(app.export_character(character['id']))
             skills=reopened.skill_view(imported['id'])['selected']
-            self.assertEqual([(skill['percentage'],skill['quality']) for skill in skills[:2]],[(40,'professional'),(35,'amateur')])
+            self.assertEqual([(skill['percentage'],skill['quality']) for skill in skills[:2]],[(40,'professional'),(40,'amateur')])
             self.assertEqual(skills[2]['specialty'],'Military history')
             self.assertEqual(skills[2]['additional_checks'][0]['percentage'],24)
 
@@ -84,7 +84,7 @@ class TechnicalSkillWorkflowTests(unittest.TestCase):
             self.assertEqual(len(current.skill_view(character['id'])['catalog']),18)
             preview=current.preview_rule_upgrade(character['id'])
             upgraded=current.apply_rule_upgrade(character['id'],revision=0,token=preview['token'])['character']
-            self.assertEqual(len(current.skill_view(upgraded['id'])['catalog']),114)
+            self.assertEqual(len(current.skill_view(upgraded['id'])['catalog']),141)
             self.assertEqual(upgraded['attributes'],character['attributes'])
 
     def test_ineligible_art_pool_does_not_claim_professional_quality(self):

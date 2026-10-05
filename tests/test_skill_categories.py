@@ -33,7 +33,7 @@ class NoncombatCategoryWorkflowTests(unittest.TestCase):
                 {'skill_id':'math-advanced','pool':'related'},
                 {'skill_id':'math-advanced','pool':'related'}])
             view = app.skill_view(saved['id'])
-            self.assertEqual([skill['percentage'] for skill in view['selected']], [30,45,50,50])
+            self.assertEqual([skill['percentage'] for skill in view['selected']], [30,50,50,50])
             self.assertTrue(any('Computer Repair' in warning and 'related' in warning for warning in view['warnings']))
             self.assertTrue(any('prerequisite' in warning and 'Mathematics: Basic' in warning for warning in view['warnings']))
             self.assertTrue(any('duplicate' in warning for warning in view['warnings']))

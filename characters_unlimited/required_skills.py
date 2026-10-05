@@ -8,6 +8,7 @@ from .required_definitions import required_catalog, required_selection_group
 from .selection_groups import project_group
 from .skill_effects import pack_skill_effects, matching_skill_effects
 from .skill_attribute_bonuses import attribute_contributions
+from .skill_training import training_rules, required_training_definition, recorded_training_level
 
 
 def required_choice_identity(group, value):
@@ -35,6 +36,7 @@ def validate_required_choices(choices, pack):
 
 
 def project_required_skills(character, pack, intelligence, *, skill_grants=None):
+    aliases = training_rules(pack)
     skill_effects = pack_skill_effects(pack)
     rules = required_catalog(pack)
     if rules is None:
@@ -75,6 +77,8 @@ def project_required_skills(character, pack, intelligence, *, skill_grants=None)
             if group['kind'] == 'select' else group['count'] - len(unique))
         if remaining[group['id']] < 0:
             warnings.append(f"{group['name']}: {-remaining[group['id']]} selection(s) over the allowance.")
+    definitions = [(required_training_definition(definition, pack, aliases), specialty)
+                   for definition, specialty in definitions]
     available = {definition['id'] for definition, _ in definitions}
     available.update(learned_selection_ids(character.get('skill_selections', []), pack))
     available.update(skill_grants or {})
@@ -90,12 +94,18 @@ def project_required_skills(character, pack, intelligence, *, skill_grants=None)
         training = (skill_grants or {}).get(definition['id']) if not specialty else None
         if training:
             contributions['class'] = max(definition['class_bonus'], training['ordinary_bonus'])
-            contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
+            if training['origins']:
+                contributions['Skill grant training'] = max(0, training['bonus'] - contributions['class'])
+        learned = (recorded_training_level(character, definition['id'], aliases, default=1)
+                   if aliases is not None and not specialty else None)
+        if training and aliases is not None:
+            learned = training['learned_level']
         if character['level'] > 1:
-            contributions['advancement'] = (learning_age(character, 'skill', definition['id'], specialty) - 1) * definition['per_level']
+            age = character['level'] - learned + 1 if learned is not None else learning_age(character, 'skill', definition['id'], specialty)
+            contributions['advancement'] = (age - 1) * definition['per_level']
         if 'class_ability' in definition:
             contributions['class_ability'] = definition['class_ability']
         contributions.update(synergy_contributions(definition, available))
         contributions.update(attribute_contributions(definition, character['attributes']))
-        grants.append({**definition, 'specialty': specialty, **({'grant_origins': training['origins']} if training else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=any(row.get('granted_skills') for row in pack['skills'])), 'quality': 'trained'})
+        grants.append({**definition, 'specialty': specialty, **({'learned_level': learned} if learned is not None and 'catalog_skill_id' in definition else {}), **({'grant_origins': training['origins']} if training and training['origins'] else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=aliases is not None or any(row.get('granted_skills') for row in pack['skills'])), 'quality': 'trained'})
     return {'grants': grants, 'remaining': remaining, 'warnings': warnings, 'catalog': rules}

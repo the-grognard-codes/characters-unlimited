@@ -5,6 +5,7 @@ from .profile_composition import compose_owned_profile
 from .profile_preflight import preflight_owned_profiles
 from .class_contributions import class_numeric_contributions
 from .equipment_profiles import owned_equipment_rules
+from .skill_training import training_rules
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -26,6 +27,8 @@ def class_rules(pack, character):
                 raise ValueError(identity + ' class-specific rules must identify their owner')
         preflight_owned_profiles(result)
         return result
+    # Validate the raw legacy owners before an overlay can hide the default declarations.
+    training_rules(pack)
     # Before profiles, this archive's sole Rifts class was the Vagabond.
     default = pack.get('default_class', 'vagabond')
     if identifier == default:

@@ -1,6 +1,6 @@
 ﻿# 05D8: Ordinary Horsemanship and Cowboy catalog
 
-**Status:** in-progress;05D7 reviewed and merged. **Parent:**05/05B/22. **Branch:**codex/rifts-riding-catalog.
+**Status:** done; PR120 merged. **Parent:**05/05B/22. **Branch:**codex/rifts-riding-catalog.
 
 Original RUE printed306–307/310–312 (PDF309–310/313–315) visually reviewed against processed Markdown, plus global Secondary printed300 and Vagabond printed97. Add six normal paired Horsemanship definitions and four Cowboy percentiles in next immutable archive: General40/20/+4; Exotic30/20/+5; Cowboy66/50/+3; Cossack55/45/+5; CyberKnight70/50/+3; Equestrian40/30/+5; Branding50/+5; TameWildHorse20/+5; Herding30/+5; Roping20/+5. LoreAmericanIndians/Cattle cross-references retain new Technical canonical identities rather than duplicate Cowboy acquisitions.
 
@@ -9,3 +9,5 @@ General retains required horse-general key and both normal checks. Existing ordi
 Mounted skill-specific combat bonuses remain explicit source descriptions, not unconditional global contributions. Taming penalties, racing, horse statistics/fatigue, lasso outcomes and encounter simulation are not part of the amended normal-percentile release gate. TrickRiding has no independent base: inherits first Horsemanship number and requires that skill; shared referenced-proficiency/descriptive training capability remains required, together with Hunting/Sniper/PilotCombat training. No complete-category certification while this normal dependency remains open.
 
 Meaningful checks: source table/allpaired values, IQ/cap, class/Secondary guidance/counts, required/optionalhighestnormaltraining, latelearning and oldlegacyhorse age, portable/import/reopen/undo, old2.19 exact pin/explicit upgrade, actual UI/editablePDF, full/frozenWindows, two independent exact-head reviews and both hosted gates before merge.
+
+Merged as a3501f7ce8a16ce7157b966e24d9f44bc8aa2ab4. Final head2334dc7 approved by both independent axes.537 local tests575.038s,44 affected43.935s,7 corrected-riding8.100s, typing173/static, rebuilt frozen42.472s pass. Hosted37396456156/37396452670 pass537 tests1031.247/670.512s and packaged49.020/29.728s. Actual Chrome and editablePDF verified; TrickRiding and broader training dependencies remain open.

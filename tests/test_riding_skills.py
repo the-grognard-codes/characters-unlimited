@@ -1,4 +1,4 @@
-﻿from io import BytesIO
+from io import BytesIO
 import tempfile
 import unittest
 from pypdf import PdfReader
@@ -82,13 +82,13 @@ class RidingWorkflowTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 app.select_skills(hero['id'],revision=hero['revision'],selections=choices('horse-general'))
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.20.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.21.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             hero=app.select_skills(hero['id'],revision=hero['revision'],selections=choices('horse-general'))
             rows=[row for row in app.skill_view(hero['id'])['grants']+app.skill_view(hero['id'])['selected'] if row['id']=='horse-general']
             self.assertEqual([row['percentage'] for row in rows],[53,53])
             self.assertEqual([row['additional_checks'][0]['percentage'] for row in rows],[33,33])
-            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),191)
+            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),200)
 
     def test_specialized_riding_retains_source_eligibility_and_no_global_mounted_bonus(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -27,7 +27,27 @@ def learned_selection_ids(selections, pack):
             if not needs_specialty(known[item['skill_id']]) or item.get('specialty')}
 
 
-def choice_guidance(selections, pack, granted=()):
+def weapon_prerequisites(definition, pack):
+    declarations = definition.get('weapon_prerequisites', [])
+    if not isinstance(declarations, list) or len(declarations) > 1000:
+        raise ValueError('Weapon prerequisites need a bounded list')
+    seen = set()
+    for declaration in declarations:
+        if (not isinstance(declaration, dict) or set(declaration) != {'family', 'id', 'source'} or
+                declaration.get('family') not in ('ancient', 'modern') or
+                not isinstance(declaration.get('id'), str)):
+            raise ValueError('Weapon prerequisites need a supported family and identity')
+        identity = (declaration['family'], declaration['id'])
+        known = {row['id'] for row in pack.get('combat', {}).get(declaration['family'], [])}
+        source = declaration['source']
+        if (identity in seen or declaration['id'] not in known or not isinstance(source, dict) or
+                any(not isinstance(source.get(key), str) or not source[key].strip() for key in ('book', 'section'))):
+            raise ValueError('Weapon prerequisites need distinct known proficiencies and source evidence')
+        seen.add(identity)
+    return declarations
+
+
+def choice_guidance(selections, pack, granted=(), *, combat_choices=None):
     known = {definition['id']: definition for definition in pack['skills']}
     available = learned_selection_ids(selections, pack)
     granted_ids = {item['id'] for item in granted}
@@ -52,4 +72,9 @@ def choice_guidance(selections, pack, granted=()):
             if not available.intersection(alternatives):
                 labels = ' or '.join(known[identifier]['name'] for identifier in alternatives)
                 warnings.append(f"{definition['name']}: missing prerequisite {labels}; the choice is retained.")
+        for prerequisite in weapon_prerequisites(definition, pack):
+            family = prerequisite['family']
+            if prerequisite['id'] not in (combat_choices or {}).get(family, []):
+                label = next(row['name'] for row in pack['combat'][family] if row['id'] == prerequisite['id'])
+                warnings.append(f"{definition['name']}: missing prerequisite {label}; the choice is retained.")
     return warnings

@@ -1,0 +1,13 @@
+# 05D9: Ordinary Physical catalog and Juggling initiative
+
+**Status:** in-progress; 05D8 reviewed and merged. **Parent:**05/05B/22. **Branch:**codex/rifts-physical-catalog.
+
+Source: original RUE printed300/316-317 (PDF303/319-320), visually reviewed against processed Markdown. Add nine identities to immutable2.21.0: Climbing40/30+5; Aerobic Athletics balance30+5/SDC2D4/disarm1/pullpunch1; Juggling35+5/initiative1; SCUBA50+5 requiresSwimming; ForcedMarchPE2/Speed1D4/SDC2D6; OutdoorsmanshipPE1/SDC2D6 requiresSurvival/+5Dowsing/Fasting/IdentifyPlants/Survival; WrestlingPS2/PE1/SDC4D6/rollimpact1; KickBoxingPS1/PE1/SDC1D10; Fencing descriptive weapon-specific bonuses and W.P.Sword requirement. All physical effects apply once with retained receipts through removal/reselection/import/undo. Conditional kick/fencing, travel/endurance and wrestling outcomes are concise descriptions under amended scope, not standing global bonuses.
+
+Use existing Physical acquisition, optional-percentile and synergy contracts. Correct Rifts combat initiative projection to consume already-declared Physical initiative contributions; Juggling currently exposes a source contribution but total omits it. No per-skill handler. CurrentVag relatedAnyexceptAcro/Gym/Wrestle+0; CityrelatedAnyexceptFencing/ForcedMarch/Outdoors/SCUBA+5; SecondaryaddsClimbing/Aerobic+0. Existing byte archives unchanged. Acrobatics/Gymnastics fixed basic training and independently progressing checks remain next shared-capability batch, not complete-category certification.
+
+Verify normal paired/rates/IQ/classbonuses/prerequisiteguidance; synergy+5once/removal; exact attributes/resources/initiativeonce and retaineddice; latelearning/import/reopen/undo; old2.20pin/explicitupgrade; invalidformulas beforedice; actualUI/editablePDF, focused/full/frozenWindows, two independent reviews and both exact-head hosted gates beforemerge.
+
+Prepared public tests reproduce two existing gaps before activation: Juggling initiative declaration is omitted from total; PDF description loop accesses percentile contributions on nonpercentilePhysical and raises KeyError. Fix description iteration to accept absent contributions, retaining narrative and source note. Draft7 tests:5pass/oneexpectedinitiativefailure/onePDFerror in3.872s. These are functional delivery issues, not optional combat simulation.
+
+Source-review follow-through: Climbing+5Spelunking and source-bound shared weapon-prerequisite guidance for Fencing/W.P.Sword are included. All weapon declarations validate before initial dice, including raw legacy owners; missing actual weapon training retains the skill with guidance. No per-skill handler or automatic weapon grant.22 corrected affected workflows pass23.989s.

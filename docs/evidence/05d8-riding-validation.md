@@ -9,3 +9,5 @@ Chrome verified optional General 40/20 -> required General selected -> both copi
 The same save exports `05d8-riding-sheet.pdf`: four pages, 1232 canonical fields and 176 populated widgets, all matching logical values and non-empty normal appearances. Primary and continuation pages visually checked with no clipped values; page 3 (`05d8-riding-notes.png`) preserves all paired checks, source notes and contextual riding guidance. Earlier accepted archive bytes are unchanged.
 
 Spec review corrected Cowboy mounted initiative increments to levels2/5/10/15 (printed311). Seven focused riding workflows pass8.100 seconds after the correction; PDF continuation regenerated and visually verified. Final exact-head gates replace superseded runs before merge.
+
+PR120 merged as a3501f7ce8a16ce7157b966e24d9f44bc8aa2ab4;05D8 done. Both independent axes approve final2334dc7. Final537 local regression575.038s and rebuilt frozen42.472s pass. Both exact-head hosted Windows runs37396456156/37396452670 pass537 tests and separate packaged checks. Broader skill/class/race/ability and construction scope remains open.

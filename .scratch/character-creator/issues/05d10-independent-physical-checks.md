@@ -1,6 +1,6 @@
 # 05D10: Independent Physical checks and fixed basic training
 
-Status: in-progress; isolated implementation while 05D9 finishes hosted gates. Parent: 05/05B/22. Branch: codex/rifts-independent-physical-checks.
+Status: in-progress; 05D9 reviewed and merged; isolated implementation rebased on e61f1ef. Parent: 05/05B/22. Branch: codex/rifts-independent-physical-checks.
 
 Source: original RUE printed 316–317, visually reviewed PDF319–320. Add Acrobatics and Gymnastics in immutable2.22.0 (202 skills). Preserve every existing archive byte. Current class entitlements remain: Vagabond excludes both; City Rat permits both related+5; Secondary excludes both.
 

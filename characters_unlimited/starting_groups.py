@@ -4,6 +4,7 @@ from copy import deepcopy
 import json
 from uuid import UUID
 from .recorded_formulas import validate_formula, formula_value, roll_formula
+from .ability_requirements import compile_ability_requirements, project_ability_requirements
 
 MAX_QUANTITY = 1000
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -42,7 +43,7 @@ def starting_group_rules(character, pack):
     for identifier, group in rules['groups'].items():
         if (not isinstance(identifier, str) or not identifier or len(identifier) > 100
                 or not isinstance(group, dict)
-                or set(group) - {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance', 'additional_grants', 'condition'}
+                or set(group) - {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance', 'additional_grants', 'condition', 'option_requirements', 'proficiency_slot'}
                 or not {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance'} <= set(group)
                 or not isinstance(group['name'], str) or not group['name']
                 or group['category'] not in ('armor', 'weapon', 'gear', 'ammunition')
@@ -57,6 +58,26 @@ def starting_group_rules(character, pack):
                 or any(not isinstance(note, str) for note in group['guidance'])):
             raise ValueError('Invalid starting equipment group definition')
         _canonical(group['source'])
+        if 'proficiency_slot' in group and (type(group['proficiency_slot']) is not int or
+                not 1 <= group['proficiency_slot'] <= MAX_QUANTITY):
+            raise ValueError('Starting proficiency groups need a bounded elective slot')
+        requirements = group.get('option_requirements', {})
+        if not isinstance(requirements, dict) or set(requirements) - set(group['options']):
+            raise ValueError('Starting requirements need known equipment options')
+        catalogs = pack.get('training_catalogs', {})
+        if requirements:
+            if not isinstance(catalogs, dict) or set(catalogs) != {'skills', 'ancient', 'modern'}:
+                raise ValueError('Starting requirements need explicit training catalogs')
+            for rows in catalogs.values():
+                if (not isinstance(rows, list) or not 1 <= len(rows) <= MAX_QUANTITY or
+                        any(not isinstance(row, dict) or set(row) != {'id', 'name'} or
+                            any(not isinstance(row[key], str) or not row[key].strip() for key in ('id', 'name'))
+                            for row in rows) or len({row['id'] for row in rows}) != len(rows)):
+                    raise ValueError('Starting training catalogs need distinct known identities')
+        for rows in requirements.values():
+            compiled = compile_ability_requirements({'requirements': rows}, catalogs, ())
+            if not compiled or any('selected_options' not in row or not row['option_ids'] for row in compiled):
+                raise ValueError('Starting equipment requirements need known training options')
         if 'condition' in group:
             condition = group['condition']
             if (not isinstance(condition, dict) or set(condition) != {'name', 'formula'}
@@ -196,14 +217,36 @@ def acquire_starting_group(character, pack, group_id, selection, identifier_fact
     return {'equipment': inventory, 'starting_equipment_groups': receipts}
 
 
-def project_starting_groups(character, pack):
-    """Project available groups and original receipts without granting possessions."""
+def project_starting_groups(character, pack, training=None):
+    """Project retained grants and honor-system training guidance without dice."""
     validate_starting_groups(character, pack)
     groups = starting_group_rules(character, pack)
     receipts = character.get('starting_equipment_groups', {})
-    return {'supported': bool(groups), 'groups': [
-        {'id': identifier, **deepcopy(group), 'generated': identifier in receipts,
-         'receipt': deepcopy(receipts.get(identifier))} for identifier, group in groups.items()]}
+    result = []
+    for identifier, group in groups.items():
+        view = {'id': identifier, **deepcopy(group), 'generated': identifier in receipts,
+                'receipt': deepcopy(receipts.get(identifier))}
+        if group.get('option_requirements'):
+            if training is None:
+                raise ValueError('Starting equipment requirements need actual saved training')
+            selections = {key: list(training[key]) for key in ('skills', 'ancient', 'modern')}
+            if 'proficiency_slot' in group:
+                elective = training['elective']
+                slot = group['proficiency_slot'] - 1
+                selected = elective[slot] if slot < len(elective) else None
+                for family in ('ancient', 'modern'):
+                    selections[family] = [selected['id']] if selected and selected['family'] == family else []
+                view['training_name'] = (next(row['name'] for row in pack['training_catalogs'][selected['family']]
+                    if row['id'] == selected['id']) if selected else 'Choose this weapon proficiency')
+            view['option_requirements'] = {option: project_ability_requirements(
+                compile_ability_requirements({'requirements': rows}, pack['training_catalogs'], ()),
+                level=character['level'], attributes={}, selections=selections)
+                for option, rows in group['option_requirements'].items()}
+            for requirements in view['option_requirements'].values():
+                for row in requirements:
+                    row['text'] = row['name'] + (' is recorded.' if row['satisfied'] else ' is not recorded for this starting choice.')
+        result.append(view)
+    return {'supported': bool(groups), 'groups': result}
 
 
 def validate_starting_group_upgrade(character, previous, target):

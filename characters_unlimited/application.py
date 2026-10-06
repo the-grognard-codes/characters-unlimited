@@ -316,7 +316,8 @@ class CharacterApplication:
     def equipment_view(self, identifier):
         character = self.get(identifier)
         return project_equipment(character,self.character_equipment_pack(character),
-                                 project_combat(character,self.character_skill_pack(character)))
+                                 project_combat(character,self.character_skill_pack(character)),
+                                 project_skills(character,self.character_skill_pack(character)))
 
     def set_equipment(self, identifier, *, revision, inventory):
         require_revision(revision)
@@ -603,7 +604,7 @@ class CharacterApplication:
         return export_rifts_sheet(character, core, {**project_skills(character, pack),
             'psionics':self.psionic_view(identifier) if 'psionics' in character else None,
             'resources':project_resources(character,pack),
-            'equipment':project_equipment(character,self.character_equipment_pack(character),combat)
+            'equipment':project_equipment(character,self.character_equipment_pack(character),combat,project_skills(character,pack))
                         if 'equipment' in character else None}, combat)
 
     def import_character(self, bundle):
@@ -729,8 +730,8 @@ class CharacterApplication:
             except ValueError as error:
                 raise ValueError('This equipment update is incompatible with saved possessions. '
                                  'Current rules remain intact; inventory migration is not yet supported.') from error
-            equipment_before = project_equipment(character, previous_equipment, project_combat(character, previous))
-            equipment_after = project_equipment(character, target_equipment, project_combat(character, target))
+            equipment_before = project_equipment(character, previous_equipment, project_combat(character, previous), project_skills(character, previous))
+            equipment_after = project_equipment(character, target_equipment, project_combat(character, target), project_skills(character, target))
             preview['equipment'] = compare_equipment_views(equipment_before, equipment_after)
             preview['scope'] += ' Equipment catalog corrections are included. Credits, quantities, locations and shots stay recorded.'
             preview['gaps'].extend(equipment_after['warnings'])

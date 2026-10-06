@@ -142,3 +142,17 @@ class ScoutSkillContractTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     app.create()
                 self.assertEqual(draws, [])
+
+    def test_unselected_future_milestone_overflow_rejects_before_dice(self):
+        from characters_unlimited.recorded_formulas import MAX_INTEGER
+        for sign in (1,-1):
+            def change(pack):
+                rules=pack['class_profiles']['city-rat']['class_bonuses']
+                rules['saving']['horror_factor']=sign*MAX_INTEGER
+                rules['level_bonuses']=[{'target':'saving:horror_factor','levels':[2,4],'amount':sign}]
+            with self.subTest(sign=sign), tempfile.TemporaryDirectory() as directory:
+                app=CharacterApplication(directory,rule_archive=archive(change),
+                    die=lambda sides:self.fail('Future class overflow must reject before dice'))
+                with self.assertRaisesRegex(ValueError,'milestone totals'):
+                    app.create()
+                self.assertEqual(app.list(),[])

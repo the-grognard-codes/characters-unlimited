@@ -8496,603 +8496,6 @@
   "default_class": "vagabond",
   "class_profiles": {
     "vagabond": {
-      "skill_effects": [],
-      "fixed_domestic_grants": [
-        {
-          "id": "cook",
-          "bonus": 15
-        }
-      ],
-      "selection_rules": {
-        "domestic": {
-          "domestic": {
-            "allow": "any",
-            "bonus": 15
-          }
-        },
-        "related": {
-          "domestic": {
-            "allow": "any",
-            "bonus": 10
-          },
-          "communications": {
-            "allow": "any",
-            "bonus": 0,
-            "exclude": [
-              "cryptography",
-              "laser-communications",
-              "optic-systems",
-              "surveillance"
-            ]
-          },
-          "electrical": {
-            "allow": [
-              "basic-electronics"
-            ],
-            "bonus": 5
-          },
-          "mechanical": {
-            "allow": [
-              "basic-mechanics",
-              "automotive-mechanics"
-            ],
-            "bonus": 5
-          },
-          "medical": {
-            "allow": [
-              "first-aid"
-            ],
-            "bonus": 5
-          },
-          "science": {
-            "allow": [
-              "math-basic",
-              "math-advanced"
-            ],
-            "bonus": 5
-          },
-          "technical": {
-            "allow": "any",
-            "bonus": 5
-          },
-          "physical": {
-            "allow": "any",
-            "exclude": [
-              "acrobatics",
-              "gymnastics",
-              "wrestling"
-            ],
-            "bonus": 0
-          },
-          "rogue": {
-            "allow": "any",
-            "bonus": 4
-          },
-          "pilot": {
-            "allow": "any",
-            "exclude": [
-              "jet-aircraft",
-              "ships-seamanship",
-              "robots-power-armor",
-              "combat-helicopter",
-              "jet-fighter",
-              "submersible",
-              "tanks-apcs",
-              "warship",
-              "flight-system-combat",
-              "jump-bike-combat"
-            ],
-            "bonus": 5
-          },
-          "pilot-related": {
-            "allow": "any",
-            "bonus": 0
-          },
-          "espionage": {
-            "allow": [],
-            "bonus": 0
-          },
-          "wilderness": {
-            "allow": "any",
-            "bonus": 0
-          },
-          "cowboy": {
-            "allow": [],
-            "bonus": 0
-          },
-          "horsemanship": {
-            "allow": [
-              "horse-general"
-            ],
-            "bonus": 0
-          }
-        },
-        "secondary": {
-          "domestic": {
-            "allow": "any",
-            "bonus": 0
-          },
-          "communications": {
-            "allow": "any",
-            "bonus": 0,
-            "exclude": [
-              "cryptography",
-              "laser-communications",
-              "surveillance",
-              "tv-video"
-            ]
-          },
-          "electrical": {
-            "allow": [
-              "basic-electronics",
-              "computer-repair"
-            ],
-            "bonus": 0
-          },
-          "mechanical": {
-            "allow": [
-              "basic-mechanics",
-              "automotive-mechanics"
-            ],
-            "bonus": 0
-          },
-          "medical": {
-            "allow": [
-              "animal-husbandry",
-              "first-aid"
-            ],
-            "bonus": 0
-          },
-          "science": {
-            "allow": [
-              "astronomy-navigation",
-              "math-basic",
-              "math-advanced"
-            ],
-            "bonus": 0
-          },
-          "technical": {
-            "allow": "any",
-            "bonus": 0
-          },
-          "physical": {
-            "allow": [
-              "athletics",
-              "body-building",
-              "running",
-              "swimming",
-              "climbing",
-              "aerobic-athletics"
-            ],
-            "bonus": 0
-          },
-          "rogue": {
-            "allow": [
-              "gambling-standard",
-              "gambling-dirty-tricks"
-            ],
-            "bonus": 0
-          },
-          "military": {
-            "allow": [
-              "camouflage",
-              "recognize-weapon-quality"
-            ],
-            "bonus": 0
-          },
-          "pilot": {
-            "allow": [
-              "automobile",
-              "motorcycle",
-              "hovercycle",
-              "hover-craft",
-              "motor-boat",
-              "sail-boat",
-              "bicycle",
-              "paddle-boat",
-              "water-scooter",
-              "water-skiing-surfing"
-            ],
-            "bonus": 0
-          },
-          "pilot-related": {
-            "allow": [],
-            "bonus": 0
-          },
-          "espionage": {
-            "allow": [],
-            "bonus": 0
-          },
-          "wilderness": {
-            "allow": "any",
-            "exclude": [
-              "boat-building",
-              "spelunking"
-            ],
-            "bonus": 0
-          },
-          "horsemanship": {
-            "allow": [
-              "horse-general",
-              "horse-exotic"
-            ],
-            "bonus": 0
-          },
-          "cowboy": {
-            "allow": [],
-            "bonus": 0
-          }
-        }
-      },
-      "advancement": {
-        "class_id": "vagabond",
-        "max_level": 2,
-        "xp_ranges": [
-          [
-            0,
-            1875
-          ],
-          [
-            1876,
-            3750
-          ]
-        ],
-        "hp_die": 6,
-        "source": {
-          "book": "Rifts - Ultimate Edition",
-          "pages": [
-            97,
-            98,
-            287,
-            295,
-            300
-          ],
-          "pdf_pages": [
-            100,
-            101,
-            290,
-            298,
-            303
-          ],
-          "section": "Vagabond first advancement and learned skill progression"
-        }
-      },
-      "pools": {
-        "domestic": {
-          "count": 2,
-          "bonus": 15
-        },
-        "related": {
-          "count": 5,
-          "bonus": 10
-        },
-        "secondary": {
-          "count": 8,
-          "bonus": 0
-        }
-      },
-      "path_name": "Vagabond",
-      "required": {
-        "format": 2,
-        "grants": [
-          {
-            "id": "native-language",
-            "name": "Language: Native Tongue",
-            "base": 88,
-            "per_level": 1,
-            "class_bonus": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97,
-                302,
-                304
-              ]
-            },
-            "specialty_from": "native_language"
-          },
-          {
-            "id": "barter",
-            "name": "Barter",
-            "base": 30,
-            "per_level": 4,
-            "class_bonus": 16,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97,
-                302,
-                304
-              ]
-            },
-            "class_ability": 10,
-            "synergies": [
-              {
-                "name": "mathematics",
-                "any_of": [
-                  "math-basic",
-                  "math-advanced"
-                ],
-                "amount": 2
-              },
-              {
-                "name": "literacy",
-                "any_of": [
-                  "literacy-native",
-                  "literacy-other"
-                ],
-                "amount": 2
-              }
-            ]
-          },
-          {
-            "id": "identify-undercover",
-            "name": "I.D. Undercover Agents",
-            "base": 30,
-            "per_level": 4,
-            "class_bonus": 10,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97,
-                303,
-                321
-              ]
-            },
-            "class_ability": 10,
-            "synergies": [
-              {
-                "skill_id": "streetwise",
-                "name": "streetwise",
-                "amount": 10
-              },
-              {
-                "skill_id": "find-contraband",
-                "name": "find_contraband",
-                "amount": 10
-              }
-            ],
-            "description": "Recognize undercover law enforcement, spies, detectives, bounty hunters and other snoopers. Streetwise and Find Contraband each add +10% once.",
-            "category": "rogue"
-          },
-          {
-            "id": "radio-basic",
-            "name": "Radio: Basic",
-            "base": 45,
-            "per_level": 5,
-            "class_bonus": 5,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97,
-                302,
-                305
-              ]
-            },
-            "synergies": []
-          },
-          {
-            "id": "streetwise",
-            "name": "Streetwise",
-            "base": 20,
-            "per_level": 4,
-            "class_bonus": 10,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97,
-                303,
-                321
-              ]
-            },
-            "description": "Recognize street gangs, ranks, colors, dangerous locations, underworld customs, drugs and their street names/prices. Adds +10% to I.D. Undercover Agents.",
-            "category": "rogue",
-            "synergies": []
-          },
-          {
-            "id": "eyeball",
-            "name": "Eyeball a Fella",
-            "base": 56,
-            "per_level": 3,
-            "class_bonus": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97
-              ]
-            }
-          }
-        ],
-        "groups": [
-          {
-            "id": "native_language",
-            "name": "Native language",
-            "kind": "text",
-            "count": 1,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97
-              ],
-              "pdf_pages": [
-                100
-              ],
-              "section": "Vagabond O.C.C. Skills"
-            }
-          },
-          {
-            "id": "other_languages",
-            "name": "Other languages",
-            "kind": "text-list",
-            "count": 2,
-            "skill": {
-              "id": "other-language",
-              "name": "Language: Other",
-              "base": 50,
-              "per_level": 3,
-              "class_bonus": 15,
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "pages": [
-                  97,
-                  302,
-                  304
-                ]
-              }
-            },
-            "different_from": [
-              "native_language"
-            ],
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97
-              ],
-              "pdf_pages": [
-                100
-              ],
-              "section": "Vagabond O.C.C. Skills"
-            }
-          },
-          {
-            "id": "pilot",
-            "name": "Pilot skill",
-            "kind": "select",
-            "count": 1,
-            "options": [
-              {
-                "id": "automobile",
-                "name": "Pilot: Automobile",
-                "base": 60,
-                "per_level": 2,
-                "class_bonus": 10,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "pages": [
-                    97,
-                    303,
-                    318
-                  ]
-                }
-              },
-              {
-                "id": "motorcycle",
-                "name": "Pilot: Motorcycles & Snowmobiles",
-                "base": 60,
-                "per_level": 4,
-                "class_bonus": 12,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "pages": [
-                    97,
-                    303,
-                    319
-                  ]
-                }
-              }
-            ],
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97
-              ],
-              "pdf_pages": [
-                100
-              ],
-              "section": "Vagabond O.C.C. Skills"
-            }
-          },
-          {
-            "id": "repair",
-            "name": "Repair or horsemanship",
-            "kind": "select",
-            "count": 1,
-            "options": [
-              {
-                "id": "general-repair",
-                "name": "General Repair & Maintenance",
-                "base": 35,
-                "per_level": 5,
-                "class_bonus": 10,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "pages": [
-                    97,
-                    303,
-                    323,
-                    324
-                  ]
-                },
-                "notes": [
-                  "Two checks: diagnose the repair, then perform it. Complex, extremely damaged, high-tech, or alien items halve proficiency; conditional repair handling remains pending."
-                ]
-              },
-              {
-                "id": "horse-general",
-                "name": "Horsemanship: General",
-                "base": 40,
-                "per_level": 4,
-                "class_bonus": 5,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "pages": [
-                    97,
-                    302,
-                    310,
-                    311
-                  ]
-                },
-                "additional_checks": [
-                  {
-                    "name": "Jumping and other special maneuvers",
-                    "base": 20
-                  }
-                ],
-                "notes": [
-                  "Primary check covers basic riding, care, breeds, training, and wagon handling. The second check covers jumps, tricks, combat maneuvers, panicked horses and racing. Mounted combat and special situational modifiers remain pending."
-                ]
-              }
-            ],
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                97
-              ],
-              "pdf_pages": [
-                100
-              ],
-              "section": "Vagabond O.C.C. Skills"
-            }
-          }
-        ]
-      },
-      "path_guidance": [],
-      "source": {
-        "book": "Rifts - Ultimate Edition",
-        "pages": [
-          97,
-          98,
-          300,
-          301,
-          302,
-          304,
-          305,
-          307,
-          308,
-          312,
-          313,
-          314,
-          316,
-          317,
-          322,
-          323,
-          324,
-          325,
-          326
-        ],
-        "section": "Reviewed skills, combat and Physical skill bonuses"
-      },
-      "name": "Vagabond Skills",
       "resources": {
         "definitions": [
           {
@@ -9195,28 +8598,105 @@
           "These are character-sheet capacities, not live damage tracking. Every reviewed Vagabond level records a separate HP die; other paths and resource types remain pending."
         ]
       },
-      "class_bonuses": {
-        "class_id": "vagabond",
-        "perception": 4,
-        "saving": {
-          "possession": 1,
-          "psionics": 1,
-          "horror_factor": 2
-        },
+      "higher_advancement": {
+        "max_level": 15,
+        "xp_ranges": [
+          [
+            0,
+            1875
+          ],
+          [
+            1876,
+            3750
+          ],
+          [
+            3751,
+            7250
+          ],
+          [
+            7251,
+            14100
+          ],
+          [
+            14101,
+            21200
+          ],
+          [
+            21201,
+            31200
+          ],
+          [
+            31201,
+            41200
+          ],
+          [
+            41201,
+            51200
+          ],
+          [
+            51201,
+            71200
+          ],
+          [
+            71201,
+            101500
+          ],
+          [
+            101501,
+            136500
+          ],
+          [
+            136501,
+            186500
+          ],
+          [
+            186501,
+            236500
+          ],
+          [
+            236501,
+            286500
+          ],
+          [
+            286501,
+            326500
+          ]
+        ],
+        "related_levels": [
+          3,
+          6,
+          9,
+          12
+        ],
+        "secondary_levels": [
+          3,
+          5,
+          7,
+          9,
+          11,
+          13
+        ],
+        "hp_die": 6,
         "source": {
           "book": "Rifts - Ultimate Edition",
           "pages": [
-            97
+            97,
+            98,
+            287,
+            295,
+            300
           ],
           "pdf_pages": [
-            100
+            100,
+            101,
+            290,
+            298,
+            303
           ],
-          "section": "Vagabond O.C.C. Bonuses",
-          "candidate_ids": [
-            "4723d131c9eb5765a291"
-          ]
+          "section": "Vagabond first advancement and learned skill progression"
         }
       },
+      "path_name": "Vagabond",
       "combat": {
         "strength_type": "normal-human",
         "default_hand_to_hand": "basic",
@@ -10874,212 +10354,426 @@
           "section": "Natural combat rolls and Hand to Hand conditional attacks"
         }
       },
-      "higher_advancement": {
-        "max_level": 15,
-        "xp_ranges": [
-          [
-            0,
-            1875
-          ],
-          [
-            1876,
-            3750
-          ],
-          [
-            3751,
-            7250
-          ],
-          [
-            7251,
-            14100
-          ],
-          [
-            14101,
-            21200
-          ],
-          [
-            21201,
-            31200
-          ],
-          [
-            31201,
-            41200
-          ],
-          [
-            41201,
-            51200
-          ],
-          [
-            51201,
-            71200
-          ],
-          [
-            71201,
-            101500
-          ],
-          [
-            101501,
-            136500
-          ],
-          [
-            136501,
-            186500
-          ],
-          [
-            186501,
-            236500
-          ],
-          [
-            236501,
-            286500
-          ],
-          [
-            286501,
-            326500
-          ]
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          97,
+          98,
+          300,
+          301,
+          302,
+          304,
+          305,
+          307,
+          308,
+          312,
+          313,
+          314,
+          316,
+          317,
+          322,
+          323,
+          324,
+          325,
+          326
         ],
-        "related_levels": [
-          3,
-          6,
-          9,
-          12
-        ],
-        "secondary_levels": [
-          3,
-          5,
-          7,
-          9,
-          11,
-          13
-        ],
-        "hp_die": 6,
-        "source": {
-          "book": "Rifts - Ultimate Edition",
-          "pages": [
-            97,
-            98,
-            287,
-            295,
-            300
-          ],
-          "pdf_pages": [
-            100,
-            101,
-            290,
-            298,
-            303
-          ],
-          "section": "Vagabond first advancement and learned skill progression"
-        }
+        "section": "Reviewed skills, combat and Physical skill bonuses"
       },
-      "physical_grants": []
-    },
-    "city-rat": {
-      "skill_effects": [],
-      "fixed_domestic_grants": [],
+      "required": {
+        "format": 2,
+        "grants": [
+          {
+            "id": "native-language",
+            "name": "Language: Native Tongue",
+            "base": 88,
+            "per_level": 1,
+            "class_bonus": 0,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97,
+                302,
+                304
+              ]
+            },
+            "specialty_from": "native_language"
+          },
+          {
+            "id": "barter",
+            "name": "Barter",
+            "base": 30,
+            "per_level": 4,
+            "class_bonus": 16,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97,
+                302,
+                304
+              ]
+            },
+            "class_ability": 10,
+            "synergies": [
+              {
+                "name": "mathematics",
+                "any_of": [
+                  "math-basic",
+                  "math-advanced"
+                ],
+                "amount": 2
+              },
+              {
+                "name": "literacy",
+                "any_of": [
+                  "literacy-native",
+                  "literacy-other"
+                ],
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "id": "identify-undercover",
+            "name": "I.D. Undercover Agents",
+            "base": 30,
+            "per_level": 4,
+            "class_bonus": 10,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97,
+                303,
+                321
+              ]
+            },
+            "class_ability": 10,
+            "synergies": [
+              {
+                "skill_id": "streetwise",
+                "name": "streetwise",
+                "amount": 10
+              },
+              {
+                "skill_id": "find-contraband",
+                "name": "find_contraband",
+                "amount": 10
+              }
+            ],
+            "description": "Recognize undercover law enforcement, spies, detectives, bounty hunters and other snoopers. Streetwise and Find Contraband each add +10% once.",
+            "category": "rogue"
+          },
+          {
+            "id": "radio-basic",
+            "name": "Radio: Basic",
+            "base": 45,
+            "per_level": 5,
+            "class_bonus": 5,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97,
+                302,
+                305
+              ]
+            },
+            "synergies": []
+          },
+          {
+            "id": "streetwise",
+            "name": "Streetwise",
+            "base": 20,
+            "per_level": 4,
+            "class_bonus": 10,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97,
+                303,
+                321
+              ]
+            },
+            "description": "Recognize street gangs, ranks, colors, dangerous locations, underworld customs, drugs and their street names/prices. Adds +10% to I.D. Undercover Agents.",
+            "category": "rogue",
+            "synergies": []
+          },
+          {
+            "id": "eyeball",
+            "name": "Eyeball a Fella",
+            "base": 56,
+            "per_level": 3,
+            "class_bonus": 0,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97
+              ]
+            }
+          }
+        ],
+        "groups": [
+          {
+            "id": "native_language",
+            "name": "Native language",
+            "kind": "text",
+            "count": 1,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97
+              ],
+              "pdf_pages": [
+                100
+              ],
+              "section": "Vagabond O.C.C. Skills"
+            }
+          },
+          {
+            "id": "other_languages",
+            "name": "Other languages",
+            "kind": "text-list",
+            "count": 2,
+            "skill": {
+              "id": "other-language",
+              "name": "Language: Other",
+              "base": 50,
+              "per_level": 3,
+              "class_bonus": 15,
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "pages": [
+                  97,
+                  302,
+                  304
+                ]
+              }
+            },
+            "different_from": [
+              "native_language"
+            ],
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97
+              ],
+              "pdf_pages": [
+                100
+              ],
+              "section": "Vagabond O.C.C. Skills"
+            }
+          },
+          {
+            "id": "pilot",
+            "name": "Pilot skill",
+            "kind": "select",
+            "count": 1,
+            "options": [
+              {
+                "id": "automobile",
+                "name": "Pilot: Automobile",
+                "base": 60,
+                "per_level": 2,
+                "class_bonus": 10,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "pages": [
+                    97,
+                    303,
+                    318
+                  ]
+                }
+              },
+              {
+                "id": "motorcycle",
+                "name": "Pilot: Motorcycles & Snowmobiles",
+                "base": 60,
+                "per_level": 4,
+                "class_bonus": 12,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "pages": [
+                    97,
+                    303,
+                    319
+                  ]
+                }
+              }
+            ],
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97
+              ],
+              "pdf_pages": [
+                100
+              ],
+              "section": "Vagabond O.C.C. Skills"
+            }
+          },
+          {
+            "id": "repair",
+            "name": "Repair or horsemanship",
+            "kind": "select",
+            "count": 1,
+            "options": [
+              {
+                "id": "general-repair",
+                "name": "General Repair & Maintenance",
+                "base": 35,
+                "per_level": 5,
+                "class_bonus": 10,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "pages": [
+                    97,
+                    303,
+                    323,
+                    324
+                  ]
+                },
+                "notes": [
+                  "Two checks: diagnose the repair, then perform it. Complex, extremely damaged, high-tech, or alien items halve proficiency; conditional repair handling remains pending."
+                ]
+              },
+              {
+                "id": "horse-general",
+                "name": "Horsemanship: General",
+                "base": 40,
+                "per_level": 4,
+                "class_bonus": 5,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "pages": [
+                    97,
+                    302,
+                    310,
+                    311
+                  ]
+                },
+                "additional_checks": [
+                  {
+                    "name": "Jumping and other special maneuvers",
+                    "base": 20
+                  }
+                ],
+                "notes": [
+                  "Primary check covers basic riding, care, breeds, training, and wagon handling. The second check covers jumps, tricks, combat maneuvers, panicked horses and racing. Mounted combat and special situational modifiers remain pending."
+                ]
+              }
+            ],
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                97
+              ],
+              "pdf_pages": [
+                100
+              ],
+              "section": "Vagabond O.C.C. Skills"
+            }
+          }
+        ]
+      },
       "selection_rules": {
+        "domestic": {
+          "domestic": {
+            "allow": "any",
+            "bonus": 15
+          }
+        },
         "related": {
-          "communications": {
+          "domestic": {
             "allow": "any",
             "bonus": 10
           },
-          "domestic": {
+          "communications": {
             "allow": "any",
-            "bonus": 5
+            "bonus": 0,
+            "exclude": [
+              "cryptography",
+              "laser-communications",
+              "optic-systems",
+              "surveillance"
+            ]
           },
           "electrical": {
             "allow": [
-              "basic-electronics",
-              "computer-repair"
+              "basic-electronics"
             ],
             "bonus": 5
           },
           "mechanical": {
             "allow": [
-              "automotive-mechanics",
-              "basic-mechanics"
-            ],
-            "bonus": 10
-          },
-          "medical": {
-            "allow": [
-              "first-aid",
-              "paramedic"
-            ],
-            "bonus": 10,
-            "costs": {
-              "paramedic": 2
-            }
-          },
-          "physical": {
-            "allow": "any",
-            "exclude": [
-              "fencing",
-              "forced-march",
-              "outdoorsmanship",
-              "scuba"
+              "basic-mechanics",
+              "automotive-mechanics"
             ],
             "bonus": 5
           },
-          "pilot": {
+          "medical": {
             "allow": [
-              "automobile",
-              "bicycle",
-              "motorcycle",
-              "hover-craft",
-              "hovercycle",
-              "jet-pack",
-              "tracked-construction",
-              "truck"
+              "first-aid"
             ],
-            "bonus": 10
-          },
-          "rogue": {
-            "allow": "any",
-            "bonus": 15
+            "bonus": 5
           },
           "science": {
             "allow": [
               "math-basic",
-              "math-advanced",
-              "chemistry"
+              "math-advanced"
             ],
-            "bonus": 0
+            "bonus": 5
           },
           "technical": {
             "allow": "any",
-            "bonus": 10
+            "bonus": 5
           },
-          "weapon": {
+          "physical": {
             "allow": "any",
             "exclude": [
-              "heavy-energy-weapons",
-              "military"
+              "acrobatics",
+              "gymnastics",
+              "wrestling"
             ],
             "bonus": 0
           },
-          "cowboy": {
-            "allow": [],
+          "rogue": {
+            "allow": "any",
+            "bonus": 4
+          },
+          "pilot": {
+            "allow": "any",
+            "exclude": [
+              "jet-aircraft",
+              "ships-seamanship",
+              "robots-power-armor",
+              "combat-helicopter",
+              "jet-fighter",
+              "submersible",
+              "tanks-apcs",
+              "warship",
+              "flight-system-combat",
+              "jump-bike-combat"
+            ],
+            "bonus": 5
+          },
+          "pilot-related": {
+            "allow": "any",
             "bonus": 0
           },
           "espionage": {
             "allow": [],
             "bonus": 0
           },
-          "horsemanship": {
-            "allow": [],
-            "bonus": 0
-          },
-          "military": {
-            "allow": [],
-            "bonus": 0
-          },
-          "pilot-related": {
-            "allow": [],
-            "bonus": 0
-          },
           "wilderness": {
+            "allow": "any",
+            "bonus": 0
+          },
+          "cowboy": {
             "allow": [],
+            "bonus": 0
+          },
+          "horsemanship": {
+            "allow": [
+              "horse-general"
+            ],
             "bonus": 0
           }
         },
@@ -11200,8 +10894,9 @@
           }
         }
       },
+      "path_guidance": [],
       "advancement": {
-        "class_id": "city-rat",
+        "class_id": "vagabond",
         "max_level": 2,
         "xp_ranges": [
           [
@@ -11217,398 +10912,69 @@
         "source": {
           "book": "Rifts - Ultimate Edition",
           "pages": [
-            88,
+            97,
+            98,
             287,
             295,
             300
           ],
-          "section": "City Rat first advancement and learned skill progression",
           "pdf_pages": [
-            91,
+            100,
+            101,
             290,
             298,
             303
+          ],
+          "section": "Vagabond first advancement and learned skill progression"
+        }
+      },
+      "skill_effects": [],
+      "name": "Vagabond Skills",
+      "class_bonuses": {
+        "class_id": "vagabond",
+        "perception": 4,
+        "saving": {
+          "possession": 1,
+          "psionics": 1,
+          "horror_factor": 2
+        },
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            97
+          ],
+          "pdf_pages": [
+            100
+          ],
+          "section": "Vagabond O.C.C. Bonuses",
+          "candidate_ids": [
+            "4723d131c9eb5765a291"
           ]
         }
       },
       "pools": {
+        "domestic": {
+          "count": 2,
+          "bonus": 15
+        },
         "related": {
-          "count": 10,
-          "bonus": 0
+          "count": 5,
+          "bonus": 10
         },
         "secondary": {
           "count": 8,
           "bonus": 0
         }
       },
-      "path_name": "City Rat",
-      "required": {
-        "format": 2,
-        "grants": [
-          {
-            "id": "literacy-native",
-            "name": "Literacy: Native Language",
-            "base": 40,
-            "per_level": 5,
-            "class_bonus": 15,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                305
-              ],
-              "section": "City Rat O.C.C. Skills / Communications Skills",
-              "pdf_pages": [
-                91,
-                308
-              ]
-            },
-            "synergies": []
-          },
-          {
-            "id": "native-language",
-            "name": "Language: Native Tongue",
-            "base": 92,
-            "per_level": 1,
-            "class_bonus": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                304
-              ],
-              "section": "City Rat O.C.C. Skills / Communication Skills",
-              "pdf_pages": [
-                91,
-                307
-              ]
-            },
-            "specialty_from": "native_language"
-          },
-          {
-            "id": "barter",
-            "name": "Barter",
-            "base": 30,
-            "per_level": 4,
-            "class_bonus": 15,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                304
-              ],
-              "section": "City Rat O.C.C. Skills / Communication Skills",
-              "pdf_pages": [
-                91,
-                307
-              ]
-            },
-            "synergies": [
-              {
-                "name": "mathematics",
-                "any_of": [
-                  "math-basic",
-                  "math-advanced"
-                ],
-                "amount": 2
-              },
-              {
-                "name": "literacy",
-                "any_of": [
-                  "literacy-native",
-                  "literacy-other"
-                ],
-                "amount": 2
-              }
-            ]
-          },
-          {
-            "id": "computer-operation",
-            "name": "Computer Operation",
-            "base": 40,
-            "per_level": 5,
-            "class_bonus": 15,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                323
-              ],
-              "section": "City Rat O.C.C. Skills / Technical Skills",
-              "pdf_pages": [
-                91,
-                326
-              ]
-            },
-            "prerequisites": [
-              [
-                "literacy-native",
-                "literacy-other"
-              ]
-            ],
-            "synergies": [
-              {
-                "skill_id": "artificial-intelligence",
-                "name": "artificial_intelligence",
-                "amount": 5
-              }
-            ]
-          },
-          {
-            "id": "streetwise",
-            "name": "Streetwise",
-            "base": 20,
-            "per_level": 4,
-            "class_bonus": 20,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                321
-              ],
-              "section": "City Rat O.C.C. Skills / Rogue Skills",
-              "pdf_pages": [
-                91,
-                324
-              ]
-            },
-            "description": "Recognize street gangs, ranks, colors, dangerous locations, underworld customs, drugs and their street names/prices. Adds +10% to I.D. Undercover Agents.",
-            "category": "rogue",
-            "synergies": []
-          },
-          {
-            "id": "tailing",
-            "name": "Tailing",
-            "base": 30,
-            "per_level": 5,
-            "class_bonus": 20,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                321
-              ],
-              "section": "City Rat O.C.C. Skills / Rogue Skills",
-              "pdf_pages": [
-                91,
-                324
-              ]
-            },
-            "description": "Follow someone unnoticed and conduct basic stake-outs. Failure alerts the subject, who may evade or confront the follower. Prowl adds +5%; Tailing is also described as part of Surveillance.",
-            "category": "rogue",
-            "synergies": [
-              {
-                "skill_id": "prowl",
-                "name": "prowl",
-                "amount": 5
-              }
-            ]
-          },
-          {
-            "id": "pilot-automobile",
-            "name": "Pilot: Automobile",
-            "base": 60,
-            "per_level": 2,
-            "class_bonus": 10,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                318
-              ],
-              "section": "City Rat mandatory Pilot training",
-              "pdf_pages": [
-                91,
-                321
-              ]
-            },
-            "catalog_skill_id": "automobile"
-          },
-          {
-            "id": "pilot-bicycle",
-            "name": "Pilot: Bicycle",
-            "base": 44,
-            "per_level": 4,
-            "class_bonus": 20,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                318
-              ],
-              "section": "City Rat mandatory Pilot training",
-              "pdf_pages": [
-                91,
-                321
-              ]
-            },
-            "catalog_skill_id": "bicycle"
-          },
-          {
-            "id": "math-basic",
-            "name": "Mathematics: Basic",
-            "base": 45,
-            "per_level": 5,
-            "class_bonus": 10,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                322
-              ],
-              "section": "City Rat O.C.C. Skills / Science Skills",
-              "pdf_pages": [
-                91,
-                325
-              ]
-            },
-            "synergies": [
-              {
-                "skill_id": "gambling-standard",
-                "name": "gambling_standard",
-                "amount": 5
-              }
-            ]
-          }
-        ],
-        "groups": [
-          {
-            "id": "native_language",
-            "name": "Native language",
-            "kind": "text",
-            "count": 1,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                89
-              ],
-              "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
-              "pdf_pages": [
-                91,
-                92
-              ]
-            }
-          },
-          {
-            "id": "other_languages",
-            "name": "Other languages",
-            "kind": "text-list",
-            "count": 1,
-            "skill": {
-              "id": "other-language",
-              "name": "Language: Other",
-              "base": 50,
-              "per_level": 3,
-              "class_bonus": 10,
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "pages": [
-                  88,
-                  304
-                ],
-                "section": "City Rat O.C.C. Skills / Communication Skills",
-                "pdf_pages": [
-                  91,
-                  307
-                ]
-              }
-            },
-            "different_from": [
-              "native_language"
-            ],
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                89
-              ],
-              "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
-              "pdf_pages": [
-                91,
-                92
-              ]
-            }
-          },
-          {
-            "id": "vehicle",
-            "name": "Pilot: Motorcycle or Hovercycle",
-            "kind": "select",
-            "count": 1,
-            "options": [
-              {
-                "id": "motorcycle",
-                "name": "Pilot: Motorcycle",
-                "base": 60,
-                "per_level": 4,
-                "class_bonus": 15,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "pages": [
-                    88,
-                    318
-                  ],
-                  "section": "City Rat O.C.C. Skills / Pilot Skills",
-                  "pdf_pages": [
-                    91,
-                    321
-                  ]
-                }
-              },
-              {
-                "id": "hovercycle",
-                "name": "Pilot: Hovercycle",
-                "base": 70,
-                "per_level": 3,
-                "class_bonus": 10,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "pages": [
-                    88,
-                    318
-                  ],
-                  "section": "City Rat O.C.C. Skills / Pilot Skills",
-                  "pdf_pages": [
-                    91,
-                    321
-                  ]
-                }
-              }
-            ],
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                88,
-                89
-              ],
-              "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
-              "pdf_pages": [
-                91,
-                92
-              ]
-            }
-          }
-        ]
-      },
-      "path_guidance": [
-        "City Rat related and secondary pools are class-specific. Three Physical or Rogue related choices are required, but enforcement and Hand to Hand upgrade counting remain pending.",
-        "The full O.C.C. skill catalog, complete weapon choices, category prerequisites, and class skill-pool choices outside the available catalog remain pending.",
-        "Starting P.P.E., age-22 reduction, equipment, and cybernetics remain pending.",
-        "Starting credit and Black Market item values use the separately pinned equipment rules; item identity selection remains pending."
-      ],
-      "source": {
-        "book": "Rifts - Ultimate Edition",
-        "pages": [
-          88,
-          89
-        ],
-        "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
-        "pdf_pages": [
-          91,
-          92
-        ]
-      },
-      "name": "Reviewed Rifts skills with City Rat",
+      "physical_grants": [],
+      "fixed_domestic_grants": [
+        {
+          "id": "cook",
+          "bonus": 15
+        }
+      ]
+    },
+    "city-rat": {
       "resources": {
         "definitions": [
           {
@@ -11708,21 +11074,104 @@
           "Each attained level records a separate advancement Hit Point die; undo/replay retains the recorded rolls."
         ]
       },
-      "class_bonuses": {
-        "class_id": "city-rat",
-        "perception": 3,
-        "saving": {},
+      "higher_advancement": {
+        "max_level": 15,
+        "xp_ranges": [
+          [
+            0,
+            1875
+          ],
+          [
+            1876,
+            3750
+          ],
+          [
+            3751,
+            7250
+          ],
+          [
+            7251,
+            14100
+          ],
+          [
+            14101,
+            21200
+          ],
+          [
+            21201,
+            31200
+          ],
+          [
+            31201,
+            41200
+          ],
+          [
+            41201,
+            51200
+          ],
+          [
+            51201,
+            71200
+          ],
+          [
+            71201,
+            101500
+          ],
+          [
+            101501,
+            136500
+          ],
+          [
+            136501,
+            186500
+          ],
+          [
+            186501,
+            236500
+          ],
+          [
+            236501,
+            286500
+          ],
+          [
+            286501,
+            326500
+          ]
+        ],
+        "related_levels": [
+          2,
+          4,
+          6,
+          9,
+          12
+        ],
+        "secondary_levels": [
+          3,
+          6,
+          10,
+          15
+        ],
+        "hp_die": 6,
         "source": {
           "book": "Rifts - Ultimate Edition",
           "pages": [
-            88
+            88,
+            89,
+            287,
+            295,
+            300
           ],
-          "section": "City Rat O.C.C. Bonuses",
+          "section": "City Rat/Vagabond experience and learned skill progression",
           "pdf_pages": [
-            91
+            91,
+            92,
+            290,
+            298,
+            303
           ]
         }
       },
+      "path_name": "City Rat",
       "combat": {
         "strength_type": "normal-human",
         "default_hand_to_hand": "basic",
@@ -13394,225 +12843,472 @@
         },
         "combined_proficiency_count": 1
       },
-      "higher_advancement": {
-        "max_level": 15,
-        "xp_ranges": [
-          [
-            0,
-            1875
-          ],
-          [
-            1876,
-            3750
-          ],
-          [
-            3751,
-            7250
-          ],
-          [
-            7251,
-            14100
-          ],
-          [
-            14101,
-            21200
-          ],
-          [
-            21201,
-            31200
-          ],
-          [
-            31201,
-            41200
-          ],
-          [
-            41201,
-            51200
-          ],
-          [
-            51201,
-            71200
-          ],
-          [
-            71201,
-            101500
-          ],
-          [
-            101501,
-            136500
-          ],
-          [
-            136501,
-            186500
-          ],
-          [
-            186501,
-            236500
-          ],
-          [
-            236501,
-            286500
-          ],
-          [
-            286501,
-            326500
-          ]
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          88,
+          89
         ],
-        "related_levels": [
-          2,
-          4,
-          6,
-          9,
-          12
-        ],
-        "secondary_levels": [
-          3,
-          6,
-          10,
-          15
-        ],
-        "hp_die": 6,
-        "source": {
-          "book": "Rifts - Ultimate Edition",
-          "pages": [
-            88,
-            89,
-            287,
-            295,
-            300
-          ],
-          "section": "City Rat/Vagabond experience and learned skill progression",
-          "pdf_pages": [
-            91,
-            92,
-            290,
-            298,
-            303
-          ]
-        }
+        "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
+        "pdf_pages": [
+          91,
+          92
+        ]
       },
-      "physical_grants": [
-        "running"
-      ]
-    },
-    "wilderness-scout": {
-      "skill_effects": [
-        {
-          "id": "scout-language",
-          "name": "Language training",
-          "operation": "add",
-          "amount": 10,
-          "selection_pool": "related",
-          "selector": {
-            "any_of": [
+      "required": {
+        "format": 2,
+        "grants": [
+          {
+            "id": "literacy-native",
+            "name": "Literacy: Native Language",
+            "base": 40,
+            "per_level": 5,
+            "class_bonus": 15,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                305
+              ],
+              "section": "City Rat O.C.C. Skills / Communications Skills",
+              "pdf_pages": [
+                91,
+                308
+              ]
+            },
+            "synergies": []
+          },
+          {
+            "id": "native-language",
+            "name": "Language: Native Tongue",
+            "base": 92,
+            "per_level": 1,
+            "class_bonus": 0,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                304
+              ],
+              "section": "City Rat O.C.C. Skills / Communication Skills",
+              "pdf_pages": [
+                91,
+                307
+              ]
+            },
+            "specialty_from": "native_language"
+          },
+          {
+            "id": "barter",
+            "name": "Barter",
+            "base": 30,
+            "per_level": 4,
+            "class_bonus": 15,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                304
+              ],
+              "section": "City Rat O.C.C. Skills / Communication Skills",
+              "pdf_pages": [
+                91,
+                307
+              ]
+            },
+            "synergies": [
               {
-                "ids": [
-                  "language-other"
-                ]
+                "name": "mathematics",
+                "any_of": [
+                  "math-basic",
+                  "math-advanced"
+                ],
+                "amount": 2
+              },
+              {
+                "name": "literacy",
+                "any_of": [
+                  "literacy-native",
+                  "literacy-other"
+                ],
+                "amount": 2
               }
             ]
           },
-          "source": {
-            "book": "Rifts - Ultimate Edition",
-            "section": "Wilderness Scout related skill bonuses",
-            "pages": [
-              99
+          {
+            "id": "computer-operation",
+            "name": "Computer Operation",
+            "base": 40,
+            "per_level": 5,
+            "class_bonus": 15,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                323
+              ],
+              "section": "City Rat O.C.C. Skills / Technical Skills",
+              "pdf_pages": [
+                91,
+                326
+              ]
+            },
+            "prerequisites": [
+              [
+                "literacy-native",
+                "literacy-other"
+              ]
             ],
-            "pdf_pages": [
-              102
-            ]
-          }
-        },
-        {
-          "id": "scout-holistic",
-          "name": "Holistic Medicine training",
-          "operation": "add",
-          "amount": 10,
-          "selection_pool": "related",
-          "selector": {
-            "any_of": [
+            "synergies": [
               {
-                "ids": [
-                  "holistic-medicine"
-                ]
+                "skill_id": "artificial-intelligence",
+                "name": "artificial_intelligence",
+                "amount": 5
               }
             ]
           },
-          "source": {
-            "book": "Rifts - Ultimate Edition",
-            "section": "Wilderness Scout related skill bonuses",
-            "pages": [
-              99
-            ],
-            "pdf_pages": [
-              102
-            ]
-          }
-        },
-        {
-          "id": "scout-technical",
-          "name": "Specialized Technical training",
-          "operation": "add",
-          "amount": 10,
-          "selection_pool": "related",
-          "selector": {
-            "any_of": [
+          {
+            "id": "streetwise",
+            "name": "Streetwise",
+            "base": 20,
+            "per_level": 4,
+            "class_bonus": 20,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                321
+              ],
+              "section": "City Rat O.C.C. Skills / Rogue Skills",
+              "pdf_pages": [
+                91,
+                324
+              ]
+            },
+            "description": "Recognize street gangs, ranks, colors, dangerous locations, underworld customs, drugs and their street names/prices. Adds +10% to I.D. Undercover Agents.",
+            "category": "rogue",
+            "synergies": []
+          },
+          {
+            "id": "tailing",
+            "name": "Tailing",
+            "base": 30,
+            "per_level": 5,
+            "class_bonus": 20,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                321
+              ],
+              "section": "City Rat O.C.C. Skills / Rogue Skills",
+              "pdf_pages": [
+                91,
+                324
+              ]
+            },
+            "description": "Follow someone unnoticed and conduct basic stake-outs. Failure alerts the subject, who may evade or confront the follower. Prowl adds +5%; Tailing is also described as part of Surveillance.",
+            "category": "rogue",
+            "synergies": [
               {
-                "ids": [
-                  "rope-works",
-                  "breed-dogs",
-                  "lore-american-indians",
-                  "lore-cattle-animals",
-                  "lore-dbee",
-                  "lore-demons-monsters",
-                  "lore-faeries-magic-creatures",
-                  "lore-juicer",
-                  "lore-magic",
-                  "lore-psychics"
-                ]
+                "skill_id": "prowl",
+                "name": "prowl",
+                "amount": 5
               }
             ]
           },
-          "source": {
-            "book": "Rifts - Ultimate Edition",
-            "section": "Wilderness Scout related skill bonuses",
-            "pages": [
-              99
-            ],
-            "pdf_pages": [
-              102
-            ]
-          }
-        },
-        {
-          "id": "scout-cartography-math",
-          "name": "Cartography",
-          "operation": "add",
-          "amount": 5,
-          "selection_pool": "related",
-          "selector": {
-            "any_of": [
+          {
+            "id": "pilot-automobile",
+            "name": "Pilot: Automobile",
+            "base": 60,
+            "per_level": 2,
+            "class_bonus": 10,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                318
+              ],
+              "section": "City Rat mandatory Pilot training",
+              "pdf_pages": [
+                91,
+                321
+              ]
+            },
+            "catalog_skill_id": "automobile"
+          },
+          {
+            "id": "pilot-bicycle",
+            "name": "Pilot: Bicycle",
+            "base": 44,
+            "per_level": 4,
+            "class_bonus": 20,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                318
+              ],
+              "section": "City Rat mandatory Pilot training",
+              "pdf_pages": [
+                91,
+                321
+              ]
+            },
+            "catalog_skill_id": "bicycle"
+          },
+          {
+            "id": "math-basic",
+            "name": "Mathematics: Basic",
+            "base": 45,
+            "per_level": 5,
+            "class_bonus": 10,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                322
+              ],
+              "section": "City Rat O.C.C. Skills / Science Skills",
+              "pdf_pages": [
+                91,
+                325
+              ]
+            },
+            "synergies": [
               {
-                "ids": [
-                  "math-basic"
-                ]
+                "skill_id": "gambling-standard",
+                "name": "gambling_standard",
+                "amount": 5
               }
             ]
-          },
-          "source": {
-            "book": "Rifts - Ultimate Edition",
-            "section": "Wilderness Scout related skill bonuses",
-            "pages": [
-              99
-            ],
-            "pdf_pages": [
-              102
-            ]
           }
-        }
-      ],
-      "fixed_domestic_grants": [],
+        ],
+        "groups": [
+          {
+            "id": "native_language",
+            "name": "Native language",
+            "kind": "text",
+            "count": 1,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                89
+              ],
+              "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
+              "pdf_pages": [
+                91,
+                92
+              ]
+            }
+          },
+          {
+            "id": "other_languages",
+            "name": "Other languages",
+            "kind": "text-list",
+            "count": 1,
+            "skill": {
+              "id": "other-language",
+              "name": "Language: Other",
+              "base": 50,
+              "per_level": 3,
+              "class_bonus": 10,
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "pages": [
+                  88,
+                  304
+                ],
+                "section": "City Rat O.C.C. Skills / Communication Skills",
+                "pdf_pages": [
+                  91,
+                  307
+                ]
+              }
+            },
+            "different_from": [
+              "native_language"
+            ],
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                89
+              ],
+              "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
+              "pdf_pages": [
+                91,
+                92
+              ]
+            }
+          },
+          {
+            "id": "vehicle",
+            "name": "Pilot: Motorcycle or Hovercycle",
+            "kind": "select",
+            "count": 1,
+            "options": [
+              {
+                "id": "motorcycle",
+                "name": "Pilot: Motorcycle",
+                "base": 60,
+                "per_level": 4,
+                "class_bonus": 15,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "pages": [
+                    88,
+                    318
+                  ],
+                  "section": "City Rat O.C.C. Skills / Pilot Skills",
+                  "pdf_pages": [
+                    91,
+                    321
+                  ]
+                }
+              },
+              {
+                "id": "hovercycle",
+                "name": "Pilot: Hovercycle",
+                "base": 70,
+                "per_level": 3,
+                "class_bonus": 10,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "pages": [
+                    88,
+                    318
+                  ],
+                  "section": "City Rat O.C.C. Skills / Pilot Skills",
+                  "pdf_pages": [
+                    91,
+                    321
+                  ]
+                }
+              }
+            ],
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                88,
+                89
+              ],
+              "section": "City Rat O.C.C. Skills, Bonuses, and Progression",
+              "pdf_pages": [
+                91,
+                92
+              ]
+            }
+          }
+        ]
+      },
       "selection_rules": {
+        "related": {
+          "communications": {
+            "allow": "any",
+            "bonus": 10
+          },
+          "domestic": {
+            "allow": "any",
+            "bonus": 5
+          },
+          "electrical": {
+            "allow": [
+              "basic-electronics",
+              "computer-repair"
+            ],
+            "bonus": 5
+          },
+          "mechanical": {
+            "allow": [
+              "automotive-mechanics",
+              "basic-mechanics"
+            ],
+            "bonus": 10
+          },
+          "medical": {
+            "allow": [
+              "first-aid",
+              "paramedic"
+            ],
+            "bonus": 10,
+            "costs": {
+              "paramedic": 2
+            }
+          },
+          "physical": {
+            "allow": "any",
+            "exclude": [
+              "fencing",
+              "forced-march",
+              "outdoorsmanship",
+              "scuba"
+            ],
+            "bonus": 5
+          },
+          "pilot": {
+            "allow": [
+              "automobile",
+              "bicycle",
+              "motorcycle",
+              "hover-craft",
+              "hovercycle",
+              "jet-pack",
+              "tracked-construction",
+              "truck"
+            ],
+            "bonus": 10
+          },
+          "rogue": {
+            "allow": "any",
+            "bonus": 15
+          },
+          "science": {
+            "allow": [
+              "math-basic",
+              "math-advanced",
+              "chemistry"
+            ],
+            "bonus": 0
+          },
+          "technical": {
+            "allow": "any",
+            "bonus": 10
+          },
+          "weapon": {
+            "allow": "any",
+            "exclude": [
+              "heavy-energy-weapons",
+              "military"
+            ],
+            "bonus": 0
+          },
+          "cowboy": {
+            "allow": [],
+            "bonus": 0
+          },
+          "espionage": {
+            "allow": [],
+            "bonus": 0
+          },
+          "horsemanship": {
+            "allow": [],
+            "bonus": 0
+          },
+          "military": {
+            "allow": [],
+            "bonus": 0
+          },
+          "pilot-related": {
+            "allow": [],
+            "bonus": 0
+          },
+          "wilderness": {
+            "allow": [],
+            "bonus": 0
+          }
+        },
         "secondary": {
           "domestic": {
             "allow": "any",
@@ -13728,806 +13424,78 @@
             "allow": [],
             "bonus": 0
           }
-        },
-        "related": {
-          "communications": {
-            "allow": [
-              "barter",
-              "language-other",
-              "literacy-native",
-              "literacy-other",
-              "performance",
-              "public-speaking"
-            ],
-            "bonus": 0
-          },
-          "cowboy": {
-            "allow": [],
-            "bonus": 0
-          },
-          "domestic": {
-            "allow": "any",
-            "bonus": 10
-          },
-          "electrical": {
-            "allow": [
-              "basic-electronics"
-            ],
-            "bonus": 0
-          },
-          "espionage": {
-            "allow": "any",
-            "bonus": 10,
-            "exclude": [
-              "forgery",
-              "pick-locks"
-            ]
-          },
-          "horsemanship": {
-            "allow": [
-              "horse-exotic"
-            ],
-            "bonus": 5
-          },
-          "mechanical": {
-            "allow": [
-              "automotive-mechanics"
-            ],
-            "bonus": 0
-          },
-          "medical": {
-            "allow": [
-              "first-aid",
-              "holistic-medicine"
-            ],
-            "bonus": 10,
-            "costs": {
-              "holistic-medicine": 2
-            }
-          },
-          "military": {
-            "allow": [],
-            "bonus": 0
-          },
-          "physical": {
-            "allow": "any",
-            "bonus": 10,
-            "exclude": [
-              "acrobatics"
-            ]
-          },
-          "pilot": {
-            "allow": "any",
-            "bonus": 0,
-            "exclude": [
-              "robots-power-armor",
-              "combat-helicopter",
-              "jet-fighter",
-              "tanks-apcs",
-              "warship",
-              "submersible",
-              "jet-aircraft",
-              "ships-seamanship",
-              "truck",
-              "tracked-construction"
-            ]
-          },
-          "pilot-related": {
-            "allow": "any",
-            "bonus": 0
-          },
-          "rogue": {
-            "allow": [
-              "gambling-standard",
-              "gambling-dirty-tricks",
-              "imitate-voices",
-              "tailing"
-            ],
-            "bonus": 5
-          },
-          "science": {
-            "allow": [
-              "math-basic",
-              "anthropology",
-              "biology",
-              "botany"
-            ],
-            "bonus": 0
-          },
-          "technical": {
-            "allow": "any",
-            "bonus": 5
-          },
-          "wilderness": {
-            "allow": "any",
-            "bonus": 20
-          }
         }
       },
+      "path_guidance": [
+        "City Rat related and secondary pools are class-specific. Three Physical or Rogue related choices are required, but enforcement and Hand to Hand upgrade counting remain pending.",
+        "The full O.C.C. skill catalog, complete weapon choices, category prerequisites, and class skill-pool choices outside the available catalog remain pending.",
+        "Starting P.P.E., age-22 reduction, equipment, and cybernetics remain pending.",
+        "Starting credit and Black Market item values use the separately pinned equipment rules; item identity selection remains pending."
+      ],
       "advancement": {
-        "class_id": "wilderness-scout",
+        "class_id": "city-rat",
         "max_level": 2,
         "xp_ranges": [
           [
             0,
-            1900
+            1875
           ],
           [
-            1901,
-            3800
+            1876,
+            3750
           ]
         ],
         "hp_die": 6,
         "source": {
           "book": "Rifts - Ultimate Edition",
-          "section": "Wilderness Scout experience and learned skill advancement",
           "pages": [
-            99,
-            100,
+            88,
             287,
             295,
             300
           ],
+          "section": "City Rat first advancement and learned skill progression",
           "pdf_pages": [
-            102,
-            103,
+            91,
             290,
             298,
             303
           ]
         }
       },
+      "skill_effects": [],
+      "name": "Reviewed Rifts skills with City Rat",
+      "class_bonuses": {
+        "class_id": "city-rat",
+        "perception": 3,
+        "saving": {},
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "pages": [
+            88
+          ],
+          "section": "City Rat O.C.C. Bonuses",
+          "pdf_pages": [
+            91
+          ]
+        }
+      },
       "pools": {
         "related": {
-          "count": 9,
-          "bonus": 0,
-          "requirements": [
-            {
-              "id": "physical",
-              "name": "Physical skills",
-              "count": 2,
-              "selector": {
-                "any_of": [
-                  {
-                    "categories": [
-                      "physical"
-                    ]
-                  }
-                ],
-                "exclude_ids": [
-                  "athletics",
-                  "climbing"
-                ]
-              },
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "section": "Wilderness Scout related skill minimums",
-                "pages": [
-                  99
-                ],
-                "pdf_pages": [
-                  102
-                ]
-              }
-            },
-            {
-              "id": "wilderness",
-              "name": "Wilderness skill",
-              "count": 1,
-              "selector": {
-                "any_of": [
-                  {
-                    "categories": [
-                      "wilderness"
-                    ]
-                  }
-                ],
-                "exclude_ids": [
-                  "hunting",
-                  "identify-plants-fruit",
-                  "land-navigation",
-                  "track-trap-animals",
-                  "wilderness-survival"
-                ]
-              },
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "section": "Wilderness Scout related skill minimums",
-                "pages": [
-                  99
-                ],
-                "pdf_pages": [
-                  102
-                ]
-              }
-            }
-          ]
+          "count": 10,
+          "bonus": 0
         },
         "secondary": {
-          "count": 4,
+          "count": 8,
           "bonus": 0
         }
       },
-      "path_name": "Wilderness Scout",
-      "required": {
-        "format": 2,
-        "grants": [
-          {
-            "id": "native-language",
-            "name": "Language: Native Tongue",
-            "base": 94,
-            "per_level": 0,
-            "class_bonus": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout Native Tongue",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "specialty_from": "native_language"
-          },
-          {
-            "id": "cook",
-            "name": "Cook",
-            "base": 35,
-            "per_level": 5,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "category": "domestic",
-            "proficiency_rules": {
-              "independent_checks": true,
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "section": "Hunting: Cook game animals",
-                "pages": [
-                  330
-                ],
-                "pdf_pages": [
-                  333
-                ]
-              }
-            },
-            "additional_checks": [
-              {
-                "name": "Cook game animals",
-                "context_of": "primary",
-                "modifier": 10,
-                "maximum": 98,
-                "requires_skill": "hunting"
-              }
-            ],
-            "class_bonus": 15,
-            "catalog_skill_id": "cook"
-          },
-          {
-            "id": "fishing",
-            "name": "Fishing",
-            "base": 40,
-            "per_level": 5,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "category": "domestic",
-            "class_bonus": 15,
-            "catalog_skill_id": "fishing"
-          },
-          {
-            "id": "climbing",
-            "name": "Climbing",
-            "kind": "physical",
-            "category": "physical",
-            "requires_specialty": false,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "attributes": {},
-            "resources": {},
-            "combat": {},
-            "prerequisites": [],
-            "description": "Climb sheer surfaces with appropriate tools and techniques; rappelling includes ascending and descending with ropes. Roll every 20 feet; two consecutive failures cause a fall.",
-            "notes": [],
-            "base": 40,
-            "per_level": 5,
-            "additional_checks": [
-              {
-                "name": "Rappelling",
-                "base": 30,
-                "per_level": 5
-              }
-            ],
-            "synergies": [
-              {
-                "name": "Acrobatics",
-                "skill_id": "acrobatics",
-                "amount": 15
-              },
-              {
-                "name": "Gymnastics",
-                "skill_id": "gymnastics",
-                "amount": 5
-              }
-            ],
-            "class_bonus": 20
-          },
-          {
-            "id": "horse-general",
-            "name": "Horsemanship: General",
-            "category": "horsemanship",
-            "base": 40,
-            "per_level": 4,
-            "additional_checks": [
-              {
-                "name": "Jumping and other special maneuvers",
-                "base": 20,
-                "per_level": 4
-              }
-            ],
-            "description": "General riding, care, breed assessment, breeding and wagon handling. The second normal check handles jumps, tricks, racing and control. While mounted: +1 parry/dodge, +1D4 melee damage, and charge +1D6/two actions. These contextual effects are not added to standing combat totals.",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "class_bonus": 20,
-            "catalog_skill_id": "horse-general"
-          },
-          {
-            "id": "identify-plants-fruit",
-            "name": "Identify Plants & Fruit",
-            "base": 25,
-            "per_level": 5,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Identify wild vegetation, edible foods, herbs and medicinal plants while avoiding poisonous varieties. Searching time remains descriptive.",
-            "synergies": [
-              {
-                "name": "Holistic Medicine",
-                "skill_id": "holistic-medicine",
-                "amount": 10
-              },
-              {
-                "name": "Outdoorsmanship",
-                "skill_id": "outdoorsmanship",
-                "amount": 5
-              }
-            ],
-            "class_bonus": 20,
-            "catalog_skill_id": "identify-plants-fruit"
-          },
-          {
-            "id": "hunting",
-            "name": "Hunting",
-            "category": "wilderness",
-            "kind": "training",
-            "requires_specialty": false,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Hunt and prepare animals for food; understand habits, baiting, trapping, blinds and tree stands. Adds +2 to Prowl, +5 to Track & Trap Animals, +5 to Skin & Prepare Animal Hides, +4 to Imitate Voices & Sounds, and +10 to Cook game animals only.",
-            "catalog_skill_id": "hunting"
-          },
-          {
-            "id": "land-navigation",
-            "name": "Land Navigation",
-            "base": 36,
-            "per_level": 4,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Stay on course by landmarks, distance estimates, trail marking and observation. Does not require Literacy or Mathematics; symbolic map reading carries 20% penalty. Travel and drift remain descriptions.",
-            "class_bonus": 20,
-            "catalog_skill_id": "land-navigation"
-          },
-          {
-            "id": "prowl",
-            "name": "Prowl",
-            "category": "rogue",
-            "base": 25,
-            "per_level": 5,
-            "description": "Move quietly and carefully using balance, positioning, low visibility and crawling. Failure reveals the character; successful stealth may permit a sneak attack. Listed in both Rogue and Physical; use one identity and the Rogue entitlement for these two classes.",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "synergies": [
-              {
-                "name": "Acrobatics",
-                "skill_id": "acrobatics",
-                "amount": 5
-              },
-              {
-                "name": "Gymnastics",
-                "skill_id": "gymnastics",
-                "amount": 5
-              },
-              {
-                "name": "Hunting",
-                "skill_id": "hunting",
-                "amount": 2
-              }
-            ],
-            "class_bonus": 15,
-            "catalog_skill_id": "prowl"
-          },
-          {
-            "id": "radio-basic",
-            "name": "Radio: Basic",
-            "category": "communications",
-            "base": 45,
-            "per_level": 5,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "class_bonus": 10,
-            "catalog_skill_id": "radio-basic"
-          },
-          {
-            "id": "track-trap-animals",
-            "name": "Track & Trap Animals",
-            "base": 20,
-            "per_level": 5,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Recognize and follow animal tracks and habits; trapping uses its separate normal percentage. Tracking humans and disarming traps intended for humans use half the relevant proficiency.",
-            "additional_checks": [
-              {
-                "name": "Trapping animals",
-                "base": 30,
-                "per_level": 5
-              }
-            ],
-            "synergies": [
-              {
-                "name": "Hunting",
-                "skill_id": "hunting",
-                "amount": 5
-              }
-            ],
-            "class_bonus": 20,
-            "catalog_skill_id": "track-trap-animals"
-          },
-          {
-            "id": "wilderness-survival",
-            "name": "Wilderness Survival",
-            "base": 30,
-            "per_level": 5,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout O.C.C. Skills",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Find water, food, shelter and help when stranded in forests, deserts or mountains. Also listed in Espionage; retain one acquired skill identity.",
-            "synergies": [
-              {
-                "name": "Outdoorsmanship",
-                "skill_id": "outdoorsmanship",
-                "amount": 5
-              }
-            ],
-            "class_bonus": 20,
-            "catalog_skill_id": "wilderness-survival"
-          },
-          {
-            "id": "trail-blazing",
-            "name": "Trail Blazing",
-            "base": 20,
-            "per_level": 5,
-            "class_bonus": 0,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout special abilities",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Cut and mark wilderness trails for others to follow; failure means the intended route cannot be followed."
-          },
-          {
-            "id": "cross-country-pacing",
-            "name": "Cross-Country Pacing",
-            "base": 35,
-            "per_level": 5,
-            "class_bonus": 0,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout special abilities",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Pace exertion, food and water for long wilderness journeys. With Land Navigation predict travel time; descriptions govern bicycle, foot and unfamiliar-route conditions."
-          },
-          {
-            "id": "cartography",
-            "name": "Cartography",
-            "base": 40,
-            "per_level": 5,
-            "class_bonus": 0,
-            "category": "wilderness",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout special abilities",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "description": "Create accurate, elegant maps; computer mapping requires Computer Operation. Failure omits or misplaces details and scale. Includes fixed Basic Math 50% plus exceptional I.Q., or +5 to separately selected related Basic Math.",
-            "proficiency_rules": {
-              "independent_checks": true,
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "section": "Cartography fixed Basic Math",
-                "pages": [
-                  99
-                ],
-                "pdf_pages": [
-                  102
-                ]
-              }
-            },
-            "additional_checks": [
-              {
-                "name": "Basic Math (Cartography)",
-                "base": 50,
-                "per_level": 0,
-                "bonus_policy": "intelligence-only",
-                "unless_skill": "math-basic",
-                "unless_pool": "related"
-              }
-            ]
-          }
-        ],
-        "groups": [
-          {
-            "id": "native_language",
-            "name": "Native language",
-            "kind": "text",
-            "count": 1,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout languages",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            }
-          },
-          {
-            "id": "other_languages",
-            "name": "Other languages",
-            "kind": "text-list",
-            "count": 2,
-            "skill": {
-              "id": "other-language",
-              "name": "Language: Other",
-              "base": 50,
-              "per_level": 3,
-              "class_bonus": 15,
-              "source": {
-                "book": "Rifts - Ultimate Edition",
-                "section": "Wilderness Scout other languages",
-                "pages": [
-                  99
-                ],
-                "pdf_pages": [
-                  102
-                ]
-              }
-            },
-            "different_from": [
-              "native_language"
-            ],
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout languages",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            }
-          },
-          {
-            "id": "pilot",
-            "name": "Pilot or horsemanship",
-            "kind": "select",
-            "count": 1,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Wilderness Scout pilot choice",
-              "pages": [
-                99
-              ],
-              "pdf_pages": [
-                102
-              ]
-            },
-            "options": [
-              {
-                "id": "motorcycle",
-                "name": "Motorcycles & Snowmobiles",
-                "category": "pilot",
-                "base": 60,
-                "per_level": 4,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "section": "Wilderness Scout O.C.C. Skills",
-                  "pages": [
-                    99
-                  ],
-                  "pdf_pages": [
-                    102
-                  ]
-                },
-                "description": "Pilot motorcycles, dirt bikes, mopeds, snowmobiles, jet sleds, miniature ATVs and similar small vehicles.",
-                "class_bonus": 14,
-                "catalog_skill_id": "motorcycle"
-              },
-              {
-                "id": "hovercycle",
-                "name": "Hovercycles, Skycycles & Rocket Bikes",
-                "category": "pilot",
-                "base": 70,
-                "per_level": 3,
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "section": "Wilderness Scout O.C.C. Skills",
-                  "pages": [
-                    99
-                  ],
-                  "pdf_pages": [
-                    102
-                  ]
-                },
-                "description": "Pilot specialized hovercycles, rocket bikes, skycycles and small jet-powered hover vehicles. Source stunts, jumps and dodges have no special skill penalty; distances and movement remain descriptive.",
-                "class_bonus": 10,
-                "catalog_skill_id": "hovercycle"
-              },
-              {
-                "id": "horse-general",
-                "name": "Horsemanship: General",
-                "category": "horsemanship",
-                "base": 40,
-                "per_level": 4,
-                "additional_checks": [
-                  {
-                    "name": "Jumping and other special maneuvers",
-                    "base": 20,
-                    "per_level": 4
-                  }
-                ],
-                "description": "General riding, care, breed assessment, breeding and wagon handling. The second normal check handles jumps, tricks, racing and control. While mounted: +1 parry/dodge, +1D4 melee damage, and charge +1D6/two actions. These contextual effects are not added to standing combat totals.",
-                "source": {
-                  "book": "Rifts - Ultimate Edition",
-                  "section": "Wilderness Scout O.C.C. Skills",
-                  "pages": [
-                    99
-                  ],
-                  "pdf_pages": [
-                    102
-                  ]
-                },
-                "class_bonus": 0,
-                "catalog_skill_id": "horse-general"
-              }
-            ]
-          }
-        ]
-      },
-      "path_guidance": [
-        "Select two distinct eligible Physical skills, one Wilderness skill, and six other related skills. Required automatic skills do not fill optional category minimums.",
-        "Hand to Hand: Expert costs one related choice; Martial Arts or Assassin costs two. Assassin requires an evil alignment.",
-        "New skills begin at level-one proficiency at their actual acquired level. Eligibility and category counts remain honor-system guidance.",
-        "Scout avoids cybernetic augmentation except needed prostheses."
+      "physical_grants": [
+        "running"
       ],
-      "source": {
-        "book": "Rifts - Ultimate Edition",
-        "section": "Wilderness Scout O.C.C. Skills",
-        "pages": [
-          99
-        ],
-        "pdf_pages": [
-          102
-        ]
-      },
-      "name": "Wilderness Scout Skills",
+      "fixed_domestic_grants": []
+    },
+    "wilderness-scout": {
       "resources": {
         "definitions": [
           {
@@ -14625,43 +13593,104 @@
           "Starting S.D.C. combines general 2D6+12, Scout 3D6+10, and actual Physical grants. Original rolls survive editing, undo and portable saves."
         ]
       },
-      "class_bonuses": {
-        "class_id": "wilderness-scout",
-        "perception": 3,
-        "saving": {
-          "poison": 2,
-          "disease": 2,
-          "coma_death": 10
-        },
-        "combat": {
-          "initiative": 1,
-          "roll_with_impact": 2
-        },
-        "level_bonuses": [
-          {
-            "target": "saving:horror_factor",
-            "levels": [
-              2,
-              4,
-              6,
-              9,
-              12,
-              15
-            ],
-            "amount": 1
-          }
+      "higher_advancement": {
+        "max_level": 15,
+        "xp_ranges": [
+          [
+            0,
+            1900
+          ],
+          [
+            1901,
+            3800
+          ],
+          [
+            3801,
+            7300
+          ],
+          [
+            7301,
+            14300
+          ],
+          [
+            14301,
+            21000
+          ],
+          [
+            21001,
+            30000
+          ],
+          [
+            30001,
+            40000
+          ],
+          [
+            40001,
+            53000
+          ],
+          [
+            53001,
+            73000
+          ],
+          [
+            73001,
+            103000
+          ],
+          [
+            103001,
+            138000
+          ],
+          [
+            138001,
+            188000
+          ],
+          [
+            188001,
+            238000
+          ],
+          [
+            238001,
+            288000
+          ],
+          [
+            288001,
+            328000
+          ]
         ],
+        "related_levels": [
+          2,
+          5,
+          8,
+          11,
+          14
+        ],
+        "secondary_levels": [
+          3,
+          6,
+          9,
+          12
+        ],
+        "hp_die": 6,
         "source": {
           "book": "Rifts - Ultimate Edition",
-          "section": "Wilderness Scout O.C.C. Bonuses",
+          "section": "Wilderness Scout experience and learned skill advancement",
           "pages": [
-            99
+            99,
+            100,
+            287,
+            295,
+            300
           ],
           "pdf_pages": [
-            102
+            102,
+            103,
+            290,
+            298,
+            303
           ]
         }
       },
+      "path_name": "Wilderness Scout",
       "combat": {
         "strength_type": "normal-human",
         "default_hand_to_hand": "basic",
@@ -16326,8 +15355,819 @@
           }
         }
       },
-      "higher_advancement": {
-        "max_level": 15,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Wilderness Scout O.C.C. Skills",
+        "pages": [
+          99
+        ],
+        "pdf_pages": [
+          102
+        ]
+      },
+      "required": {
+        "format": 2,
+        "grants": [
+          {
+            "id": "native-language",
+            "name": "Language: Native Tongue",
+            "base": 94,
+            "per_level": 0,
+            "class_bonus": 0,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout Native Tongue",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "specialty_from": "native_language"
+          },
+          {
+            "id": "cook",
+            "name": "Cook",
+            "base": 35,
+            "per_level": 5,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "category": "domestic",
+            "proficiency_rules": {
+              "independent_checks": true,
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Hunting: Cook game animals",
+                "pages": [
+                  330
+                ],
+                "pdf_pages": [
+                  333
+                ]
+              }
+            },
+            "additional_checks": [
+              {
+                "name": "Cook game animals",
+                "context_of": "primary",
+                "modifier": 10,
+                "maximum": 98,
+                "requires_skill": "hunting"
+              }
+            ],
+            "class_bonus": 15,
+            "catalog_skill_id": "cook"
+          },
+          {
+            "id": "fishing",
+            "name": "Fishing",
+            "base": 40,
+            "per_level": 5,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "category": "domestic",
+            "class_bonus": 15,
+            "catalog_skill_id": "fishing"
+          },
+          {
+            "id": "climbing",
+            "name": "Climbing",
+            "kind": "physical",
+            "category": "physical",
+            "requires_specialty": false,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "attributes": {},
+            "resources": {},
+            "combat": {},
+            "prerequisites": [],
+            "description": "Climb sheer surfaces with appropriate tools and techniques; rappelling includes ascending and descending with ropes. Roll every 20 feet; two consecutive failures cause a fall.",
+            "notes": [],
+            "base": 40,
+            "per_level": 5,
+            "additional_checks": [
+              {
+                "name": "Rappelling",
+                "base": 30,
+                "per_level": 5
+              }
+            ],
+            "synergies": [
+              {
+                "name": "Acrobatics",
+                "skill_id": "acrobatics",
+                "amount": 15
+              },
+              {
+                "name": "Gymnastics",
+                "skill_id": "gymnastics",
+                "amount": 5
+              }
+            ],
+            "class_bonus": 20
+          },
+          {
+            "id": "horse-general",
+            "name": "Horsemanship: General",
+            "category": "horsemanship",
+            "base": 40,
+            "per_level": 4,
+            "additional_checks": [
+              {
+                "name": "Jumping and other special maneuvers",
+                "base": 20,
+                "per_level": 4
+              }
+            ],
+            "description": "General riding, care, breed assessment, breeding and wagon handling. The second normal check handles jumps, tricks, racing and control. While mounted: +1 parry/dodge, +1D4 melee damage, and charge +1D6/two actions. These contextual effects are not added to standing combat totals.",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "class_bonus": 20,
+            "catalog_skill_id": "horse-general"
+          },
+          {
+            "id": "identify-plants-fruit",
+            "name": "Identify Plants & Fruit",
+            "base": 25,
+            "per_level": 5,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Identify wild vegetation, edible foods, herbs and medicinal plants while avoiding poisonous varieties. Searching time remains descriptive.",
+            "synergies": [
+              {
+                "name": "Holistic Medicine",
+                "skill_id": "holistic-medicine",
+                "amount": 10
+              },
+              {
+                "name": "Outdoorsmanship",
+                "skill_id": "outdoorsmanship",
+                "amount": 5
+              }
+            ],
+            "class_bonus": 20,
+            "catalog_skill_id": "identify-plants-fruit"
+          },
+          {
+            "id": "hunting",
+            "name": "Hunting",
+            "category": "wilderness",
+            "kind": "training",
+            "requires_specialty": false,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Hunt and prepare animals for food; understand habits, baiting, trapping, blinds and tree stands. Adds +2 to Prowl, +5 to Track & Trap Animals, +5 to Skin & Prepare Animal Hides, +4 to Imitate Voices & Sounds, and +10 to Cook game animals only.",
+            "catalog_skill_id": "hunting"
+          },
+          {
+            "id": "land-navigation",
+            "name": "Land Navigation",
+            "base": 36,
+            "per_level": 4,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Stay on course by landmarks, distance estimates, trail marking and observation. Does not require Literacy or Mathematics; symbolic map reading carries 20% penalty. Travel and drift remain descriptions.",
+            "class_bonus": 20,
+            "catalog_skill_id": "land-navigation"
+          },
+          {
+            "id": "prowl",
+            "name": "Prowl",
+            "category": "rogue",
+            "base": 25,
+            "per_level": 5,
+            "description": "Move quietly and carefully using balance, positioning, low visibility and crawling. Failure reveals the character; successful stealth may permit a sneak attack. Listed in both Rogue and Physical; use one identity and the Rogue entitlement for these two classes.",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "synergies": [
+              {
+                "name": "Acrobatics",
+                "skill_id": "acrobatics",
+                "amount": 5
+              },
+              {
+                "name": "Gymnastics",
+                "skill_id": "gymnastics",
+                "amount": 5
+              },
+              {
+                "name": "Hunting",
+                "skill_id": "hunting",
+                "amount": 2
+              }
+            ],
+            "class_bonus": 15,
+            "catalog_skill_id": "prowl"
+          },
+          {
+            "id": "radio-basic",
+            "name": "Radio: Basic",
+            "category": "communications",
+            "base": 45,
+            "per_level": 5,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "class_bonus": 10,
+            "catalog_skill_id": "radio-basic"
+          },
+          {
+            "id": "track-trap-animals",
+            "name": "Track & Trap Animals",
+            "base": 20,
+            "per_level": 5,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Recognize and follow animal tracks and habits; trapping uses its separate normal percentage. Tracking humans and disarming traps intended for humans use half the relevant proficiency.",
+            "additional_checks": [
+              {
+                "name": "Trapping animals",
+                "base": 30,
+                "per_level": 5
+              }
+            ],
+            "synergies": [
+              {
+                "name": "Hunting",
+                "skill_id": "hunting",
+                "amount": 5
+              }
+            ],
+            "class_bonus": 20,
+            "catalog_skill_id": "track-trap-animals"
+          },
+          {
+            "id": "wilderness-survival",
+            "name": "Wilderness Survival",
+            "base": 30,
+            "per_level": 5,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout O.C.C. Skills",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Find water, food, shelter and help when stranded in forests, deserts or mountains. Also listed in Espionage; retain one acquired skill identity.",
+            "synergies": [
+              {
+                "name": "Outdoorsmanship",
+                "skill_id": "outdoorsmanship",
+                "amount": 5
+              }
+            ],
+            "class_bonus": 20,
+            "catalog_skill_id": "wilderness-survival"
+          },
+          {
+            "id": "trail-blazing",
+            "name": "Trail Blazing",
+            "base": 20,
+            "per_level": 5,
+            "class_bonus": 0,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout special abilities",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Cut and mark wilderness trails for others to follow; failure means the intended route cannot be followed."
+          },
+          {
+            "id": "cross-country-pacing",
+            "name": "Cross-Country Pacing",
+            "base": 35,
+            "per_level": 5,
+            "class_bonus": 0,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout special abilities",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Pace exertion, food and water for long wilderness journeys. With Land Navigation predict travel time; descriptions govern bicycle, foot and unfamiliar-route conditions."
+          },
+          {
+            "id": "cartography",
+            "name": "Cartography",
+            "base": 40,
+            "per_level": 5,
+            "class_bonus": 0,
+            "category": "wilderness",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout special abilities",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "description": "Create accurate, elegant maps; computer mapping requires Computer Operation. Failure omits or misplaces details and scale. Includes fixed Basic Math 50% plus exceptional I.Q., or +5 to separately selected related Basic Math.",
+            "proficiency_rules": {
+              "independent_checks": true,
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Cartography fixed Basic Math",
+                "pages": [
+                  99
+                ],
+                "pdf_pages": [
+                  102
+                ]
+              }
+            },
+            "additional_checks": [
+              {
+                "name": "Basic Math (Cartography)",
+                "base": 50,
+                "per_level": 0,
+                "bonus_policy": "intelligence-only",
+                "unless_skill": "math-basic",
+                "unless_pool": "related"
+              }
+            ]
+          }
+        ],
+        "groups": [
+          {
+            "id": "native_language",
+            "name": "Native language",
+            "kind": "text",
+            "count": 1,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout languages",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            }
+          },
+          {
+            "id": "other_languages",
+            "name": "Other languages",
+            "kind": "text-list",
+            "count": 2,
+            "skill": {
+              "id": "other-language",
+              "name": "Language: Other",
+              "base": 50,
+              "per_level": 3,
+              "class_bonus": 15,
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Wilderness Scout other languages",
+                "pages": [
+                  99
+                ],
+                "pdf_pages": [
+                  102
+                ]
+              }
+            },
+            "different_from": [
+              "native_language"
+            ],
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout languages",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            }
+          },
+          {
+            "id": "pilot",
+            "name": "Pilot or horsemanship",
+            "kind": "select",
+            "count": 1,
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wilderness Scout pilot choice",
+              "pages": [
+                99
+              ],
+              "pdf_pages": [
+                102
+              ]
+            },
+            "options": [
+              {
+                "id": "motorcycle",
+                "name": "Motorcycles & Snowmobiles",
+                "category": "pilot",
+                "base": 60,
+                "per_level": 4,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Wilderness Scout O.C.C. Skills",
+                  "pages": [
+                    99
+                  ],
+                  "pdf_pages": [
+                    102
+                  ]
+                },
+                "description": "Pilot motorcycles, dirt bikes, mopeds, snowmobiles, jet sleds, miniature ATVs and similar small vehicles.",
+                "class_bonus": 14,
+                "catalog_skill_id": "motorcycle"
+              },
+              {
+                "id": "hovercycle",
+                "name": "Hovercycles, Skycycles & Rocket Bikes",
+                "category": "pilot",
+                "base": 70,
+                "per_level": 3,
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Wilderness Scout O.C.C. Skills",
+                  "pages": [
+                    99
+                  ],
+                  "pdf_pages": [
+                    102
+                  ]
+                },
+                "description": "Pilot specialized hovercycles, rocket bikes, skycycles and small jet-powered hover vehicles. Source stunts, jumps and dodges have no special skill penalty; distances and movement remain descriptive.",
+                "class_bonus": 10,
+                "catalog_skill_id": "hovercycle"
+              },
+              {
+                "id": "horse-general",
+                "name": "Horsemanship: General",
+                "category": "horsemanship",
+                "base": 40,
+                "per_level": 4,
+                "additional_checks": [
+                  {
+                    "name": "Jumping and other special maneuvers",
+                    "base": 20,
+                    "per_level": 4
+                  }
+                ],
+                "description": "General riding, care, breed assessment, breeding and wagon handling. The second normal check handles jumps, tricks, racing and control. While mounted: +1 parry/dodge, +1D4 melee damage, and charge +1D6/two actions. These contextual effects are not added to standing combat totals.",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Wilderness Scout O.C.C. Skills",
+                  "pages": [
+                    99
+                  ],
+                  "pdf_pages": [
+                    102
+                  ]
+                },
+                "class_bonus": 0,
+                "catalog_skill_id": "horse-general"
+              }
+            ]
+          }
+        ]
+      },
+      "selection_rules": {
+        "secondary": {
+          "domestic": {
+            "allow": "any",
+            "bonus": 0
+          },
+          "communications": {
+            "allow": "any",
+            "bonus": 0,
+            "exclude": [
+              "cryptography",
+              "laser-communications",
+              "surveillance",
+              "tv-video"
+            ]
+          },
+          "electrical": {
+            "allow": [
+              "basic-electronics",
+              "computer-repair"
+            ],
+            "bonus": 0
+          },
+          "mechanical": {
+            "allow": [
+              "basic-mechanics",
+              "automotive-mechanics"
+            ],
+            "bonus": 0
+          },
+          "medical": {
+            "allow": [
+              "animal-husbandry",
+              "first-aid"
+            ],
+            "bonus": 0
+          },
+          "science": {
+            "allow": [
+              "astronomy-navigation",
+              "math-basic",
+              "math-advanced"
+            ],
+            "bonus": 0
+          },
+          "technical": {
+            "allow": "any",
+            "bonus": 0
+          },
+          "physical": {
+            "allow": [
+              "athletics",
+              "body-building",
+              "running",
+              "swimming",
+              "climbing",
+              "aerobic-athletics"
+            ],
+            "bonus": 0
+          },
+          "rogue": {
+            "allow": [
+              "gambling-standard",
+              "gambling-dirty-tricks"
+            ],
+            "bonus": 0
+          },
+          "military": {
+            "allow": [
+              "camouflage",
+              "recognize-weapon-quality"
+            ],
+            "bonus": 0
+          },
+          "pilot": {
+            "allow": [
+              "automobile",
+              "motorcycle",
+              "hovercycle",
+              "hover-craft",
+              "motor-boat",
+              "sail-boat",
+              "bicycle",
+              "paddle-boat",
+              "water-scooter",
+              "water-skiing-surfing"
+            ],
+            "bonus": 0
+          },
+          "pilot-related": {
+            "allow": [],
+            "bonus": 0
+          },
+          "espionage": {
+            "allow": [],
+            "bonus": 0
+          },
+          "wilderness": {
+            "allow": "any",
+            "exclude": [
+              "boat-building",
+              "spelunking"
+            ],
+            "bonus": 0
+          },
+          "horsemanship": {
+            "allow": [
+              "horse-general",
+              "horse-exotic"
+            ],
+            "bonus": 0
+          },
+          "cowboy": {
+            "allow": [],
+            "bonus": 0
+          }
+        },
+        "related": {
+          "communications": {
+            "allow": [
+              "barter",
+              "language-other",
+              "literacy-native",
+              "literacy-other",
+              "performance",
+              "public-speaking"
+            ],
+            "bonus": 0
+          },
+          "cowboy": {
+            "allow": [],
+            "bonus": 0
+          },
+          "domestic": {
+            "allow": "any",
+            "bonus": 10
+          },
+          "electrical": {
+            "allow": [
+              "basic-electronics"
+            ],
+            "bonus": 0
+          },
+          "espionage": {
+            "allow": "any",
+            "bonus": 10,
+            "exclude": [
+              "forgery",
+              "pick-locks"
+            ]
+          },
+          "horsemanship": {
+            "allow": [
+              "horse-exotic"
+            ],
+            "bonus": 5
+          },
+          "mechanical": {
+            "allow": [
+              "automotive-mechanics"
+            ],
+            "bonus": 0
+          },
+          "medical": {
+            "allow": [
+              "first-aid",
+              "holistic-medicine"
+            ],
+            "bonus": 10,
+            "costs": {
+              "holistic-medicine": 2
+            }
+          },
+          "military": {
+            "allow": [],
+            "bonus": 0
+          },
+          "physical": {
+            "allow": "any",
+            "bonus": 10,
+            "exclude": [
+              "acrobatics"
+            ]
+          },
+          "pilot": {
+            "allow": "any",
+            "bonus": 0,
+            "exclude": [
+              "robots-power-armor",
+              "combat-helicopter",
+              "jet-fighter",
+              "tanks-apcs",
+              "warship",
+              "submersible",
+              "jet-aircraft",
+              "ships-seamanship",
+              "truck",
+              "tracked-construction"
+            ]
+          },
+          "pilot-related": {
+            "allow": "any",
+            "bonus": 0
+          },
+          "rogue": {
+            "allow": [
+              "gambling-standard",
+              "gambling-dirty-tricks",
+              "imitate-voices",
+              "tailing"
+            ],
+            "bonus": 5
+          },
+          "science": {
+            "allow": [
+              "math-basic",
+              "anthropology",
+              "biology",
+              "botany"
+            ],
+            "bonus": 0
+          },
+          "technical": {
+            "allow": "any",
+            "bonus": 5
+          },
+          "wilderness": {
+            "allow": "any",
+            "bonus": 20
+          }
+        }
+      },
+      "path_guidance": [
+        "Select two distinct eligible Physical skills, one Wilderness skill, and six other related skills. Required automatic skills do not fill optional category minimums.",
+        "Hand to Hand: Expert costs one related choice; Martial Arts or Assassin costs two. Assassin requires an evil alignment.",
+        "New skills begin at level-one proficiency at their actual acquired level. Eligibility and category counts remain honor-system guidance.",
+        "Scout avoids cybernetic augmentation except needed prostheses."
+      ],
+      "advancement": {
+        "class_id": "wilderness-scout",
+        "max_level": 2,
         "xp_ranges": [
           [
             0,
@@ -16336,72 +16176,7 @@
           [
             1901,
             3800
-          ],
-          [
-            3801,
-            7300
-          ],
-          [
-            7301,
-            14300
-          ],
-          [
-            14301,
-            21000
-          ],
-          [
-            21001,
-            30000
-          ],
-          [
-            30001,
-            40000
-          ],
-          [
-            40001,
-            53000
-          ],
-          [
-            53001,
-            73000
-          ],
-          [
-            73001,
-            103000
-          ],
-          [
-            103001,
-            138000
-          ],
-          [
-            138001,
-            188000
-          ],
-          [
-            188001,
-            238000
-          ],
-          [
-            238001,
-            288000
-          ],
-          [
-            288001,
-            328000
           ]
-        ],
-        "related_levels": [
-          2,
-          5,
-          8,
-          11,
-          14
-        ],
-        "secondary_levels": [
-          3,
-          6,
-          9,
-          12
         ],
         "hp_die": 6,
         "source": {
@@ -16423,9 +16198,234 @@
           ]
         }
       },
+      "skill_effects": [
+        {
+          "id": "scout-language",
+          "name": "Language training",
+          "operation": "add",
+          "amount": 10,
+          "selection_pool": "related",
+          "selector": {
+            "any_of": [
+              {
+                "ids": [
+                  "language-other"
+                ]
+              }
+            ]
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Wilderness Scout related skill bonuses",
+            "pages": [
+              99
+            ],
+            "pdf_pages": [
+              102
+            ]
+          }
+        },
+        {
+          "id": "scout-holistic",
+          "name": "Holistic Medicine training",
+          "operation": "add",
+          "amount": 10,
+          "selection_pool": "related",
+          "selector": {
+            "any_of": [
+              {
+                "ids": [
+                  "holistic-medicine"
+                ]
+              }
+            ]
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Wilderness Scout related skill bonuses",
+            "pages": [
+              99
+            ],
+            "pdf_pages": [
+              102
+            ]
+          }
+        },
+        {
+          "id": "scout-technical",
+          "name": "Specialized Technical training",
+          "operation": "add",
+          "amount": 10,
+          "selection_pool": "related",
+          "selector": {
+            "any_of": [
+              {
+                "ids": [
+                  "rope-works",
+                  "breed-dogs",
+                  "lore-american-indians",
+                  "lore-cattle-animals",
+                  "lore-dbee",
+                  "lore-demons-monsters",
+                  "lore-faeries-magic-creatures",
+                  "lore-juicer",
+                  "lore-magic",
+                  "lore-psychics"
+                ]
+              }
+            ]
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Wilderness Scout related skill bonuses",
+            "pages": [
+              99
+            ],
+            "pdf_pages": [
+              102
+            ]
+          }
+        },
+        {
+          "id": "scout-cartography-math",
+          "name": "Cartography",
+          "operation": "add",
+          "amount": 5,
+          "selection_pool": "related",
+          "selector": {
+            "any_of": [
+              {
+                "ids": [
+                  "math-basic"
+                ]
+              }
+            ]
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Wilderness Scout related skill bonuses",
+            "pages": [
+              99
+            ],
+            "pdf_pages": [
+              102
+            ]
+          }
+        }
+      ],
+      "name": "Wilderness Scout Skills",
+      "class_bonuses": {
+        "class_id": "wilderness-scout",
+        "perception": 3,
+        "saving": {
+          "poison": 2,
+          "disease": 2,
+          "coma_death": 10
+        },
+        "combat": {
+          "initiative": 1,
+          "roll_with_impact": 2
+        },
+        "level_bonuses": [
+          {
+            "target": "saving:horror_factor",
+            "levels": [
+              2,
+              4,
+              6,
+              9,
+              12,
+              15
+            ],
+            "amount": 1
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Wilderness Scout O.C.C. Bonuses",
+          "pages": [
+            99
+          ],
+          "pdf_pages": [
+            102
+          ]
+        }
+      },
+      "pools": {
+        "related": {
+          "count": 9,
+          "bonus": 0,
+          "requirements": [
+            {
+              "id": "physical",
+              "name": "Physical skills",
+              "count": 2,
+              "selector": {
+                "any_of": [
+                  {
+                    "categories": [
+                      "physical"
+                    ]
+                  }
+                ],
+                "exclude_ids": [
+                  "athletics",
+                  "climbing"
+                ]
+              },
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Wilderness Scout related skill minimums",
+                "pages": [
+                  99
+                ],
+                "pdf_pages": [
+                  102
+                ]
+              }
+            },
+            {
+              "id": "wilderness",
+              "name": "Wilderness skill",
+              "count": 1,
+              "selector": {
+                "any_of": [
+                  {
+                    "categories": [
+                      "wilderness"
+                    ]
+                  }
+                ],
+                "exclude_ids": [
+                  "hunting",
+                  "identify-plants-fruit",
+                  "land-navigation",
+                  "track-trap-animals",
+                  "wilderness-survival"
+                ]
+              },
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Wilderness Scout related skill minimums",
+                "pages": [
+                  99
+                ],
+                "pdf_pages": [
+                  102
+                ]
+              }
+            }
+          ]
+        },
+        "secondary": {
+          "count": 4,
+          "bonus": 0
+        }
+      },
       "physical_grants": [
         "athletics"
-      ]
+      ],
+      "fixed_domestic_grants": []
     }
   },
   "rogue_review": {

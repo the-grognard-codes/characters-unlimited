@@ -173,7 +173,7 @@ def reload_inventory(record, pack, weapon_possession_id, clip_possession_id):
     return result
 
 
-def project_equipment(character, pack, combat):
+def project_equipment(character, pack, combat, skills=None):
     """Project catalog and possessions; only carried, equipped items are active."""
     definitions = _catalog(pack)
     inventory = deepcopy(character.get('equipment', {'credits': 0, 'items': []}))
@@ -350,7 +350,24 @@ def project_equipment(character, pack, combat):
     funds = project_starting_funds(character, pack)
     gear = project_starting_gear(character, pack)
     starting = project_starting_choices(character, pack)
-    groups = project_starting_groups(character, pack)
+    training = None
+    if any(group.get('option_requirements') for group in (pack.get('starting_groups') or {}).get('groups', {}).values()):
+        if skills is None:
+            raise ValueError('Equipment training guidance needs acquired skills')
+        fixed = combat.get('fixed_proficiencies', {'ancient': [], 'modern': []})
+        training = {'skills': [row.get('catalog_skill_id', row.get('skill_id', row.get('id')))
+                               for row in [*skills['grants'], *skills['selected']]], 'elective': []}
+        for family in ('ancient', 'modern'):
+            elective = list(dict.fromkeys(identity for identity in combat['choices'][family]
+                                          if identity not in fixed[family]))
+            training[family] = [*fixed[family], *elective]
+            training['elective'].extend({'family': family, 'id': identity} for identity in elective)
+    groups = project_starting_groups(character, pack, training)
+    for group in groups['groups']:
+        if group['generated']:
+            for requirement in group.get('option_requirements', {}).get(group['receipt']['selection'], []):
+                if not requirement['satisfied']:
+                    warnings.append(group['name'] + ': ' + requirement['text'] + '. Original equipment choice is retained.')
     if starting['supported']:
         # Historical pack guidance remains immutable; show the currently available path.
         funds['guidance'] = [note for note in funds['guidance']

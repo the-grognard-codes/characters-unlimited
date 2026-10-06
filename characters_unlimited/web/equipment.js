@@ -153,7 +153,7 @@ function renderStartingGroups(starting, catalog, characterId) {
   container.replaceChildren(...groups.map(group => {
     const section = document.createElement('section');
     const heading = document.createElement('h4');
-    heading.textContent = group.name;
+    heading.textContent = group.name + (group.training_name ? ' - ' + group.training_name : '');
     section.append(heading);
     const selectionKey = `${characterId}:${group.id}`;
     if (group.generated && group.receipt) {
@@ -201,7 +201,18 @@ function renderStartingGroups(starting, catalog, characterId) {
     source.textContent = `Rule source: ${equipmentSourceCitation(group.source)}`;
     const guidance = document.createElement('p'); guidance.className = 'help';
     guidance.textContent = `${group.quantity} item${group.quantity === 1 ? '' : 's'} · ${group.location}. ${group.guidance.join(' ')}`;
-    section.append(source, guidance);
+    const requirements = document.createElement('p'); requirements.className = 'help';
+    const renderRequirements = option => {
+      requirements.textContent = (group.option_requirements?.[option] || []).map(row =>
+        `${row.satisfied ? 'Training matched' : 'Training guidance'}: ${row.text}`).join(' ? ');
+    };
+    if (group.generated) renderRequirements(group.receipt.selection);
+    else {
+      const select = section.querySelector('select');
+      renderRequirements(select.value);
+      select.addEventListener('change', () => renderRequirements(select.value));
+    }
+    section.append(source, guidance, requirements);
     return section;
   }));
 }

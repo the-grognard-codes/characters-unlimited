@@ -1573,6 +1573,28 @@
         ]
       },
       "description": "Old or shabby but reliable; original M.D.C. is unspecified. Original missing percentage is recorded in the starting receipt."
+    },
+    {
+      "id": "scout-horse-wagon",
+      "name": "Old reliable horse-drawn wagon with horse",
+      "category": "gear",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Wilderness Scout starting vehicle; Horsemanship Hitch & Wagon interpretation",
+        "pages": [
+          100,
+          310,
+          311
+        ],
+        "pdf_pages": [
+          103,
+          313,
+          314
+        ]
+      },
+      "description": "Old or shabby but reliable; original M.D.C. is unspecified. Original missing percentage is recorded in the starting receipt."
     }
   ],
   "starting_funds": {
@@ -1769,6 +1791,7 @@
   },
   "class_profiles": {
     "vagabond": {
+      "starting_groups": {},
       "starting_gear": {
         "character_class": "vagabond",
         "grants": [
@@ -1916,33 +1939,6 @@
           "The rest of the Vagabond starting equipment is not yet implemented."
         ]
       },
-      "source": {
-        "book": "Rifts - Ultimate Edition",
-        "pages": [
-          98,
-          262,
-          267,
-          268,
-          269
-        ],
-        "pdf_pages": [
-          101,
-          265,
-          270,
-          271,
-          272
-        ],
-        "section": "Weapons, Body Armor, Vagabond Starting Money and Standard Equipment; Basic Gear; Standard E-Clip",
-        "candidate_ids": [
-          "75af68e659ce2c3e7d24",
-          "aceb60f33074cf592e94",
-          "b7db76a3325aa1ad13bb",
-          "3a5a7404a4d969496b7d",
-          "4b5980c422c4cfb35c00",
-          "12461ce9deaaa4bf2a0d",
-          "0079d7132518c789d88f"
-        ]
-      },
       "starting_choices": {
         "character_class": "vagabond",
         "options": {
@@ -1988,9 +1984,96 @@
           "The selected car, motorcycle, or horse is initially stored rather than carried; travel and animal statistics remain pending source review."
         ]
       },
-      "starting_groups": {}
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98,
+          262,
+          267,
+          268,
+          269
+        ],
+        "pdf_pages": [
+          101,
+          265,
+          270,
+          271,
+          272
+        ],
+        "section": "Weapons, Body Armor, Vagabond Starting Money and Standard Equipment; Basic Gear; Standard E-Clip",
+        "candidate_ids": [
+          "75af68e659ce2c3e7d24",
+          "aceb60f33074cf592e94",
+          "b7db76a3325aa1ad13bb",
+          "3a5a7404a4d969496b7d",
+          "4b5980c422c4cfb35c00",
+          "12461ce9deaaa4bf2a0d",
+          "0079d7132518c789d88f"
+        ]
+      }
     },
     "city-rat": {
+      "starting_groups": {
+        "character_class": "city-rat",
+        "groups": {
+          "armor": {
+            "name": "Starting armor",
+            "category": "armor",
+            "options": [
+              "plastic-man",
+              "urban-warrior",
+              "huntsman"
+            ],
+            "quantity": 1,
+            "location": "carried",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                89
+              ],
+              "pdf_pages": [
+                92
+              ],
+              "section": "City Rat Standard Equipment — common light body armor",
+              "candidate_ids": [
+                "8a55dcd3bb9ac02ee044"
+              ]
+            },
+            "guidance": [
+              "Choose one reviewed common light armor suit without spending credits. The original receipt remains after inventory edits or removal; this group cannot be granted again.",
+              "Urban Warrior and Plastic-Man are named class examples; Huntsman is another reviewed light suit. Other common light armor, homemade armor and Dog Boy variants remain pending.",
+              "The suit starts carried and unequipped. Equip or store it through its possession controls; other City Rat weapons, clips, transport and implants remain pending."
+            ]
+          },
+          "knife": {
+            "name": "Starting knife",
+            "category": "weapon",
+            "options": [
+              "knife-large"
+            ],
+            "quantity": 1,
+            "location": "carried",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "pages": [
+                89
+              ],
+              "pdf_pages": [
+                92
+              ],
+              "section": "City Rat Standard Equipment: S.D.C. knife (1D6 damage)",
+              "candidate_ids": [
+                "8a55dcd3bb9ac02ee044"
+              ]
+            },
+            "guidance": [
+              "Grant one Large Knife (1D6 S.D.C.) without spending credits. The original receipt remains after inventory edits or removal; this group cannot be granted again.",
+              "The knife starts carried and unequipped. Weight is unspecified; its catalog purchase price is 20–100 credits (Ultimate Edition p.262 / PDF265). This free grant does not provide W.P. Knife or change the class weapon proficiency choice.",
+              "Starting S.D.C. handgun, M.D. pistol, spare clips, transport and implants remain pending."
+            ]
+          }
+        }
+      },
       "starting_gear": {
         "character_class": "city-rat",
         "grants": [
@@ -2092,6 +2175,7 @@
           "City Rat starting equipment and cybernetics remain pending."
         ]
       },
+      "starting_choices": {},
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -2118,68 +2202,6 @@
           "12461ce9deaaa4bf2a0d",
           "0079d7132518c789d88f"
         ]
-      },
-      "starting_choices": {},
-      "starting_groups": {
-        "character_class": "city-rat",
-        "groups": {
-          "armor": {
-            "name": "Starting armor",
-            "category": "armor",
-            "options": [
-              "plastic-man",
-              "urban-warrior",
-              "huntsman"
-            ],
-            "quantity": 1,
-            "location": "carried",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                89
-              ],
-              "pdf_pages": [
-                92
-              ],
-              "section": "City Rat Standard Equipment — common light body armor",
-              "candidate_ids": [
-                "8a55dcd3bb9ac02ee044"
-              ]
-            },
-            "guidance": [
-              "Choose one reviewed common light armor suit without spending credits. The original receipt remains after inventory edits or removal; this group cannot be granted again.",
-              "Urban Warrior and Plastic-Man are named class examples; Huntsman is another reviewed light suit. Other common light armor, homemade armor and Dog Boy variants remain pending.",
-              "The suit starts carried and unequipped. Equip or store it through its possession controls; other City Rat weapons, clips, transport and implants remain pending."
-            ]
-          },
-          "knife": {
-            "name": "Starting knife",
-            "category": "weapon",
-            "options": [
-              "knife-large"
-            ],
-            "quantity": 1,
-            "location": "carried",
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "pages": [
-                89
-              ],
-              "pdf_pages": [
-                92
-              ],
-              "section": "City Rat Standard Equipment: S.D.C. knife (1D6 damage)",
-              "candidate_ids": [
-                "8a55dcd3bb9ac02ee044"
-              ]
-            },
-            "guidance": [
-              "Grant one Large Knife (1D6 S.D.C.) without spending credits. The original receipt remains after inventory edits or removal; this group cannot be granted again.",
-              "The knife starts carried and unequipped. Weight is unspecified; its catalog purchase price is 20–100 credits (Ultimate Edition p.262 / PDF265). This free grant does not provide W.P. Knife or change the class weapon proficiency choice.",
-              "Starting S.D.C. handgun, M.D. pistol, spare clips, transport and implants remain pending."
-            ]
-          }
-        }
       }
     },
     "wilderness-scout": {
@@ -2464,7 +2486,8 @@
             "category": "gear",
             "options": [
               "scout-motorcycle",
-              "scout-hovercycle"
+              "scout-hovercycle",
+              "scout-horse-wagon"
             ],
             "quantity": 1,
             "location": "stored",
@@ -2482,7 +2505,8 @@
             },
             "guidance": [
               "Choose a vehicle matching an actual piloting skill. These are representative reviewed starting types; other compatible transport remains pending.",
-              "The original missing M.D.C. percentage is retained; no absolute M.D.C., price or travel statistics are inferred."
+              "The original missing M.D.C. percentage is retained; no absolute M.D.C., price or travel statistics are inferred.",
+              "Horsemanship operates wagons. A horse-drawn wagon with its horse is the representative transport interpretation for a Scout relying on riding; the condition percentage refers to the vehicle, not the horse."
             ],
             "condition": {
               "name": "Missing original M.D.C.",
@@ -2491,6 +2515,101 @@
                 "sides": 4,
                 "multiplier": 10
               }
+            },
+            "option_requirements": {
+              "scout-motorcycle": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching Motorcycles & Snowmobiles",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "skills",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "motorcycle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "scout-hovercycle": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching Hovercycles, Skycycles & Rocket Bikes",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "skills",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "hovercycle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "scout-horse-wagon": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching Horsemanship: General",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "skills",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "horse-general"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ]
             }
           },
           "knife-weapon": {
@@ -2535,6 +2654,70 @@
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4
+                  }
+                }
+              ]
+            },
+            "option_requirements": {
+              "knife-large": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-knife": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
                   }
                 }
               ]
@@ -2615,7 +2798,165 @@
                   }
                 }
               ]
-            }
+            },
+            "option_requirements": {
+              "knife-large": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-knife": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-saber": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Sword",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "sword"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "wilks-320": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Energy Pistol",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "energy-pistol"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "wilks-447": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Energy Rifle",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "energy-rifle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ]
+            },
+            "proficiency_slot": 1
           },
           "elective-weapon-2": {
             "name": "Weapon for elective W.P. 2",
@@ -2692,7 +3033,165 @@
                   }
                 }
               ]
-            }
+            },
+            "option_requirements": {
+              "knife-large": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-knife": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-saber": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Sword",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "sword"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "wilks-320": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Energy Pistol",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "energy-pistol"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "wilks-447": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Energy Rifle",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "energy-rifle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ]
+            },
+            "proficiency_slot": 2
           },
           "elective-weapon-3": {
             "name": "Weapon for elective W.P. 3",
@@ -2769,11 +3268,1021 @@
                   }
                 }
               ]
-            }
+            },
+            "option_requirements": {
+              "knife-large": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-knife": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Knife",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "knife"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "vibro-saber": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Sword",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "ancient",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "sword"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "wilks-320": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Energy Pistol",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "energy-pistol"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "wilks-447": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Energy Rifle",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Wilderness Scout Standard Equipment and Money",
+                    "pages": [
+                      99,
+                      100
+                    ],
+                    "pdf_pages": [
+                      102,
+                      103
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "energy-rifle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ]
+            },
+            "proficiency_slot": 3
           }
         }
       }
     }
+  },
+  "training_catalogs": {
+    "skills": [
+      {
+        "id": "cook",
+        "name": "Cook"
+      },
+      {
+        "id": "dance",
+        "name": "Dance"
+      },
+      {
+        "id": "fishing",
+        "name": "Fishing"
+      },
+      {
+        "id": "gardening",
+        "name": "Gardening"
+      },
+      {
+        "id": "housekeeping",
+        "name": "Housekeeping"
+      },
+      {
+        "id": "instrument",
+        "name": "Play Musical Instrument"
+      },
+      {
+        "id": "recycle",
+        "name": "Recycle"
+      },
+      {
+        "id": "sewing",
+        "name": "Sewing"
+      },
+      {
+        "id": "sing",
+        "name": "Sing"
+      },
+      {
+        "id": "literacy-native",
+        "name": "Literacy: Native Language"
+      },
+      {
+        "id": "literacy-other",
+        "name": "Literacy: Other"
+      },
+      {
+        "id": "math-basic",
+        "name": "Mathematics: Basic"
+      },
+      {
+        "id": "math-advanced",
+        "name": "Mathematics: Advanced"
+      },
+      {
+        "id": "basic-electronics",
+        "name": "Basic Electronics"
+      },
+      {
+        "id": "computer-repair",
+        "name": "Computer Repair"
+      },
+      {
+        "id": "basic-mechanics",
+        "name": "Basic Mechanics"
+      },
+      {
+        "id": "automotive-mechanics",
+        "name": "Automotive Mechanics"
+      },
+      {
+        "id": "first-aid",
+        "name": "First Aid"
+      },
+      {
+        "id": "art",
+        "name": "Art"
+      },
+      {
+        "id": "calligraphy",
+        "name": "Calligraphy"
+      },
+      {
+        "id": "computer-operation",
+        "name": "Computer Operation"
+      },
+      {
+        "id": "computer-programming",
+        "name": "Computer Programming"
+      },
+      {
+        "id": "firefighting",
+        "name": "Firefighting"
+      },
+      {
+        "id": "history-pre",
+        "name": "History: Pre-Rifts"
+      },
+      {
+        "id": "history-post",
+        "name": "History: Post-Apocalypse"
+      },
+      {
+        "id": "law",
+        "name": "Law (General)"
+      },
+      {
+        "id": "leather-working",
+        "name": "Leather Working"
+      },
+      {
+        "id": "masonry",
+        "name": "Masonry"
+      },
+      {
+        "id": "philosophy",
+        "name": "Philosophy"
+      },
+      {
+        "id": "photography",
+        "name": "Photography"
+      },
+      {
+        "id": "research",
+        "name": "Research"
+      },
+      {
+        "id": "ventriloquism",
+        "name": "Ventriloquism"
+      },
+      {
+        "id": "performance",
+        "name": "Performance"
+      },
+      {
+        "id": "public-speaking",
+        "name": "Public Speaking"
+      },
+      {
+        "id": "creative-writing",
+        "name": "Creative Writing"
+      },
+      {
+        "id": "electronic-countermeasures",
+        "name": "Electronic Countermeasures"
+      },
+      {
+        "id": "optic-systems",
+        "name": "Optic Systems"
+      },
+      {
+        "id": "tv-video",
+        "name": "TV/Video"
+      },
+      {
+        "id": "radio-basic",
+        "name": "Radio: Basic"
+      },
+      {
+        "id": "cryptography",
+        "name": "Cryptography"
+      },
+      {
+        "id": "sensory-equipment",
+        "name": "Sensory Equipment"
+      },
+      {
+        "id": "sign-language",
+        "name": "Sign Language"
+      },
+      {
+        "id": "language-other",
+        "name": "Language: Other"
+      },
+      {
+        "id": "barter",
+        "name": "Barter"
+      },
+      {
+        "id": "laser-communications",
+        "name": "Laser Communications"
+      },
+      {
+        "id": "surveillance",
+        "name": "Surveillance"
+      },
+      {
+        "id": "astronomy-navigation",
+        "name": "Astronomy & Navigation"
+      },
+      {
+        "id": "anthropology",
+        "name": "Anthropology"
+      },
+      {
+        "id": "archaeology",
+        "name": "Archaeology"
+      },
+      {
+        "id": "artificial-intelligence",
+        "name": "Artificial Intelligence"
+      },
+      {
+        "id": "chemistry",
+        "name": "Chemistry"
+      },
+      {
+        "id": "chemistry-analytical",
+        "name": "Chemistry: Analytical"
+      },
+      {
+        "id": "astrophysics",
+        "name": "Astrophysics"
+      },
+      {
+        "id": "biology",
+        "name": "Biology"
+      },
+      {
+        "id": "botany",
+        "name": "Botany"
+      },
+      {
+        "id": "chemistry-pharmaceutical",
+        "name": "Chemistry: Pharmaceutical"
+      },
+      {
+        "id": "xenology",
+        "name": "Xenology"
+      },
+      {
+        "id": "animal-husbandry",
+        "name": "Animal Husbandry"
+      },
+      {
+        "id": "brewing-medicinal",
+        "name": "Brewing: Medicinal"
+      },
+      {
+        "id": "field-surgery",
+        "name": "Field Surgery"
+      },
+      {
+        "id": "forensics",
+        "name": "Forensics"
+      },
+      {
+        "id": "holistic-medicine",
+        "name": "Holistic Medicine"
+      },
+      {
+        "id": "paramedic",
+        "name": "Paramedic"
+      },
+      {
+        "id": "medical-doctor",
+        "name": "Medical Doctor"
+      },
+      {
+        "id": "pathology",
+        "name": "Pathology"
+      },
+      {
+        "id": "psychology",
+        "name": "Psychology"
+      },
+      {
+        "id": "veterinary-science",
+        "name": "Veterinary Science"
+      },
+      {
+        "id": "athletics",
+        "name": "Athletics (General)"
+      },
+      {
+        "id": "body-building",
+        "name": "Body Building & Weight Lifting"
+      },
+      {
+        "id": "physical-labor",
+        "name": "Physical Labor"
+      },
+      {
+        "id": "running",
+        "name": "Running"
+      },
+      {
+        "id": "boxing",
+        "name": "Boxing"
+      },
+      {
+        "id": "swimming",
+        "name": "Swimming"
+      },
+      {
+        "id": "cardsharp",
+        "name": "Cardsharp"
+      },
+      {
+        "id": "computer-hacking",
+        "name": "Computer Hacking"
+      },
+      {
+        "id": "concealment",
+        "name": "Concealment"
+      },
+      {
+        "id": "find-contraband",
+        "name": "Find Contraband"
+      },
+      {
+        "id": "gambling-standard",
+        "name": "Gambling (Standard)"
+      },
+      {
+        "id": "gambling-dirty-tricks",
+        "name": "Gambling (Dirty Tricks)"
+      },
+      {
+        "id": "identify-undercover",
+        "name": "I.D. Undercover Agents"
+      },
+      {
+        "id": "imitate-voices",
+        "name": "Imitate Voices & Sounds"
+      },
+      {
+        "id": "palming",
+        "name": "Palming"
+      },
+      {
+        "id": "pick-locks",
+        "name": "Pick Locks"
+      },
+      {
+        "id": "pick-pockets",
+        "name": "Pick Pockets"
+      },
+      {
+        "id": "prowl",
+        "name": "Prowl"
+      },
+      {
+        "id": "roadwise",
+        "name": "Roadwise"
+      },
+      {
+        "id": "safe-cracking",
+        "name": "Safe-Cracking"
+      },
+      {
+        "id": "seduction",
+        "name": "Seduction"
+      },
+      {
+        "id": "streetwise",
+        "name": "Streetwise"
+      },
+      {
+        "id": "tailing",
+        "name": "Tailing"
+      },
+      {
+        "id": "electrical-engineer",
+        "name": "Electrical Engineer"
+      },
+      {
+        "id": "electricity-generation",
+        "name": "Electricity Generation"
+      },
+      {
+        "id": "robot-electronics",
+        "name": "Robot Electronics"
+      },
+      {
+        "id": "aircraft-mechanics",
+        "name": "Aircraft Mechanics"
+      },
+      {
+        "id": "bioware-mechanics",
+        "name": "Bioware Mechanics"
+      },
+      {
+        "id": "locksmith",
+        "name": "Locksmith"
+      },
+      {
+        "id": "mechanical-engineer",
+        "name": "Mechanical Engineer"
+      },
+      {
+        "id": "robot-mechanics",
+        "name": "Robot Mechanics"
+      },
+      {
+        "id": "weapons-engineer",
+        "name": "Weapons Engineer"
+      },
+      {
+        "id": "vehicle-armorer",
+        "name": "Vehicle Armorer"
+      },
+      {
+        "id": "camouflage",
+        "name": "Camouflage"
+      },
+      {
+        "id": "demolitions",
+        "name": "Demolitions"
+      },
+      {
+        "id": "demolitions-disposal",
+        "name": "Demolitions Disposal"
+      },
+      {
+        "id": "demolitions-underwater",
+        "name": "Demolitions: Underwater"
+      },
+      {
+        "id": "field-armorer",
+        "name": "Field Armorer & Munitions Expert"
+      },
+      {
+        "id": "military-etiquette",
+        "name": "Military Etiquette"
+      },
+      {
+        "id": "military-fortification",
+        "name": "Military Fortification"
+      },
+      {
+        "id": "naval-history",
+        "name": "Naval History"
+      },
+      {
+        "id": "naval-tactics",
+        "name": "Naval Tactics"
+      },
+      {
+        "id": "nbc-warfare",
+        "name": "NBC Warfare (Nuclear, Biological, & Chemical)"
+      },
+      {
+        "id": "parachuting",
+        "name": "Parachuting"
+      },
+      {
+        "id": "recognize-weapon-quality",
+        "name": "Recognize Weapon Quality"
+      },
+      {
+        "id": "trap-mine-detection",
+        "name": "Trap & Mine Detection"
+      },
+      {
+        "id": "jury-rig",
+        "name": "Jury-Rig"
+      },
+      {
+        "id": "airplane",
+        "name": "Airplane"
+      },
+      {
+        "id": "automobile",
+        "name": "Automobile"
+      },
+      {
+        "id": "bicycle",
+        "name": "Bicycling"
+      },
+      {
+        "id": "motor-boat",
+        "name": "Boats: Motor, Race & Hydrofoil Types"
+      },
+      {
+        "id": "paddle-boat",
+        "name": "Boats: Paddle Types/Canoe/Kayak"
+      },
+      {
+        "id": "sail-boat",
+        "name": "Boats: Sail Types"
+      },
+      {
+        "id": "ships-seamanship",
+        "name": "Boats: Ships/Seamanship"
+      },
+      {
+        "id": "flight-system-combat",
+        "name": "Flight System Combat (Juicer)"
+      },
+      {
+        "id": "hover-craft",
+        "name": "Hover Craft (Ground)"
+      },
+      {
+        "id": "hovercycle",
+        "name": "Hovercycles, Skycycles & Rocket Bikes"
+      },
+      {
+        "id": "jet-aircraft",
+        "name": "Jet Aircraft"
+      },
+      {
+        "id": "jet-pack",
+        "name": "Jet Packs"
+      },
+      {
+        "id": "jump-bike-combat",
+        "name": "Jump Bike Combat (Juicer)"
+      },
+      {
+        "id": "combat-helicopter",
+        "name": "Military: Combat Helicopters"
+      },
+      {
+        "id": "jet-fighter",
+        "name": "Military: Jet Fighters"
+      },
+      {
+        "id": "submersible",
+        "name": "Military: Submersibles"
+      },
+      {
+        "id": "tanks-apcs",
+        "name": "Military: Tanks & APCs"
+      },
+      {
+        "id": "warship",
+        "name": "Military: Warships & Patrol Boats"
+      },
+      {
+        "id": "motorcycle",
+        "name": "Motorcycles & Snowmobiles"
+      },
+      {
+        "id": "robots-power-armor",
+        "name": "Robots & Power Armor"
+      },
+      {
+        "id": "tracked-construction",
+        "name": "Tracked & Construction Vehicles"
+      },
+      {
+        "id": "truck",
+        "name": "Truck"
+      },
+      {
+        "id": "water-scooter",
+        "name": "Water Scooters"
+      },
+      {
+        "id": "water-skiing-surfing",
+        "name": "Water Skiing & Surfing"
+      },
+      {
+        "id": "navigation",
+        "name": "Navigation"
+      },
+      {
+        "id": "weapon-systems",
+        "name": "Weapon Systems"
+      },
+      {
+        "id": "rope-works",
+        "name": "Rope Works"
+      },
+      {
+        "id": "boat-building",
+        "name": "Boat Building"
+      },
+      {
+        "id": "carpentry",
+        "name": "Carpentry"
+      },
+      {
+        "id": "dowsing",
+        "name": "Dowsing"
+      },
+      {
+        "id": "fasting",
+        "name": "Fasting"
+      },
+      {
+        "id": "identify-plants-fruit",
+        "name": "Identify Plants & Fruit"
+      },
+      {
+        "id": "land-navigation",
+        "name": "Land Navigation"
+      },
+      {
+        "id": "preserve-food",
+        "name": "Preserve Food"
+      },
+      {
+        "id": "skin-prepare-hides",
+        "name": "Skin & Prepare Animal Hides"
+      },
+      {
+        "id": "spelunking",
+        "name": "Spelunking"
+      },
+      {
+        "id": "track-trap-animals",
+        "name": "Track & Trap Animals"
+      },
+      {
+        "id": "wilderness-survival",
+        "name": "Wilderness Survival"
+      },
+      {
+        "id": "detect-ambush",
+        "name": "Detect Ambush"
+      },
+      {
+        "id": "detect-concealment",
+        "name": "Detect Concealment"
+      },
+      {
+        "id": "disguise",
+        "name": "Disguise"
+      },
+      {
+        "id": "escape-artist",
+        "name": "Escape Artist"
+      },
+      {
+        "id": "forgery",
+        "name": "Forgery"
+      },
+      {
+        "id": "impersonation",
+        "name": "Impersonation"
+      },
+      {
+        "id": "intelligence",
+        "name": "Intelligence"
+      },
+      {
+        "id": "interrogation",
+        "name": "Interrogation"
+      },
+      {
+        "id": "tracking",
+        "name": "Tracking (humans & robots)"
+      },
+      {
+        "id": "undercover-ops",
+        "name": "Undercover Ops"
+      },
+      {
+        "id": "appraise-goods",
+        "name": "Appraise Goods"
+      },
+      {
+        "id": "begging",
+        "name": "Begging"
+      },
+      {
+        "id": "breed-dogs",
+        "name": "Breed Dogs"
+      },
+      {
+        "id": "cybernetics-basic",
+        "name": "Cybernetics: Basic"
+      },
+      {
+        "id": "excavation",
+        "name": "Excavation"
+      },
+      {
+        "id": "gemology",
+        "name": "Gemology"
+      },
+      {
+        "id": "general-repair",
+        "name": "General Repair & Maintenance"
+      },
+      {
+        "id": "lore-american-indians",
+        "name": "Lore: American Indians"
+      },
+      {
+        "id": "lore-cattle-animals",
+        "name": "Lore: Cattle & Animals"
+      },
+      {
+        "id": "lore-dbee",
+        "name": "Lore: D-Bee"
+      },
+      {
+        "id": "lore-demons-monsters",
+        "name": "Lore: Demons & Monsters"
+      },
+      {
+        "id": "lore-faeries-magic-creatures",
+        "name": "Lore: Faeries & Creatures of Magic"
+      },
+      {
+        "id": "lore-juicer",
+        "name": "Lore: Juicer"
+      },
+      {
+        "id": "lore-magic",
+        "name": "Lore: Magic"
+      },
+      {
+        "id": "lore-psychics",
+        "name": "Lore: Psychics & Psionics"
+      },
+      {
+        "id": "mining",
+        "name": "Mining / Prospecting"
+      },
+      {
+        "id": "mythology",
+        "name": "Mythology"
+      },
+      {
+        "id": "salvage",
+        "name": "Salvage"
+      },
+      {
+        "id": "whittling-sculpting",
+        "name": "Whittling & Sculpting"
+      },
+      {
+        "id": "horse-general",
+        "name": "Horsemanship: General"
+      },
+      {
+        "id": "horse-exotic",
+        "name": "Horsemanship: Exotic Animals"
+      },
+      {
+        "id": "horse-cowboy",
+        "name": "Horsemanship: Cowboy"
+      },
+      {
+        "id": "horse-cossack",
+        "name": "Horsemanship: Cossack"
+      },
+      {
+        "id": "horse-cyber-knight",
+        "name": "Horsemanship: Cyber-Knight"
+      },
+      {
+        "id": "horse-equestrian",
+        "name": "Horsemanship: Skilled Equestrians or Knight"
+      },
+      {
+        "id": "branding",
+        "name": "Branding"
+      },
+      {
+        "id": "tame-wild-horse",
+        "name": "Breaking/Taming a Wild Horse"
+      },
+      {
+        "id": "herding-cattle",
+        "name": "Herding Cattle"
+      },
+      {
+        "id": "roping",
+        "name": "Roping"
+      },
+      {
+        "id": "climbing",
+        "name": "Climbing"
+      },
+      {
+        "id": "aerobic-athletics",
+        "name": "Aerobic Athletics"
+      },
+      {
+        "id": "juggling",
+        "name": "Juggling"
+      },
+      {
+        "id": "scuba",
+        "name": "S.C.U.B.A."
+      },
+      {
+        "id": "forced-march",
+        "name": "Forced March"
+      },
+      {
+        "id": "outdoorsmanship",
+        "name": "Outdoorsmanship"
+      },
+      {
+        "id": "wrestling",
+        "name": "Wrestling"
+      },
+      {
+        "id": "kick-boxing",
+        "name": "Kick Boxing"
+      },
+      {
+        "id": "fencing",
+        "name": "Fencing"
+      },
+      {
+        "id": "acrobatics",
+        "name": "Acrobatics"
+      },
+      {
+        "id": "gymnastics",
+        "name": "Gymnastics"
+      },
+      {
+        "id": "hunting",
+        "name": "Hunting"
+      },
+      {
+        "id": "sniper",
+        "name": "Sniper"
+      },
+      {
+        "id": "brewing-basic",
+        "name": "Brewing: Basic"
+      },
+      {
+        "id": "wardrobe-grooming",
+        "name": "Wardrobe & Grooming"
+      }
+    ],
+    "ancient": [
+      {
+        "id": "knife",
+        "name": "W.P. Knife"
+      },
+      {
+        "id": "sword",
+        "name": "W.P. Sword"
+      }
+    ],
+    "modern": [
+      {
+        "id": "handguns",
+        "name": "W.P. Handguns"
+      },
+      {
+        "id": "energy-pistol",
+        "name": "W.P. Energy Pistol"
+      },
+      {
+        "id": "energy-rifle",
+        "name": "W.P. Energy Rifle"
+      }
+    ]
   },
   "class_profile_format": "owned-v1",
   "default_class": "vagabond"

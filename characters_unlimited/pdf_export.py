@@ -457,6 +457,8 @@ def export_rifts_sheet(character, core, skills, combat):
                         sheet_notes += ' Recorded dice: '+', '.join(map(str, grant['rolls']))+'.'
                 sheet_notes += ' '+resource_source_citation(receipt['source'])+'.'
                 sheet_notes += ' '+' '.join(group['guidance'])
+                for requirement in group.get('option_requirements', {}).get(receipt['selection'], []):
+                    sheet_notes += ' '+('Training matched: ' if requirement['satisfied'] else 'Training guidance: ')+requirement['text']
         if equipment['starting_gear']['generated']:
             gear = equipment['starting_gear']
             names = {item['id']: item['name'] for item in equipment['catalog']}

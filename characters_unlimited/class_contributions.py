@@ -37,7 +37,10 @@ def class_numeric_contributions(pack, *, level=1):
                 any(type(value) is not int or not 1 <= value <= 1000 for value in row['levels']) or
                 len(set(row['levels'])) != len(row['levels'])):
             raise ValueError('Class level additions need distinct known targets and exact milestones')
-        amounts[row['target']] = amounts.get(row['target'], 0) + row['amount'] * sum(value <= level for value in row['levels'])
+        base = amounts.get(row['target'], 0)
+        if abs(base + row['amount'] * len(row['levels'])) > MAX_INTEGER:
+            raise ValueError('Class milestone totals exceed the supported exact range')
+        amounts[row['target']] = base + row['amount'] * sum(value <= level for value in row['levels'])
         seen.add(row['target'])
     rows = [{'id': 'class:' + rules['class_id'] + ':' + target, 'name': 'O.C.C.',
              'operation': 'add', 'target': target, 'amount': amount, 'source': rules['source']}

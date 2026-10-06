@@ -104,10 +104,10 @@ class AdvancementWorkflowTests(unittest.TestCase):
             hero = newer.apply_rule_upgrade(hero['id'], revision=hero['revision'], token=preview['token'])['character']
             portable = newer.export_character(hero['id'])
             versions = {p['version'] for p in portable['rule_packs'] if p['id'] == 'rifts-domestic-skills'}
-            self.assertEqual(versions, {'2.19.0', '99.2.0'})
+            self.assertEqual(versions, {'2.20.0', '99.2.0'})
             copy = newer.import_character(portable)
             restored = newer.undo_advancement(copy['id'], revision=copy['revision'])['character']
-            self.assertEqual(restored['additional_rule_packs']['rifts-domestic-skills'], '2.19.0')
+            self.assertEqual(restored['additional_rule_packs']['rifts-domestic-skills'], '2.20.0')
 
     def test_all_current_training_styles_and_proficiencies_use_the_original_level_two_tables(self):
         # Expected values are read from printed pp. 327, 347-348, and 360.

@@ -20,7 +20,15 @@ def _catalog(pack):
         if not isinstance(item, dict) or not isinstance(item.get('id'), str) or item['id'] in items:
             raise ValueError('Equipment catalog has invalid or duplicate item identities')
         items[item['id']] = item
+        if 'damage_scale' in item and (item['damage_scale'] not in ('structural-damage', 'mega-damage')
+                or item.get('category') != 'weapon' or item.get('weapon_kind') != 'melee'):
+            raise ValueError('Damage scale requires a reviewed melee weapon declaration')
     return items
+
+
+def validate_equipment_catalog(pack):
+    """Preflight shared item identities and opt-in damage scale without possessions."""
+    _catalog(pack)
 
 
 def _safe_integer(value):
@@ -235,7 +243,12 @@ def project_equipment(character, pack, combat):
                 melee_guidance = ['Held-knife melee only; throwing and enhanced-strength rules remain pending.']
                 if low_pp:
                     melee_guidance.append('P.P. below 8 leaves strike and parry totals pending.')
-                if type(ps) is not int or ps < 1 or (ps <= 4 and not reviewed_low_strength):
+                if definition.get('damage_scale') == 'mega-damage':
+                    damage = definition['damage']
+                    damage_bonus = {'value':0, 'contributions':{}, 'actions':1,
+                                    'sources':[deepcopy(definition['source'])]}
+                    melee_guidance.append('Source Mega-Damage is shown without converting S.D.C. strength or Hand to Hand additions; enhanced-strength weapon effects remain descriptive.')
+                elif type(ps) is not int or ps < 1 or (ps <= 4 and not reviewed_low_strength):
                     damage = 'Pending low-strength melee damage'
                     melee_guidance.append('P.S. 4 or less needs a reviewed melee damage interpretation.')
                 elif not damage_total:

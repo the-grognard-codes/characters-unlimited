@@ -449,6 +449,12 @@ def export_rifts_sheet(character, core, skills, combat):
             if group['generated']:
                 receipt = group['receipt']
                 sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(group['quantity'])+'.'
+                if 'condition' in receipt:
+                    sheet_notes += ' '+group['condition']['name']+': '+str(receipt['condition']['value'])+'%; recorded dice: '+', '.join(map(str, receipt['condition']['rolls']))+'.'
+                for grant in receipt['grants'][1:]:
+                    sheet_notes += ' Additional original grant: '+names[grant['item_id']]+' x'+str(grant['quantity'])+'.'
+                    if 'rolls' in grant:
+                        sheet_notes += ' Recorded dice: '+', '.join(map(str, grant['rolls']))+'.'
                 sheet_notes += ' '+resource_source_citation(receipt['source'])+'.'
                 sheet_notes += ' '+' '.join(group['guidance'])
         if equipment['starting_gear']['generated']:

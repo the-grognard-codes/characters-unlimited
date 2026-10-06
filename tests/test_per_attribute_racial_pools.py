@@ -18,6 +18,8 @@ class PerAttributeRacialPoolTests(unittest.TestCase):
             'PS':{'count':2,'sides':8,'constant':1},
             'IQ':{'count':0,'sides':6,'constant':12}}
         core['races'].append(race)
+        core['creation_profiles'].append({'race':race['id'],'classes':['vagabond'],
+            'source':{'book':'Synthetic racial fixture','section':'Mixed pools pairing'}})
         archive=RuleArchive([core if (row['id'],row['version'])==(core['id'],core['version']) else row
                             for row in installed.definitions()],installed.active_versions())
         with tempfile.TemporaryDirectory() as directory:

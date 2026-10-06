@@ -739,7 +739,7 @@ class CharacterApplication:
                                      + ', '.join(map(str, source['pages']))
                                      + ' / PDF pp. ' + ', '.join(map(str, source['pdf_pages'])))
             if canonical(previous_equipment.get('starting_funds')) != canonical(target_equipment.get('starting_funds')):
-                funds_rules = target_equipment.get('starting_funds', {})
+                funds_rules = target_equipment.get('starting_funds') or {}
                 for definition in funds_rules.get('definitions', []):
                     funds_source = definition['source']
                     citation = (f"{funds_source['book']}, starting funds printed pp. "
@@ -748,7 +748,7 @@ class CharacterApplication:
                     if citation not in preview['sources']:
                         preview['sources'].append(citation)
             if canonical(previous_equipment.get('starting_gear')) != canonical(target_equipment.get('starting_gear')):
-                gear_source = target_equipment.get('starting_gear', {}).get('source')
+                gear_source = (target_equipment.get('starting_gear') or {}).get('source')
                 if gear_source:
                     preview['sources'].append(f"{gear_source['book']}, starting personal gear printed pp. "
                                               + ', '.join(map(str, gear_source['pages']))
@@ -762,8 +762,8 @@ class CharacterApplication:
                                 + ' / PDF pp. ' + ', '.join(map(str, price_source['pdf_pages'])))
                     if citation not in preview['sources']:
                         preview['sources'].append(citation)
-            previous_groups = previous_equipment.get('starting_groups', {}).get('groups', {})
-            for group_id, group in target_equipment.get('starting_groups', {}).get('groups', {}).items():
+            previous_groups = (previous_equipment.get('starting_groups') or {}).get('groups', {})
+            for group_id, group in (target_equipment.get('starting_groups') or {}).get('groups', {}).items():
                 if canonical(group) != canonical(previous_groups.get(group_id)):
                     group_source = group['source']
                     citation = (f"{group_source['book']}, starting equipment group printed pp. "
@@ -932,7 +932,7 @@ class CharacterApplication:
             raise SaveConflict('This character changed. Reopen it before adding a starting equipment group.')
         pack = self.character_equipment_pack(character)
         validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
-        changes = acquire_starting_group(character, pack, group_id, selection, lambda: str(uuid4()))
+        changes = acquire_starting_group(character, pack, group_id, selection, lambda: str(uuid4()), self.die)
         validate_inventory(changes['equipment'], pack)
         pins = {**character['additional_rule_packs'], pack['id']: pack['version']}
         return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)

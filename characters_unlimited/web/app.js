@@ -282,7 +282,7 @@ async function loadSkills(character) {
     if (skill.selection_cost > 1) heading.textContent += ` · ${skill.selection_cost} ${skill.pool} slots`;
     const explanation = document.createElement('p'); explanation.className = 'help';
     explanation.textContent = skill.kind === 'physical'
-      ? Object.entries(skill.effects).flatMap(([group, effects]) => Object.entries(effects).map(([name, effect]) => {
+      ? Object.entries(skill.effects || {}).flatMap(([group, effects]) => Object.entries(effects).map(([name, effect]) => {
           const value = typeof effect === 'object' ? effect.value : effect;
           const dice = typeof effect === 'object' && effect.rolls.length
             ? ` (dice: ${effect.rolls.join(' + ')})` : '';

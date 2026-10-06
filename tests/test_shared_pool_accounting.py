@@ -40,7 +40,7 @@ class SharedPoolAccountingTests(unittest.TestCase):
             with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as directory:
                 installed = RuleArchive.load()
                 skills = installed.active('rifts-domestic-skills')
-                mutation(skills)
+                mutation(skills['class_profiles']['vagabond'] if skills.get('class_profile_format') == 'owned-v1' else skills)
                 original = CharacterApplication(directory, die=lambda sides: 4)
                 character = original.create()
                 app = CharacterApplication(directory, die=lambda sides: 4,

@@ -3,6 +3,7 @@
 from copy import deepcopy
 import json
 from uuid import UUID
+from .recorded_formulas import validate_formula, formula_value, roll_formula
 
 MAX_QUANTITY = 1000
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -41,7 +42,8 @@ def starting_group_rules(character, pack):
     for identifier, group in rules['groups'].items():
         if (not isinstance(identifier, str) or not identifier or len(identifier) > 100
                 or not isinstance(group, dict)
-                or set(group) != {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance'}
+                or set(group) - {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance', 'additional_grants', 'condition'}
+                or not {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance'} <= set(group)
                 or not isinstance(group['name'], str) or not group['name']
                 or group['category'] not in ('armor', 'weapon', 'gear', 'ammunition')
                 or not isinstance(group['options'], list) or not 0 < len(group['options']) <= MAX_QUANTITY
@@ -55,6 +57,33 @@ def starting_group_rules(character, pack):
                 or any(not isinstance(note, str) for note in group['guidance'])):
             raise ValueError('Invalid starting equipment group definition')
         _canonical(group['source'])
+        if 'condition' in group:
+            condition = group['condition']
+            if (not isinstance(condition, dict) or set(condition) != {'name', 'formula'}
+                    or not isinstance(condition['name'], str) or not condition['name'].strip()):
+                raise ValueError('Starting equipment condition needs a label and reviewed formula')
+            validate_formula(condition['formula'])
+            formula = condition['formula']
+            minimum = (formula['count'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
+            maximum = (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
+            if not 0 <= minimum <= maximum <= 100:
+                raise ValueError('Starting condition percentage must remain between zero and one hundred')
+        additional = group.get('additional_grants', {})
+        if (not isinstance(additional, dict) or set(additional) - set(group['options'])):
+            raise ValueError('Additional equipment grants need known selected options')
+        for grants in additional.values():
+            if not isinstance(grants, list) or not 1 <= len(grants) <= 100:
+                raise ValueError('Additional equipment grants require a bounded list')
+            for grant in grants:
+                if (not isinstance(grant, dict) or set(grant) != {'item_id', 'quantity_formula'}
+                        or not isinstance(grant['item_id'], str) or grant['item_id'] not in catalog):
+                    raise ValueError('Additional equipment grants need reviewed items and formulas')
+                formula = grant['quantity_formula']
+                validate_formula(formula)
+                minimum = (formula['count'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
+                maximum = (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
+                if not 1 <= minimum <= maximum <= MAX_QUANTITY:
+                    raise ValueError('Additional equipment quantities must remain within inventory bounds')
     return rules['groups']
 
 
@@ -84,21 +113,38 @@ def validate_starting_groups(character, pack):
     seen = _other_receipt_ids(character)
     for identifier, receipt in receipts.items():
         group = groups[identifier]
-        if (not isinstance(receipt, dict) or set(receipt) != {'selection', 'grants', 'source'}
+        expected_fields = {'selection', 'grants', 'source'} | ({'condition'} if 'condition' in group else set())
+        if (not isinstance(receipt, dict) or set(receipt) != expected_fields
                 or not isinstance(receipt['selection'], str) or receipt['selection'] not in group['options']
-                or not isinstance(receipt['grants'], list) or len(receipt['grants']) != 1
+                or not isinstance(receipt['grants'], list)
                 or _canonical(receipt['source']) != _canonical(group['source'])):
             raise ValueError('Invalid starting equipment group receipt')
-        grant = receipt['grants'][0]
-        if (not isinstance(grant, dict) or set(grant) != {'item_id', 'possession_id', 'quantity'}
-                or grant['item_id'] != receipt['selection']
-                or type(grant['quantity']) is not int or grant['quantity'] != group['quantity']
-                or not _possession_id(grant['possession_id']) or grant['possession_id'] in seen):
-            raise ValueError('Invalid starting equipment group grant')
-        seen.add(grant['possession_id'])
+        if 'condition' in group:
+            condition = receipt['condition']
+            if (not isinstance(condition, dict) or set(condition) != {'rolls', 'value'}
+                    or type(condition['value']) is not int
+                    or condition['value'] != formula_value(group['condition']['formula'], condition['rolls'])):
+                raise ValueError('Invalid original starting condition dice')
+        definitions = [{'item_id': receipt['selection'], 'quantity': group['quantity']},
+                       *group.get('additional_grants', {}).get(receipt['selection'], [])]
+        if len(receipt['grants']) != len(definitions):
+            raise ValueError('Starting equipment grants do not match their original selection')
+        for grant, definition in zip(receipt['grants'], definitions):
+            expected = {'item_id', 'possession_id', 'quantity'}
+            if 'quantity_formula' in definition:
+                expected.add('rolls')
+                quantity = formula_value(definition['quantity_formula'], grant.get('rolls') if isinstance(grant, dict) else None)
+            else:
+                quantity = definition['quantity']
+            if (not isinstance(grant, dict) or set(grant) != expected
+                    or grant['item_id'] != definition['item_id']
+                    or type(grant['quantity']) is not int or grant['quantity'] != quantity
+                    or not _possession_id(grant['possession_id']) or grant['possession_id'] in seen):
+                raise ValueError('Invalid starting equipment group grant')
+            seen.add(grant['possession_id'])
 
 
-def acquire_starting_group(character, pack, group_id, selection, identifier_factory):
+def acquire_starting_group(character, pack, group_id, selection, identifier_factory, die=None):
     """Add one free selected grant once, preserving funds and current possessions."""
     validate_starting_groups(character, pack)
     groups = starting_group_rules(character, pack)
@@ -117,18 +163,36 @@ def acquire_starting_group(character, pack, group_id, selection, identifier_fact
         raise ValueError('Invalid or full starting equipment inventory')
     existing = {item['id'] for item in inventory['items']} | _other_receipt_ids(character)
     existing.update(grant['possession_id'] for receipt in receipts.values() for grant in receipt['grants'])
-    identifier = identifier_factory()
-    if not _possession_id(identifier) or identifier in existing:
-        raise ValueError('Starting equipment needs a new UUID possession identity')
-    definition = next(item for item in pack['items'] if item['id'] == selection)
-    shots = (definition['capacity'] if definition['category'] == 'ammunition'
-             or (definition['category'] == 'weapon' and definition.get('weapon_kind', 'ranged') == 'ranged')
-             else None)
-    inventory['items'].append({'id': identifier, 'item_id': selection, 'quantity': group['quantity'],
-                               'location': group['location'], 'equipped': False, 'shots': shots})
-    receipts[group_id] = {'selection': selection, 'grants': [{'item_id': selection,
-                            'possession_id': identifier, 'quantity': group['quantity']}],
-                         'source': deepcopy(group['source'])}
+    definitions = [{'item_id': selection, 'quantity': group['quantity']},
+                   *group.get('additional_grants', {}).get(selection, [])]
+    if len(inventory['items']) + len(definitions) > MAX_QUANTITY:
+        raise ValueError('Starting equipment inventory is full')
+    if ('condition' in group or any('quantity_formula' in item for item in definitions)) and not callable(die):
+        raise ValueError('Random starting equipment requires a dice source')
+    grants = []
+    for grant in definitions:
+        identifier = identifier_factory()
+        if not _possession_id(identifier) or identifier in existing:
+            raise ValueError('Starting equipment needs a new UUID possession identity')
+        existing.add(identifier)
+        record = {'item_id': grant['item_id'], 'possession_id': identifier}
+        if 'quantity_formula' in grant:
+            record['rolls'] = roll_formula(grant['quantity_formula'], die)
+            record['quantity'] = formula_value(grant['quantity_formula'], record['rolls'])
+        else:
+            record['quantity'] = grant['quantity']
+        definition = next(item for item in pack['items'] if item['id'] == grant['item_id'])
+        shots = (definition['capacity'] if definition['category'] == 'ammunition'
+                 or (definition['category'] == 'weapon' and definition.get('weapon_kind', 'ranged') == 'ranged')
+                 else None)
+        inventory['items'].append({'id': identifier, 'item_id': grant['item_id'], 'quantity': record['quantity'],
+                                  'location': group['location'], 'equipped': False, 'shots': shots})
+        grants.append(record)
+    receipts[group_id] = {'selection': selection, 'grants': grants, 'source': deepcopy(group['source'])}
+    if 'condition' in group:
+        formula = group['condition']['formula']
+        rolls = roll_formula(formula, die)
+        receipts[group_id]['condition'] = {'rolls': rolls, 'value': formula_value(formula, rolls)}
     return {'equipment': inventory, 'starting_equipment_groups': receipts}
 
 

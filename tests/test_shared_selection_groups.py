@@ -18,7 +18,7 @@ class SharedSelectionGroupTests(unittest.TestCase):
     def test_required_group_uses_declared_weights_and_credits_duplicates_once(self):
         installed = RuleArchive.load()
         skills = installed.active('rifts-domestic-skills')
-        group = next(row for row in skills['required']['groups'] if row['id'] == 'pilot')
+        group = next(row for row in skills['class_profiles']['vagabond']['required']['groups'] if row['id'] == 'pilot')
         group['count'] = 2
         group['selection_costs'] = {'motorcycle': 2}
         with tempfile.TemporaryDirectory() as directory:
@@ -68,7 +68,7 @@ class SharedSelectionGroupTests(unittest.TestCase):
     def test_required_option_identity_and_cost_remain_case_sensitive(self):
         installed = RuleArchive.load()
         skills = installed.active('rifts-domestic-skills')
-        group = next(row for row in skills['required']['groups'] if row['id'] == 'pilot')
+        group = next(row for row in skills['class_profiles']['vagabond']['required']['groups'] if row['id'] == 'pilot')
         group['count'] = 2
         group['options'][0]['id'] = 'PilotA'
         group['options'][1]['id'] = 'pilota'

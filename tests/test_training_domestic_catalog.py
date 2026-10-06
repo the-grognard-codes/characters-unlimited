@@ -118,8 +118,9 @@ class TrainingDomesticCatalogTests(unittest.TestCase):
         def change(pack):
             hunting = next(item for item in pack['skills'] if item['id'] == 'hunting')
             grant = {'id': 'required-hunting', 'name': 'Required Hunting', 'kind': 'training', 'catalog_skill_id': 'hunting', 'source': hunting['source']}
-            pack['required']['grants'].append(grant)
-            pack['required']['groups'].append({'id': 'training', 'name': 'Training', 'kind': 'select', 'count': 1, 'options': [grant]})
+            owner = pack['class_profiles']['vagabond'] if pack.get('class_profile_format') == 'owned-v1' else pack
+            owner['required']['grants'].append(grant)
+            owner['required']['groups'].append({'id': 'training', 'name': 'Training', 'kind': 'select', 'count': 1, 'options': [grant]})
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=candidate(change))
             hero = app.create()

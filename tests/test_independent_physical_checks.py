@@ -87,7 +87,7 @@ class IndependentPhysicalChecksTests(unittest.TestCase):
   installed=RuleArchive.load();accepted=next(row for row in installed.definitions() if row['id']=='rifts-domestic-skills' and row['version']==installed.active_versions()['rifts-domestic-skills'])
   pack=deepcopy(accepted);pack['version']='9.99.0';source={'book':'Test source','section':'Required drills'}
   grant: dict[str,Any]={'id':'source-check','name':'Source check','base':10,'per_level':1,'class_bonus':0,'source':source,'additional_checks':[{'name':'Timing','base':20,'per_level':3}],'proficiency_rules':{'independent_checks':True,'source':source}}
-  pack['required']['grants'].append(grant)
+  pack['class_profiles']['vagabond']['required']['grants'].append(grant)
   def archive():return RuleArchive(installed.definitions()+[pack],{**installed.active_versions(),pack['id']:pack['version']})
   with tempfile.TemporaryDirectory() as directory:
    app=CharacterApplication(directory,die=lambda sides:4,rule_archive=archive());hero=app.create(level=3)

@@ -25,7 +25,7 @@ class SharedSkillEffectTests(unittest.TestCase):
     def test_rifts_class_effect_applies_once_to_granted_and_selected_skills(self):
         pack = RuleArchive.load().active('rifts-domestic-skills')
         rule = effect({'any_of': [{'ids': ['cook']}, {'categories': ['domestic']}]})
-        pack['skill_effects'] = [rule]
+        pack['class_profiles']['vagabond']['skill_effects'] = [rule]
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=archive_with(pack))
             hero = app.create()
@@ -68,7 +68,7 @@ class SharedSkillEffectTests(unittest.TestCase):
     def test_required_and_scholastic_effects_share_additional_check_and_cap_rules(self):
         installed = RuleArchive.load()
         rifts = installed.active('rifts-domestic-skills')
-        rifts['skill_effects'] = [{**effect({'any_of': [{'ids': ['native-language']}]}), 'amount': 20}]
+        rifts['class_profiles']['vagabond']['skill_effects'] = [{**effect({'any_of': [{'ids': ['native-language']}]}), 'amount': 20}]
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=archive_with(rifts))
             hero = app.create()
@@ -101,7 +101,7 @@ class SharedSkillEffectTests(unittest.TestCase):
         for change in changes:
             with self.subTest(change=change), tempfile.TemporaryDirectory() as directory:
                 pack = installed.active('rifts-domestic-skills')
-                pack['skill_effects'] = [{**base, **change}]
+                pack['class_profiles']['vagabond']['skill_effects'] = [{**base, **change}]
                 draws = []
                 def die(sides):
                     draws.append(sides)
@@ -129,7 +129,7 @@ class SharedSkillEffectTests(unittest.TestCase):
 
     def test_nondefault_class_does_not_inherit_default_class_skill_effects(self):
         pack = RuleArchive.load().active('rifts-domestic-skills')
-        pack['skill_effects'] = [effect({'any_of': [{'ids': ['cook']}]})]
+        pack['class_profiles']['vagabond']['skill_effects'] = [effect({'any_of': [{'ids': ['cook']}]})]
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=archive_with(pack))
             hero = app.create(character_class='city-rat')
@@ -142,7 +142,7 @@ class SharedSkillEffectTests(unittest.TestCase):
     def test_skill_totals_outside_exact_integer_range_reject_before_save(self):
         from characters_unlimited.recorded_formulas import MAX_INTEGER
         pack = RuleArchive.load().active('rifts-domestic-skills')
-        pack['skill_effects'] = [{**effect({'any_of': [{'ids': ['cook']}]}), 'amount': MAX_INTEGER}]
+        pack['class_profiles']['vagabond']['skill_effects'] = [{**effect({'any_of': [{'ids': ['cook']}]}), 'amount': MAX_INTEGER}]
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=archive_with(pack))
             with self.assertRaises(ValueError):

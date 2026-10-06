@@ -161,6 +161,17 @@ function renderStartingGroups(starting, catalog, characterId) {
       const record = document.createElement('p'); record.className = 'help';
       record.textContent = `Original selection: ${selected?.name || group.receipt.selection} × ${group.quantity}. This receipt is independent of current inventory and cannot grant this group again.`;
       section.append(record);
+      if (group.receipt.condition) {
+        const condition = document.createElement('p'); condition.className = 'help';
+        condition.textContent = `${group.condition.name}: ${group.receipt.condition.value}%; recorded dice: ${group.receipt.condition.rolls.join(', ')}.`;
+        section.append(condition);
+      }
+      for (const grant of group.receipt.grants.slice(1)) {
+        const item = catalog.find(item => item.id === grant.item_id);
+        const detail = document.createElement('p'); detail.className = 'help';
+        detail.textContent = `Original additional grant: ${item?.name || grant.item_id} × ${grant.quantity}${grant.rolls ? `; recorded dice: ${grant.rolls.join(', ')}` : ''}.`;
+        section.append(detail);
+      }
       const receiptSource = document.createElement('p'); receiptSource.className = 'help';
       receiptSource.textContent = `Original receipt source: ${equipmentSourceCitation(group.receipt.source)}`;
       section.append(receiptSource);

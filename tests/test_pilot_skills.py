@@ -103,7 +103,7 @@ class PilotSkillWorkflowTests(unittest.TestCase):
             app=CharacterApplication(directory,die=lambda sides:4)
             self.assertEqual(app.skill_view(hero['id'])['grants'],old_view['grants'])
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.23.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.24.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(hero['learning_levels'][legacy],1)
             hero=app.select_skills(hero['id'],revision=hero['revision'],learned_level=3,selections=choices('automobile','bicycle'))
@@ -183,7 +183,7 @@ class PilotSkillWorkflowTests(unittest.TestCase):
         for owner in ('vagabond','city-rat'):
             for selected in ('vagabond','city-rat'):
                 with self.subTest(owner=owner,selected=selected),tempfile.TemporaryDirectory() as directory:
-                    pack=RuleArchive.load().active('rifts-domestic-skills')
+                    pack=RuleArchive.load().resolve('rifts-domestic-skills','2.23.0')
                     required=pack['required'] if owner=='vagabond' else pack['class_profiles'][owner]['required']
                     if owner=='vagabond':
                         group=next(row for row in required['groups'] if row['id']=='pilot')
@@ -192,6 +192,10 @@ class PilotSkillWorkflowTests(unittest.TestCase):
                         required['grants'][0]['catalog_skill_id']='missing'
                     def die(sides):
                         self.fail('Malformed unselected required training must reject before dice')
-                    app=CharacterApplication(directory,die=die,rule_archive=archive_with(pack))
+                    installed=RuleArchive.load()
+                    archive=RuleArchive([pack if (row['id'],row['version'])==(pack['id'],pack['version'])
+                        else row for row in installed.definitions()],
+                        {**installed.active_versions(),pack['id']:pack['version']})
+                    app=CharacterApplication(directory,die=die,rule_archive=archive)
                     with self.assertRaises(ValueError): app.create(character_class=selected)
                     self.assertEqual(app.list(),[])

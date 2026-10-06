@@ -22,7 +22,7 @@ def paired_core():
     core['races'].append(race)
     core['creation_profile_format'] = 'paired-v1'
     core['creation_profiles'] = [
-        {'race':'human','classes':['vagabond','city-rat'],'source':deepcopy(SOURCE)},
+        {'race':'human','classes':[row['id'] for row in core['classes']],'source':deepcopy(SOURCE)},
         {'race':race['id'],'classes':['city-rat'],'source':deepcopy(SOURCE)}]
     return core
 

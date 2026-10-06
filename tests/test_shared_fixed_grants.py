@@ -43,7 +43,7 @@ class SharedFixedGrantTests(unittest.TestCase):
     def test_rifts_selector_grants_acquire_once_and_remain_on_optional_backtracking(self):
         installed=RuleArchive.load()
         pack=installed.active('rifts-domestic-skills')
-        pack['physical_grants']=[{'selector':{'any_of':[{'tags_any':['synthetic-running']}]}}, 'running']
+        pack['class_profiles']['vagabond']['physical_grants']=[{'selector':{'any_of':[{'tags_any':['synthetic-running']}]}}, 'running']
         next(row for row in pack['skills'] if row['id']=='running')['tags']=['synthetic-running']
         archive=RuleArchive([pack if (row['id'],row['version'])==(pack['id'],pack['version']) else row
                             for row in installed.definitions()],installed.active_versions())

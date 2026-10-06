@@ -15,7 +15,7 @@ def choices(*identifiers, pool='related'):
 
 def archive(change):
     installed = RuleArchive.load()
-    pack = deepcopy(installed.active('rifts-domestic-skills'))
+    pack = deepcopy(installed.resolve('rifts-domestic-skills', '2.23.0'))
     pack['version'] = '9.99.0'
     change(pack)
     return RuleArchive(installed.definitions() + [pack], {**installed.active_versions(), pack['id']: pack['version']})

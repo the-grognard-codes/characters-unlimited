@@ -75,6 +75,49 @@ class ScholarlyClassTests(unittest.TestCase):
             self.assertEqual(minima,{'science':0,'medical':0,'technical':0})
             self.assertEqual(rows['math-basic']['percentage'],75)  # required30 is applied once
 
+    def test_scholar_military_submersibles_remain_ineligible_honor_guidance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:3)
+            hero=app.create(character_class='rogue-scholar')
+            hero=app.select_skills(hero['id'],revision=hero['revision'],selections=[
+                {'skill_id':'submersible','pool':'related'}])
+            view=app.skill_view(hero['id']);row=view['selected'][0]
+            self.assertTrue(any('Submersibles' in warning for warning in view['warnings']))
+            self.assertEqual(row['contributions']['class'],0)
+
+    def test_fixed_training_does_not_create_an_extra_repeat_slot(self):
+        installed=RuleArchive.load();skills=installed.active('rifts-domestic-skills')
+        skills['class_profiles']['rogue-scientist']['combat']['fixed_proficiencies']=deepcopy(
+            skills['class_profiles']['wilderness-scout']['combat']['fixed_proficiencies'])
+        archive=RuleArchive([skills if (p['id'],p['version'])==(skills['id'],skills['version']) else p
+            for p in installed.definitions()],installed.active_versions())
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,rule_archive=archive,die=lambda sides:3)
+            hero=app.create(character_class='rogue-scientist')
+            hero=app.select_combat(hero['id'],revision=hero['revision'],choices={
+                'ancient':['knife','sword'],'modern':['energy-pistol']})
+            weapons=[g for g in app.equipment_view(hero['id'])['starting_groups']['groups']
+                if g['id'].startswith('elective-weapon-')]
+            self.assertEqual(len(weapons),2)
+            self.assertTrue(weapons[0]['option_requirements']['vibro-saber'][0]['satisfied'])
+            with self.assertRaises(ValueError):
+                app.grant_starting_group(hero['id'],revision=hero['revision'],group_id='elective-weapon-3',selection='wilks-320')
+
+    def test_optional_handguns_receive_a_matching_source_weapon_without_extra_clips(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:3)
+            hero=app.create(character_class='rogue-scientist')
+            hero=app.select_combat(hero['id'],revision=hero['revision'],choices={
+                'modern':['energy-pistol','handguns']})
+            hero=app.grant_starting_group(hero['id'],revision=hero['revision'],group_id='elective-weapon-2',selection='magnum-revolver')
+            group=next(g for g in app.equipment_view(hero['id'])['starting_groups']['groups']
+                if g['id']=='elective-weapon-2')
+            self.assertTrue(group['option_requirements']['magnum-revolver'][0]['satisfied'])
+            self.assertEqual(hero['equipment']['items'][0]['shots'],6)
+            self.assertEqual(len(hero['equipment']['items']),1)
+            self.assertEqual(app.combat_view(hero['id'])['related_cost'],1)
+            self.assertEqual(app.import_character(app.export_character(hero['id']))['starting_equipment_groups'],hero['starting_equipment_groups'])
+
     def test_paid_hand_training_and_additional_distinct_weapons_use_related_allowance(self):
         with tempfile.TemporaryDirectory() as directory:
             app=CharacterApplication(directory,die=lambda sides:3)

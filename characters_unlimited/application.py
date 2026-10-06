@@ -39,6 +39,7 @@ from .starting_funds import acquire_starting_funds
 from .starting_gear import acquire_starting_gear
 from .starting_choices import acquire_starting_choices
 from .starting_groups import acquire_starting_group, validate_starting_group_upgrade
+from .combat_grants import elective_proficiencies
 from .advancement import first_advance, remember_learning, learning_key, project_advancement
 from .heroes_advancement import first_hero_advance, advance_higher_levels, remembered_learning, power_gains, project_hero_advancement, advancement_power_resources
 
@@ -933,7 +934,9 @@ class CharacterApplication:
             raise SaveConflict('This character changed. Reopen it before adding a starting equipment group.')
         pack = self.character_equipment_pack(character)
         validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
-        changes = acquire_starting_group(character, pack, group_id, selection, lambda: str(uuid4()), self.die)
+        combat = project_combat(character, self.character_skill_pack(character))
+        changes = acquire_starting_group(character, pack, group_id, selection, lambda: str(uuid4()), self.die,
+                                        elective_count=len(elective_proficiencies(combat)))
         validate_inventory(changes['equipment'], pack)
         pins = {**character['additional_rule_packs'], pack['id']: pack['version']}
         return self.store.update(identifier, {**changes, 'additional_rule_packs': pins}, revision)

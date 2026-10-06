@@ -18868,7 +18868,8 @@
               "combat-helicopter",
               "jet-fighter",
               "tanks-apcs",
-              "warship"
+              "warship",
+              "submersible"
             ]
           },
           "pilot-related": {

@@ -1,6 +1,15 @@
 """Source-bound fixed weapon training, independent of elective choices."""
 
 
+def elective_proficiencies(combat):
+    """Return distinct nonfixed training in the shared equipment slot order."""
+    fixed = combat.get('fixed_proficiencies', {'ancient': [], 'modern': []})
+    return [{'family': family, 'id': identity}
+            for family in ('ancient', 'modern')
+            for identity in dict.fromkeys(combat['choices'][family])
+            if identity not in fixed[family]]
+
+
 def proficiency_allowances(rules):
     counts = rules.get('proficiency_counts', {'ancient': 1, 'modern': 1})
     if (not isinstance(counts, dict) or set(counts) != {'ancient', 'modern'} or

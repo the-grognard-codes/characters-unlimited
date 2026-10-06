@@ -536,13 +536,13 @@
       "id": "rifts-domestic-skills",
       "version": "2.25.0",
       "filename": "rifts-domestic-skills-2.25.0.json",
-      "sha256": "73786e711f125ce8354892f22320c95ee815fd0101b79e2b0bc010ec9292d0d0"
+      "sha256": "2d52bfa5d18d6974b3349508021fe3328f4ef0051238fed0ed9422f0cadef48a"
     },
     {
       "id": "rifts-equipment",
       "version": "1.12.0",
       "filename": "rifts-equipment-1.12.0.json",
-      "sha256": "26b892a4a42e6b69053d236866d092a35d44ae9c17fef76e2191698be6b2b0ea"
+      "sha256": "927ec5ec54067949731f30d413e465fa5b3e9a66a7f91b0fcf00ac0d601179ee"
     }
   ]
 }

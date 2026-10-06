@@ -1597,6 +1597,31 @@
       "description": "Old or shabby but reliable; original M.D.C. is unspecified. Original missing percentage is recorded in the starting receipt."
     },
     {
+      "id": "magnum-revolver",
+      "name": "Conventional Magnum revolver",
+      "category": "weapon",
+      "weapon_kind": "ranged",
+      "cost_credits": null,
+      "weight_lbs": null,
+      "damage": "6D6 S.D.C.",
+      "range_feet": 140,
+      "range_meters": 42.7,
+      "capacity": 6,
+      "aimed_bonus": 0,
+      "proficiency": "handguns",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "W.P. Handguns: representative Magnum revolver",
+        "pages": [
+          328
+        ],
+        "pdf_pages": [
+          331
+        ]
+      },
+      "description": "Source typical six-shot revolver and average handgun range. Conventional bullets; no E-Clip compatibility. Price and weight are unspecified; revolvers cannot fire bursts."
+    },
+    {
       "id": "rogue-scholar-travel-clothes",
       "name": "Traveling clothes",
       "category": "gear",
@@ -4514,7 +4539,8 @@
               "vibro-knife",
               "vibro-saber",
               "wilks-320",
-              "wilks-447"
+              "wilks-447",
+              "magnum-revolver"
             ],
             "quantity": 1,
             "location": "carried",
@@ -4670,6 +4696,35 @@
                         {
                           "ids": [
                             "energy-rifle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "magnum-revolver": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Handguns",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Rogue Scholar Standard Equipment and Money",
+                    "pages": [
+                      95
+                    ],
+                    "pdf_pages": [
+                      98
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "handguns"
                           ]
                         }
                       ]
@@ -4993,7 +5048,8 @@
               "vibro-knife",
               "vibro-saber",
               "wilks-320",
-              "wilks-447"
+              "wilks-447",
+              "magnum-revolver"
             ],
             "quantity": 1,
             "location": "carried",
@@ -5150,6 +5206,35 @@
                         {
                           "ids": [
                             "energy-rifle"
+                          ]
+                        }
+                      ]
+                    },
+                    "minimum": 1
+                  }
+                }
+              ],
+              "magnum-revolver": [
+                {
+                  "id": "matching-training",
+                  "name": "Matching W.P. Handguns",
+                  "source": {
+                    "book": "Rifts - Ultimate Edition",
+                    "section": "Rogue Scientist Standard Equipment and Money",
+                    "pages": [
+                      96
+                    ],
+                    "pdf_pages": [
+                      99
+                    ]
+                  },
+                  "selected_options": {
+                    "catalog": "modern",
+                    "selector": {
+                      "any_of": [
+                        {
+                          "ids": [
+                            "handguns"
                           ]
                         }
                       ]

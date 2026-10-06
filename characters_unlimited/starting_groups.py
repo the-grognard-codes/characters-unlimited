@@ -27,7 +27,7 @@ def _possession_id(value):
         return False
 
 
-def starting_group_rules(character, pack):
+def starting_group_rules(character, pack, elective_count=None):
     """Compile equipment groups for a declared game/class identity without receipts."""
     if pack.get('id') != 'rifts-equipment' or pack.get('game') != 'rifts':
         raise ValueError('Unsupported starting equipment group pack')
@@ -111,10 +111,10 @@ def starting_group_rules(character, pack):
                 maximum = (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
                 if not 1 <= minimum <= maximum <= MAX_QUANTITY:
                     raise ValueError('Additional equipment quantities must remain within inventory bounds')
-    return _expanded_groups(character, rules['groups'], pack.get('training_catalogs', {}))
+    return _expanded_groups(character, rules['groups'], pack.get('training_catalogs', {}), elective_count)
 
 
-def _expanded_groups(character, groups, catalogs):
+def _expanded_groups(character, groups, catalogs, elective_count=None):
     """One stable numbered receipt per distinct selected proficiency; retain old slots."""
     result = {}
     for identifier, group in groups.items():
@@ -127,15 +127,15 @@ def _expanded_groups(character, groups, catalogs):
         choices = character.get('combat_choices', {})
         if not isinstance(choices, dict):
             raise ValueError('Repeated equipment needs saved proficiency choices')
-        selected_count = 0
+        if elective_count is not None and (type(elective_count) is not int or not 0 <= elective_count <= MAX_QUANTITY):
+            raise ValueError('Repeated equipment needs a bounded elective count')
         for family in ('ancient', 'modern'):
             values = choices.get(family, [])
             known = {row['id'] for row in catalogs[family]}
             if (not isinstance(values, list) or len(values) > MAX_QUANTITY or
                     any(not isinstance(value, str) or value not in known for value in values)):
                 raise ValueError('Repeated equipment needs bounded known weapon choices')
-            selected_count += len(set(values))
-        count = max(count, selected_count)
+        count = max(count, elective_count or 0)
         receipts = character.get('starting_equipment_groups', {})
         if not isinstance(receipts, dict) or len(receipts) > MAX_QUANTITY:
             raise ValueError('Repeated equipment needs bounded retained receipts')
@@ -217,10 +217,10 @@ def validate_starting_groups(character, pack):
             seen.add(grant['possession_id'])
 
 
-def acquire_starting_group(character, pack, group_id, selection, identifier_factory, die=None):
+def acquire_starting_group(character, pack, group_id, selection, identifier_factory, die=None, *, elective_count=None):
     """Add one free selected grant once, preserving funds and current possessions."""
     validate_starting_groups(character, pack)
-    groups = starting_group_rules(character, pack)
+    groups = starting_group_rules(character, pack, elective_count)
     if not isinstance(group_id, str) or group_id not in groups:
         raise ValueError('Select an available starting equipment group')
     receipts = deepcopy(character.get('starting_equipment_groups', {}))
@@ -272,7 +272,7 @@ def acquire_starting_group(character, pack, group_id, selection, identifier_fact
 def project_starting_groups(character, pack, training=None):
     """Project retained grants and honor-system training guidance without dice."""
     validate_starting_groups(character, pack)
-    groups = starting_group_rules(character, pack)
+    groups = starting_group_rules(character, pack, len(training['elective']) if training is not None else None)
     receipts = character.get('starting_equipment_groups', {})
     result = []
     for identifier, group in groups.items():

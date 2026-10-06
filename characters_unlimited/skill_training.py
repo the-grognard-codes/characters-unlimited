@@ -18,7 +18,7 @@ def required_definitions(pack):
 def training_rules(pack):
     declaration=pack.get('required_skill_training')
     profiles=[pack,*pack.get('class_profiles',{}).values()]
-    definitions=[row for profile in profiles for row in required_definitions(profile)]
+    definitions=[row for profile in profiles for row in required_definitions({**pack, **profile})]
     if declaration is None:
         if any('catalog_skill_id' in row for row in definitions):
             raise ValueError('Required catalog references need a reviewed training declaration')

@@ -1,6 +1,7 @@
 """Shared percentile projection for primary and additional source-defined checks."""
 
 from .recorded_formulas import MAX_INTEGER
+from .skill_checks import selected_check_definition
 
 
 def synergy_contributions(definition, available):
@@ -8,7 +9,11 @@ def synergy_contributions(definition, available):
             if available.intersection(synergy.get('any_of', [synergy.get('skill_id')]))}
 
 
-def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None, exact=False):
+def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None, exact=False, growth_steps=None, available=()):
+    independent = 'proficiency_rules' in definition
+    if independent and (type(growth_steps) is not int or not 0 <= growth_steps <= 1000):
+        raise ValueError("Independent checks need supported acquired-level growth")
+    definition = selected_check_definition(definition, available)
     effects = effect_contributions or []
     contributions = dict(contributions)
     for effect in effects:
@@ -17,7 +22,7 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
     if level_steps:
         contributions = {**contributions, 'experience':definition['per_level']*level_steps}
     uncapped = sum(contributions.values())
-    guarded = exact or effects or definition.get('attribute_bonuses') or 'Skill grant training' in contributions
+    guarded = independent or exact or effects or definition.get('attribute_bonuses') or 'Skill grant training' in contributions
     if guarded and abs(uncapped) > MAX_INTEGER:
         raise ValueError('Skill effect total exceeds the exact integer range')
     checks = []
@@ -36,7 +41,10 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
                          'per_level': reference['per_level'] * multiplier}
         else:
             check_contributions = {**contributions, 'base': check['base']}
-            if level_steps:
+            if independent:
+                if 'advancement' in check_contributions or growth_steps:
+                    check_contributions['advancement'] = check['per_level'] * growth_steps
+            elif level_steps:
                 check_contributions['experience'] = check.get('per_level',definition['per_level'])*level_steps
             value = sum(check_contributions.values())
             projected = {'name': check['name'], 'percentage': min(98, value),

@@ -3,6 +3,7 @@
 from copy import deepcopy
 import re
 from .selection_groups import validate_group
+from .skill_checks import independent_check_rules
 
 
 def required_selection_group(group):
@@ -61,4 +62,8 @@ def required_catalog(pack):
         if (not isinstance(definition,dict) or
                 ('specialty_from' in definition and definition['specialty_from'] not in identifiers)):
             raise ValueError('Invalid required skill grant specialty')
+    definitions = [*rules['grants'], *[option for group in rules['groups'] for option in group.get('options', [])],
+                   *[group['skill'] for group in rules['groups'] if 'skill' in group]]
+    for definition in definitions:
+        independent_check_rules(definition, pack.get('skills', []))
     return rules

@@ -1,6 +1,6 @@
 # 05D9: Ordinary Physical catalog and Juggling initiative
 
-**Status:** in-progress; 05D8 reviewed and merged. **Parent:**05/05B/22. **Branch:**codex/rifts-physical-catalog.
+**Status:** done; PR121 merged. **Parent:**05/05B/22. **Branch:**codex/rifts-physical-catalog.
 
 Source: original RUE printed300/316-317 (PDF303/319-320), visually reviewed against processed Markdown. Add nine identities to immutable2.21.0: Climbing40/30+5; Aerobic Athletics balance30+5/SDC2D4/disarm1/pullpunch1; Juggling35+5/initiative1; SCUBA50+5 requiresSwimming; ForcedMarchPE2/Speed1D4/SDC2D6; OutdoorsmanshipPE1/SDC2D6 requiresSurvival/+5Dowsing/Fasting/IdentifyPlants/Survival; WrestlingPS2/PE1/SDC4D6/rollimpact1; KickBoxingPS1/PE1/SDC1D10; Fencing descriptive weapon-specific bonuses and W.P.Sword requirement. All physical effects apply once with retained receipts through removal/reselection/import/undo. Conditional kick/fencing, travel/endurance and wrestling outcomes are concise descriptions under amended scope, not standing global bonuses.
 
@@ -11,3 +11,5 @@ Verify normal paired/rates/IQ/classbonuses/prerequisiteguidance; synergy+5once/r
 Prepared public tests reproduce two existing gaps before activation: Juggling initiative declaration is omitted from total; PDF description loop accesses percentile contributions on nonpercentilePhysical and raises KeyError. Fix description iteration to accept absent contributions, retaining narrative and source note. Draft7 tests:5pass/oneexpectedinitiativefailure/onePDFerror in3.872s. These are functional delivery issues, not optional combat simulation.
 
 Source-review follow-through: Climbing+5Spelunking and source-bound shared weapon-prerequisite guidance for Fencing/W.P.Sword are included. All weapon declarations validate before initial dice, including raw legacy owners; missing actual weapon training retains the skill with guidance. No per-skill handler or automatic weapon grant.22 corrected affected workflows pass23.989s.
+
+Merged as e61f1efce1006dede460f6a1434162e087f7f9bd. Both independent axes approve final5ff6d1c.547 local regression648.435s,22 affected23.989s,7 corrected-riding6.410s, typing174/static and rebuilt frozen42.433s pass. Both exact-head hosted37400627662/37400624155 pass547 tests877.548/968.501s and separate packaged43.204/46.540s. ActualChrome and editablePDF verified. Acrobatics/Gymnastics remain next05D10; broader full build incomplete.

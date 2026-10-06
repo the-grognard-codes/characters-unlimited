@@ -1,6 +1,6 @@
 # 05D12: Wilderness Scout class import
 
-Status: in-progress; isolated preparation follows reviewed05D11. Parent:05/05B/22. Branch:codex/rifts-wilderness-scout.
+Status: done; reviewed and merged through PR124. Parent:05/05B/22. Branch:codex/rifts-wilderness-scout.
 
 Original RUE printed98–100 (PDF101–103) visually reviewed. The adjoining left column of printed98 is Vagabond equipment and must not be attributed to Scout. Import through explicit owned class/core/equipment definitions, preserving every accepted archive and existing saved pin.
 
@@ -15,3 +15,5 @@ Class resources: generalSDC2D6+12, Scout3D6+10, HP effectivePE+D6 with retained 
 Starting equipment belongs to printed99–100: light armor, one appropriate weapon perWP with1D4 EClips each, knives/handaxe/VibroKnife-orSaber, explicit wilderness gear, and reliable shabby vehicle matching piloting (missing1D4x10%originalMDC). Credits3D6x100/goods3D4x1000, all original dice/choice receipts retained across edit/remove/import/undo. Use generic equipment choices/formulas; descriptive condition is acceptable, but selection/grants/counts and costs must not be fabricated. Expand required shared capabilities as needed; no per-class runtime handler.
 
 Acceptance: representative source percentages/grants/counts/fixedMath/poolbonus, creation and revision, level gains/undo, retained resource/equipment dice, invalid unselected declarations beforedice, oldpins/explicitupgrades, portable save/reopen, actualUI/editablePDF and relevant Windows/package/integration gates plus two source-grounded review axes before merge. Broader Rifts/Heroes classes/races/abilities and robot/bionic construction remain open.
+
+PR124 merged as601313946c27746cea4afe397787516bef7986a3. Both independent axes APPROVE final2e4c7767c46ad5ca89d07f3b7e7a72457b643646. Stable583 local regression905.693s, typing183/static, all11 editable-PDF pages and1644 canonical/widget checks pass. Final rebuilt frozen56.280s passes. Exact-head hosted push37411679747 and PR37411683666 pass583 full1250.192/1378.134s plus separate frozen55.046/70.833s. Parent corpus/class acceptance and the broader amended build remain open.

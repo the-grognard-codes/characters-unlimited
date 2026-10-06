@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "active": {
-    "rifts-core": "1.3.0",
-    "rifts-domestic-skills": "2.24.0",
+    "rifts-core": "1.4.0",
+    "rifts-domestic-skills": "2.25.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.21.0",
-    "rifts-equipment": "1.11.0",
+    "rifts-equipment": "1.12.0",
     "heroes-mutant-power-budget": "1.0.0",
     "heroes-super-abilities": "1.3.0",
     "heroes-resources": "1.0.0",
@@ -525,6 +525,24 @@
       "version": "1.11.0",
       "filename": "rifts-equipment-1.11.0.json",
       "sha256": "9f32e6ff3441c8687ce5240487f79aa16e35821f70d7cc1c83e3ee6932ba41b2"
+    },
+    {
+      "id": "rifts-core",
+      "version": "1.4.0",
+      "filename": "rifts-core-1.4.0.json",
+      "sha256": "bd0eb3153f98fb52fd27ae1ac3af27c7c1af43a0b6d997289a5354c79fdf6bce"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "2.25.0",
+      "filename": "rifts-domestic-skills-2.25.0.json",
+      "sha256": "2d52bfa5d18d6974b3349508021fe3328f4ef0051238fed0ed9422f0cadef48a"
+    },
+    {
+      "id": "rifts-equipment",
+      "version": "1.12.0",
+      "filename": "rifts-equipment-1.12.0.json",
+      "sha256": "927ec5ec54067949731f30d413e465fa5b3e9a66a7f91b0fcf00ac0d601179ee"
     }
   ]
 }

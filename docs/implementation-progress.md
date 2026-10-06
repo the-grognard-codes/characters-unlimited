@@ -405,3 +405,5 @@ PR123 merged as b83a572ad19c6b45dd9937395282bdcaf77cd85b;05D11 done. Finalc48082
 
 
 05D12 Wilderness Scout is in progress on codex/rifts-wilderness-scout. New core1.3/skills2.24/equipment1.11 declarations use existing explicit pairing/ownership seams and shared category/check/receipt contracts. Source pages and actual browser workflows reviewed; focused checks, typing183/static and rebuilt frozen test55.260 seconds pass. Final full regression, all-page editable PDF review, independent reviews and hosted gates remain pending. Broader class/race/RCC, equipment/proficiency corpus, magic/HU families, saved-identity revisions and robot/bionic construction remain open.
+
+PR124 merged as601313946c27746cea4afe397787516bef7986a3;05D12 done. Both axes approve2e4c776,583 local905.693s/frozen56.280s and both exact-head hosted37411679747/37411683666 pass all Windows/full/frozen gates. Scout uses owned data and shared training/receipt contracts, retaining honor-system equipment. Isolated05D13 implements Rogue Scholar/Scientist source paths, paid training, two-skill awards and per-proficiency equipment; validation is in progress. Full amended build remains incomplete.

@@ -5,6 +5,7 @@ from .starting_funds import project_starting_funds
 from .starting_gear import project_starting_gear
 from .starting_choices import project_starting_choices
 from .starting_groups import project_starting_groups
+from .combat_grants import elective_proficiencies
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -356,12 +357,11 @@ def project_equipment(character, pack, combat, skills=None):
             raise ValueError('Equipment training guidance needs acquired skills')
         fixed = combat.get('fixed_proficiencies', {'ancient': [], 'modern': []})
         training = {'skills': [row.get('catalog_skill_id', row.get('skill_id', row.get('id')))
-                               for row in [*skills['grants'], *skills['selected']]], 'elective': []}
+                               for row in [*skills['grants'], *skills['selected']]],
+                    'elective': elective_proficiencies(combat)}
         for family in ('ancient', 'modern'):
-            elective = list(dict.fromkeys(identity for identity in combat['choices'][family]
-                                          if identity not in fixed[family]))
+            elective = [row['id'] for row in training['elective'] if row['family'] == family]
             training[family] = [*fixed[family], *elective]
-            training['elective'].extend({'family': family, 'id': identity} for identity in elective)
     groups = project_starting_groups(character, pack, training)
     for group in groups['groups']:
         if group['generated']:

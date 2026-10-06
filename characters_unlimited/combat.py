@@ -9,7 +9,7 @@ from .saving_bonuses import project_saving_bonuses
 from .physical import project_physical
 from typing import Any
 from .advancement import learning_age
-from .combat_grants import fixed_proficiencies
+from .combat_grants import fixed_proficiencies, proficiency_allowances, proficiency_selection_cost
 
 
 def validate_combat_choices(choices, pack):
@@ -17,6 +17,7 @@ def validate_combat_choices(choices, pack):
     if not rules:
         raise ValueError('Preview a rule update before selecting combat training')
     fixed_proficiencies(rules)
+    proficiency_allowances(rules)
     if not isinstance(choices, dict) or set(choices) - {'hand_to_hand', 'ancient', 'modern'}:
         raise ValueError('Provide combat training choices')
     hand = choices.get('hand_to_hand', rules['default_hand_to_hand'])
@@ -36,7 +37,8 @@ def combat_skill_cost(character, pack):
     if 'combat' not in pack:
         return 0
     choices = validate_combat_choices(character.get('combat_choices', {}), pack)
-    return next(item['cost'] for item in pack['combat']['hand_to_hand'] if item['id'] == choices['hand_to_hand'])
+    hand_cost = next(item['cost'] for item in pack['combat']['hand_to_hand'] if item['id'] == choices['hand_to_hand'])
+    return hand_cost + proficiency_selection_cost(choices, pack['combat'])
 
 
 def total(contributions, *, missing=False, actions=1):
@@ -179,13 +181,16 @@ def project_combat(character, pack):
     warnings=[hand['name']+': unverified prerequisite — '+requirement+'. Choice retained.' for requirement in hand.get('unverified_requirements',[])]
     remaining={}
     eligible_count = 0
+    allowances = proficiency_allowances(rules)
     for family in ('ancient','modern'):
         allowed=rules['required_proficiencies'][family]
         eligible={identifier for identifier in choices[family] if identifier not in grants[family] and (allowed=='any' or identifier in allowed)}
         eligible_count += len(eligible)
         if 'combined_proficiency_count' not in rules:
-            remaining[family]=1-sum(identifier in eligible for identifier in choices[family])
-        if any(identifier not in eligible and identifier not in grants[family] for identifier in choices[family]):
+            remaining[family]=allowances[family]-(len(eligible) if 'proficiency_counts' in rules else sum(identifier in eligible for identifier in choices[family]))
+        if 'additional_proficiency_cost' in rules:
+            remaining[family] = max(0, remaining[family])
+        if allowances[family] and any(identifier not in eligible and identifier not in grants[family] for identifier in choices[family]):
             guidance = 'choose an eligible energy weapon.' if remaining.get(family, 1) > 0 else 'required slot is filled; extra training is retained.'
             warnings.append(f'{family.title()}: retained proficiency does not satisfy the required O.C.C. slot; {guidance}')
         if any(identifier in grants[family] for identifier in recorded_choices[family]):
@@ -233,7 +238,7 @@ def project_combat(character, pack):
     return {'catalog':rules,'choices':recorded_choices, **({'fixed_proficiencies':grants} if 'fixed_proficiencies' in rules else {}), 'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
             'conditions':deepcopy(hand.get('conditions', {})),
             'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
-            'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':hand['cost']}
+            'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':combat_skill_cost(character, pack)}
 
 
 def compare_combat_views(before, after):

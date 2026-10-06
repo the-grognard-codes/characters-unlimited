@@ -1,0 +1,397 @@
+{
+  "id": "rifts-core",
+  "game": "rifts",
+  "edition": "Ultimate Edition",
+  "version": "1.5.0",
+  "schema_version": 1,
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Character Creation, Step 1: The Eight Attributes",
+    "markdown_lines": [
+      15895,
+      15899
+    ]
+  },
+  "races": [
+    {
+      "id": "human",
+      "name": "Human",
+      "attributes": {
+        "count": 3,
+        "sides": 6,
+        "constant": 0,
+        "exceptional": {
+          "thresholds": [
+            16,
+            17,
+            18
+          ],
+          "max_bonus_dice": 2
+        }
+      }
+    }
+  ],
+  "classes": [
+    {
+      "id": "vagabond",
+      "name": "Vagabond",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C."
+      },
+      "automation_gaps": [
+        "Class-specific skills, abilities, resources, equipment, and advancement await their implementation slices."
+      ],
+      "attribute_bonuses": {
+        "MA": {
+          "count": 1,
+          "sides": 4
+        },
+        "PS": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PE": {
+          "count": 0,
+          "sides": 6,
+          "constant": 2
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C. Bonuses",
+        "pages": [
+          97
+        ]
+      }
+    },
+    {
+      "id": "city-rat",
+      "name": "City Rat",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "City Rat O.C.C. Stats",
+        "pages": [
+          88,
+          89
+        ],
+        "pdf_pages": [
+          91,
+          92
+        ]
+      },
+      "automation_gaps": [
+        "Attribute-role thresholds are descriptive rather than enforced; the class has no general attribute requirement.",
+        "P.P.E. +1D10+4 and its age-22 halving, including age/base/rounding, are not automated.",
+        "Starting credits, Black Market item, equipment, body armor, and 1D4+2 cybernetic implants are not automated.",
+        "The minimum of three Physical or Rogue related skills is not enforced, including whether Hand to Hand upgrades count toward it.",
+        "The complete class skill catalog and prerequisites are not present; category permissions are represented only where the catalog supports them."
+      ],
+      "attribute_bonuses": {
+        "SPD": {
+          "count": 1,
+          "sides": 6,
+          "constant": 1
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          88
+        ],
+        "section": "City Rat O.C.C. Bonuses",
+        "pdf_pages": [
+          91
+        ]
+      }
+    },
+    {
+      "id": "wilderness-scout",
+      "name": "Wilderness Scout",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Wilderness Scout O.C.C.",
+        "pages": [
+          98,
+          99,
+          100
+        ],
+        "pdf_pages": [
+          101,
+          102,
+          103
+        ]
+      },
+      "attribute_bonuses": {
+        "PS": {
+          "count": 1,
+          "sides": 4
+        },
+        "PE": {
+          "count": 1,
+          "sides": 4
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Wilderness Scout O.C.C. Bonuses",
+        "pages": [
+          99
+        ],
+        "pdf_pages": [
+          102
+        ]
+      },
+      "automation_gaps": [
+        "Eligibility guidance: I.Q. 8 and P.E. 12 or higher; any alignment, no racial restriction. High P.S. and M.E. are helpful.",
+        "Cross-country travel, trail following, map errors and conditional activity effects use the source descriptions.",
+        "Only the available reviewed weapon and equipment catalog is selectable; broader catalog coverage remains in progress."
+      ]
+    },
+    {
+      "id": "rogue-scholar",
+      "name": "Rogue Scholar",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Rogue Scholar O.C.C. Skills and Abilities",
+        "pages": [
+          93,
+          94,
+          95
+        ],
+        "pdf_pages": [
+          96,
+          97,
+          98
+        ]
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "MA": {
+          "count": 0,
+          "sides": 6,
+          "constant": 2
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Rogue Scholar O.C.C. Skills and Abilities",
+        "pages": [
+          93,
+          94,
+          95
+        ],
+        "pdf_pages": [
+          96,
+          97,
+          98
+        ]
+      },
+      "automation_gaps": [
+        "Eligibility guidance: I.Q. 10 and M.A. 10; no racial restriction.",
+        "Teaching, discounts, alien penalties and conditional activities use source descriptions. General insanity is excluded.",
+        "Human is the reviewed racial path. Broader equipment, weapon and racial catalogs remain in progress."
+      ]
+    },
+    {
+      "id": "rogue-scientist",
+      "name": "Rogue Scientist",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Rogue Scientist O.C.C. Skills and Abilities",
+        "pages": [
+          95,
+          96
+        ],
+        "pdf_pages": [
+          98,
+          99
+        ]
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "count": 0,
+          "sides": 6,
+          "constant": 2
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Rogue Scientist O.C.C. Skills and Abilities",
+        "pages": [
+          95,
+          96
+        ],
+        "pdf_pages": [
+          98,
+          99
+        ]
+      },
+      "automation_gaps": [
+        "Eligibility guidance: I.Q. 12; no racial restriction.",
+        "Teaching, discounts, alien penalties and conditional activities use source descriptions. General insanity is excluded.",
+        "Human is the reviewed racial path. Broader equipment, weapon and racial catalogs remain in progress."
+      ]
+    },
+    {
+      "id": "body-fixer",
+      "name": "Body Fixer (wandering)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ]
+      },
+      "attribute_bonuses": {
+        "MA": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PS": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PP": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PE": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ]
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.10 or higher; high P.P./M.A. suggested. No racial restriction.",
+        "Human creation is reviewed; broader racial paths and equipment/proficiency catalogs remain open.",
+        "City/Burbs and wandering are source lifestyle variants of Body Fixer; choose the matching retained creation profile."
+      ]
+    },
+    {
+      "id": "body-fixer-city",
+      "name": "Body Fixer (city/Burbs)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ]
+      },
+      "attribute_bonuses": {
+        "MA": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PS": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PP": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        },
+        "PE": {
+          "count": 0,
+          "sides": 6,
+          "constant": 1
+        }
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ]
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.10 or higher; high P.P./M.A. suggested. No racial restriction.",
+        "Human creation is reviewed; broader racial paths and equipment/proficiency catalogs remain open.",
+        "City/Burbs and wandering are source lifestyle variants of Body Fixer; choose the matching retained creation profile."
+      ]
+    }
+  ],
+  "creation_profile_format": "paired-v1",
+  "creation_profiles": [
+    {
+      "race": "human",
+      "classes": [
+        "vagabond",
+        "city-rat",
+        "wilderness-scout",
+        "rogue-scholar",
+        "rogue-scientist",
+        "body-fixer",
+        "body-fixer-city"
+      ],
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Human creation: reviewed ordinary adventuring class paths",
+        "pages": [
+          87,
+          88,
+          89,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100
+        ],
+        "pdf_pages": [
+          90,
+          91,
+          92,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103
+        ]
+      }
+    }
+  ]
+}

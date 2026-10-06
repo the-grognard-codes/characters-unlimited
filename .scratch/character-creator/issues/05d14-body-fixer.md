@@ -1,0 +1,11 @@
+# 05D14: Body Fixer creation
+
+Status: in-progress. Branch codex/rifts-body-fixer, base3b4e342. Canonical owner02b11-rue-body-fixer remains stable. Original RUE printed87-88/PDF90-91, medical equipment263/PDF266, surgical tool269/PDF272 and XP295/PDF298 reviewed. Source fingerprints remain those in the owner ticket.
+
+Implement both wandering and city/Burbs source lifestyles through explicit owned declarations, preserving exact saved pins and earlier accepted archive bytes. Human Body Fixer has IQ10 eligibility guidance, MA/PS/PP/PE+1, class SDC1D6+4 and source saves/combat/perception. Required Athletics or Body Building must acquire actual retained Physical effects once, survive swap/reselection without rerolls and reconcile duplicate optional training. Source required language/literacy/Pilot and Medical skills, eleven related with three additional Medical, two-choice awards, six secondary and XP project through shared contracts. No automatic hand-to-hand: Basic/Expert cost1/2; fixed Knife receives its own source strike+1.
+
+Disease diagnosis adds20 only to Medical Doctor primary check; Treatment and Animal Treatment do not inherit it. Conditional cure/medical-sensor/perception and alien effects remain source descriptions. General insanity is excluded. Source counts and eligibility remain honor-system guidance.
+
+Retain original funds and item rolls. Both source lifestyles, matching commercial transport or riding horse, light armor, actual medical equipment, fixed tools, proficiency weapons and source spare clips need declarations. Wilks laser scalpel is gear, with source settings described; no weapon misclassification. New immutable archives only.
+
+Public workflow tests cover required Physical choice cache, duplicate selections, undo/reopen/portable pins, primary-versus-treatment expected values, learning/advancement, source lifestyle funds and inventory receipts. Preflight every unselected declaration before dice. Actual browser and fully rendered editable PDF evidence, focused/typing/static/full Windows/frozen validation, both independent review axes and both exact-head hosted gates precede merge. Broader classes/races/RCC, ability families and construction remain open.

@@ -965,7 +965,13 @@ class CharacterApplication:
         character = self.get(identifier)
         pack = self.character_skill_pack(character)
         choices = validate_required_choices(choices, pack)
-        return self.store.update(identifier, self._learning_changes(character, {'required_skill_choices': choices}, pack), require_revision(revision))
+        require_revision(revision)
+        if revision != character['revision']:
+            raise SaveConflict('This character changed. Reopen it before selecting skills.')
+        candidate = {**character, 'required_skill_choices': choices}
+        changes = acquire_physical(candidate, character.get('skill_selections', []), pack, self.die)
+        return self.store.update(identifier, self._learning_changes(character,
+            {'required_skill_choices': choices, **changes}, pack), revision)
 
     def edit(self, identifier, *, name=None, notes=None, revision=None):
         changes = {}

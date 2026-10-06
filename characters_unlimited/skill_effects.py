@@ -28,7 +28,7 @@ def compile_skill_effects(effects, catalog):
     for effect in effects:
         if (not isinstance(effect, dict) or
                 not {'id', 'name', 'operation', 'amount', 'selector', 'source'} <= set(effect) or
-                set(effect) - {'id', 'name', 'operation', 'amount', 'selector', 'source', 'selection_pool'} or
+                set(effect) - {'id', 'name', 'operation', 'amount', 'selector', 'source', 'selection_pool', 'check_names'} or
                 any(not isinstance(effect[key], str) or not effect[key].strip() for key in ('id', 'name')) or
                 effect['id'] in identifiers or effect['operation'] != 'add' or
                 type(effect['amount']) is not int or abs(effect['amount']) > MAX_INTEGER):
@@ -39,8 +39,22 @@ def compile_skill_effects(effects, catalog):
         if (not isinstance(source, dict) or any(not isinstance(source.get(key), str) or
                 not source[key].strip() for key in ('book', 'section'))):
             raise ValueError('Skill effects need book and section evidence')
+        selected = select_options(effect['selector'], catalog)
+        if 'check_names' in effect:
+            names = effect['check_names']
+            if (not isinstance(names, list) or not 1 <= len(names) <= 1000 or
+                    any(not isinstance(name, str) or not name for name in names) or
+                    len(set(names)) != len(names) or not selected):
+                raise ValueError('Scoped skill effects need distinct known normal check names')
+            for row in catalog:
+                if row['id'] not in selected:
+                    continue
+                known = {'primary', *[check['name'] for check in row.get('additional_checks', [])
+                    if 'context_of' not in check and check.get('bonus_policy') != 'intelligence-only']}
+                if set(names) - known:
+                    raise ValueError('Scoped skill effects must target known normal checks')
         identifiers.add(effect['id'])
-        result.append({**deepcopy(effect), 'skill_ids': select_options(effect['selector'], catalog)})
+        result.append({**deepcopy(effect), 'skill_ids': selected})
     return result
 
 
@@ -50,6 +64,7 @@ def pack_skill_effects(pack):
 
 def matching_skill_effects(identifier, effects, *, selection_pool=None):
     return [{'id': effect['id'], 'name': effect['name'], 'value': effect['amount'],
-             'source': deepcopy(effect['source'])}
+             'source': deepcopy(effect['source']),
+             **({'check_names': list(effect['check_names'])} if 'check_names' in effect else {})}
             for effect in effects if identifier in effect['skill_ids'] and
             ('selection_pool' not in effect or effect['selection_pool'] == selection_pool)]

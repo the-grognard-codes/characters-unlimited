@@ -16,7 +16,7 @@ def class_numeric_contributions(pack, *, level=1):
         raise ValueError('Unsupported class numeric bonus declaration')
     targets = {'saving:' + row['id'] for row in pack.get('attribute_saves', {}).get('definitions', [])}
     targets.add('perception')
-    targets.update('combat:' + key for key in ('initiative', 'roll_with_impact'))
+    targets.update('combat:' + key for key in ('initiative', 'roll_with_impact', 'dodge', 'disarm'))
     combat = rules.get('combat', {})
     if not isinstance(combat, dict) or any(not isinstance(key, str) for key in combat):
         raise ValueError('Class combat additions require supported targets')

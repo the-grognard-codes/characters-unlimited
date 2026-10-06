@@ -1,6 +1,8 @@
 """Resolve a class's reviewed rules while retaining the shared pack identity."""
 
 from copy import deepcopy
+from functools import lru_cache
+import json
 from .profile_composition import compose_owned_profile
 from .profile_preflight import preflight_owned_profiles
 from .class_contributions import class_numeric_contributions
@@ -24,15 +26,25 @@ PROFILE_FIELD_TYPES = {field: (str if field in {'name', 'path_name'} else
                        for field in PROFILE_FIELDS}
 
 
+@lru_cache(maxsize=16)
+def _validated_owned_profile(encoded, identifier):
+    """Cache only immutable bytes; every content change gets its own preflight."""
+    result = compose_owned_profile(json.loads(encoded), identifier, PROFILE_FIELD_TYPES)
+    for identity, profile in result['class_profiles'].items():
+        if any(profile[field].get('class_id') != identity for field in ('class_bonuses', 'advancement')):
+            raise ValueError(identity + ' class-specific rules must identify their owner')
+    preflight_owned_profiles(result)
+    return json.dumps(result, sort_keys=True, ensure_ascii=False, allow_nan=False).encode('utf-8')
+
+
 def class_rules(pack, character):
     identifier = character['character_class']
     if 'class_profile_format' in pack:
-        result = compose_owned_profile(pack, identifier, PROFILE_FIELD_TYPES)
-        for identity, profile in result['class_profiles'].items():
-            if any(profile[field].get('class_id') != identity for field in ('class_bonuses', 'advancement')):
-                raise ValueError(identity + ' class-specific rules must identify their owner')
-        preflight_owned_profiles(result)
-        return result
+        try:
+            encoded = json.dumps(pack, sort_keys=True, ensure_ascii=False, allow_nan=False).encode('utf-8')
+        except (ValueError, TypeError, RecursionError) as error:
+            raise ValueError('Owned class rules must be portable declarations') from error
+        return json.loads(_validated_owned_profile(encoded, identifier))
     # Validate the raw legacy owners before an overlay can hide the default declarations.
     training_rules(pack)
     for owner in [pack, *pack.get('class_profiles', {}).values()]:

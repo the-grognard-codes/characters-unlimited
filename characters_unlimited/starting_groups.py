@@ -64,7 +64,7 @@ def starting_group_rules(character, pack, elective_count=None):
             raise ValueError('Starting proficiency groups need a bounded elective slot')
         if 'repeat_for_proficiencies' in group:
             minimum = group['repeat_for_proficiencies']
-            if (type(minimum) is not int or not 1 <= minimum <= MAX_QUANTITY or
+            if (type(minimum) is not int or not 0 <= minimum <= MAX_QUANTITY or
                     'proficiency_slot' in group or not group.get('option_requirements')):
                 raise ValueError('Repeated proficiency equipment needs a bounded minimum and training requirements')
             for other in rules['groups']:

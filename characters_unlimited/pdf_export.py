@@ -287,14 +287,15 @@ def fill_equipment(page, equipment, values):
                   ((37.451,311.64),(121.168,311.759),(147.677,311.759),(178.986,311.76),(60.731,303.032))]
     for item, cells in zip(weapons,rectangles):
         melee = item.get('weapon_kind') == 'melee'
+        descriptive = item.get('weapon_kind') == 'descriptive'
         active = next((attack for attack in equipment['melee_attacks']
                        if attack['possession_id'] == item['id']), None)
         damage = active['damage'] if active else item['damage']
         if 'Pending' in damage:
             damage = ''
         for position, value in zip(cells,[item['name'],'Melee' if melee else str(item['range_feet'])+' ft',
-                                       '' if melee else str(item['shots'])+'/'+str(item['capacity']),damage,
-                                       ('' if melee else 'Standard E-Clip; ')+str(item['quantity'])+' item(s), '+item['location']]):
+                                       '' if melee or descriptive else str(item['shots'])+'/'+str(item['capacity']),damage,
+                                       ('' if melee or descriptive else 'Standard E-Clip; ')+str(item['quantity'])+' item(s), '+item['location']]):
             cell(*position,value)
     personal_gear = [item for item in equipment['items'] if item['category'] in ('gear', 'ammunition')]
     gear_rows = [202.44,193.44,185.52,177,168,159.48,150.96,143.04,134.52,125.52,
@@ -305,7 +306,10 @@ def fill_equipment(page, equipment, values):
     armor = equipment['armor']
     if len(armor)==1 and armor[0]['quantity']==1:
         item = armor[0]
-        values.update({'ARMOR':item.get('sheet_name',item['name']),'COST':str(item['cost_credits']),
+        price_range = item.get('cost_credits_range')
+        cost = (str(item['cost_credits']) if item['cost_credits'] is not None else
+                str(price_range['min'])+'–'+str(price_range['max']) if price_range else 'Unspecified')
+        values.update({'ARMOR':item.get('sheet_name',item['name']),'COST':cost,
                        'WEIGHT 1':str(item['weight_lbs'])+' lb',
                        'undefined_7':str(item['locations']['main_body']),
                        'undefined_8':str(item['locations']['main_body'])})
@@ -492,9 +496,12 @@ def export_rifts_sheet(character, core, skills, combat):
             if item['category']=='weapon':
                 if item.get('weapon_kind') == 'melee':
                     sheet_notes += ' Base damage '+item['damage']+'; melee weapon. Equipped totals follow below.'
+                elif item.get('weapon_kind') == 'descriptive':
+                    sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
+                                    ' m. '+item.get('description', ''))
                 else:
                     sheet_notes += (' '+item['damage']+'; range '+str(item['range_feet'])+' ft / '+str(item['range_meters'])+
-                                    ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'.')
+                                    ' m; shots per item '+str(item['shots'])+'/'+str(item['capacity'])+'. '+item.get('description', ''))
             elif item['category'] == 'ammunition':
                 sheet_notes += ' '+str(item['shots'])+'/'+str(item['capacity'])+' shots per clip with reviewed compatible weapons: '+', '.join(item['compatible_weapons'])+'.'
             elif item['category'] == 'armor':

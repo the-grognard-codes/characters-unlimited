@@ -35,3 +35,5 @@ Code/data review identified two P2 findings: copied class Hand to Hand provenanc
 ## Spec
 
 Code/source-data review approves with zero actionable findings. Conditional saves remain explicit descriptions as allowed by the amendment. Final46-file snapshot and UI/PDF artifact review approves with zero findings. Focused final review of the late portable assertions, settled expanded screenshots and reconciled receipts approves with zero actionable findings.
+
+05D18 done. PR130 merged as `54e3458a77b76a66448bd1241637a157dd3df5c9` at 2026-10-06T16:51:15Z; reviewed head `5489fd533c139a0e98a2055feafb3ff5bae9e51f`. Both independent axes approve. Exact-head push37491848916 passes647 tests in2915.776s/frozen92.620s; PR37491886830 passes647 tests in1912.845s/frozen51.729s. Both pass typing193, static checks, Windows build and artifact gates. Local647 tests1839.429s/frozen76.349s and actual packaged/portable/all22-page editable PDF acceptance pass. Broader class/race/RCC, magic/HU, equipment, saved identity revision and robot/bionic construction requirements remain open; the full amended build is incomplete.

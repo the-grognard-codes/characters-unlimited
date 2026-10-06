@@ -30,6 +30,12 @@ Equipment 1.4.0 adds `ammunition` with per-item `shots` 0..20, unknown weight an
 
 Grouped possessions expose an explicit separate-one action. It retains the original row with quantity reduced by one and appends a fresh-ID quantity-one row with the same location, equipped state and shots. Inventory bounds and saved revisions protect the entire atomic edit; credits and original starting-grant receipts stay unchanged.
 
+## Descriptive weapons (05D19)
+
+Explicit `weapon_kind: descriptive` weapons retain reviewed damage, range, source descriptions and editable quantities. They have no shot counter, gun capacity, proficiency or aimed bonus. Unselected invalid declarations reject during catalog preflight before generation draws dice. Saved or imported numeric shots are invalid. Equipping one retains its possession state without inventing gun or melee attack totals; stored weapons remain recorded. Grenade blast and consumption remain source descriptions and manual quantity edits.
+
+The builder shows each possession's description and offers reload only for ranged guns. Editable sheets show descriptive weapon damage/range/quantity and source effects without fabricated clip or attack values. Armor projection retains declared source price ranges; a single equipped armor unit displays its fixed price, reviewed range or an explicit unspecified value. Price presentation does not charge for original class grants.
+
 ## Starting equipment choices (08B3A)
 
 Equipment1.5.0 adds four class choice groups plus a gun-to-spare-clip mapping. `grant_starting_choices` records original selections and five quantity-one UUID grants atomically without charging credits. Armor/gun/knife/clip are carried and unequipped; transport starts stored. Full reviewed shots are set for gun/clip. The original receipt is independent of current inventory, including manual edits, storage, split/removal and import/reopen. It cannot regenerate. Exact accepted rules validate selection categories and clip compatibility; recorded rule changes require a future receipt migration.

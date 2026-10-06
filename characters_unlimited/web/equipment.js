@@ -58,7 +58,7 @@ async function loadEquipment(character) {
     const row = document.createElement('li'); row.textContent = message; return row;
   }));
   filterEquipmentCatalog();
-  const reloadable = view.items.filter(item => item.category === 'weapon' && item.weapon_kind !== 'melee' && item.location === 'carried' && item.quantity === 1);
+  const reloadable = view.items.filter(item => item.category === 'weapon' && (item.weapon_kind || 'ranged') === 'ranged' && item.location === 'carried' && item.quantity === 1);
   $('reload-weapon-choice').replaceChildren(...reloadable.map(item => {
     const option = document.createElement('option'); option.value = item.id; option.textContent = `${item.name} · ${item.shots}/${item.capacity} shots`; return option;
   }));
@@ -107,7 +107,9 @@ async function loadEquipment(character) {
       inventory.items = inventory.items.filter(entry => entry.id !== item.id);
       characterAction('equipment',{inventory}).catch(showError);
     };
-    row.append(heading,source,form); return row;
+    const description = document.createElement('p'); description.className = 'help';
+    description.textContent = item.description || '';
+    row.append(heading,source,description,form); return row;
   }));
   const explanations = [];
   for (const attack of view.attacks) {

@@ -136,7 +136,8 @@ def project_skills(character, pack=PACK):
     for item in selections:
         key = skill_key(item, pack)
         definition = next(skill for skill in domestic if skill['id'] == item['skill_id'])
-        bonuses[key] = max(bonuses.get(key, 0), selection_policy(definition, item['pool'], pack)['bonus'])
+        selection_bonus = selection_policy(definition, item['pool'], pack)['bonus']
+        bonuses[key] = max(bonuses.get(key, selection_bonus), selection_bonus)
     required = project_required_skills(character, pack, intelligence)
     roots = [{'id': grant['id'], 'learned_level': 1} for grant in domestic_grants]
     roots.extend({**row, 'learned_level': 1} for row in required['grants'])

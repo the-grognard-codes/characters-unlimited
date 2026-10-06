@@ -3609,6 +3609,11 @@
           "skill_id": "excavation",
           "name": "Excavation",
           "amount": 5
+        },
+        {
+          "skill_id": "climbing",
+          "name": "Climbing",
+          "amount": 5
         }
       ]
     },
@@ -4951,7 +4956,23 @@
       "combat": {},
       "prerequisites": [],
       "description": "Requires W.P. Sword; W.P. Knife is optional. While using a sword or dagger: +1 strike and parry. Sword damage gains +1D6. These weapon-specific bonuses are not added to standing hand-to-hand totals.",
-      "notes": []
+      "notes": [],
+      "weapon_prerequisites": [
+        {
+          "family": "ancient",
+          "id": "sword",
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Fencing",
+            "pages": [
+              316
+            ],
+            "pdf_pages": [
+              319
+            ]
+          }
+        }
+      ]
     }
   ],
   "pools": {

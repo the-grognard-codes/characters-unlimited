@@ -1,4 +1,5 @@
 from io import BytesIO
+from copy import deepcopy
 import tempfile
 import unittest
 from pypdf import PdfReader
@@ -11,6 +12,43 @@ def choices(*ids,pool='related'):
 
 
 class RemainingPhysicalWorkflowTests(unittest.TestCase):
+    def test_climbing_improves_spelunking_once_and_removal_restores(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:4);hero=app.create()
+            hero=app.select_skills(hero['id'],revision=0,selections=choices('spelunking','climbing','climbing'))
+            row=app.skill_view(hero['id'])['selected'][0]
+            self.assertEqual(row['percentage'],40);self.assertEqual(row['contributions']['Climbing'],5)
+            hero=app.select_skills(hero['id'],revision=hero['revision'],selections=choices('spelunking'))
+            self.assertEqual(app.skill_view(hero['id'])['selected'][0]['percentage'],35)
+
+    def test_weapon_prerequisite_tracks_combat_training_without_granting_it(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,die=lambda sides:4);hero=app.create()
+            hero=app.select_skills(hero['id'],revision=0,selections=choices('fencing'))
+            self.assertTrue(any('Fencing: missing prerequisite W.P. Sword' in note for note in app.skill_view(hero['id'])['warnings']))
+            hero=app.select_combat(hero['id'],revision=hero['revision'],choices={'ancient':['sword','sword']})
+            self.assertFalse(any('Fencing: missing prerequisite' in note for note in app.skill_view(hero['id'])['warnings']))
+            imported=app.import_character(app.export_character(hero['id']))
+            self.assertFalse(any('Fencing: missing prerequisite' in note for note in CharacterApplication(directory).skill_view(imported['id'])['warnings']))
+            app.select_combat(hero['id'],revision=hero['revision'],choices={})
+            self.assertTrue(any('Fencing: missing prerequisite' in note for note in app.skill_view(hero['id'])['warnings']))
+
+    def test_invalid_weapon_prerequisites_reject_before_initial_dice(self):
+        installed=RuleArchive.load()
+        accepted=next(pack for pack in installed.definitions() if pack['id']=='rifts-domestic-skills' and pack['version']==installed.active_versions()['rifts-domestic-skills'])
+        for change in [{'family':'unknown'},{'id':'absent'},{'source':{}},{'extra':True}]:
+            pack=deepcopy(accepted);pack['version']='9.99.0'
+            next(row for row in pack['skills'] if row['id']=='fencing')['weapon_prerequisites'][0].update(change)
+            archive=RuleArchive(installed.definitions()+[pack],{**installed.active_versions(),pack['id']:pack['version']})
+            with self.subTest(change=change),tempfile.TemporaryDirectory() as directory:
+                draws=[]
+                def die(sides):
+                    draws.append(sides)
+                    return 4
+                app=CharacterApplication(directory,die=die,rule_archive=archive)
+                with self.assertRaises(ValueError):app.create()
+                self.assertEqual(draws,[])
+
     def test_normal_checks_iq_and_class_training(self):
         with tempfile.TemporaryDirectory() as directory:
             app=CharacterApplication(directory,die=lambda sides:4)

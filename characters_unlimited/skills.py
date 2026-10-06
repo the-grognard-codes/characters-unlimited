@@ -4,7 +4,7 @@ from collections import Counter
 import json
 from pathlib import Path
 from .required_skills import project_required_skills
-from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids, specialty_key
+from .skill_choices import needs_specialty, selection_policy, choice_guidance, learned_selection_ids, specialty_key, weapon_prerequisites
 from .proficiency import synergy_contributions, project_proficiency
 from .combat import combat_skill_cost
 from .physical import project_physical
@@ -25,6 +25,7 @@ def optional_pool_groups(pack):
     skill_grant_rules(pack)
     for definition in pack['skills']:
         attribute_bonus_rules(definition)
+        weapon_prerequisites(definition, pack)
     identifiers = [definition['id'] for definition in pack['skills']]
     for categories in pack.get('selection_rules', {}).values():
         for rule in categories.values():
@@ -152,7 +153,8 @@ def project_skills(character, pack=PACK):
     physical = project_physical(character,pack)
     automatic_physical = [{**item, 'quality':'trained'} for item in physical['selected'] if item.get('grant')]
     warnings = choice_guidance(selections, pack, [*required['grants'], *automatic_physical,
-        *[{'id': identifier, 'grant_origins': row['origins']} for identifier, row in derived.items()]])
+        *[{'id': identifier, 'grant_origins': row['origins']} for identifier, row in derived.items()]],
+        combat_choices=character.get('combat_choices', {}))
     available = learned_selection_ids(selections, pack)
     available.update(granted)
     available.update(derived)

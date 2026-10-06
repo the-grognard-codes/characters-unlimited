@@ -4,12 +4,12 @@ function setPsionicsBusy() {
   document.querySelectorAll('#psionics-panel button, #psionics-panel input, #psionics-panel select')
     .forEach(element => element.disabled = navigationBusy || !psionicReady || element.dataset.retained === 'yes');
 }
-async function savePsionics(choices) {
+async function savePsionics(choices, source = 'psionics') {
   if (navigationBusy || !psionicReady) return;
   lockNavigation(true);
   try {
     await flushSave();
-    const result = await request(`/api/characters/${current.id}/psionics`, {revision:current.revision, ...choices});
+    const result = await request(`/api/characters/${current.id}/${source}`, {revision:current.revision, ...choices});
     render(result);
   } catch (error) { showError(error); }
   finally { lockNavigation(false); }
@@ -75,5 +75,46 @@ async function loadPsionics(character) {
       categories:[...document.querySelectorAll('#psionic-categories input:checked')].map(row => row.value),
       selections:[...document.querySelectorAll('#psionic-options input:checked')].map(row => row.value)});
   };
+  renderClassPsionics(view);
   psionicReady = true; setPsionicsBusy();
+}
+
+function renderClassPsionics(view) {
+  const entitlement = view.class_entitlement;
+  if (!entitlement) return;
+  const section = document.createElement('section'); section.id = 'class-psionics';
+  const heading = document.createElement('h3'); heading.textContent = entitlement.name;
+  const summary = document.createElement('p');
+  summary.textContent = `${entitlement.path} · psychic save target ${view.effective.save_target} · ` +
+    Object.values(view.effective.resources).map(row => `${row.name}: ${row.value}`).join(' · ');
+  const guidance = document.createElement('p'); guidance.className = 'help';
+  guidance.textContent = [...view.effective.guidance, ...entitlement.guidance].join(' ');
+  const form = document.createElement('form');
+  for (const ability of entitlement.catalog) {
+    const details = document.createElement('details');
+    const title = document.createElement('summary');
+    const input = document.createElement('input'); input.type = 'checkbox'; input.value = ability.id;
+    input.checked = entitlement.state.abilities.selections.includes(ability.id);
+    input.setAttribute('aria-label', `Class power: ${ability.name}`);
+    input.onclick = event => event.stopPropagation();
+    const cost = entitlement.choice_costs[ability.id] || 1;
+    title.append(input, document.createTextNode(` ${ability.name} · ${cost} choice${cost === 1 ? '' : 's'}`));
+    const description = document.createElement('p'); description.textContent = ability.description;
+    const metadata = document.createElement('p'); metadata.className = 'help';
+    metadata.textContent = (ability.parameters || []).map(row => `${row.name}: ${row.text}`).join(' · ');
+    const proof = document.createElement('p'); proof.className = 'help';
+    proof.textContent = `${ability.source.book} · ${ability.source.section}`;
+    const selected = entitlement.abilities.find(row => row.id === ability.id);
+    const requirements = document.createElement('p'); requirements.className = 'help';
+    requirements.textContent = (selected?.requirements || []).map(row => row.text +
+      (row.satisfied ? ' (met)' : ' (still needed)')).join(' · ');
+    details.append(title, description, metadata, requirements, proof); form.append(details);
+  }
+  const submit = document.createElement('button'); submit.type = 'submit';
+  submit.textContent = 'Save class power choices'; form.append(submit);
+  form.onsubmit = event => {
+    event.preventDefault();
+    savePsionics({selections:[...form.querySelectorAll('input:checked')].map(row => row.value)}, 'class-psionics');
+  };
+  section.append(heading, summary, guidance, form); $('psionics-panel').append(section);
 }

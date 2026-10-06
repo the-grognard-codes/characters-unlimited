@@ -74,7 +74,7 @@ class LightArmorTests(unittest.TestCase):
             self.assertEqual(current.equipment_view(hero['id'])['armor'][0]['locations']['main_body'],35)
             self.assertIn('urban-warrior',[item['id'] for item in current.equipment_view(hero['id'])['catalog']])
             imported=current.import_character(current.export_character(hero['id']))
-            self.assertEqual(imported['additional_rule_packs']['rifts-equipment'],'1.15.0')
+            self.assertEqual(imported['additional_rule_packs']['rifts-equipment'],'1.16.0')
 
     def test_huntsman_movement_penalty_does_not_assert_an_unreviewed_prowl_penalty(self):
         with tempfile.TemporaryDirectory() as directory:

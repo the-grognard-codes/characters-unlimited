@@ -8,7 +8,7 @@ from .json_data import canonical
 from .level_resource_gains import level_gain_definitions, level_gain_fields, validate_level_resource_gains
 from .retained_acquisitions import validate_acquisition_catalog
 from .resources import acquire_resources, validate_resource_rules, validate_resources, project_resources
-from .selection_groups import project_group, validate_allowance
+from .selection_groups import project_group, validate_allowance, validate_group
 
 
 def _no_die(sides):
@@ -28,9 +28,11 @@ def _context(character):
 
 
 def compile_paths(pack, character):
+    fixed = isinstance(pack, dict) and pack.get('format') == 'ability-paths-v2'
+    origin_field = 'fixed_path' if fixed else 'chance_table'
     if (not isinstance(pack, dict) or set(pack) != {'id', 'version', 'name', 'game', 'source',
-            'format', 'categories', 'catalog', 'chance_table', 'skip_path', 'paths'} or
-            pack['format'] != 'ability-paths-v1' or pack['game'] != character['game'] or
+            'format', 'categories', 'catalog', origin_field, 'skip_path', 'paths'} or
+            pack['format'] not in ('ability-paths-v1', 'ability-paths-v2') or pack['game'] != character['game'] or
             any(not isinstance(pack[key], str) or not pack[key].strip() for key in ('id', 'version', 'name'))):
         raise ValueError('Unsupported source-bound ability path catalog')
     _source(pack)
@@ -57,16 +59,24 @@ def compile_paths(pack, character):
                 any(not isinstance(key, str) or not key for key in allowances)):
             raise ValueError('Ability path modes need named allowances')
         for allowance in allowances.values():
-            if not isinstance(allowance, dict) or set(allowance) != {'count', 'minimum_categories', 'maximum_categories'}:
+            required = {'count', 'minimum_categories', 'maximum_categories'}
+            if (not isinstance(allowance, dict) or not required <= set(allowance) or
+                    set(allowance) - (required | ({'costs', 'milestones'} if fixed else set()))):
                 raise ValueError('Invalid path category allowance')
-            for value in allowance.values():
-                validate_allowance(value)
+            for key in required:
+                validate_allowance(allowance[key])
             if not 0 <= allowance['minimum_categories'] <= allowance['maximum_categories'] <= len(categories):
                 raise ValueError('Invalid path category range')
+            _selection_allowance(pack, allowance, 1000)
         resources = validate_resource_rules({'resources': row['resources']}) if row['resources'] is not None else {}
         level_gain_definitions({'resource_gains': row['growth']}, resources)
         validate_acquisition_catalog({'growth': {key: value['formula'] for key, value in row['growth'].items()}})
         paths[row['id']] = row
+    if fixed:
+        if (not isinstance(pack['fixed_path'], str) or pack['fixed_path'] not in paths or
+                not isinstance(pack['skip_path'], str) or pack['skip_path'] not in paths):
+            raise ValueError('Fixed ability paths need explicit known identities')
+        return paths
     table = pack['chance_table']
     if not isinstance(table, list) or not 1 <= len(table) <= 100:
         raise ValueError('Ability paths need a bounded percentile table')
@@ -85,6 +95,10 @@ def compile_paths(pack, character):
 
 
 def _path(pack, paths, face):
+    if pack['format'] == 'ability-paths-v2':
+        if face is not None:
+            raise ValueError('Fixed entitlements cannot contain a percentile receipt')
+        return paths[pack['fixed_path']]
     if face is None:
         return paths[pack['skip_path']]
     if type(face) is not int or not 1 <= face <= 100:
@@ -92,9 +106,33 @@ def _path(pack, paths, face):
     return paths[next(row['path'] for row in pack['chance_table'] if face <= row['maximum'])]
 
 
+def _selection_allowance(pack, allowance, level):
+    milestones = allowance.get('milestones', {})
+    if (not isinstance(milestones, dict) or len(milestones) > 999 or
+            any(not isinstance(key, str) or not key.isascii() or not key.isdigit() or
+                str(int(key)) != key or not 2 <= int(key) <= 1000 or
+                type(value) is not int or not 0 <= value <= 1000 for key, value in milestones.items())):
+        raise ValueError('Ability choice milestones need exact supported levels and counts')
+    count = allowance['count'] + sum(value for key, value in milestones.items() if int(key) <= level)
+    group = {'count': count, 'option_ids': [row['id'] for row in pack['catalog']['options']]}
+    if 'costs' in allowance:
+        group['costs'] = allowance['costs']
+    validate_group(group)
+    return group
+
+
 def _pin(pack):
     return {'id': pack['id'], 'version': pack['version'],
             'sha256': hashlib.sha256(canonical(pack)).hexdigest()}
+
+
+def retain_path_growth(events, field, state):
+    """Complete newly generated before-frames with the path's recorded gains."""
+    for event in events:
+        before = event['before']
+        prior = before.get(field)
+        if prior is not None and any(str(level) not in prior['gains'] for level in range(2, before['level'] + 1)):
+            before[field] = {**deepcopy(prior), 'gains': deepcopy(state['gains'])}
 
 
 def _validate(pack, paths, character, state, *, require_attained=True):
@@ -138,6 +176,8 @@ def update_path(character, pack, state, die, *, roll=False, enabled=True,
     paths = compile_paths(pack, character)
     if type(roll) is not bool or type(enabled) is not bool:
         raise ValueError('Path potential and enabled choices must be boolean')
+    if roll and pack['format'] == 'ability-paths-v2':
+        raise ValueError('Fixed entitlements do not roll psychic potential')
     if state is not None:
         _validate(pack, paths, character, state, require_attained=False)
     previous = deepcopy(state)
@@ -192,16 +232,24 @@ def project_path(character, pack, state):
     allowance = path['allowances'][state['mode']]
     options = [option['id'] for option in pack['catalog']['options']
                if set(option['tags']).intersection(state['categories'])]
-    group = project_group({'count': allowance['count'], 'option_ids': options}, state['abilities']['selections'])
+    unpartitioned = pack['format'] == 'ability-paths-v2' and allowance['minimum_categories'] == 0
+    if unpartitioned:
+        options = [option['id'] for option in pack['catalog']['options']]
+    selection = {**_selection_allowance(pack, allowance, character['level']), 'option_ids': options}
+    if 'costs' in selection:
+        selection['costs'] = {key: value for key, value in selection['costs'].items() if key in options}
+    group = project_group(selection, state['abilities']['selections'])
     category_count = len(state['categories'])
     guidance = [f"{group['remaining']} choices remaining; {category_count} categories selected "
                 f"(expected {allowance['minimum_categories']}–{allowance['maximum_categories']})."]
+    if unpartitioned:
+        guidance = [f"{group['credited']} of {selection['count']} weighted choices used; {group['remaining']} remaining."]
     if group['outside']:
         guidance.append('Choices outside selected categories: ' + ', '.join(group['outside']))
     used_categories = {category for option in pack['catalog']['options']
                        if option['id'] in state['abilities']['selections'] for category in option['tags']}
     unused = [category for category in state['categories'] if category not in used_categories]
-    if unused:
+    if unused and not unpartitioned:
         guidance.append('Selected categories with no chosen powers: ' + ', '.join(unused))
     resources = {}
     if state['enabled'] and state['resource_record'] is not None:
@@ -217,4 +265,6 @@ def project_path(character, pack, state):
             'catalog': deepcopy(pack['catalog']['options']), 'categories': list(pack['categories']),
             'modes': list(path['allowances']), 'abilities': view['abilities'] if state['enabled'] and path['resources'] is not None else [],
             'resources': resources, 'save_target': path['save_target'] if state['enabled'] else paths[pack['skip_path']]['save_target'],
-            'guidance': guidance, 'source': deepcopy(path['source'])}
+            'guidance': guidance, 'source': deepcopy(path['source']),
+            **({'selection_group': group, 'fixed': True, 'choice_costs': deepcopy(allowance.get('costs', {}))}
+               if pack['format'] == 'ability-paths-v2' else {})}

@@ -1,0 +1,917 @@
+{
+  "id": "rifts-operator-psionics",
+  "version": "1.0.0",
+  "name": "Psi-Operator class powers",
+  "game": "rifts",
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Optional Psi-Operator Major entitlement and weighted choices",
+    "pages": [
+      92
+    ],
+    "pdf_pages": [
+      95
+    ]
+  },
+  "format": "ability-paths-v2",
+  "categories": [
+    "Healing",
+    "Physical",
+    "Sensitive",
+    "Super"
+  ],
+  "catalog": {
+    "id": "rifts-operator-psionics-catalog",
+    "version": "1.0.0",
+    "game": "rifts",
+    "format": "abilities-v1",
+    "options": [
+      {
+        "id": "machine-ghost",
+        "name": "Machine Ghost",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Machine Ghost"
+        },
+        "description": "Read electronic information at ten times normal speed, including disks or damaged machines; cannot edit data or enter sentient self-aware machines. The trance leaves the body oblivious and undefended; Telepathy can communicate. Virtual defenders and viruses threaten the projection: virtual death or failure to find the exit before duration ends requires coma/death checks. Breaking ordinary file contact causes one melee at half actions/combat bonuses.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self; computer by touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Three minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "12",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "Not applicable.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            }
+          }
+        ]
+      },
+      {
+        "id": "object-read",
+        "name": "Object Read",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Psi-Operator Object Read restriction; Psionic Powers: Object Read",
+          "pages": [
+            92
+          ],
+          "pdf_pages": [
+            95
+          ]
+        },
+        "description": "Class grant is limited to the history and operation of the device. Hold an object to seek impressions and images of its history and last owner; roll separately for each. Each psychic may read a given object only once, even after failure. A successful impression or image permits a present-time glimpse for an additional 4 ISP, with its own success check. Reading a possessed object exposes the psychic to psychic attacks without saving bonuses.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Touch.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Varies; usually about 2D6 minutes.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "6",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          },
+          {
+            "id": "metadata-4",
+            "name": "Base Skill",
+            "text": "Impressions: 56% +2% per level of experience. Images: 48% +2% per level. Present: 38% +2% per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            }
+          }
+        ]
+      },
+      {
+        "id": "resist-fatigue",
+        "name": "Resist Fatigue",
+        "category": "Healing",
+        "tags": [
+          "Healing",
+          "Physical"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Fatigue"
+        },
+        "description": "A mind over matter discipline which enables the character to engage in physical activity without suffering from exhaustion. However, fatigue is only temporarily suspended, so the psychic feels extremely tired and may even collapse when the duration of this power elapses.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "One hour plus 20 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "text": "1D6 melees of preparatory meditation.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "text": "4",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sense-magic",
+        "name": "Sense Magic",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Magic"
+        },
+        "description": "Sense nearby magic and follow emanations toward the source; identify enchantment or active spellcasting. Invisible magical or supernatural targets locate only to a general area. Psionic effects are excluded.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "120 feet (36.6 m) area.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "2 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "3",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "text": "None.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sense-time",
+        "name": "Sense Time",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Time"
+        },
+        "description": "The psychic is able to accurately measure the passage of time, down to within 1D4 seconds. This can be useful when in an environment where the passage of time can be lost, and especially when the character must meet with or do something at a precise moment in time, like gauging exactly when a bomb will detonate, when a switch must be turned on or off, and so on.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "15 minutes per level of experience.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            }
+          }
+        ]
+      },
+      {
+        "id": "speed-reading",
+        "name": "Speed Reading",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Speed Reading Speed Reading"
+        },
+        "description": "Read 30 pages per minute with normal retention. Highly technical material reduces the rate to 15 pages per minute and may require two readings for detailed recall.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "3 minutes per level.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            }
+          }
+        ]
+      },
+      {
+        "id": "total-recall",
+        "name": "Total Recall",
+        "category": "Sensitive",
+        "tags": [
+          "Sensitive"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Psi-Operator Total Recall cost exception",
+          "pages": [
+            92,
+            177
+          ],
+          "pdf_pages": [
+            95,
+            180
+          ]
+        },
+        "description": "Recall written, visual and spoken information in detail. The class-specific cost is 2 I.S.P. per precisely recalled block. With no I.S.P., roll percentile: 01-50 full detail, 51-80 ideas without details, and 81-100 basic concepts only.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "text": "Self.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            }
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "text": "Permanent.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            }
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "text": "2",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Optional Psi-Operator Major entitlement and weighted choices",
+              "pages": [
+                92
+              ],
+              "pdf_pages": [
+                95
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "electrokinesis",
+        "name": "Electrokinesis",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Electrokinesis",
+          "pages": [
+            178
+          ],
+          "pdf_pages": [
+            181
+          ]
+        },
+        "description": "Control electricity through five distinct applications: electrical resistance, an S.D.C. discharge, an M.D. blast, device controls, and sensing electricity. Resistance ignores up to 60000 volts and halves greater, lightning, and magic electricity. Discharge causes a jolt or up to 1D6 S.D.C.; a blast inflicts 1D6, 2D6, or 3D6 M.D. Device manipulation permits twelve electrical functions per melee without seeing the device. Sense Electricity starts at 55% and gains 5% per additional level; failure senses only 1D6x10% of sources.",
+        "parameters": [
+          {
+            "id": "resistance",
+            "name": "Resistance",
+            "text": "Self; 3 minutes per level; 4 I.S.P.",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Electrokinesis",
+              "pages": [
+                178
+              ],
+              "pdf_pages": [
+                181
+              ]
+            }
+          },
+          {
+            "id": "discharge",
+            "name": "Discharge",
+            "text": "Touch or 2 feet; instant; 2 I.S.P. per discharge",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Electrokinesis",
+              "pages": [
+                178
+              ],
+              "pdf_pages": [
+                181
+              ]
+            }
+          },
+          {
+            "id": "blast",
+            "name": "M.D. blast",
+            "text": "Touch or 10 feet per level; instant; 6/12/18 I.S.P. for 1D6/2D6/3D6 M.D.",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Electrokinesis",
+              "pages": [
+                178
+              ],
+              "pdf_pages": [
+                181
+              ]
+            }
+          },
+          {
+            "id": "devices",
+            "name": "Device controls",
+            "text": "45 feet +5 feet per level; 2 minutes per level; 4 I.S.P.",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Electrokinesis",
+              "pages": [
+                178
+              ],
+              "pdf_pages": [
+                181
+              ]
+            }
+          },
+          {
+            "id": "sense",
+            "name": "Sense electricity",
+            "text": "45 feet +5 feet per level; 2 minutes; 2 I.S.P.",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Electrokinesis",
+              "pages": [
+                178
+              ],
+              "pdf_pages": [
+                181
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "telemechanics",
+        "name": "Telemechanics",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Telemechanics",
+          "pages": [
+            183,
+            184
+          ],
+          "pdf_pages": [
+            186,
+            187
+          ]
+        },
+        "description": "Communicate mentally with a machine and understand its operation. Ordinary machines provide 80% complete mechanical knowledge; artificial intelligence provides 88% skill knowledge of operation, repair, access, and programming. This is a temporary machine-specific psychic understanding, not permanent acquisition of every engineering skill.",
+        "parameters": [
+          {
+            "id": "range",
+            "name": "Range",
+            "text": "Touch or up to 5 feet",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanics",
+              "pages": [
+                183,
+                184
+              ],
+              "pdf_pages": [
+                186,
+                187
+              ]
+            }
+          },
+          {
+            "id": "duration",
+            "name": "Duration",
+            "text": "10 minutes +2 minutes per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanics",
+              "pages": [
+                183,
+                184
+              ],
+              "pdf_pages": [
+                186,
+                187
+              ]
+            }
+          },
+          {
+            "id": "isp",
+            "name": "I.S.P.",
+            "text": "10",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanics",
+              "pages": [
+                183,
+                184
+              ],
+              "pdf_pages": [
+                186,
+                187
+              ]
+            }
+          },
+          {
+            "id": "save",
+            "name": "Saving throw",
+            "text": "None",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanics",
+              "pages": [
+                183,
+                184
+              ],
+              "pdf_pages": [
+                186,
+                187
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "telemechanic-mental-operation",
+        "name": "Telemechanic Mental Operation",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Telemechanic Mental Operation",
+          "pages": [
+            184
+          ],
+          "pdf_pages": [
+            187
+          ]
+        },
+        "description": "Requires Telemechanics. Mentally operate an ordinary machine within range, including controls and activation. Artificial intelligence, cybernetics, bionics, magic items, Rune Weapons, and Techno-Wizard devices are unaffected. Concentration imposes -1 melee attack/action and -5% skill performance; leaving range or losing concentration returns the machine to normal in 1D4 seconds.",
+        "parameters": [
+          {
+            "id": "range",
+            "name": "Range",
+            "text": "20 feet +5 feet per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Mental Operation",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          },
+          {
+            "id": "duration",
+            "name": "Duration",
+            "text": "2 melee rounds per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Mental Operation",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          },
+          {
+            "id": "isp",
+            "name": "I.S.P.",
+            "text": "12",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Mental Operation",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          },
+          {
+            "id": "save",
+            "name": "Saving throw",
+            "text": "Regular non-intelligent machines cannot save",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Mental Operation",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          }
+        ],
+        "requirements": [
+          {
+            "id": "telemechanics-prerequisite",
+            "name": "Telemechanics",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Mental Operation",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            },
+            "selected_options": {
+              "catalog": "abilities",
+              "selector": {
+                "any_of": [
+                  {
+                    "ids": [
+                      "telemechanics"
+                    ]
+                  }
+                ]
+              },
+              "minimum": 1
+            }
+          }
+        ]
+      },
+      {
+        "id": "telemechanic-paralysis",
+        "name": "Telemechanic Paralysis",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Telemechanic Paralysis",
+          "pages": [
+            184
+          ],
+          "pdf_pages": [
+            187
+          ]
+        },
+        "description": "Requires Telemechanics. Freeze an energy-powered machine so controls do not respond. Simple devices without an energy source, cybernetics/bionics attached to living flesh, and magic items/devices are unaffected. Concentration imposes -1 melee attack/action and -5% skill performance; leaving range or losing concentration returns normal function in 1D4 seconds.",
+        "parameters": [
+          {
+            "id": "range",
+            "name": "Range",
+            "text": "40 feet",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Paralysis",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          },
+          {
+            "id": "duration",
+            "name": "Duration",
+            "text": "1 minute per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Paralysis",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          },
+          {
+            "id": "isp",
+            "name": "I.S.P.",
+            "text": "20",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Paralysis",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          },
+          {
+            "id": "save",
+            "name": "Saving throw",
+            "text": "Regular non-intelligent machines cannot save",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Paralysis",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            }
+          }
+        ],
+        "requirements": [
+          {
+            "id": "telemechanics-prerequisite",
+            "name": "Telemechanics",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Telemechanic Paralysis",
+              "pages": [
+                184
+              ],
+              "pdf_pages": [
+                187
+              ]
+            },
+            "selected_options": {
+              "catalog": "abilities",
+              "selector": {
+                "any_of": [
+                  {
+                    "ids": [
+                      "telemechanics"
+                    ]
+                  }
+                ]
+              },
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    ],
+    "groups": []
+  },
+  "fixed_path": "major",
+  "skip_path": "none",
+  "paths": [
+    {
+      "id": "none",
+      "name": "Not psychic",
+      "source": {
+        "book": "Rifts Ultimate Edition",
+        "section": "Step4: Determine Psionics; Psionic Saving Throws"
+      },
+      "save_target": 15,
+      "allowances": {
+        "single": {
+          "count": 0,
+          "minimum_categories": 0,
+          "maximum_categories": 0
+        }
+      },
+      "resources": null,
+      "growth": {}
+    },
+    {
+      "id": "major",
+      "name": "Major class psychic",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Optional Psi-Operator Major entitlement and weighted choices",
+        "pages": [
+          92
+        ],
+        "pdf_pages": [
+          95
+        ]
+      },
+      "save_target": 12,
+      "allowances": {
+        "class": {
+          "count": 3,
+          "minimum_categories": 0,
+          "maximum_categories": 4,
+          "milestones": {
+            "4": 1,
+            "8": 1,
+            "12": 1
+          },
+          "costs": {
+            "electrokinesis": 2,
+            "telemechanic-mental-operation": 2,
+            "telemechanic-paralysis": 2
+          }
+        }
+      },
+      "resources": {
+        "definitions": [
+          {
+            "id": "ISP",
+            "name": "Inner Strength Points",
+            "contributions": [
+              {
+                "id": "starting-ME",
+                "attribute": "ME",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Step 4 Major psychic reserve and later-level growth",
+                  "pages": [
+                    289
+                  ],
+                  "pdf_pages": [
+                    292
+                  ]
+                }
+              },
+              {
+                "id": "starting-dice",
+                "formula": {
+                  "count": 4,
+                  "sides": 6,
+                  "bonus": 0
+                },
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Step 4 Major psychic reserve and later-level growth",
+                  "pages": [
+                    289
+                  ],
+                  "pdf_pages": [
+                    292
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "guidance": [
+          "Starting M.E. is recorded when ISP is first generated."
+        ]
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "count": 1,
+            "sides": 6,
+            "constant": 1
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Step 4 Major psychic reserve and later-level growth",
+            "pages": [
+              289
+            ],
+            "pdf_pages": [
+              292
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

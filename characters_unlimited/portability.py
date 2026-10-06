@@ -4,6 +4,7 @@
 import json
 from .json_data import canonical, MAX_BYTES
 from .ability_paths import project_path
+from .psionic_entitlements import entitlement_dependencies, project_entitlement
 from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
@@ -160,6 +161,11 @@ def validate_character(character, core):
 
 
 def pinned_packs(character, packs, *, include_history=True):
+    """Validate every frame, then isolate each unique definition once."""
+    return [deepcopy(pack) for pack in _pinned_definitions(character, packs, include_history=include_history)]
+
+
+def _pinned_definitions(character, packs, *, include_history=True):
     primary = character.get('rules')
     additional = character.get('additional_rule_packs', {})
     if not isinstance(primary, dict) or not isinstance(additional, dict):
@@ -170,12 +176,18 @@ def pinned_packs(character, packs, *, include_history=True):
     if primary['id'] in pins and pins[primary['id']] != primary['version']:
         raise ValueError('Conflicting rule version pins')
     pins[primary['id']] = primary['version']
+    core = next((pack for pack in packs if pack['id'] == primary['id'] and pack['version'] == primary['version']), None)
+    if core is not None:
+        for dependency in entitlement_dependencies(core):
+            if dependency['id'] in pins and pins[dependency['id']] != dependency['version']:
+                raise ValueError('Class psychic dependency conflicts with saved rule pins')
+            pins[dependency['id']] = dependency['version']
     result = []
     for identifier, version in pins.items():
         match = next((pack for pack in packs if pack['id'] == identifier and pack['version'] == version), None)
         if match is None:
             raise ValueError(f'Unsupported rule version: {identifier} {version}')
-        result.append(deepcopy(match))
+        result.append(match)
     if include_history:
         snapshots: list = []
         if isinstance(character.get('advancement'), dict):
@@ -192,7 +204,7 @@ def pinned_packs(character, packs, *, include_history=True):
                 raise ValueError('Missing advancement snapshot')
             if 'later_advancements' in before:
                 raise ValueError('Later advancement snapshots must stay flat')
-            for pack in pinned_packs(before, packs):
+            for pack in _pinned_definitions(before, packs):
                 if not any(item['id'] == pack['id'] and item['version'] == pack['version'] for item in result):
                     result.append(pack)
     return result
@@ -243,6 +255,19 @@ def primary_pack(character, packs):
 
 def validate_sources(character, packs, *, history_frame=False):
     core = primary_pack(character, packs)
+    def resolve_entitlement(identifier, version):
+        pack = next((row for row in packs if row['id'] == identifier and row['version'] == version), None)
+        if pack is None:
+            raise ValueError('Class psychic dependency must retain its exact source definition')
+        return pack
+    entitlement = project_entitlement(character, core, resolve_entitlement)
+    class_psychic_snapshot = None
+    if entitlement is not None:
+        record = character['class_psionics']['resource_record']
+        if record is not None:
+            class_psychic_snapshot = record['resource_attribute_snapshot']
+            race = next(row for row in core['races'] if row['id'] == character['race'])
+            validate_attributes(class_psychic_snapshot, race)
     psychic_snapshot = None
     if 'psionics' in character:
         version = character.get('additional_rule_packs', {}).get('rifts-natural-psionics')
@@ -410,9 +435,12 @@ def validate_sources(character, packs, *, history_frame=False):
     validate_power_attributes(character, power_pack)
     if psychic_snapshot is not None and physical_pack is not None:
         validate_physical_history(psychic_snapshot, character.get('physical_acquisitions', {}), physical_pack)
+    if class_psychic_snapshot is not None and physical_pack is not None:
+        validate_physical_history(class_psychic_snapshot, character.get('physical_acquisitions', {}), physical_pack)
     records = [character['attributes'], *(event['attributes'] for event in character.get('roll_history', [])),
                *([resource_snapshot] if resource_snapshot is not None else []),
-               *([psychic_snapshot] if psychic_snapshot is not None else [])]
+               *([psychic_snapshot] if psychic_snapshot is not None else []),
+               *([class_psychic_snapshot] if class_psychic_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     effects = class_effects(selected_class)
     race = next(item for item in core['races'] if item['id'] == character['race'])

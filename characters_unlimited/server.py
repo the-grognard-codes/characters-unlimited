@@ -132,6 +132,8 @@ def create_server(application, port=0):
                         self.respond(200, application.select_skills(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'psionics':
                         self.respond(200, application.select_psionics(parts[2], **data))
+                    elif len(parts) == 4 and parts[3] == 'class-psionics':
+                        self.respond(200, application.select_class_psionics(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'equipment':
                         self.respond(200, application.set_equipment(parts[2], **data))
                     elif len(parts) == 4 and parts[3] == 'purchase-equipment':

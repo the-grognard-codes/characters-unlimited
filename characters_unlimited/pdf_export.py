@@ -16,6 +16,10 @@ from .advancement import learning_key
 TEMPLATE = Path(__file__).parent / 'templates' / 'rifts.pdf'
 UNICODE_FONT = TTFont('RPGUnicode', str(Path(__file__).parent / 'fonts' / 'DroidSansFallback.ttf'))
 registerFont(UNICODE_FONT)
+SAVING_CELLS = [('magic',134.6,720), ('magic',134.6,711.1), ('psionics',134.5,701.1),
+                ('poison',134.8,691.1), ('poison',159.4,690.8), ('drugs',134.8,681),
+                ('insanity',134.8,671), ('possession',140.5,660.5),
+                ('horror_factor',140.7,651), ('coma_death',140.5,641)]
 
 
 def install_editing_font(writer):
@@ -189,11 +193,7 @@ def fill_skills(page, rows, left, values):
 def fill_saving_bonuses(page, bonuses, values):
     # The reference's saving cells have shared or generic names; use their
     # original geometry after normalization instead of those ambiguous names.
-    cells = [('magic',134.6,720), ('magic',134.6,711.1), ('psionics',134.5,701.1),
-             ('poison',134.8,691.1), ('poison',159.4,690.8), ('drugs',134.8,681),
-             ('insanity',134.8,671), ('possession',140.5,660.5),
-             ('horror_factor',140.7,651), ('coma_death',140.5,641)]
-    for identifier, x, y in cells:
+    for identifier, x, y in SAVING_CELLS:
         result = bonuses.get(identifier)
         if not result or result['value'] is None:
             continue
@@ -545,8 +545,9 @@ def export_rifts_sheet(character, core, skills, combat):
             sheet_notes += '\n' + activity['name'] + ': ' + activity['guidance']
     if saving_bonuses:
         sheet_notes += '\nSaving fields show reviewed bonuses.'
-        additional = [f'{saving_bonuses[key]["name"]}: {saving_bonuses[key]["value"]:+d}'
-                      for key in ('disease', 'illusions') if saving_bonuses[key]['value'] is not None]
+        mapped = {identifier for identifier, _, _ in SAVING_CELLS}
+        additional = [f'{result["name"]}: {result["value"]:+d}'
+                      for key, result in saving_bonuses.items() if key not in mapped and result['value'] is not None]
         sheet_notes += '\n' + '; '.join(additional)
         # Keep source exceptions and fatigue context with the editable values,
         # including on continuation pages when the player's notes fill the sheet.

@@ -1,0 +1,9 @@
+# Source-specific starting armor variants
+
+Operator receives an armor suit with10% more MDC from a buddy (RUE printed93/PDF96). Its source item variants derive every original location capacity using exact110% arithmetic. For example Plastic-Man main35 becomes38.5, helmet30 becomes33, arms15 become16.5 and legs22 become24.2. The original source supplies no whole-point rounding rule, so these capacities remain exact decimals. Independent Spec review approves this interpretation for the staged implementation snapshot; no damage/spending simulator is introduced.
+
+Each variant has its own immutable item identity, combined class/base armor source references, unchanged environmental/movement protection, descriptive enhancement provenance and an unspecified purchase price. Its original starting receipt preserves that exact source item identity. Ordinary purchased armor retains its ordinary capacities, even on an Operator. Multiple equipped suits remain independent and never stack. This uses existing inventory/equipment/portable/PDF projections; no class-name conditional applies armor enhancement globally.
+
+Operator glove quantity uses existing retained additional-grant formulas: one protective-goggles group also grants1D4 pairs of doctor gloves. The original roll and quantity survive reopening, inventory changes and portable import. Source rope is a separate10lb possession, avoiding the fixed personal-kit contract that requires unknown weights. Source repeated generic canteen and goggles mentions are consolidated into one named possession each; no second quantity is specified.
+
+Ordinary Operator creation is distinct from required Psi-Operator work. Class psychic status and ordinary random potential need source-backed retained composition; a descriptive option note does not certify that path. Broader source equipment and nonhuman/construction dependencies remain open.

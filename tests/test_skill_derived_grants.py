@@ -209,7 +209,7 @@ class SkillDerivedGrantWorkflowTests(unittest.TestCase):
             hero = app.get(hero['id'])
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),99)
             preview = app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.27.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.28.0')
             hero = app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),208)
             self.assertEqual([row['percentage'] for row in app.skill_view(hero['id'])['selected']],[35,30])

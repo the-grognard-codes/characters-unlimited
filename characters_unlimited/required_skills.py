@@ -90,6 +90,9 @@ def project_required_skills(character, pack, intelligence, *, skill_grants=None)
             warnings.append(f"{definition['name']}: duplicate O.C.C. grant retained without another proficiency bonus.")
             continue
         seen.add(identity)
+        if definition.get('kind') == 'training':
+            grants.append({**definition, 'specialty':specialty, 'quality':'trained'})
+            continue
         contributions = {'base': definition['base'], 'class': definition['class_bonus'], 'intelligence': intelligence}
         training = (skill_grants or {}).get(definition['id']) if not specialty else None
         if training:

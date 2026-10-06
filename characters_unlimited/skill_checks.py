@@ -23,11 +23,21 @@ def independent_check_rules(definition, catalog):
     known = {row['id'] for row in catalog}
     names = set()
     for check in checks:
-        if (not isinstance(check, dict) or not {'name', 'base', 'per_level'} <= set(check) or
-                set(check) - {'name', 'base', 'per_level', 'requires_skill', 'unless_skill'} or
+        if (not isinstance(check, dict) or
                 not isinstance(check.get('name'), str) or not check['name'].strip() or
-                check['name'] in names or any(type(check.get(field)) is not int or
-                not 0 <= check[field] <= MAX_INTEGER for field in ('base', 'per_level'))):
+                check['name'] in names):
+            raise ValueError('Independent checks need distinct names and exact base and growth')
+        if 'context_of' in check:
+            allowed = {'name', 'context_of', 'modifier', 'multiplier', 'maximum', 'requires_skill', 'unless_skill'}
+            if (set(check) - allowed or check['context_of'] != 'primary' or
+                    any(type(check[field]) is not int or abs(check[field]) > MAX_INTEGER
+                        for field in ('modifier', 'multiplier', 'maximum') if field in check) or
+                    check.get('multiplier', 1) <= 0 or check.get('maximum', 0) < 0):
+                raise ValueError('Context checks need a primary reference and bounded exact modifiers')
+        elif (not {'base', 'per_level'} <= set(check) or
+                set(check) - {'name', 'base', 'per_level', 'requires_skill', 'unless_skill'} or
+                any(type(check[field]) is not int or not 0 <= check[field] <= MAX_INTEGER
+                    for field in ('base', 'per_level'))):
             raise ValueError('Independent checks need distinct names and exact base and growth')
         for field in ('requires_skill', 'unless_skill'):
             if field in check and (not isinstance(check[field], str) or check[field] not in known):

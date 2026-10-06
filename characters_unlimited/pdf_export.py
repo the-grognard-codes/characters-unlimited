@@ -181,7 +181,8 @@ def fill_skills(page, rows, left, values):
                 values[percentages[slot]['/T']] = '' if percentage is None else str(percentage)
                 slot += 1
             else:
-                overflow.extend(wrap_lines(name+' (Physical bonuses)' if percentage is None else f'{name}: {percentage}% (+{rate}% per level)', 530))
+                label = 'Physical bonuses' if row.get('kind') == 'physical' else 'Training'
+                overflow.extend(wrap_lines(name+f' ({label})' if percentage is None else f'{name}: {percentage}% (+{rate}% per level)', 530))
     return overflow
 
 

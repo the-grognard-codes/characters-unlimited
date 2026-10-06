@@ -278,7 +278,7 @@ async function loadSkills(character) {
   }
   $('skill-list').replaceChildren(...[...view.grants.map(skill => ({...skill, grant:true})), ...view.selected].map((skill, index) => {
     const row = document.createElement('details'); const heading = document.createElement('summary');
-    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.percentage == null ? ' · Physical bonuses' : ': ' + skill.percentage + '%'} · ${skill.grant ? (skill.grant_origins ? 'Skill grant' : 'O.C.C. grant') : skill.pool} · ${skill.quality}`;
+    heading.textContent = `${skill.name}${skill.specialty ? ' — ' + skill.specialty : ''}${skill.percentage == null ? (skill.kind === 'physical' ? ' · Physical bonuses' : ' · Training') : ': ' + skill.percentage + '%'} · ${skill.grant ? (skill.grant_origins ? 'Skill grant' : 'O.C.C. grant') : skill.pool} · ${skill.quality}`;
     if (skill.selection_cost > 1) heading.textContent += ` · ${skill.selection_cost} ${skill.pool} slots`;
     const explanation = document.createElement('p'); explanation.className = 'help';
     explanation.textContent = skill.kind === 'physical'
@@ -290,8 +290,8 @@ async function loadSkills(character) {
             ? (view.resources?.generated ? ' bonus to starting total' : ' bonus; starting total not generated') : '';
           return `${name.replaceAll('_', ' ')} +${value}${dice}${pending}`;
         })).join(' · ')
-      : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
-    if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += (explanation.textContent ? ' · ' : '') + Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
+      : Object.entries(skill.contributions || {}).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
+    if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += (explanation.textContent ? ' · ' : '') + Object.entries(skill.contributions || {}).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
     if (skill.description) explanation.textContent += ` · ${skill.description}`;
     for (const origin of skill.grant_origins || []) {

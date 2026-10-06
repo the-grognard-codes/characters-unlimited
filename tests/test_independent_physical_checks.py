@@ -73,7 +73,7 @@ class IndependentPhysicalChecksTests(unittest.TestCase):
    app=CharacterApplication(directory);self.assertEqual(len(app.skill_view(hero['id'])['catalog']),200)
    with self.assertRaises(ValueError):app.select_skills(hero['id'],revision=hero['revision'],selections=choices('acrobatics'))
    preview=app.preview_rule_upgrade(hero['id']);hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
-   self.assertEqual(hero['physical_acquisitions'],receipts);self.assertEqual(len(app.skill_view(hero['id'])['catalog']),202)
+   self.assertEqual(hero['physical_acquisitions'],receipts);self.assertEqual(len(app.skill_view(hero['id'])['catalog']),206)
  def test_editable_pdf_uses_projected_checks_and_suppresses_basic_training(self):
   with tempfile.TemporaryDirectory() as directory:
    app=CharacterApplication(directory,die=lambda sides:4);hero=app.create(character_class='city-rat')

@@ -84,7 +84,7 @@ class TechnicalSkillWorkflowTests(unittest.TestCase):
             self.assertEqual(len(current.skill_view(character['id'])['catalog']),18)
             preview=current.preview_rule_upgrade(character['id'])
             upgraded=current.apply_rule_upgrade(character['id'],revision=0,token=preview['token'])['character']
-            self.assertEqual(len(current.skill_view(upgraded['id'])['catalog']),162)
+            self.assertEqual(len(current.skill_view(upgraded['id'])['catalog']),181)
             self.assertEqual(upgraded['attributes'],character['attributes'])
 
     def test_ineligible_art_pool_does_not_claim_professional_quality(self):

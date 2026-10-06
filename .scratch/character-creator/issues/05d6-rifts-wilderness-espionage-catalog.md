@@ -1,6 +1,6 @@
 # 05D6: Ordinary Wilderness and Espionage catalog
 
-**Status:** in-progress. **Parent:**05/05B/22. **Depends on:**05D5 reviewed and merged. **Branch:**codex/rifts-wilderness-espionage-skills.
+**Status:** done (PR118 reviewed and merged). **Parent:**05/05B/22. **Depends on:**05D5 reviewed and merged. **Branch:**codex/rifts-wilderness-espionage-skills.
 
 Activate eleven ordinary Wilderness percentiles and ten new Espionage identities using existing source-bound proficiency/synergy declarations and immutable next archive. Original printed308-310 and329-330 (PDF311-313/332-333), plus global Secondary printed300, were visually reviewed against converted Markdown during05D5 final gates.
 
@@ -11,3 +11,5 @@ Espionage: Detect Ambush30/+5, Detect Concealment25/+5, Disguise25/+5, Escape Ar
 Normal synergies: Carpentry→Boat Building+10; Skin Hides→Sewing/Leather Working+5; Detect Concealment→Camouflage+5; Disguise→Impersonation/Undercover Ops+5; Escape Artist→Pick Locks+5; Art→Forgery+10; Impersonation→Undercover Ops+10. Spelunking receives+5 from Climbing, and Carpentry adds+5 to Trap Construction; absent dependencies remain explicit until shared catalog activation. Hunting→Prowl+2, Track/Trap+5, Skin Hides+5, Imitate Voices+4 and conditional cooking requires selectable training support later. Conditional survival, torturing/creature exceptions, map reading, countertracking penalties remain descriptions.
 
 Permissions: current Vagabond related Wilderness Any with no class bonus, Espionage None. City Rat related Wilderness/Espionage None. Both Secondary Wilderness Any except Boat Building/Spelunking (and unprovided Blend/Songlines/Underwater Navigation); Espionage None. Retain unavailable choices with guidance. Verify source tables and both normal paired checks, shared synergies/removal, late-learning progression, counts, old-pin update, import/reopen/undo, UI and editable PDF. Full Windows/frozen and independent two-axis review before merge. This prepares broader class imports; no corpus/category completion claim while descriptive training and other categories remain open.
+
+PR118 merged as25755d35526dc0bfa00f66e882b29e759ed23772;05D6 is done. Both independent review axes approve final headf18fccc. Final local regression523 tests in515.834 seconds, seven corrected focused tests7.331 seconds, typing171/static and rebuilt ordinary-user packaged test37.838 seconds pass. Both exact-head hosted Windows runs37391580526/37391573720 pass523 tests plus separate frozen checks. Source review repaired six incoming old-parent bonuses before merge. Broader class/race/ability families, descriptive training and robot/bionic construction remain open.

@@ -121,4 +121,7 @@ class MilitarySkillWorkflowTests(unittest.TestCase):
             view=app.skill_view(hero['id'])
             self.assertEqual(len(view['catalog']),206)
             self.assertEqual(view['selected'],before['selected'])
-            self.assertEqual(view['grants'],before['grants'])
+            # The new Cooking declaration adds gated source metadata; without
+            # Hunting, every displayed grant value and contribution is preserved.
+            self.assertEqual([{key:value for key,value in row.items() if key!='proficiency_rules'}
+                              for row in view['grants']], before['grants'])

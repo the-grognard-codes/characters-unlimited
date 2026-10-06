@@ -23,7 +23,7 @@ class WildernessEspionageWorkflowTests(unittest.TestCase):
             app=CharacterApplication(directory,die=lambda sides:4)
             hero=app.create()
             catalog={row['id']:row for row in app.skill_view(hero['id'])['catalog']
-                     if row.get('category') in ('wilderness','espionage')}
+                     if row.get('category') in ('wilderness','espionage') and row.get('kind') != 'training'}
             self.assertEqual({key:(row['base'],row['per_level']) for key,row in catalog.items()},expected)
             self.assertTrue(all(row['description'] and row['source']['pdf_pages'] for row in catalog.values()))
             app.select_skills(hero['id'],revision=0,selections=selections('track-trap-animals','impersonation','land-navigation','fasting'))

@@ -20,7 +20,8 @@ def selection_policy(definition, pool, pack):
     cost = rule.get('costs', {}).get(definition['id'], 1) if allowed else 1
     if type(cost) is not int or not 1 <= cost <= 100:
         raise ValueError('Skill selection costs must be positive whole numbers up to 100')
-    return {'allowed': allowed, 'bonus': rule.get('bonus', 0) if allowed else 0, 'cost':cost}
+    bonus = rule.get('bonuses', {}).get(definition['id'], rule.get('bonus', 0)) if allowed else 0
+    return {'allowed': allowed, 'bonus': bonus, 'cost':cost}
 
 
 def learned_selection_ids(selections, pack):

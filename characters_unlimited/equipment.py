@@ -241,7 +241,7 @@ def project_equipment(character, pack, combat, skills=None):
                 normal_strength = (character.get('strength_type', 'normal') == 'normal'
                                    and set(contributions).issubset({'normal_strength','hand_to_hand'})
                                    and type(normal_bonus) is int)
-                melee_guidance = ['Held-knife melee only; throwing and enhanced-strength rules remain pending.']
+                melee_guidance = ['Held melee attack; throwing and enhanced-strength rules remain pending.']
                 if low_pp:
                     melee_guidance.append('P.P. below 8 leaves strike and parry totals pending.')
                 if definition.get('damage_scale') == 'mega-damage':
@@ -344,8 +344,8 @@ def project_equipment(character, pack, combat, skills=None):
     if unknown_weight_quantity:
         guidance.append('Some carried equipment has no source weight; the known carried weight is an incomplete total.')
     if melee_attacks:
-        guidance.append('Held knife damage uses the reviewed normal-human strength and training contributions once. Throwing and enhanced strength remain pending.' if reviewed_low_strength else
-                        'Held knife damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
+        guidance.append('Held melee damage uses the reviewed normal-human strength and training contributions once. Throwing and enhanced strength remain pending.' if reviewed_low_strength else
+                        'Held melee damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
     if any(item.get('category') == 'ammunition' for item in definitions.values()):
         guidance.append('Reload by swapping the remaining shots in one carried gun and one compatible carried clip. Split grouped gun or clip rows into individual possessions first.')
     funds = project_starting_funds(character, pack)

@@ -1,7 +1,7 @@
 """Declarative O.C.C. percentile grants and required choice groups."""
 
 from typing import Any
-from .skill_choices import learned_selection_ids, specialty_key
+from .skill_choices import learned_selection_ids, learned_selection_pools, specialty_key
 from .proficiency import synergy_contributions, project_proficiency
 from .advancement import learning_age
 from .required_definitions import required_catalog, required_selection_group
@@ -82,6 +82,7 @@ def project_required_skills(character, pack, intelligence, *, skill_grants=None)
     available = {definition['id'] for definition, _ in definitions}
     available.update(learned_selection_ids(character.get('skill_selections', []), pack))
     available.update(skill_grants or {})
+    selection_pools = learned_selection_pools(character.get('skill_selections', []), pack)
     grants = []
     seen = set()
     for definition, specialty in definitions:
@@ -110,5 +111,5 @@ def project_required_skills(character, pack, intelligence, *, skill_grants=None)
             contributions['class_ability'] = definition['class_ability']
         contributions.update(synergy_contributions(definition, available))
         contributions.update(attribute_contributions(definition, character['attributes']))
-        grants.append({**definition, 'specialty': specialty, **({'learned_level': learned} if learned is not None and 'catalog_skill_id' in definition else {}), **({'grant_origins': training['origins']} if training and training['origins'] else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=aliases is not None or any(row.get('granted_skills') for row in pack['skills']), growth_steps=age-1 if character['level'] > 1 else 0, available=available), 'quality': 'trained'})
+        grants.append({**definition, 'specialty': specialty, **({'learned_level': learned} if learned is not None and 'catalog_skill_id' in definition else {}), **({'grant_origins': training['origins']} if training and training['origins'] else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects), exact=aliases is not None or any(row.get('granted_skills') for row in pack['skills']), growth_steps=age-1 if character['level'] > 1 else 0, available=available, selection_pools=selection_pools), 'quality': 'trained'})
     return {'grants': grants, 'remaining': remaining, 'warnings': warnings, 'catalog': rules}

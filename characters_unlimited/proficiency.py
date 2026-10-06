@@ -9,11 +9,11 @@ def synergy_contributions(definition, available):
             if available.intersection(synergy.get('any_of', [synergy.get('skill_id')]))}
 
 
-def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None, exact=False, growth_steps=None, available=()):
+def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None, exact=False, growth_steps=None, available=(), selection_pools=None):
     independent = 'proficiency_rules' in definition
     if independent and (type(growth_steps) is not int or not 0 <= growth_steps <= 1000):
         raise ValueError("Independent checks need supported acquired-level growth")
-    definition = selected_check_definition(definition, available)
+    definition = selected_check_definition(definition, available, selection_pools)
     effects = effect_contributions or []
     contributions = dict(contributions)
     for effect in effects:
@@ -41,8 +41,10 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
                          'per_level': reference['per_level'] * multiplier}
         else:
             check_contributions = {**contributions, 'base': check['base']}
+            if independent and check.get('bonus_policy') == 'intelligence-only':
+                check_contributions = {'base': check['base'], 'intelligence': contributions.get('intelligence', 0)}
             if independent:
-                if 'advancement' in check_contributions or growth_steps:
+                if check.get('bonus_policy') != 'intelligence-only' and ('advancement' in check_contributions or growth_steps):
                     check_contributions['advancement'] = check['per_level'] * growth_steps
             elif level_steps:
                 check_contributions['experience'] = check.get('per_level',definition['per_level'])*level_steps

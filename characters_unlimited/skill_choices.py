@@ -1,5 +1,7 @@
 """Category entitlements and prerequisite guidance for reviewed skill choices."""
 
+from .combat_grants import fixed_proficiencies
+
 
 def needs_specialty(definition):
     return definition.get('requires_specialty', definition['id'] == 'instrument')
@@ -25,6 +27,15 @@ def learned_selection_ids(selections, pack):
     known = {definition['id']: definition for definition in pack['skills']}
     return {item['skill_id'] for item in selections
             if not needs_specialty(known[item['skill_id']]) or item.get('specialty')}
+
+
+def learned_selection_pools(selections, pack):
+    known = {definition['id']: definition for definition in pack['skills']}
+    result: dict[str, set[str]] = {}
+    for item in selections:
+        if not needs_specialty(known[item['skill_id']]) or item.get('specialty'):
+            result.setdefault(item['skill_id'], set()).add(item['pool'])
+    return result
 
 
 def weapon_prerequisites(definition, pack):
@@ -74,7 +85,8 @@ def choice_guidance(selections, pack, granted=(), *, combat_choices=None):
                 warnings.append(f"{definition['name']}: missing prerequisite {labels}; the choice is retained.")
         for prerequisite in weapon_prerequisites(definition, pack):
             family = prerequisite['family']
-            if prerequisite['id'] not in (combat_choices or {}).get(family, []):
+            granted_weapons = fixed_proficiencies(pack.get('combat', {}))
+            if prerequisite['id'] not in [*(combat_choices or {}).get(family, []), *granted_weapons[family]]:
                 label = next(row['name'] for row in pack['combat'][family] if row['id'] == prerequisite['id'])
                 warnings.append(f"{definition['name']}: missing prerequisite {label}; the choice is retained.")
     return warnings

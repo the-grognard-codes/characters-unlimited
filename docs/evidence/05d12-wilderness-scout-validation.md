@@ -1,0 +1,7 @@
+# Wilderness Scout: source and shared-contract preparation
+
+In progress; no Scout option is activated or certified by this checkpoint. The original RUE printed98–100/PDF101–103 and XP table printed295/PDF298 were visually reviewed. The preceding Vagabond's equipment in printed98's left column is excluded. Scout XP maxima are1900/3800/7300/14300/21000/30000/40000/53000/73000/103000/138000/188000/238000/288000/328000, not the existing Vagabond table.
+
+The shared implementation supports pool minima using existing selectors/distinct accounting, source-bound fixed intelligence-only checks, actual selected-pool suppression, pool-gated additive proficiency effects, mandatory weapon training separate from elective allowance, and source numeric class additions at retained level milestones. These are opt-in declarations; no class-name runtime branch is introduced. Raw legacy and owned declarations validate before generation dice.
+
+Six new public workflows verify fixedMath does not borrow parent/class/other effect/growth, related-vs-secondary Math bonuses and fallback restoration without backdating, distinct eligible category choices while retaining invalid/duplicate choices, required weapon grants with elective counts/late learning, class saves/combat additions with advancement/undo, and malformed declarations in unselected owners before dice.21 affected contracts/combat/numeric/accounting workflows passed20.427s. Source profile/equipment data, full class proof and integration gates remain in progress.

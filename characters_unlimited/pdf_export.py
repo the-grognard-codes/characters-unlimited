@@ -375,6 +375,9 @@ def export_rifts_sheet(character, core, skills, combat):
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
     described_skills = set()
+    for requirement in skills.get('pool_requirements', []):
+        sheet_notes += f'\n{requirement["name"]}: {requirement["credited"]} of {requirement["count"]} distinct {requirement["pool"]} choices; {requirement["remaining"]} still required. '
+        sheet_notes += resource_source_citation(requirement['source']) + '.'
     for skill in [*skills['grants'], *skills['selected']]:
         if skill.get('description') and skill['id'] not in described_skills:
             described_skills.add(skill['id'])

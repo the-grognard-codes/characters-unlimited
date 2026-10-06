@@ -33,6 +33,14 @@ function renderCombat(view) {
   }
   $('combat-list').replaceChildren();
   for (const family of ['ancient','modern']) {
+    for (const id of view.fixed_proficiencies?.[family] || []) {
+      const definition = view.catalog[family].find(item => item.id === id);
+      const row = document.createElement('p');
+      row.textContent = `${definition.name} · O.C.C. grant · ${modifierSourceCitation(view.fixed_proficiencies.source)}`;
+      $('combat-list').append(row);
+    }
+  }
+  for (const family of ['ancient','modern']) {
     (view.choices?.[family] || []).forEach((id,index) => {
       const row=document.createElement('p'), remove=document.createElement('button');
       row.textContent=view.catalog[family].find(definition => definition.id===id).name + ' ';

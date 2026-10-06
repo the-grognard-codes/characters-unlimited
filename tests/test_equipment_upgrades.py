@@ -87,7 +87,7 @@ class EquipmentUpgradeTests(unittest.TestCase):
                 connection.execute('DROP TRIGGER interrupt_upgrade')
             result = current.apply_rule_upgrade(character['id'],revision=1,token=preview['token'])
             self.assertEqual(result['character']['additional_rule_packs'],
-                             {'rifts-domestic-skills':'2.21.0','rifts-equipment':'99.0.0'})
+                             {'rifts-domestic-skills':'2.22.0','rifts-equipment':'99.0.0'})
             self.assertEqual(result['character']['equipment'],character['equipment'])
 
     def test_incompatible_missing_items_or_capacity_do_not_modify_saved_inventory(self):

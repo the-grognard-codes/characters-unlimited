@@ -20,7 +20,15 @@ def _catalog(pack):
         if not isinstance(item, dict) or not isinstance(item.get('id'), str) or item['id'] in items:
             raise ValueError('Equipment catalog has invalid or duplicate item identities')
         items[item['id']] = item
+        if 'damage_scale' in item and (item['damage_scale'] not in ('structural-damage', 'mega-damage')
+                or item.get('category') != 'weapon' or item.get('weapon_kind') != 'melee'):
+            raise ValueError('Damage scale requires a reviewed melee weapon declaration')
     return items
+
+
+def validate_equipment_catalog(pack):
+    """Preflight shared item identities and opt-in damage scale without possessions."""
+    _catalog(pack)
 
 
 def _safe_integer(value):
@@ -165,7 +173,7 @@ def reload_inventory(record, pack, weapon_possession_id, clip_possession_id):
     return result
 
 
-def project_equipment(character, pack, combat):
+def project_equipment(character, pack, combat, skills=None):
     """Project catalog and possessions; only carried, equipped items are active."""
     definitions = _catalog(pack)
     inventory = deepcopy(character.get('equipment', {'credits': 0, 'items': []}))
@@ -235,7 +243,12 @@ def project_equipment(character, pack, combat):
                 melee_guidance = ['Held-knife melee only; throwing and enhanced-strength rules remain pending.']
                 if low_pp:
                     melee_guidance.append('P.P. below 8 leaves strike and parry totals pending.')
-                if type(ps) is not int or ps < 1 or (ps <= 4 and not reviewed_low_strength):
+                if definition.get('damage_scale') == 'mega-damage':
+                    damage = definition['damage']
+                    damage_bonus = {'value':0, 'contributions':{}, 'actions':1,
+                                    'sources':[deepcopy(definition['source'])]}
+                    melee_guidance.append('Source Mega-Damage is shown without converting S.D.C. strength or Hand to Hand additions; enhanced-strength weapon effects remain descriptive.')
+                elif type(ps) is not int or ps < 1 or (ps <= 4 and not reviewed_low_strength):
                     damage = 'Pending low-strength melee damage'
                     melee_guidance.append('P.S. 4 or less needs a reviewed melee damage interpretation.')
                 elif not damage_total:
@@ -337,7 +350,24 @@ def project_equipment(character, pack, combat):
     funds = project_starting_funds(character, pack)
     gear = project_starting_gear(character, pack)
     starting = project_starting_choices(character, pack)
-    groups = project_starting_groups(character, pack)
+    training = None
+    if any(group.get('option_requirements') for group in (pack.get('starting_groups') or {}).get('groups', {}).values()):
+        if skills is None:
+            raise ValueError('Equipment training guidance needs acquired skills')
+        fixed = combat.get('fixed_proficiencies', {'ancient': [], 'modern': []})
+        training = {'skills': [row.get('catalog_skill_id', row.get('skill_id', row.get('id')))
+                               for row in [*skills['grants'], *skills['selected']]], 'elective': []}
+        for family in ('ancient', 'modern'):
+            elective = list(dict.fromkeys(identity for identity in combat['choices'][family]
+                                          if identity not in fixed[family]))
+            training[family] = [*fixed[family], *elective]
+            training['elective'].extend({'family': family, 'id': identity} for identity in elective)
+    groups = project_starting_groups(character, pack, training)
+    for group in groups['groups']:
+        if group['generated']:
+            for requirement in group.get('option_requirements', {}).get(group['receipt']['selection'], []):
+                if not requirement['satisfied']:
+                    warnings.append(group['name'] + ': ' + requirement['text'] + '. Original equipment choice is retained.')
     if starting['supported']:
         # Historical pack guidance remains immutable; show the currently available path.
         funds['guidance'] = [note for note in funds['guidance']

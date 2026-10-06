@@ -10,6 +10,8 @@ from .skill_choices import weapon_prerequisites
 from .skill_checks import independent_check_rules
 from .required_definitions import required_catalog
 from .nonpercentile_skills import training_definition
+from .skill_pool_requirements import requirement_rules
+from .combat_grants import fixed_proficiencies
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -34,6 +36,9 @@ def class_rules(pack, character):
     # Validate the raw legacy owners before an overlay can hide the default declarations.
     training_rules(pack)
     for owner in [pack, *pack.get('class_profiles', {}).values()]:
+        class_numeric_contributions({**pack, **owner})
+        fixed_proficiencies({**pack, **owner}.get('combat', {}))
+        requirement_rules({**pack, **owner})
         required_catalog({**pack, **owner})
     for definition in pack['skills']:
         training_definition(definition, pack['skills'])

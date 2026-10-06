@@ -80,7 +80,7 @@ class StartingChoicesWorkflowTests(unittest.TestCase):
                 with self.assertRaises(ValueError): current.import_character(bundle)
                 self.assertEqual(current.get(character['id']), character)
             newer = archive.active('rifts-equipment'); newer['version'] = '99.0.0'
-            newer['starting_choices']['options']['gun'] = ['wilks-320']
+            newer['class_profiles']['vagabond']['starting_choices']['options']['gun'] = ['wilks-320']
             updated = CharacterApplication(directory, rule_archive=RuleArchive(
                 [*archive.definitions(), newer], {**archive.active_versions(), 'rifts-equipment': '99.0.0'}))
             with self.assertRaises(ValueError): updated.preview_rule_upgrade(character['id'])

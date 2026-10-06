@@ -153,7 +153,7 @@ function renderStartingGroups(starting, catalog, characterId) {
   container.replaceChildren(...groups.map(group => {
     const section = document.createElement('section');
     const heading = document.createElement('h4');
-    heading.textContent = group.name;
+    heading.textContent = group.name + (group.training_name ? ' - ' + group.training_name : '');
     section.append(heading);
     const selectionKey = `${characterId}:${group.id}`;
     if (group.generated && group.receipt) {
@@ -161,6 +161,17 @@ function renderStartingGroups(starting, catalog, characterId) {
       const record = document.createElement('p'); record.className = 'help';
       record.textContent = `Original selection: ${selected?.name || group.receipt.selection} × ${group.quantity}. This receipt is independent of current inventory and cannot grant this group again.`;
       section.append(record);
+      if (group.receipt.condition) {
+        const condition = document.createElement('p'); condition.className = 'help';
+        condition.textContent = `${group.condition.name}: ${group.receipt.condition.value}%; recorded dice: ${group.receipt.condition.rolls.join(', ')}.`;
+        section.append(condition);
+      }
+      for (const grant of group.receipt.grants.slice(1)) {
+        const item = catalog.find(item => item.id === grant.item_id);
+        const detail = document.createElement('p'); detail.className = 'help';
+        detail.textContent = `Original additional grant: ${item?.name || grant.item_id} × ${grant.quantity}${grant.rolls ? `; recorded dice: ${grant.rolls.join(', ')}` : ''}.`;
+        section.append(detail);
+      }
       const receiptSource = document.createElement('p'); receiptSource.className = 'help';
       receiptSource.textContent = `Original receipt source: ${equipmentSourceCitation(group.receipt.source)}`;
       section.append(receiptSource);
@@ -190,7 +201,18 @@ function renderStartingGroups(starting, catalog, characterId) {
     source.textContent = `Rule source: ${equipmentSourceCitation(group.source)}`;
     const guidance = document.createElement('p'); guidance.className = 'help';
     guidance.textContent = `${group.quantity} item${group.quantity === 1 ? '' : 's'} · ${group.location}. ${group.guidance.join(' ')}`;
-    section.append(source, guidance);
+    const requirements = document.createElement('p'); requirements.className = 'help';
+    const renderRequirements = option => {
+      requirements.textContent = (group.option_requirements?.[option] || []).map(row =>
+        `${row.satisfied ? 'Training matched' : 'Training guidance'}: ${row.text}`).join(' ? ');
+    };
+    if (group.generated) renderRequirements(group.receipt.selection);
+    else {
+      const select = section.querySelector('select');
+      renderRequirements(select.value);
+      select.addEventListener('change', () => renderRequirements(select.value));
+    }
+    section.append(source, guidance, requirements);
     return section;
   }));
 }

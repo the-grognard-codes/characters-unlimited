@@ -98,7 +98,7 @@ class StartingGearWorkflowTests(unittest.TestCase):
             bundle['character']['starting_gear']['source']={}
             with self.assertRaises(ValueError): current.import_character(bundle)
             changed=archive.active('rifts-equipment'); changed['version']='99.0.0'
-            changed['starting_gear']['grants'][0]['quantity']=3
+            changed['class_profiles']['vagabond']['starting_gear']['grants'][0]['quantity']=3
             newer=CharacterApplication(directory,rule_archive=RuleArchive([*archive.definitions(),changed],
                 {**archive.active_versions(),'rifts-equipment':'99.0.0'}))
             with self.assertRaisesRegex(ValueError,'recorded starting gear'): newer.preview_rule_upgrade(character['id'])

@@ -119,6 +119,7 @@ class StartingResourceWorkflowTests(unittest.TestCase):
             compatible = archive.active('rifts-domestic-skills')
             compatible['version']='99.1.0'
             next(skill for skill in compatible['skills'] if skill['id']=='cook')['base']+=1
+            next(grant for grant in compatible['class_profiles']['wilderness-scout']['required']['grants'] if grant.get('catalog_skill_id')=='cook')['base']+=1
             newer = CharacterApplication(directory,rule_archive=RuleArchive([*archive.definitions(),compatible],
                 {**archive.active_versions(),'rifts-domestic-skills':'99.1.0'}))
             preview = newer.preview_rule_upgrade(hero['id'])
@@ -127,7 +128,7 @@ class StartingResourceWorkflowTests(unittest.TestCase):
             self.assertEqual(updated['resource_attribute_snapshot'],snapshot)
             correction = deepcopy(compatible)
             correction['version']='99.1.1'
-            correction['resources']['definitions'][0]['contributions'][0]['formula']['bonus']+=1
+            correction['class_profiles']['vagabond']['resources']['definitions'][0]['contributions'][0]['formula']['bonus']+=1
             changed = CharacterApplication(directory,rule_archive=RuleArchive([*archive.definitions(),compatible,correction],
                 {**archive.active_versions(),'rifts-domestic-skills':'99.1.1'}))
             with self.assertRaisesRegex(ValueError,'Resource migration'):

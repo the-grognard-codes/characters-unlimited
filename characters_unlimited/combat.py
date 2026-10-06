@@ -9,12 +9,14 @@ from .saving_bonuses import project_saving_bonuses
 from .physical import project_physical
 from typing import Any
 from .advancement import learning_age
+from .combat_grants import fixed_proficiencies
 
 
 def validate_combat_choices(choices, pack):
     rules = pack.get('combat')
     if not rules:
         raise ValueError('Preview a rule update before selecting combat training')
+    fixed_proficiencies(rules)
     if not isinstance(choices, dict) or set(choices) - {'hand_to_hand', 'ancient', 'modern'}:
         raise ValueError('Provide combat training choices')
     hand = choices.get('hand_to_hand', rules['default_hand_to_hand'])
@@ -68,7 +70,7 @@ def progressed(definition, age):
 
 def project_combat(character, pack):
     saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
-    effects = class_numeric_contributions(pack)
+    effects = class_numeric_contributions(pack, level=character['level'])
     class_bonuses = {}
     if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
         class_bonuses['perception'] = apply_numeric_contributions(
@@ -87,6 +89,11 @@ def project_combat(character, pack):
         return {'catalog': None, 'totals': {}, 'melee': [], 'shooting': [], 'unarmed': [], 'warnings': [],
                 'gaps': ['Preview a rule update to incorporate reviewed combat training.', *gaps], 'sources': [], 'remaining': {}}
     choices = validate_combat_choices(character.get('combat_choices', {}), pack)
+    recorded_choices = deepcopy(choices)
+    grants = fixed_proficiencies(rules)
+    for family in ('ancient', 'modern'):
+        if grants[family]:
+            choices[family] = [*grants[family], *[identifier for identifier in choices[family] if identifier not in grants[family]]]
     hand = next(item for item in rules['hand_to_hand'] if item['id'] == choices['hand_to_hand'])
     hand, learned_moves, progression_notes = progressed(hand, learning_age(character, 'hand', hand['id']))
     pp, ps, speed = (character['attributes'][name]['value'] for name in ('PP','PS','SPD'))
@@ -151,7 +158,7 @@ def project_combat(character, pack):
     melee=[]
     for definition in rules['ancient']:
         if definition['id'] not in choices['ancient']: continue
-        definition, _, _ = progressed(definition, learning_age(character, 'weapon', definition['id']))
+        definition, _, _ = progressed(definition, character['level'] if definition['id'] in grants['ancient'] else learning_age(character, 'weapon', definition['id']))
         melee.append({'id':definition['id'],'name':definition['name'], 'source':definition['source'],
                       'strike':total({**totals['strike']['contributions'],'weapon_proficiency':definition['strike']},missing=low_pp),
                       'parry':total({**totals['parry']['contributions'],'weapon_proficiency':definition['parry']},missing=low_pp),
@@ -160,7 +167,7 @@ def project_combat(character, pack):
     shooting=[]
     for definition in rules['modern']:
         trained=definition['id'] in choices['modern']
-        definition, _, _ = progressed(definition, learning_age(character, 'weapon', definition['id']))
+        definition, _, _ = progressed(definition, character['level'] if definition['id'] in grants['modern'] else learning_age(character, 'weapon', definition['id']))
         bonus=definition['strike'] if trained else 0
         gun_bonus = hand.get('gun_strike', 0)
         gun_contribution = {'hand_to_hand_guns':gun_bonus} if gun_bonus else {}
@@ -174,14 +181,16 @@ def project_combat(character, pack):
     eligible_count = 0
     for family in ('ancient','modern'):
         allowed=rules['required_proficiencies'][family]
-        eligible={identifier for identifier in choices[family] if allowed=='any' or identifier in allowed}
+        eligible={identifier for identifier in choices[family] if identifier not in grants[family] and (allowed=='any' or identifier in allowed)}
         eligible_count += len(eligible)
         if 'combined_proficiency_count' not in rules:
             remaining[family]=1-sum(identifier in eligible for identifier in choices[family])
-        if any(identifier not in eligible for identifier in choices[family]):
+        if any(identifier not in eligible and identifier not in grants[family] for identifier in choices[family]):
             guidance = 'choose an eligible energy weapon.' if remaining.get(family, 1) > 0 else 'required slot is filled; extra training is retained.'
             warnings.append(f'{family.title()}: retained proficiency does not satisfy the required O.C.C. slot; {guidance}')
-        if any(count>1 for count in Counter(choices[family]).values()):
+        if any(identifier in grants[family] for identifier in recorded_choices[family]):
+            warnings.append(f'{family.title()}: fixed O.C.C. training is already granted; the extra choice is retained without filling an elective slot.')
+        if any(count>1 for count in Counter(recorded_choices[family]).values()):
             warnings.append(f'{family.title()}: duplicate proficiency choices are retained without multiplying their bonuses.')
     if 'combined_proficiency_count' in rules:
         remaining['proficiencies'] = rules['combined_proficiency_count'] - eligible_count
@@ -200,6 +209,12 @@ def project_combat(character, pack):
         else:
             result['sources'] = [hand['source'], attribute_source]
         result['sources'].extend(item['source'] for item in physical['selected'] if name in item.get('combat',{}))
+    if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
+        for name, result in list(totals.items()):
+            target = 'combat:' + name
+            additions = [effect for effect in effects if effect['target'] == target]
+            if additions:
+                totals[name] = apply_numeric_contributions(result, additions, target)
     for item in melee:
         for stat in ('strike','parry','thrown'): item[stat]['sources'] = [hand['source'],attribute_source,item['source']]
         for stat in ('strike','parry','thrown'):
@@ -215,7 +230,7 @@ def project_combat(character, pack):
              'Power punch uses two actions and doubles base dice before adding the normal-human strength bonus.',
              'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.',
              *progression_notes]
-    return {'catalog':rules,'choices':choices,'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
+    return {'catalog':rules,'choices':recorded_choices, **({'fixed_proficiencies':grants} if 'fixed_proficiencies' in rules else {}), 'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
             'conditions':deepcopy(hand.get('conditions', {})),
             'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
             'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':hand['cost']}

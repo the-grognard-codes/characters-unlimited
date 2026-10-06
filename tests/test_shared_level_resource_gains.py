@@ -14,12 +14,12 @@ def fixture_archive(*changed):
     installed = RuleArchive.load()
     replacements = {(row['id'], row['version']): row for row in changed}
     return RuleArchive([replacements.get((row['id'], row['version']), row)
-                        for row in installed.definitions()], installed.active_versions())
+                        for row in installed.definitions()], {**installed.active_versions(), **{row['id']:row['version'] for row in changed}})
 
 
 class SharedLevelResourceGainTests(unittest.TestCase):
     def test_rifts_ppe_growth_ignores_house_options_and_survives_undo_replay(self):
-        pack = RuleArchive.load().active('rifts-domestic-skills')
+        pack = RuleArchive.load().resolve('rifts-domestic-skills', '2.23.0')
         pack['resources']['definitions'].append({'id': 'PPE', 'name': 'Synthetic P.P.E.', 'contributions': [
             {'id': 'initial', 'formula': {'count': 0, 'sides': 0, 'bonus': 10}, 'source': SOURCE}]})
         pack['advancement']['resource_gains'] = {'PPE': {
@@ -77,7 +77,7 @@ class SharedLevelResourceGainTests(unittest.TestCase):
 
     def test_combined_resource_overflow_rejects_advancement_without_saving(self):
         from characters_unlimited.recorded_formulas import MAX_INTEGER
-        pack = RuleArchive.load().active('rifts-domestic-skills')
+        pack = RuleArchive.load().resolve('rifts-domestic-skills', '2.23.0')
         pack['advancement']['resource_gains'] = {'HP': {
             'formula': {'count': 0, 'sides': 0, 'constant': MAX_INTEGER}, 'source': SOURCE}}
         with tempfile.TemporaryDirectory() as directory:
@@ -98,7 +98,7 @@ class SharedLevelResourceGainTests(unittest.TestCase):
         ]
         for definitions in invalids:
             with self.subTest(definitions=definitions), tempfile.TemporaryDirectory() as directory:
-                pack = installed.active('rifts-domestic-skills')
+                pack = installed.resolve('rifts-domestic-skills', '2.23.0')
                 pack['higher_advancement']['resource_gains'] = definitions
                 draws = []
                 app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=fixture_archive(pack))
@@ -114,7 +114,7 @@ class SharedLevelResourceGainTests(unittest.TestCase):
                 self.assertEqual(app.get(hero['id']), hero)
 
     def test_nondefault_class_does_not_inherit_additional_default_class_growth(self):
-        pack = RuleArchive.load().active('rifts-domestic-skills')
+        pack = RuleArchive.load().resolve('rifts-domestic-skills', '2.23.0')
         pack['higher_advancement']['resource_gains'] = {'HP': {
             'formula': {'count': 0, 'sides': 0, 'constant': 7}, 'source': SOURCE}}
         pack['class_profiles']['city-rat'].pop('higher_advancement')
@@ -130,7 +130,7 @@ class SharedLevelResourceGainTests(unittest.TestCase):
         source = {'book': 'Synthetic progression fixture', 'section': 'Section-only resource evidence'}
         for game, pack_id in [('rifts', 'rifts-domestic-skills'), ('heroes-unlimited', 'heroes-advancement')]:
             with self.subTest(game=game), tempfile.TemporaryDirectory() as directory:
-                pack = installed.active(pack_id)
+                pack = installed.resolve(pack_id, '2.23.0') if game == 'rifts' else installed.active(pack_id)
                 rules = pack['advancement'] if game == 'rifts' else pack
                 rules['resource_gains'] = {'HP': {
                     'formula': {'count': 0, 'sides': 0, 'constant': 3}, 'source': source}}
@@ -147,7 +147,7 @@ class SharedLevelResourceGainTests(unittest.TestCase):
                 self.assertIn('Section-only resource evidence', ' '.join(exported.split()))
 
     def test_starting_contribution_label_cannot_be_overwritten_by_level_growth(self):
-        pack = RuleArchive.load().active('rifts-domestic-skills')
+        pack = RuleArchive.load().resolve('rifts-domestic-skills', '2.23.0')
         hp = next(row for row in pack['resources']['definitions'] if row['id'] == 'HP')
         hp['contributions'].append({'id': 'Additional level 2', 'formula': {
             'count': 0, 'sides': 0, 'bonus': 7}, 'source': SOURCE})

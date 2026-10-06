@@ -27,11 +27,14 @@ def compile_skill_effects(effects, catalog):
     result, identifiers = [], set()
     for effect in effects:
         if (not isinstance(effect, dict) or
-                set(effect) != {'id', 'name', 'operation', 'amount', 'selector', 'source'} or
+                not {'id', 'name', 'operation', 'amount', 'selector', 'source'} <= set(effect) or
+                set(effect) - {'id', 'name', 'operation', 'amount', 'selector', 'source', 'selection_pool'} or
                 any(not isinstance(effect[key], str) or not effect[key].strip() for key in ('id', 'name')) or
                 effect['id'] in identifiers or effect['operation'] != 'add' or
                 type(effect['amount']) is not int or abs(effect['amount']) > MAX_INTEGER):
             raise ValueError('Unsupported additive skill effect declaration')
+        if 'selection_pool' in effect and effect['selection_pool'] not in ('domestic', 'related', 'secondary'):
+            raise ValueError('Skill effects must select a supported acquisition pool')
         source = effect['source']
         if (not isinstance(source, dict) or any(not isinstance(source.get(key), str) or
                 not source[key].strip() for key in ('book', 'section'))):
@@ -45,7 +48,8 @@ def pack_skill_effects(pack):
     return compile_skill_effects(pack.get('skill_effects', []), skill_effect_catalog(pack))
 
 
-def matching_skill_effects(identifier, effects):
+def matching_skill_effects(identifier, effects, *, selection_pool=None):
     return [{'id': effect['id'], 'name': effect['name'], 'value': effect['amount'],
              'source': deepcopy(effect['source'])}
-            for effect in effects if identifier in effect['skill_ids']]
+            for effect in effects if identifier in effect['skill_ids'] and
+            ('selection_pool' not in effect or effect['selection_pool'] == selection_pool)]

@@ -96,7 +96,7 @@ class StartingFundsWorkflowTests(unittest.TestCase):
             character = current.generate_starting_funds(character['id'],revision=character['revision'])
             self.assertEqual(character['equipment']['credits'],210)
             changed = archive.active('rifts-equipment'); changed['version']='99.0.0'
-            changed['starting_funds']['definitions'][0]['multiplier']=200
+            changed['class_profiles']['vagabond']['starting_funds']['definitions'][0]['multiplier']=200
             newer = CharacterApplication(directory,rule_archive=RuleArchive([*archive.definitions(),changed],
                 {**archive.active_versions(),'rifts-equipment':'99.0.0'}))
             with self.assertRaisesRegex(ValueError,'recorded starting'):

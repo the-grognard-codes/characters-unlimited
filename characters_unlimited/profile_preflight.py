@@ -26,7 +26,8 @@ def _skill_rules(pack):
     pack_skill_effects(pack)
     known = {row['id'] for row in pack['skills']}
     for rule in pack['pools'].values():
-        if (set(rule) != {'count', 'bonus'} or type(rule['bonus']) is not int or abs(rule['bonus']) > MAX_INTEGER):
+        if (not {'count', 'bonus'} <= set(rule) or set(rule) - {'count', 'bonus', 'requirements'} or
+                type(rule['bonus']) is not int or abs(rule['bonus']) > MAX_INTEGER):
             raise ValueError('Skill pools need supported count and exact bonus fields')
     if set(pack['selection_rules']) - set(pack['pools']):
         raise ValueError('Category rules must reference declared pools')

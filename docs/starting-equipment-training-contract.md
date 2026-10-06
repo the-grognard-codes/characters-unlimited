@@ -1,0 +1,7 @@
+# Starting equipment and acquired training
+
+Starting groups may declare per-option `option_requirements` using the existing source-bound selected-option requirement contract. The equipment archive provides explicit shared `training_catalogs` for skills, ancient W.P.s and modern W.P.s. Every owner?s option references, requirements and catalog identities validate before generation dice. Requirements project guidance, preserve honor-system selections and do not reroll or replace receipts.
+
+Actual acquired skills come from the saved character?s pinned skill projection. Weapon training includes fixed grants and saved elective choices. A group may declare a one-based `proficiency_slot` to correspond to one distinct elective W.P.; slots follow the displayed ancient-then-modern order, excluding fixed grants and duplicate identities. The builder names the selected W.P. beside its equipment group. Missing or mismatched training appears beside available choices and retained receipts and on the editable sheet. Later training changes refresh guidance while original inventory, dice and receipt source stay intact.
+
+The Scout?s Horsemanship transport is interpreted as a reliable horse-drawn wagon with horse: RUE printed310?s Hitch & Wagon explicitly permits driving such vehicles, while printed100 grants an old reliable vehicle matching Piloting. Its missing-MDC percentage describes the vehicle, without inventing absolute vehicle durability or assigning MDC to its horse. Broader transport catalogs remain open.

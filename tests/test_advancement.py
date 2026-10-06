@@ -98,16 +98,20 @@ class AdvancementWorkflowTests(unittest.TestCase):
             correction = archive.active('rifts-domestic-skills')
             correction['version'] = '99.2.0'
             next(s for s in correction['skills'] if s['id'] == 'cook')['base'] += 1
+            for profile in correction.get('class_profiles', {}).values():
+                for grant in profile.get('required', {}).get('grants', []):
+                    if grant.get('catalog_skill_id', grant.get('id')) == 'cook':
+                        grant['base'] += 1
             newer = CharacterApplication(directory, rule_archive=RuleArchive([*archive.definitions(), correction],
                 {**archive.active_versions(), 'rifts-domestic-skills': '99.2.0'}))
             preview = newer.preview_rule_upgrade(hero['id'])
             hero = newer.apply_rule_upgrade(hero['id'], revision=hero['revision'], token=preview['token'])['character']
             portable = newer.export_character(hero['id'])
             versions = {p['version'] for p in portable['rule_packs'] if p['id'] == 'rifts-domestic-skills'}
-            self.assertEqual(versions, {'2.23.0', '99.2.0'})
+            self.assertEqual(versions, {'2.24.0', '99.2.0'})
             copy = newer.import_character(portable)
             restored = newer.undo_advancement(copy['id'], revision=copy['revision'])['character']
-            self.assertEqual(restored['additional_rule_packs']['rifts-domestic-skills'], '2.23.0')
+            self.assertEqual(restored['additional_rule_packs']['rifts-domestic-skills'], '2.24.0')
 
     def test_all_current_training_styles_and_proficiencies_use_the_original_level_two_tables(self):
         # Expected values are read from printed pp. 327, 347-348, and 360.

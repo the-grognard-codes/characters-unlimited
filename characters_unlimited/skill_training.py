@@ -39,8 +39,9 @@ def training_rules(pack):
                          not isinstance(definition.get('id'),str) or not definition['id']):
             raise ValueError('Required catalog references must name known skill identities')
         target=known.get(identifier) if isinstance(identifier,str) else None
-        ordinary=target is not None and not needs_specialty(target) and target.get('kind')!='physical'
-        if explicit and not ordinary:
+        ordinary=(target is not None and not needs_specialty(target)
+                  and (target.get('kind') != 'physical' or 'base' in target))
+        if explicit and (not ordinary or target is None or target.get('kind') == 'physical'):
             raise ValueError('Required catalog references support ordinary skills without specialties')
         if target is None or not ordinary:
             continue
@@ -90,7 +91,8 @@ def resolve_skill_training(character, pack, required, fixed, selections, derived
     for acquisition in acquisitions:
         identifier=acquisition['id']
         definition=known.get(identifier)
-        if definition is None or definition.get('kind') in {'physical', 'training'} or needs_specialty(definition):
+        if (definition is None or definition.get('kind') == 'training' or
+                (definition.get('kind') == 'physical' and 'base' not in definition) or needs_specialty(definition)):
             continue
         learned=recorded_training_level(character,identifier,aliases,default=acquisition['default'])
         row=result.setdefault(identifier,{'ordinary_bonus':acquisition['bonus'],'learned_level':learned,'origins':[]})

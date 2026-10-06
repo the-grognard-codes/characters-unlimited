@@ -11,7 +11,7 @@ class SharedResourceFormulaTests(unittest.TestCase):
         installed=RuleArchive.load()
         pack=installed.active('rifts-domestic-skills')
         source={'book':'Synthetic framework fixture','pages':[1],'section':'Resource formula contract'}
-        pack['resources']['definitions'].extend([
+        pack['class_profiles']['vagabond']['resources']['definitions'].extend([
             {'id':'PPE','name':'Synthetic P.P.E.','contributions':[
                 {'id':'scaled-dice','formula':{'count':3,'sides':6,'bonus':0,'multiplier':10},'source':source},
                 {'id':'initial-pe','attribute':'PE','source':source}]},
@@ -85,12 +85,12 @@ class SharedResourceFormulaTests(unittest.TestCase):
                 mutation(definition)
                 if 'attribute' in definition['contributions'][0]:
                     definition['contributions'][0].pop('formula')
-                pack['resources']['definitions'].append(definition)
+                pack['class_profiles']['vagabond']['resources']['definitions'].append(definition)
                 archive=RuleArchive([pack if (row['id'],row['version'])==(pack['id'],pack['version']) else row
                                     for row in installed.definitions()],installed.active_versions())
-                app=CharacterApplication(directory,die=lambda sides:4,rule_archive=archive)
-                hero=app.create()
-                app.die=lambda sides:self.fail('Malformed resource rule must not draw dice')
+                app=CharacterApplication(directory,
+                    die=lambda sides:self.fail('Malformed resource rule must not draw dice'),
+                    rule_archive=archive)
                 with self.assertRaises(ValueError):
-                    app.generate_resources(hero['id'],revision=hero['revision'])
-                self.assertEqual(app.get(hero['id']),hero)
+                    app.create()
+                self.assertEqual(app.list(),[])

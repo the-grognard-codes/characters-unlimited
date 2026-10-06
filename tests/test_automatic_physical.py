@@ -14,6 +14,8 @@ def granted_archive(grants=('running',)):
     pack = archive.active('rifts-domestic-skills')
     pack['version'] = 'physical-grant-fixture'
     pack['physical_grants'] = list(grants)
+    if pack.get('class_profile_format') == 'owned-v1':
+        pack['class_profiles']['vagabond']['physical_grants'] = list(grants)
     return RuleArchive([*archive.definitions(), pack],
                        {**archive.active_versions(), 'rifts-domestic-skills': pack['version']})
 

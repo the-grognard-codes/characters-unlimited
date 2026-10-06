@@ -5,6 +5,7 @@ from .starting_funds import starting_funds_rules
 from .starting_gear import starting_gear_rules
 from .starting_choices import starting_choice_rules
 from .starting_groups import starting_group_rules
+from .equipment import validate_equipment_catalog
 
 EQUIPMENT_FIELDS = {'source': dict, 'starting_funds': dict, 'starting_gear': dict,
                     'starting_choices': dict, 'starting_groups': dict}
@@ -20,6 +21,7 @@ def owned_equipment_rules(pack, character):
     if pack.get('id') != 'rifts-equipment' or pack.get('game') != 'rifts':
         raise ValueError('Unsupported owned equipment pack')
     result = compose_owned_profile(pack, character['character_class'], EQUIPMENT_FIELDS)
+    validate_equipment_catalog(result)
     for identity, profile in result['class_profiles'].items():
         field = 'source'
         try:

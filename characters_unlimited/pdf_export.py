@@ -375,6 +375,9 @@ def export_rifts_sheet(character, core, skills, combat):
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
     described_skills = set()
+    for requirement in skills.get('pool_requirements', []):
+        sheet_notes += f'\n{requirement["name"]}: {requirement["credited"]} of {requirement["count"]} distinct {requirement["pool"]} choices; {requirement["remaining"]} still required. '
+        sheet_notes += resource_source_citation(requirement['source']) + '.'
     for skill in [*skills['grants'], *skills['selected']]:
         if skill.get('description') and skill['id'] not in described_skills:
             described_skills.add(skill['id'])
@@ -446,8 +449,16 @@ def export_rifts_sheet(character, core, skills, combat):
             if group['generated']:
                 receipt = group['receipt']
                 sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(group['quantity'])+'.'
+                if 'condition' in receipt:
+                    sheet_notes += ' '+group['condition']['name']+': '+str(receipt['condition']['value'])+'%; recorded dice: '+', '.join(map(str, receipt['condition']['rolls']))+'.'
+                for grant in receipt['grants'][1:]:
+                    sheet_notes += ' Additional original grant: '+names[grant['item_id']]+' x'+str(grant['quantity'])+'.'
+                    if 'rolls' in grant:
+                        sheet_notes += ' Recorded dice: '+', '.join(map(str, grant['rolls']))+'.'
                 sheet_notes += ' '+resource_source_citation(receipt['source'])+'.'
                 sheet_notes += ' '+' '.join(group['guidance'])
+                for requirement in group.get('option_requirements', {}).get(receipt['selection'], []):
+                    sheet_notes += ' '+('Training matched: ' if requirement['satisfied'] else 'Training guidance: ')+requirement['text']
         if equipment['starting_gear']['generated']:
             gear = equipment['starting_gear']
             names = {item['id']: item['name'] for item in equipment['catalog']}

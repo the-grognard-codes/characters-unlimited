@@ -35,7 +35,7 @@ def independent_check_rules(definition, catalog):
                     check.get('multiplier', 1) <= 0 or check.get('maximum', 0) < 0):
                 raise ValueError('Context checks need a primary reference and bounded exact modifiers')
         elif (not {'base', 'per_level'} <= set(check) or
-                set(check) - {'name', 'base', 'per_level', 'requires_skill', 'unless_skill', 'unless_pool', 'bonus_policy'} or
+                set(check) - {'name', 'base', 'per_level', 'requires_skill', 'unless_skill', 'unless_pool', 'bonus_policy', 'requires_skills', 'unless_skills'} or
                 any(type(check[field]) is not int or not 0 <= check[field] <= MAX_INTEGER
                     for field in ('base', 'per_level'))):
             raise ValueError('Independent checks need distinct names and exact base and growth')
@@ -47,6 +47,13 @@ def independent_check_rules(definition, catalog):
         for field in ('requires_skill', 'unless_skill'):
             if field in check and (not isinstance(check[field], str) or check[field] not in known):
                 raise ValueError('Independent checks must select a known skill identity')
+        for field in ('requires_skills', 'unless_skills'):
+            if field in check:
+                identifiers = check[field]
+                if (not isinstance(identifiers, list) or not 1 <= len(identifiers) <= 1000 or
+                        any(not isinstance(identifier, str) or identifier not in known for identifier in identifiers) or
+                        len(set(identifiers)) != len(identifiers)):
+                    raise ValueError('Independent check conditions need distinct known skill identities')
         names.add(check['name'])
     return rules
 
@@ -56,6 +63,8 @@ def selected_check_definition(definition, available, selection_pools=None):
         return definition
     return {**definition, 'additional_checks': [check for check in definition.get('additional_checks', [])
             if (check.get('requires_skill') is None or check['requires_skill'] in available)
+            and all(identifier in available for identifier in check.get('requires_skills', []))
+            and not ('unless_skills' in check and all(identifier in available for identifier in check['unless_skills']))
             and not (check.get('unless_skill') in available and
                 ('unless_pool' not in check or check['unless_pool'] in
                  (selection_pools or {}).get(check['unless_skill'], set())))]}

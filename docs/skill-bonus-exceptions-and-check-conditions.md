@@ -1,0 +1,11 @@
+# Category bonus exceptions and acquired-check conditions
+
+An owned category entitlement may declare `bonuses`, mapping existing same-category skill identities to exact bounded integer class bonuses. These replace the category's ordinary bonus for that identity. They do not change eligibility, selection cost, learning age, attribute contributions or source synergies. An unavailable choice still receives no pool bonus. Every owner's exception map validates before generation; older archives without maps keep their original behavior.
+
+Cyber-Doc supplies source witnesses: Medical Doctor receives zero class training even when selected optionally from its Medical category; Bioware Mechanics receives15 instead of ordinaryMechanical5. Required and optional training still reconcile the highest applicable ordinary bonus once. No exception is dispatched by a character class name.
+
+Independent normal checks may declare `requires_skills` or `unless_skills`, each a bounded nonempty distinct list of known skill identities. `requires_skills` displays the check only when all identities are acquired; `unless_skills` hides it when all are acquired. Existing singular/pool conditions remain unchanged. Invalid conditions, including inactive alternatives, reject before initial dice. These conditions select source checks; they do not block honor-system choices.
+
+Cybernetic Medicine uses ordinary Surgery60/+5 until both its second training and Electrical Engineering are acquired. The upgraded Surgery70/+5 replaces that check; diagnosis40/+5 remains independent. Required class bonus10, intelligence and retained acquired-level growth apply normally. The nonpercentile second-training option consumes one additional choice and carries prerequisite guidance. Duplicate upgrade copies do not repeat the surgery bonus. Removing a dependency restores ordinary Surgery, and reselection preserves the parent's existing learning age. Source penalties and laboratory requirements remain descriptions.
+
+The pain saving definition has no invented attribute chart: it projects zero attribute contribution plus explicit class additions. Cyber-Doc contributes2. This is a bonus projection, not a new saving target or pain simulator; historical pinned archives keep their earlier fields.

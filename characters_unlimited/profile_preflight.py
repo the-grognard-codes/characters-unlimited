@@ -36,9 +36,16 @@ def _skill_rules(pack):
             raise ValueError('Category rules require mappings')
         for category, rule in categories.items():
             if (not isinstance(category, str) or not category or not isinstance(rule, dict) or
-                    not {'allow', 'bonus'} <= set(rule) or set(rule) - {'allow', 'bonus', 'exclude', 'costs'} or
+                not {'allow', 'bonus'} <= set(rule) or set(rule) - {'allow', 'bonus', 'bonuses', 'exclude', 'costs'} or
                     type(rule['bonus']) is not int or abs(rule['bonus']) > MAX_INTEGER):
                 raise ValueError('Unsupported category entitlement declaration')
+            bonuses = rule.get('bonuses', {})
+            if (not isinstance(bonuses, dict) or len(bonuses) > 1000 or
+                    any(identifier not in known or
+                        next(row for row in pack['skills'] if row['id'] == identifier).get('category', 'domestic') != category or
+                        type(amount) is not int or abs(amount) > MAX_INTEGER
+                        for identifier, amount in bonuses.items())):
+                raise ValueError('Category bonus exceptions need known same-category skills and exact amounts')
             for key in ('allow', 'exclude'):
                 values = rule.get(key, [])
                 if key == 'allow' and values == 'any':

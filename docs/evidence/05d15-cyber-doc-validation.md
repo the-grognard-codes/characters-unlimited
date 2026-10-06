@@ -1,0 +1,25 @@
+# Cyber-Doc source creation and surgical training evidence
+
+Implementation base: approved Body Fixer head27fe29dc16867f7d8cb4df432be3d452995a5ef5. Branch codex/rifts-technical-class-batch. This bounded Human proof introduces core1.6.0, skills2.27.0 (208 identities) and equipment1.14.0 without changing historical archive bytes. Original Cyber-Doc printed89-91/PDF92-94, Cybernetic Medicine313/PDF316 and XP295/PDF298 were visually reviewed. Canonical owner02b11 remains ready with broader dependencies; optional implants/accessories/optics/sensors, full bionic construction, nonhuman paths and broader equipment/proficiency identities remain required.
+
+## Public and shared regression
+
+Seven new public workflows cover both lifestyle profiles, independent expected attributes/medical checks/resources/saves, category bonus exceptions, two-dependency Surgery upgrade/removal/reselection/duplicate training and retained learning age, distinct additional Technical minimum, original equipment/funds receipts/PDF/portable state, malformed inactive conditions before dice, and historical Body Fixer pins. Initial focused expectation incorrectly classified Computer Repair as Technical; replacing that witness with Research matches its actual catalog category. The corrected22 Cyber-Doc/Body Fixer/owned/preflight workflows pass in49.566s. Fifteen shared medical/electromechanical/attribute checks pass25.933s; an additional requested module name did not exist and produced a loader error, then the correct shared-skill/independent-check selectors pass18 tests32.838s. Typing passes187 files, compileall/all browser syntax/diff checks pass. Full local regression passes612 tests in1215.116s, with one frozen-only skip exercised separately by the rebuilt executable test. Rebuilt Windows executable smoke test passes77.954s at its unchanged request limits.
+
+## Actual Chrome creation and retained choices
+
+Chrome created wandering Human90a4825e-0efb-4a08-bc43-67f674d34131 (revision18) at level3 and city Human4cf21c6a-bab3-43ea-ac4d-2d5ed7c2d6ac (revision3) at level1 on isolated port8835. Both use English/Spanish. Random IQ7/6 is below source IQ11 guidance; PP14/12 meets PP12 guidance. Honor-system creation remains available without an override marker. Neither proof certifies a nonhuman path.
+
+The wandering proof retains required Cybernetic Medicine from level1: Diagnosis60, ordinary Surgery80 after second training alone, upgraded Surgery90 after Electrical Engineering is added. Diagnosis stays60. Optional duplicate Medical Doctor stays70 with zero class bonus; Bioware Mechanics45 uses class15. Research and Computer Programming satisfy the two distinct additional Technical choices. Mechanical Engineering satisfies Bioware prerequisite guidance. Those optional skills learn at level3, while duplicate required Medical Doctor retains original learning age. Expert learns at1 and consumes2 related choices; Energy Pistol learns at1 and consumes1. All10 related choices are allocated;5 Secondary choices deliberately remain.
+
+Wandering funds2900 retain six faces6+6+5+5+1+6; saleable goods7000 retain5+2 separately. All six source groups retain their original receipts: Urban Warrior armor, Compu-Drug, IRMSS, Wilks320/twoEclips, fixed Large Knife/twoEclips and separate Vibro-Knife. Personal kit has12 rows, including six scalpels. No RMK, laser scalpel or vehicle is added. SDC17 and HP27 retain their actual source rolls and level gains.
+
+The city proof retains12000 credits from2+3+3+4, with no saleable-goods grant. Required Diagnosis50/Surgery70, MedicalDoctor60, SDC24 and HP10 are independent level-one values. Optional Technical choices, combat and equipment are intentionally visibly unfinished.
+
+## Portable and editable output
+
+Public export/import preserves all gameplay state and exact core1.6/skills2.27/equipment1.14 pins; only imported identity, updated timestamp, revision and copied-from metadata are excluded from comparison. Reopening uses the same public application boundary. The wandering PDF has9 pages,1505 canonical fields and498 populated widgets; city5 pages,1264 fields and214 populated widgets. Every page widget agrees with the canonical field value; every populated widget has a nonempty appearance stream. The outputs remain editable. All14 pages were rendered with Poppler and visually reviewed, including surgery checks, original receipts, learning ages, funds and resource provenance. No clipping or stale appearances were found. Adjacent browser PNGs and both PDFs preserve actual saved-state proof.
+
+## Independent and hosted gates
+
+Both independent reviews and exact-head hosted full/frozen/artifact gates remain pending. Parent PR126 passed both exact-head hosted605-test runs (1606.148s/1662.341s), typing186, static, build and packaged tests68.381s/80.071s with artifacts. Automatic approval review rejected its external default-branch merge because exact-action authorization was not present in the trusted transcript; approval is requested and PR126 remains open. This dependent slice must not merge before its parent.

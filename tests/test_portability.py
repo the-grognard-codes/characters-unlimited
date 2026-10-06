@@ -13,8 +13,8 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
         from characters_unlimited.portability import pinned_packs
         from characters_unlimited.rules import RuleArchive
         packs = RuleArchive.load().definitions()
-        frame = {'rules': {'id': 'rifts-core', 'version': '1.9.0'},
-                 'additional_rule_packs': {'rifts-domestic-skills': '2.30.0'}}
+        frame = {'rules': {'id': 'rifts-core', 'version': '1.10.0'},
+                 'additional_rule_packs': {'rifts-domestic-skills': '2.31.0'}}
         character: dict[str, Any] = {**copy.deepcopy(frame), 'advancement': {'before': copy.deepcopy(frame)},
                      'later_advancements': [{'before': copy.deepcopy(frame)} for _ in range(13)]}
         with patch('characters_unlimited.portability.deepcopy', wraps=copy.deepcopy) as copying:

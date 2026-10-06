@@ -116,10 +116,10 @@ class MilitarySkillWorkflowTests(unittest.TestCase):
             self.assertEqual(len(before['catalog']),100)
             self.assertFalse(any(row['id']=='field-armorer' for row in before['catalog']))
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.30.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.31.0')
             app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])
             view=app.skill_view(hero['id'])
-            self.assertEqual(len(view['catalog']),208)
+            self.assertEqual(len(view['catalog']),210)
             self.assertEqual(view['selected'],before['selected'])
             # The new Cooking declaration adds gated source metadata; without
             # Hunting, every displayed grant value and contribution is preserved.

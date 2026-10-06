@@ -21,6 +21,14 @@ def _catalog(pack):
         if not isinstance(item, dict) or not isinstance(item.get('id'), str) or item['id'] in items:
             raise ValueError('Equipment catalog has invalid or duplicate item identities')
         items[item['id']] = item
+        if item.get('weapon_kind') == 'descriptive':
+            if (item.get('category') != 'weapon'
+                    or any(not isinstance(item.get(key), str) or not item[key].strip()
+                           for key in ('damage', 'description'))
+                    or any(type(item.get(key)) is not int or not 0 <= item[key] <= MAX_SAFE_INTEGER
+                           for key in ('range_feet', 'range_meters'))
+                    or any(key in item for key in ('capacity', 'proficiency', 'aimed_bonus'))):
+                raise ValueError('Descriptive weapons require source effects and ranges without gun mechanics')
         if 'damage_scale' in item and (item['damage_scale'] not in ('structural-damage', 'mega-damage')
                 or item.get('category') != 'weapon' or item.get('weapon_kind') != 'melee'):
             raise ValueError('Damage scale requires a reviewed melee weapon declaration')
@@ -56,9 +64,9 @@ def _inventory(record, pack):
             raise ValueError('Invalid equipment quantity or state')
         definition = definitions[item['item_id']]
         if definition.get('category') == 'weapon':
-            if definition.get('weapon_kind', 'ranged') == 'melee':
+            if definition.get('weapon_kind', 'ranged') in ('melee', 'descriptive'):
                 if item['shots'] is not None:
-                    raise ValueError('Melee weapons cannot have shots')
+                    raise ValueError('Melee and descriptive weapons cannot have shots')
             elif definition.get('weapon_kind', 'ranged') == 'ranged':
                 capacity = definition.get('capacity')
                 if (type(capacity) is not int or capacity < 1 or type(item['shots']) is not int
@@ -218,6 +226,8 @@ def project_equipment(character, pack, combat, skills=None):
         if possession['location'] != 'carried' or not possession['equipped']:
             continue
         if definition['category'] == 'weapon':
+            if definition.get('weapon_kind') == 'descriptive':
+                continue
             if definition.get('weapon_kind', 'ranged') == 'melee':
                 training = melee_training.get(definition['proficiency'], {})
                 results = {}
@@ -316,6 +326,8 @@ def project_equipment(character, pack, combat, skills=None):
                 'name': definition['name'], 'quantity': possession['quantity'],
                 'sheet_name': definition.get('sheet_name', definition['name']),
                 'cost_credits': definition['cost_credits'], 'weight_lbs': definition['weight_lbs'],
+                **({'cost_credits_range': deepcopy(definition['cost_credits_range'])}
+                   if 'cost_credits_range' in definition else {}),
                 'locations': deepcopy(definition['locations']),
                 'movement_penalty': definition['movement_penalty'],
                 # Archived catalogs only supported Plastic-Man's reviewed Prowl mapping.

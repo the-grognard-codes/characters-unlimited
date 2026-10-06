@@ -25,7 +25,8 @@ class PilotSkillWorkflowTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             app=CharacterApplication(directory,die=lambda sides:4)
             hero=app.create()
-            catalog={row['id']:row for row in app.skill_view(hero['id'])['catalog'] if row.get('category')=='pilot'}
+            catalog={row['id']:row for row in app.skill_view(hero['id'])['catalog']
+                     if row.get('category')=='pilot' and row.get('kind')!='training'}
             self.assertEqual({key:(row['base'],row['per_level']) for key,row in catalog.items()},expected)
             self.assertTrue(all(row['description'] and row['source']['pdf_pages'] for row in catalog.values()))
             hero=app.select_skills(hero['id'],revision=0,selections=choices('ships-seamanship','navigation','weapon-systems','rope-works'))
@@ -103,7 +104,7 @@ class PilotSkillWorkflowTests(unittest.TestCase):
             app=CharacterApplication(directory,die=lambda sides:4)
             self.assertEqual(app.skill_view(hero['id'])['grants'],old_view['grants'])
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.30.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.31.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(hero['learning_levels'][legacy],1)
             hero=app.select_skills(hero['id'],revision=hero['revision'],learned_level=3,selections=choices('automobile','bicycle'))

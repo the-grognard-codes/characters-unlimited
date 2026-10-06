@@ -67,6 +67,12 @@ def starting_group_rules(character, pack, elective_count=None):
             if (type(minimum) is not int or not 1 <= minimum <= MAX_QUANTITY or
                     'proficiency_slot' in group or not group.get('option_requirements')):
                 raise ValueError('Repeated proficiency equipment needs a bounded minimum and training requirements')
+            for other in rules['groups']:
+                if not isinstance(other, str):
+                    raise ValueError('Starting equipment identities must be strings')
+                match = re.fullmatch(re.escape(identifier) + r'-([1-9][0-9]{0,3})', other)
+                if match and int(match[1]) <= MAX_QUANTITY:
+                    raise ValueError('Starting equipment group identities collide')
         requirements = group.get('option_requirements', {})
         if not isinstance(requirements, dict) or set(requirements) - set(group['options']):
             raise ValueError('Starting requirements need known equipment options')

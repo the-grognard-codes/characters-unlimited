@@ -229,3 +229,14 @@ class ScholarlyClassTests(unittest.TestCase):
             app=CharacterApplication(directory,rule_archive=archive,die=lambda sides:self.fail('No invalid-rule draws'))
             with self.assertRaises(ValueError): app.create()
             self.assertEqual(app.list(),[])
+
+    def test_future_repeat_slot_collision_rejects_unselected_owner_before_dice(self):
+        installed=RuleArchive.load();pack=installed.active('rifts-equipment')
+        groups=pack['class_profiles']['rogue-scientist']['starting_groups']['groups']
+        groups['elective-weapon-3']=deepcopy(groups['armor'])
+        archive=RuleArchive([pack if (r['id'],r['version'])==(pack['id'],pack['version']) else r
+            for r in installed.definitions()],installed.active_versions())
+        with tempfile.TemporaryDirectory() as directory:
+            app=CharacterApplication(directory,rule_archive=archive,die=lambda sides:self.fail('No preflight draws'))
+            with self.assertRaisesRegex(ValueError,'identities collide'): app.create(character_class='vagabond')
+            self.assertEqual(app.list(),[])

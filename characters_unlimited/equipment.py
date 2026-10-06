@@ -203,8 +203,6 @@ def project_equipment(character, pack, combat, skills=None):
     if inventory['credits'] < 0:
         warnings.append('Credit balance is below zero; the deficit is retained and does not block further purchases.')
     low_pp = (combat is None or combat.get('totals', {}).get('strike', {}).get('value') is None)
-    choices = combat.get('choices', {}) if isinstance(combat, dict) else {}
-    trained = set(choices.get('modern', []))
     reviewed_low_strength = bool(combat and (combat.get('catalog') or {}).get('reviewed_low_strength_melee'))
     weapon_proficiencies = {item['id']: item for item in combat.get('shooting', [])} if isinstance(combat, dict) else {}
     melee_training = {item['id']: item for item in combat.get('melee', [])} if isinstance(combat, dict) else {}
@@ -288,8 +286,8 @@ def project_equipment(character, pack, combat, skills=None):
                 })
                 continue
             wp_id = definition['proficiency']
-            has_wp = wp_id in trained and wp_id in weapon_proficiencies
             training = weapon_proficiencies.get(wp_id, {})
+            has_wp = training.get('trained', False)
             shooting_contributions = deepcopy(training.get('single', {}).get('contributions', {'weapon_proficiency':0}))
             ammunition_guidance = ('No shots remain in this weapon.' if possession['shots'] == 0 else '')
             if not has_wp:

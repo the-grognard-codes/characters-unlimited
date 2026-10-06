@@ -17,6 +17,7 @@ from .skill_training import training_rules, resolve_skill_training
 from .skill_checks import independent_check_rules
 from .nonpercentile_skills import training_definition
 from .skill_pool_requirements import requirement_rules, project_requirements
+from .skill_pool_learning import validate_pool_learning, pool_learning_default
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -24,6 +25,7 @@ POOLS = PACK['pools']
 
 
 def optional_pool_groups(pack):
+    validate_pool_learning(pack)
     requirement_rules(pack)
     training_rules(pack)
     skill_grant_rules(pack)
@@ -201,7 +203,8 @@ def project_skills(character, pack=PACK):
             if training['origins']:
                 contributions['Skill grant training'] = max(0, training['bonus'] - bonus)
         if character['level'] > 1:
-            age = learning_age(character, 'skill', definition['id'], item.get('specialty', ''))
+            age = learning_age(character, 'skill', definition['id'], item.get('specialty', ''),
+                               default=pool_learning_default(pack, item['pool'], character['level']))
             if training:
                 age = character['level'] - training['learned_level'] + 1
             contributions['advancement'] = (age - 1) * definition['per_level']

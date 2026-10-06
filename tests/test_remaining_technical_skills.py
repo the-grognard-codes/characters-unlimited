@@ -104,7 +104,7 @@ class RemainingTechnicalWorkflowTests(unittest.TestCase):
                 app.select_skills(hero['id'],revision=before['revision'],selections=choices('salvage'))
             self.assertEqual(app.get(hero['id']),before)
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.31.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.32.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=before['revision'],token=preview['token'])['character']
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),210)
             self.assertEqual([row['id'] for row in app.skill_view(hero['id'])['selected']],['research','rope-works','recycle'])

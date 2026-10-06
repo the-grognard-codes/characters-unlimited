@@ -374,11 +374,19 @@ def export_rifts_sheet(character, core, skills, combat):
     secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
+    if skills.get('path_guidance'):
+        sheet_notes += '\nO.C.C. guidance: ' + ' '.join(skills['path_guidance'])
+        sheet_notes += ' (' + skills['sources'][0] + ').'
     described_skills = set()
     for requirement in skills.get('pool_requirements', []):
         sheet_notes += f'\n{requirement["name"]}: {requirement["credited"]} of {requirement["count"]} distinct {requirement["pool"]} choices; {requirement["remaining"]} still required. '
         sheet_notes += resource_source_citation(requirement['source']) + '.'
     for skill in [*skills['grants'], *skills['selected']]:
+        if skill.get('effect_contributions'):
+            sheet_notes += '\n' + skill['name'] + ' normal skill bonuses: '
+            sheet_notes += '; '.join(effect['name'] + f' {effect["value"]:+}%' +
+                ' (' + resource_source_citation(effect['source']) + ')'
+                for effect in skill['effect_contributions']) + '.'
         if skill.get('description') and skill['id'] not in described_skills:
             described_skills.add(skill['id'])
             sheet_notes += '\n' + skill['name'] + ': ' + skill['description']
@@ -453,7 +461,7 @@ def export_rifts_sheet(character, core, skills, combat):
                     sheet_notes += ' '+group['condition']['name']+': '+str(receipt['condition']['value'])+'%; recorded dice: '+', '.join(map(str, receipt['condition']['rolls']))+'.'
                 for grant in receipt['grants'][1:]:
                     sheet_notes += ' Additional original grant: '+names[grant['item_id']]+' x'+str(grant['quantity'])+'.'
-                    if 'rolls' in grant:
+                    if grant.get('rolls'):
                         sheet_notes += ' Recorded dice: '+', '.join(map(str, grant['rolls']))+'.'
                 sheet_notes += ' '+resource_source_citation(receipt['source'])+'.'
                 sheet_notes += ' '+' '.join(group['guidance'])

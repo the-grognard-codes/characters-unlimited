@@ -169,7 +169,7 @@ function renderStartingGroups(starting, catalog, characterId) {
       for (const grant of group.receipt.grants.slice(1)) {
         const item = catalog.find(item => item.id === grant.item_id);
         const detail = document.createElement('p'); detail.className = 'help';
-        detail.textContent = `Original additional grant: ${item?.name || grant.item_id} × ${grant.quantity}${grant.rolls ? `; recorded dice: ${grant.rolls.join(', ')}` : ''}.`;
+        detail.textContent = `Original additional grant: ${item?.name || grant.item_id} × ${grant.quantity}${grant.rolls?.length ? `; recorded dice: ${grant.rolls.join(', ')}` : ''}.`;
         section.append(detail);
       }
       const receiptSource = document.createElement('p'); receiptSource.className = 'help';

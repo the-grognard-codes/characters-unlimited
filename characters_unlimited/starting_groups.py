@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 import json
+import re
 from uuid import UUID
 from .recorded_formulas import validate_formula, formula_value, roll_formula
 from .ability_requirements import compile_ability_requirements, project_ability_requirements
@@ -43,7 +44,7 @@ def starting_group_rules(character, pack):
     for identifier, group in rules['groups'].items():
         if (not isinstance(identifier, str) or not identifier or len(identifier) > 100
                 or not isinstance(group, dict)
-                or set(group) - {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance', 'additional_grants', 'condition', 'option_requirements', 'proficiency_slot'}
+                or set(group) - {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance', 'additional_grants', 'condition', 'option_requirements', 'proficiency_slot', 'repeat_for_proficiencies'}
                 or not {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance'} <= set(group)
                 or not isinstance(group['name'], str) or not group['name']
                 or group['category'] not in ('armor', 'weapon', 'gear', 'ammunition')
@@ -61,6 +62,11 @@ def starting_group_rules(character, pack):
         if 'proficiency_slot' in group and (type(group['proficiency_slot']) is not int or
                 not 1 <= group['proficiency_slot'] <= MAX_QUANTITY):
             raise ValueError('Starting proficiency groups need a bounded elective slot')
+        if 'repeat_for_proficiencies' in group:
+            minimum = group['repeat_for_proficiencies']
+            if (type(minimum) is not int or not 1 <= minimum <= MAX_QUANTITY or
+                    'proficiency_slot' in group or not group.get('option_requirements')):
+                raise ValueError('Repeated proficiency equipment needs a bounded minimum and training requirements')
         requirements = group.get('option_requirements', {})
         if not isinstance(requirements, dict) or set(requirements) - set(group['options']):
             raise ValueError('Starting requirements need known equipment options')
@@ -105,7 +111,53 @@ def starting_group_rules(character, pack):
                 maximum = (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
                 if not 1 <= minimum <= maximum <= MAX_QUANTITY:
                     raise ValueError('Additional equipment quantities must remain within inventory bounds')
-    return rules['groups']
+    return _expanded_groups(character, rules['groups'], pack.get('training_catalogs', {}))
+
+
+def _expanded_groups(character, groups, catalogs):
+    """One stable numbered receipt per distinct selected proficiency; retain old slots."""
+    result = {}
+    for identifier, group in groups.items():
+        if 'repeat_for_proficiencies' not in group:
+            if identifier in result:
+                raise ValueError('Starting equipment group identities collide')
+            result[identifier] = group
+            continue
+        count = group['repeat_for_proficiencies']
+        choices = character.get('combat_choices', {})
+        if not isinstance(choices, dict):
+            raise ValueError('Repeated equipment needs saved proficiency choices')
+        selected_count = 0
+        for family in ('ancient', 'modern'):
+            values = choices.get(family, [])
+            known = {row['id'] for row in catalogs[family]}
+            if (not isinstance(values, list) or len(values) > MAX_QUANTITY or
+                    any(not isinstance(value, str) or value not in known for value in values)):
+                raise ValueError('Repeated equipment needs bounded known weapon choices')
+            selected_count += len(set(values))
+        count = max(count, selected_count)
+        receipts = character.get('starting_equipment_groups', {})
+        if not isinstance(receipts, dict) or len(receipts) > MAX_QUANTITY:
+            raise ValueError('Repeated equipment needs bounded retained receipts')
+        for saved in receipts:
+            if not isinstance(saved, str):
+                raise ValueError('Starting equipment identities must be strings')
+            match = re.fullmatch(re.escape(identifier) + r'-([1-9][0-9]{0,3})', saved)
+            if match:
+                count = max(count, int(match[1]))
+        if count > MAX_QUANTITY or len(result) + count > MAX_QUANTITY:
+            raise ValueError('Repeated equipment exceeds supported group count')
+        for slot in range(1, count + 1):
+            key = identifier + '-' + str(slot)
+            if key in result or key in groups:
+                raise ValueError('Starting equipment group identities collide')
+            expanded = deepcopy(group)
+            expanded.pop('repeat_for_proficiencies')
+            expanded.update(name=group['name'] + ' ' + str(slot), proficiency_slot=slot)
+            result[key] = expanded
+    if len(result) > MAX_QUANTITY:
+        raise ValueError('Starting equipment exceeds supported group count')
+    return result
 
 
 def _other_receipt_ids(character):

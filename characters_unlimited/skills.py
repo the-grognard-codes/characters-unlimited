@@ -222,7 +222,9 @@ def project_skills(character, pack=PACK):
                          'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
-        remaining[pool] += sum(level <= character['level'] for level in pack.get('higher_advancement', {}).get(pool + '_levels', []))
+        advancement = pack.get('higher_advancement', {})
+        remaining[pool] += advancement.get(pool + '_per_award', 1) * sum(
+            level <= character['level'] for level in advancement.get(pool + '_levels', []))
     remaining['related'] -= combat_skill_cost(character, pack)
     for pool, count in remaining.items():
         if count < 0:
@@ -294,6 +296,7 @@ def project_skills(character, pack=PACK):
                    'Physical bonuses apply once per skill: pp. 316–317.',
                    'I.Q. bonuses: pp. 281, 284. HP growth and class XP: pp. 287, 295.']
     return {'catalog': domestic, 'physical':physical, **({'pool_requirements': requirements} if requirements else {}), 'grants': [*fixed_grants, *required['grants'], *automatic_physical, *derived_grants], 'selected': selected, 'remaining': remaining,
+            **({'path_guidance': list(pack['path_guidance'])} if pack.get('path_guidance') else {}),
             'pool_catalog':pools,
             'required_remaining': required['remaining'], 'required_catalog': required['catalog'],
             'warnings': list(dict.fromkeys([*warnings, *required['warnings']])),

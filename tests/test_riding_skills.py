@@ -82,7 +82,7 @@ class RidingWorkflowTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 app.select_skills(hero['id'],revision=hero['revision'],selections=choices('horse-general'))
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.24.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.25.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             hero=app.select_skills(hero['id'],revision=hero['revision'],selections=choices('horse-general'))
             rows=[row for row in app.skill_view(hero['id'])['grants']+app.skill_view(hero['id'])['selected'] if row['id']=='horse-general']

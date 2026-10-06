@@ -57,7 +57,7 @@ def _skill_rules(pack):
 
 def _progression(rules, resources):
     if (not isinstance(rules, dict) or not {'hp_die', 'max_level', 'xp_ranges', 'source'} <= set(rules) or
-            set(rules) - {'hp_die', 'max_level', 'xp_ranges', 'source', 'class_id', 'resource_gains', 'related_levels', 'secondary_levels'} or
+            set(rules) - {'hp_die', 'max_level', 'xp_ranges', 'source', 'class_id', 'resource_gains', 'related_levels', 'secondary_levels', 'related_per_award', 'secondary_per_award'} or
             type(rules['hp_die']) is not int or not 1 <= rules['hp_die'] <= 1000 or
             type(rules['max_level']) is not int or not 1 <= rules['max_level'] <= 1000):
         raise ValueError('Unsupported progression declaration')
@@ -78,6 +78,10 @@ def _progression(rules, resources):
                 any(type(level) is not int or not 1 <= level <= rules['max_level'] for level in levels) or
                 len(set(levels)) != len(levels)):
             raise ValueError('Skill awards must name distinct supported levels')
+    for pool in ('related', 'secondary'):
+        amount = rules.get(pool + '_per_award', 1)
+        if type(amount) is not int or not 1 <= amount <= 1000:
+            raise ValueError('Skill awards require a bounded positive count')
     gains = level_gain_definitions(rules, resources)
     validate_acquisition_catalog({'level-resources': {identifier: row['formula'] for identifier, row in gains.items()}})
 

@@ -24,6 +24,10 @@ function renderCombat(view) {
   $('combat-learned-level').value = current.level;
   $('combat-counts').textContent = view.catalog ? Object.entries(view.remaining).map(([name,count]) => `${name}: ${count} required choices remaining`).join(' · ') + ` · related skills used by training: ${view.related_cost}` : '';
   if (view.catalog) {
+    $('combat-training-costs').textContent = 'Training saves immediately. Related choices used: ' +
+      view.catalog.hand_to_hand.map(style => `${style.name}: ${style.cost}`).join('; ') + '.' +
+      (view.catalog.additional_proficiency_cost === undefined ? '' :
+        ` Each additional distinct weapon proficiency uses ${view.catalog.additional_proficiency_cost} related choice(s).`);
     for (const [id, definitions] of [['hand',view.catalog.hand_to_hand],['ancient',view.catalog.ancient],['modern',view.catalog.modern]]) {
       const previous = $('combat-' + id).value;
       $('combat-' + id).replaceChildren(...definitions.map(definition => { const option=document.createElement('option'); option.value=definition.id; option.textContent=definition.name; return option; }));

@@ -11,7 +11,7 @@ from .skill_checks import independent_check_rules
 from .required_definitions import required_catalog
 from .nonpercentile_skills import training_definition
 from .skill_pool_requirements import requirement_rules
-from .combat_grants import fixed_proficiencies
+from .combat_grants import fixed_proficiencies, proficiency_allowances
 
 
 PROFILE_FIELDS = {'name', 'path_name', 'source', 'pools', 'required', 'selection_rules',
@@ -38,6 +38,7 @@ def class_rules(pack, character):
     for owner in [pack, *pack.get('class_profiles', {}).values()]:
         class_numeric_contributions({**pack, **owner})
         fixed_proficiencies({**pack, **owner}.get('combat', {}))
+        proficiency_allowances({**pack, **owner}.get('combat', {}))
         requirement_rules({**pack, **owner})
         required_catalog({**pack, **owner})
     for definition in pack['skills']:

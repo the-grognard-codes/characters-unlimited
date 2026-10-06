@@ -581,9 +581,12 @@ def export_rifts_sheet(character, core, skills, combat):
             overflow.append(f'{weapon["name"]}: thrown strike {thrown if thrown is not None else ""}')
     for weapon in combat.get('shooting', []):
         if weapon['trained']:
+            supported = ('burst',) if weapon.get('burst_only', False) else ('single', 'aimed', 'burst', 'wild')
             contexts = [f'{context}: {weapon[context]["value"] if weapon[context]["value"] is not None else ""}'
-                        for context in ('single', 'aimed', 'burst', 'wild')]
+                        for context in supported]
             overflow.append(weapon['name'] + ' - ' + '; '.join(contexts))
+            if weapon.get('burst_only', False):
+                overflow.append(weapon['name'] + ': burst fire only; damage and ammunition use remain descriptive.')
     # Auto-size the appearance to the original field rectangles; keep canonical values.
     fill_values(writer, values)
     append_continuation(writer, overflow)

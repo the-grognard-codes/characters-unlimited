@@ -1,0 +1,973 @@
+{
+  "classes": [
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          97
+        ],
+        "section": "Vagabond O.C.C. Bonuses"
+      },
+      "attribute_bonuses": {
+        "MA": {
+          "count": 1,
+          "sides": 4
+        },
+        "PE": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Class-specific skills, abilities, resources, equipment, and advancement await their implementation slices."
+      ],
+      "id": "vagabond",
+      "name": "Vagabond",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Vagabond O.C.C."
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          88
+        ],
+        "pdf_pages": [
+          91
+        ],
+        "section": "City Rat O.C.C. Bonuses"
+      },
+      "attribute_bonuses": {
+        "SPD": {
+          "constant": 1,
+          "count": 1,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Attribute-role thresholds are descriptive rather than enforced; the class has no general attribute requirement.",
+        "P.P.E. +1D10+4 and its age-22 halving, including age/base/rounding, are not automated.",
+        "Starting credits, Black Market item, equipment, body armor, and 1D4+2 cybernetic implants are not automated.",
+        "The minimum of three Physical or Rogue related skills is not enforced, including whether Hand to Hand upgrades count toward it.",
+        "The complete class skill catalog and prerequisites are not present; category permissions are represented only where the catalog supports them."
+      ],
+      "id": "city-rat",
+      "name": "City Rat",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          88,
+          89
+        ],
+        "pdf_pages": [
+          91,
+          92
+        ],
+        "section": "City Rat O.C.C. Stats"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          99
+        ],
+        "pdf_pages": [
+          102
+        ],
+        "section": "Wilderness Scout O.C.C. Bonuses"
+      },
+      "attribute_bonuses": {
+        "PE": {
+          "count": 1,
+          "sides": 4
+        },
+        "PS": {
+          "count": 1,
+          "sides": 4
+        }
+      },
+      "automation_gaps": [
+        "Eligibility guidance: I.Q. 8 and P.E. 12 or higher; any alignment, no racial restriction. High P.S. and M.E. are helpful.",
+        "Cross-country travel, trail following, map errors and conditional activity effects use the source descriptions.",
+        "Only the available reviewed weapon and equipment catalog is selectable; broader catalog coverage remains in progress."
+      ],
+      "id": "wilderness-scout",
+      "name": "Wilderness Scout",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          98,
+          99,
+          100
+        ],
+        "pdf_pages": [
+          101,
+          102,
+          103
+        ],
+        "section": "Wilderness Scout O.C.C."
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          93,
+          94,
+          95
+        ],
+        "pdf_pages": [
+          96,
+          97,
+          98
+        ],
+        "section": "Rogue Scholar O.C.C. Skills and Abilities"
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "MA": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility guidance: I.Q. 10 and M.A. 10; no racial restriction.",
+        "Teaching, discounts, alien penalties and conditional activities use source descriptions. General insanity is excluded.",
+        "Human is the reviewed racial path. Broader equipment, weapon and racial catalogs remain in progress."
+      ],
+      "id": "rogue-scholar",
+      "name": "Rogue Scholar",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          93,
+          94,
+          95
+        ],
+        "pdf_pages": [
+          96,
+          97,
+          98
+        ],
+        "section": "Rogue Scholar O.C.C. Skills and Abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          95,
+          96
+        ],
+        "pdf_pages": [
+          98,
+          99
+        ],
+        "section": "Rogue Scientist O.C.C. Skills and Abilities"
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility guidance: I.Q. 12; no racial restriction.",
+        "Teaching, discounts, alien penalties and conditional activities use source descriptions. General insanity is excluded.",
+        "Human is the reviewed racial path. Broader equipment, weapon and racial catalogs remain in progress."
+      ],
+      "id": "rogue-scientist",
+      "name": "Rogue Scientist",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          95,
+          96
+        ],
+        "pdf_pages": [
+          98,
+          99
+        ],
+        "section": "Rogue Scientist O.C.C. Skills and Abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ],
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "MA": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PE": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.10 or higher; high P.P./M.A. suggested. No racial restriction.",
+        "Human creation is reviewed; broader racial paths and equipment/proficiency catalogs remain open.",
+        "City/Burbs and wandering are source lifestyle variants of Body Fixer; choose the matching retained creation profile."
+      ],
+      "id": "body-fixer",
+      "name": "Body Fixer (wandering)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ],
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ],
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "MA": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PE": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.10 or higher; high P.P./M.A. suggested. No racial restriction.",
+        "Human creation is reviewed; broader racial paths and equipment/proficiency catalogs remain open.",
+        "City/Burbs and wandering are source lifestyle variants of Body Fixer; choose the matching retained creation profile."
+      ],
+      "id": "body-fixer-city",
+      "name": "Body Fixer (city/Burbs)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          87,
+          88
+        ],
+        "pdf_pages": [
+          90,
+          91
+        ],
+        "section": "Body Fixer O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89,
+          90,
+          91
+        ],
+        "pdf_pages": [
+          92,
+          93,
+          94
+        ],
+        "section": "Cyber-Doc O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "ME": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.11 and P.P.12 or higher; high M.E. suggested. No racial restriction.",
+        "Human source creation is reviewed. Optional1D4+2 implanted accessories/optics/sensors, complete bionic construction, wider equipment and nonhuman paths remain required follow-up content.",
+        "City/Burbs and wandering are source lifestyle variants; select the retained matching profile."
+      ],
+      "id": "cyber-doc",
+      "name": "Cyber-Doc (wandering)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89,
+          90,
+          91
+        ],
+        "pdf_pages": [
+          92,
+          93,
+          94
+        ],
+        "section": "Cyber-Doc O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89,
+          90,
+          91
+        ],
+        "pdf_pages": [
+          92,
+          93,
+          94
+        ],
+        "section": "Cyber-Doc O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "ME": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.11 and P.P.12 or higher; high M.E. suggested. No racial restriction.",
+        "Human source creation is reviewed. Optional1D4+2 implanted accessories/optics/sensors, complete bionic construction, wider equipment and nonhuman paths remain required follow-up content.",
+        "City/Burbs and wandering are source lifestyle variants; select the retained matching profile."
+      ],
+      "id": "cyber-doc-city",
+      "name": "Cyber-Doc (city/Burbs)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          89,
+          90,
+          91
+        ],
+        "pdf_pages": [
+          92,
+          93,
+          94
+        ],
+        "section": "Cyber-Doc O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.9 or higher; high P.P./P.S. helpful. No racial restrictions; this proof is Human.",
+        "Ordinary Operator source creation is reviewed. Optional Psi-Operator Major entitlement, weighted powers and halved related choices remain required separate work; this path does not certify that variant.",
+        "Broader medium armor, vehicle/weapon identities, nonhuman creation and robot/bionic construction remain required."
+      ],
+      "id": "operator",
+      "name": "Operator (wandering)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.9 or higher; high P.P./P.S. helpful. No racial restrictions; this proof is Human.",
+        "Ordinary Operator source creation is reviewed. Optional Psi-Operator Major entitlement, weighted powers and halved related choices remain required separate work; this path does not certify that variant.",
+        "Broader medium armor, vehicle/weapon identities, nonhuman creation and robot/bionic construction remain required."
+      ],
+      "id": "operator-city",
+      "name": "Operator (city/Burbs)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "ability_path": {
+        "id": "rifts-operator-psionics",
+        "version": "1.0.0"
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.9 or higher; high P.P./P.S. helpful. No racial restrictions; this proof is Human.",
+        "Broader medium armor, vehicle/weapon identities, nonhuman creation and robot/bionic construction remain required."
+      ],
+      "id": "psi-operator",
+      "name": "Psi-Operator (wandering)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "ability_path": {
+        "id": "rifts-operator-psionics",
+        "version": "1.0.0"
+      },
+      "attribute_bonus_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      },
+      "attribute_bonuses": {
+        "IQ": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PP": {
+          "constant": 1,
+          "count": 0,
+          "sides": 6
+        },
+        "PS": {
+          "constant": 2,
+          "count": 0,
+          "sides": 6
+        }
+      },
+      "automation_gaps": [
+        "Eligibility: I.Q.9 or higher; high P.P./P.S. helpful. No racial restrictions; this proof is Human.",
+        "Broader medium armor, vehicle/weapon identities, nonhuman creation and robot/bionic construction remain required."
+      ],
+      "id": "psi-operator-city",
+      "name": "Psi-Operator (city/Burbs)",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          91,
+          92,
+          93
+        ],
+        "pdf_pages": [
+          94,
+          95,
+          96
+        ],
+        "section": "Operator O.C.C. skills, bonuses and abilities"
+      }
+    },
+    {
+      "ability_path": {
+        "id": "rifts-burster-psionics",
+        "version": "1.0.0"
+      },
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source witness; wider racial creation and equipment families remain required.",
+        "Eligibility is guidance: no required attributes; high ME and IQ8 suggested."
+      ],
+      "id": "burster",
+      "name": "Burster",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          142
+        ],
+        "pdf_pages": [
+          145
+        ],
+        "section": "Burster O.C.C. skills, bonuses, equipment and money"
+      }
+    },
+    {
+      "ability_path": {
+        "id": "rifts-mind-melter-psionics",
+        "version": "1.0.0"
+      },
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source witness; wider racial creation and equipment families remain required.",
+        "Eligibility is guidance: no required attributes; high IQ and ME10 suggested."
+      ],
+      "id": "mind-melter",
+      "name": "Mind Melter",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          151
+        ],
+        "pdf_pages": [
+          154
+        ],
+        "section": "Mind Melter O.C.C. skills, bonuses, equipment and money"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human or Psi-Stalker; physical attributes must be at least 7. High P.S. and P.E. are suggested.",
+        "Human source witness; wider racial compatibility and supporting equipment remain open."
+      ],
+      "id": "coalition-grunt",
+      "name": "Coalition Grunt",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          233
+        ],
+        "pdf_pages": [
+          236
+        ],
+        "section": "Coalition Grunt O.C.C. skills, training, equipment and pay"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human; I.Q. 10 and P.P. 10 minimums. High P.S. and P.E. are suggested.",
+        "Human source witness; wider racial compatibility and supporting equipment remain open."
+      ],
+      "id": "coalition-samas-pilot",
+      "name": "Coalition SAMAS / Elite RPA Pilot",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          233,
+          234,
+          235
+        ],
+        "pdf_pages": [
+          236,
+          237,
+          238
+        ],
+        "section": "Coalition SAMAS / Elite RPA Pilot O.C.C. skills, training, equipment and pay"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ],
+      "id": "coalition-technical-officer-communications",
+      "name": "Coalition Technical Officer — Communications",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ],
+        "section": "Coalition Technical Officer — Communications common and MOS training"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ],
+      "id": "coalition-technical-officer-electrician",
+      "name": "Coalition Technical Officer — Electrician",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ],
+        "section": "Coalition Technical Officer — Electrician common and MOS training"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ],
+      "id": "coalition-technical-officer-mechanic",
+      "name": "Coalition Technical Officer — Mechanic",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ],
+        "section": "Coalition Technical Officer — Mechanic common and MOS training"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ],
+      "id": "coalition-technical-officer-robotics",
+      "name": "Coalition Technical Officer — Robotics",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ],
+        "section": "Coalition Technical Officer — Robotics common and MOS training"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ],
+      "id": "coalition-technical-officer-technician",
+      "name": "Coalition Technical Officer — Technician",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ],
+        "section": "Coalition Technical Officer — Technician common and MOS training"
+      }
+    },
+    {
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ],
+      "id": "coalition-technical-officer-medic",
+      "name": "Coalition Technical Officer — Medic",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ],
+        "section": "Coalition Technical Officer — Medic common and MOS training"
+      }
+    },
+    {
+      "id": "coalition-technical-officer-weapons",
+      "name": "Coalition Technical Officer — Weapons",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Coalition Technical Officer — Weapons common and MOS training",
+        "pages": [
+          236,
+          237
+        ],
+        "pdf_pages": [
+          239,
+          240
+        ]
+      },
+      "attribute_bonuses": {},
+      "automation_gaps": [
+        "Human source path; IQ 9 minimum and any alignment are honor-system guidance.",
+        "Wider racial compatibility, equipment and robot/bionic construction remain open."
+      ]
+    }
+  ],
+  "creation_profile_format": "paired-v1",
+  "creation_profiles": [
+    {
+      "classes": [
+        "vagabond",
+        "city-rat",
+        "wilderness-scout",
+        "rogue-scholar",
+        "rogue-scientist",
+        "body-fixer",
+        "body-fixer-city",
+        "cyber-doc",
+        "cyber-doc-city",
+        "operator",
+        "operator-city",
+        "psi-operator",
+        "psi-operator-city",
+        "burster",
+        "mind-melter",
+        "coalition-grunt",
+        "coalition-samas-pilot",
+        "coalition-technical-officer-communications",
+        "coalition-technical-officer-electrician",
+        "coalition-technical-officer-mechanic",
+        "coalition-technical-officer-robotics",
+        "coalition-technical-officer-technician",
+        "coalition-technical-officer-medic",
+        "coalition-technical-officer-weapons"
+      ],
+      "race": "human",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          87,
+          88,
+          89,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100,
+          142,
+          151
+        ],
+        "pdf_pages": [
+          90,
+          91,
+          92,
+          96,
+          97,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          145,
+          154
+        ],
+        "section": "Human creation: reviewed ordinary adventuring class paths"
+      }
+    }
+  ],
+  "edition": "Ultimate Edition",
+  "game": "rifts",
+  "id": "rifts-core",
+  "races": [
+    {
+      "attributes": {
+        "constant": 0,
+        "count": 3,
+        "exceptional": {
+          "max_bonus_dice": 2,
+          "thresholds": [
+            16,
+            17,
+            18
+          ]
+        },
+        "sides": 6
+      },
+      "id": "human",
+      "name": "Human"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "markdown_lines": [
+      15895,
+      15899
+    ],
+    "section": "Character Creation, Step 1: The Eight Attributes"
+  },
+  "version": "1.12.0"
+}

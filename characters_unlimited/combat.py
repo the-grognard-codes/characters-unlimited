@@ -10,6 +10,15 @@ from .physical import project_physical
 from typing import Any
 from .advancement import learning_age
 from .combat_grants import fixed_proficiencies, proficiency_allowances, proficiency_selection_cost
+from .weapon_fire_modes import burst_only
+
+
+def untrained_burst_bonus(definition):
+    """Use a declared source penalty, retaining the legacy default for old pins."""
+    bonus = definition.get('untrained_burst', -3)
+    if type(bonus) is not int or not -1000 <= bonus <= 0:
+        raise ValueError('Untrained burst penalties need a bounded exact nonpositive integer')
+    return bonus
 
 
 def validate_combat_choices(choices, pack):
@@ -18,6 +27,9 @@ def validate_combat_choices(choices, pack):
         raise ValueError('Preview a rule update before selecting combat training')
     fixed_proficiencies(rules)
     proficiency_allowances(rules)
+    for definition in rules['modern']:
+        untrained_burst_bonus(definition)
+        burst_only(definition)
     if not isinstance(choices, dict) or set(choices) - {'hand_to_hand', 'ancient', 'modern'}:
         raise ValueError('Provide combat training choices')
     hand = choices.get('hand_to_hand', rules['default_hand_to_hand'])
@@ -173,11 +185,13 @@ def project_combat(character, pack):
         bonus=definition['strike'] if trained else 0
         gun_bonus = hand.get('gun_strike', 0)
         gun_contribution = {'hand_to_hand_guns':gun_bonus} if gun_bonus else {}
+        restricted = burst_only(definition)
         shooting.append({'id':definition['id'],'name':definition['name'],'trained':trained,'source':definition['source'],
-                         'single':total({'weapon_proficiency':bonus,**gun_contribution},missing=low_pp),
-                         'aimed':total({'weapon_proficiency':bonus,**gun_contribution,'aimed':2},missing=low_pp or not trained,actions=2),
-                         'burst':total({'weapon_proficiency_halved':bonus//2,**gun_contribution} if trained else {'untrained':-3,**gun_contribution},missing=low_pp),
-                         'wild':total({'weapon_proficiency':bonus,**gun_contribution,'shooting_wild':-6},missing=low_pp)})
+                         'burst_only':restricted,
+                         'single':total({'weapon_proficiency':bonus,**gun_contribution},missing=low_pp or restricted),
+                         'aimed':total({'weapon_proficiency':bonus,**gun_contribution,'aimed':2},missing=low_pp or not trained or restricted,actions=2),
+                         'burst':total({'weapon_proficiency_halved':bonus//2,**gun_contribution} if trained else {'untrained':untrained_burst_bonus(definition),**gun_contribution},missing=low_pp),
+                         'wild':total({'weapon_proficiency':bonus,**gun_contribution,'shooting_wild':-6},missing=low_pp or restricted)})
     warnings=[hand['name']+': unverified prerequisite — '+requirement+'. Choice retained.' for requirement in hand.get('unverified_requirements',[])]
     remaining={}
     eligible_count = 0

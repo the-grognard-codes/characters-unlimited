@@ -6,6 +6,7 @@ from .starting_gear import project_starting_gear
 from .starting_choices import project_starting_choices
 from .starting_groups import project_starting_groups
 from .combat_grants import elective_proficiencies
+from .weapon_fire_modes import burst_only
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -21,6 +22,10 @@ def _catalog(pack):
         if not isinstance(item, dict) or not isinstance(item.get('id'), str) or item['id'] in items:
             raise ValueError('Equipment catalog has invalid or duplicate item identities')
         items[item['id']] = item
+        if 'burst_only' in item:
+            burst_only(item)
+            if item.get('category') != 'weapon' or item.get('weapon_kind', 'ranged') != 'ranged':
+                raise ValueError('Burst-only equipment requires a ranged weapon')
         if item.get('weapon_kind') == 'descriptive':
             if (item.get('category') != 'weapon'
                     or any(not isinstance(item.get(key), str) or not item[key].strip()
@@ -287,6 +292,9 @@ def project_equipment(character, pack, combat, skills=None):
                 continue
             wp_id = definition['proficiency']
             training = weapon_proficiencies.get(wp_id, {})
+            if burst_only(definition) or training.get('burst_only', False):
+                guidance.append(definition['name'] + ': burst fire only. Damage, burst length and ammunition use remain descriptive; no single or aimed attack is projected.')
+                continue
             has_wp = training.get('trained', False)
             shooting_contributions = deepcopy(training.get('single', {}).get('contributions', {'weapon_proficiency':0}))
             ammunition_guidance = ('No shots remain in this weapon.' if possession['shots'] == 0 else '')

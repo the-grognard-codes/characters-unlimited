@@ -77,7 +77,9 @@ function renderCombat(view) {
   view.shooting.forEach(item => {
     const detail=document.createElement('details'), heading=document.createElement('summary');
     heading.textContent=item.name+' shooting ('+(item.trained?'trained':'untrained')+')'; detail.append(heading);
-    for (const context of ['single','aimed','burst','wild']) {
+    const contexts=item.burst_only?['burst']:['single','aimed','burst','wild'];
+    if (item.burst_only) { const note=document.createElement('p'); note.textContent='Burst fire only; other firing modes are unavailable. Actual burst damage and ammunition use remain descriptive.'; detail.append(note); }
+    for (const context of contexts) {
       const row=document.createElement('p'), result=item[context];
       row.textContent=`${context}: ${combatValue(result)} · ${result.actions} action(s) · ${combatExplanation(result)}`; detail.append(row);
     }

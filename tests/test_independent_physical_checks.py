@@ -120,3 +120,17 @@ class IndependentPhysicalChecksTests(unittest.TestCase):
     app=CharacterApplication(directory,die=die,rule_archive=archive)
     with self.assertRaises(ValueError):app.create()
     self.assertEqual(draws,[])
+
+ def test_required_profile_checks_resolve_selectors_against_the_shared_catalog(self):
+  installed=RuleArchive.load();accepted=next(row for row in installed.definitions() if row['id']=='rifts-domestic-skills' and row['version']==installed.active_versions()['rifts-domestic-skills'])
+  pack=deepcopy(accepted);pack['version']='9.99.0';source={'book':'Test source','section':'Required profile checks'}
+  grant: dict[str,Any]={'id':'source-check','name':'Source check','base':10,'per_level':1,'class_bonus':0,'source':source,'additional_checks':[{'name':'Basic stealth','base':20,'per_level':0,'unless_skill':'prowl'}],'proficiency_rules':{'independent_checks':True,'source':source}}
+  pack['class_profiles']['city-rat']['required']['grants'].append(grant)
+  archive=RuleArchive(installed.definitions()+[pack],{**installed.active_versions(),pack['id']:pack['version']})
+  with tempfile.TemporaryDirectory() as directory:
+   app=CharacterApplication(directory,die=lambda sides:4,rule_archive=archive);hero=app.create(level=3,character_class='city-rat')
+   row=next(row for row in app.skill_view(hero['id'])['grants'] if row['id']=='source-check')
+   self.assertEqual(row['additional_checks'][0]['percentage'],20)
+   app.select_skills(hero['id'],revision=hero['revision'],selections=choices('prowl'))
+   row=next(row for row in app.skill_view(hero['id'])['grants'] if row['id']=='source-check')
+   self.assertEqual(row['additional_checks'],[])

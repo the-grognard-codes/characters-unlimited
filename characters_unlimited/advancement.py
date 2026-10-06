@@ -11,9 +11,9 @@ def learning_key(kind, identifier, specialty=''):
     return json.dumps([kind, identifier, specialty], ensure_ascii=False)
 
 
-def learning_age(character, kind, identifier, specialty=''):
+def learning_age(character, kind, identifier, specialty='', *, default=None):
     acquired = character.get('learning_levels', {}).get(learning_key(kind, identifier, specialty),
-                                                     character['level'])
+                                                     character['level'] if default is None else default)
     return character['level'] - acquired + 1
 
 

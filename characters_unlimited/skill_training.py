@@ -5,6 +5,7 @@ from .advancement import learning_key
 from .recorded_formulas import MAX_INTEGER
 from .required_definitions import required_catalog
 from .skill_choices import needs_specialty, selection_policy
+from .skill_pool_learning import pool_learning_default
 
 
 def required_definitions(pack):
@@ -87,7 +88,8 @@ def resolve_skill_training(character, pack, required, fixed, selections, derived
                   for row in required if not row.get('specialty') and row.get('kind') != 'training']
     acquisitions.extend({'id':row['id'],'bonus':row['bonus'],'default':1} for row in fixed)
     acquisitions.extend({'id':item['skill_id'],'bonus':selection_policy(known[item['skill_id']],item['pool'],pack)['bonus'],
-                         'default':character['level']} for item in selections if not needs_specialty(known[item['skill_id']]))
+                         'default':pool_learning_default(pack, item['pool'], character['level'])}
+                        for item in selections if not needs_specialty(known[item['skill_id']]))
     for acquisition in acquisitions:
         identifier=acquisition['id']
         definition=known.get(identifier)

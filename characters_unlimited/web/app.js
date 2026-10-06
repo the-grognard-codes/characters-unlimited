@@ -3,6 +3,7 @@ let heroesStartingMaximumLevel = 1;
 let gamePacks = [], token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
 let requiredFormCharacter, requiredDirtyFlag = false, requiredGroups = [];
 let requiredSlotsCharacter, requiredSlotsSchema, requiredSlotCounts = new Map();
+let skillPoolLearningDefaults = {};
 const $ = id => document.getElementById(id);
 async function request(path, data) {
   const response = await fetch(path, data === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json','X-Session-Token':token}, body:JSON.stringify(data)});
@@ -233,6 +234,11 @@ function renderRequiredGroups(groups, choices) {
   }
 }
 $('skill-category').onchange = filterSkillChoices;
+function updateSkillPoolLearningDefault() {
+  if (!current || current.game !== 'rifts') return;
+  $('skill-learned-level').value = skillPoolLearningDefaults[$('skill-pool').value] ?? current.level;
+}
+$('skill-pool').onchange = updateSkillPoolLearningDefault;
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
   skillsReady = false;
@@ -251,13 +257,15 @@ async function loadSkills(character) {
   filterSkillChoices();
   $('skill-counts').textContent = Object.entries(view.remaining).map(([pool, count]) => `${pool}: ${count} remaining`).join(' · ');
   const previousPool = $('skill-pool').value;
-  const poolLabels = {domestic:'O.C.C. domestic choice', related:'O.C.C. related', secondary:'Secondary'};
+  const poolLabels = {domestic:'O.C.C. domestic choice', related:'O.C.C. related', secondary:'Secondary', mos:'Initial MOS choices'};
   $('skill-pool').replaceChildren(...Object.keys(view.pool_catalog).map(pool => {
     const option = document.createElement('option');
     option.value = pool; option.textContent = poolLabels[pool] || pool.replaceAll('_', ' ');
     return option;
   }));
   if (Object.hasOwn(view.pool_catalog, previousPool)) $('skill-pool').value = previousPool;
+  skillPoolLearningDefaults = Object.fromEntries(Object.entries(view.pool_catalog).map(([pool, definition]) => [pool, definition.default_learned_level]));
+  updateSkillPoolLearningDefault();
   $('required-skill-form').hidden = !view.required_catalog;
   $('required-skill-counts').hidden = !view.required_catalog;
   if (view.required_catalog) {

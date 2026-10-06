@@ -13,14 +13,14 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
         from characters_unlimited.portability import pinned_packs
         from characters_unlimited.rules import RuleArchive
         packs = RuleArchive.load().definitions()
-        frame = {'rules': {'id': 'rifts-core', 'version': '1.8.0'},
-                 'additional_rule_packs': {'rifts-domestic-skills': '2.29.0'}}
+        frame = {'rules': {'id': 'rifts-core', 'version': '1.9.0'},
+                 'additional_rule_packs': {'rifts-domestic-skills': '2.30.0'}}
         character: dict[str, Any] = {**copy.deepcopy(frame), 'advancement': {'before': copy.deepcopy(frame)},
                      'later_advancements': [{'before': copy.deepcopy(frame)} for _ in range(13)]}
         with patch('characters_unlimited.portability.deepcopy', wraps=copy.deepcopy) as copying:
             result = pinned_packs(character, packs)
         self.assertEqual(copying.call_count, len(result))
-        self.assertEqual(len(result), 3)
+        self.assertEqual(len(result), 5)
         result[0]['name'] = 'Caller edit'
         self.assertNotEqual(pinned_packs(character, packs)[0]['name'], 'Caller edit')
         character['later_advancements'][-1]['before']['rules']['version'] = 'missing'
@@ -33,7 +33,8 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
             character = app.create()
             bundle = app.export_character(character['id'])
             self.assertEqual({pack['id'] for pack in bundle['rule_packs']},
-                             {'rifts-core', 'rifts-domestic-skills', 'rifts-operator-psionics'})
+                         {'rifts-core', 'rifts-domestic-skills', 'rifts-operator-psionics',
+                          'rifts-burster-psionics', 'rifts-mind-melter-psionics'})
 
     def test_failed_backup_publication_preserves_the_previous_backup_and_save(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -60,7 +61,7 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
             for field in ['name', 'notes', 'attributes', 'roll_history', 'rules', 'additional_rule_packs', 'skill_selections']:
                 self.assertEqual(imported[field], character[field])
             self.assertEqual(imported['revision'], 0)
-            self.assertEqual(len(bundle['rule_packs']), 3)
+            self.assertEqual(len(bundle['rule_packs']), 5)
 
     def test_duplicate_is_independent_and_does_not_modify_original(self):
         with tempfile.TemporaryDirectory() as directory:

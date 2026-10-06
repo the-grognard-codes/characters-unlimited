@@ -1,0 +1,1411 @@
+{
+  "catalog": {
+    "format": "abilities-v1",
+    "game": "rifts",
+    "groups": [],
+    "id": "rifts-burster-psionics-catalog",
+    "options": [
+      {
+        "category": "Healing",
+        "description": "The ability to will oneself free of disease or poison and back to health, and heal physical damage and injury. Unfortunately, this ability cannot be used to heal others. The process requires one full minute of concentration, which means the character cannot use any other psionic power during that time. Bio-Regeneration does not restore missing limbs, but it does restore 2D6 Hit Points or 3D6 physical S.D.C. points per melee round. In addition, when cuts and scrapes are healed through Bio-Regeneration there is no scarring. This power can be used as often as once every two minutes (every eight melee rounds). Note: Recovering more than half of one's Hit Points or S.D.C. this way in less than an hour takes a toll on the character, causing some weakness for 1D4+2 hours: reduce the P.S., P.E. and Spd attributes by 30%. Adjust attribute bonuses accordingly.",
+        "id": "bio-regenerate-self",
+        "name": "Bio-Regenerate (self)",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            },
+            "text": "Permanent."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Bio-Regeneration"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Bio-Regeneration"
+        },
+        "tags": [
+          "Healing"
+        ]
+      },
+      {
+        "category": "Healing",
+        "description": "The ability to deaden pain can be used as a painkiller which temporarily negates existing pain or as an anesthetic to be used for surgery.",
+        "id": "deaden-pain",
+        "name": "Deaden Pain",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            },
+            "text": "Immediate proximity, touch or within 3 feet (0.9 m)."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            },
+            "text": "One hour per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            },
+            "text": "Two minutes (8 melee rounds)."
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Pain"
+            },
+            "text": "4"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Deaden Pain"
+        },
+        "tags": [
+          "Healing"
+        ]
+      },
+      {
+        "category": "Healing",
+        "description": "A mind over matter discipline which enables the character to engage in physical activity without suffering from exhaustion. However, fatigue is only temporarily suspended, so the psychic feels extremely tired and may even collapse when the duration of this power elapses.",
+        "id": "resist-fatigue",
+        "name": "Resist Fatigue",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "One hour plus 20 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "1D6 melees of preparatory meditation."
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "4"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Fatigue"
+        },
+        "tags": [
+          "Healing",
+          "Physical"
+        ]
+      },
+      {
+        "category": "Healing",
+        "description": "This power temporarily suppresses the chemical and psychological components of fear in the recipient. As a result, the character is unable to feel fear or is barely frightened even if intellectually he realizes he is in grave danger, or is facing a terrifying monster or situation. This enables the character to think rationally and take calm, calculated action, rather than respond with the typical \"fight or flight\" reactions of those who are scared. While this power is activated, the character automatically succeeds on any roll to resist Horror Factor, even if magically induced. This power can be used on the psychic himself or on one or two others.",
+        "id": "suppress-fear",
+        "name": "Suppress Fear",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Suppress Fear"
+            },
+            "text": "Self or others by touch."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Suppress Fear"
+            },
+            "text": "One minute per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Suppress Fear"
+            },
+            "text": "8"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Suppress Fear"
+        },
+        "tags": [
+          "Healing"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "A form of bio-manipulation that is so subtle that its victims seldom realize they have fallen under the influence of this psionic attack. The psychic is able to induce a physical influence on a single character to make him or her momentarily less alert and attentive to the things around him. Small sounds, odors, movements, and details go unnoticed (+10% to the psychic on the following skills when used against this befuddled character: Camouflage, Prowl, Concealment, Palming, Pick Pockets, Cardsharp, Forgery, Seduction, Disguise and Impersonation). And the deadened character is also slow to react; reduce Spd by 10%, -I on initiative, and -5% on skill performance. This power is typically used on guards, sentries, and investigators to make them miss something in a search, not notice the psychic, etc.",
+        "id": "deaden-senses",
+        "name": "Deaden Senses",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            },
+            "text": "160 feet (48.8 m); line of sight."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            },
+            "text": "2D6 minutes; roll for random determination of duration."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Deaden Senses"
+            },
+            "text": "-1 to save."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Deaden Senses"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "A state of mind over matter that slows the metabolism to such a degree that it creates a temporary state of suspended animation, simulating death. Without hospital facilities, even a medical doctor is likely to believe the character is dead (1-89% likelihood). The effects of drugs, toxins and chemicals are slowed to a crawl, doing minimal damage or effect, but will take full effect the instant the death trance is stopped (unless treatment is administered first). While in the death-like state, the psychic can not be roused or respond to any type of stimulation, including psychic probes. This means he is incapable of attacking or defending himself in any way until the trance is broken.",
+        "id": "death-trance",
+        "name": "Death Trance",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Death Trance"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Death Trance"
+            },
+            "text": "As long as the psychic senses he must feign death, up to a maximum of four days."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Death Trance"
+            },
+            "text": "1, because physical psychics find it easy to control their bodies."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Death Trance"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "Raise and suspend objects vertically; sideways movement is impossible. Maximum height for up to 2 pounds is 8 feet +1 per level;3-20 pounds,6 feet +1 per level; heavier targets,4 feet +1 per level. Self-levitation reaches 10 feet +2 per level. Heavy targets cost 6 ISP plus 1 for each 10 pounds beyond 20.",
+        "id": "levitation",
+        "name": "Levitation",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            },
+            "text": "Up to 60 feet (18.3 m) away."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            },
+            "text": "2 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            },
+            "text": "Small: 2, medium: 6, large: 6 plus 1 per every 10 lbs (4.5 kg) over 20 lbs (9 kg)."
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Levitation"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Levitation"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "This is the ability to completely close or block oneself from all psychic/mental emanations. When intentionally closed to supernatural or psychic forces the character can not sense anything, can not use psychic abilities, nor be influenced by others. A Mind Block will prevent penetration of Telepathy, Empathy, Hypnotic Suggestion, Day Dream and Empathic Transmission. It can be an invaluable protective mask when dealing with malevolent psychic forces. Adds a bonus of +1 to save vs all psychic and mental attacks. Note: Mind Block only blocks psionic attacks that affect the psychic's mind or emotional state (i.e. Telepathy, Empathy, Hypnotic Suggestion, etc.). It offers not protection from magic.",
+        "id": "mind-block",
+        "name": "Mind Block",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            },
+            "text": "10 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            },
+            "text": "4 (per each duration period)."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mind Block"
+        },
+        "tags": [
+          "Physical",
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "Suppress hunger and remain functional without food, but starvation continues: lose 3 pounds per day. Continuous use permits 60 days without food; on day 61 the psychic enters a coma with-20% to save versus coma/death.",
+        "id": "resist-hunger",
+        "name": "Resist Hunger",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Hunger"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Hunger"
+            },
+            "text": "6 hours."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Hunger"
+            },
+            "text": "2"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Hunger"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "This ability is identical to the Resist Hunger psi-power except it applies to the consumption of water. It does not negate the long-range damage from dehydration.",
+        "id": "resist-thirst",
+        "name": "Resist Thirst",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Thirst"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Thirst"
+            },
+            "text": "6 hours."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Thirst"
+            },
+            "text": "6"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Thirst"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "Move one visible object at a time by concentration; each feat consumes one physical attack/action. Up to 2 pounds may travel 60 feet;3-20 pounds,30 feet; over 20 pounds,15 feet. Heavy targets cost 8 ISP for the first 20 pounds plus 1 per additional 10. May manipulate or throw objects, but cannot crush with force alone, levitate oneself or stop projectiles. Telekinetic combat uses its own+3 strike/+4 parry rather than physical/skill bonuses.",
+        "id": "telekinesis",
+        "name": "Telekinesis",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinesis"
+            },
+            "text": "Up to60 feet; reduced for heavier objects."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinesis"
+            },
+            "text": "2 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telekinesis"
+            },
+            "text": "Up to2 lb:3;3-20 lb:8; over20 lb:8 for first20 lb plus1 per additional10 lb."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telekinesis"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Empathy is a psi-ability that makes the psychic aware of, or feel, the emotions of other people, animals and supernatural creatures. The strongest emotions are easiest to sense: hate, anger, terror, love. Feeling for emotions can often be used to establish that somebody or something is nearby, but can NOT be used to pinpoint an invisible or hiding person/ creature. Empathy can be especially helpful in recognizing and communicating with ghosts and other supernatural creatures.",
+        "id": "empathy",
+        "name": "Empathy",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "100-foot area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "2 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "Standard each melee; a successful save obscures the target's emotions. Mind Block prevents emanations."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Empathy"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read an aura to estimate experience, psychic potential, magic, health and supernatural influences, but not alignment. Mind Block hides psychic ability, PPE level and possession.",
+        "id": "see-aura",
+        "name": "See Aura",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "60 feet (18.3 m) and must be visible."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "2 melees (30 seconds)."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "None, but a Mind Block will hide the presence of psychic abilities, the level of P.P.E., and possession by a supernatural force."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: See Aura"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "The psychic is able to accurately measure the passage of time, down to within 1D4 seconds. This can be useful when in an environment where the passage of time can be lost, and especially when the character must meet with or do something at a precise moment in time, like gauging exactly when a bomb will detonate, when a switch must be turned on or off, and so on.",
+        "id": "sense-time",
+        "name": "Sense Time",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            },
+            "text": "15 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            },
+            "text": "2"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Time"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read one person's surface thoughts at a time; no deep memory probe or simultaneous reading. Send brief directed messages to one recipient; two-way conversation requires both participants to have telepathy. A suspected probe permits a standard save, and Mind Block prevents probes or communication.",
+        "id": "telepathy",
+        "name": "Telepathy",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "Read surface thoughts up to 60 feet (18.3 m) away or two-way telepathic communication up to 140 feet (42.7 m) +40 feet (12.2 m) per level of experience."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "2 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "Conditional. When a character suspects he is being telepathically probed he can resist, getting the standard saving throw. Mind Blocks will completely prevent telepathic probes or communications as long as the block is up."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telepathy"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "id": "psychic-body-field",
+        "name": "Psychic Body Field",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Super-Psionics: Psychic Body Field",
+          "pages": [
+            181
+          ],
+          "pdf_pages": [
+            184
+          ]
+        },
+        "description": "Temporary body-shaped telekinetic protection has10MDC per level and permits movement/fighting. Loose items held, hung on back or atop head are unprotected. No protection against disease, radiation, toxic fumes or nonphysical magic/psionics. Lost touch gives-30% to touch/manual-dexterity skills and risks delicate items; temporary field is not bodily MDC.",
+        "parameters": [
+          {
+            "id": "range",
+            "name": "Range",
+            "text": "Self",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Super-Psionics: Psychic Body Field",
+              "pages": [
+                181
+              ],
+              "pdf_pages": [
+                184
+              ]
+            }
+          },
+          {
+            "id": "duration",
+            "name": "Duration",
+            "text": "2minutes per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Super-Psionics: Psychic Body Field",
+              "pages": [
+                181
+              ],
+              "pdf_pages": [
+                184
+              ]
+            }
+          },
+          {
+            "id": "isp",
+            "name": "I.S.P.",
+            "text": "30",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Super-Psionics: Psychic Body Field",
+              "pages": [
+                181
+              ],
+              "pdf_pages": [
+                184
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "radiate-horror-factor",
+        "name": "Radiate Horror Factor",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Super-Psionics: Radiate Horror Factor",
+          "pages": [
+            182
+          ],
+          "pdf_pages": [
+            185
+          ]
+        },
+        "description": "Victims save vs Horror at-1. Aura HF10 for good/Unprincipled; HF10+1per3levels for Anarchist; HF12+1per3levels for evil. Add1 when outrage exceeds reason. Aura effects and alignment conditions remain descriptive.",
+        "parameters": [
+          {
+            "id": "range",
+            "name": "Range",
+            "text": "Self; observers within100feet",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Super-Psionics: Radiate Horror Factor",
+              "pages": [
+                182
+              ],
+              "pdf_pages": [
+                185
+              ]
+            }
+          },
+          {
+            "id": "duration",
+            "name": "Duration",
+            "text": "5minutes per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Super-Psionics: Radiate Horror Factor",
+              "pages": [
+                182
+              ],
+              "pdf_pages": [
+                185
+              ]
+            }
+          },
+          {
+            "id": "isp",
+            "name": "I.S.P.",
+            "text": "8",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Super-Psionics: Radiate Horror Factor",
+              "pages": [
+                182
+              ],
+              "pdf_pages": [
+                185
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-impervious-fire",
+        "name": "Impervious to Fire and Heat",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "Natural immunity protects the psychic and worn belongings against ordinary, MD, plasma, dragon and magic fire; strongest MD fire causes no damage. Natural harmless fire contact is nourishing. Smoke permits breathing with obscured sight/10%speed reduction/-1strike/parry/dodge; toxic fumes can still kill. Electricity MD attacks inflict half damage, SDC merely tingles.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "Permanent aura; noISP",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-extinguish-fire",
+        "name": "Extinguish Fires",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "Instantly extinguish or channel natural fire without water or chemicals; may choose a small area or maximum radius. Permanent until reignited.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "4ISP; range100feet+10per level; radius200feet per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-flame-burst",
+        "name": "Flame Burst",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "Move freely inside a fiery aura while personal gear remains unharmed. Touch ignites combustibles and inflicts6D6SDC per contact, plus continuing6D6SDC each melee until extinguished. Contact MD requires intense concentration, two actions per attack and extra8ISP:1D6MD,2D6near ley line,3D6at nexus. Burning SDC aura near ley/nexus can deal1D4/2D4MD for two extraISP. Aura supplies temporary30+6per level MDC, regenerating3D6MDC per melee up to maximum; no baseline bodily MDC.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "4ISP; self;2minutes per level; extra8ISP for one melee of MD attacks",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-fire-bolt",
+        "name": "Fire Bolt",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "One action fires a visible-target bolt at+4strike from forehead or hands including artificial appendages. Choose2D6/4D6/6D6SDC or2D6MD.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "2ISP forSDC;4forMD; range200feet+20per level; instant",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-fire-eruption",
+        "name": "Fire Eruption",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "Ignite an area without fuel, never directly a living being. Maintain within range and concentration; half actions and cannot fight. Unconsciousness/blindness/distraction ends psionic flame; combustibles ignited within1D4melees keep burning normally. Placement48%+4per additional level; failure2D6yards off, unseen target under20feet-25%, huge unseen-5%. Tiny1D4SDC;1-2yards4D6SDC;6foot pillar/wall1D4x10SDC;20footarea2D4x10SDC(or1MD) permelee/pass. MD wall2D6,20footarea4D6,40foot6D6; fire spreads four times faster. Maximum area20feet+5per level.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "10ISP SDC or20MD;100feet+20per level;10minutes,+1ISP per10minutes",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-sense-fire",
+        "name": "Sense Fire",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "Sense approximate fire size, direction, distance, duration, containment/spread and natural/arson/magic origin. Touch ash/debris to read past fire. Detect fire elementals/supernatural fire beings, excluding fire dragons and inactive Bursters. No exact location, perpetrator identity or participant count; heated machines/engines excluded. Empathy/Telepathy/SeeAura can also reveal arsonist affinity.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "2ISP;800foot radius+100per level;15second preparation,4minutes sensing",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "burster-super-fuel",
+        "name": "Super Fuel Flame",
+        "category": "Burster",
+        "tags": [
+          "Burster"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Burster exclusive powers, choice list and Master reserves",
+          "pages": [
+            140,
+            141
+          ],
+          "pdf_pages": [
+            143,
+            144
+          ]
+        },
+        "description": "Feed existing fire with psychic energy, increasing size twofold through tenfold; damage grows proportionally at GM discretion.",
+        "parameters": [
+          {
+            "id": "activation",
+            "name": "Activation",
+            "text": "8ISP;100feet range and20foot area per level",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Burster exclusive powers, choice list and Master reserves",
+              "pages": [
+                140,
+                141
+              ],
+              "pdf_pages": [
+                143,
+                144
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "version": "1.0.0"
+  },
+  "categories": [
+    "Healing",
+    "Physical",
+    "Sensitive",
+    "Super",
+    "Burster"
+  ],
+  "fixed_path": "master",
+  "format": "ability-paths-v3",
+  "game": "rifts",
+  "id": "rifts-burster-psionics",
+  "name": "Burster psychic powers",
+  "paths": [
+    {
+      "allowances": {
+        "class": {
+          "count": 0,
+          "minimum_categories": 0,
+          "maximum_categories": 5,
+          "awards": [
+            {
+              "id": "initial",
+              "name": "Initial elective powers",
+              "level": 1,
+              "count": 3,
+              "categories": [
+                "Healing",
+                "Physical",
+                "Sensitive",
+                "Super"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Burster exclusive powers, choice list and Master reserves",
+                "pages": [
+                  140,
+                  141
+                ],
+                "pdf_pages": [
+                  143,
+                  144
+                ]
+              }
+            },
+            {
+              "id": "level-3",
+              "name": "Level 3 elective power",
+              "level": 3,
+              "count": 1,
+              "categories": [
+                "Healing",
+                "Physical",
+                "Sensitive",
+                "Super"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Burster exclusive powers, choice list and Master reserves",
+                "pages": [
+                  140,
+                  141
+                ],
+                "pdf_pages": [
+                  143,
+                  144
+                ]
+              }
+            },
+            {
+              "id": "level-6",
+              "name": "Level 6 elective power",
+              "level": 6,
+              "count": 1,
+              "categories": [
+                "Healing",
+                "Physical",
+                "Sensitive",
+                "Super"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Burster exclusive powers, choice list and Master reserves",
+                "pages": [
+                  140,
+                  141
+                ],
+                "pdf_pages": [
+                  143,
+                  144
+                ]
+              }
+            },
+            {
+              "id": "level-9",
+              "name": "Level 9 elective power",
+              "level": 9,
+              "count": 1,
+              "categories": [
+                "Healing",
+                "Physical",
+                "Sensitive",
+                "Super"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Burster exclusive powers, choice list and Master reserves",
+                "pages": [
+                  140,
+                  141
+                ],
+                "pdf_pages": [
+                  143,
+                  144
+                ]
+              }
+            },
+            {
+              "id": "level-12",
+              "name": "Level 12 elective power",
+              "level": 12,
+              "count": 1,
+              "categories": [
+                "Healing",
+                "Physical",
+                "Sensitive",
+                "Super"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Burster exclusive powers, choice list and Master reserves",
+                "pages": [
+                  140,
+                  141
+                ],
+                "pdf_pages": [
+                  143,
+                  144
+                ]
+              }
+            }
+          ],
+          "costs": {
+            "psychic-body-field": 2,
+            "radiate-horror-factor": 2
+          }
+        }
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "count": 0,
+            "sides": 6,
+            "constant": 10
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Burster exclusive powers, choice list and Master reserves",
+            "pages": [
+              140,
+              141
+            ],
+            "pdf_pages": [
+              143,
+              144
+            ]
+          }
+        }
+      },
+      "id": "master",
+      "name": "Master psychic",
+      "resources": {
+        "definitions": [
+          {
+            "contributions": [
+              {
+                "attribute": "ME",
+                "id": "starting-ME",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Burster exclusive powers, choice list and Master reserves",
+                  "pages": [
+                    140,
+                    141
+                  ],
+                  "pdf_pages": [
+                    143,
+                    144
+                  ]
+                }
+              },
+              {
+                "formula": {
+                  "count": 3,
+                  "sides": 4,
+                  "bonus": 0,
+                  "multiplier": 10
+                },
+                "id": "starting-dice",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Burster exclusive powers, choice list and Master reserves",
+                  "pages": [
+                    140,
+                    141
+                  ],
+                  "pdf_pages": [
+                    143,
+                    144
+                  ]
+                }
+              }
+            ],
+            "id": "ISP",
+            "name": "Inner Strength Points"
+          },
+          {
+            "id": "PPE",
+            "name": "Potential Psychic Energy",
+            "contributions": [
+              {
+                "id": "remaining-base",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Burster exclusive powers, choice list and Master reserves",
+                  "pages": [
+                    140,
+                    141
+                  ],
+                  "pdf_pages": [
+                    143,
+                    144
+                  ]
+                },
+                "formula": {
+                  "count": 2,
+                  "sides": 6,
+                  "bonus": 0
+                }
+              }
+            ]
+          }
+        ],
+        "guidance": [
+          "Permanent class source reserves are retained separately from activation/spending effects."
+        ]
+      },
+      "save_target": 10,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Burster exclusive powers, choice list and Master reserves",
+        "pages": [
+          140,
+          141
+        ],
+        "pdf_pages": [
+          143,
+          144
+        ]
+      },
+      "known_abilities": [
+        "burster-impervious-fire",
+        "burster-extinguish-fire",
+        "burster-flame-burst",
+        "burster-fire-bolt",
+        "burster-fire-eruption",
+        "burster-sense-fire",
+        "burster-super-fuel"
+      ]
+    }
+  ],
+  "skip_path": "master",
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Burster exclusive powers, choice list and Master reserves",
+    "pages": [
+      140,
+      141
+    ],
+    "pdf_pages": [
+      143,
+      144
+    ]
+  },
+  "version": "1.0.0"
+}

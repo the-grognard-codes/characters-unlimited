@@ -89,22 +89,35 @@ function renderClassPsionics(view) {
     Object.values(view.effective.resources).map(row => `${row.name}: ${row.value}`).join(' · ');
   const guidance = document.createElement('p'); guidance.className = 'help';
   guidance.textContent = [...view.effective.guidance, ...entitlement.guidance].join(' ');
+  const searchLabel = document.createElement('label'); searchLabel.textContent = 'Find a class power';
+  const search = document.createElement('input'); search.type = 'search';
+  search.setAttribute('aria-label', 'Find a class power'); searchLabel.append(search);
   const form = document.createElement('form');
   for (const ability of entitlement.catalog) {
     const details = document.createElement('details');
+    details.dataset.search = `${ability.name} ${ability.tags.join(' ')}`.toLowerCase();
     const title = document.createElement('summary');
     const input = document.createElement('input'); input.type = 'checkbox'; input.value = ability.id;
     input.checked = entitlement.state.abilities.selections.includes(ability.id);
+    const known = (entitlement.known_abilities || []).includes(ability.id);
+    if (known) { input.checked = true; input.dataset.retained = 'yes'; }
+    const learned = entitlement.state.learning_levels?.[ability.id];
+    if (learned > current.level) input.dataset.retained = 'yes';
     input.setAttribute('aria-label', `Class power: ${ability.name}`);
     input.onclick = event => event.stopPropagation();
     const cost = entitlement.choice_costs[ability.id] || 1;
-    title.append(input, document.createTextNode(` ${ability.name} · ${cost} choice${cost === 1 ? '' : 's'}`));
+    title.append(input, document.createTextNode(` ${ability.name} · ` +
+      (known ? 'always known' : `${cost} choice${cost === 1 ? '' : 's'}`)));
     const description = document.createElement('p'); description.textContent = ability.description;
     const metadata = document.createElement('p'); metadata.className = 'help';
     metadata.textContent = (ability.parameters || []).map(row => `${row.name}: ${row.text}`).join(' · ');
     const proof = document.createElement('p'); proof.className = 'help';
     proof.textContent = `${ability.source.book} · ${ability.source.section}`;
     const selected = entitlement.abilities.find(row => row.id === ability.id);
+    if (learned !== undefined) {
+      metadata.textContent += ` · Learned at level ${learned}`;
+      if (learned > current.level) metadata.textContent += ' · Available again when that level is attained';
+    }
     const requirements = document.createElement('p'); requirements.className = 'help';
     requirements.textContent = (selected?.requirements || []).map(row => row.text +
       (row.satisfied ? ' (met)' : ' (still needed)')).join(' · ');
@@ -116,5 +129,9 @@ function renderClassPsionics(view) {
     event.preventDefault();
     savePsionics({selections:[...form.querySelectorAll('input:checked')].map(row => row.value)}, 'class-psionics');
   };
-  section.append(heading, summary, guidance, form); $('psionics-panel').append(section);
+  search.oninput = () => {
+    const query = search.value.toLowerCase().trim();
+    form.querySelectorAll('details').forEach(row => row.hidden = !row.dataset.search.includes(query));
+  };
+  section.append(heading, summary, guidance, searchLabel, form); $('psionics-panel').append(section);
 }

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "active": {
-    "rifts-core": "1.8.0",
-    "rifts-domestic-skills": "2.29.0",
+    "rifts-core": "1.9.0",
+    "rifts-domestic-skills": "2.30.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.21.0",
-    "rifts-equipment": "1.16.0",
+    "rifts-equipment": "1.17.0",
     "heroes-mutant-power-budget": "1.0.0",
     "heroes-super-abilities": "1.3.0",
     "heroes-resources": "1.0.0",
@@ -14,7 +14,9 @@
     "heroes-higher-advancement": "1.0.0",
     "heroes-combat-moves": "1.0.0",
     "rifts-natural-psionics": "1.0.0",
-    "rifts-operator-psionics": "1.0.0"
+    "rifts-operator-psionics": "1.0.0",
+    "rifts-burster-psionics": "1.0.0",
+    "rifts-mind-melter-psionics": "1.0.0"
   },
   "definitions": [
     {
@@ -622,6 +624,36 @@
       "version": "1.0.0",
       "filename": "rifts-operator-psionics-1.0.0.json",
       "sha256": "895eb5789882192b244d5a18cb1e0880ea4540aa533270c12f537fcff2ba7cbc"
+    },
+    {
+      "id": "rifts-core",
+      "version": "1.9.0",
+      "filename": "rifts-core-1.9.0.json",
+      "sha256": "bb65b6190cc04bc07b103ea214c77ad5a1c9a50010338b2e020bfee1024e143f"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "2.30.0",
+      "filename": "rifts-domestic-skills-2.30.0.json",
+      "sha256": "00d6315cb3c88410e9da7c3d7f1091ac1f00fcb6704637969d81439827324973"
+    },
+    {
+      "id": "rifts-equipment",
+      "version": "1.17.0",
+      "filename": "rifts-equipment-1.17.0.json",
+      "sha256": "c6678fc409ffaf0148fc38210ca248c31a94f7ab45c8c08523ec4b4da31982fc"
+    },
+    {
+      "id": "rifts-burster-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-burster-psionics-1.0.0.json",
+      "sha256": "b6e657120ac4829c4370b25cb2b608b7d05dae0381469a87ebcf5b46b75e5045"
+    },
+    {
+      "id": "rifts-mind-melter-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-mind-melter-psionics-1.0.0.json",
+      "sha256": "5392126b86da47160792985526a724d0cf44e4ef42c09c8b829cec2a9affb47a"
     }
   ]
 }

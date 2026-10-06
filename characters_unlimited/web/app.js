@@ -17,7 +17,7 @@ function modifierSourceCitation(source) {
   return source.book;
 }
 function skillEffectEvidence(skill) {
-  return (skill.effect_contributions || []).map(effect => `${effect.name}: ${modifierSourceCitation(effect.source)} — ${effect.source.section}`).join(' · ');
+  return (skill.effect_contributions || []).map(effect => `${effect.name}${effect.check_names ? ` (${effect.check_names.join(', ')})` : ''}: ${modifierSourceCitation(effect.source)} — ${effect.source.section}`).join(' · ');
 }
 function attributeModifierDisplay(modifier, classLabel) {
   const minimum = modifier.operation === 'minimum' || modifier.id.startsWith('power-floor:');
@@ -456,7 +456,7 @@ async function flushSave() {
       $('summary-name').textContent = saved.name || 'Unnamed adventurer'; library();
     }
     $('save-status').textContent = 'Saved on this PC';
-    if (skillsChanged) loadSkills(current).catch(showError);
+    if (skillsChanged) render(current);
   })();
   try { await savePromise; } finally { savePromise = null; }
 }

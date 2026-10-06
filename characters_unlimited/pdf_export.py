@@ -385,6 +385,7 @@ def export_rifts_sheet(character, core, skills, combat):
         if skill.get('effect_contributions'):
             sheet_notes += '\n' + skill['name'] + ' normal skill bonuses: '
             sheet_notes += '; '.join(effect['name'] + f' {effect["value"]:+}%' +
+                (' [checks: ' + ', '.join(effect['check_names']) + ']' if 'check_names' in effect else '') +
                 ' (' + resource_source_citation(effect['source']) + ')'
                 for effect in skill['effect_contributions']) + '.'
         if skill.get('description') and skill['id'] not in described_skills:

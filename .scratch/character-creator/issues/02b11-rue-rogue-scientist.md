@@ -22,3 +22,5 @@
 - Keep ticket ownership stable. Advance identity/mechanical/dependency review or automation state only when its own evidence and acceptance checks are complete; ticket assignment does not certify review or automation.
 
 **Dependency contract:** the manifest mirrors canonical `dependencies` to owning tickets, plus actual parent workflow and verified source-recovery prerequisites. Other dependencies remain pending and must not be silently treated as resolved.
+
+Human creation mechanics accepted through05D13/PR125, merge3b4e342. Source required/related/secondary skills, ordinary abilities, progression, starting equipment, public saves and editable PDF proofs are recorded in docs/evidence/05d13-scholarly-classes-validation.md. This owner remains ready-for-agent for broader dependency certification: nonhuman paths, broader catalogs, Entomological Medicine/Zoology and dependent content coverage remain explicit gaps; inventory ownership is not corpus completion.

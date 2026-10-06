@@ -5,6 +5,7 @@ import json
 
 from .attribute_modifiers import attribute_value, ATTRIBUTE_NAMES
 from .grants import resolve_grants
+from .required_selections import selected_required_definitions
 from .recorded_formulas import validate_formula, formula_value
 from .retained_acquisitions import validate_cached_acquisitions, acquire_selected
 
@@ -32,8 +33,12 @@ def _definitions(pack):
     return {skill['id']: skill for skill in pack['skills'] if skill.get('kind') == 'physical'}
 
 
-def _grant_ids(pack, definitions):
-    return resolve_grants(pack.get('physical_grants', []), list(definitions.values()))
+def _grant_ids(pack, definitions, character=None):
+    grants = resolve_grants(pack.get('physical_grants', []), list(definitions.values()))
+    if character is not None:
+        selected, _, _ = selected_required_definitions(character, pack)
+        grants.extend(row['id'] for row, _ in selected if row.get('kind') == 'physical' and 'base' not in row)
+    return list(dict.fromkeys(grants))
 
 
 def _active_ids(selections, definitions, grants=()):
@@ -111,7 +116,7 @@ def _physical_modifier(item):
 def acquire_physical(character, selections, pack, die):
     """Acquire missing rolls and synchronize active Physical attribute bonuses."""
     definitions = _definitions(pack)
-    active = _active_ids(selections, definitions, _grant_ids(pack, definitions))
+    active = _active_ids(selections, definitions, _grant_ids(pack, definitions, character))
     acquisitions = acquire_selected(_acquisition_catalog(definitions),
         character.get('physical_acquisitions', {}), active, die, record_constants=False)
     expected = _expected_modifiers(active, acquisitions, definitions)
@@ -129,7 +134,7 @@ def validate_physical(character, pack):
     """Reject altered acquisitions and Physical modifiers on a saved character."""
     definitions = _definitions(pack)
     active = _active_ids(character.get('skill_selections', []), definitions,
-                         _grant_ids(pack, definitions))
+                         _grant_ids(pack, definitions, character))
     acquisitions = character.get('physical_acquisitions', {})
     _validate_acquisitions(acquisitions, definitions)
     if any(identifier not in acquisitions for identifier in active):
@@ -168,7 +173,7 @@ def validate_physical_history(attributes, acquisitions, pack):
 def project_physical(character, pack):
     """Project active bonuses without rolling or inventing resource baselines."""
     definitions = _definitions(pack)
-    grants = _grant_ids(pack, definitions)
+    grants = _grant_ids(pack, definitions, character)
     active = _active_ids(character.get('skill_selections', []), definitions, grants)
     acquisitions = character.get('physical_acquisitions', {})
     _validate_acquisitions(acquisitions, definitions)

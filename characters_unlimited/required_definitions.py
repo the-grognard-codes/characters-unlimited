@@ -65,7 +65,11 @@ def required_catalog(pack):
             raise ValueError('Invalid required skill grant specialty')
     definitions = [*rules['grants'], *[option for group in rules['groups'] for option in group.get('options', [])],
                    *[group['skill'] for group in rules['groups'] if 'skill' in group]]
+    known = {row['id']: row for row in pack.get('skills', [])}
     for definition in definitions:
+        if definition.get('kind') == 'physical' and 'base' not in definition:
+            if definition != known.get(definition.get('id')):
+                raise ValueError('Required Physical choices must preserve an exact nonpercentile catalog definition')
         training_definition(definition, pack.get('skills', []))
         independent_check_rules(definition, pack.get('skills', []))
     return rules

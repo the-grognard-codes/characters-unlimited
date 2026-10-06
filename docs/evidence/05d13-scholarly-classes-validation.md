@@ -1,6 +1,6 @@
 # Rogue Scholar and Rogue Scientist creation batch
 
-In progress. This batch supplies creation mechanics under canonical owners02b11-rue-rogue-scholar and02b11-rue-rogue-scientist. It does not certify broader corpus completion, nonhuman paths or the full amended build.
+Accepted creation batch. This batch supplies creation mechanics under canonical owners02b11-rue-rogue-scholar and02b11-rue-rogue-scientist. It does not certify broader corpus completion, nonhuman paths or the full amended build.
 
 Original RUE printed93-96/PDF96-99 and the shared XP table printed295/PDF298 were visually reviewed. Operator equipment at the start of printed93 is excluded. Required Scientist skills continue across both columns of printed96; Astronomy/Navigation, both Mathematics skills, Basic Electronics, Computer Operation, Find Contraband and Automobile are required grants. Source HTH costs and untrained style were checked against printed94/96/347. Source Markdown/PDF fingerprints remain those recorded in the canonical owner tickets.
 
@@ -19,3 +19,15 @@ Editable PDFs exported from those exact public application saves have Scholar8 p
 Source interpretations and coverage: Scientist's printed kit grants two E-Clips total; the separate weapon entitlement does not multiply them. A specimen study kit groups the explicitly counted fixed instruments and retains its separate random jars. Required skills and additional category minimums remain distinct. Entomological Medicine/Zoology, broader weapon/equipment catalogs, racial paths and robot/bionic construction remain open coverage. Inventory ownership does not imply mechanical completion.
 
 Review corrections: repeated equipment expansion now receives distinct nonfixed elective counts from the pinned combat projection; standalone validation uses the declared minimum and retained slot ceiling. A public synthetic fixed-plus-repeat witness prevents an extra blank equipment entitlement. Scholar military Pilot exclusions explicitly include Submersibles. Conventional Magnum revolver (printed328/PDF331, original inspected) supplies the selectable Handguns proficiency: source6D6 S.D.C., typical six bullets, average140ft/42.7m range, unspecified price/weight, no E-Clip compatibility. Public acquisition/import checks cover matching training, capacity and paid choice cost. Earlier archives remain unchanged.
+
+PR125 merged as3b4e3428ec9ac04e0d944dc7fb8c46592f750ab2 at2026-10-06T05:32:07Z; final approved headaf986e7f4af1429d07db5b65ffc14c67704d1d67. Final local596 tests985.562s and rebuilt frozen71.244s pass. Exact-head hosted push37416329837 passes596 tests1757.688s/frozen68.492s; PR37416332810 passes596 tests1613.210s/frozen70.507s. Both runs pass typing184/static/packaging/artifact gates. Actual Chrome reopen/portable import/original receipts/PDF consistency and all17 editable-sheet pages pass.
+
+## Standards
+
+Final af986e7 approved; no remaining documented-standard violations or material baseline smells.
+
+## Spec
+
+Final af986e7 approved; no remaining actionable requirements findings.
+
+Zero outstanding findings on either axis.

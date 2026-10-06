@@ -1,6 +1,6 @@
 # 05D13: Rogue Scholar and Rogue Scientist creation batch
 
-Status: in-progress, creation implementation under final verification and review. Branch: codex/rifts-scholarly-classes. Canonical content owners remain 02b11-rue-rogue-scholar and 02b11-rue-rogue-scientist; this batch supplies their creation mechanics and evidence without declaring corpus parents complete.
+Status: done, accepted Human creation batch. Branch: codex/rifts-scholarly-classes. Canonical content owners remain 02b11-rue-rogue-scholar and 02b11-rue-rogue-scientist; this batch supplies their creation mechanics and evidence without declaring corpus parents complete.
 
 Original RUE printed 93-96 / PDF 96-99 visually reviewed. Printed 93's opening left column is Operator equipment and is excluded. The Scientist required skills continue across both columns on printed 96; the Markdown column order must not place Astronomy, Mathematics, Electronics, Computer Operation, Find Contraband or Automobile in optional permissions.
 
@@ -13,3 +13,5 @@ Scientist: IQ+2, perception+4, disease save+2, SDC+1D6+6. General insanity remai
 Provide source starting funds, separate saleable artifacts, fixed scholarly/scientific equipment and matching weapon/transport groups using actual saved training. Scientist optional specimen kit includes retained D4 jars. Source costs, unspecified weights/vehicle durability and conditional usage remain explicit descriptions rather than invented statistics. Maintain honor-system choices and original rolls.
 
 Verify source XP independently on the original experience table, public creation/advancement/undo/reopen/exact portable workflows for both identities, manually calculated normal skill values, language/literacy learning dates and shared unselected-owner preflight. Show actual browser choices and readable editable PDFs. Required typing/static/full Windows/frozen checks, two-axis review and exact-head hosted gates precede merge. Broader catalogs, class/race/RCC paths and construction remain open.
+
+PR125 merged as3b4e3428ec9ac04e0d944dc7fb8c46592f750ab2 at2026-10-06T05:32:07Z; final approved headaf986e7f4af1429d07db5b65ffc14c67704d1d67. Final local596 tests985.562s and rebuilt frozen71.244s pass. Exact-head hosted push37416329837 passes596 tests1757.688s/frozen68.492s; PR37416332810 passes596 tests1613.210s/frozen70.507s. Both runs pass typing184/static/packaging/artifact gates. Actual Chrome reopen/portable import/original receipts/PDF consistency and all17 editable-sheet pages pass.

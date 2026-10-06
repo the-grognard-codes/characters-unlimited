@@ -9,18 +9,26 @@ def synergy_contributions(definition, available):
             if available.intersection(synergy.get('any_of', [synergy.get('skill_id')]))}
 
 
+def _check_contributions(contributions, effects, check_name):
+    result = dict(contributions)
+    for effect in effects:
+        if 'check_names' in effect and check_name not in effect['check_names']:
+            continue
+        label = 'Effect: ' + effect['name']
+        result[label] = result.get(label, 0) + effect['value']
+    return result
+
+
 def project_proficiency(definition, contributions, *, level_steps=0, effect_contributions=None, exact=False, growth_steps=None, available=(), selection_pools=None):
     independent = 'proficiency_rules' in definition
     if independent and (type(growth_steps) is not int or not 0 <= growth_steps <= 1000):
         raise ValueError("Independent checks need supported acquired-level growth")
     definition = selected_check_definition(definition, available, selection_pools)
     effects = effect_contributions or []
-    contributions = dict(contributions)
-    for effect in effects:
-        label = 'Effect: ' + effect['name']
-        contributions[label] = contributions.get(label, 0) + effect['value']
+    common = dict(contributions)
     if level_steps:
-        contributions = {**contributions, 'experience':definition['per_level']*level_steps}
+        common['experience'] = definition['per_level'] * level_steps
+    contributions = _check_contributions(common, effects, 'primary')
     uncapped = sum(contributions.values())
     guarded = independent or exact or effects or definition.get('attribute_bonuses') or 'Skill grant training' in contributions
     if guarded and abs(uncapped) > MAX_INTEGER:
@@ -40,7 +48,7 @@ def project_proficiency(definition, contributions, *, level_steps=0, effect_cont
                          'normal_percentage': normal, 'multiplier': multiplier,
                          'per_level': reference['per_level'] * multiplier}
         else:
-            check_contributions = {**contributions, 'base': check['base']}
+            check_contributions = _check_contributions({**common, 'base': check['base']}, effects, check['name'])
             if independent and check.get('bonus_policy') == 'intelligence-only':
                 check_contributions = {'base': check['base'], 'intelligence': contributions.get('intelligence', 0)}
             if independent:

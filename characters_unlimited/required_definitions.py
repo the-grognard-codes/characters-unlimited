@@ -4,6 +4,7 @@ from copy import deepcopy
 import re
 from .selection_groups import validate_group
 from .skill_checks import independent_check_rules
+from .nonpercentile_skills import training_definition
 
 
 def required_selection_group(group):
@@ -65,5 +66,6 @@ def required_catalog(pack):
     definitions = [*rules['grants'], *[option for group in rules['groups'] for option in group.get('options', [])],
                    *[group['skill'] for group in rules['groups'] if 'skill' in group]]
     for definition in definitions:
+        training_definition(definition, pack.get('skills', []))
         independent_check_rules(definition, pack.get('skills', []))
     return rules

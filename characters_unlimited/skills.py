@@ -15,6 +15,7 @@ from .skill_attribute_bonuses import attribute_bonus_rules, attribute_contributi
 from .skill_grants import skill_grant_rules, resolve_skill_grants
 from .skill_training import training_rules, resolve_skill_training
 from .skill_checks import independent_check_rules
+from .nonpercentile_skills import training_definition
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -25,6 +26,7 @@ def optional_pool_groups(pack):
     training_rules(pack)
     skill_grant_rules(pack)
     for definition in pack['skills']:
+        training_definition(definition, pack['skills'])
         attribute_bonus_rules(definition)
         weapon_prerequisites(definition, pack)
         independent_check_rules(definition, pack['skills'])
@@ -87,8 +89,8 @@ def compare_skill_views(before, after):
                             result[(*identity,occurrence,'activity:'+activity['id']+':'+field)] = {
                                 'name':skill['name']+' — '+activity['name'],
                                 'specialty':skill.get('specialty',''), 'percentage':activity[field], 'unit':unit}
-                    if 'percentage' not in skill:
-                        continue
+                if 'percentage' not in skill:
+                    continue
                 result[(*identity, occurrence, 'primary')] = skill
                 for check in skill.get('additional_checks', []):
                     result[(*identity, occurrence, 'check:' + check['name'])] = {
@@ -176,6 +178,10 @@ def project_skills(character, pack=PACK):
         if needs_specialty(definition) and not item.get('specialty'):
             warnings.append(f"Choose the specialty for each {definition['name']} selection.")
         policy = selection_policy(definition, item['pool'], pack)
+        if definition.get('kind') == 'training':
+            selected.append({**definition, **item, 'quality':'trained', 'selection_cost':policy['cost'],
+                             'selection_cost_source':pack['source']})
+            continue
         if definition.get('kind') == 'physical' and 'base' not in definition:
             selected.append({**physical_entries[definition['id']], **item, 'quality':'trained', 'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
             continue

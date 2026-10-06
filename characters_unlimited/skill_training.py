@@ -41,10 +41,13 @@ def training_rules(pack):
         target=known.get(identifier) if isinstance(identifier,str) else None
         ordinary=target is not None and not needs_specialty(target) and target.get('kind')!='physical'
         if explicit and not ordinary:
-            raise ValueError('Required catalog references support ordinary percentile skills without specialties')
+            raise ValueError('Required catalog references support ordinary skills without specialties')
         if target is None or not ordinary:
             continue
-        if (any(type(definition.get(key)) is not int or type(target.get(key)) is not int or
+        if target.get('kind') == 'training':
+            if definition.get('kind') != 'training':
+                raise ValueError('Required ordinary training must retain its catalog kind')
+        elif (any(type(definition.get(key)) is not int or type(target.get(key)) is not int or
                 definition[key]!=target[key] or not 0<=definition[key]<=MAX_INTEGER for key in ('base','per_level')) or
                 type(definition.get('class_bonus')) is not int or abs(definition['class_bonus'])>MAX_INTEGER):
             raise ValueError('Required training must match its catalog base and progression with an exact class bonus')
@@ -80,14 +83,14 @@ def resolve_skill_training(character, pack, required, fixed, selections, derived
     known={row['id']:row for row in pack['skills']}
     result: dict[str,Any]={}
     acquisitions=[{'id':row['id'],'bonus':row['contributions']['class'],'default':1}
-                  for row in required if not row.get('specialty')]
+                  for row in required if not row.get('specialty') and row.get('kind') != 'training']
     acquisitions.extend({'id':row['id'],'bonus':row['bonus'],'default':1} for row in fixed)
     acquisitions.extend({'id':item['skill_id'],'bonus':selection_policy(known[item['skill_id']],item['pool'],pack)['bonus'],
                          'default':character['level']} for item in selections if not needs_specialty(known[item['skill_id']]))
     for acquisition in acquisitions:
         identifier=acquisition['id']
         definition=known.get(identifier)
-        if definition is None or definition.get('kind')=='physical' or needs_specialty(definition):
+        if definition is None or definition.get('kind') in {'physical', 'training'} or needs_specialty(definition):
             continue
         learned=recorded_training_level(character,identifier,aliases,default=acquisition['default'])
         row=result.setdefault(identifier,{'ordinary_bonus':acquisition['bonus'],'learned_level':learned,'origins':[]})

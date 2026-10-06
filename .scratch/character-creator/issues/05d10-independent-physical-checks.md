@@ -1,6 +1,6 @@
 # 05D10: Independent Physical checks and fixed basic training
 
-Status: in-progress; 05D9 reviewed and merged; isolated implementation rebased on e61f1ef. Parent: 05/05B/22. Branch: codex/rifts-independent-physical-checks.
+Status: done; merged as0519c5de6ec26203f440ba24b74e316c6682ef2f (PR122). Parent:05/05B/22 remain open. Branch:codex/rifts-independent-physical-checks.
 
 Source: original RUE printed 316–317, visually reviewed PDF319–320. Add Acrobatics and Gymnastics in immutable2.22.0 (202 skills). Preserve every existing archive byte. Current class entitlements remain: Vagabond excludes both; City Rat permits both related+5; Secondary excludes both.
 
@@ -11,3 +11,5 @@ Validate declaration shape, exact numeric bounds, supported check selectors and 
 Baseline public workflows reproduce wrong per-check growth, growing fixed checks, missing suppression and absent before-dice validation: three tests/six failures in1.606s after correcting initial test setup to generate starting resources before first advancement. Acceptance: distinct rates/fixed training, later ordinary acquisition dates, remove/reselect/import/reopen/undo, duplicate bonuses/retained dice, exact old pin and explicit upgrade, negative declarations before dice; actualUI, editablePDF, focused/full/frozenWindows, two independent reviews and both exact-head hosted gates before merge.
 
 Scout's future fixed Mathematics check needs intelligence-only contributions and pool-conditioned synergy. Do not prematurely add that capability or claim Scout support here. Other nonpercentile training and classes remain open.
+
+Final3dc2e17 approved independently on both axes;45 affected37.681s,557 full639.534s,typing176/static and rebuilt frozen44.440s pass. Both exact-head hosted37402880089/37402875943 pass557 full1087.903/718.034s and separate frozen49.043/31.458s. Push attempt1 had a five-second unchanged Heroes HTTP request timeout; isolated local rerun1.194s and hosted attempt2 pass on the unchanged head. ActualChrome remove/reselect, source checks and retained dice verified; five-page editablePDF1276fields238populatedwidgets/AP visually pass. Broader amended build remains incomplete.

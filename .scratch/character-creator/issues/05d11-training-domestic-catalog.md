@@ -1,6 +1,6 @@
 # 05D11: Ordinary training and remaining Domestic skills
 
-Status: prepared; isolated implementation follows05D10 and waits for its reviewed merge. Parent:05/05B/22. Branch:codex/rifts-training-domestic-catalog.
+Status: in-progress; implementation rebased onto reviewed05D10 merge0519c5d. Parent:05/05B/22. Branch:codex/rifts-training-domestic-catalog.
 
 Source: original RUE printed307/308/309/330 (PDF310/311/312/333), visually reviewed. Immutable2.23.0 adds four identities (206 skills): BrewingBasic25/30+5; WardrobeGrooming50+4; nonpercentile Hunting; nonpercentile Sniper. Brewing repeats under ordinary Domestic rules/+10once and adds5Holistic. Wardrobe adds2Disguise/Impersonation/Performance/Undercover/Seduction; dressed-to-impressPB1 remains contextual source note. BrewingBasic and Medicinal are distinct named source skills; their independently sourced Holistic bonuses each apply once, as a recorded interpretation.
 

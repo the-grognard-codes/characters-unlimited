@@ -33,7 +33,10 @@ class PackagedApplicationTests(unittest.TestCase):
                 headers = {'Content-Type':'application/json'}
                 if token is not None:
                     headers['X-Session-Token'] = token
-                with urlopen(Request(url + path, data=body, headers=headers), timeout=15) as response:
+                # History undo and bootstrap reopening validate retained level
+                # frames/recovery copies. The functional package smoke test needs
+                # a bounded budget that accommodates slower Windows runners.
+                with urlopen(Request(url + path, data=body, headers=headers), timeout=60) as response:
                     payload = response.read()
                     return payload if response.headers.get_content_type() == 'application/pdf' else json.loads(payload)
             def launch(gui=False):

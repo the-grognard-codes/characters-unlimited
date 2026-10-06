@@ -402,16 +402,21 @@ def export_rifts_sheet(character, core, skills, combat):
                     name.removeprefix('Attribute: ') + f' {amount:+}%' for name, amount in attribute_bonuses.items()) + '.'
     psychic = skills.get('psionics')
     if psychic:
-        sheet_notes += '\nNatural psionics: ' + psychic.get('path', 'Not determined')
-        sheet_notes += '; potential roll ' + str(psychic['state']['face'])
-        sheet_notes += '; save target ' + str(psychic['save_target']) + ' (attribute/class bonuses apply separately).'
-        for resource in psychic['resources'].values():
-            sheet_notes += '\n' + resource['name'] + ': ' + str(resource['value']) + '; ' + str(resource['contributions'])
-        sheet_notes += '\n' + ' '.join(psychic.get('guidance', []))
-        for ability in psychic['abilities']:
-            sheet_notes += '\n' + ability['name'] + ': ' + ability['description']
-            sheet_notes += ' ' + '; '.join(row['text'] for row in ability['parameters'])
-            sheet_notes += ' (' + ability['source']['book'] + ', ' + ability['source']['section'] + ').'
+        if psychic.get('origins'):
+            sheet_notes += '\n' + ' '.join(psychic.get('guidance', []))
+        for origin in psychic.get('origins', [{'label': 'Natural psionics', 'view': psychic}]):
+            view = origin['view']
+            sheet_notes += '\n' + origin['label'] + ': ' + view.get('path', 'Not determined')
+            if not view.get('fixed'):
+                sheet_notes += '; potential roll ' + str(view['state']['face'])
+            sheet_notes += '; save target ' + str(view['save_target']) + ' (attribute/class bonuses apply separately).'
+            for resource in view['resources'].values():
+                sheet_notes += '\n' + resource['name'] + ': ' + str(resource['value']) + '; ' + str(resource['contributions'])
+            sheet_notes += '\n' + ' '.join(view.get('guidance', []))
+            for ability in view['abilities']:
+                sheet_notes += '\n' + ability['name'] + ': ' + ability['description']
+                sheet_notes += ' ' + '; '.join(row['text'] for row in ability['parameters'])
+                sheet_notes += ' (' + ability['source']['book'] + ', ' + ability['source']['section'] + ').'
     if 'experience' in character:
         sheet_notes += '\nExperience: ' + str(character['experience']) + ' XP.'
     if character.get('advancement'):

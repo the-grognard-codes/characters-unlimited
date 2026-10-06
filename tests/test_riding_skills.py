@@ -24,6 +24,9 @@ class RidingWorkflowTests(unittest.TestCase):
             rows=app.skill_view(hero['id'])['selected']
             self.assertEqual([(row['percentage'],row['additional_checks'][0]['percentage']) for row in rows],[(base+2,second+2) for base,second,rate in expected.values()])
             self.assertTrue(all(row['source']['pdf_pages'] and row['description'] for row in rows))
+            cowboy=next(row for row in rows if row['id']=='horse-cowboy')
+            self.assertIn('levels 2/5/10/15',cowboy['description'])
+            self.assertNotIn('levels 1/2',cowboy['description'])
 
     def test_cowboy_source_rates_and_current_pool_permissions(self):
         with tempfile.TemporaryDirectory() as directory:

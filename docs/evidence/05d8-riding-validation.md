@@ -7,3 +7,5 @@ Immutable 2.20.0 adds six paired Horsemanship definitions and four Cowboy percen
 Chrome verified optional General 40/20 -> required General selected -> both copies 45/25. Clearing the required choice restored optional 40/20; reselection restored both 45/25. Exotic remains 30/20. Screenshot `05d8-riding-builder.png` shows expanded pairs and source contributions. Mounted effects remain contextual descriptions rather than standing combat totals.
 
 The same save exports `05d8-riding-sheet.pdf`: four pages, 1232 canonical fields and 176 populated widgets, all matching logical values and non-empty normal appearances. Primary and continuation pages visually checked with no clipped values; page 3 (`05d8-riding-notes.png`) preserves all paired checks, source notes and contextual riding guidance. Earlier accepted archive bytes are unchanged.
+
+Spec review corrected Cowboy mounted initiative increments to levels2/5/10/15 (printed311). Seven focused riding workflows pass8.100 seconds after the correction; PDF continuation regenerated and visually verified. Final exact-head gates replace superseded runs before merge.

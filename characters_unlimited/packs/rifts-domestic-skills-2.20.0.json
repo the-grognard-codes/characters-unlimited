@@ -4454,7 +4454,7 @@
           "per_level": 3
         }
       ],
-      "description": "Specialized Cowboy riding; not available to most occupations. While mounted: +1 initiative at levels 1/2/5/10/15, fall/impact+2, parry+2, dodge/entangle/ensnare+2, melee damage+1D4, charge+2D6 S.D.C./+1D6 M.D., horse strike+4 apply only while mounted; these contextual effects are not added to standing combat totals.",
+      "description": "Specialized Cowboy riding; not available to most occupations. While mounted: +1 initiative at levels 2/5/10/15, fall/impact+2, parry+2, dodge/entangle/ensnare+2, melee damage+1D4, charge+2D6 S.D.C./+1D6 M.D., horse strike+4 apply only while mounted; these contextual effects are not added to standing combat totals.",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "section": "Horsemanship: Cowboy",

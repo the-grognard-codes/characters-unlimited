@@ -291,7 +291,7 @@ async function loadSkills(character) {
           return `${name.replaceAll('_', ' ')} +${value}${dice}${pending}`;
         })).join(' · ')
       : Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
-    if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
+    if (skill.kind === 'physical' && skill.percentage != null) explanation.textContent += (explanation.textContent ? ' · ' : '') + Object.entries(skill.contributions).map(([name, amount]) => `${name.replaceAll('_', ' ')} ${amount}%`).join(' + ');
     explanation.textContent += ` · ${skill.source.book}, pp. ${skill.source.pages.join(', ')}`;
     if (skill.description) explanation.textContent += ` · ${skill.description}`;
     for (const origin of skill.grant_origins || []) {
@@ -311,7 +311,7 @@ async function loadSkills(character) {
       if (check.multiplier != null && check.multiplier !== 1) explanation.textContent += ` · ${check.name} uses normal proficiency ${check.normal_percentage}% × ${check.multiplier}.`;
       explanation.textContent += ` · ${check.name}: ${check.percentage}% (${total}${check.uncapped_percentage > 98 ? '; capped at 98%' : ''})`;
     }
-    if (skill.notes) explanation.textContent += ' · ' + skill.notes.join(' ');
+    if (skill.notes?.length) explanation.textContent += ' · ' + skill.notes.join(' ');
     row.append(heading, explanation);
     for (const activity of skill.activities || []) {
       const details = document.createElement('p'); details.className = 'help';

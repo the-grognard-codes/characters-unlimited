@@ -99,7 +99,7 @@ def project_combat(character, pack):
     physical = project_physical(character,pack)
     totals = {'attacks':total({'hand_to_hand':hand['attacks'],
                               **physical['combat'].get('attacks',{})}),
-              'initiative':total({'physical_prowess':initiative,'slow_speed':slow, **({'hand_to_hand':hand['initiative']} if 'initiative' in hand else {})},missing=low_pp)}
+              'initiative':total({'physical_prowess':initiative,'slow_speed':slow, **({'hand_to_hand':hand['initiative']} if 'initiative' in hand else {}), **physical['combat'].get('initiative',{})},missing=low_pp)}
     for stat in ('strike','parry','dodge','pull_punch','roll_with_impact','disarm'):
         contributions = {'hand_to_hand':hand.get(stat,0)}
         contributions.update(physical['combat'].get(stat,{}))

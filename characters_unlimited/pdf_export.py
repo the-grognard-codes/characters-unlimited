@@ -382,7 +382,7 @@ def export_rifts_sheet(character, core, skills, combat):
             for origin in skill.get('grant_origins', []):
                 parent = next(row['name'] for row in skills['catalog'] if row['id'] == origin['parent_id'])
                 sheet_notes += f' Granted by {parent}: training +{origin["bonus"]}% (' + resource_source_citation(origin['source']) + ').'
-            attribute_bonuses = {name: amount for name, amount in skill['contributions'].items()
+            attribute_bonuses = {name: amount for name, amount in skill.get('contributions', {}).items()
                                 if name.startswith('Attribute: ')}
             if attribute_bonuses:
                 sheet_notes += ' Normal attribute contributions: ' + '; '.join(
@@ -515,6 +515,8 @@ def export_rifts_sheet(character, core, skills, combat):
                 label = ('S.D.C. bonus' if resources.get('SDC',{}).get('value') is not None else 'S.D.C. bonus (starting total pending)') if group=='resources' and name=='SDC' else name.replace('_',' ')
                 rolls = effect.get('rolls',[]) if isinstance(effect,dict) else []
                 effects.append(f'{label} +{value}'+(' (dice '+', '.join(map(str,rolls))+')' if rolls else ''))
+        if not effects and not skill.get('notes') and not skill.get('activities'):
+            continue
         sheet_notes += '\n'+skill['name']+': '+'; '.join(effects)+'. '+skill['source']['book']+', p. '+', '.join(map(str,skill['source']['pages']))+'.'
         if skill.get('notes'):
             sheet_notes += ' ' + ' '.join(skill['notes'])

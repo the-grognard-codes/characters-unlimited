@@ -1,0 +1,37 @@
+﻿# 05D18 master psychic class validation
+
+Human Burster and Mind Melter use the shared owned class profiles and explicit fixed-path v3 learning contract. Local archives are core1.9.0, skills2.30.0, equipment1.17.0 and both class psionic paths1.0.0. Historical accepted definitions remain unchanged. Parent PRs126â€“129 are merged; this batch is still in progress. Final full regression and both snapshot/artifact reviews pass; exact-head hosted acceptance remains pending. Wider class/race/RCC coverage and the amended build remain open.
+
+## Source and representative expectations
+
+Original scanned RUE printed140â€“142,150â€“151,177â€“184,295 and300 were visually reviewed. Burster has seven always-known fire powers,17 electives, initial3 choices and1at3/6/9/12; its two Super powers cost2. Mind Melter has four always-known powers and85 catalog entries, including all29 Super powers. Source category awards, cumulative level awards and three level3 learning requirements are retained. Conditional mind-control/magic-illusion bonuses and activation costs remain descriptions under the player-focused scope amendment; they are not blanket numeric saves or automatic resource expenditures.
+
+With deterministic die3, both starting Human witnesses have99ISP/6PPE, save10,21SDC/12HP. Burster required Math60/Streetwise30 and Mind Melter Math65/Streetwise35 are independently asserted, with Native98/Other80/Pilot70/Nav46. Mind Melter level15 has239ISP,44 elective credits, Related9/Secondary14 and Horror10. Required and Related Pilot exclusions differ: Mind Melter Related Pilot is unrestricted+5 and Military unrestricted; required Pilot excludes Robots/Military. Burster's Related Pilot excludes both. Class Hand to Hand citations retain class printed142/151 and generic style pages.
+
+## Shared behavior and review repairs
+
+Always-known grants consume no elective credits. First learned levels persist across removal/reselection, advancement and undo. Exclusive allocation credits a multi-category choice once. Weighted choices require one category and can use cumulative matching source awards. Selected future learning receipts are rejected before mutation/dice; an unselected future cache after undo is retained and disabled until attained in the browser. Inactive definitions and portable history receive the same preflight.
+
+Class strike contributions apply once to general/melee/thrown/shooting totals. The new public level5 Assassin-at1 regression verifies general thrown2 and Knife thrown4 for both classes, including one class source. Source Mind Melter shared WP allowance and paid upgrades use the common skill-cost calculation. Burster's per-WP weapon slots retain independent1D4 clip receipts. Copied Body Fixer equipment guidance was corrected to the Burster award; old archives are unchanged.
+
+## Checks
+
+Source/shared31tests pass151.470s; additional combat/progression/conditions17tests pass47.192s. After review repairs, master class/combat16tests pass93.166s, new regression1passes3.800s. After the final equipment-note correction, equipment/funds/exact portable/editable output1passes12.835s. Typing193files, Python compilation, all browser script syntax and diff whitespace checks pass. Final stable regression passes647tests in1839.429s with one frozen-only skip covered by the separate76.349s frozen workflow. Seven portable-save checks pass9.156s after correcting three old assertions to account for both new core path dependencies. The earlier647-test run failed those expectations and one archive-hash check because a prose refresh overlapped its reads; its affected check passed isolated2.246s. The final run used stable files.
+
+Final elevated PyInstaller build includes installed Tcl/Tk and succeeds18.689s. Final frozen workflow passes76.349s, including GUI restart, reopen and level15 undo, without increasing the15s request deadline. An earlier sandbox run timed out at GUI restart after completing headless workflows; the elevated repaired-build run passed72.086s before the prose-only equipment correction, then the final run passed76.349s. The first pre-repair full run was interrupted and is not a passing receipt.
+
+## Actual packaged browser and editable PDF witnesses
+
+Burster `0e02b4f1-9b8e-4d52-b543-e47901ec3dd1`, revision19, level3: Empathy/Telepathy learned1, Psychic Body Field learned3 and seven known grants. Its saved initial one-credit remainder plus new level3 credit pay the cost2 choice. ISP68/PPE6/save10; English/Spanish and Automobile/Hovercycle required choices complete. Native98/Math70/Nav54/Street38/Other86/Automobile74/Hovercycle86; starting Cook learned1 is55. Related5/Secondary8 remain available. Armor, Hover vehicle and three proficiency-matched weapons are retained; clip receipts2/4/1 correspond to separate d4 rolls. The editable PDF has9pages,1554canonical fields and510populated widgets.
+
+Mind Melter `e21b2012-6142-4746-8c0a-12085243ff36`, revision17, level3: four known grants and20electives fill every attained source award. Electives were first selected at3, including Psi-Sword/Mind Wipe. ISP135/PPE6/save10; English/Spanish/French and Automobile/Hovercycle required choices complete. Math75/Nav54/Street43/Other86; Related AdvancedMath60/Seduction30/PickPockets27/FieldArmorer40/Submersible45. Expert-at1 plus the initial Energy Rifle WP use one Related credit, leaving0Related/8Secondary. Fashionable personal kit and all five starting equipment choices are retained, including source knife and Robot horse. The editable PDF has13pages,1780canonical fields and747populated widgets. LowPP7 leaves optional affected combat totals blank under the existing capability contract.
+
+Both characters reopened through the final packaged interface. Public exports/imports preserve all gameplay exactly, excluding only identity/copy provenance/revision/update time, with a no-roll die witness. PDF NAME/ISP equal the saves, every page widget's effective value agrees with canonical fields, and each populated widget has a nonempty normal appearance. Known-grant and learned-level text are present. Sibling PNG/PDF artifacts record these incomplete elective-skill sample characters. All22 rendered pages visually pass: populated sheet values and continuation notes remain legible, with no clipping or overlap. Poppler emits optional Symbol/ArialUnicode display-font warnings; populated values and continuation text render correctly.
+
+## Standards
+
+Code/data review identified two P2 findings: copied class Hand to Hand provenance and omitted general thrown-strike class bonus. Both are repaired and focused re-review approves. Final46-file snapshot and UI/PDF artifact review approves with zero findings. Focused final review of the late portable assertions, settled expanded screenshots and reconciled receipts approves with zero actionable findings.
+
+## Spec
+
+Code/source-data review approves with zero actionable findings. Conditional saves remain explicit descriptions as allowed by the amendment. Final46-file snapshot and UI/PDF artifact review approves with zero findings. Focused final review of the late portable assertions, settled expanded screenshots and reconciled receipts approves with zero actionable findings.

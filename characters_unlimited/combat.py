@@ -188,7 +188,7 @@ def project_combat(character, pack):
         eligible_count += len(eligible)
         if 'combined_proficiency_count' not in rules:
             remaining[family]=allowances[family]-(len(eligible) if 'proficiency_counts' in rules else sum(identifier in eligible for identifier in choices[family]))
-        if 'additional_proficiency_cost' in rules:
+        if 'additional_proficiency_cost' in rules and 'combined_proficiency_count' not in rules:
             remaining[family] = max(0, remaining[family])
         if allowances[family] and any(identifier not in eligible and identifier not in grants[family] for identifier in choices[family]):
             guidance = 'choose an eligible energy weapon.' if remaining.get(family, 1) > 0 else 'required slot is filled; extra training is retained.'
@@ -199,6 +199,8 @@ def project_combat(character, pack):
             warnings.append(f'{family.title()}: duplicate proficiency choices are retained without multiplying their bonuses.')
     if 'combined_proficiency_count' in rules:
         remaining['proficiencies'] = rules['combined_proficiency_count'] - eligible_count
+        if 'additional_proficiency_cost' in rules:
+            remaining['proficiencies'] = max(0, remaining['proficiencies'])
     for family, count in remaining.items():
         if count<0: warnings.append(f'{family.title()}: {-count} selection(s) over the allowance; retained.')
     attribute_source = {'book':'Rifts - Ultimate Edition','pages':[281,283,284]}
@@ -229,6 +231,17 @@ def project_combat(character, pack):
             item[context]['sources'] = [item['source'],{'book':'Rifts - Ultimate Edition','pages':[361]}]
             if hand.get('gun_strike'):
                 item[context]['sources'].append(hand['source'])
+    if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
+        additions = [effect for effect in effects if effect['target'] == 'combat:strike']
+        if additions:
+            if 'thrown_strike' in totals:
+                totals['thrown_strike'] = apply_numeric_contributions(totals['thrown_strike'], additions, 'combat:strike')
+            for item in melee:
+                for stat in ('strike', 'thrown'):
+                    item[stat] = apply_numeric_contributions(item[stat], additions, 'combat:strike')
+            for item in shooting:
+                for context in ('single', 'aimed', 'burst', 'wild'):
+                    item[context] = apply_numeric_contributions(item[context], additions, 'combat:strike')
     notes = ['Shooting contexts are training examples; actual weapon modes, burst lengths, ammunition and capacity remain pending.',
              'Gun shooting excludes P.P., general hand-to-hand strike and strength damage bonuses. Assassin’s explicit gun-strike gains apply separately from W.P.; bursts halve only the W.P. contribution. Untrained shooters cannot make aimed shots.',
              'Gun dodge requires seeing the attacker and knowing the shot is coming; subtract 10 within 10 feet or 5 within 50 feet. Athletics and hand-to-hand dodge bonuses do not apply to gunfire or energy blasts (p. 361).',

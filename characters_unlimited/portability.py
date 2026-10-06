@@ -4,6 +4,7 @@
 import json
 from .json_data import canonical, MAX_BYTES
 from .ability_paths import project_path
+from .ability_learning import validate_learning_history
 from .psionic_entitlements import entitlement_dependencies, project_entitlement
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -345,6 +346,7 @@ def validate_sources(character, packs, *, history_frame=False):
     if 'advancement' in character:
         before = {**character['advancement']['before'], 'id': character['id'],
                   'revision': 0, 'updated_at': character['updated_at']}
+        validate_learning_history(character, before)
         historical = pinned_packs(before, packs, include_history=False)
         validate_character(before, primary_pack(before, historical))
         validate_sources(before, historical)
@@ -371,6 +373,7 @@ def validate_sources(character, packs, *, history_frame=False):
     for event in character.get('later_advancements', []):
         before = {**event['before'], 'id': character['id'], 'revision': 0,
                   'updated_at': character['updated_at']}
+        validate_learning_history(character, before)
         historical = pinned_packs(before, packs)
         if character['game']=='heroes-unlimited':
             historical_higher = next((item for item in historical if item['id']=='heroes-higher-advancement' and

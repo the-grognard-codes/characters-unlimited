@@ -415,6 +415,10 @@ def export_rifts_sheet(character, core, skills, combat):
             sheet_notes += '\n' + ' '.join(view.get('guidance', []))
             for ability in view['abilities']:
                 sheet_notes += '\n' + ability['name'] + ': ' + ability['description']
+                if 'learned_level' in ability:
+                    sheet_notes += ' Learned at level ' + str(ability['learned_level']) + '.'
+                if ability['id'] in view.get('known_abilities', []):
+                    sheet_notes += ' Always known class grant; no elective choice cost.'
                 sheet_notes += ' ' + '; '.join(row['text'] for row in ability['parameters'])
                 sheet_notes += ' (' + ability['source']['book'] + ', ' + ability['source']['section'] + ').'
     if 'experience' in character:

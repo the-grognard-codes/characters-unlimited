@@ -19,9 +19,13 @@ def proficiency_allowances(rules):
     if 'additional_proficiency_cost' in rules:
         amount = rules['additional_proficiency_cost']
         if (type(amount) is not int or not 0 <= amount <= 1000 or
-                'proficiency_counts' not in rules):
+                not {'proficiency_counts', 'combined_proficiency_count'}.intersection(rules)):
             raise ValueError('Additional weapon training needs family allowances and a bounded cost')
-    if 'proficiency_counts' in rules:
+    if 'combined_proficiency_count' in rules:
+        count = rules['combined_proficiency_count']
+        if type(count) is not int or not 0 <= count <= 1000:
+            raise ValueError('Combined weapon allowance needs a bounded count')
+    if {'proficiency_counts', 'combined_proficiency_count'}.intersection(rules):
         required = rules.get('required_proficiencies')
         if not isinstance(required, dict) or set(required) != {'ancient', 'modern'}:
             raise ValueError('Weapon allowances need explicit required families')
@@ -42,12 +46,17 @@ def proficiency_selection_cost(choices, rules):
     cost = rules.get('additional_proficiency_cost', 0)
     fixed = fixed_proficiencies(rules)
     extras = 0
+    total_selected, total_eligible = 0, 0
     for family in ('ancient', 'modern'):
         selected = set(choices[family]) - set(fixed[family])
         allowed = rules['required_proficiencies'][family]
         eligible = selected if allowed == 'any' else selected.intersection(allowed)
+        total_selected += len(selected)
+        total_eligible += len(eligible)
         filled = min(counts[family], len(eligible))
         extras += len(selected) - filled
+    if 'combined_proficiency_count' in rules:
+        extras = total_selected - min(rules['combined_proficiency_count'], total_eligible)
     return extras * cost
 
 

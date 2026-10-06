@@ -35,7 +35,7 @@ def preflight_entitlements(core, resolve):
     result = {}
     for identifier, binding in _bindings(core).items():
         pack = resolve(binding['id'], binding['version'])
-        if pack.get('format') != 'ability-paths-v2':
+        if pack.get('format') not in ('ability-paths-v2', 'ability-paths-v3'):
             raise ValueError('Class psychic dependencies require a fixed source path')
         compile_paths(pack, context)
         result[identifier] = pack
@@ -95,6 +95,8 @@ def restore_entitlement(current, restored):
     state['gains'] = deepcopy(cache['gains'])
     state['abilities']['acquisitions'] = {
         **deepcopy(cache['abilities']['acquisitions']), **state['abilities']['acquisitions']}
+    if 'learning_levels' in state:
+        state['learning_levels'] = {**deepcopy(cache['learning_levels']), **state['learning_levels']}
     return {'class_psionics': state, 'additional_rule_packs': {
         **restored.get('additional_rule_packs', {}), state['pin']['id']: state['pin']['version']}}
 

@@ -1,7 +1,7 @@
 """Source-bound race/class pairings shared by creation and exact save replay."""
 
 from .generation import racial_formulas, racial_sources
-from .attribute_modifiers import class_effects
+from .attribute_modifiers import class_effects, class_minima
 
 
 def _source(source):
@@ -65,6 +65,8 @@ def creation_classes(pack):
                 raise ValueError('Class guidance must be a list of descriptions')
             for effect in class_effects(selected_class).values():
                 _source(effect['source'])
+            for minimum in class_minima(selected_class).values():
+                _source(minimum['source'])
         except (ValueError, TypeError, KeyError, AttributeError) as error:
             raise ValueError(identity + ' class attributes: ' + str(error)) from None
     return result

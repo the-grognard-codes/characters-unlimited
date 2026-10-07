@@ -168,6 +168,21 @@ def skill_cells(page, left):
                   key=lambda cell: float(cell['/Rect'][1]), reverse=True)
 
 
+def sheet_skill_rows(rows):
+    """Prefer calculated percentile rows over parallel Physical receipts."""
+    calculated = {(row['id'], row.get('specialty', '')) for row in rows if 'percentage' in row}
+    result = []
+    for row in rows:
+        if row.get('kind') == 'physical' and 'percentage' not in row:
+            if (row['id'], row.get('specialty', '')) in calculated:
+                continue
+            # Source check definitions are not calculated sheet percentages.
+            row = {**row, 'additional_checks': [check for check in row.get('additional_checks', [])
+                                               if 'percentage' in check]}
+        result.append(row)
+    return result
+
+
 def fill_skills(page, rows, left, values):
     names, rates, percentages = (skill_cells(page, left + offset) for offset in (0, 136, 153))
     if not len(names) == len(rates) == len(percentages) == 20:
@@ -372,10 +387,10 @@ def export_rifts_sheet(character, core, skills, combat):
                         'leap-kick':'LEAP KICK','body-flip':'BODY FLIP THROW'}.get(attack['id'])
         if attack_field and 'Pending' not in attack['damage']:
             values[attack_field] = attack['damage'].removesuffix(' S.D.C.').replace(' × ', 'x')
-    rows = [row for row in skills['grants'] if row['id'] != 'native-language' or row.get('specialty')]
-    rows.extend(row for row in skills['selected'] if row['pool'] != 'secondary')
+    rows = sheet_skill_rows([row for row in skills['grants'] if row['id'] != 'native-language' or row.get('specialty')])
+    rows.extend(sheet_skill_rows([row for row in skills['selected'] if row['pool'] != 'secondary']))
     overflow = fill_skills(writer.pages[0], rows, 220, values)
-    secondary = [row for row in skills['selected'] if row['pool'] == 'secondary']
+    secondary = sheet_skill_rows([row for row in skills['selected'] if row['pool'] == 'secondary'])
     overflow.extend(fill_skills(writer.pages[0], secondary, 404, values))
     sheet_notes = character['notes']
     if skills.get('path_guidance'):

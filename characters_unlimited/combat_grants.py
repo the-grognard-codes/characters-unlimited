@@ -1,5 +1,7 @@
 """Source-bound fixed weapon training, independent of elective choices."""
 
+from .weapon_entitlements import weapon_schedule, scheduled_training
+
 
 def elective_proficiencies(combat):
     """Return distinct nonfixed training in the shared equipment slot order."""
@@ -38,13 +40,17 @@ def proficiency_allowances(rules):
                     any(not isinstance(value, str) or value not in known for value in allowed) or
                     len(set(allowed)) != len(allowed)):
                 raise ValueError('Required weapon slots need distinct known training identities')
+    weapon_schedule(rules)
     return counts
 
 
-def proficiency_selection_cost(choices, rules):
+def proficiency_selection_cost(choices, rules, character=None):
     counts = proficiency_allowances(rules)
     cost = rules.get('additional_proficiency_cost', 0)
     fixed = fixed_proficiencies(rules)
+    scheduled = scheduled_training(character, choices, rules, fixed, counts) if character is not None else None
+    if scheduled is not None:
+        return len(scheduled['paid']) * cost
     extras = 0
     total_selected, total_eligible = 0, 0
     for family in ('ancient', 'modern'):

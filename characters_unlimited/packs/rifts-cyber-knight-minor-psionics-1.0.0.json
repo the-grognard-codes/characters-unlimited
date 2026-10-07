@@ -1,0 +1,873 @@
+{
+  "id": "rifts-cyber-knight-minor-psionics",
+  "version": "1.0.0",
+  "name": "Minor Cyber-Knight psychic path",
+  "game": "rifts",
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Cyber-Knight psychic powers and reserves",
+    "pages": [
+      63,
+      64
+    ],
+    "pdf_pages": [
+      66,
+      67
+    ]
+  },
+  "format": "ability-paths-v3",
+  "categories": [
+    "Healing",
+    "Physical",
+    "Sensitive",
+    "Super"
+  ],
+  "fixed_path": "minor",
+  "skip_path": "minor",
+  "paths": [
+    {
+      "id": "minor",
+      "name": "Minor Cyber-Knight psychic path",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Cyber-Knight psychic powers and reserves",
+        "pages": [
+          63,
+          64
+        ],
+        "pdf_pages": [
+          66,
+          67
+        ]
+      },
+      "save_target": 12,
+      "known_abilities": [
+        "meditation",
+        "cyber-knight-psi-sword",
+        "cyber-knight-psi-shield"
+      ],
+      "allowances": {
+        "class": {
+          "count": 0,
+          "minimum_categories": 0,
+          "maximum_categories": 4,
+          "awards": [
+            {
+              "id": "initial-ordinary",
+              "name": "Initial additional psychic powers",
+              "level": 1,
+              "count": 3,
+              "categories": [
+                "Healing",
+                "Sensitive",
+                "Physical"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Cyber-Knight psychic powers and reserves",
+                "pages": [
+                  63,
+                  64
+                ],
+                "pdf_pages": [
+                  66,
+                  67
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "resources": {
+        "definitions": [
+          {
+            "id": "ISP",
+            "name": "Inner Strength Points",
+            "contributions": [
+              {
+                "id": "starting-ME",
+                "attribute": "ME",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Cyber-Knight psychic powers and reserves",
+                  "pages": [
+                    63,
+                    64
+                  ],
+                  "pdf_pages": [
+                    66,
+                    67
+                  ]
+                }
+              },
+              {
+                "id": "starting-dice",
+                "formula": {
+                  "count": 3,
+                  "sides": 6,
+                  "bonus": 0
+                },
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Cyber-Knight psychic powers and reserves",
+                  "pages": [
+                    63,
+                    64
+                  ],
+                  "pdf_pages": [
+                    66,
+                    67
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "guidance": [
+          "Effective M.E. is retained when class ISP is generated; later editing does not reroll that reserve."
+        ]
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "count": 1,
+            "sides": 6,
+            "constant": 0
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Cyber-Knight psychic powers and reserves",
+            "pages": [
+              63,
+              64
+            ],
+            "pdf_pages": [
+              66,
+              67
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "catalog": {
+    "id": "rifts-cyber-knight-minor-psionics-abilities",
+    "version": "1.0.0",
+    "game": "rifts",
+    "format": "abilities-v1",
+    "options": [
+      {
+        "category": "Healing",
+        "description": "Meditation is a trance state of consciousness in which the individual can calm his emotions and focus on relaxation of mind and body. In a meditative state, the psychic finds peace and harmony between mind, body and spirit, and it is in this state of being that he can regenerate his Inner Strength (I.S.P.). Recovers Base I.S.P. at a rate as indicated under each psychic O.C.C., otherwise six I.S.P. per hour of meditation.",
+        "id": "meditation",
+        "name": "Meditation",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            },
+            "text": "As needed; at least one hour of meditation is required."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            },
+            "text": "None, zero."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Meditation"
+        },
+        "tags": [
+          "Healing",
+          "Physical",
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Healing",
+        "description": "A mind over matter discipline which enables the character to engage in physical activity without suffering from exhaustion. However, fatigue is only temporarily suspended, so the psychic feels extremely tired and may even collapse when the duration of this power elapses.",
+        "id": "resist-fatigue",
+        "name": "Resist Fatigue",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "One hour plus 20 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "Length of Trance",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "1D6 melees of preparatory meditation."
+          },
+          {
+            "id": "metadata-3",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Resist Fatigue"
+            },
+            "text": "4"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Resist Fatigue"
+        },
+        "tags": [
+          "Healing",
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "Temporarily disguise the information revealed by your aura, such as alignment, psychic potential and magical energy.",
+        "id": "alter-aura",
+        "name": "Alter Aura",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            },
+            "text": "One hour per each level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            },
+            "text": "2"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Alter Aura"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Alter Aura"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "This is the ability to completely close or block oneself from all psychic/mental emanations. When intentionally closed to supernatural or psychic forces the character can not sense anything, can not use psychic abilities, nor be influenced by others. A Mind Block will prevent penetration of Telepathy, Empathy, Hypnotic Suggestion, Day Dream and Empathic Transmission. It can be an invaluable protective mask when dealing with malevolent psychic forces. Adds a bonus of +1 to save vs all psychic and mental attacks. Note: Mind Block only blocks psionic attacks that affect the psychic's mind or emotional state (i.e. Telepathy, Empathy, Hypnotic Suggestion, etc.). It offers not protection from magic.",
+        "id": "mind-block",
+        "name": "Mind Block",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            },
+            "text": "10 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mind Block"
+            },
+            "text": "4 (per each duration period)."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mind Block"
+        },
+        "tags": [
+          "Physical",
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Physical",
+        "description": "Draw on inner reserves to ward off pain and fatigue. While active, gain 10 S.D.C., +2 against poison/toxins and +5% against coma/death.",
+        "id": "summon-inner-strength",
+        "name": "Summon Inner Strength",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Summon Inner Strength"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Summon Inner Strength"
+            },
+            "text": "10 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Summon Inner Strength"
+            },
+            "text": "4"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Summon Inner Strength"
+        },
+        "tags": [
+          "Physical"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Empathy is a psi-ability that makes the psychic aware of, or feel, the emotions of other people, animals and supernatural creatures. The strongest emotions are easiest to sense: hate, anger, terror, love. Feeling for emotions can often be used to establish that somebody or something is nearby, but can NOT be used to pinpoint an invisible or hiding person/ creature. Empathy can be especially helpful in recognizing and communicating with ghosts and other supernatural creatures.",
+        "id": "empathy",
+        "name": "Empathy",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "100-foot area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "2 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "Standard each melee; a successful save obscures the target's emotions. Mind Block prevents emanations."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Empathy"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Hold an object to seek impressions and images of its history and last owner; roll separately for each. Each psychic may read a given object only once, even after failure. A successful impression or image permits a present-time glimpse for an additional 4 ISP, with its own success check. Reading a possessed object exposes the psychic to psychic attacks without saving bonuses.",
+        "id": "object-read",
+        "name": "Object Read",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "Touch."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "Varies; usually about 2D6 minutes."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "None."
+          },
+          {
+            "id": "metadata-4",
+            "name": "Base Skill",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "Impressions: 56% +2% per level of experience. Images: 48% +2% per level. Present: 38% +2% per level of experience."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Object Read"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "The character can see entities, beings, forces, objects and creatures which can turn invisible or are naturally invisible. Even if the creature has no form per se, the psychic will be able to discern the vaporous image or energy sphere which is the being. This includes ghosts, Entities, Elementals and Astral Beings.",
+        "id": "see-the-invisible",
+        "name": "See the Invisible",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "120 feet (36.6 m); double on a ley line."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "1 minute per each level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: See the Invisible"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Feel supernatural evil automatically without ISP; activate the power for approximate number, strength, location and tracking. Human evil registers only with immediate evil intent plus psychic powers or psychosis, and Mind Block may mask it.",
+        "id": "sense-evil",
+        "name": "Sense Evil",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "140 feet (42.7 m) area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "2 minutes (8 melees) per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "2"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Evil"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Sense nearby magic and follow emanations toward the source; identify enchantment or active spellcasting. Invisible magical or supernatural targets locate only to a general area. Psionic effects are excluded.",
+        "id": "sense-magic",
+        "name": "Sense Magic",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "120 feet (36.6 m) area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "2 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "3"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Magic"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "An automatic precognitive warning of imminent, unexpected life-threatening danger. The initial danger round grants+6 initiative, +2 parry and +3 dodge; it does not reveal the danger or operate when ISP is exhausted.",
+        "id": "sixth-sense",
+        "name": "Sixth Sense",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "90 feet."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "Until danger passes or occurs; bonuses only in its first melee round."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "2"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sixth Sense"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read 30 pages per minute with normal retention. Highly technical material reduces the rate to 15 pages per minute and may require two readings for detailed recall.",
+        "id": "speed-reading",
+        "name": "Speed Reading",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            },
+            "text": "3 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            },
+            "text": "2"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Speed Reading Speed Reading"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Recall written and visual information in detail; the source also includes spoken words. This utility follows the prose cost of 3 ISP per precisely recalled block; the printed header instead says 2 ISP. With no ISP, roll percentile:01-50 full detail,51-80 ideas without details,81-100 basic concepts only.",
+        "id": "total-recall",
+        "name": "Total Recall",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            },
+            "text": "Permanent."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            },
+            "text": "3 per detailed block; printed header says2. See description."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Total Recall"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "id": "cyber-knight-psi-sword",
+        "name": "Cyber-Knight Psi-Sword",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Cyber-Knight psychic powers and reserves",
+          "pages": [
+            63,
+            64
+          ],
+          "pdf_pages": [
+            66,
+            67
+          ]
+        },
+        "description": "Source-owned Psi-Weapon starts at 1D6 Mega-Damage, adding 1D6 at levels 3, 6, 9, 12 and 15. From level 3, a second Psi-Weapon may be created, one in each hand.  Standard blue-white sword appears instantly without an action or duration limit. Non-sword forms cost one creation action; unusual colors add another. Reshaping costs two actions. Thrown forms, moving parts and projectiles are unavailable. Size and blunt or bladed shape do not change damage. Metallic, black and earth colors are unavailable. Pure white costs five creation actions, one upkeep action each round and imposes -10% to skills while present. These are descriptive choices, not encounter automation.",
+        "parameters": [
+          {
+            "id": "class-isp",
+            "name": "I.S.P.",
+            "text": "0",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Cyber-Knight psychic powers and reserves",
+              "pages": [
+                63,
+                64
+              ],
+              "pdf_pages": [
+                66,
+                67
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "cyber-knight-psi-shield",
+        "name": "Cyber-Knight Psi-Shield",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Cyber-Knight psychic powers and reserves",
+          "pages": [
+            63,
+            64
+          ],
+          "pdf_pages": [
+            66,
+            67
+          ]
+        },
+        "description": "Source-owned psychic shield uses the Cyber-Knight class cost of 15 ISP. Shapes, timing, use and conditional combat effects follow the class source guidance; no encounter automation is implied.",
+        "parameters": [
+          {
+            "id": "class-isp",
+            "name": "I.S.P.",
+            "text": "15",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Cyber-Knight psychic powers and reserves",
+              "pages": [
+                63,
+                64
+              ],
+              "pdf_pages": [
+                66,
+                67
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "groups": []
+  }
+}

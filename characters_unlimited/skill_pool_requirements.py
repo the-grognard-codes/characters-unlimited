@@ -3,6 +3,8 @@
 from .option_selectors import select_options
 from .selection_groups import validate_group, project_group
 from .skill_choices import selection_policy, needs_specialty, specialty_key
+from .advancement import learning_key
+from .skill_pool_learning import pool_learning_default
 
 
 def requirement_rules(pack):
@@ -15,13 +17,23 @@ def requirement_rules(pack):
         for requirement in requirements:
             if (not isinstance(requirement, dict) or
                     not {'id', 'name', 'count', 'selector', 'source'} <= set(requirement) or
-                    set(requirement) - {'id', 'name', 'count', 'selector', 'source', 'counting'} or
+                    set(requirement) - {'id', 'name', 'count', 'selector', 'source', 'counting',
+                                       'before_level', 'excluded_specialties'} or
                     any(not isinstance(requirement[key], str) or not requirement[key].strip()
                         for key in ('id', 'name')) or requirement['id'] in seen):
                 raise ValueError('Skill pool requirements need distinct supported identities')
             counting = requirement.get('counting', 'distinct')
             if counting not in ('distinct', 'distinct-specialties'):
                 raise ValueError('Skill pool requirements need supported choice counting')
+            if 'before_level' in requirement and (type(requirement['before_level']) is not int or
+                    not 2 <= requirement['before_level'] <= 1000):
+                raise ValueError('Initial skill requirements need an exact bounded acquisition cutoff')
+            exclusions = requirement.get('excluded_specialties', [])
+            if (not isinstance(exclusions,list) or len(exclusions)>1000 or
+                    any(not isinstance(value,str) or not specialty_key(value) or len(value)>1000 for value in exclusions) or
+                    len({specialty_key(value) for value in exclusions}) != len(exclusions) or
+                    ('excluded_specialties' in requirement and counting != 'distinct-specialties')):
+                raise ValueError('Specialty exclusions need distinct bounded names and specialty counting')
             source = requirement['source']
             if (not isinstance(source, dict) or any(not isinstance(source.get(key), str) or
                     not source[key].strip() for key in ('book', 'section'))):
@@ -43,17 +55,27 @@ def project_requirements(character, pack):
     known = {row['id']: row for row in pack['skills']}
     result = []
     for requirement in requirement_rules(pack):
-        selections = [item['skill_id'] for item in character.get('skill_selections', [])
-                      if item['pool'] == requirement['pool'] and
-                      (not needs_specialty(known[item['skill_id']]) or item.get('specialty'))]
+        exclusions = {specialty_key(value) for value in requirement.get('excluded_specialties', [])}
+        qualified_items = []
+        for item in character.get('skill_selections', []):
+            specialty = item.get('specialty','')
+            if (item['pool'] != requirement['pool'] or
+                    (needs_specialty(known[item['skill_id']]) and not specialty) or
+                    specialty_key(specialty) in exclusions):
+                continue
+            learned = character.get('learning_levels', {}).get(
+                learning_key('skill',item['skill_id'],specialty),
+                pool_learning_default(pack,item['pool'],character['level']))
+            if 'before_level' in requirement and learned >= requirement['before_level']:
+                continue
+            qualified_items.append(item)
+        selections = [item['skill_id'] for item in qualified_items]
         projection = project_group(requirement['group'], selections)
         if requirement.get('counting') == 'distinct-specialties':
             eligible = set(projection['eligible'])
             qualified = [(item['skill_id'], specialty_key(item.get('specialty', ''))
                           if needs_specialty(known[item['skill_id']]) else '')
-                         for item in character.get('skill_selections', [])
-                         if item['pool'] == requirement['pool'] and item['skill_id'] in eligible and
-                         (not needs_specialty(known[item['skill_id']]) or item.get('specialty'))]
+                         for item in qualified_items if item['skill_id'] in eligible]
             distinct = len(set(qualified))
             projection.update(credited=distinct, remaining=requirement['count']-distinct,
                               duplicates=distinct != len(qualified))

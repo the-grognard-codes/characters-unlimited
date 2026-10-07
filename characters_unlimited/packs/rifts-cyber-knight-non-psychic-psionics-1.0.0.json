@@ -1,0 +1,267 @@
+{
+  "id": "rifts-cyber-knight-non-psychic-psionics",
+  "version": "1.0.0",
+  "name": "Non-Psychic Cyber-Knight psychic path",
+  "game": "rifts",
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Cyber-Knight psychic powers and reserves",
+    "pages": [
+      63,
+      64
+    ],
+    "pdf_pages": [
+      66,
+      67
+    ]
+  },
+  "format": "ability-paths-v3",
+  "categories": [
+    "Healing",
+    "Physical",
+    "Sensitive",
+    "Super"
+  ],
+  "fixed_path": "non-psychic",
+  "skip_path": "non-psychic",
+  "paths": [
+    {
+      "id": "non-psychic",
+      "name": "Non-Psychic Cyber-Knight psychic path",
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Cyber-Knight psychic powers and reserves",
+        "pages": [
+          63,
+          64
+        ],
+        "pdf_pages": [
+          66,
+          67
+        ]
+      },
+      "save_target": 12,
+      "known_abilities": [
+        "meditation",
+        "cyber-knight-psi-sword",
+        "cyber-knight-psi-shield"
+      ],
+      "allowances": {
+        "class": {
+          "count": 0,
+          "minimum_categories": 0,
+          "maximum_categories": 4,
+          "awards": [
+            {
+              "id": "initial-ordinary",
+              "name": "Initial additional psychic powers",
+              "level": 1,
+              "count": 0,
+              "categories": [
+                "Healing",
+                "Sensitive",
+                "Physical"
+              ],
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Cyber-Knight psychic powers and reserves",
+                "pages": [
+                  63,
+                  64
+                ],
+                "pdf_pages": [
+                  66,
+                  67
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "resources": {
+        "definitions": [
+          {
+            "id": "ISP",
+            "name": "Inner Strength Points",
+            "contributions": [
+              {
+                "id": "starting-ME",
+                "attribute": "ME",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Cyber-Knight psychic powers and reserves",
+                  "pages": [
+                    63,
+                    64
+                  ],
+                  "pdf_pages": [
+                    66,
+                    67
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "guidance": [
+          "Effective M.E. is retained when class ISP is generated; later editing does not reroll that reserve.",
+          "This source path applies when the character has no prior innate psychic ability; choose a psychic Cyber-Knight path if that condition does not hold."
+        ]
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "count": 1,
+            "sides": 4,
+            "constant": 0
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Cyber-Knight psychic powers and reserves",
+            "pages": [
+              63,
+              64
+            ],
+            "pdf_pages": [
+              66,
+              67
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "catalog": {
+    "id": "rifts-cyber-knight-non-psychic-psionics-abilities",
+    "version": "1.0.0",
+    "game": "rifts",
+    "format": "abilities-v1",
+    "options": [
+      {
+        "category": "Healing",
+        "description": "Meditation is a trance state of consciousness in which the individual can calm his emotions and focus on relaxation of mind and body. In a meditative state, the psychic finds peace and harmony between mind, body and spirit, and it is in this state of being that he can regenerate his Inner Strength (I.S.P.). Recovers Base I.S.P. at a rate as indicated under each psychic O.C.C., otherwise six I.S.P. per hour of meditation.",
+        "id": "meditation",
+        "name": "Meditation",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            },
+            "text": "As needed; at least one hour of meditation is required."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Meditation"
+            },
+            "text": "None, zero."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Meditation"
+        },
+        "tags": [
+          "Healing",
+          "Physical",
+          "Sensitive"
+        ]
+      },
+      {
+        "id": "cyber-knight-psi-sword",
+        "name": "Cyber-Knight Psi-Sword",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Cyber-Knight psychic powers and reserves",
+          "pages": [
+            63,
+            64
+          ],
+          "pdf_pages": [
+            66,
+            67
+          ]
+        },
+        "description": "Source-owned Psi-Weapon starts at 1D6 Mega-Damage, adding 1D6 at levels 3, 6, 9, 12 and 15. From level 3, a second Psi-Weapon may be created, one in each hand.  Standard blue-white sword appears instantly without an action or duration limit. Non-sword forms cost one creation action; unusual colors add another. Reshaping costs two actions. Thrown forms, moving parts and projectiles are unavailable. Size and blunt or bladed shape do not change damage. Metallic, black and earth colors are unavailable. Pure white costs five creation actions, one upkeep action each round and imposes -10% to skills while present. These are descriptive choices, not encounter automation.",
+        "parameters": [
+          {
+            "id": "class-isp",
+            "name": "I.S.P.",
+            "text": "0",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Cyber-Knight psychic powers and reserves",
+              "pages": [
+                63,
+                64
+              ],
+              "pdf_pages": [
+                66,
+                67
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "cyber-knight-psi-shield",
+        "name": "Cyber-Knight Psi-Shield",
+        "category": "Super",
+        "tags": [
+          "Super"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Cyber-Knight psychic powers and reserves",
+          "pages": [
+            63,
+            64
+          ],
+          "pdf_pages": [
+            66,
+            67
+          ]
+        },
+        "description": "Source-owned psychic shield uses the Cyber-Knight class cost of 15 ISP. Shapes, timing, use and conditional combat effects follow the class source guidance; no encounter automation is implied.",
+        "parameters": [
+          {
+            "id": "class-isp",
+            "name": "I.S.P.",
+            "text": "15",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Cyber-Knight psychic powers and reserves",
+              "pages": [
+                63,
+                64
+              ],
+              "pdf_pages": [
+                66,
+                67
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "groups": []
+  }
+}

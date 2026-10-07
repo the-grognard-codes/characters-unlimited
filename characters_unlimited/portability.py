@@ -5,6 +5,7 @@ import json
 from .json_data import canonical, MAX_BYTES
 from .ability_paths import project_path
 from .ability_learning import validate_learning_history
+from .weapon_entitlements import validate_weapon_learning_history
 from .psionic_entitlements import entitlement_dependencies, project_entitlement
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -14,7 +15,7 @@ from .skill_attribute_bonuses import needs_numeric_skill_projection
 from .heroes_powers import power_numeric_contributions, project_power_saves
 from .creation_profiles import creation_pair
 from .generation import roll_attribute, generation_settings, racial_formula, racial_sources
-from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, ATTRIBUTE_NAMES as ATTRIBUTES
+from .attribute_modifiers import attribute_value, class_attribute_modifier, class_effects, class_minima, class_minimum_modifier, ATTRIBUTE_NAMES as ATTRIBUTES
 from .education import validate_education
 from .heroes_power_budget import validate_budget
 from .heroes_powers import validate_powers, validate_power_attributes, power_resource_contributions, power_parameter_views, power_requirement_definitions, power_formula_catalog
@@ -361,6 +362,7 @@ def validate_sources(character, packs, *, history_frame=False):
                     raise ValueError('Pre-level Heroes skills must retain their learned level')
         if character['advancement']['active'] and character['game'] == 'rifts':
             old_skill_pack = class_rules(next(item for item in historical if item['id'] == 'rifts-domestic-skills'), before)
+            validate_weapon_learning_history(character, before, old_skill_pack['combat'])
             initial = remember_learning(before, project_skills(before, old_skill_pack),
                 validate_combat_choices(before.get('combat_choices', {}), old_skill_pack))
             levels = character['learning_levels']
@@ -383,6 +385,7 @@ def validate_sources(character, packs, *, history_frame=False):
             expected_source = historical_higher['source']
         else:
             old_skill_pack = class_rules(next(item for item in historical if item['id'] == 'rifts-domestic-skills'), before)
+            validate_weapon_learning_history(character, before, old_skill_pack['combat'])
             expected_source = old_skill_pack.get('higher_advancement',{}).get('source')
         if canonical(event['source']) != canonical(expected_source):
             raise ValueError('Later advancement source must match its pinned rules')
@@ -446,6 +449,7 @@ def validate_sources(character, packs, *, history_frame=False):
                *([class_psychic_snapshot] if class_psychic_snapshot is not None else [])]
     selected_class = next(item for item in core['classes'] if item['id'] == character['character_class'])
     effects = class_effects(selected_class)
+    minima = class_minima(selected_class)
     race = next(item for item in core['races'] if item['id'] == character['race'])
     sources = racial_sources(race, core['source'])
     for attributes in records:
@@ -463,16 +467,24 @@ def validate_sources(character, packs, *, history_frame=False):
                         raise ValueError('Physical modifier sources must match their pinned rules')
                 else:
                     modifiers.append(modifier)
-            if effect is None:
+            minimum = minima.get(name)
+            if effect is None and minimum is None:
                 if modifiers:
                     raise ValueError('Attribute modifiers are unavailable in this pinned rule version')
                 continue
-            if len(modifiers) != 1:
-                raise ValueError('The recorded class attribute contribution is required exactly once')
-            modifier = modifiers[0]
-            expected = class_attribute_modifier(selected_class, name, modifier['rolls'])
-            if canonical(modifier) != canonical(expected):
-                raise ValueError('Recorded class attribute contribution does not match the pinned rules')
+            expected_ids = set()
+            if effect is not None:
+                expected_ids.add('class:' + selected_class['id'])
+            if minimum is not None:
+                expected_ids.add('class-minimum:' + selected_class['id'])
+            if len(modifiers) != len(expected_ids) or {row['id'] for row in modifiers} != expected_ids:
+                raise ValueError('Recorded class attribute contributions are required exactly once')
+            for modifier in modifiers:
+                expected = (class_minimum_modifier(selected_class, name)
+                            if modifier['id'].startswith('class-minimum:') else
+                            class_attribute_modifier(selected_class, name, modifier['rolls']))
+                if canonical(modifier) != canonical(expected):
+                    raise ValueError('Recorded class attribute contribution does not match the pinned rules')
 
     growth_records = [character.get('advancement', {}), *character.get('later_advancements', [])]
     if (resource_pack is not None and character.get('advancement', {}).get('active') and

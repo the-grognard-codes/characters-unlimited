@@ -15,7 +15,7 @@ from .skill_attribute_bonuses import attribute_bonus_rules, attribute_contributi
 from .skill_grants import skill_grant_rules, resolve_skill_grants
 from .skill_training import training_rules, resolve_skill_training
 from .skill_checks import independent_check_rules
-from .nonpercentile_skills import training_definition
+from .nonpercentile_skills import training_definition, project_training_references
 from .skill_pool_requirements import requirement_rules, project_requirements
 from .skill_pool_learning import validate_pool_learning, pool_learning_default
 from .skill_awards import earned_skill_choices
@@ -164,10 +164,19 @@ def project_skills(character, pack=PACK):
         required = project_required_skills(character, pack, intelligence, skill_grants=training_rows)
     granted = {item['id'] for item in required['grants']}
     physical = project_physical(character,pack)
-    automatic_physical = [{**item, 'quality':'trained'} for item in physical['selected'] if item.get('grant')]
+    physical_grants = {item['id']: item for item in physical['selected'] if item.get('grant')}
+    # Required percentile grants retain their proficiency and source while sharing
+    # the single calculated Physical receipt used by browser and sheet consumers.
+    required['grants'] = [{**row, **{key: physical_grants[row['id']][key]
+                                  for key in ('effects', 'activities')
+                                  if key in physical_grants[row['id']]}}
+                          if row.get('kind') == 'physical' and row['id'] in physical_grants else row
+                          for row in required['grants']]
+    automatic_physical = [{**item, 'quality':'trained'} for item in physical_grants.values()
+                          if item['id'] not in granted]
     warnings = choice_guidance(selections, pack, [*required['grants'], *automatic_physical,
         *[{'id': identifier, 'grant_origins': row['origins']} for identifier, row in derived.items()]],
-        combat_choices=character.get('combat_choices', {}))
+        combat_choices=character.get('combat_choices', {}), character=character)
     requirements = project_requirements(character, pack)
     warnings.extend(f"{row['name']}: {row['remaining']} distinct {row['pool']} choice(s) still required."
                     for row in requirements if row['remaining'])
@@ -301,7 +310,8 @@ def project_skills(character, pack=PACK):
                    'General skill growth, secondary restrictions and percentage cap: pp. 300–301.',
                    'Physical bonuses apply once per skill: pp. 316–317.',
                    'I.Q. bonuses: pp. 281, 284. HP growth and class XP: pp. 287, 295.']
-    return {'catalog': domestic, 'physical':physical, **({'pool_requirements': requirements} if requirements else {}), 'grants': [*fixed_grants, *required['grants'], *automatic_physical, *derived_grants], 'selected': selected, 'remaining': remaining,
+    grants, selected = project_training_references([*fixed_grants, *required['grants'], *automatic_physical, *derived_grants], selected)
+    return {'catalog': domestic, 'physical':physical, **({'pool_requirements': requirements} if requirements else {}), 'grants': grants, 'selected': selected, 'remaining': remaining,
             **({'path_guidance': list(pack['path_guidance'])} if pack.get('path_guidance') else {}),
             'pool_catalog':pools,
             'required_remaining': required['remaining'], 'required_catalog': required['catalog'],

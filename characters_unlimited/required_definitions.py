@@ -18,6 +18,10 @@ def required_catalog(pack):
     rules = pack.get('required')
     if not rules:
         return None
+    if type(rules.get('fixed_specialties',False)) is not bool:
+        raise ValueError('Fixed-specialty projection must be an explicit boolean')
+    if rules.get('fixed_specialties',False) and rules.get('format') != 2:
+        raise ValueError('Fixed-specialty projection requires format-two grants')
     if 'format' not in rules:
         # Adapt immutable older packs without changing their saved definitions.
         grants = deepcopy(rules['grants'])
@@ -63,6 +67,9 @@ def required_catalog(pack):
         if (not isinstance(definition,dict) or
                 ('specialty_from' in definition and definition['specialty_from'] not in identifiers)):
             raise ValueError('Invalid required skill grant specialty')
+        if ('specialty' in definition and
+                (not isinstance(definition['specialty'],str) or len(definition['specialty']) > 1000)):
+            raise ValueError('Fixed grant specialty must be bounded text')
     definitions = [*rules['grants'], *[option for group in rules['groups'] for option in group.get('options', [])],
                    *[group['skill'] for group in rules['groups'] if 'skill' in group]]
     known = {row['id']: row for row in pack.get('skills', [])}

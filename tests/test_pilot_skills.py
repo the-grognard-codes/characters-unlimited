@@ -104,7 +104,7 @@ class PilotSkillWorkflowTests(unittest.TestCase):
             app=CharacterApplication(directory,die=lambda sides:4)
             self.assertEqual(app.skill_view(hero['id'])['grants'],old_view['grants'])
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.34.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.35.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(hero['learning_levels'][legacy],1)
             hero=app.select_skills(hero['id'],revision=hero['revision'],learned_level=3,selections=choices('automobile','bicycle'))

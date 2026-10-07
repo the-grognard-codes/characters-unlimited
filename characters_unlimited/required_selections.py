@@ -36,7 +36,12 @@ def selected_required_definitions(character, pack):
         return [], {}, []
     choices = validate_required_choices(character.get('required_skill_choices', {}), pack)
     warnings = []
-    definitions = [(definition, choices.get(definition.get('specialty_from'), '')) for definition in rules['grants']]
+    definitions = []
+    for definition in rules['grants']:
+        specialty = definition.get('specialty','') if rules.get('fixed_specialties',False) else ''
+        if 'specialty_from' in definition:
+            specialty = choices[definition['specialty_from']]
+        definitions.append((definition,specialty))
     if any(not isinstance(specialty,str) for _,specialty in definitions):
         raise ValueError('A fixed grant specialty must refer to a single text choice')
     remaining = {}

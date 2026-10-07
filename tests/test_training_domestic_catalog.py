@@ -171,7 +171,7 @@ class TrainingDomesticCatalogTests(unittest.TestCase):
                 app.select_skills(hero['id'], revision=0, selections=choices('hunting'))
             preview = app.preview_rule_upgrade(hero['id'])
             hero = app.apply_rule_upgrade(hero['id'], revision=0, token=preview['token'])['character']
-            self.assertEqual(len(app.skill_view(hero['id'])['catalog']), 211)
+            self.assertEqual(len(app.skill_view(hero['id'])['catalog']), 212)
             hero = app.select_skills(hero['id'], revision=hero['revision'], selections=choices('hunting', 'sniper', 'brewing-basic', 'wardrobe-grooming'))
             hero = app.generate_resources(hero['id'], revision=hero['revision'])
             fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields() or {}

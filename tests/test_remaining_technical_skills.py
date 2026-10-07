@@ -26,7 +26,7 @@ class RemainingTechnicalWorkflowTests(unittest.TestCase):
                 hero=app.create(character_class=path)
                 catalog={row['id']:row for row in app.skill_view(hero['id'])['catalog']}
                 self.assertEqual({key:(catalog[key]['base'],catalog[key]['per_level']) for key in expected},expected)
-                self.assertEqual(len(catalog),211)
+                self.assertEqual(len(catalog),212)
                 app.select_skills(hero['id'],revision=0,selections=choices('breed-dogs','lore-magic',pool='related'))
                 selected=app.skill_view(hero['id'])['selected']
                 self.assertEqual([row['percentage'] for row in selected],[40+bonus,25+bonus])
@@ -104,9 +104,9 @@ class RemainingTechnicalWorkflowTests(unittest.TestCase):
                 app.select_skills(hero['id'],revision=before['revision'],selections=choices('salvage'))
             self.assertEqual(app.get(hero['id']),before)
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.34.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.35.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=before['revision'],token=preview['token'])['character']
-            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),211)
+            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),212)
             self.assertEqual([row['id'] for row in app.skill_view(hero['id'])['selected']],['research','rope-works','recycle'])
 
     def test_editable_pdf_retains_magic_dog_checks_and_source_guidance(self):

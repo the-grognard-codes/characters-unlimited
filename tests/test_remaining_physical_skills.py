@@ -126,7 +126,7 @@ class RemainingPhysicalWorkflowTests(unittest.TestCase):
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),191)
             preview=app.preview_rule_upgrade(hero['id']);hero=app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(hero['physical_acquisitions'],receipts)
-            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),210)
+            self.assertEqual(len(app.skill_view(hero['id'])['catalog']),211)
 
     def test_pdf_keeps_source_percentages_and_contextual_effects_editable(self):
         with tempfile.TemporaryDirectory() as directory:

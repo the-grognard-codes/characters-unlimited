@@ -11,6 +11,15 @@ def specialty_key(value):
     return ' '.join(value.split()).casefold()
 
 
+def selection_limit(rule):
+    if 'max_choices' not in rule:
+        return None
+    maximum = rule['max_choices']
+    if type(maximum) is not int or not 0 <= maximum <= 1000:
+        raise ValueError('Category choice limits need an exact bounded nonnegative count')
+    return maximum
+
+
 def selection_policy(definition, pool, pack):
     if 'selection_rules' not in pack:
         return {'allowed': True, 'bonus': pack['pools'][pool]['bonus'], 'cost':1}
@@ -90,4 +99,16 @@ def choice_guidance(selections, pack, granted=(), *, combat_choices=None):
             if prerequisite['id'] not in [*(combat_choices or {}).get(family, []), *granted_weapons[family]]:
                 label = next(row['name'] for row in pack['combat'][family] if row['id'] == prerequisite['id'])
                 warnings.append(f"{definition['name']}: missing prerequisite {label}; the choice is retained.")
+    for pool, categories in pack.get('selection_rules', {}).items():
+        for category, rule in categories.items():
+            maximum = selection_limit(rule)
+            if maximum is None:
+                continue
+            qualified = {(item['skill_id'], specialty_key(item.get('specialty', '')))
+                         for item in selections if item['pool'] == pool and
+                         known[item['skill_id']].get('category', 'domestic') == category and
+                         selection_policy(known[item['skill_id']], pool, pack)['allowed'] and
+                         (not needs_specialty(known[item['skill_id']]) or item.get('specialty'))}
+            if len(qualified) > maximum:
+                warnings.append(f'{pool.title()} {category}: choose at most {maximum} distinct skill(s); choices are retained.')
     return warnings

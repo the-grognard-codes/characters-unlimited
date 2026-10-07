@@ -18,6 +18,8 @@ from .skill_checks import independent_check_rules
 from .nonpercentile_skills import training_definition
 from .skill_pool_requirements import requirement_rules, project_requirements
 from .skill_pool_learning import validate_pool_learning, pool_learning_default
+from .skill_awards import earned_skill_choices
+from .skill_choices import selection_limit
 
 PACK = json.loads((Path(__file__).parent / 'packs' / 'rifts-domestic-skills.json').read_text(encoding='utf-8'))
 DOMESTIC = PACK['skills']
@@ -37,6 +39,7 @@ def optional_pool_groups(pack):
     identifiers = [definition['id'] for definition in pack['skills']]
     for categories in pack.get('selection_rules', {}).values():
         for rule in categories.values():
+            selection_limit(rule)
             validate_group({'count': 0, 'option_ids': identifiers, 'costs': rule.get('costs', {})})
     groups = {}
     for pool, rule in pack['pools'].items():
@@ -227,8 +230,7 @@ def project_skills(character, pack=PACK):
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
     for pool in ('related', 'secondary'):
         advancement = pack.get('higher_advancement', {})
-        remaining[pool] += advancement.get(pool + '_per_award', 1) * sum(
-            level <= character['level'] for level in advancement.get(pool + '_levels', []))
+        remaining[pool] += earned_skill_choices(advancement, pool, character['level'])
     remaining['related'] -= combat_skill_cost(character, pack)
     for pool, count in remaining.items():
         if count < 0:

@@ -11,6 +11,7 @@ from .level_resource_gains import level_gain_definitions
 from .retained_acquisitions import validate_acquisition_catalog
 from .recorded_formulas import MAX_INTEGER
 from .option_selectors import select_options
+from .skill_awards import earned_skill_choices
 
 
 def _source(source):
@@ -36,7 +37,7 @@ def _skill_rules(pack):
             raise ValueError('Category rules require mappings')
         for category, rule in categories.items():
             if (not isinstance(category, str) or not category or not isinstance(rule, dict) or
-                not {'allow', 'bonus'} <= set(rule) or set(rule) - {'allow', 'bonus', 'bonuses', 'exclude', 'costs'} or
+                not {'allow', 'bonus'} <= set(rule) or set(rule) - {'allow', 'bonus', 'bonuses', 'exclude', 'costs', 'max_choices'} or
                     type(rule['bonus']) is not int or abs(rule['bonus']) > MAX_INTEGER):
                 raise ValueError('Unsupported category entitlement declaration')
             bonuses = rule.get('bonuses', {})
@@ -64,7 +65,7 @@ def _skill_rules(pack):
 
 def _progression(rules, resources):
     if (not isinstance(rules, dict) or not {'hp_die', 'max_level', 'xp_ranges', 'source'} <= set(rules) or
-            set(rules) - {'hp_die', 'max_level', 'xp_ranges', 'source', 'class_id', 'resource_gains', 'related_levels', 'secondary_levels', 'related_per_award', 'secondary_per_award'} or
+            set(rules) - {'hp_die', 'max_level', 'xp_ranges', 'source', 'class_id', 'resource_gains', 'related_levels', 'secondary_levels', 'related_per_award', 'secondary_per_award', 'related_award_counts', 'secondary_award_counts'} or
             type(rules['hp_die']) is not int or not 1 <= rules['hp_die'] <= 1000 or
             type(rules['max_level']) is not int or not 1 <= rules['max_level'] <= 1000):
         raise ValueError('Unsupported progression declaration')
@@ -89,6 +90,7 @@ def _progression(rules, resources):
         amount = rules.get(pool + '_per_award', 1)
         if type(amount) is not int or not 1 <= amount <= 1000:
             raise ValueError('Skill awards require a bounded positive count')
+        earned_skill_choices(rules, pool, 0)
     gains = level_gain_definitions(rules, resources)
     validate_acquisition_catalog({'level-resources': {identifier: row['formula'] for identifier, row in gains.items()}})
 

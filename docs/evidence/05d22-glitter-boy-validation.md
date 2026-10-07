@@ -1,0 +1,35 @@
+# 05D22 Glitter Boy validation
+
+Both Glitter Boy paths are active locally after the reviewed/tested Weapons MOS merge. Earlier preparation receipts below cover source checks only. Candidate core1.13/skills2.34/equipment1.21 and the shared award/cap source overlay are prepared from the repaired Weapons MOS declarations. Both independent preliminary review axes approve the nine-file candidate snapshot, including the focused vehicle repair. Official activation and packaged acceptance are complete; publication remains pending.
+
+Original RUE70–73/PDF73–76 and additional312/PDF315,320/PDF323 were visually reviewed. Independent fixed3-roll witnesses yield new pilotSDC18, familySDC38 andHP12. Low-IQ fixed skill percentages are Native95, Electronics40, Mechanics45, Repair45, Land42, Radio55, Sensory40 and Weapon Systems50; Languages70 and Robot Pilot56. An early test-only expectation50/60 for Mechanics/Weapon Systems was corrected to source30+15 and40+10. Product definitions did not change for that correction.
+
+Final repaired four public source tests pass in29.288s. Seventeen existing initial-pool, Technical Officer and combat-progression checks pass in84.080s; typing203 passes. Source checks cover distinct initial choices, L3/L7 budgets, weighted style/WP and Paramedic costs, Medical cap guidance without blocking retained choices, separate funds/saleable goods, source package ownership, exact no-roll portability and malformed inactive award/cap declarations before dice or writes.
+
+Standards review identified a real edit-path failure in the earlier vehicle draft: moving the stored USA-G10 armor to carried would project its loaded2400lb mass as Human carried load and its locations as personal armor. The repaired declaration uses descriptive Gear with no numeric carried weight or actionable armor locations. Its source mass, MDC, mounted gun/payload, systems and open-ended prices remain in the description. A public move/equip witness verifies no Human armor, no2400lb load and unchanged familySDC38. Both focused repair reviews approve; active operation stays descriptive under the amendment, and robot construction remains required elsewhere.
+
+The earlier pending local gates are completed in the receipts below. Wider class/race/RCC, magic/Heroes, saved identity revision, construction and final release acceptance remain open.
+
+## Official local acceptance checkpoint
+
+The actual PR133 parent merge is a9d6acdda5c2f2202f951b37adb14794dc8914dd. Both independent axes approve official transfer fidelity, current-pin edits and historical preservation. Typing passes203 source files; compile, all browser parse checks and diff whitespace checks pass. All21 focused source/initial-pool/Technical Officer/combat progression tests pass in168.282s. The Windows package builds successfully, and its isolated no-developer-tools smoke/reopen test passes in130.611s. Full regression passes as recorded below; publication and hosted checks remain pending.
+
+Two actual packaged GUI characters were created, prepared through the frozen loopback API, and reopened in the packaged browser. New-pilot witness d6ee731f-36fc-49e7-97aa-26baeecaba2b remains level1. Family witness45b48a39-0a2d-41b9-9af7-cb49ebacab3f was advanced through the actual GUI to4301XP/level3; source-aged new choices and Expert training leave all selection budgets/requirements complete without warnings. The preparation helper's first attempt wrongly required an equipment pin immediately at character creation; it stopped before changes and was corrected to verify the exact1.21.0 pin after equipment generation. Product code did not change.
+
+Exact no-dice portable import/reopen succeeds for both witnesses. Initial editable PDF has8 pages/1473 fields/463 populated widgets; family has9 pages/1521 fields/517 populated widgets. Canonical field/widget values and populated appearance streams agree. All17 pages were rendered with Poppler and visually inspected: source percentages, learned ages, separate funds/lineage resources, inventory and continuation text are legible and unclipped. Poppler reports inherited Symbol/ArialUnicode font warnings; rendered populated fields remain correct. Sheets are interactive.
+
+Actual GUI vehicle editing marks the complete USA-G10 carried/equipped while retaining20lb known Human carried load and no personal armor effects, then restores its original stored/unequipped state. Final no-dice reopen verifies unchanged resources and exact inventory. Saved skill, advancement and vehicle-editor PNGs accompany the two sheets. These receipts cover the two bounded Human paths; non-Human eligibility and broader construction remain open.
+
+## Original regression and focused count correction
+
+The original complete local run finished678 tests in3927.000s with12 failures and one packaged-only skip. All12 failure tracebacks are exactly `AssertionError: 211 != 210`; there are no other failures or errors. The approved2.34.0 source archive contains211 skills. The installer updated active version expectations but omitted current catalog-size assertions.
+
+The independent Standards review approves the exact12 assertion replacements across11 files and the helper's pre-write exact file/count validation. Old pinned counts remain untouched. Product code, immutable archive data, GUI witnesses and packaged artifacts did not change. The corrected twelve public workflow tests pass74.914s; required typing passes203 files, compile and diff whitespace pass. Both independent artifact review axes approve the two packaged witnesses and all17 rendered interactive PDF pages.
+
+The first focused runner invocation failed only import resolution because discovery emitted unqualified module names; its log is preserved as `05d22-active-count-focused-first-import-failure.log`. The corrected runner qualifies the same twelve selectors under `tests` and passes. The complete repaired regression passes in `05d22-full-repaired.log`; publication and hosted gates remain pending.
+
+## Final local gates
+
+Final local regression passes 678 tests in 3355.707s, with one packaged-only skip covered by the isolated Windows executable replay in 130.611s. Focused 21 checks, typing 203, compile/browser syntax/whitespace and Windows packaging pass. Both actual packaged GUI witnesses, no-dice portable/reopen checks, interactive PDF canonical/widget/appearance checks and visual review of all 17 pages pass. Both independent artifact reviews approve. Publication, final independent receipt review and both exact-head hosted gates remain pending. The broader amended build is incomplete.
+
+The original complete full run is retained in `tmp/05d22-full.log`. It failed current catalog-size assertions left at210 although the approved2.34.0 archive contains211 skills. The reviewed correction updates12 active/upgraded assertions in11 files, preserving old pinned counts. Product code, archives and packaged artifacts are unchanged by this test repair. The complete repaired run is retained in `tmp/05d22-full-repaired.log`.

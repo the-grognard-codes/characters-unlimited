@@ -117,7 +117,7 @@ class WildernessScoutTests(unittest.TestCase):
             for field in ['attributes','starting_funds','starting_gear','equipment']:
                 self.assertEqual(updated[field],hero[field])
             self.assertEqual(updated['rules']['version'],'1.2.0')  # Core identity stays pinned; skill/equipment updates are explicit.
-            self.assertEqual(updated['additional_rule_packs']['rifts-domestic-skills'],'2.35.0')
+            self.assertEqual(updated['additional_rule_packs']['rifts-domestic-skills'],'2.36.0')
 
     def test_vibro_weapon_keeps_mega_damage_without_structural_strength_additions(self):
         with tempfile.TemporaryDirectory() as directory:

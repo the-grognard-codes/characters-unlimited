@@ -63,6 +63,18 @@ class SwimmingWorkflowTests(unittest.TestCase):
             swimming = next(row for row in corrected['skills'] if row['id']=='swimming')
             swimming['base'] = 55
             swimming['activities']['swimming']['yards_per_ps'] = 4
+            # This simulated catalog correction must update dependent required
+            # receipts too, before the shared preflight checks every owner.
+            def update_required_swimming(node):
+                if isinstance(node, dict):
+                    if node.get('id') == 'swimming' and 'base' in node:
+                        node['base'] = 55
+                    for value in node.values():
+                        update_required_swimming(value)
+                elif isinstance(node, list):
+                    for value in node:
+                        update_required_swimming(value)
+            update_required_swimming(corrected)
             updated = CharacterApplication(directory, rule_archive=RuleArchive([*archive.definitions(),corrected],
                 {**archive.active_versions(), corrected['id']:corrected['version']}))
             preview = updated.preview_rule_upgrade(hero['id'])

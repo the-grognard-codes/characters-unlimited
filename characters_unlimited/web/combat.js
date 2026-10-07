@@ -40,7 +40,7 @@ function renderCombat(view) {
     for (const id of view.fixed_proficiencies?.[family] || []) {
       const definition = view.catalog[family].find(item => item.id === id);
       const row = document.createElement('p');
-      row.textContent = `${definition.name} · O.C.C. grant · ${modifierSourceCitation(view.fixed_proficiencies.source)}`;
+      row.textContent = `${definition.name} · O.C.C. grant · ${modifierSourceCitation(view.weapon_entitlements?.grant_sources?.[id] || view.fixed_proficiencies.source)}`;
       $('combat-list').append(row);
     }
   }

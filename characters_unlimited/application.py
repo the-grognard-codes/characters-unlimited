@@ -474,7 +474,14 @@ class CharacterApplication:
             raise ValueError('Choose a learned level no later than the current level')
         pack = self.character_skill_pack(character)
         choices = validate_combat_choices(choices, pack)
-        changes = self._learning_changes(character, {'combat_choices': choices}, pack)
+        staged = {'combat_choices': choices}
+        if 'proficiency_schedule' in pack['combat'] and character['level'] > 1:
+            levels = dict(character.get('learning_levels', {}))
+            for family in ('ancient', 'modern'):
+                for training_identity in choices[family]:
+                    levels.setdefault(learning_key('weapon', training_identity), learned_level or character['level'])
+            staged['learning_levels'] = levels
+        changes = self._learning_changes(character, staged, pack)
         if character['level'] > 1 and learned_level is not None:
             keys = [learning_key('hand', choices['hand_to_hand'])]
             keys.extend(learning_key('weapon', identifier) for family in ('ancient','modern') for identifier in choices[family])

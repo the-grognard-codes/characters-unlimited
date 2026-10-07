@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "active": {
-    "rifts-core": "1.14.0",
-    "rifts-domestic-skills": "2.35.0",
+    "rifts-core": "1.15.0",
+    "rifts-domestic-skills": "2.36.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.21.0",
-    "rifts-equipment": "1.22.0",
+    "rifts-equipment": "1.23.0",
     "heroes-mutant-power-budget": "1.0.0",
     "heroes-super-abilities": "1.3.0",
     "heroes-resources": "1.0.0",
@@ -16,7 +16,11 @@
     "rifts-natural-psionics": "1.0.0",
     "rifts-operator-psionics": "1.0.0",
     "rifts-burster-psionics": "1.0.0",
-    "rifts-mind-melter-psionics": "1.0.0"
+    "rifts-mind-melter-psionics": "1.0.0",
+    "rifts-cyber-knight-non-psychic-psionics": "1.0.0",
+    "rifts-cyber-knight-minor-psionics": "1.0.0",
+    "rifts-cyber-knight-major-psionics": "1.0.0",
+    "rifts-cyber-knight-master-psionics": "1.0.0"
   },
   "definitions": [
     {
@@ -744,6 +748,48 @@
       "version": "1.22.0",
       "filename": "rifts-equipment-1.22.0.json",
       "sha256": "fa022e0f0c7007f1eee0a87608c8801265442126b941d15e98b6cdf1271862e7"
+    },
+    {
+      "id": "rifts-core",
+      "version": "1.15.0",
+      "filename": "rifts-core-1.15.0.json",
+      "sha256": "7dbee8bdffd37f6a2f626a9594932adedb94d00bab25cf387a1a5309d6486a5e"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "2.36.0",
+      "filename": "rifts-domestic-skills-2.36.0.json",
+      "sha256": "a0d0b2c0d48fae2ec787c74a14e662e54df93bd41b69c426fa871743d038d13f"
+    },
+    {
+      "id": "rifts-equipment",
+      "version": "1.23.0",
+      "filename": "rifts-equipment-1.23.0.json",
+      "sha256": "e4b3d37b8280cb6b5542a18d53e7e3e63ccc8c11adc3e9633e1cbf41f5934a9a"
+    },
+    {
+      "id": "rifts-cyber-knight-non-psychic-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-cyber-knight-non-psychic-psionics-1.0.0.json",
+      "sha256": "ddb8ab3a13c470ef938d4a06c9fdf0bbbfceb8fced597650ed5c9c94ff822364"
+    },
+    {
+      "id": "rifts-cyber-knight-minor-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-cyber-knight-minor-psionics-1.0.0.json",
+      "sha256": "29c7c77fa5937cf57bf71dbb42ca2ba7787d67f893130a023e6fab2375ae5a6f"
+    },
+    {
+      "id": "rifts-cyber-knight-major-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-cyber-knight-major-psionics-1.0.0.json",
+      "sha256": "a0a3c2a6f698d38a8d220ef63afdfdebbd62bf350786acca3ea38227ad3bfedb"
+    },
+    {
+      "id": "rifts-cyber-knight-master-psionics",
+      "version": "1.0.0",
+      "filename": "rifts-cyber-knight-master-psionics-1.0.0.json",
+      "sha256": "7dd539eb7bffa37124892b3e0c72b210dee3f3815551258c860a6224508489c8"
     }
   ]
 }

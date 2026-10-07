@@ -70,7 +70,7 @@ class CharacterWorkflowTests(unittest.TestCase):
             reopened = CharacterApplication(directory).get(character["id"])
             self.assertEqual(reopened["name"], "Rowan")
             self.assertEqual(reopened["attributes"]["IQ"]["rolls"], [4, 4, 4])
-            self.assertEqual(reopened["rules"]["version"], "1.11.0")
+            self.assertEqual(reopened["rules"]["version"], "1.12.0")
             self.assertIn("Skills are not yet complete", reopened["completion"])
 
     def test_stale_save_preserves_the_newer_character(self):

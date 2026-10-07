@@ -19,12 +19,13 @@ class TechnicalOfficerTests(unittest.TestCase):
 
     def test_source_common_mos_totals_and_resources(self):
         archive = self.archive()
+        # Weapons followed the six-path acceptance; keep that historical boundary.
         unfinished = 'coalition-technical-officer-weapons'
-        core = archive.active('rifts-core')
+        core = archive.resolve('rifts-core','1.11.0')
         self.assertNotIn(unfinished,{row['id'] for row in core['classes']})
         self.assertFalse(any(unfinished in row['classes'] for row in core['creation_profiles']))
-        for pack in ('rifts-domestic-skills','rifts-equipment'):
-            self.assertNotIn(unfinished,archive.active(pack)['class_profiles'])
+        for pack,version in (('rifts-domestic-skills','2.32.0'),('rifts-equipment','1.19.0')):
+            self.assertNotIn(unfinished,archive.resolve(pack,version)['class_profiles'])
         expected = {
             'communications':{'radio-basic':70,'basic-electronics':40,'cryptography':35,'tv-video':35},
             'electrician':{'computer-operation':60,'math-advanced':55,'electrical-engineer':50},

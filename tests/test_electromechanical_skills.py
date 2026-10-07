@@ -92,7 +92,7 @@ class ElectromechanicalSkillWorkflowTests(unittest.TestCase):
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),90)
             self.assertEqual(app.skill_view(hero['id'])['selected'][0]['additional_checks'],[])
             preview = app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.32.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.33.0')
             hero = app.apply_rule_upgrade(hero['id'],revision=hero['revision'],token=preview['token'])['character']
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),210)
             self.assertEqual(app.skill_view(hero['id'])['selected'][0]['additional_checks'][0]['percentage'],40)

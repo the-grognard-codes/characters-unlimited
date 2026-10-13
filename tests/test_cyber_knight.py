@@ -31,12 +31,12 @@ class CyberKnightTests(unittest.TestCase):
 
     def test_parent_declarations_are_preserved_exactly(self):
         archive = self.archive()
-        core = archive.active('rifts-core')
+        core = archive.resolve('rifts-core','1.15.0')
         old_core = archive.resolve('rifts-core','1.14.0')
         self.assertEqual(core['classes'][:-4],old_core['classes'])
         for identifier,version,new_items in [('rifts-domestic-skills','2.35.0',1),
                                                ('rifts-equipment','1.22.0',18)]:
-            current = archive.active(identifier)
+            current = archive.resolve(identifier, '2.36.0' if identifier == 'rifts-domestic-skills' else '1.23.0')
             previous = archive.resolve(identifier,version)
             field = 'skills' if identifier=='rifts-domestic-skills' else 'items'
             self.assertEqual(current[field][:-new_items],previous[field])

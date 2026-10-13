@@ -3,7 +3,8 @@ let heroesStartingMaximumLevel = 1;
 let gamePacks = [], token, current, characters = [], saveTimer, savePromise, navigationBusy = false, coverage;
 let requiredFormCharacter, requiredDirtyFlag = false, requiredGroups = [];
 let requiredSlotsCharacter, requiredSlotsSchema, requiredSlotCounts = new Map();
-let skillPoolLearningDefaults = {};
+let skillPoolDefinitions = {};
+let skillLearningLevelEdited = false;
 const $ = id => document.getElementById(id);
 async function request(path, data) {
   const response = await fetch(path, data === undefined ? {} : {method:'POST', headers:{'Content-Type':'application/json','X-Session-Token':token}, body:JSON.stringify(data)});
@@ -236,9 +237,22 @@ function renderRequiredGroups(groups, choices) {
 $('skill-category').onchange = filterSkillChoices;
 function updateSkillPoolLearningDefault() {
   if (!current || current.game !== 'rifts') return;
-  $('skill-learned-level').value = skillPoolLearningDefaults[$('skill-pool').value] ?? current.level;
+  const learned = $('skill-learned-level');
+  learned.querySelector('option[value=""]')?.remove();
+  const definition = skillPoolDefinitions[$('skill-pool').value] || {};
+  skillLearningLevelEdited = false;
+  if (definition.level_awards) {
+    const automatic = document.createElement('option');
+    automatic.value = '';
+    automatic.textContent = 'Automatic from pool awards';
+    learned.prepend(automatic);
+    learned.value = '';
+  } else {
+    learned.value = definition.default_learned_level ?? current.level;
+  }
 }
 $('skill-pool').onchange = updateSkillPoolLearningDefault;
+$('skill-learned-level').onchange = () => { skillLearningLevelEdited = true; };
 async function loadSkills(character) {
   const sequence = ++skillLoadSequence;
   skillsReady = false;
@@ -264,7 +278,7 @@ async function loadSkills(character) {
     return option;
   }));
   if (Object.hasOwn(view.pool_catalog, previousPool)) $('skill-pool').value = previousPool;
-  skillPoolLearningDefaults = Object.fromEntries(Object.entries(view.pool_catalog).map(([pool, definition]) => [pool, definition.default_learned_level]));
+  skillPoolDefinitions = view.pool_catalog;
   updateSkillPoolLearningDefault();
   $('required-skill-form').hidden = !view.required_catalog;
   $('required-skill-counts').hidden = !view.required_catalog;
@@ -375,7 +389,13 @@ $('required-skill-form').onsubmit = async event => {
 $('skill-form').onsubmit = async event => {
   event.preventDefault();
   if (!skillsReady || navigationBusy) return;
-  await characterAction('skills', {learned_level:Number($('skill-learned-level').value), selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool:$('skill-pool').value, specialty:$('skill-specialty').value}]}).catch(showError);
+  const pool = $('skill-pool').value;
+  const changes = {selections:[...(current.skill_selections || []), {skill_id:$('skill-choice').value, pool, specialty:$('skill-specialty').value}]};
+  if (!skillPoolDefinitions[pool]?.level_awards ||
+      (skillLearningLevelEdited && $('skill-learned-level').value !== '')) {
+    changes.learned_level = Number($('skill-learned-level').value);
+  }
+  await characterAction('skills', changes).catch(showError);
 };
 let rulePreview;
 $('preview-rule-update').onclick = async () => {

@@ -21,7 +21,7 @@ from .skill_effects import pack_skill_effects
 from .skill_attribute_bonuses import needs_numeric_skill_projection
 from .heroes_powers import power_skill_effects
 from .skills import validate_selections, project_skills, compare_skill_views
-from .skill_pool_learning import pool_learning_default
+from .skill_pool_learning import pool_learning_default, scheduled_learning_levels
 from .portability import export_bundle, import_bundle, fresh_copy, pinned_packs, canonical
 from .rules import RuleArchive
 from .class_rules import class_rules, equipment_class_rules
@@ -870,13 +870,17 @@ class CharacterApplication:
         if character['level'] > 1:
             levels = deepcopy(changes.get('learning_levels', character.get('learning_levels', {})))
             has_initial_choices = False
+            levels.update(scheduled_learning_levels({**character, 'learning_levels': levels}, pack, selections)
+                          if learned_level is None else {})
             for item in selections:
-                if 'default_learned_level' in pack['pools'][item['pool']]:
+                if ('default_learned_level' in pack['pools'][item['pool']] or
+                        'level_awards' in pack['pools'][item['pool']]):
                     has_initial_choices = True
-                    default = (pool_learning_default(pack, item['pool'], character['level'])
+                    default = (levels.get(learning_key('skill', item['skill_id'], item['specialty']),
+                               pool_learning_default(pack, item['pool'], character['level']))
                                if learned_level is None else learned_level)
                     levels.setdefault(learning_key('skill', item['skill_id'], item['specialty']), default)
-            if has_initial_choices:
+            if has_initial_choices or levels != character.get('learning_levels', {}):
                 changes['learning_levels'] = levels
         changes = self._learning_changes(character, {'skill_selections': selections, 'additional_rule_packs': packs, **changes}, pack)
         if character['level'] > 1 and learned_level is not None:

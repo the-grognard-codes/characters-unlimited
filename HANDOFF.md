@@ -31,7 +31,9 @@ Three PDFs and five browser JPEGs are tracked beside the receipt. Ignored detail
 
 ## Remaining publication gates
 
-The final740-test regression logs `tmp/05d26-full-final.log`; inspect its live process/session before starting another run. The earlier run was intentionally stopped after a focused probe found two stale latest-core portable dependency expectations (nine packs instead of ten). Both assertions now include the Psi-Stalker psychic dependency; all seven portability methods pass28.792s. Product definitions and artifacts are unchanged. The preserved partial log is `tmp/05d26-full-before-dependency-expectations.log`; it is not a completed regression. A successful final log must contain the count/time and OK. One packaged-only skip is covered separately by the frozen test.
+The local740-test broad regression continues in session75996, logging `tmp/05d26-full-final.log`. It loaded the prior synthetic pairing fixture and therefore contains three known fixture failures. That fixture replaced the full catalog and assumed only one existing race; it now preserves active pairings and targets the appended synthetic race. All11 pairing/pool/provenance methods pass115.998s against the correction. Product code and artifacts are unchanged. Keep the broad run going to detect further compatibility issues; do not call its known failed invocation green. Final full passing regression is required in both exact-head hosted Windows runs, in addition to corrected focused local checks. One packaged-only skip is covered separately by the frozen test.
+
+An earlier partial run was stopped after a focused probe found two stale portable dependency expectations (nine packs instead of ten). Those corrections pass all seven portability methods28.792s. Preserve `tmp/05d26-full-before-dependency-expectations.log` as a partial diagnostic, not success. Inspect live process/log state before starting any duplicate global run.
 
 Finish the current slice in order:
 

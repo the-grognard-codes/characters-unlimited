@@ -704,7 +704,7 @@ class CharacterApplication:
             if 'resources' in character and canonical(previous.get('resources',{}).get('definitions')) != canonical(target.get('resources',{}).get('definitions')):
                 raise ValueError('This update changes recorded resource rules. Resource migration is not yet supported; current rules remain intact.')
             validate_physical_upgrade(character, previous, target)
-            validate_class_numeric_upgrade(character, previous, target)
+            validate_class_numeric_upgrade(previous, target)
             validate_selections(character.get('skill_selections', []), target)
             before = project_skills(character, previous)
             after = project_skills(character, target)

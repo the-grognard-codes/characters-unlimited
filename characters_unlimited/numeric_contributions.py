@@ -10,7 +10,6 @@ def numeric_formula_catalog(rows, targets):
     if not isinstance(rows, list):
         raise ValueError('Rolled numeric contributions require a bounded list')
     fixed = []
-    catalog = {}
     for row in rows:
         if not isinstance(row, dict) or set(row) != {'id', 'name', 'target', 'formula', 'source'}:
             raise ValueError('Rolled numeric contributions need identities, targets, formulas and sources')

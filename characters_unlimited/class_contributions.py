@@ -21,7 +21,7 @@ def class_numeric_contributions(pack, *, level=1, character=None):
     targets.add('perception')
     targets.update('combat:' + key for key in ('attacks', 'initiative', 'roll_with_impact', 'dodge', 'disarm', 'strike', 'pull_punch'))
     rolled = rules.get('rolled_bonuses', [])
-    numeric_formula_catalog(rolled, targets)
+    numeric_formula_catalog(rolled, {target for target in targets if target.startswith('saving:')})
     combat = rules.get('combat', {})
     if not isinstance(combat, dict) or any(not isinstance(key, str) for key in combat):
         raise ValueError('Class combat additions require supported targets')
@@ -30,6 +30,7 @@ def class_numeric_contributions(pack, *, level=1, character=None):
     if any(target not in targets or type(amount) is not int or abs(amount) > MAX_INTEGER
            for target, amount in amounts.items()):
         raise ValueError('Class additions need known targets and bounded exact amounts')
+    bounds = {target: (amount, amount) for target, amount in amounts.items()}
     progression = rules.get('level_bonuses', [])
     if not isinstance(progression, list) or len(progression) > 100 or type(level) is not int or not 1 <= level <= 1000:
         raise ValueError('Class level additions need bounded milestones and a supported level')
@@ -45,8 +46,18 @@ def class_numeric_contributions(pack, *, level=1, character=None):
         base = amounts.get(row['target'], 0)
         if abs(base + row['amount'] * len(row['levels'])) > MAX_INTEGER:
             raise ValueError('Class milestone totals exceed the supported exact range')
+        endpoint = base + row['amount'] * len(row['levels'])
+        bounds[row['target']] = (min(base, endpoint), max(base, endpoint))
         amounts[row['target']] = base + row['amount'] * sum(value <= level for value in row['levels'])
         seen.add(row['target'])
+    for row in rolled:
+        formula = row['formula']
+        low, high = bounds.get(row['target'], (0, 0))
+        constant, multiplier = formula.get('constant', 0), formula.get('multiplier', 1)
+        bounds[row['target']] = (low + (formula['count'] + constant) * multiplier,
+                                high + (formula['count'] * formula['sides'] + constant) * multiplier)
+    if any(abs(value) > MAX_INTEGER for interval in bounds.values() for value in interval):
+        raise ValueError('Combined class additions exceed the exact integer range')
     rows = [{'id': 'class:' + rules['class_id'] + ':' + target, 'name': 'O.C.C.',
              'operation': 'add', 'target': target, 'amount': amount, 'source': rules['source']}
             for target, amount in amounts.items()]
@@ -56,8 +67,6 @@ def class_numeric_contributions(pack, *, level=1, character=None):
     result = compile_numeric_contributions(rows, targets)
     if character is not None:
         result.extend(project_numeric_contributions(rolled, targets, character.get('numeric_acquisitions', {})))
-        if len({row['id'] for row in result}) != len(result):
-            raise ValueError('Fixed and rolled numeric contributions need distinct identities')
     return result
 
 
@@ -72,7 +81,7 @@ def acquire_class_numeric(character, pack, die):
         rows, targets, character.get('numeric_acquisitions', {}), die)}
 
 
-def validate_class_numeric_upgrade(character, previous, target):
+def validate_class_numeric_upgrade(previous, target):
     before = previous.get('class_bonuses', {}).get('rolled_bonuses', [])
     after = target.get('class_bonuses', {}).get('rolled_bonuses', [])
     if before != after:

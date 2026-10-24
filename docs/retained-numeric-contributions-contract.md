@@ -1,6 +1,6 @@
 # Retained numeric contributions
 
-Owned class `class_bonuses` may add `rolled_bonuses`: a bounded list of source-bound additive rows with exactly `id`, `name`, `target`, `formula`, and `source`. Targets use the existing perception, saving and combat identities. Formulas use the shared ordinary recorded-formula contract, including exact integer bounds; they do not use attribute exceptional or house-rule dice. Fixed integer additions keep their previous declaration and output.
+Owned class `class_bonuses` may add `rolled_bonuses`: a bounded list of source-bound additive rows with exactly `id`, `name`, `target`, `formula`, and `source`. Rolled class additions target known `saving:` identities. Formulas use the shared ordinary recorded-formula contract, including exact integer bounds; they do not use attribute exceptional or house-rule dice. The numeric module itself remains owner-neutral; fixed integer additions keep their previous declaration and output.
 
 Every profile, including inactive owners, preflights the entire declaration, target, source, possible formula bounds and distinct identities before initial dice. Fixed and rolled contribution identities must also be distinct. Creation retains the raw dice once in `numeric_acquisitions`, keyed by contribution identity, using the existing acquisition receipt shape. Profiles without rolled additions create no new save field.
 

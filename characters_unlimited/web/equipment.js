@@ -19,7 +19,7 @@ async function loadEquipment(character) {
   const starting = view.starting_choices;
   $('starting-choices-form').hidden = !starting.supported || starting.generated;
   $('starting-choices-receipt').hidden = !starting.generated;
-  $('starting-choices-guidance').textContent = starting.guidance.join(' ');
+  $('starting-choices-guidance').textContent = !starting.supported && view.starting_groups.supported ? '' : starting.guidance.join(' ');
   for (const [kind,ids] of Object.entries(starting.definitions)) {
     $('starting-choice-' + kind).replaceChildren(...ids.map(id => {
       const option = document.createElement('option'); option.value = id;

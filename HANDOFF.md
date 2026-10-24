@@ -31,7 +31,7 @@ Three PDFs and five browser JPEGs are tracked beside the receipt. Ignored detail
 
 ## Remaining publication gates
 
-The full740-test regression is running in exec session7636, logging `tmp/05d26-full.log`. It started only after the final product content/manifest stabilized. Reuse its result; do not start a duplicate run. If the session is unavailable, inspect the log and running process before deciding it ended. A finished successful log must contain the final test count/time and OK; a partial file is not success. One packaged-only skip is covered separately by the frozen test.
+The final740-test regression logs `tmp/05d26-full-final.log`; inspect its live process/session before starting another run. The earlier run was intentionally stopped after a focused probe found two stale latest-core portable dependency expectations (nine packs instead of ten). Both assertions now include the Psi-Stalker psychic dependency; all seven portability methods pass28.792s. Product definitions and artifacts are unchanged. The preserved partial log is `tmp/05d26-full-before-dependency-expectations.log`; it is not a completed regression. A successful final log must contain the count/time and OK. One packaged-only skip is covered separately by the frozen test.
 
 Finish the current slice in order:
 

@@ -1,6 +1,12 @@
 # 05D25: Human Robot Pilot and Power Armor Pilot paths
 
-Status: in-progress — all local acceptance passes, including726-test regression, Windows/frozen/browser/portable/PDF checks and both review axes. Publication and both exact-head hosted gates remain pending before merge. Parent05D24 is merged and both exact-head hosted gates pass. Branch: `codex/rifts-robot-pilot-paths`; baseline `f5f40285c59bda93fdc8b70397e2280640282972`. Current receipts: `docs/evidence/05d25-robot-pilot-validation.md`.
+Status: done — PR137 merged2026-10-24T15:11:02Z as `c95d03d17f8acea7d7e4fd26c14f274836ac2431`. Reviewed head `904e98bbf44ba0f6388b6990bd09130385399019` is unchanged; both exact-head Windows workflows and every job step pass. Independent Standards/Spec and local acceptance receipts remain valid. Current receipts: `docs/evidence/05d25-robot-pilot-validation.md`. Earlier pending entries below are historical.
+
+Current verification2026-10-24: owner-gh readback confirms push38351032330 and PR38351050663 succeeded on that exact head, with every job step passing, including Windows build, frozen executable and artifact upload. PR137 is open/non-draft/mergeable; main remains the baseline above. This supersedes the historical pending-CI entries below. The next explicitly resumed implementation run should recheck current state and finish the authorized reviewed merge before marking this ticket done. This handoff refresh performs no merge or new product validation.
+
+Publication update2026-10-13: [PR137](https://github.com/the-grognard-codes/characters-unlimited/pull/137) is open at reviewed head `904e98bbf44ba0f6388b6990bd09130385399019`. Exact-head push38351032330 and PR38351050663 remain in progress. Only the hosted/merge gate is outstanding; this update supersedes publication-pending wording above. Preserve the user stop at2026-10-13T06:34:16Z and the resumption instructions in `docs/next-implementation-steps.md`.
+
+Stop checkpoint2026-10-13T06:31:18Z: both hosted runs remain in full regression; later packaging/frozen gates are pending. Local monitoring exited0, PR137 stays unmerged, and no automatic continuation is configured. Leave this ticket in-progress until both hosted passes and an actual merge receipt are verified after the user resumes.
 
 ## Source review completed 2026-10-12
 

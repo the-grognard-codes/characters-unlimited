@@ -6,6 +6,7 @@ from .numeric_contributions import apply_numeric_contributions
 
 
 def project_saving_bonuses(character, pack):
+    effects = class_numeric_contributions(pack, level=character['level'], character=character)
     rules = pack.get('attribute_saves')
     if not rules:
         return {}, []
@@ -26,13 +27,19 @@ def project_saving_bonuses(character, pack):
         results[definition['id']] = {'name': definition['name'], 'unit': definition['unit'],
             'value': None if missing else sum(contributions.values()), 'contributions': contributions,
             'sources': [definition['source']]}
-    effects = class_numeric_contributions(pack, level=character['level'])
     if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
         for identifier, result in results.items():
             target = 'saving:' + identifier
             results[identifier] = apply_numeric_contributions(result,
                 [effect for effect in effects if effect['target'] == target], target)
     notes = list(rules['notes'])
+    amounts = {row['id']: row['amount'] for row in effects}
+    for row in pack.get('class_bonuses', {}).get('rolled_bonuses', []):
+        source = row['source']
+        rolls = character['numeric_acquisitions'][row['id']]['rolls']['amount']
+        notes.append(row['name'] + ': retained dice ' + str(rolls) +
+                     f'; saving addition {amounts[row["id"]]:+d}. ' +
+                     source['book'] + ', ' + source['section'] + '.')
     for condition in rules['conditions']:
         score = character['attributes'][condition['attribute']]['value']
         if score >= condition['minimum'] and ('maximum' not in condition or score <= condition['maximum']):

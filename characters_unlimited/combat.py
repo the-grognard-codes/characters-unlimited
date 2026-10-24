@@ -90,7 +90,7 @@ def fixed_training_age(character, identity, scheduled):
 
 def project_combat(character, pack):
     saving_bonuses, saving_notes = project_saving_bonuses(character, pack)
-    effects = class_numeric_contributions(pack, level=character['level'])
+    effects = class_numeric_contributions(pack, level=character['level'], character=character)
     class_bonuses = {}
     if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
         class_bonuses['perception'] = apply_numeric_contributions(

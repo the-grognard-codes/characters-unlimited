@@ -139,7 +139,7 @@ class RobotPilotTests(unittest.TestCase):
                 if pilot.get('allow')=='any':
                     pilot['exclude']=list(dict.fromkeys([*pilot.get('exclude',[]),'power-armor-combat-elite','robot-vehicle-combat-elite']))
             self.assertEqual(pack['class_profiles'][identity],expected)
-        self.assertEqual(archive.active('rifts-core')['classes'][:-2],archive.resolve('rifts-core','1.15.0')['classes'])
+        self.assertEqual(archive.resolve('rifts-core','1.16.0')['classes'][:-2],archive.resolve('rifts-core','1.15.0')['classes'])
 
     def test_conventional_sidearm_does_not_invent_energy_clips(self):
         with tempfile.TemporaryDirectory() as directory:

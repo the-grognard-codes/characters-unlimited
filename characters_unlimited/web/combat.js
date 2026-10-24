@@ -16,6 +16,7 @@ function combatRow(name, result) {
 }
 function renderCombat(view) {
   combatView = view;
+  $('combat-race-tag').textContent = `RIFTS · ${current.race.replaceAll('-', ' ').toUpperCase()}`;
   $('combat-controls').hidden = !view.catalog;
   $('combat-learned-label').hidden = current.level === 1;
   $('combat-learned-level').replaceChildren(...Array.from({length:current.level}, (_,index) => {

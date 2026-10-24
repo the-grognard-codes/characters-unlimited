@@ -21,9 +21,8 @@ def paired_core():
         'section':'Forest Runner Dragon Hatchling, Attributes'}}
     core['races'].append(race)
     core['creation_profile_format'] = 'paired-v1'
-    core['creation_profiles'] = [
-        {'race':'human','classes':[row['id'] for row in core['classes']],'source':deepcopy(SOURCE)},
-        {'race':race['id'],'classes':['city-rat'],'source':deepcopy(SOURCE)}]
+    core['creation_profiles'].append(
+        {'race':race['id'],'classes':['city-rat'],'source':deepcopy(SOURCE)})
     return core
 
 
@@ -83,17 +82,17 @@ class CreationProfileTests(unittest.TestCase):
                 if defect == 'format': core['creation_profile_format'] = 'unknown'
                 elif defect == 'missing-race': core['creation_profiles'].pop()
                 elif defect == 'duplicate': core['creation_profiles'].append(deepcopy(core['creation_profiles'][0]))
-                elif defect == 'unknown-class': core['creation_profiles'][1]['classes'] = ['missing']
-                elif defect == 'source': core['creation_profiles'][1]['source'] = {}
+                elif defect == 'unknown-class': core['creation_profiles'][-1]['classes'] = ['missing']
+                elif defect == 'source': core['creation_profiles'][-1]['source'] = {}
                 elif defect == 'unreachable':
                     for row in core['creation_profiles']: row['classes'] = ['vagabond']
-                elif defect == 'unselected-pool': core['races'][1]['attribute_pools']['SPD']['sides'] = 0
+                elif defect == 'unselected-pool': core['races'][-1]['attribute_pools']['SPD']['sides'] = 0
                 elif defect == 'unselected-class': core['classes'][1]['attribute_bonuses']['BAD'] = {'count':1,'sides':6}
-                elif defect == 'multiplier-bool': core['races'][1]['attribute_pools']['SPD']['multiplier'] = True
+                elif defect == 'multiplier-bool': core['races'][-1]['attribute_pools']['SPD']['multiplier'] = True
                 elif defect == 'multiplier-overflow':
-                    core['races'][1]['attribute_pools']['SPD']['multiplier'] = 9007199254740991
+                    core['races'][-1]['attribute_pools']['SPD']['multiplier'] = 9007199254740991
                 else:
-                    core['races'][1]['attribute_pools']['SPD'] = {
+                    core['races'][-1]['attribute_pools']['SPD'] = {
                         'count':1,'sides':2,'multiplier':4503599627370495,
                         'exceptional':{'thresholds':[9007199254740990],
                                        'max_bonus_dice':None if defect == 'exceptional-unbounded' else 1}}
@@ -114,7 +113,7 @@ class CreationProfileTests(unittest.TestCase):
         legacy = paired_core()
         del legacy['creation_profile_format']
         del legacy['creation_profiles']
-        legacy['races'][1]['attribute_pools']['SPD'].pop('multiplier')
+        legacy['races'][-1]['attribute_pools']['SPD'].pop('multiplier')
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory,die=lambda sides:4,rule_archive=archive_with(legacy))
             self.assertEqual(app.create(race='synthetic-nonhuman')['character_class'],'vagabond')

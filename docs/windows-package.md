@@ -4,7 +4,7 @@ Unzip the entire CharactersUnlimited folder and double-click CharactersUnlimited
 
 Character data is stored under %LOCALAPPDATA%\CharactersUnlimited, independently of the package. A newer package can replace the extracted folder without deleting saves. Use Back up all characters before updates; retain portable JSON exports for transfers between PCs. PDF edits stay in that PDF.
 
-This is an early package of the currently implemented Rifts Human/Vagabond path. The original full-corpus plan, Heroes Unlimited, broader rules and advancement remain incomplete. Unfinished parts are displayed in the workshop; missing PDF values remain blank. It is not the final release.
+This early package includes the implemented Rifts Human paths and the Civilized (independent or Coalition) and Wild Psi-Stalker paths. City Rat remains partial; broader racial, magic, construction and Heroes Unlimited coverage and final release acceptance remain incomplete. Consult the implementation progress and evidence receipts for the supported scope. Unfinished parts are displayed in the workshop; missing PDF values remain blank.
 
 Startup errors are written to startup-error.log in the character-data directory and displayed in a message box. Keep this log when reporting a launch failure.
 

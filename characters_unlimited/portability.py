@@ -314,6 +314,8 @@ def validate_sources(character, packs, *, history_frame=False):
     if skill_pack is not None:
         skill_pack = class_rules(skill_pack, character)
         project_saving_bonuses(character, skill_pack)
+    elif 'numeric_acquisitions' in character:
+        raise ValueError('Numeric acquisitions must retain their source skill profile')
     resource_pack = skill_pack
     if character['game'] == 'heroes-unlimited':
         resource_pack = current_hero_pack('heroes-resources')
@@ -347,6 +349,8 @@ def validate_sources(character, packs, *, history_frame=False):
     if 'advancement' in character:
         before = {**character['advancement']['before'], 'id': character['id'],
                   'revision': 0, 'updated_at': character['updated_at']}
+        if before.get('numeric_acquisitions', {}) != character.get('numeric_acquisitions', {}):
+            raise ValueError('Advancement must preserve permanent numeric acquisitions')
         validate_learning_history(character, before)
         historical = pinned_packs(before, packs, include_history=False)
         validate_character(before, primary_pack(before, historical))
@@ -375,6 +379,8 @@ def validate_sources(character, packs, *, history_frame=False):
     for event in character.get('later_advancements', []):
         before = {**event['before'], 'id': character['id'], 'revision': 0,
                   'updated_at': character['updated_at']}
+        if before.get('numeric_acquisitions', {}) != character.get('numeric_acquisitions', {}):
+            raise ValueError('Advancement must preserve permanent numeric acquisitions')
         validate_learning_history(character, before)
         historical = pinned_packs(before, packs)
         if character['game']=='heroes-unlimited':

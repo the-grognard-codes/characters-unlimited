@@ -1,161 +1,54 @@
-# Characters Unlimited: handoff to the main Windows PC
+# Characters Unlimited unattended implementation handoff
 
-Prepared 2026-10-05. This is a continuation checkpoint, not a completed-product report.
+Updated2026-10-24. Repository `C:\Users\jaken\Git-Hub\characters-unlimited`; remote <https://github.com/the-grognard-codes/characters-unlimited>.
 
-## Instructions for the receiving Codex
+## Current task and authorization
 
-Read this document, inspect the destination checkout and restore the attached local checkpoint before implementing anything. The latest user instruction was: **stop when the next slice is complete**. That stopping point has been reached: natural psionics is merged, and hourly continuation is PAUSED. Moving the discussion does not itself authorize restarting implementation or scheduling. Present the restored checkpoint and wait for the user to resume. Once resumed, follow the existing plan and amended scope without repeating the design interview.
+Continue the amended project unattended. The user explicitly authorized repository-specific Git commands, normal scoped publication and reviewed merges without repeated conversational approval. Respect actual runtime permissions: the current host uses workspace-write with automatic risk review. Request narrowly scoped escalation when SQLite temporary directories, Git metadata, network or package execution require it; do not claim the agent changed the host to Full access. No recurring automation was requested or created.
 
-Earlier the user explicitly authorized working branches, implementation, self-review, testing, scoped staging/commits, PR creation and reviewed merges after required tests pass. The paused state takes precedence over that ongoing authorization until resumed. Do not recreate an hourly automation on this machine unless the user asks to resume unattended continuation. The old machine's schedule must remain paused to avoid simultaneous writers.
+Read personal instructions and `C:\Users\jaken\.codex\SUBAGENT_ROUTING.md`, inspect live Git state and account for each local change before acting. Preserve the unrelated untracked `characters-unlimited-handoff-20261005-143727/` directory and its historical zip. Do not apply its old patch or stage it. Do not reset or clean user material.
 
-## Exact checkpoint
+## Verified branch checkpoint
 
-- Repository: https://github.com/the-grognard-codes/characters-unlimited
-- Original checkout: `C:\Users\jaken\Git-Hub\characters-unlimited`; the destination may use another path. Resolve all repository-relative references below against that destination.
-- Current branch: `main`.
-- Latest merge: `8a30948f3b807b7656ca7c6c07b3b77a82e40461`.
-- Completed slice:22I2, source-backed Rifts natural psionics; parent22I is now complete.
-- PR112: https://github.com/the-grognard-codes/characters-unlimited/pull/112
-- Tested PR head: `a5b9255a8dbc0f35e15058c2c00315b9d35ac662`.
-- Both review axes approved. Both exact-head Windows runs passed474 tests, with one frozen-only skip exercised in a separate successful packaged-executable test:
-  - https://github.com/the-grognard-codes/characters-unlimited/actions/runs/37354701718
-  - https://github.com/the-grognard-codes/characters-unlimited/actions/runs/37354708432
-- Temporary preview servers and browser tab were closed. No outstanding PR validation remains for this slice.
-- Paused automation on the old machine: `complete-character-creator-modified-plan`, thread `01a0fdce-60ec-7a43-8e74-a4f7fd9af219`.
+PR[137](https://github.com/the-grognard-codes/characters-unlimited/pull/137) merged2026-10-24T15:11:02Z as `c95d03d17f8acea7d7e4fd26c14f274836ac2431`, after fresh unchanged-head readbacks showed every required step passing in both Windows jobs.05D25 is done; its recorded source, browser, PDF and726-test evidence remains in `docs/evidence/05d25-robot-pilot-validation.md`. Repeating unchanged pilot gates solely to close PR137 is unnecessary.
 
-The delivered slice adds56 ordinary Rifts psionic powers through reusable, declarative ability/path contracts: potential, category/count guidance, retained ISP and level gains, psychic saving targets, exact portable state, searchable source references and editable PDF output. Source-review corrections are included. Class/RCC psychic entitlements and other game families are not certified by this ordinary natural path.
+Main fast-forwarded to that SHA and `git status --porcelain` was empty before creating `codex/rifts-psi-stalker-paths`. Preserved local documents and historical material were then restored. The branch has the retained-numeric implementation, reviewed Psi-Stalker definitions and their corrections. Inspect live HEAD rather than inferring a later publication commit from this file.
 
-## Restore the local checkpoint
+05D26 is in progress until its passing PR actually merges. Core1.17.0, skills2.38.0, equipment1.25.0 and Psi-Stalker psionics1.0.0 are active on this branch. All prior archive files and manifest entries remain immutable. Existing Human pairings and skill identities remain unchanged. New creation pairs one Psi-Stalker race only with independent Civilized, Coalition Civilized and Wild profiles.
 
-GitHub contains the implementation and pre-merge validation document. Four subsequent completion/status receipts are uncommitted on the old PC. `checkpoint.patch` preserves exactly those tracked changes:
+## Completed checks and evidence
 
-- `.scratch/character-creator/issues/22i-common-ability-paths.md`
-- `.scratch/character-creator/issues/22i2-rifts-natural-psionics.md`
-- `docs/evidence/22i2-natural-psionics-validation.md`
-- `docs/implementation-progress.md`
+The source audit and independent fixtures are in `docs/next-implementation-steps.md`; the current receipt is `docs/evidence/05d26-psi-stalker-validation.md`. Child ticket: `.scratch/character-creator/issues/05d26-psi-stalker-paths.md`. Parent12 and the canonical identity owners retain broader ownership/dependencies.
 
-The newly prepared, untracked next ticket is supplied separately under `checkpoint/.scratch/character-creator/issues/05d1-rifts-rogue-skill-catalog.md`. It has not been implemented.
+- Eight public Psi-Stalker workflow checks pass, covering racial/exceptional dice, HP/SDC/PPE/ISP, scoped saves, skills/animal empathy, six Sensitive choices plus two automatic senses, equipment variants, all six Wild conventional reload types, XP awards, advancement, undo and exact replay.
+- Six neutral retained-numeric checks pass, including malformed inactive declarations and combined overflow before dice, permanent receipts/history integrity, correction-preview rejection and legacy save shape. Final focused compatibility also covers Human pilots and skill/equipment upgrades. A checksum read during the intentional pack/manifest update was transient; the affected preflight test passed against the stable manifest in15.913s. Preserve both logs rather than calling that invocation entirely green.
+- Typing216 files, Python compilation, all browser-script syntax checks and whitespace checks pass. Final Windows build passes; its separate frozen executable workflow passes195.427s.
+- Actual packaged browser creation covers all three paths. Wild advances to level5 at16501XP, undoes the last gain to4 and replays5 with HP dice3/5/6/1 retained. Remaining skills, powers and equipment were completed through the frozen public loopback API; these are not claimed as browser clicks. All primary saves have complete pools/equipment and six elective powers. Wild ISP55 becomes95.
+- Exact no-dice source-application import/reopen/all-view comparison and frozen HTTP export/import agree for all three primary saves. Their PDFs have11/10/13 pages,1630/1605/1754 canonical fields and630/601/770 populated widgets. Canonical/widget values and nonempty appearances agree. Root and both reviewers inspected all34 rendered pages without material clipping or missing appearances.
+- Independent Standards and Spec reviews approve the shared/source changes, activation/presentation delta and final browser/PDF artifacts. No actionable findings remain in those reviews.
 
-For a fresh checkout at the merge above, inspect first, then restore:
+Three PDFs and five browser JPEGs are tracked beside the receipt. Ignored detailed proof: `tmp/05d26-public-proof.json`, `tmp/05d26-export-proof.log`, `tmp/pdfs/05d26-final/`, `tmp/05d26-fixture-initial.log`, `tmp/05d26-fixture-later.log`, `tmp/05d26-build-final.log`, `tmp/05d26-frozen-final.log`, `tmp/05d26-typing-final.log`. Initial helper-shape/recovery-selection mistakes are disclosed in the evidence receipt; final proof selects the original primary IDs and passed.
 
-```powershell
-git status --short
-git rev-parse HEAD
-git apply --check 'C:\path\to\handoff\checkpoint.patch'
-git apply 'C:\path\to\handoff\checkpoint.patch'
-Copy-Item -LiteralPath 'C:\path\to\handoff\checkpoint\.scratch\character-creator\issues\05d1-rifts-rogue-skill-catalog.md' -Destination '.scratch\character-creator\issues\05d1-rifts-rogue-skill-catalog.md'
-```
+## Remaining publication gates
 
-Do not overwrite an existing destination ticket or apply the patch twice. If the destination has advanced, reconcile these completion receipts instead of resetting the checkout. Keep them for the next authorized scoped commit; do not publish a new PR merely to resume a conversation.
+The local740-test broad regression continues in session75996, logging `tmp/05d26-full-final.log`. It loaded the prior synthetic pairing fixture and therefore contains three known fixture failures. That fixture replaced the full catalog and assumed only one existing race; it now preserves active pairings and targets the appended synthetic race. All11 pairing/pool/provenance methods pass115.998s against the correction. Product code and artifacts are unchanged. Keep the broad run going to detect further compatibility issues; do not call its known failed invocation green. Final full passing regression is required in both exact-head hosted Windows runs, in addition to corrected focused local checks. One packaged-only skip is covered separately by the frozen test.
 
-`old-pc-working-tree.txt` inventories additional local files. Untracked source-processing scripts and personal character-generation scripts belong to other work and must not be deleted, staged wholesale or reverted. They are **not included** in this small checkpoint bundle; copy them separately if their owner needs them on the main PC. Temporary browser data, source-page renders and proposal/PR-body files are not required to continue the build.
+An earlier partial run was stopped after a focused probe found two stale portable dependency expectations (nine packs instead of ten). Those corrections pass all seven portability methods28.792s. Preserve `tmp/05d26-full-before-dependency-expectations.log` as a partial diagnostic, not success. Inspect live process/log state before starting any duplicate global run.
 
-## Start with the existing artifacts
+Finish the current slice in order:
 
-These are the authorities; do not regenerate their contents from this handoff:
+1. Inspect the full result and repair concrete failures, running affected checks as necessary. Do not change stable product code just to occupy the wait.
+2. Commit only owned source, tests, receipts and artifacts; preserve the historical folder. A draft PR may start hosted checks while local regression finishes, but pending checks do not authorize merge. Use the installed repository-scoped owner-gh tool for GitHub API work and the PR skill/template for its body. Attach every created PR to this chat.
+3. Require both exact committed-head Windows runs to pass typing, full tests, compilation, all browser scripts, packaging, frozen executable and artifact upload. Recheck actual PR head/mergeability/reviews before the already authorized normal merge. A green overall label without job-step readback is insufficient.
+4. Only after the actual merge, record SHA/time and close05D26's bounded ticket. Do not close parent12, whole-book coverage or the amended product. Preserve receipt edits when synchronizing main; verify clean main before creating the next working branch. Published immutable rules and saved pins must remain available.
+5. Continue the next coherent capability within the user's scope. Reassess City Rat's real PPE/age/implant/selection gaps, wider racial/class/magic/Heroes and construction dependencies. The separately measured exact-pin resolver performance lead at the end of `docs/next-implementation-steps.md` is a useful bounded candidate; it is not a prerequisite for this slice and requires save-integrity tests/review.
 
-1. `docs/player-focused-scope.md`: user-approved amendment overrides conflicting detail in older documents.
-2. `docs/character-creator-ticket-plan.md`: original plan and final retrospective baseline.
-3. `docs/character-creator-spec.md` and `docs/design-interview.md`: accepted requirements and decisions.
-4. `docs/implementation-progress.md` plus `.scratch/character-creator/issues/`: actual checkpoints and ticket dependencies.
-5. `docs/agents/issue-tracker.md`: local tracker and completion rules.
-6. `docs/class-import-framework-review.md`, `docs/owned-class-profile-contract.md`, `docs/racial-creation-contract.md`, `docs/ability-path-contract.md` and `docs/common-ability-selection-contract.md`: existing reusable seams and their remaining limits.
-7. `docs/evidence/22i2-natural-psionics-validation.md`: latest proof; sibling builder PNG, editable PDF and rendered continuation are tracked in Git.
-8. `characters_unlimited/packs/accepted.json`: immutable accepted archives and active versions.
+At a real deadline or blocker, leave exact live state and unfinished gates. Do not invent a background continuation or claim that one slice completes the product.
 
-At full completion use the repository retro skill, compare functional requirements, visual/media delivery and user intent against the original plan and amended scope, and present the Markdown retrospective. **That final retrospective is not due yet.**
+## Source interpretations and limits
 
-## Scope reminders and next work
+Original authority: `C:\Users\jaken\Git-Hub\rpg-docling-pipeline\data\raw\Rifts - Ultimate Edition.pdf`, SHA256 `448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c`. Current pipeline Markdown raw SHA256 `673b3c5c96c4d9ac21b0141885142445c4ef23c46466a95e8cb3cbf8906ef355` differs from the canonical ticket's historical601c hash; it is a locator, not a relabeled historical input. The unchanged original PDF governs the audit.
 
-Games are Rifts Ultimate Edition and Heroes Unlimited2E, separated in the UI and catalogs. Palladium Fantasy is deferred. Every applicable supplied class/race/RCC remains required. Honor-system eligibility/count guidance needs no override marker.
+Natural3D6 exceptional totals precede constants; no exceptional4D6. StartingISP includes+10 at level1 and+10 later. Psychic target6 and mind-control/drug modifiers are separately scoped. RetainedD4 magic resistance uses an owner-neutral creation receipt. Two inherent senses consume no elective slots; active psychic/magic range begins600feet. Animal empathy15 applies once to acquired normal handling/riding checks. Reuse existing Blunt with Knife/Sword and add Spear once. Independent/Wild spare clips are one package allowance (D6+1/D4+1), not one per firearm; Coalition retains its exact Grunt package/base pay and Dog Pack close-combat gear.
 
-Prioritize prescribed attribute generation/house rules, actual acquired skill percentages with applicable bonuses, skill entitlements, shared ability choices, categorized equipment, saved identity revisions, exact saves and editable PDFs. Use data declarations rather than handlers for individual classes or races. Conditional power/combat/activity effects may be concise descriptions. Do not spend additional slices on exhaustive kicks, swim speeds, fatigue/activity simulation or encounter mechanics. General insanity is excluded except option-specific Crazy/permanent injuries. HU Mega Heroes, bases and super-vehicle design are excluded. **Robot and bionic construction remain required.** Resolve ordinary ambiguities autonomously; do not restart the old stream of minor rules questions.
-
-Prepared next slice on explicit resume:05D1, shared Rifts Rogue skill catalog, planned branch `codex/rifts-rogue-skill-catalog`. The exact17 named skills and acceptance are in the attached ticket. It targets normal percentages, applicable attribute/synergy bonuses, prerequisites and Vagabond/City Rat entitlements using existing contracts. No optional activity simulation. Verify actual tracker state before starting in case another machine has advanced.
-
-The larger build remains incomplete: broader class/race/RCC and supporting-skill coverage, magic, Heroes category/power families, nonhuman traits and saved-identity backtracking, robot/bionic construction, general maintainer conversion/activation reporting and final release acceptance. Inventory ownership is not mechanical completion; synthetic fixtures are not source certification. See existing tickets rather than interpreting this as an exhaustive backlog replacement.
-
-## Workspace and source access
-
-Codex needs read/write access to the destination creator checkout and its Git metadata for the authorized branch/commit workflow, temporary artifact directories, local character-test data and preview-server execution. Follow the destination's actual sandbox/approval rules. On the old host escalated execution was sometimes necessary because of account-lock/sandbox behavior; that is an environmental fact, not permission to bypass destination controls.
-
-The following are ignored by Git and a clone will not restore them:
-
-- `sources-markdown/`: the13 supplied converted books. Copy the current local mirror or provision the completed pipeline Markdown.
-- `sources-pdf/`: any local original-book mirror.
-- `character-sheets/*.pdf`: user-supplied visual examples. Tracked runtime templates already support current tests, but reference originals are still useful for visual acceptance.
-- Local data/output folders, environments and build artifacts.
-
-Independent source-processing workspace on the old PC: `C:\Users\jaken\Git-Hub\rpg-docling-pipeline`.
-Completed Markdown is under `data\processed`; original PDFs are under `data\raw`. The scanned Rifts source used for this slice is `data\raw\Rifts - Ultimate Edition.pdf`. Provision read access to those source folders on the main PC, preferably preserve that relative layout or explicitly record the new paths. Creator work should not modify pipeline output or unrelated processing scripts. Use completed Markdown plus original PDF verification when OCR damage matters; do not wait for all conversions unnecessarily. Required source facts must be reviewed before accepting definitions.
-
-If player saves need transferring, use portable JSON exports/backups from `%LOCALAPPDATA%\CharactersUnlimited` or the actual configured data directory. Installing/cloning the app does not transfer these saves. Browser-test data in this handoff's inventory is disposable development evidence, not the player's library.
-
-GitHub access: authenticate Git for repository read/write and `gh` for PR creation, CI/log/artifact inspection and authorized merges. Actions must be able to run the existing Windows workflow. Use `gh auth status` and `git remote -v`; never put tokens or credentials in the handoff, repository, PR body or logs. No credentials are included here. Network access to GitHub and the Python package index is needed for development/build setup; players run offline afterward.
-
-## Toolchain on the main Windows PC
-
-Required development tools:
-
-- Windows with PowerShell; PowerShell7 matches CI, and the build script also supports Windows PowerShell Desktop.
-- Git and GitHub CLI (`gh`).
-- Python3.14 to match Windows CI (project metadata permits3.11+, but validate release behavior with3.14).
-- Node.js22 for syntax-checking the browser scripts; no npm application build is required.
-- Python dependencies exactly as pinned in `requirements-dev.txt`; use that file rather than duplicating/updating package versions.
-- Packaging dependencies pinned in `requirements-build.txt`; `scripts/build-windows.ps1` creates its own `.packaging-venv` and uses `CharactersUnlimited.spec`.
-
-Create fresh environments on the main PC; do not copy `.venv` or `.packaging-venv` from the old computer:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m mypy --check-untyped-defs characters_unlimited tests
-.\.venv\Scripts\python.exe -m unittest tests.test_natural_psionics -v
-```
-
-The previous mypy result covered162 source files. Use `--check-untyped-defs`, not an invented strict configuration. Choose focused affected selectors first; avoid identical full reruns after passing checks without new changes or unresolved concerns.
-
-Required integration/merge gates are in `.github/workflows/check.yml`: typing, full unit regression, compileall, all browser JavaScript syntax, Windows build, separate frozen executable test and package artifact. Wait for passing **exact PR-head** Windows regression and frozen checks before each merge; finish outstanding PR validation before overlapping product changes. Both push/PR runs were checked for the latest merge.
-
-Local package validation:
-
-```powershell
-.\scripts\build-windows.ps1 -Python '.\.venv\Scripts\python.exe'
-$env:CHARACTERS_UNLIMITED_EXE = (Resolve-Path 'dist\CharactersUnlimited\CharactersUnlimited.exe').Path
-.\.venv\Scripts\python.exe -m unittest tests.test_packaged_app -v
-```
-
-For browser checks, run the local server in an isolated data directory:
-
-```powershell
-.\.venv\Scripts\python.exe -m characters_unlimited.server --data-dir '.scratch\browser-validation-data' --port 8817 --no-browser
-```
-
-Use `--port 8817` with a space if the CLI does not accept the compact spelling. Close only servers/tabs created for the check, and preserve user libraries.
-
-Visual/PDF tools: provision Poppler (`pdftoppm`) for rendering original scans and exported sheets. Read the PDF skill before visual PDF work; runtime PDFs use pypdf/reportlab from the pinned dependencies. The old host used a Codex-bundled Poppler runtime discovered through workspace-dependency tooling; that absolute cached path is machine-specific and should not be copied into code. An equivalent trusted installation is sufficient. Source PDF scans may have no extractable text; inspect rendered pages where needed.
-
-Browser interaction: enable the available Codex computer-use/unified-computer-use plugin and its supported CUA browser tools for actual UI proof. Follow its skill and browser docs; do not replace UI verification with private-state probes. The app can otherwise be launched manually in an ordinary browser, but record any automation limitation honestly. No cloud product service, database server, Docling runtime or Java/Flutter/Android toolchain is required for this character-creator project. The independent ingestion project has its own dependencies.
-
-## Suggested skills
-
-Load these through the destination's skill mechanism, reading the actual files and adapting old machine paths:
-
-- `code-review`: `.agents/skills/code-review/SKILL.md`; two independent Standards/Spec review axes. This skill explicitly authorizes its parallel review agents. Otherwise respect the current delegation policy and personal routing instructions.
-- `pr`: `.agents/skills/pr/SKILL.md`; required concise PR-body template.
-- `codebase-design`: `.agents/skills/codebase-design/SKILL.md` for meaningful interface work, not routine edits.
-- `pdf:pdf`: installed PDF skill for rendered/editable-PDF validation; discover its local path.
-- `computer-use:computer-use`: installed computer-use skill for actual browser interaction; discover its local path.
-- `retro`: `.agents/skills/retro/SKILL.md`, only when all required acceptance is actually complete.
-- `handoff`: `.agents/skills/handoff/SKILL.md` for future discussion transfers.
-- `openai-docs`: for Codex scheduling/tool setup questions if needed; not generic product implementation.
-
-Repository skills are tracked. Also load the receiving machine's user instructions and any repository/nested AGENTS files. Personal routing on the old PC was `C:\Users\jaken\.codex\SUBAGENT_ROUTING.md`; it is outside this repository. If equivalent personal guidance is desired, transfer it separately rather than assuming Git restored it.
-
-## Known operational details
-
-Always stage scoped files, never `git add .` against this checkout's unrelated source changes. Prefer a new `codex/` working branch after the next explicit resume. Do not return to the completed `codex/common-ability-paths` or `codex/rifts-natural-psionics` branches.
-
-The old chat reached the app's100-artifact attachment limit: attaching PR112 returned `thread attachment identity count exceeds100`. The PR itself is merged and its URL is above. A new chat may attach artifacts normally; do not remove unrelated attachments to make room.
-
-On completion report what is implemented, what passed and material remaining scope. Do not claim full-corpus completion, invent a final retro, or resume the paused schedule merely because this handoff was read.
+Situational nourishment, temporary MDC, alignment restrictions and unspecified possessions remain source guidance under the player-focused scope. City Rat remains partial. Saved race/class revision, broader catalogs/races/magic/Heroes/construction and final release acceptance remain open. Honor-system manual entries do not certify missing implementation.

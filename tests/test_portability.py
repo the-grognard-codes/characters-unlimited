@@ -37,7 +37,7 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
                           'rifts-burster-psionics', 'rifts-mind-melter-psionics',
                           'rifts-cyber-knight-non-psychic-psionics', 'rifts-cyber-knight-minor-psionics',
                           'rifts-cyber-knight-major-psionics', 'rifts-cyber-knight-master-psionics',
-                          'rifts-psi-stalker-psionics'})
+                          'rifts-psi-stalker-psionics', 'rifts-dog-boy-psionics'})
 
     def test_failed_backup_publication_preserves_the_previous_backup_and_save(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -64,7 +64,7 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
             for field in ['name', 'notes', 'attributes', 'roll_history', 'rules', 'additional_rule_packs', 'skill_selections']:
                 self.assertEqual(imported[field], character[field])
             self.assertEqual(imported['revision'], 0)
-            self.assertEqual(len(bundle['rule_packs']), 10)
+            self.assertEqual(len(bundle['rule_packs']), 11)
 
     def test_duplicate_is_independent_and_does_not_modify_original(self):
         with tempfile.TemporaryDirectory() as directory:

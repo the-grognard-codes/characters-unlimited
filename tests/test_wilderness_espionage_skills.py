@@ -116,7 +116,7 @@ class WildernessEspionageWorkflowTests(unittest.TestCase):
                 app.select_skills(hero['id'],revision=before['revision'],selections=selections('detect-concealment'))
             self.assertEqual(app.get(hero['id']),before)
             preview=app.preview_rule_upgrade(hero['id'])
-            self.assertEqual(preview['changes'][0]['to'],'2.38.0')
+            self.assertEqual(preview['changes'][0]['to'],'2.39.0')
             hero=app.apply_rule_upgrade(hero['id'],revision=before['revision'],token=preview['token'])['character']
             self.assertEqual(len(app.skill_view(hero['id'])['catalog']),215)
             app.select_skills(hero['id'],revision=hero['revision'],selections=[*selections('camouflage',pool='secondary'),*selections('detect-concealment')])

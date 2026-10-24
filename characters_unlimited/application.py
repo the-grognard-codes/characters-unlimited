@@ -82,7 +82,7 @@ class CharacterApplication:
     def psionic_view(self, identifier):
         character = self.get(identifier)
         if character.get('psionics') or character.get('class_psionics'):
-            export_bundle(character, self.rule_archive.definitions())
+            export_bundle(character, resolve=self.rule_archive.resolve)
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         return compose_psionics(project_path(character, self.psionic_pack(character), character.get('psionics')),
                                 project_entitlement(character, core, self.rule_archive.resolve))
@@ -92,11 +92,11 @@ class CharacterApplication:
         character = self.get(identifier)
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before choosing class powers.')
-        export_bundle(character, self.rule_archive.definitions())
+        export_bundle(character, resolve=self.rule_archive.resolve)
         core = self.rule_archive.resolve(character['rules']['id'], character['rules']['version'])
         state = update_entitlement(character, core, self.rule_archive.resolve, self.die, selections=selections)
         changes = {'class_psionics': state}
-        export_bundle({**character, **changes}, self.rule_archive.definitions())
+        export_bundle({**character, **changes}, resolve=self.rule_archive.resolve)
         return self.store.update(identifier, changes, revision)
 
     def select_psionics(self, identifier, *, revision, **choices):
@@ -105,11 +105,11 @@ class CharacterApplication:
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before selecting psionics.')
         pack = self.psionic_pack(character)
-        export_bundle(character, self.rule_archive.definitions())
+        export_bundle(character, resolve=self.rule_archive.resolve)
         state = update_path(character, pack, character.get('psionics'), self.die, **choices)
         changes = {'psionics': state, 'additional_rule_packs': {
             **character.get('additional_rule_packs', {}), pack['id']: pack['version']}}
-        export_bundle({**character, **changes}, self.rule_archive.definitions())
+        export_bundle({**character, **changes}, resolve=self.rule_archive.resolve)
         return self.store.update(identifier, changes, revision)
 
     def create(self, name="", race="human", character_class=None, notes="", generation=None, game="rifts", level=1):
@@ -161,7 +161,7 @@ class CharacterApplication:
                 character.update(acquire_resources(character, resource_pack, self.die))
                 character['additional_rule_packs'][resource_pack['id']] = resource_pack['version']
                 character.update(self._hero_advance_changes(character, 'level', level))
-                export_bundle(character, self.rule_archive.definitions())
+                export_bundle(character, resolve=self.rule_archive.resolve)
                 self.store.put(character)
                 return character
             assert skill_pack is not None
@@ -172,7 +172,7 @@ class CharacterApplication:
             if character.get('class_psionics'):
                 character['class_psionics'] = update_entitlement(character, pack, self.rule_archive.resolve, self.die)
                 retain_path_growth(character.get('later_advancements', []), 'class_psionics', character['class_psionics'])
-            export_bundle(character, self.rule_archive.definitions())
+            export_bundle(character, resolve=self.rule_archive.resolve)
         self._validate_numeric_state(character)
         self.store.put(character)
         return character
@@ -194,7 +194,7 @@ class CharacterApplication:
         # Earlier builds already projected this exact domestic pack without a pin.
         if character['game'] == 'rifts':
             character.setdefault('additional_rule_packs', {}).setdefault('rifts-domestic-skills', '1.0.0')
-        pinned_packs(character, self.rule_archive.definitions())
+        pinned_packs(character, resolve=self.rule_archive.resolve)
         return character
 
     def list(self):
@@ -216,7 +216,7 @@ class CharacterApplication:
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before advancing.')
         if character.get('psionics') or character.get('class_psionics'):
-            export_bundle(character, self.rule_archive.definitions())
+            export_bundle(character, resolve=self.rule_archive.resolve)
         if character['game'] == 'heroes-unlimited':
             changes = self._hero_advance_changes(character, method, value)
         else:
@@ -234,7 +234,7 @@ class CharacterApplication:
             changes['class_psionics'] = update_entitlement({**character, **changes}, core,
                                                           self.rule_archive.resolve, self.die)
             retain_path_growth(changes.get('later_advancements', []), 'class_psionics', changes['class_psionics'])
-        export_bundle({**character, **changes}, self.rule_archive.definitions())
+        export_bundle({**character, **changes}, resolve=self.rule_archive.resolve)
         return self.store.update(identifier, changes, revision)
 
     def _hero_advance_changes(self, character, method, value):
@@ -320,8 +320,8 @@ class CharacterApplication:
         restored.update(restore_entitlement(character, restored))
         recovery = fresh_copy(character)
         recovery['recovery_of'] = identifier
-        export_bundle(restored, self.rule_archive.definitions())
-        export_bundle(recovery, self.rule_archive.definitions())
+        export_bundle(restored, resolve=self.rule_archive.resolve)
+        export_bundle(recovery, resolve=self.rule_archive.resolve)
         return self.store.restore(identifier, restored, recovery, revision)
 
     def _learning_changes(self, character, changes, pack):
@@ -436,7 +436,7 @@ class CharacterApplication:
                         event['power_hp_rolls'] = power_gains({**character,**changes},
                             self._character_heroes_pack(character,'heroes-advancement'),self.die,event['power_hp_rolls'])
                 changes['later_advancements'] = events
-        export_bundle({**character, **changes},self.rule_archive.definitions())
+        export_bundle({**character, **changes},resolve=self.rule_archive.resolve)
         return self.store.update(identifier, changes, revision)
 
     def select_power_budget(self, identifier, *, revision, method, outcome_id=None):
@@ -556,7 +556,7 @@ class CharacterApplication:
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
         changes = self._hero_learning_changes(character,changes,learned_level=learned_level)
-        export_bundle({**character, **changes},self.rule_archive.definitions())
+        export_bundle({**character, **changes},resolve=self.rule_archive.resolve)
         return self.store.update(identifier, changes, revision)
 
     def character_skill_pack(self, character):
@@ -579,7 +579,7 @@ class CharacterApplication:
         changes.update(acquire_hero_physical({**character, **changes}, pack,
                                            self.character_education_pack(character), self.die))
         changes = self._hero_learning_changes(character,changes,learned_level=learned_level)
-        export_bundle({**character, **changes},self.rule_archive.definitions())
+        export_bundle({**character, **changes},resolve=self.rule_archive.resolve)
         return self.store.update(identifier,changes,revision)
 
     def select_hero_training(self, identifier, *, revision, training_id):
@@ -614,11 +614,11 @@ class CharacterApplication:
         records = deepcopy(character.get('hero_kick_choices',{}))
         records[training_id] = {'selections':selections,'source':deepcopy(pack['source'])}
         changes = {'hero_kick_choices':records,'additional_rule_packs':{**character.get('additional_rule_packs',{}),pack['id']:pack['version']}}
-        export_bundle({**character,**changes},self.rule_archive.definitions())
+        export_bundle({**character,**changes},resolve=self.rule_archive.resolve)
         return self.store.update(identifier,changes,revision)
 
     def export_character(self, identifier):
-        return export_bundle(self.get(identifier), self.rule_archive.definitions())
+        return export_bundle(self.get(identifier), resolve=self.rule_archive.resolve)
 
     def export_pdf(self, identifier):
         from .pdf_export import export_rifts_sheet
@@ -644,7 +644,7 @@ class CharacterApplication:
                         if 'equipment' in character else None}, combat)
 
     def import_character(self, bundle):
-        character = import_bundle(bundle, self.rule_archive.definitions())
+        character = import_bundle(bundle, resolve=self.rule_archive.resolve)
         if 'skill_selections' in character:
             character['skill_selections'] = validate_selections(character['skill_selections'], self.character_skill_pack(character))
         if 'required_skill_choices' in character:
@@ -851,7 +851,7 @@ class CharacterApplication:
             target_skills = self.character_skill_pack(candidate)
             if target_skills.get('required_skill_training') is not None:
                 changes = self._learning_changes(character, changes, target_skills)
-        export_bundle({**character, **changes}, self.rule_archive.definitions())
+        export_bundle({**character, **changes}, resolve=self.rule_archive.resolve)
         updated = self.store.update(identifier, changes, revision)
         return {'character': updated, 'backup': backup}
 

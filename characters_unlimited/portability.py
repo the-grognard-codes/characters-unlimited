@@ -162,12 +162,36 @@ def validate_character(character, core):
             validate_generation(event['generation'])
 
 
-def pinned_packs(character, packs, *, include_history=True):
+def pinned_packs(character, packs=None, *, resolve=None, include_history=True):
     """Validate every frame, then isolate each unique definition once."""
-    return [deepcopy(pack) for pack in _pinned_definitions(character, packs, include_history=include_history)]
+    lookup = _exact_lookup(packs, resolve)
+    return [deepcopy(pack) for pack in _pinned_definitions(character, lookup, include_history=include_history)]
 
 
-def _pinned_definitions(character, packs, *, include_history=True):
+def _exact_lookup(packs, resolve):
+    """Adapt lists or an immutable archive resolver with one per-collection cache."""
+    if (packs is None) == (resolve is None):
+        raise ValueError('Supply either rule definitions or an exact rule resolver')
+    resolved = {}
+
+    def lookup(identifier, version):
+        if not isinstance(identifier, str) or not isinstance(version, str):
+            raise ValueError('Invalid rule version pin')
+        key = (identifier, version)
+        if key not in resolved:
+            match = (resolve(identifier, version) if resolve is not None else
+                     next((pack for pack in packs if pack['id'] == identifier and pack['version'] == version), None))
+            if match is None:
+                raise ValueError(f'Unsupported rule version: {identifier} {version}')
+            if not isinstance(match, dict) or (match.get('id'), match.get('version')) != key:
+                raise ValueError('Resolved rule definition does not match its exact pin')
+            resolved[key] = match
+        return resolved[key]
+
+    return lookup
+
+
+def _pinned_definitions(character, lookup, *, include_history=True):
     primary = character.get('rules')
     additional = character.get('additional_rule_packs', {})
     if not isinstance(primary, dict) or not isinstance(additional, dict):
@@ -178,18 +202,14 @@ def _pinned_definitions(character, packs, *, include_history=True):
     if primary['id'] in pins and pins[primary['id']] != primary['version']:
         raise ValueError('Conflicting rule version pins')
     pins[primary['id']] = primary['version']
-    core = next((pack for pack in packs if pack['id'] == primary['id'] and pack['version'] == primary['version']), None)
-    if core is not None:
-        for dependency in entitlement_dependencies(core):
-            if dependency['id'] in pins and pins[dependency['id']] != dependency['version']:
-                raise ValueError('Class psychic dependency conflicts with saved rule pins')
-            pins[dependency['id']] = dependency['version']
+    core = lookup(primary['id'], primary['version'])
+    for dependency in entitlement_dependencies(core):
+        if dependency['id'] in pins and pins[dependency['id']] != dependency['version']:
+            raise ValueError('Class psychic dependency conflicts with saved rule pins')
+        pins[dependency['id']] = dependency['version']
     result = []
     for identifier, version in pins.items():
-        match = next((pack for pack in packs if pack['id'] == identifier and pack['version'] == version), None)
-        if match is None:
-            raise ValueError(f'Unsupported rule version: {identifier} {version}')
-        result.append(match)
+        result.append(lookup(identifier, version))
     if include_history:
         snapshots: list = []
         if isinstance(character.get('advancement'), dict):
@@ -206,32 +226,32 @@ def _pinned_definitions(character, packs, *, include_history=True):
                 raise ValueError('Missing advancement snapshot')
             if 'later_advancements' in before:
                 raise ValueError('Later advancement snapshots must stay flat')
-            for pack in _pinned_definitions(before, packs):
+            for pack in _pinned_definitions(before, lookup):
                 if not any(item['id'] == pack['id'] and item['version'] == pack['version'] for item in result):
                     result.append(pack)
     return result
 
 
-def export_bundle(character, packs):
+def export_bundle(character, packs=None, *, resolve=None):
     canonical(character)
-    expected = pinned_packs(character, packs)
+    expected = pinned_packs(character, packs, resolve=resolve)
     core = primary_pack(character, expected)
     validate_character(character, core)
     validate_sources(character, expected)
     bundle = {'format': 'characters-unlimited', 'bundle_version': 1,
-              'character': deepcopy(character), 'rule_packs': pinned_packs(character, packs)}
+              'character': deepcopy(character), 'rule_packs': pinned_packs(character, packs, resolve=resolve)}
     canonical(bundle)
     return bundle
 
 
-def import_bundle(bundle, packs):
+def import_bundle(bundle, packs=None, *, resolve=None):
     canonical(bundle)
     if not isinstance(bundle, dict) or bundle.get('format') != 'characters-unlimited' or type(bundle.get('bundle_version')) is not int or bundle['bundle_version'] != 1:
         raise ValueError('Unsupported portable bundle format')
     character = bundle.get('character')
     if not isinstance(character, dict):
         raise ValueError('The character record is missing')
-    expected = pinned_packs(character, packs)
+    expected = pinned_packs(character, packs, resolve=resolve)
     core = primary_pack(character, expected)
     validate_character(character, core)
     validate_sources(character, expected)

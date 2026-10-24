@@ -6,6 +6,7 @@ from .numeric_contributions import apply_numeric_contributions
 
 
 def project_saving_bonuses(character, pack):
+    effects = class_numeric_contributions(pack, level=character['level'], character=character)
     rules = pack.get('attribute_saves')
     if not rules:
         return {}, []
@@ -26,7 +27,6 @@ def project_saving_bonuses(character, pack):
         results[definition['id']] = {'name': definition['name'], 'unit': definition['unit'],
             'value': None if missing else sum(contributions.values()), 'contributions': contributions,
             'sources': [definition['source']]}
-    effects = class_numeric_contributions(pack, level=character['level'])
     if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
         for identifier, result in results.items():
             target = 'saving:' + identifier

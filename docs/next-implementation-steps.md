@@ -1,0 +1,88 @@
+# Next implementation steps
+
+Continuation2026-10-24: PR137 merged at2026-10-24T15:11:02Z as `c95d03d17f8acea7d7e4fd26c14f274836ac2431` after fresh confirmation of the unchanged reviewed head and all steps in both passing Windows jobs. Clean main was verified before creating `codex/rifts-psi-stalker-paths`; local receipts/guide/historical material were restored.05D26 is in progress with a shared retained-numeric implementation and inactive source candidates. The open-PR/resumption descriptions below are historical. Source fixtures remain the preparation reference; no Psi-Stalker acceptance is claimed yet.
+
+Source preparation began2026-10-13; operational status refreshed2026-10-24. Start with the current [root handoff](../HANDOFF.md) for authorization, repository state, validation/tooling and unattended execution. This document owns the detailed next-slice source preparation and measured performance lead. Scope authority: [player-focused-scope.md](player-focused-scope.md); chronology: [implementation-progress.md](implementation-progress.md).
+
+Current checkpoint: PR137 remains open/unmerged, and both recorded Windows runs succeeded on the reviewed head, including full regression, packaging, frozen execution and artifact upload. The prior October13 timebox was honored and its local monitor exited. The old pending-CI/stop statements describe that completed run; a new explicitly queued continuation uses its own authorization and stop conditions. This documentation refresh starts no implementation or schedule. Preserve local receipt/guide changes and the unrelated `characters-unlimited-handoff-20261005-143727/` directory.
+
+## Finish the current pilot slice
+
+PR [137](https://github.com/the-grognard-codes/characters-unlimited/pull/137) contains Human Power Armor Pilot and Robot Pilot plus shared named-pool advancement awards. Reviewed and locally tested head: `904e98bbf44ba0f6388b6990bd09130385399019`; branch `codex/rifts-robot-pilot-paths`; baseline `f5f40285c59bda93fdc8b70397e2280640282972`.
+
+Local acceptance passes 726 tests, typing/static checks, rebuilt Windows/frozen execution, actual packaged browser workflows, exact portable/reopen checks, and visual/canonical/widget checks for all 20 editable PDF pages. Both independent review axes approve. See [05D25 evidence](evidence/05d25-robot-pilot-validation.md).
+
+Both runs were rechecked through the installed owner-gh API tool on2026-10-24; their job steps all pass, including the separate packaged executable workflow:
+
+- Push: [38351032330](https://github.com/the-grognard-codes/characters-unlimited/actions/runs/38351032330).
+- Pull request: [38351050663](https://github.com/the-grognard-codes/characters-unlimited/actions/runs/38351050663).
+
+The first step in the resumed implementation run is to refresh PR/head/check state and, if unchanged/passing, complete the authorized reviewed merge and record its actual SHA/time. If already merged, reconcile the actual receipt. Inspect any new failure or changed head before acting. Existing local acceptance needs no repetition just because the session changed. Keep the tested product head stable until that merge; carry the local documentation into a later scoped commit. Follow the root handoff's current owner-gh policy rather than historical direct-gh instructions.
+
+## Proposed next batch: Civilized and Wild Psi-Stalkers
+
+After the pilot gate, prepare a bounded nonhuman creation batch under ticket [12](../.scratch/character-creator/issues/12-create-a-nonhuman-or-racial-class-character.md), preserving the canonical [Psi-Stalker](../.scratch/character-creator/issues/02b11-rue-psi-stalker.md), [Civilized](../.scratch/character-creator/issues/02b11-rue-civilized-psi-stalker.md), and [Wild](../.scratch/character-creator/issues/02b11-rue-wild-psi-stalker.md) owners. This recommendation has original-page preparation but is not yet mechanically certified or implemented. Existing identity inventory evidence alone does not certify numerical rules.
+
+Original Rifts Ultimate Edition printed 152–156 / PDF 155–159 was rendered and visually inspected on 2026-10-13. PDF SHA256 matches the canonical ticket fingerprint: `448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c`. Local review renders are `tmp/pdfs/05d26/source-155.png` through `source-159.png`; originals remain read-only. Printed 153 supplies shared traits, 154 supplies common psychic rules and Civilized skills, 155 continues Civilized equipment and supplies Wild skills, and 156 completes Wild equipment. Do not mix neighboring Mind Melter or Dragon Hatchling columns into this batch.
+
+### Source facts to preserve
+
+| Concern | Civilized | Wild |
+| --- | --- | --- |
+| Native language | 96% | 90% |
+| Other language | One, +20 | One, +25 |
+| Initial Related choices | 4 | 4 |
+| Later Related choices | +1 at 2, 5, 9, 13 | +1 at 5, 10 |
+| Secondary choices | 8 initially; +2 at 3, 5, 12 | Same |
+| Hand to Hand | Expert; Martial Arts or evil Assassin costs 2 Related | Same |
+| Perception | +4 | +5 |
+| Distinct attribute modifiers | None beyond shared racial pools | +2 P.S. and +2 P.P. |
+
+Shared racial pools: I.Q., M.A., P.S., P.P., and P.B. use 3D6; M.E. uses 3D6+5; P.E. uses 4D6; running Spd uses 4D6+6. Digging speed is descriptive and must not replace the ordinary Spd attribute. Review general exceptional-dice/house-rule application before declaring these pools; do not silently inherit Human exceptional rules in a complete replacement formula.
+
+The general Step 1 original at printed279 / PDF282 was also inspected. It describes exceptional initial 3D6 rolls of16–18, with one further die and one final die if the first bonus die is6; later skill/class bonuses do not trigger it. Current `generation.py` compares configured thresholds to the formula total after its constant. Therefore a3D6+5 racial pool needs an explicit source interpretation and matching threshold choice; copying Human thresholds could trigger on a different natural roll.4D6 pools should not acquire a3D6-only rule accidentally. Keep the chosen interpretation visible and independently reviewed.
+
+Shared traits include +1D6+1 HP, +10 physical SDC, +1 attack, ambidexterity and Paired Weapons, fixed psychic save target 6, +5 against mind control/drugs, +3 possession, +6 Horror Factor, and a retained +1D4 magic-save bonus. Six selected Sensitive powers accompany their distinct inherent senses. Base PPE is 2D6; ISP uses M.E. plus 1D6×10 and additional 10 per level. Preserve the source's wording and review the starting-versus-later-level convention explicitly. Psychic nourishment, temporary MDC, ranges, activity rates and conditional hunting effects may remain concise descriptions under the amended scope. Never replace the unique inherent senses with ordinary Detect Psionics merely because the names resemble each other.
+
+Civilized fixed skills: Body Building, Running, Climbing+5, Hovercraft+10, choice of Tanks/APCs+10 or Hovercycles+15, Prowl+10, Sensory Equipment+10, Radio+10, Weapon Systems+10, Energy Pistol and Energy Rifle W.P., plus two Ancient W.P. choices. Wild fixed skills: Detect Ambush+5, Escape Artist+5, Prowl+10, Climbing+5, Cowboy Horsemanship+10, Exotic Horsemanship+15, Land Navigation+10, humanoid Tracking+10, Wilderness Survival+30, plus three Ancient and two Modern W.P. choices. Preserve each variant's printed Related category restrictions/bonuses; do not inherit the other variant's permissions.
+
+Animal empathy explicitly adds +15 to riding and work with domestic animals. Determine its source-bound applicability to existing riding/taming projections, including the Wild grants, and apply it once. General class bonuses must not replace this separate racial trait. Do not invent unsupported activity calculations to implement it.
+
+Printed 295 / PDF 298 was also visually reviewed: Psi-Stalker shares the Burster/Mystic XP table. Inclusive level upper bounds are `[2050, 4100, 8250, 16500, 24600, 34700, 49800, 69900, 95000, 130100, 180200, 230300, 280400, 340500, 400600]`. Test the first boundary at 2050/2051 and an actual skill-award boundary rather than borrowing the preceding pilot table.
+
+Civilized equipment has Coalition and independent/mercenary variants. Coalition equipment, funds and implants cross-reference Coalition Grunt plus Dog Pack weapons. Independent funds are 6D6×100 credits and 4D4×1000 saleables; no starting vehicle. Wild has no starting credits and 4D6×1000 saleables, with a mount or permitted nonmilitary transport. Both non-Coalition variants have one weapon per W.P. with retained spare-clip formulas. Review applicability and quantity ownership against the original columns before sharing another class's package. Wild starts without magical equipment; descriptions may still mention later possibilities. The broader robot/bionic construction requirement is unaffected.
+
+### Shared implementation approach
+
+Use explicit race/class pairing and owned profiles, not executable handlers keyed by Psi-Stalker names. A candidate model is one Psi-Stalker race carrying the common pools, with Civilized and Wild class variants; the latter carries its source-cited P.S./P.P. additions. All Human pairings and old saved core pins must remain unchanged. Confirm that this ownership expresses the printed variant correctly during Spec review.
+
+Existing seams to assess first:
+
+- [Racial creation/pairing](racial-creation-contract.md), [per-attribute pools](per-attribute-racial-pool-contract.md), and [racial provenance](racial-attribute-source-contract.md).
+- [Owned class profiles](owned-class-profile-contract.md) and [shared profile catalogs](shared-profile-catalog-contract.md), including whole-profile inactive preflight.
+- [Starting-resource formulas](shared-resource-formula-contract.md), retained acquisitions, and [class psychic entitlements](class-psychic-entitlements.md).
+- Existing ordinary skill grants, category bonuses, paid hand-to-hand choices, source-bound skill effects, higher advancement and equipment receipts.
+
+Before coding, resolve only concrete gaps: retained random magic-save bonus representation; source-specific psychic target and six Sensitive allowances; source-backed animal-empathy skill bonus; variant equipment ownership; general base HP/SDC composition and exceptional dice. Inspection of `class_contributions.py` confirms that current class saving additions accept bounded integers, not formulas. Extend a neutral retained numeric-contribution boundary using the existing recorded-formula/acquisition machinery; do not substitute an average, reroll during projection, overload an attribute, or create a Psi-Stalker-specific handler. A source rule that affects attributes, meaningful choices, skill percentages or saves requires implementation. Optional situational simulation does not block activation.
+
+Saved-character race/class revision is still required project work. Existing new-character pairing is already supported; do not label a full saved-identity migration engine as an automatic prerequisite for this initial nonhuman content proof without demonstrating that dependency. This bounded batch does not close ticket 12's revision requirement or the full racial corpus.
+
+### Expected witnesses and acceptance
+
+Start with deterministic dice of 3 and no exceptional/house-rule draws. Before acquired Physical skills, common attributes should be I.Q.9, M.E.14, M.A.9, P.S.9, P.P.9, P.E.12, P.B.9, Spd18; Wild P.S./P.P. should be11. Civilized mandatory Body Building/Running then yields P.S.11, P.E.13 and Spd30. Wild must not receive those ungranted Physical receipts.
+
+General resources at printed287 / PDF290 were visually rechecked: unspecified physical SDC starts at2D6+12 with cumulative class/racial/Physical additions; HP starts at effective P.E.+1D6 with any additional class/racial HP, and gains1D6 at later levels. With the same deterministic3 dice, Civilized should have41SDC (`18+10 racial+10 Body Building+3 Running`) and20HP (`13PE+3 base+4 racial`); Wild should have28SDC and19HP. Both start at6PPE, and the separate retained magic-save die contributes+3. These are expected fixtures, not implemented or passing tests.
+
+Without I.Q., optional Physical or other added bonuses, ordinary skill targets include Climbing45 and Prowl35 for both; Wild Detect Ambush35, Escape Artist35, Land Navigation46, Tracking35 and Wilderness Survival60. Verify these against the existing source-reviewed bases, then separately cover high-I.Q. contributions and animal empathy. Do not derive expected outputs by calling the same helper being tested.
+
+Exercise each equipment path and both character variants through public creation, revisioned selection, advance/undo, no-roll portable import/export and reopen. Verify different Related schedules, paid HTH costs, six Sensitive choices, retained attribute/resource/saving-bonus rolls, applicable skill modifiers and old Human compatibility. Add malformed inactive declaration rejection only where a shared contract changes. Use focused selectors first, then one final integrated full regression/static/Windows/frozen run and actual packaged browser/editable-PDF witnesses. Both independent Standards and Spec reviews and exact-head hosted gates remain the normal completion process.
+
+No Psi-Stalker accepted archive, product implementation, workflow test, or mechanical acceptance is claimed by this preparation document. Wider classes/races/RCCs, magic/Heroes families, saved-identity revisions, robot/bionic construction and final release acceptance remain open.
+
+## Measured performance lead
+
+A bounded scratch probe on the reviewed pilot head measured archive load at 0.773s, creation at 0.803s and three repeated skill views at 0.387/0.391/0.368s. `CharacterApplication.get()` calls `pinned_packs(character, archive.definitions())`; the profile shows that this decodes all 131 immutable definitions on every view, then copies the pinned subset even though this caller discards the returned copies. The selected character references nine definitions including class psychic dependencies. A counterfactual archive containing only those nine produced identical canonical skill views in 0.165/0.267/0.159s (median about57% lower). This isolates unnecessary archive traversal as a performance lead; it does not measure full-suite savings or certify a fix.
+
+Reproducer: `python tmp/05d25-performance-probe.py`; measurements: `tmp/05d25-performance-baseline.json`; profile: `tmp/05d25-skill-view-profile.txt`. Scratch characters are isolated and removed by the harness. No product files were edited. The counterfactual filtered archive is unsuitable as a shipping solution because other characters and history frames need other versions.
+
+A separate focused optimization could resolve only exact requested pins through the immutable archive, while preserving all history frames, inactive class psychic dependencies, conflict/missing-pin rejection, old-save fallback, mutation isolation and portable export semantics. Prefer a shared resolver boundary over deleting historical archives, trusting unchecked caches, or bypassing preflight. Establish a red-capable behavioral/work-count regression and independently review this save-integrity seam before shipping. This lead is not an extra prerequisite for Psi-Stalker activation.

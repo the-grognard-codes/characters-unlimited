@@ -9,6 +9,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from .saving_bonuses import project_saving_bonuses
+from .class_contributions import acquire_class_numeric, validate_class_numeric_upgrade
 from .ability_paths import update_path, project_path, retain_path_growth
 from .psionic_entitlements import (preflight_entitlements, acquire_entitlement,
     project_entitlement, update_entitlement, restore_entitlement, compose_psionics)
@@ -148,6 +149,8 @@ class CharacterApplication:
             formula = formulas[attribute]
             character["attributes"][attribute] = roll_attribute(formula, settings, self.die, sources[attribute])
         roll_class_modifiers(character['attributes'], selected_class, self.die)
+        if skill_pack:
+            character.update(acquire_class_numeric(character, skill_pack, self.die))
         if skill_pack and skill_pack.get('physical_grants'):
             character.update(acquire_physical(character, [], skill_pack, self.die))
         character["roll_history"] = [{"kind": "initial", "at": character["updated_at"], "generation": settings, "attributes": deepcopy(character["attributes"])}]
@@ -701,6 +704,7 @@ class CharacterApplication:
             if 'resources' in character and canonical(previous.get('resources',{}).get('definitions')) != canonical(target.get('resources',{}).get('definitions')):
                 raise ValueError('This update changes recorded resource rules. Resource migration is not yet supported; current rules remain intact.')
             validate_physical_upgrade(character, previous, target)
+            validate_class_numeric_upgrade(character, previous, target)
             validate_selections(character.get('skill_selections', []), target)
             before = project_skills(character, previous)
             after = project_skills(character, target)

@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "active": {
-    "rifts-core": "1.15.0",
-    "rifts-domestic-skills": "2.36.0",
+    "rifts-core": "1.16.0",
+    "rifts-domestic-skills": "2.37.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.21.0",
-    "rifts-equipment": "1.23.0",
+    "rifts-equipment": "1.24.0",
     "heroes-mutant-power-budget": "1.0.0",
     "heroes-super-abilities": "1.3.0",
     "heroes-resources": "1.0.0",
@@ -790,6 +790,24 @@
       "version": "1.0.0",
       "filename": "rifts-cyber-knight-master-psionics-1.0.0.json",
       "sha256": "7dd539eb7bffa37124892b3e0c72b210dee3f3815551258c860a6224508489c8"
+    },
+    {
+      "id": "rifts-core",
+      "version": "1.16.0",
+      "filename": "rifts-core-1.16.0.json",
+      "sha256": "5a6c47bb2ce06c84c9fc855b15cc8b733b160badfd29754176157d2e5a7dfc5b"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "2.37.0",
+      "filename": "rifts-domestic-skills-2.37.0.json",
+      "sha256": "f7170c7e639163097f825e8daff957ad1a4d897a29d441eafb22bb6c3b84cdb7"
+    },
+    {
+      "id": "rifts-equipment",
+      "version": "1.24.0",
+      "filename": "rifts-equipment-1.24.0.json",
+      "sha256": "cd6821243d7b5a086047c293b3afbbb0e24f62ea6d3a063b0bcd1649660796e5"
     }
   ]
 }

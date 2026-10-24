@@ -8,7 +8,7 @@ from .skill_choices import needs_specialty, selection_policy, choice_guidance, l
 from .proficiency import synergy_contributions, project_proficiency
 from .combat import combat_skill_cost
 from .physical import project_physical
-from .advancement import learning_age
+from .advancement import learning_age, learning_key
 from .selection_groups import validate_group, project_group
 from .skill_effects import pack_skill_effects, matching_skill_effects
 from .skill_attribute_bonuses import attribute_bonus_rules, attribute_contributions
@@ -17,7 +17,7 @@ from .skill_training import training_rules, resolve_skill_training
 from .skill_checks import independent_check_rules
 from .nonpercentile_skills import training_definition, project_training_references
 from .skill_pool_requirements import requirement_rules, project_requirements
-from .skill_pool_learning import validate_pool_learning, pool_learning_default
+from .skill_pool_learning import validate_pool_learning, pool_learning_default, pool_awards, pool_award_guidance
 from .skill_awards import earned_skill_choices
 from .skill_choices import selection_limit
 
@@ -177,6 +177,7 @@ def project_skills(character, pack=PACK):
     warnings = choice_guidance(selections, pack, [*required['grants'], *automatic_physical,
         *[{'id': identifier, 'grant_origins': row['origins']} for identifier, row in derived.items()]],
         combat_choices=character.get('combat_choices', {}), character=character)
+    warnings.extend(pool_award_guidance(character, pack, selections))
     requirements = project_requirements(character, pack)
     warnings.extend(f"{row['name']}: {row['remaining']} distinct {row['pool']} choice(s) still required."
                     for row in requirements if row['remaining'])
@@ -201,7 +202,10 @@ def project_skills(character, pack=PACK):
         policy = selection_policy(definition, item['pool'], pack)
         if definition.get('kind') == 'training':
             selected.append({**definition, **item, 'quality':'trained', 'selection_cost':policy['cost'],
-                             'selection_cost_source':pack['source']})
+                             'selection_cost_source':pack['source'],
+                             'learned_level':character.get('learning_levels', {}).get(
+                                 learning_key('skill', definition['id'], item.get('specialty', '')),
+                                 pool_learning_default(pack, item['pool'], character['level']))})
             continue
         if definition.get('kind') == 'physical' and 'base' not in definition:
             selected.append({**physical_entries[definition['id']], **item, 'quality':'trained', 'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
@@ -237,9 +241,13 @@ def project_skills(character, pack=PACK):
         selected.append({**definition, **effects, **item, **({'grant_origins': training['origins'], 'learned_level': training['learned_level']} if training and training['origins'] else {}), **project_proficiency(definition, contributions, effect_contributions=matching_skill_effects(definition['id'], skill_effects, selection_pool=item['pool']), exact=exact_grants, growth_steps=age-1 if character['level'] > 1 else 0, available=available, selection_pools=selection_pools), 'quality': quality,
                          'selection_cost':policy['cost'], 'selection_cost_source':pack['source']})
     remaining = {pool: rule['count'] - counts[pool] for pool, rule in pools.items()}
-    for pool in ('related', 'secondary'):
-        advancement = pack.get('higher_advancement', {})
-        remaining[pool] += earned_skill_choices(advancement, pool, character['level'])
+    advancement = pack.get('higher_advancement', {})
+    for pool in pools:
+        awards = pool_awards(pack, pool)
+        if awards is not None:
+            remaining[pool] += sum(award['count'] for award in awards if award['level'] <= character['level'])
+        elif pool in ('related', 'secondary'):
+            remaining[pool] += earned_skill_choices(advancement, pool, character['level'])
     remaining['related'] -= combat_skill_cost(character, pack)
     for pool, count in remaining.items():
         if count < 0:
@@ -310,6 +318,11 @@ def project_skills(character, pack=PACK):
                    'General skill growth, secondary restrictions and percentage cap: pp. 300–301.',
                    'Physical bonuses apply once per skill: pp. 316–317.',
                    'I.Q. bonuses: pp. 281, 284. HP growth and class XP: pp. 287, 295.']
+    for pool in pools:
+        for award in pool_awards(pack, pool) or []:
+            source = award['source']
+            sources.append(f"{pool.title()} choice award at level {award['level']} (+{award['count']}): "
+                           f"{source['book']}, {source['section']}.")
     grants, selected = project_training_references([*fixed_grants, *required['grants'], *automatic_physical, *derived_grants], selected)
     return {'catalog': domestic, 'physical':physical, **({'pool_requirements': requirements} if requirements else {}), 'grants': grants, 'selected': selected, 'remaining': remaining,
             **({'path_guidance': list(pack['path_guidance'])} if pack.get('path_guidance') else {}),

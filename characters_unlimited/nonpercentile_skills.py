@@ -10,7 +10,7 @@ def training_definition(definition, catalog):
                'prerequisites', 'pending_prerequisites', 'catalog_skill_id', 'proficiency_reference'}
     if (not {'id', 'name', 'kind', 'source'} <= set(definition) or set(definition) - allowed or
             any(not isinstance(definition.get(key), str) or not definition[key].strip()
-                for key in ('id', 'name')) or definition.get('requires_specialty', False) is not False):
+                for key in ('id', 'name')) or type(definition.get('requires_specialty', False)) is not bool):
         raise ValueError('Ordinary training needs supported identity fields without percentages or Physical effects')
     if ('category' in definition and (not isinstance(definition['category'], str) or not definition['category'].strip())):
         raise ValueError('Training category must be text')

@@ -108640,85 +108640,6 @@
             "thrown": 0
           },
           {
-            "id": "blunt",
-            "name": "W.P. Blunt",
-            "strike": 1,
-            "parry": 1,
-            "thrown": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Weapon Proficiencies: Blunt",
-              "pages": [
-                326
-              ],
-              "pdf_pages": [
-                329
-              ]
-            },
-            "progression": [
-              {
-                "level": 3,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 5,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 6,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 9,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 10,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 12,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 15,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              }
-            ]
-          },
-          {
             "id": "spear",
             "name": "W.P. Spear",
             "strike": 1,
@@ -111235,7 +111156,8 @@
                   "tame-wild-horse",
                   "branding",
                   "herding-cattle",
-                  "breed-dogs"
+                  "breed-dogs",
+                  "animal-husbandry"
                 ]
               }
             ]
@@ -111637,85 +111559,6 @@
             },
             "strike": 1,
             "thrown": 0
-          },
-          {
-            "id": "blunt",
-            "name": "W.P. Blunt",
-            "strike": 1,
-            "parry": 1,
-            "thrown": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Weapon Proficiencies: Blunt",
-              "pages": [
-                326
-              ],
-              "pdf_pages": [
-                329
-              ]
-            },
-            "progression": [
-              {
-                "level": 3,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 5,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 6,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 9,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 10,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 12,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 15,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              }
-            ]
           },
           {
             "id": "spear",
@@ -114234,7 +114077,8 @@
                   "tame-wild-horse",
                   "branding",
                   "herding-cattle",
-                  "breed-dogs"
+                  "breed-dogs",
+                  "animal-husbandry"
                 ]
               }
             ]
@@ -114636,85 +114480,6 @@
             },
             "strike": 1,
             "thrown": 0
-          },
-          {
-            "id": "blunt",
-            "name": "W.P. Blunt",
-            "strike": 1,
-            "parry": 1,
-            "thrown": 0,
-            "source": {
-              "book": "Rifts - Ultimate Edition",
-              "section": "Weapon Proficiencies: Blunt",
-              "pages": [
-                326
-              ],
-              "pdf_pages": [
-                329
-              ]
-            },
-            "progression": [
-              {
-                "level": 3,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 5,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 6,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 9,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 10,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 12,
-                "bonuses": {
-                  "strike": 1,
-                  "parry": 1
-                },
-                "moves": [],
-                "notes": []
-              },
-              {
-                "level": 15,
-                "bonuses": {
-                  "thrown": 1
-                },
-                "moves": [],
-                "notes": []
-              }
-            ]
           },
           {
             "id": "spear",
@@ -117260,7 +117025,8 @@
                   "tame-wild-horse",
                   "branding",
                   "herding-cattle",
-                  "breed-dogs"
+                  "breed-dogs",
+                  "animal-husbandry"
                 ]
               }
             ]

@@ -1210,7 +1210,7 @@
               "base": 600,
               "per_level": 100,
               "unit": "feet",
-              "level_origin": 0
+              "level_origin": 1
             }
           },
           {

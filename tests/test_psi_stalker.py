@@ -70,12 +70,14 @@ class PsiStalkerTests(unittest.TestCase):
                     {'hover-craft':60,'sensory-equipment':40,'radio-basic':55,'weapon-systems':50})
                 self.assertEqual({key:grants[key]['percentage'] for key in expected},expected)
                 choices=[{'skill_id':'language-other','pool':'language','specialty':'Spanish'}]
+                choices += [{'skill_id':'animal-husbandry','pool':'secondary','specialty':''}]
                 if not wild:
                     choices += [{'skill_id':'tame-wild-horse','pool':'related','specialty':''},
                                 {'skill_id':'breed-dogs','pool':'related','specialty':''}]
                 hero=app.select_skills(hero['id'],revision=hero['revision'],selections=choices)
                 selected={row['id']:row for row in app.skill_view(hero['id'])['selected']}
                 self.assertEqual(selected['language-other']['percentage'],75 if wild else 70)
+                self.assertEqual(selected['animal-husbandry']['percentage'],50)  #35+15 domestic animal empathy.
                 if not wild:
                     self.assertEqual(selected['tame-wild-horse']['percentage'],40)  #20+5 OCC+15 empathy.
                     self.assertEqual(selected['breed-dogs']['percentage'],60)  #40+5 OCC+15 empathy.
@@ -97,6 +99,7 @@ class PsiStalkerTests(unittest.TestCase):
                 self.assertEqual(set(by_id),{*selected,'psi-stalker-sense-psychic-magic','psi-stalker-sense-supernatural'})
                 scent={row['id']:row['value'] for row in by_id['psi-stalker-sense-psychic-magic']['parameters']}
                 self.assertEqual((scent['specific-scent'],scent['active-energy'],scent['recognition']),(20,65,25))
+                self.assertEqual(scent['active-range'],600)
                 senses={row['id']:row['value'] for row in by_id['psi-stalker-sense-supernatural']['parameters']}
                 self.assertEqual((senses['detection'],senses['disguised'],senses['powerful']),(45,35,73))
                 guidance=' '.join(app.character_skill_pack(hero)['path_guidance'])
@@ -164,13 +167,42 @@ class PsiStalkerTests(unittest.TestCase):
                         for key,item in [('blade-1','knife-large'),('blade-2','vibro-knife')]:
                             hero=app.grant_starting_group(hero['id'],revision=hero['revision'],group_id=key,selection=item)
                         self.assertEqual(sum(row['quantity'] for row in hero['equipment']['items'] if row['item_id']=='vibro-knife'),1)
-                    self.assertEqual(sum(row['quantity'] for row in hero['equipment']['items'] if row['item_id']=='standard-e-clip'),8)
+                    self.assertEqual(sum(row['quantity'] for row in hero['equipment']['items'] if row['item_id']=='standard-e-clip'),0)
+                    hero=app.grant_starting_group(hero['id'],revision=hero['revision'],group_id='spare-clips',selection='standard-e-clip')
+                    self.assertEqual(sum(row['quantity'] for row in hero['equipment']['items'] if row['item_id']=='standard-e-clip'),4)
+                    grants=hero['starting_equipment_groups']['spare-clips']['grants']
+                    self.assertEqual([row['rolls'] for row in grants if 'rolls' in row],[[3]])
                 app.die=self.no_roll
                 restored=app.import_character(app.export_character(hero['id']))
                 self.assertEqual(restored['equipment'],hero['equipment'])
 
+    def test_wild_conventional_ammunition_is_one_retained_allowance_and_reloads_exact_weapon(self):
+        for weapon,training in [('gaw-m16a2-20','rifles'),('wi-gl8-shotgun','shotgun'),
+                ('gaw-smg-30','submachine-gun'),('magnum-revolver','handguns'),
+                ('gaw-light-mg-200','heavy-military'),('nautyll-harpoon-20','harpoon-spear-gun')]:
+            with self.subTest(weapon=weapon),tempfile.TemporaryDirectory() as directory:
+                app=self.app(directory); hero=app.create(race='psi-stalker',character_class=PATHS[2])
+                hero=app.select_combat(hero['id'],revision=hero['revision'],choices={'hand_to_hand':'expert','ancient':[],'modern':[training]})
+                hero=app.grant_starting_group(hero['id'],revision=hero['revision'],group_id='wp-weapon-1',selection=weapon)
+                ammo='psi-stalker-ammo-'+weapon
+                hero=app.grant_starting_group(hero['id'],revision=hero['revision'],group_id='spare-clips',selection=ammo)
+                self.assertEqual(sum(row['quantity'] for row in hero['equipment']['items'] if row['item_id']==ammo),4)
+                inventory=deepcopy(hero['equipment'])
+                gun=next(row for row in inventory['items'] if row['item_id']==weapon)
+                clip=next(row for row in inventory['items'] if row['item_id']==ammo and row['quantity']==1)
+                capacity=clip['shots']; gun['shots']=0
+                app.die=self.no_roll
+                hero=app.set_equipment(hero['id'],revision=hero['revision'],inventory=inventory)
+                hero=app.reload_weapon(hero['id'],revision=hero['revision'],weapon_possession_id=gun['id'],clip_possession_id=clip['id'])
+                self.assertEqual(next(row['shots'] for row in hero['equipment']['items'] if row['id']==gun['id']),capacity)
+                self.assertEqual(next(row['shots'] for row in hero['equipment']['items'] if row['id']==clip['id']),0)
+                self.assertEqual(app.import_character(app.export_character(hero['id']))['equipment'],hero['equipment'])
+
     def test_pairing_and_distinct_related_restrictions_preserve_humans(self):
         archive=self.archive(); pack=archive.active('rifts-domestic-skills'); catalog={r['id']:r for r in pack['skills']}
+        for path in PATHS:
+            ids=[row['id'] for row in pack['class_profiles'][path]['combat']['ancient']]
+            self.assertEqual(ids,['knife','sword','blunt','spear'])
         for path,skill,allowed,bonus in [(PATHS[0],'tame-wild-horse',True,5),(PATHS[2],'tame-wild-horse',False,0),
                 (PATHS[2],'holistic-medicine',True,5),(PATHS[0],'holistic-medicine',False,0),
                 (PATHS[2],'tanks-apcs',False,0),(PATHS[0],'computer-operation',False,0)]:
@@ -183,6 +215,10 @@ class PsiStalkerTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 app.create(race='psi-stalker',character_class='vagabond')
             self.assertEqual(app.list(),[])
+            app.die=lambda sides:3
+            hero=app.create(race='psi-stalker',character_class=PATHS[2])
+            hero=app.select_combat(hero['id'],revision=hero['revision'],choices={'hand_to_hand':'expert','ancient':['blunt'],'modern':[]})
+            self.assertEqual([row['id'] for row in app.combat_view(hero['id'])['melee']],['blunt'])
         old=archive.resolve('rifts-core','1.16.0')
         self.assertEqual(archive.active('rifts-core')['classes'][:len(old['classes'])],old['classes'])
         self.assertEqual(archive.active('rifts-core')['creation_profiles'][0],old['creation_profiles'][0])

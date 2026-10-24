@@ -25518,19 +25518,7 @@
                 159
               ]
             },
-            "guidance": [],
-            "additional_grants": {
-              "wilks-320": [
-                {
-                  "item_id": "standard-e-clip",
-                  "quantity_formula": {
-                    "count": 1,
-                    "sides": 6,
-                    "constant": 1
-                  }
-                }
-              ]
-            }
+            "guidance": []
           },
           "rifle": {
             "name": "Weapon for fixed Energy Rifle W.P.",
@@ -25554,56 +25542,63 @@
                 159
               ]
             },
-            "guidance": [],
+            "guidance": []
+          },
+          "spare-clips": {
+            "name": "Shared starting spare clips",
+            "category": "ammunition",
+            "options": [
+              "standard-e-clip",
+              "cs-c27-canister"
+            ],
+            "quantity": 1,
+            "location": "carried",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Civilized Psi-Stalker (Independent) starting equipment and money",
+              "pages": [
+                154,
+                155,
+                156
+              ],
+              "pdf_pages": [
+                157,
+                158,
+                159
+              ]
+            },
+            "guidance": [
+              "One shared source allowance:1D4+1 E-Clips/ammo clips for Wild,1D6+1 E-Clips for Civilized. It is rolled once for the package, not once per firearm.",
+              "Choose a compatible clip type. The editable inventory can allocate or exchange these spare possessions among compatible types; the original receipt and total remain recorded."
+            ],
             "additional_grants": {
-              "wilks-447": [
+              "standard-e-clip": [
                 {
                   "item_id": "standard-e-clip",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 6,
-                    "constant": 1
+                    "constant": 0
+                  }
+                }
+              ],
+              "cs-c27-canister": [
+                {
+                  "item_id": "cs-c27-canister",
+                  "quantity_formula": {
+                    "count": 1,
+                    "sides": 6,
+                    "constant": 0
                   }
                 }
               ]
             }
           },
           "wp-weapon": {
-            "additional_grants": {
-              "cs-c27": [
-                {
-                  "item_id": "cs-c27-canister",
-                  "quantity_formula": {
-                    "count": 1,
-                    "sides": 6,
-                    "constant": 1
-                  }
-                }
-              ],
-              "wilks-320": [
-                {
-                  "item_id": "standard-e-clip",
-                  "quantity_formula": {
-                    "count": 1,
-                    "sides": 6,
-                    "constant": 1
-                  }
-                }
-              ],
-              "wilks-447": [
-                {
-                  "item_id": "standard-e-clip",
-                  "quantity_formula": {
-                    "count": 1,
-                    "sides": 6,
-                    "constant": 1
-                  }
-                }
-              ]
-            },
             "category": "weapon",
             "guidance": [
-              "One source weapon per distinct W.P.; fixed Energy Pistol/Rifle are separate for Civilized. Compatible spare clips are retained separately for each weapon.",
+              "One source weapon per distinct W.P.; fixed Energy Pistol/Rifle are separate for Civilized. The shared spare-clip allowance is a separate package choice.",
+              "Wild source grants E-Clips/ammo clips; Civilized source specifies E-Clips only, so no conventional ammunition quantity is invented for Civilized.",
               "Bounded source-reviewed weapon catalog; unsupported weapon models remain manual possessions."
             ],
             "location": "carried",
@@ -26805,102 +26800,127 @@
               "A good quality horse represents the mount choice. Other nonpredatory animals may be recorded manually. No magical or military starting vehicles."
             ]
           },
-          "wp-weapon": {
+          "spare-clips": {
+            "name": "Shared starting spare clips",
+            "category": "ammunition",
+            "options": [
+              "standard-e-clip",
+              "cs-c27-canister",
+              "psi-stalker-ammo-gaw-m16a2-20",
+              "psi-stalker-ammo-wi-gl8-shotgun",
+              "psi-stalker-ammo-gaw-smg-30",
+              "psi-stalker-ammo-magnum-revolver",
+              "psi-stalker-ammo-gaw-light-mg-200",
+              "psi-stalker-ammo-nautyll-harpoon-20"
+            ],
+            "quantity": 1,
+            "location": "carried",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Wild Psi-Stalker starting equipment and money",
+              "pages": [
+                154,
+                155,
+                156
+              ],
+              "pdf_pages": [
+                157,
+                158,
+                159
+              ]
+            },
+            "guidance": [
+              "One shared source allowance:1D4+1 E-Clips/ammo clips for Wild,1D6+1 E-Clips for Civilized. It is rolled once for the package, not once per firearm.",
+              "Choose a compatible clip type. The editable inventory can allocate or exchange these spare possessions among compatible types; the original receipt and total remain recorded."
+            ],
             "additional_grants": {
-              "cs-c27": [
+              "standard-e-clip": [
+                {
+                  "item_id": "standard-e-clip",
+                  "quantity_formula": {
+                    "count": 1,
+                    "sides": 4,
+                    "constant": 0
+                  }
+                }
+              ],
+              "cs-c27-canister": [
                 {
                   "item_id": "cs-c27-canister",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ],
-              "wilks-320": [
-                {
-                  "item_id": "standard-e-clip",
-                  "quantity_formula": {
-                    "count": 1,
-                    "sides": 4,
-                    "constant": 1
-                  }
-                }
-              ],
-              "wilks-447": [
-                {
-                  "item_id": "standard-e-clip",
-                  "quantity_formula": {
-                    "count": 1,
-                    "sides": 4,
-                    "constant": 1
-                  }
-                }
-              ],
-              "gaw-m16a2-20": [
+              "psi-stalker-ammo-gaw-m16a2-20": [
                 {
                   "item_id": "psi-stalker-ammo-gaw-m16a2-20",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ],
-              "wi-gl8-shotgun": [
+              "psi-stalker-ammo-wi-gl8-shotgun": [
                 {
                   "item_id": "psi-stalker-ammo-wi-gl8-shotgun",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ],
-              "gaw-smg-30": [
+              "psi-stalker-ammo-gaw-smg-30": [
                 {
                   "item_id": "psi-stalker-ammo-gaw-smg-30",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ],
-              "magnum-revolver": [
+              "psi-stalker-ammo-magnum-revolver": [
                 {
                   "item_id": "psi-stalker-ammo-magnum-revolver",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ],
-              "gaw-light-mg-200": [
+              "psi-stalker-ammo-gaw-light-mg-200": [
                 {
                   "item_id": "psi-stalker-ammo-gaw-light-mg-200",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ],
-              "nautyll-harpoon-20": [
+              "psi-stalker-ammo-nautyll-harpoon-20": [
                 {
                   "item_id": "psi-stalker-ammo-nautyll-harpoon-20",
                   "quantity_formula": {
                     "count": 1,
                     "sides": 4,
-                    "constant": 1
+                    "constant": 0
                   }
                 }
               ]
-            },
+            }
+          },
+          "wp-weapon": {
             "category": "weapon",
             "guidance": [
-              "One source weapon per distinct W.P.; fixed Energy Pistol/Rifle are separate for Civilized. Compatible spare clips are retained separately for each weapon.",
+              "One source weapon per distinct W.P.; fixed Energy Pistol/Rifle are separate for Civilized. The shared spare-clip allowance is a separate package choice.",
+              "Wild source grants E-Clips/ammo clips; Civilized source specifies E-Clips only, so no conventional ammunition quantity is invented for Civilized.",
               "Bounded source-reviewed weapon catalog; unsupported weapon models remain manual possessions."
             ],
             "location": "carried",
@@ -34640,6 +34660,22 @@
           158,
           159
         ]
+      },
+      "capacity": 20,
+      "compatible_weapons": [
+        "gaw-m16a2-20"
+      ],
+      "compatibility_source": {
+        "book": "Rifts - Merc Ops",
+        "pages": [
+          120,
+          121
+        ],
+        "pdf_pages": [
+          120,
+          121
+        ],
+        "section": "GAW M16A2 / explicit 20-round configuration"
       }
     },
     {
@@ -34662,6 +34698,22 @@
           158,
           159
         ]
+      },
+      "capacity": 60,
+      "compatible_weapons": [
+        "wi-gl8-shotgun"
+      ],
+      "compatibility_source": {
+        "book": "Rifts - Merc Ops",
+        "pages": [
+          100,
+          101
+        ],
+        "pdf_pages": [
+          100,
+          101
+        ],
+        "section": "WI-GL8 shotgun configuration"
       }
     },
     {
@@ -34684,6 +34736,22 @@
           158,
           159
         ]
+      },
+      "capacity": 30,
+      "compatible_weapons": [
+        "gaw-smg-30"
+      ],
+      "compatibility_source": {
+        "book": "Rifts - Merc Ops",
+        "pages": [
+          120,
+          121
+        ],
+        "pdf_pages": [
+          120,
+          121
+        ],
+        "section": "GAW 9mm Submachine Gun"
       }
     },
     {
@@ -34706,6 +34774,20 @@
           158,
           159
         ]
+      },
+      "capacity": 6,
+      "compatible_weapons": [
+        "magnum-revolver"
+      ],
+      "compatibility_source": {
+        "book": "Rifts - Ultimate Edition",
+        "pages": [
+          328
+        ],
+        "pdf_pages": [
+          331
+        ],
+        "section": "W.P. Handguns: representative Magnum revolver"
       }
     },
     {
@@ -34728,6 +34810,22 @@
           158,
           159
         ]
+      },
+      "capacity": 200,
+      "compatible_weapons": [
+        "gaw-light-mg-200"
+      ],
+      "compatibility_source": {
+        "book": "Rifts - Merc Ops",
+        "pages": [
+          120,
+          121
+        ],
+        "pdf_pages": [
+          120,
+          121
+        ],
+        "section": "GAW .30 Caliber Light Machine-Gun / 200-round configuration"
       }
     },
     {
@@ -34750,6 +34848,20 @@
           158,
           159
         ]
+      },
+      "capacity": 20,
+      "compatible_weapons": [
+        "nautyll-harpoon-20"
+      ],
+      "compatibility_source": {
+        "book": "Rifts - World Book 07 - Underseas",
+        "pages": [
+          154
+        ],
+        "pdf_pages": [
+          153
+        ],
+        "section": "Naut'Yll Harpoon Rifle / uncabled20-dart configuration"
       }
     }
   ],

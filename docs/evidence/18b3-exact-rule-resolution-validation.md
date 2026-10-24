@@ -1,0 +1,31 @@
+# 18B3 exact rule resolution validation
+
+In progress on `codex/exact-pinned-rule-resolution`, created from clean synchronized main `15c901abed58407af9234f657c7f8b199869b686` after PR138 merged2026-10-24T21:19:17Z. The unrelated historical transfer folder remains untracked and preserved.
+
+Public application validation now supplies the archive's exact resolver to the existing portability collector. List-backed callers remain supported. The same dependency/history walk preserves output order, all source-bound inactive psychic dependencies and exact historical versions. Each collection validates pin strings before caching, checks returned identities, resolves each unique identity/version once and deep-copies each returned definition once. The cache lasts for one collection. Accepted archives/defaults, serialized saves, source validation, upgrade behavior and the10MB bundle guard are unchanged.
+
+The public regression witness failed against the old implementation because reopen and views expanded the complete archive. After the change, the initial19 exact-resolution/portability/rules methods pass28.047s. All eight final exact-resolution methods pass6.145s, adding historical-cache rejection and explicit no-dice replay. Seven actual per-attribute racial-pool/provenance methods pass40.622s. All30 valid upgrade/pairing/retained-numeric/Psi-Stalker methods pass in the285.720s compatibility invocation; its one nonexistent-module selector makes that invocation fail and is not relabeled green. Initial typing caught only two missing annotations in negative test tables; final typing passes217 files. Python compilation, every browser-script syntax check and whitespace pass. Full748-test regression and publication/hosted/merge gates remain pending.
+
+Read-only timing comparison uses the same three completed primary Psi-Stalker saves, all135 accepted definitions and three repetitions of each public method. Every canonical result matches the original baseline, including complete portable bundles; no dice were drawn and primary saves are unchanged. Times are machine-specific supporting evidence; work-count tests protect the optimization without timing thresholds.
+
+| Save | Reopen before / after seconds | Skill view before / after seconds | Export before / after seconds |
+| --- | --- | --- | --- |
+| Civilized independent |0.3296 /0.0833|0.5172 /0.1918|1.1533 /0.5195|
+| Civilized Coalition |0.3445 /0.0980|0.4668 /0.2432|1.0735 /0.5899|
+| Wild level5 |0.3816 /0.1068|0.4917 /0.2170|3.9903 /3.2359|
+
+The other four public methods also match exactly. Logs, three-round metrics and exact collected outputs remain ignored under `tmp/05d27-resolution-*`. The first diagnostic attempted to serialize several independent outputs through the single-bundle10MB guard; only the diagnostic writer was corrected, then the complete read-only capture passed. An initial compatibility selector named a nonexistent `test_attribute_pools` module; its real per-attribute and provenance modules were selected separately and passed. Preserve diagnostic failures as such rather than relabeling them green.
+
+Windows build passes (`tmp/18b3-build.log`); its isolated frozen public workflow passes119.089s (`tmp/18b3-frozen.log`). ExecutableSHA256 `ddda4ddce0ce76d0995849a929c4d6d38e957e5ddf255a12f035994e298be625`. All135 packaged accepted definitions and the manifest exactly match source. A separate hidden frozen instance used a copy of the completed acceptance database on port8877; the original database was preserved. Actual browser reopen shows Wild level5,16501XP and HP dice3/5/6/1; no browser errors/warnings were reported. The [browser capture](18b3-wild-reopen-browser.jpg) preserves this result. This is a reopen check; the prior full creation/advancement acceptance remains in05D26.
+
+Frozen HTTP get/skills/resources/equipment/psionics/export outputs equal every prior canonical primary fixture. Three freshly exported editable PDFs retain11/10/13 pages,1630/1605/1754 fields and630/601/770 populated widgets. Canonical values, effective page-widget values and nonempty appearances agree. All34 newly rendered page images are pixel-identical to the prior pages visually approved by root and both reviewers; root also inspected the new Wild first page. This exact comparison carries that unchanged all-page appearance evidence forward. No new source/layout behavior is claimed. The PDF operation marker ran successfully once immediately before these three exports. Detailed proof/script/PDFs/renders remain ignored under `tmp/18b3-package-output-proof*` and `tmp/pdfs/18b3-exact/`. The acceptance process30256 and temporary browser tab were closed after proof; the copied data remains available.
+
+## Standards
+
+APPROVE for implementation head `813975b052cf80d72ccffef3bee93265bb4641f0`. No documented breach or actionable smell. The private adapter reuses one collector, preserves list behavior/order, validates before cache lookup, checks identities and returns isolated copies. Artifact/receipt delta review follows the final evidence commit.
+
+## Spec
+
+APPROVE for the same implementation head. Exact pins, inactive dependencies, flat history, one lookup/copy per collection, list callers, legacy fallback, formats/defaults/limits and all19 application call sites meet the bounded ticket. Full/package/hosted gates remain separate acceptance requirements. Artifact/receipt delta review follows the final evidence commit.
+
+No18B3 completion or merge is claimed. Parent18B, parent12 and the wider amended product remain open.

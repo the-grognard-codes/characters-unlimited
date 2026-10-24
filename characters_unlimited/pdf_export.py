@@ -325,7 +325,7 @@ def fill_equipment(page, equipment, values):
         cost = (str(item['cost_credits']) if item['cost_credits'] is not None else
                 str(price_range['min'])+'–'+str(price_range['max']) if price_range else 'Unspecified')
         values.update({'ARMOR':item.get('sheet_name',item['name']),'COST':cost,
-                       'WEIGHT 1':str(item['weight_lbs'])+' lb',
+                       'WEIGHT 1':str(item['weight_lbs'])+' lb' if item['weight_lbs'] is not None else 'Unspecified',
                        'undefined_7':str(item['locations']['main_body']),
                        'undefined_8':str(item['locations']['main_body'])})
         if item.get('prowl_penalty') is not None:
@@ -486,7 +486,10 @@ def export_rifts_sheet(character, core, skills, combat):
         for group in equipment['starting_groups']['groups']:
             if group['generated']:
                 receipt = group['receipt']
-                sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(group['quantity'])+'.'
+                original = receipt['grants'][0]
+                sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(original['quantity'])+'.'
+                if original.get('rolls'):
+                    sheet_notes += ' Recorded dice: '+', '.join(map(str, original['rolls']))+'.'
                 if 'condition' in receipt:
                     sheet_notes += ' '+group['condition']['name']+': '+str(receipt['condition']['value'])+'%; recorded dice: '+', '.join(map(str, receipt['condition']['rolls']))+'.'
                 for grant in receipt['grants'][1:]:

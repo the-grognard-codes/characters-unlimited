@@ -1,9 +1,11 @@
 """Independent original RUE145–148/295 standard Dog Boy witnesses."""
 from copy import deepcopy
+from io import BytesIO
 import json
 from pathlib import Path
 import tempfile
 import unittest
+from pypdf import PdfReader
 
 from characters_unlimited.application import CharacterApplication
 from characters_unlimited.rules import RuleArchive
@@ -85,12 +87,16 @@ class DogBoyTests(unittest.TestCase):
             knife = next(row for row in combat['melee'] if row['id'] == 'knife')
             self.assertEqual(knife['parry']['contributions']['O.C.C.'], 1)
             pack = app.character_skill_pack(hero)
-            for family, identity in [('related', 'acrobatics'), ('related', 'prowl'), ('related', 'computer-operation'),
+            for family, identity in [('related', 'acrobatics'), ('related', 'gambling-standard'), ('related', 'computer-operation'),
                                      ('related', 'literacy-native'), ('secondary', 'literacy-other')]:
                 definition = next(row for row in pack['skills'] if row['id'] == identity)
                 self.assertFalse(selection_policy(definition, family, pack)['allowed'])
             hero = app.select_skills(hero['id'], revision=hero['revision'], selections=[
                 {'skill_id': 'prowl', 'pool': 'related', 'specialty': ''}])
+            self.assertFalse(app.skill_view(hero['id'])['warnings'])
+            self.assertEqual(app.skill_view(hero['id'])['selected'][0]['percentage'], 25)
+            hero = app.select_skills(hero['id'], revision=hero['revision'], selections=[
+                {'skill_id': 'gambling-standard', 'pool': 'related', 'specialty': ''}])
             self.assertTrue(app.skill_view(hero['id'])['warnings'])  # Honor-system choices remain visible.
 
     def test_fixed_and_elective_psychics_distinct_inherent_senses_and_exact_replay(self):
@@ -150,6 +156,13 @@ class DogBoyTests(unittest.TestCase):
                 self.assertEqual(view['armor'][0]['locations']['main_body'], 30 if not index else 50)
                 self.assertFalse(view['armor'][0]['environmental'])
                 self.assertEqual(view['armor'][0]['movement_penalty'], 0 if not index else None)
+                fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields()
+                assert fields is not None
+                self.assertEqual(fields['WEIGHT 1']['/V'], '8 lb' if not index else 'Unspecified')
+                values = ' '.join(str(row.get('/V', '')) for row in fields.values())
+                self.assertNotIn('None lb', values)
+                self.assertIn('500 credits = (250) x2', values)
+                self.assertIn('Recorded dice: 4', values)
                 self.assertFalse(any(row['item_id'] == 'cs-pistol-e-clip' for row in hero['equipment']['items']))
                 hero = app.set_equipment(hero['id'], revision=hero['revision'], inventory={'credits': 1, 'items': []})
                 app.die = self.no_roll
@@ -171,6 +184,9 @@ class DogBoyTests(unittest.TestCase):
             hero = app.advance(hero['id'], revision=hero['revision'], method='xp', value=17601)
             self.assertEqual(hero['level'], 5)
             self.assertEqual(app.psionic_view(hero['id'])['effective']['resources']['ISP']['value'], 79)
+            senses = next(row for row in app.psionic_view(hero['id'])['effective']['abilities'] if row['id'] == 'dog-boy-physical-senses')
+            odor_range = next(row['value'] for row in senses['parameters'] if row['id'] == 'specific-range')
+            self.assertEqual(odor_range, 125)  # Original p146 says25feet per level.
             self.assertEqual(app.resource_view(hero['id'])['resources']['HP']['value'], 28)
             view = app.skill_view(hero['id'])
             self.assertEqual((view['remaining']['related'], view['remaining']['secondary']), (6, 10))

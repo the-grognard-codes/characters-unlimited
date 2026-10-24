@@ -119718,7 +119718,9 @@
             "bonus": 0
           },
           "rogue": {
-            "allow": [],
+            "allow": [
+              "prowl"
+            ],
             "bonus": 0
           },
           "science": {
@@ -122531,7 +122533,9 @@
             "bonus": 0
           },
           "rogue": {
-            "allow": [],
+            "allow": [
+              "prowl"
+            ],
             "bonus": 0
           },
           "science": {

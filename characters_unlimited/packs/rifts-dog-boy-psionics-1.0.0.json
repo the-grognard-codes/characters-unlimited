@@ -1568,8 +1568,8 @@
               ]
             },
             "quantity": {
-              "base": 25,
-              "per_level": 0,
+              "base": 0,
+              "per_level": 25,
               "unit": "feet",
               "level_origin": 0
             }

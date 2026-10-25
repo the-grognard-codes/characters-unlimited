@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "active": {
-    "rifts-core": "1.18.0",
-    "rifts-domestic-skills": "2.39.0",
+    "rifts-core": "1.19.0",
+    "rifts-domestic-skills": "2.40.0",
     "heroes-core": "1.0.0",
     "heroes-education": "1.0.0",
     "heroes-program-skills": "1.21.0",
@@ -858,6 +858,18 @@
       "version": "1.0.0",
       "filename": "rifts-dog-boy-psionics-1.0.0.json",
       "sha256": "ddffde2f264c22280ad4063f7afac0f52cfc02415bb316d909fd341aa6e79cb1"
+    },
+    {
+      "id": "rifts-core",
+      "version": "1.19.0",
+      "filename": "rifts-core-1.19.0.json",
+      "sha256": "40f977d686975926cda10b7f2f60c886f35466a1acec677c7dfa0a6436c5a556"
+    },
+    {
+      "id": "rifts-domestic-skills",
+      "version": "2.40.0",
+      "filename": "rifts-domestic-skills-2.40.0.json",
+      "sha256": "4e8f7c96723149a2e2a09e12a4af5135c33de59cbf49e41ffb7f8f4acbf0f2f5"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Paid training within an initial skill minimum
 
-05D28 is implemented with inactive candidates on `codex/rifts-city-rat-initial-training`; the accepted defaults are unchanged. Both independent preliminary reviews approve this source/contract scope. Shared/source implementation and final artifact reviews remain acceptance gates; current results are in evidence/05d28-initial-training-validation.md.
+05D28 is implemented on `codex/rifts-city-rat-initial-training`; independently approved core1.19.0/skills2.40.0 are active with141 accepted definitions and all139 prior entries unchanged. Both shared/source implementation review axes approve corrected head6b82fe1. Final regression, artifact reviews and hosted merge acceptance remain gates; current results are in evidence/05d28-initial-training-validation.md.
 
 ## Source and expected behavior
 

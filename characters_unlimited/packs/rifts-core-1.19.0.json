@@ -730,7 +730,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-communications",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Communications",
+      "name": "Coalition Technical Officer \u2014 Communications",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -741,7 +741,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Communications common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Communications common and MOS training"
       }
     },
     {
@@ -751,7 +751,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-electrician",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Electrician",
+      "name": "Coalition Technical Officer \u2014 Electrician",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -762,7 +762,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Electrician common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Electrician common and MOS training"
       }
     },
     {
@@ -772,7 +772,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-mechanic",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Mechanic",
+      "name": "Coalition Technical Officer \u2014 Mechanic",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -783,7 +783,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Mechanic common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Mechanic common and MOS training"
       }
     },
     {
@@ -793,7 +793,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-robotics",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Robotics",
+      "name": "Coalition Technical Officer \u2014 Robotics",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -804,7 +804,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Robotics common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Robotics common and MOS training"
       }
     },
     {
@@ -814,7 +814,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-technician",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Technician",
+      "name": "Coalition Technical Officer \u2014 Technician",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -825,7 +825,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Technician common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Technician common and MOS training"
       }
     },
     {
@@ -835,7 +835,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-medic",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Medic",
+      "name": "Coalition Technical Officer \u2014 Medic",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -846,7 +846,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Medic common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Medic common and MOS training"
       }
     },
     {
@@ -856,7 +856,7 @@
         "Wider racial compatibility, equipment and robot/bionic construction remain open."
       ],
       "id": "coalition-technical-officer-weapons",
-      "name": "Coalition Technical Officer \u00e2\u20ac\u201d Weapons",
+      "name": "Coalition Technical Officer \u2014 Weapons",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -867,7 +867,7 @@
           239,
           240
         ],
-        "section": "Coalition Technical Officer \u00e2\u20ac\u201d Weapons common and MOS training"
+        "section": "Coalition Technical Officer \u2014 Weapons common and MOS training"
       }
     },
     {
@@ -919,7 +919,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-communications",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Communications Expert",
+      "name": "Merc Soldier \u2014 Communications Expert",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -940,7 +940,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-eod",
-      "name": "Merc Soldier \u00e2\u20ac\u201d EOD / Demolitions Expert",
+      "name": "Merc Soldier \u2014 EOD / Demolitions Expert",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -961,7 +961,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-grunt",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Soldier / Grunt",
+      "name": "Merc Soldier \u2014 Soldier / Grunt",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -982,7 +982,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-scout",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Point Man / Scout",
+      "name": "Merc Soldier \u2014 Point Man / Scout",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -1003,7 +1003,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-heavy-weapons-wp",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Heavy Weapons (two additional WPs)",
+      "name": "Merc Soldier \u2014 Heavy Weapons (two additional WPs)",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -1024,7 +1024,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-heavy-weapons-demolitions",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Heavy Weapons (two Demolition skills)",
+      "name": "Merc Soldier \u2014 Heavy Weapons (two Demolition skills)",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -1045,7 +1045,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-transportation",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Transportation Specialist",
+      "name": "Merc Soldier \u2014 Transportation Specialist",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
@@ -1066,7 +1066,7 @@
         "Source MOS minima are guidance, allowing skill bonuses/manual attributes or another MOS; no invented blanket minimum."
       ],
       "id": "merc-soldier-medic",
-      "name": "Merc Soldier \u00e2\u20ac\u201d Medic",
+      "name": "Merc Soldier \u2014 Medic",
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [

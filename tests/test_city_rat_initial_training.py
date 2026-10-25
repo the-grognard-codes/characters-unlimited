@@ -27,6 +27,56 @@ def choices(*identities, pool='related'):
 
 
 class CityRatInitialTrainingTests(unittest.TestCase):
+    def test_candidates_preserve_every_unrelated_parent_field_including_unicode(self):
+        installed = RuleArchive.load()
+        archive = candidate_archive()
+        core = archive.resolve('rifts-core', '1.19.0')
+        parent_core = installed.resolve('rifts-core', '1.18.0')
+        core['version'] = parent_core['version']
+        city = next(row for row in core['classes'] if row['id'] == 'city-rat')
+        parent_city = next(row for row in parent_core['classes'] if row['id'] == 'city-rat')
+        city['automation_gaps'] = parent_city['automation_gaps']
+        self.assertEqual(core, parent_core)
+        skills = archive.resolve('rifts-domestic-skills', '2.40.0')
+        parent_skills = installed.resolve('rifts-domestic-skills', '2.39.0')
+        skills['version'] = parent_skills['version']
+        profile = skills['class_profiles']['city-rat']
+        parent_profile = parent_skills['class_profiles']['city-rat']
+        profile['path_guidance'] = parent_profile['path_guidance']
+        profile['pools']['related'].pop('requirements')
+        self.assertEqual(skills, parent_skills)
+
+    def test_existing_city_rat_can_preview_and_apply_without_rerolling(self):
+        installed = RuleArchive.load()
+        old = RuleArchive(installed.definitions(), {**installed.active_versions(),
+                          'rifts-core': '1.18.0', 'rifts-domestic-skills': '2.39.0'})
+        with tempfile.TemporaryDirectory() as directory:
+            earlier = CharacterApplication(directory, die=lambda sides: 4, rule_archive=old)
+            hero = earlier.create(character_class='city-rat')
+            hero = earlier.select_skills(hero['id'], revision=hero['revision'],
+                                         selections=choices('climbing', 'prowl'))
+            hero = earlier.select_combat(hero['id'], revision=hero['revision'],
+                                         choices={'hand_to_hand': 'expert'})
+            hero = earlier.generate_resources(hero['id'], revision=hero['revision'])
+            resources = earlier.resource_view(hero['id'])['resources']
+            def no_roll(sides):
+                self.fail('Compatible rule upgrades cannot roll')
+            current = CharacterApplication(directory, die=no_roll, rule_archive=candidate_archive())
+            preview = current.preview_rule_upgrade(hero['id'])
+            self.assertEqual(current.get(hero['id']), hero)
+            self.assertEqual({row['pack_id'] for row in preview['changes']},
+                             {'rifts-domestic-skills'})
+            upgraded = current.apply_rule_upgrade(hero['id'], revision=hero['revision'],
+                                                  token=preview['token'])['character']
+            self.assertEqual(upgraded['attributes'], hero['attributes'])
+            self.assertEqual(upgraded['rules'], hero['rules'])
+            self.assertEqual(upgraded['additional_rule_packs']['rifts-domestic-skills'], '2.40.0')
+            self.assertEqual(current.resource_view(hero['id'])['resources'], resources)
+            self.assertEqual((self.minimum(current, upgraded)['credited'],
+                              self.minimum(current, upgraded)['remaining']), (3, 0))
+            self.assertEqual(current.skill_view(hero['id'])['remaining'],
+                             {'related': 7, 'secondary': 8})
+
     def minimum(self, app, hero):
         return next(row for row in app.skill_view(hero['id'])['pool_requirements']
                     if row['id'] == 'initial-physical-rogue')

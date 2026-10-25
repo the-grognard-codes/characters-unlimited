@@ -12,7 +12,7 @@ Required percentile grants and named language/vehicle choices follow pp. 88–89
 
 ## Explicitly unfinished
 
-This is not full mechanical review of the canonical O.C.C. Equipment and starting funds were implemented in08B4–08B7. Original p.89 makes cybernetic implants optional; meaningful optional augmentation selection and broader subtype coverage remain open. The class P.P.E. bonus modifies a general base; its age-22 halving still requires verified base/age/rounding support.05D28 now implements the minimum three initial Physical/Rogue Related choices, with paid Hand to Hand counting once despite its one- or two-slot cost; see paid-training-requirement-contract.md. That contract has preliminary source/Standards approval but is not active at this checkpoint. Conditional activities outside the player-focused scope do not gate this selection work.
+This is not full mechanical review of the canonical O.C.C. Equipment and starting funds were implemented in08B4–08B7. Original p.89 makes cybernetic implants optional; meaningful optional augmentation selection and broader subtype coverage remain open. The class P.P.E. bonus modifies a general base; its age-22 halving still requires verified base/age/rounding support.05D28 now implements the minimum three initial Physical/Rogue Related choices, with paid Hand to Hand counting once despite its one- or two-slot cost; see paid-training-requirement-contract.md. Both independent source/shared reviews approve the implementation, now active in core1.19.0/skills2.40.0. Final regression and hosted PR/merge acceptance remain pending. Conditional activities outside the player-focused scope do not gate this selection work.
 
 ## Validation
 

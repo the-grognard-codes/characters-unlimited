@@ -398,7 +398,14 @@ def export_rifts_sheet(character, core, skills, combat):
         sheet_notes += ' (' + skills['sources'][0] + ').'
     described_skills = set()
     for requirement in skills.get('pool_requirements', []):
-        sheet_notes += f'\n{requirement["name"]}: {requirement["credited"]} of {requirement["count"]} distinct {requirement["pool"]} choices; {requirement["remaining"]} still required. '
+        if 'paid_hand_to_hand' in requirement:
+            sheet_notes += f'\n{requirement["name"]}: {requirement["credited"]} qualifying {requirement["pool"]} choices (minimum {requirement["count"]}); {requirement["remaining"]} still required. '
+            for credit in requirement['training_credits']:
+                sheet_notes += f'{credit["name"]} counts as one choice (learned at level {credit["learned_level"]}). '
+            if 'before_level' in requirement:
+                sheet_notes += f'Only choices learned before level {requirement["before_level"]} count. '
+        else:
+            sheet_notes += f'\n{requirement["name"]}: {requirement["credited"]} of {requirement["count"]} distinct {requirement["pool"]} choices; {requirement["remaining"]} still required. '
         sheet_notes += resource_source_citation(requirement['source']) + '.'
     for skill in [*skills['grants'], *skills['selected']]:
         if skill.get('effect_contributions'):

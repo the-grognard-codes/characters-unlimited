@@ -220,12 +220,20 @@ class PsiStalkerTests(unittest.TestCase):
             hero=app.select_combat(hero['id'],revision=hero['revision'],choices={'hand_to_hand':'expert','ancient':['blunt'],'modern':[]})
             self.assertEqual([row['id'] for row in app.combat_view(hero['id'])['melee']],['blunt'])
         old=archive.resolve('rifts-core','1.16.0')
-        self.assertEqual(archive.active('rifts-core')['classes'][:len(old['classes'])],old['classes'])
+        psi_core=archive.resolve('rifts-core','1.17.0')
+        self.assertEqual(psi_core['classes'][:len(old['classes'])],old['classes'])
         self.assertEqual(archive.active('rifts-core')['creation_profiles'][0],old['creation_profiles'][0])
         old_skills=archive.resolve('rifts-domestic-skills','2.37.0')
+        psi_skills=archive.resolve('rifts-domestic-skills','2.38.0')
         self.assertEqual(pack['skills'],old_skills['skills'])
+        # Preserve this batch's Human baseline; later source-owned updates can
+        # legitimately change the active City Rat minimum and guidance.
         for identity,profile in old_skills['class_profiles'].items():
-            self.assertEqual(pack['class_profiles'][identity],profile)
+            self.assertEqual(psi_skills['class_profiles'][identity],profile)
+        for path in PATHS:
+            self.assertEqual(pack['class_profiles'][path],psi_skills['class_profiles'][path])
+            self.assertEqual(next(row for row in archive.active('rifts-core')['classes'] if row['id']==path),
+                             next(row for row in psi_core['classes'] if row['id']==path))
         previous=archive.resolve('rifts-equipment','1.24.0')
         current=archive.active('rifts-equipment')
         self.assertEqual(current['items'][:len(previous['items'])],previous['items'])

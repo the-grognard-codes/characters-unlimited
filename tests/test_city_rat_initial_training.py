@@ -115,6 +115,22 @@ class CityRatInitialTrainingTests(unittest.TestCase):
             self.assertEqual(len(hero['skill_selections']), 3)
             self.assertTrue(any('Fencing' in warning for warning in app.skill_view(hero['id'])['warnings']))
 
+    def test_reselected_automatic_grants_do_not_supply_initial_choice_credit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=candidate_archive())
+            hero = app.create(character_class='city-rat')
+            hero = app.select_skills(hero['id'], revision=hero['revision'],
+                                     selections=choices('running', 'streetwise', 'tailing'))
+            self.assertEqual((self.minimum(app, hero)['credited'], self.minimum(app, hero)['remaining']), (0, 3))
+            self.assertEqual(len(hero['skill_selections']), 3)
+            self.assertEqual(app.skill_view(hero['id'])['remaining']['related'], 7)
+            self.assertEqual(sum('already granted' in warning for warning in app.skill_view(hero['id'])['warnings']), 3)
+            hero = app.select_skills(hero['id'], revision=hero['revision'],
+                                     selections=choices('running', 'streetwise', 'tailing', 'climbing', 'prowl'))
+            hero = app.select_combat(hero['id'], revision=hero['revision'], choices={'hand_to_hand': 'expert'})
+            self.assertEqual((self.minimum(app, hero)['credited'], self.minimum(app, hero)['remaining']), (3, 0))
+            self.assertEqual(len(hero['skill_selections']), 5)
+
     def test_initial_choices_keep_learning_across_advancement_undo_and_reselection(self):
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4, rule_archive=candidate_archive())

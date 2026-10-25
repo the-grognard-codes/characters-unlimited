@@ -6,6 +6,8 @@
 
 Original Rifts Ultimate Edition printed88 requires ten City Rat Related skills, at least three Physical/Rogue. Expert costs one Related slot; Martial Arts/evil Assassin cost two. Printed316 includes Hand to Hand among Physical skills chosen once. A paid style therefore contributes one distinct qualifying choice, independently of its slot cost. Free Basic, automatic Running and Secondary choices do not fill this Related minimum. Printed89 makes implants optional.
 
+The initial Related choices are other skills. City Rat's requirement selector excludes its automatic Running, Streetwise and Tailing identities: explicitly reselecting those grants remains visible with existing warnings/slot accounting but provides no new minimum credit. This source-owned exclusion does not change historical or other class requirements.
+
 Original PDF SHA256: `448715cb4301ca9cd0bc7333bda7e1f88a089f05f33b33f625736a7a96700b9c`. Root and independent Spec visually read88/89/316; ignored source renders are `tmp/pdfs/18b4-source/city-rat-091.png`, `city-rat-092.png`, and `tmp/pdfs/05d28-source/physical-319.png`. Markdown remains a locator.
 
 With constant dice4/IQ12, Related Climbing45% (40+5) and Prowl40% (25+15), plus Expert, satisfy three distinct choices and leave seven Related slots. Martial Arts/Assassin satisfy the same minimum but leave six. These selections add no attribute dice: existing MA12/PS12/PE13/SPD33, HP17/SDC32 remain unchanged. A two-slot style alone credits one choice. Later acquired training cannot replace initial choices.

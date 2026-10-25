@@ -5,7 +5,7 @@ function combatValue(result) {
 }
 function combatExplanation(result) {
   const terms = Object.entries(result.contributions).map(([name,value]) => `${name.replaceAll('_',' ')} ${value > 0 ? '+' : ''}${value}${result.unit || ''}`);
-  const references = (result.sources || []).map(source => `${source.book}, pp. ${source.pages.join(', ')}`);
+  const references = (result.sources || []).map(sourceCitation);
   return [...terms, ...references].join(' · ');
 }
 function combatRow(name, result) {
@@ -87,7 +87,7 @@ function renderCombat(view) {
     attacks.push(detail);
   });
   $('combat-attacks').replaceChildren(...attacks);
-  const source=view.sources.map(item=>`${item.book}, pp. ${item.pages.join(', ')}`);
+  const source=view.sources.map(sourceCitation);
   for (const [id,items] of [['combat-warnings',view.warnings],['combat-gaps',[...view.gaps,...(view.notes || []),...source]]]) {
     $(id).replaceChildren(...items.map(message=>{ const item=document.createElement('li'); item.textContent=message; return item; }));
   }

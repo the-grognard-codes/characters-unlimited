@@ -549,7 +549,8 @@ def export_rifts_sheet(character, core, skills, combat):
                 for context in ('strike','parry'))+'; damage '+attack['damage']+'. '+attack['guidance']
             sheet_notes += ' Damage bonus: '+', '.join(name.replace('_',' ')+' '+str(value)
                 for name,value in attack['damage_bonus']['contributions'].items())+'. '+ '; '.join(
-                source['book']+', pp. '+', '.join(map(str,source['pages']))
+                (source['book']+', pp. '+', '.join(map(str,source['pages'])) if source.get('pages') else
+                 resource_source_citation(source))
                 for source in attack['damage_bonus']['sources'])+'.'
         sheet_notes += '\n'+' '.join([*equipment['warnings'],*equipment['guidance']])
     for identifier,result in resources.items():

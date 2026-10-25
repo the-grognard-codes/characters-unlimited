@@ -42,6 +42,8 @@ Current normal-human attack projection cannot be silently reused for Augmented S
 
 When present, expose the source-owned strength metadata and guidance in combat/browser/PDF, leave the generic damage total unset, and replace ordinary unarmed damage examples with explicit source-guidance descriptions. Existing weapon proficiency accuracy remains available. Equipment must use the declared strength source rather than cite normal-human damage, and must not calculate unsupported SDC enhanced-strength melee; reviewed Vibro weapon base MD remains unchanged. Describe source285's augmented thresholds and two-action power requirement; exhaustive action resolution is optional under the player-focused scope. No computed normal-human damage may masquerade as an augmented value, including after PS edits, advancement, reopen or export.
 
+The minimum descriptive citation is book/section; optional printed/PDF page lists must be bounded positive-integer lists. Browser and equipped-melee PDF consumers must support that minimum, retaining existing page-based output for older sources. Check complete emitted damage provenance and guidance, not just a section label. Inherent endurance, sleep/sedative, healing/pain and lifespan guidance must contain usable source effects, rather than placeholders announcing that effects are descriptive.
+
 ## Delivery gates
 
 Use new immutable inactive candidates, expected core1.20.0/skills2.41.0/equipment1.27.0 after checking live versions. Preserve all141 prior accepted entries/files, unrelated classes/races/profiles/catalogs, exact pins and legacy projections. Add only the new identity/profile/items and shared descriptive opt-in. Obtain independent source/spec and standards/shared review before activation.

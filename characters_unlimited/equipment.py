@@ -7,6 +7,7 @@ from .starting_choices import project_starting_choices
 from .starting_groups import project_starting_groups
 from .combat_grants import elective_proficiencies
 from .weapon_fire_modes import burst_only
+from .source_citations import validate_source_citation
 
 
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
@@ -34,10 +35,9 @@ def _catalog(pack):
                     or not -100 <= item['movement_penalty'] <= 0
                     or type(item.get('prowl_penalty')) is not int
                     or item['prowl_penalty'] != item['movement_penalty']
-                    or not isinstance(evidence, dict)
-                    or any(not isinstance(evidence.get(key), str) or not evidence[key].strip()
-                           for key in ('book', 'section'))):
+                    or not isinstance(evidence, dict)):
                 raise ValueError('Wearer armor penalties need bounded class overrides and matching source-bound movement/Prowl defaults')
+            validate_source_citation(evidence)
         if 'burst_only' in item:
             burst_only(item)
             if item.get('category') != 'weapon' or item.get('weapon_kind', 'ranged') != 'ranged':
@@ -264,14 +264,18 @@ def project_equipment(character, pack, combat, skills=None):
                     'value': None, 'contributions': {}, 'actions': 1, 'sources': [],
                 }
                 strength = combat.get('strength') if isinstance(combat, dict) else None
-                damage_bonus['sources'] = [*damage_bonus.get('sources', []), deepcopy(strength['source']) if strength else {
-                    'book': 'Rifts - Ultimate Edition', 'pages': [279, 281],
-                    'pdf_pages': [282, 284], 'section': 'Normal human strength damage',
-                }]
+                if strength:
+                    damage_bonus['sources'] = [deepcopy(strength['source'])]
+                else:
+                    damage_bonus['sources'] = [*damage_bonus.get('sources', []), {
+                        'book': 'Rifts - Ultimate Edition', 'pages': [279, 281],
+                        'pdf_pages': [282, 284], 'section': 'Normal human strength damage',
+                    }]
                 normal_strength = (character.get('strength_type', 'normal') == 'normal'
                                    and set(contributions).issubset({'normal_strength','hand_to_hand'})
                                    and type(normal_bonus) is int)
-                melee_guidance = ['Held melee attack; throwing and enhanced-strength rules remain pending.']
+                melee_guidance = (['Held melee attack; damage follows the source-described strength guidance.'] if strength else
+                                  ['Held melee attack; throwing and enhanced-strength rules remain pending.'])
                 if low_pp:
                     melee_guidance.append('P.P. below 8 leaves strike and parry totals pending.')
                 if definition.get('damage_scale') == 'mega-damage':
@@ -286,7 +290,8 @@ def project_equipment(character, pack, combat, skills=None):
                     damage = 'Pending strength damage rules'
                     melee_guidance.append('The accepted combat rules have no reviewed strength damage contribution; review a rule update.')
                 elif not normal_strength:
-                    damage = 'Pending enhanced-strength melee damage'
+                    damage = ('Descriptive enhanced-strength melee damage' if strength else
+                              'Pending enhanced-strength melee damage')
                     melee_guidance.append('Enhanced strength melee damage is not yet reviewed.')
                 else:
                     damage = definition['damage'].removesuffix(' S.D.C.')
@@ -381,8 +386,11 @@ def project_equipment(character, pack, combat, skills=None):
     if unknown_weight_quantity:
         guidance.append('Some carried equipment has no source weight; the known carried weight is an incomplete total.')
     if melee_attacks:
-        guidance.append('Held melee damage uses the reviewed normal-human strength and training contributions once. Throwing and enhanced strength remain pending.' if reviewed_low_strength else
-                        'Held melee damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
+        if isinstance(combat, dict) and combat.get('strength'):
+            guidance.append(combat['strength']['name'] + ': held melee damage follows source guidance; reviewed weapon base M.D. is retained without strength additions.')
+        else:
+            guidance.append('Held melee damage uses the reviewed normal-human strength and training contributions once. Throwing and enhanced strength remain pending.' if reviewed_low_strength else
+                            'Held melee damage adds the normal human strength bonus once. Throwing, enhanced strength and low P.S. melee damage remain pending.')
     if any(item.get('category') == 'ammunition' for item in definitions.values()):
         guidance.append('Reload by swapping the remaining shots in one carried gun and one compatible carried clip. Split grouped gun or clip rows into individual possessions first.')
     funds = project_starting_funds(character, pack)

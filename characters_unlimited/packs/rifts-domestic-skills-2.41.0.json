@@ -57983,7 +57983,11 @@
         "Choose native language, two other languages(+10), two Pilot skills(+10), eight Related and two Secondary skills initially.",
         "Expert is free; Martial Arts or evil Assassin costs one Related choice. Knife/Energy Rifle/Energy Pistol are automatic; choose two other W.P.s of either family.",
         "Automatic dodge is separate from ordinary dodge: use P.P. bonuses and+1 at levels1/3/6/9/12; no ordinary dodge bonuses or attack cost. Resolve context from source79.",
-        "Enhanced endurance/healing, reduced sleep, pain/stimulant response and shortened lifespan remain source descriptions, not activity/death simulation.",
+        "Endurance: can lift/carry four times an ordinary person of equivalent strength/endurance and last ten times longer before exhaustion. Can remain fully alert for five days(120 hours); ordinarily needs only three hours of sleep. These are source traits, not automatic activity simulation.",
+        "Sleep and drugs: cannot fall asleep without a sedative or tranquilizer. The bio-comp can counter tranquilizers/stimulants and ready the Juicer within15 seconds(one melee); the first recovery melee uses half normal combat bonuses. Chemical dependence and jumpy/anxious behavior remain character traits.",
+        "Healing: heals four times the normal rate. Pain does not stop function until Hit Points fall to5 or less, when the Juicer collapses into a bio-comp-induced healing trance/coma. The+20 coma/death save is included separately, without automatic injury/healing resolution.",
+        "Lifespan: chemical augmentation is fatal after five years plus4D6 months as a Juicer. Ordinary saving throws/healing do not avert this decline; source80 also notes the severe Resurrection success penalty. Detox and its replacement/retained-skill consequences remain separate saved-class revision work.",
+        "Speed trait: after a short run, leaps can cover30ft horizontally or20ft vertically; standing distance is half. These source distances remain descriptive.",
         "Bio-comp/bio-data implants, drug harness and supply are fixed class gear. Start with no other cybernetics; detox/class revision and other Juicer variants remain separate.",
         "Military Pilot Related+5 applies to the catalog entries explicitly headed Military; other catalog prerequisites and source restrictions remain guidance.",
         "Generic Human P.P.E. and full wider catalogs remain unresolved; no other racial base is substituted."
@@ -58666,12 +58670,16 @@
       "source": {
         "book": "Rifts - Ultimate Edition",
         "pages": [
+          79,
+          80,
           81
         ],
         "pdf_pages": [
+          82,
+          83,
           84
         ],
-        "section": "Classic Juicer O.C.C. skills, Related restrictions and training"
+        "section": "Classic Juicer skills and special abilities"
       }
     },
     "merc-soldier-communications": {

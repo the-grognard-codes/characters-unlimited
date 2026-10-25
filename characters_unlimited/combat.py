@@ -12,6 +12,7 @@ from .advancement import learning_age
 from .combat_grants import fixed_proficiencies, proficiency_allowances, proficiency_selection_cost
 from .weapon_fire_modes import burst_only
 from .weapon_entitlements import scheduled_training
+from .source_citations import validate_source_citation
 
 
 def descriptive_strength(rules):
@@ -28,10 +29,9 @@ def descriptive_strength(rules):
             or set(row) != {'name', 'text', 'source'}
             or any(not isinstance(row.get(key), str) or not row[key].strip() or len(row[key]) > maximum
                    for key, maximum in (('name', 80), ('text', 8000)))
-            or not isinstance(row.get('source'), dict)
-            or any(not isinstance(row['source'].get(key), str) or not row['source'][key].strip()
-                   for key in ('book', 'section'))):
+            or not isinstance(row.get('source'), dict)):
         raise ValueError('Descriptive strength needs a bounded name/text and book/section evidence')
+    validate_source_citation(row['source'])
     return {'type': kind, **deepcopy(row)}
 
 
@@ -260,6 +260,9 @@ def project_combat(character, pack):
         if count<0: warnings.append(f'{family.title()}: {-count} selection(s) over the allowance; retained.')
     attribute_source = {'book':'Rifts - Ultimate Edition','pages':[281,283,284]}
     for name,result in totals.items():
+        if name == 'damage' and strength:
+            result['sources'] = [deepcopy(strength['source'])]
+            continue
         if name == 'attacks':
             result['sources'] = [hand['source']]
         elif name == 'gun_dodge':

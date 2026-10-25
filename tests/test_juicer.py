@@ -123,6 +123,19 @@ class JuicerTests(unittest.TestCase):
             self.assertEqual(view['remaining']['related'], 6)
             self.assertGreaterEqual(len(view['warnings']), 2)
 
+    def test_inherent_traits_are_useful_source_descriptions_in_public_view_and_pdf(self):
+        with tempfile.TemporaryDirectory() as directory:
+            app = self.app(directory)
+            hero = app.create(character_class=IDENTITY)
+            guidance = ' '.join(app.skill_view(hero['id'])['path_guidance'])
+            for phrase in ('four times', 'ten times', 'five days', 'three hours', 'sedative',
+                           'half normal combat bonuses', 'healing trance', 'five years plus4D6 months'):
+                self.assertIn(phrase, guidance)
+            fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields() or {}
+            text = ' '.join(str(row.get('/V', '')) for row in fields.values())
+            self.assertIn('heals four times the normal rate', text)
+            self.assertIn('five years plus4D6 months', text)
+
     def test_human_path_has_no_prevalence_roll_and_other_race_pairings_reject_before_dice(self):
         with tempfile.TemporaryDirectory() as directory:
             app = self.app(directory)

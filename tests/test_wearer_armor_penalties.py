@@ -59,6 +59,8 @@ class WearerArmorPenaltyTests(unittest.TestCase):
         mutations = [replace_field('movement_penalty_by_class', value) for value in bad]
         mutations += [replace_field('movement_penalty', None), replace_field('prowl_penalty', -5),
                       replace_field('movement_source', {'book': 'Missing section'}),
+                      replace_field('movement_source', {**SOURCE, 'pages': '267'}),
+                      replace_field('movement_source', {**SOURCE, 'pdf_pages': [True]}),
                       replace_field('category', 'gear')]
         for mutate in mutations:
             with self.subTest(mutate=mutate), tempfile.TemporaryDirectory() as directory:

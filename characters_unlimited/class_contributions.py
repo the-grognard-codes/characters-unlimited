@@ -5,6 +5,23 @@ from .numeric_contributions import (compile_numeric_contributions, numeric_formu
 from .recorded_formulas import MAX_INTEGER
 
 
+def class_saving_definitions(pack):
+    """Source-owned save categories without adding rows to other class views."""
+    rows = pack.get('class_bonuses', {}).get('saving_definitions', [])
+    if not isinstance(rows, list) or len(rows) > 100:
+        raise ValueError('Class saving definitions need a bounded list')
+    seen = {row['id'] for row in pack.get('attribute_saves', {}).get('definitions', [])}
+    for row in rows:
+        if (not isinstance(row, dict) or set(row) != {'id', 'name', 'source'}
+                or any(not isinstance(row[key], str) or not row[key].strip() for key in ('id', 'name'))
+                or row['id'] in seen or not isinstance(row['source'], dict)
+                or any(not isinstance(row['source'].get(key), str) or not row['source'][key].strip()
+                       for key in ('book', 'section'))):
+            raise ValueError('Class saving definitions need distinct categories and source evidence')
+        seen.add(row['id'])
+    return [{**row, 'unit': '', 'contributions': []} for row in rows]
+
+
 def class_numeric_contributions(pack, *, level=1, character=None):
     rules = pack.get('class_bonuses', {})
     if rules == {}:
@@ -12,14 +29,15 @@ def class_numeric_contributions(pack, *, level=1, character=None):
             project_numeric_contributions([], set(), character.get('numeric_acquisitions', {}))
         return []
     if (not isinstance(rules, dict) or not {'class_id', 'perception', 'saving', 'source'} <= set(rules) or
-            set(rules) - {'class_id', 'perception', 'saving', 'source', 'combat', 'level_bonuses', 'rolled_bonuses'} or
+            set(rules) - {'class_id', 'perception', 'saving', 'source', 'combat', 'level_bonuses', 'rolled_bonuses', 'saving_definitions'} or
             not isinstance(rules['class_id'], str) or not rules['class_id'].strip() or
             not isinstance(rules['saving'], dict) or
             any(not isinstance(key, str) or not key.strip() for key in rules['saving'])):
         raise ValueError('Unsupported class numeric bonus declaration')
     targets = {'saving:' + row['id'] for row in pack.get('attribute_saves', {}).get('definitions', [])}
+    targets.update('saving:' + row['id'] for row in class_saving_definitions(pack))
     targets.add('perception')
-    targets.update('combat:' + key for key in ('attacks', 'initiative', 'roll_with_impact', 'dodge', 'disarm', 'strike', 'pull_punch'))
+    targets.update('combat:' + key for key in ('attacks', 'initiative', 'roll_with_impact', 'dodge', 'disarm', 'strike', 'parry', 'pull_punch'))
     rolled = rules.get('rolled_bonuses', [])
     numeric_formula_catalog(rolled, {target for target in targets if target.startswith('saving:')})
     combat = rules.get('combat', {})

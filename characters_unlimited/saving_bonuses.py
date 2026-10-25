@@ -1,7 +1,7 @@
 """Versioned attribute contributions to saving rolls, separate from roll targets."""
 
 
-from .class_contributions import class_numeric_contributions
+from .class_contributions import class_numeric_contributions, class_saving_definitions
 from .numeric_contributions import apply_numeric_contributions
 
 
@@ -11,7 +11,7 @@ def project_saving_bonuses(character, pack):
     if not rules:
         return {}, []
     results = {}
-    for definition in rules['definitions']:
+    for definition in [*rules['definitions'], *class_saving_definitions(pack)]:
         if definition['id'] == 'insanity':
             continue  # General insanity is outside the player-focused scope.
         contributions = {}

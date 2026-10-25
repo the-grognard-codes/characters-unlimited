@@ -953,14 +953,14 @@ class CharacterApplication:
             changes['additional_rule_packs'] = {**character.get('additional_rule_packs', {}), pack['id']:pack['version']}
         return self.store.update(identifier,changes,revision)
 
-    def generate_starting_funds(self, identifier, *, revision):
+    def generate_starting_funds(self, identifier, *, revision, choices=None):
         require_revision(revision)
         character = self.get(identifier)
         if revision != character['revision']:
             raise SaveConflict('This character changed. Reopen it before generating starting funds.')
         pack = self.character_equipment_pack(character)
         validate_inventory(character.get('equipment', {'credits': 0, 'items': []}), pack)
-        changes = acquire_starting_funds(character, pack, self.die)
+        changes = acquire_starting_funds(character, pack, self.die, choices=choices)
         validate_inventory(changes['equipment'], pack)
         pins = dict(character['additional_rule_packs'])
         pins[pack['id']] = pack['version']

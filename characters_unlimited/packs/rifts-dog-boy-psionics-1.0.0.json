@@ -1,0 +1,1747 @@
+{
+  "catalog": {
+    "format": "abilities-v1",
+    "game": "rifts",
+    "groups": [],
+    "id": "rifts-dog-boy-psionics-catalog",
+    "options": [
+      {
+        "category": "Sensitive",
+        "description": "After 4D4 minutes of concentration, project an Astral Self connected by a silver cord while the body lies helpless. Observe the material world as a flying, intangible spirit; communication requires psychic means. Astral/psychic/magical threats can harm the spirit or cord. A severed cord risks death; locating the body without it has 30% chance, best two of three. Astral Plane time differs, and returning requires finding the way back; a lost or captured spirit endangers the body.",
+        "id": "astral-projection",
+        "name": "Astral Projection",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Astral Projection"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Astral Projection"
+            },
+            "text": "5 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Astral Projection"
+            },
+            "text": "8"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Astral Projection"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Seek brief, uncertain glimpses of a possible future, at most twice daily. Concentrate 2D4 melee rounds; no other activity is possible during the vision. Base chance 58% +2% per level, plus 5% for a friend or loved one. Failure gives no insight but still spends 4 ISP; the future may be changed.",
+        "id": "clairvoyance",
+        "name": "Clairvoyance",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            },
+            "text": "Self; visions may concern distant people or places."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            },
+            "text": "6D6 melee rounds."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Base Skill",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Clairvoyance"
+            },
+            "text": "58% plus2% per level."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Clairvoyance"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Feel nearby spirits and ask questions aloud. Only the psychic hears replies unless using a group trance. Spirits may refuse, lie, break contact or attack; communion does not reveal alignment or magic energy and prevents other psionic powers. Breaking contact ends awareness of the spirit.",
+        "id": "commune-with-spirits",
+        "name": "Commune with Spirits",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            },
+            "text": "Two minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Commune with Spirits"
+            },
+            "text": "Standard."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Commune with Spirits"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Dog Boy Empathy is reception only; transmission is unavailable. Empathy is a psi-ability that makes the psychic aware of, or feel, the emotions of other people, animals and supernatural creatures. The strongest emotions are easiest to sense: hate, anger, terror, love. Feeling for emotions can often be used to establish that somebody or something is nearby, but can NOT be used to pinpoint an invisible or hiding person/ creature. Empathy can be especially helpful in recognizing and communicating with ghosts and other supernatural creatures.",
+        "id": "empathy",
+        "name": "Empathy",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "100-foot area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "2 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Empathy"
+            },
+            "text": "Standard each melee; a successful save obscures the target's emotions. Mind Block prevents emanations."
+          }
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Standard Dog Boy abilities and physical bonuses",
+          "pages": [
+            145,
+            146,
+            147
+          ],
+          "pdf_pages": [
+            148,
+            149,
+            150
+          ]
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Concentrate one melee round before gaining+3 initiative,+1 strike/parry,+4 dodge/pull punch,+2 roll with impact/disarm, immunity to surprise and+10% Acrobatics/Gymnastics/Climb/Swim abilities. Other psionic powers, including Mind Block, cannot be used during this state. Cancel with a thought.",
+        "id": "intuitive-combat",
+        "name": "Intuitive Combat",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Intuitive Combat"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Intuitive Combat"
+            },
+            "text": "Two melee rounds per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Intuitive Combat"
+            },
+            "text": "10"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Intuitive Combat"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read electronic information at ten times normal speed, including disks or damaged machines; cannot edit data or enter sentient self-aware machines. The trance leaves the body oblivious and undefended; Telepathy can communicate. Virtual defenders and viruses threaten the projection: virtual death or failure to find the exit before duration ends requires coma/death checks. Breaking ordinary file contact causes one melee at half actions/combat bonuses.",
+        "id": "machine-ghost",
+        "name": "Machine Ghost",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            },
+            "text": "Self; computer by touch."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            },
+            "text": "Three minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            },
+            "text": "12"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Machine Ghost"
+            },
+            "text": "Not applicable."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Machine Ghost"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Hide psychic energy and potential from psychic detection and aura readers. While masking, the psychic blocks incoming emanations and cannot use other psionic powers until the mask is released.",
+        "id": "mask-i-s-p-psionics",
+        "name": "Mask I.S.P. & Psionics",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask I.S.P. & Psionics"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask I.S.P. & Psionics"
+            },
+            "text": "10 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask I.S.P. & Psionics"
+            },
+            "text": "7"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mask I.S.P. & Psionics"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "A psionic power that enables the character to completely mask all but 1D4 P.P.E. of his personal P.P.E. base. Characters who can sense magic energy or see aura will regard this character as having an insignificant amount of P.P.E. This power is especially good as protection against Psi-Stalkers and other P.P.E. vampires. Mystics can easily hide their magical powers through this psionic concealment.",
+        "id": "mask-p-p-e",
+        "name": "Mask P.P.E.",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask P.P.E."
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask P.P.E."
+            },
+            "text": "Ten minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Mask P.P.E."
+            },
+            "text": "4"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Mask P.P.E."
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Hold an object to seek impressions and images of its history and last owner; roll separately for each. Each psychic may read a given object only once, even after failure. A successful impression or image permits a present-time glimpse for an additional 4 ISP, with its own success check. Reading a possessed object exposes the psychic to psychic attacks without saving bonuses.",
+        "id": "object-read",
+        "name": "Object Read",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "Touch."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "Varies; usually about 2D6 minutes."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "None."
+          },
+          {
+            "id": "metadata-4",
+            "name": "Base Skill",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Object Read"
+            },
+            "text": "Impressions: 56% +2% per level of experience. Images: 48% +2% per level. Present: 38% +2% per level of experience."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Object Read"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Sense supernatural or magical presences without exact location, estimating proximity, number and power. Human and D-Bee presence may register weakly, without reliable distance or count.",
+        "id": "presence-sense",
+        "name": "Presence Sense",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            },
+            "text": "120 feet (36.6 m) area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            },
+            "text": "2 minutes (8 melees) per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Presence Sense"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Presence Sense"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read information about an active dimensional portal, its destination and, where applicable, how to operate the gateway.",
+        "id": "read-dimensional-portal",
+        "name": "Read Dimensional Portal",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            },
+            "text": "Touch or one foot (0.3 m) per level of experience."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            },
+            "text": "One melee round per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            },
+            "text": "Not applicable."
+          },
+          {
+            "id": "metadata-4",
+            "name": "Limitations",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Read Dimensional Portal"
+            },
+            "text": "Applicable only to active (open) dimensional portals and devices that can create a dimensional portal."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Read Dimensional Portal"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Use a photo/video image to glimpse a person or small place as it is now for 2D6+6 seconds, even if already familiar. Cannot survey a whole building or revisit the same subject for 24 hours. Psychic targets may resist by concentrating, spending 1 ISP and making a standard psychic save.",
+        "id": "remote-viewing",
+        "name": "Remote Viewing",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            },
+            "text": "2D6+6 second flash of insight or vision of current events."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            },
+            "text": "10"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Remote Viewing"
+            },
+            "text": "Special. Other psychics can feel or sense when somebody is trying to observe them and can try to resist it by concentrating (uses up one I.S.P.); standard save vs psionic attack (in this case, psionic intrusion). Failure means the psychic is seen via Remote Viewing. Success means the psychic trying to view is blocked, and he knows that the target has deliberately done so. Otherwise, the target of this power gets no impression from being viewed remotely and has no idea why he is being watched or by whom."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Remote Viewing"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read an aura to estimate experience, psychic potential, magic, health and supernatural influences, but not alignment. Mind Block hides psychic ability, PPE level and possession.",
+        "id": "see-aura",
+        "name": "See Aura",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "60 feet (18.3 m) and must be visible."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "2 melees (30 seconds)."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "6"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See Aura"
+            },
+            "text": "None, but a Mind Block will hide the presence of psychic abilities, the level of P.P.E., and possession by a supernatural force."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: See Aura"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "The character can see entities, beings, forces, objects and creatures which can turn invisible or are naturally invisible. Even if the creature has no form per se, the psychic will be able to discern the vaporous image or energy sphere which is the being. This includes ghosts, Entities, Elementals and Astral Beings.",
+        "id": "see-the-invisible",
+        "name": "See the Invisible",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "120 feet (36.6 m); double on a ley line."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "1 minute per each level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: See the Invisible"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: See the Invisible"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "This power detects the presence of a dimensional anomaly like an open/active dimensional portal or Rift, the random opening and closing of a Rift, Ley Line Storms, and dimensional triangles (e.g. the Devil's Sea/Bermuda Triangle), as well as any disturbances caused by teleportation, the use of Temporal or Ley Line Magic or other powers that disrupt the fabric of reality. The psychic knows when it happens, when it ends/closes, the general direction, and whether it is far or near, but no exact knowledge of its location or what is happening because of it.",
+        "id": "sense-dimensional-anomaly",
+        "name": "Sense Dimensional Anomaly",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            },
+            "text": "100 feet (30.5 m) radius per level of experience."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            },
+            "text": "2 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Dimensional Anomaly"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Dimensional Anomaly"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Feel supernatural evil automatically without ISP; activate the power for approximate number, strength, location and tracking. Human evil registers only with immediate evil intent plus psychic powers or psychosis, and Mind Block may mask it.",
+        "id": "sense-evil",
+        "name": "Sense Evil",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "140 feet (42.7 m) area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "2 minutes (8 melees) per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "2"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Evil"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Evil"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Sense nearby magic and follow emanations toward the source; identify enchantment or active spellcasting. Invisible magical or supernatural targets locate only to a general area. Psionic effects are excluded.",
+        "id": "sense-magic",
+        "name": "Sense Magic",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "120 feet (36.6 m) area."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "2 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "3"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Magic"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Magic"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "The psychic is able to accurately measure the passage of time, down to within 1D4 seconds. This can be useful when in an environment where the passage of time can be lost, and especially when the character must meet with or do something at a precise moment in time, like gauging exactly when a bomb will detonate, when a switch must be turned on or off, and so on.",
+        "id": "sense-time",
+        "name": "Sense Time",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            },
+            "text": "15 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sense Time"
+            },
+            "text": "2"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sense Time"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "An automatic precognitive warning of imminent, unexpected life-threatening danger. The initial danger round grants+6 initiative, +2 parry and +3 dodge; it does not reveal the danger or operate when ISP is exhausted.",
+        "id": "sixth-sense",
+        "name": "Sixth Sense",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "90 feet."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "Until danger passes or occurs; bonuses only in its first melee round."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "2"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Sixth Sense"
+            },
+            "text": "None."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Sixth Sense"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read 30 pages per minute with normal retention. Highly technical material reduces the rate to 15 pages per minute and may require two readings for detailed recall.",
+        "id": "speed-reading",
+        "name": "Speed Reading",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            },
+            "text": "3 minutes per level."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Speed Reading Speed Reading"
+            },
+            "text": "2"
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Speed Reading Speed Reading"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Read one person's surface thoughts at a time; no deep memory probe or simultaneous reading. Send brief directed messages to one recipient; two-way conversation requires both participants to have telepathy. A suspected probe permits a standard save, and Mind Block prevents probes or communication.",
+        "id": "telepathy",
+        "name": "Telepathy",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "Read surface thoughts up to 60 feet (18.3 m) away or two-way telepathic communication up to 140 feet (42.7 m) +40 feet (12.2 m) per level of experience."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "2 minutes per level of experience."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "4"
+          },
+          {
+            "id": "metadata-3",
+            "name": "Saving Throw",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Telepathy"
+            },
+            "text": "Conditional. When a character suspects he is being telepathically probed he can resist, getting the standard saving throw. Mind Blocks will completely prevent telepathic probes or communications as long as the block is up."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Telepathy"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "category": "Sensitive",
+        "description": "Recall written and visual information in detail; the source also includes spoken words. This utility follows the prose cost of 3 ISP per precisely recalled block; the printed header instead says 2 ISP. With no ISP, roll percentile:01-50 full detail,51-80 ideas without details,81-100 basic concepts only.",
+        "id": "total-recall",
+        "name": "Total Recall",
+        "parameters": [
+          {
+            "id": "metadata-0",
+            "name": "Range",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            },
+            "text": "Self."
+          },
+          {
+            "id": "metadata-1",
+            "name": "Duration",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            },
+            "text": "Permanent."
+          },
+          {
+            "id": "metadata-2",
+            "name": "I.S.P.",
+            "source": {
+              "book": "Rifts Ultimate Edition",
+              "section": "Psionic Powers: Total Recall"
+            },
+            "text": "3 per detailed block; printed header says2. See description."
+          }
+        ],
+        "source": {
+          "book": "Rifts Ultimate Edition",
+          "section": "Psionic Powers: Total Recall"
+        },
+        "tags": [
+          "Sensitive"
+        ]
+      },
+      {
+        "id": "dog-boy-energy",
+        "name": "Sense Psychic and Magic Energy",
+        "category": "Innate",
+        "tags": [
+          "Innate"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Standard Dog Boy abilities and physical bonuses",
+          "pages": [
+            145,
+            146,
+            147
+          ],
+          "pdf_pages": [
+            148,
+            149,
+            150
+          ]
+        },
+        "description": "Automatic and constant; no ISP. Multiple scattered sources halve tracking; psychic scent cannot distinguish several sources using powers at the same location. Roll each melee round when tracking.",
+        "parameters": [
+          {
+            "id": "tracking",
+            "name": "Energy tracking",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 40,
+              "per_level": 5,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "active-range",
+            "name": "Active energy sensitivity",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 400,
+              "per_level": 50,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "passive-range",
+            "name": "Inactive psychic/magic source sensitivity",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 50,
+              "per_level": 5,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "dog-boy-psychic-scent",
+        "name": "Recognize Psychic Scent",
+        "category": "Innate",
+        "tags": [
+          "Innate"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Standard Dog Boy abilities and physical bonuses",
+          "pages": [
+            145,
+            146,
+            147
+          ],
+          "pdf_pages": [
+            148,
+            149,
+            150
+          ]
+        },
+        "description": "Automatic psychic scent recognition; no ISP. Recognizing an individual gains10 with a recent physical sample and10 for a past known encounter; these contextual additions are not unconditional.",
+        "parameters": [
+          {
+            "id": "general",
+            "name": "General psychic scent recognition",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 10,
+              "per_level": 4,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "specific",
+            "name": "Specific known individual recognition",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 8,
+              "per_level": 2,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "range",
+            "name": "Psychic scent range",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 50,
+              "per_level": 5,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "dog-boy-supernatural",
+        "name": "Sense Supernatural Beings",
+        "category": "Innate",
+        "tags": [
+          "Innate"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Standard Dog Boy abilities and physical bonuses",
+          "pages": [
+            145,
+            146,
+            147
+          ],
+          "pdf_pages": [
+            148,
+            149,
+            150
+          ]
+        },
+        "description": "Automatic and constant; no ISP. Detects concealed supernatural presences and possession. Nearby ley lines halve psychic sensing/tracking and a ley line obliterates it.",
+        "parameters": [
+          {
+            "id": "identify",
+            "name": "Identify supernatural type/race",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 62,
+              "per_level": 2,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "track",
+            "name": "Inactive disguised supernatural tracking",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 35,
+              "per_level": 5,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "active-track",
+            "name": "Active/powerful supernatural tracking",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 70,
+              "per_level": 3,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "range",
+            "name": "Inactive supernatural sensitivity",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 0,
+              "per_level": 100,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "active-range",
+            "name": "Active/powerful supernatural sensitivity",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 1000,
+              "per_level": 100,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "dog-boy-physical-senses",
+        "name": "Superior Smell, Hearing and Sight",
+        "category": "Innate",
+        "tags": [
+          "Innate"
+        ],
+        "source": {
+          "book": "Rifts - Ultimate Edition",
+          "section": "Standard Dog Boy abilities and physical bonuses",
+          "pages": [
+            145,
+            146,
+            147
+          ],
+          "pdf_pages": [
+            148,
+            149,
+            150
+          ]
+        },
+        "description": "Physical senses remain available on ley lines. Track by smell in darkness; scent cannot follow through water, rain or astral paths. Roll once per1000feet, twice out of three successes regains a temporarily lost trail. Vision200degrees for short-nosed canines or270degrees for long-nosed; human110degrees. Ordinary bite1D6SDC nip or2D6full strength, source situational bonuses remain descriptive.",
+        "parameters": [
+          {
+            "id": "common-scents",
+            "name": "Common/strong scent recognition",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 70,
+              "per_level": 3,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "specific-odors",
+            "name": "Specific familiar odor identification",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 54,
+              "per_level": 2,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "smell-track",
+            "name": "Tracking by physical smell",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 40,
+              "per_level": 4,
+              "unit": "%",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "common-range",
+            "name": "Common/strong scent range",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 0,
+              "per_level": 100,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          },
+          {
+            "id": "specific-range",
+            "name": "Specific odor range",
+            "source": {
+              "book": "Rifts - Ultimate Edition",
+              "section": "Standard Dog Boy abilities and physical bonuses",
+              "pages": [
+                145,
+                146,
+                147
+              ],
+              "pdf_pages": [
+                148,
+                149,
+                150
+              ]
+            },
+            "quantity": {
+              "base": 0,
+              "per_level": 25,
+              "unit": "feet",
+              "level_origin": 0
+            }
+          }
+        ]
+      }
+    ],
+    "version": "1.0.0"
+  },
+  "categories": [
+    "Sensitive",
+    "Innate"
+  ],
+  "fixed_path": "master",
+  "format": "ability-paths-v3",
+  "game": "rifts",
+  "id": "rifts-dog-boy-psionics",
+  "name": "Standard Dog Boy psychic powers",
+  "paths": [
+    {
+      "allowances": {
+        "class": {
+          "awards": [
+            {
+              "categories": [
+                "Sensitive"
+              ],
+              "count": 1,
+              "id": "initial-sensitive",
+              "level": 1,
+              "name": "One additional Sensitive power",
+              "source": {
+                "book": "Rifts - Ultimate Edition",
+                "section": "Standard Dog Boy abilities and physical bonuses",
+                "pages": [
+                  145,
+                  146,
+                  147
+                ],
+                "pdf_pages": [
+                  148,
+                  149,
+                  150
+                ]
+              }
+            }
+          ],
+          "count": 0,
+          "maximum_categories": 2,
+          "minimum_categories": 0
+        }
+      },
+      "growth": {
+        "ISP": {
+          "formula": {
+            "constant": 10,
+            "count": 0,
+            "sides": 0
+          },
+          "source": {
+            "book": "Rifts - Ultimate Edition",
+            "section": "Standard Dog Boy abilities and physical bonuses",
+            "pages": [
+              145,
+              146,
+              147
+            ],
+            "pdf_pages": [
+              148,
+              149,
+              150
+            ]
+          }
+        }
+      },
+      "id": "master",
+      "known_abilities": [
+        "sense-evil",
+        "sense-magic",
+        "sixth-sense",
+        "empathy",
+        "dog-boy-energy",
+        "dog-boy-psychic-scent",
+        "dog-boy-supernatural",
+        "dog-boy-physical-senses"
+      ],
+      "name": "Dog Boy Master Psychic",
+      "resources": {
+        "definitions": [
+          {
+            "contributions": [
+              {
+                "attribute": "ME",
+                "id": "starting-ME",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Standard Dog Boy abilities and physical bonuses",
+                  "pages": [
+                    145,
+                    146,
+                    147
+                  ],
+                  "pdf_pages": [
+                    148,
+                    149,
+                    150
+                  ]
+                }
+              },
+              {
+                "formula": {
+                  "bonus": 0,
+                  "count": 1,
+                  "multiplier": 10,
+                  "sides": 6
+                },
+                "id": "starting-dice",
+                "source": {
+                  "book": "Rifts - Ultimate Edition",
+                  "section": "Standard Dog Boy abilities and physical bonuses",
+                  "pages": [
+                    145,
+                    146,
+                    147
+                  ],
+                  "pdf_pages": [
+                    148,
+                    149,
+                    150
+                  ]
+                }
+              }
+            ],
+            "id": "ISP",
+            "name": "Inner Strength Points"
+          }
+        ],
+        "guidance": [
+          "StartingME+D6x10; later levels add10. Recovery2ISP/hour activity or12/hour meditation/sleep."
+        ]
+      },
+      "save_target": 10,
+      "source": {
+        "book": "Rifts - Ultimate Edition",
+        "section": "Standard Dog Boy abilities and physical bonuses",
+        "pages": [
+          145,
+          146,
+          147
+        ],
+        "pdf_pages": [
+          148,
+          149,
+          150
+        ]
+      }
+    }
+  ],
+  "skip_path": "master",
+  "source": {
+    "book": "Rifts - Ultimate Edition",
+    "section": "Standard Dog Boy abilities and physical bonuses",
+    "pages": [
+      145,
+      146,
+      147
+    ],
+    "pdf_pages": [
+      148,
+      149,
+      150
+    ]
+  },
+  "version": "1.0.0"
+}

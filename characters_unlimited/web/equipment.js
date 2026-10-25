@@ -44,11 +44,19 @@ async function loadEquipment(character) {
   $('starting-gear-source').textContent = gear.generated ? `${equipmentSourceCitation(gear.source)}. This is the original grant; current possessions are listed below.` : '';
   const funds = view.starting_funds;
   $('generate-starting-funds').hidden = !funds.supported || funds.generated;
+  $('starting-funds-choices').replaceChildren(...funds.definitions.filter(definition => definition.choice && !funds.generated).map(definition => {
+    const label = document.createElement('label');
+    label.textContent = `${definition.choice.name} (${definition.choice.minimum}–${definition.choice.maximum})`;
+    const amount = document.createElement('input'); amount.type = 'number'; amount.step = '1';
+    amount.min = String(definition.choice.minimum); amount.max = String(definition.choice.maximum);
+    amount.value = amount.min; amount.required = true; amount.dataset.fundsId = definition.id;
+    label.append(amount); return label;
+  }));
   $('starting-funds-guidance').textContent = funds.guidance.join(' ');
   $('starting-funds-record').replaceChildren(...Object.entries(funds.funds).map(([id,record]) => {
     const row = document.createElement('p'); row.className = 'help';
     const definition = funds.definitions.find(entry => entry.id === id);
-    row.textContent = `${definition.name}: ${record.value.toLocaleString()} credits = (${[...record.rolls, ...(definition.constant ? [definition.constant] : [])].join(' + ') || '0'}) × ${definition.multiplier}. ${equipmentSourceCitation(record.source)}.`;
+    row.textContent = `${definition.name}: ${record.value.toLocaleString()} credits = (${[...record.rolls, ...(definition.constant ? [definition.constant] : []), ...('choice' in record ? [record.choice] : [])].join(' + ') || '0'}) × ${definition.multiplier}. ${equipmentSourceCitation(record.source)}.`;
     return row;
   }));
   $('equipment-credits').value = view.inventory.credits;
@@ -135,7 +143,7 @@ async function loadEquipment(character) {
   }
   for (const armor of view.armor) {
     const row = document.createElement('p'); row.className = 'help';
-    row.textContent = `${armor.name}: ${Object.entries(armor.locations).map(([location,value]) => location.replaceAll('_',' ') + ' ' + value + ' M.D.C.').join(' · ')}. Movement skill penalty: ${armor.movement_penalty}%.`;
+    row.textContent = `${armor.name}: ${Object.entries(armor.locations).map(([location,value]) => location.replaceAll('_',' ') + ' ' + value + ' M.D.C.').join(' · ')}. Movement skill penalty: ${armor.movement_penalty == null ? 'unspecified' : armor.movement_penalty + '%'}.`;
     const protection = document.createElement('p'); protection.className = 'help';
     protection.textContent = `${armor.environmental == null ? 'Environmental status unspecified by these pinned rules' : armor.environmental ? 'Environmental armor' : 'Non-environmental armor'}. ${armor.protection_notes.join(' ')}`;
     const citation = document.createElement('p'); citation.className = 'help';
@@ -161,7 +169,8 @@ function renderStartingGroups(starting, catalog, characterId) {
     if (group.generated && group.receipt) {
       const selected = catalog.find(item => item.id === group.receipt.selection);
       const record = document.createElement('p'); record.className = 'help';
-      record.textContent = `Original selection: ${selected?.name || group.receipt.selection} × ${group.quantity}. This receipt is independent of current inventory and cannot grant this group again.`;
+      const original = group.receipt.grants[0];
+      record.textContent = `Original selection: ${selected?.name || group.receipt.selection} × ${original.quantity}${original.rolls?.length ? `; recorded dice: ${original.rolls.join(', ')}` : ''}. This receipt is independent of current inventory and cannot grant this group again.`;
       section.append(record);
       if (group.receipt.condition) {
         const condition = document.createElement('p'); condition.className = 'help';
@@ -202,7 +211,8 @@ function renderStartingGroups(starting, catalog, characterId) {
     const source = document.createElement('p'); source.className = 'help';
     source.textContent = `Rule source: ${equipmentSourceCitation(group.source)}`;
     const guidance = document.createElement('p'); guidance.className = 'help';
-    guidance.textContent = `${group.quantity} item${group.quantity === 1 ? '' : 's'} · ${group.location}. ${group.guidance.join(' ')}`;
+    const quantity = group.quantity_formula ? 'Quantity rolled once when granted' : `${group.quantity} item${group.quantity === 1 ? '' : 's'}`;
+    guidance.textContent = `${quantity} · ${group.location}. ${group.guidance.join(' ')}`;
     const requirements = document.createElement('p'); requirements.className = 'help';
     const renderRequirements = option => {
       requirements.textContent = (group.option_requirements?.[option] || []).map(row =>
@@ -256,7 +266,12 @@ function wireEquipmentEvents() {
   };
   $('grant-starting-gear').onclick = () => characterAction('starting-gear',{}).catch(showError);
   $('equipment-choice').onchange = filterEquipmentCatalog;
-  $('generate-starting-funds').onclick = () => characterAction('starting-funds',{}).catch(showError);
+  $('generate-starting-funds').onclick = () => {
+    const inputs = [...$('starting-funds-choices').querySelectorAll('input')];
+    if (inputs.some(amount => !amount.reportValidity())) return;
+    const choices = Object.fromEntries(inputs.map(amount => [amount.dataset.fundsId, Number(amount.value)]));
+    characterAction('starting-funds', {choices}).catch(showError);
+  };
   $('equipment-category').onchange = filterEquipmentCatalog;
   $('equipment-funds-form').onsubmit = event => {
     event.preventDefault();

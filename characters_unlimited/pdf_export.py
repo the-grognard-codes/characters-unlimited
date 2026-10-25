@@ -325,7 +325,7 @@ def fill_equipment(page, equipment, values):
         cost = (str(item['cost_credits']) if item['cost_credits'] is not None else
                 str(price_range['min'])+'–'+str(price_range['max']) if price_range else 'Unspecified')
         values.update({'ARMOR':item.get('sheet_name',item['name']),'COST':cost,
-                       'WEIGHT 1':str(item['weight_lbs'])+' lb',
+                       'WEIGHT 1':str(item['weight_lbs'])+' lb' if item['weight_lbs'] is not None else 'Unspecified',
                        'undefined_7':str(item['locations']['main_body']),
                        'undefined_8':str(item['locations']['main_body'])})
         if item.get('prowl_penalty') is not None:
@@ -467,7 +467,8 @@ def export_rifts_sheet(character, core, skills, combat):
             sheet_notes += '\n'+str(equipment['unknown_carried_weight_quantity'])+' carried item(s) have unspecified weight; the weight total is incomplete.'
         for identifier, record in equipment['starting_funds']['funds'].items():
             definition = next(item for item in equipment['starting_funds']['definitions'] if item['id']==identifier)
-            terms = [*map(str,record['rolls']), *([str(definition['constant'])] if definition.get('constant') else [])]
+            terms = [*map(str,record['rolls']), *([str(definition['constant'])] if definition.get('constant') else []),
+                     *([str(record['choice'])] if 'choice' in record else [])]
             calculation = ' + '.join(terms) or '0'
             sheet_notes += ('\n'+definition['name']+': '+str(record['value'])+' credits = ('+
                             calculation+') x'+str(definition['multiplier'])+'. '+resource_source_citation(record['source'])+'.')
@@ -485,7 +486,10 @@ def export_rifts_sheet(character, core, skills, combat):
         for group in equipment['starting_groups']['groups']:
             if group['generated']:
                 receipt = group['receipt']
-                sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(group['quantity'])+'.'
+                original = receipt['grants'][0]
+                sheet_notes += '\nOriginal '+group['name'].lower()+': '+names[receipt['selection']]+' x'+str(original['quantity'])+'.'
+                if original.get('rolls'):
+                    sheet_notes += ' Recorded dice: '+', '.join(map(str, original['rolls']))+'.'
                 if 'condition' in receipt:
                     sheet_notes += ' '+group['condition']['name']+': '+str(receipt['condition']['value'])+'%; recorded dice: '+', '.join(map(str, receipt['condition']['rolls']))+'.'
                 for grant in receipt['grants'][1:]:
@@ -521,7 +525,8 @@ def export_rifts_sheet(character, core, skills, combat):
                 sheet_notes += ' '+str(item['shots'])+'/'+str(item['capacity'])+' shots per clip with reviewed compatible weapons: '+', '.join(item['compatible_weapons'])+'.'
             elif item['category'] == 'armor':
                 sheet_notes += ' '+', '.join(name.replace('_',' ')+' '+str(value)+' M.D.C.' for name,value in item['locations'].items())+'.'
-                sheet_notes += ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.'
+                sheet_notes += (' Movement skill penalty unspecified by the pinned source.' if item['movement_penalty'] is None else
+                                ' Movement skill penalty '+str(item['movement_penalty'])+'%; not a universal speed penalty.')
                 if item.get('environmental') is not None:
                     sheet_notes += ' '+('Environmental' if item['environmental'] else 'Non-environmental')+' armor.'
                 sheet_notes += ' '+' '.join(item.get('protection_notes', []))

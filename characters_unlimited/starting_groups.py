@@ -27,6 +27,20 @@ def _possession_id(value):
         return False
 
 
+def _validate_quantity_formula(formula):
+    validate_formula(formula)
+    minimum = (formula['count'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
+    maximum = (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
+    if not 1 <= minimum <= maximum <= MAX_QUANTITY:
+        raise ValueError('Starting equipment quantities must remain within inventory bounds')
+
+
+def _grant_definitions(group, selection):
+    quantity_key = 'quantity_formula' if 'quantity_formula' in group else 'quantity'
+    return [{'item_id': selection, quantity_key: group[quantity_key]},
+            *group.get('additional_grants', {}).get(selection, [])]
+
+
 def starting_group_rules(character, pack, elective_count=None):
     """Compile equipment groups for a declared game/class identity without receipts."""
     if pack.get('id') != 'rifts-equipment' or pack.get('game') != 'rifts':
@@ -44,21 +58,24 @@ def starting_group_rules(character, pack, elective_count=None):
     for identifier, group in rules['groups'].items():
         if (not isinstance(identifier, str) or not identifier or len(identifier) > 100
                 or not isinstance(group, dict)
-                or set(group) - {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance', 'additional_grants', 'condition', 'option_requirements', 'proficiency_slot', 'repeat_for_proficiencies'}
-                or not {'name', 'category', 'options', 'quantity', 'location', 'source', 'guidance'} <= set(group)
+                or set(group) - {'name', 'category', 'options', 'quantity', 'quantity_formula', 'location', 'source', 'guidance', 'additional_grants', 'condition', 'option_requirements', 'proficiency_slot', 'repeat_for_proficiencies'}
+                or not {'name', 'category', 'options', 'location', 'source', 'guidance'} <= set(group)
+                or len({'quantity', 'quantity_formula'} & set(group)) != 1
                 or not isinstance(group['name'], str) or not group['name']
                 or group['category'] not in ('armor', 'weapon', 'gear', 'ammunition')
                 or not isinstance(group['options'], list) or not 0 < len(group['options']) <= MAX_QUANTITY
                 or any(not isinstance(item, str) or item not in catalog for item in group['options'])
                 or len(set(group['options'])) != len(group['options'])
                 or any(catalog[item]['category'] != group['category'] for item in group['options'])
-                or type(group['quantity']) is not int or not 1 <= group['quantity'] <= MAX_QUANTITY
+                or ('quantity' in group and (type(group['quantity']) is not int or not 1 <= group['quantity'] <= MAX_QUANTITY))
                 or group['location'] not in ('carried', 'stored')
                 or not isinstance(group['source'], dict)
                 or not isinstance(group['guidance'], list) or len(group['guidance']) > 100
                 or any(not isinstance(note, str) for note in group['guidance'])):
             raise ValueError('Invalid starting equipment group definition')
         _canonical(group['source'])
+        if 'quantity_formula' in group:
+            _validate_quantity_formula(group['quantity_formula'])
         if 'proficiency_slot' in group and (type(group['proficiency_slot']) is not int or
                 not 1 <= group['proficiency_slot'] <= MAX_QUANTITY):
             raise ValueError('Starting proficiency groups need a bounded elective slot')
@@ -111,12 +128,7 @@ def starting_group_rules(character, pack, elective_count=None):
                 if (not isinstance(grant, dict) or set(grant) != {'item_id', 'quantity_formula'}
                         or not isinstance(grant['item_id'], str) or grant['item_id'] not in catalog):
                     raise ValueError('Additional equipment grants need reviewed items and formulas')
-                formula = grant['quantity_formula']
-                validate_formula(formula)
-                minimum = (formula['count'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
-                maximum = (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula.get('multiplier', 1)
-                if not 1 <= minimum <= maximum <= MAX_QUANTITY:
-                    raise ValueError('Additional equipment quantities must remain within inventory bounds')
+                _validate_quantity_formula(grant['quantity_formula'])
     return _expanded_groups(character, rules['groups'], pack.get('training_catalogs', {}), elective_count)
 
 
@@ -204,8 +216,7 @@ def validate_starting_groups(character, pack):
                     or type(condition['value']) is not int
                     or condition['value'] != formula_value(group['condition']['formula'], condition['rolls'])):
                 raise ValueError('Invalid original starting condition dice')
-        definitions = [{'item_id': receipt['selection'], 'quantity': group['quantity']},
-                       *group.get('additional_grants', {}).get(receipt['selection'], [])]
+        definitions = _grant_definitions(group, receipt['selection'])
         if len(receipt['grants']) != len(definitions):
             raise ValueError('Starting equipment grants do not match their original selection')
         for grant, definition in zip(receipt['grants'], definitions):
@@ -242,8 +253,7 @@ def acquire_starting_group(character, pack, group_id, selection, identifier_fact
         raise ValueError('Invalid or full starting equipment inventory')
     existing = {item['id'] for item in inventory['items']} | _other_receipt_ids(character)
     existing.update(grant['possession_id'] for receipt in receipts.values() for grant in receipt['grants'])
-    definitions = [{'item_id': selection, 'quantity': group['quantity']},
-                   *group.get('additional_grants', {}).get(selection, [])]
+    definitions = _grant_definitions(group, selection)
     if len(inventory['items']) + len(definitions) > MAX_QUANTITY:
         raise ValueError('Starting equipment inventory is full')
     if ('condition' in group or any('quantity_formula' in item for item in definitions)) and not callable(die):

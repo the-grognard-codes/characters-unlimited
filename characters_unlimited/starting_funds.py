@@ -19,8 +19,17 @@ def _canonical(value: Any) -> str:
         raise ValueError('Invalid starting funds source evidence') from error
 
 
-def _formula(definition):
-    return {key: definition[key] for key in ('count', 'sides', 'constant', 'multiplier') if key in definition}
+def _formula(definition, choice=None):
+    formula = {key: definition[key] for key in ('count', 'sides', 'constant', 'multiplier') if key in definition}
+    if 'choice' in definition:
+        formula['constant'] = choice
+    return formula
+
+
+def _validate_choice(definition, value):
+    bounds = definition['choice']
+    if not _safe_integer(value) or not bounds['minimum'] <= value <= bounds['maximum']:
+        raise ValueError('Select starting funds within the reviewed whole-number range')
 
 
 def starting_funds_rules(pack: dict[str, Any]) -> dict[str, Any] | None:
@@ -44,7 +53,7 @@ def starting_funds_rules(pack: dict[str, Any]) -> dict[str, Any] | None:
     for definition in rules['definitions']:
         if (not isinstance(definition, dict)
                 or not {'id', 'name', 'count', 'sides', 'multiplier', 'source'} <= set(definition)
-                or set(definition) - {'id', 'name', 'count', 'sides', 'multiplier', 'source', *(['constant'] if owned else [])}
+                or set(definition) - {'id', 'name', 'count', 'sides', 'multiplier', 'source', *(['constant', 'choice'] if owned else [])}
                 or definition['id'] not in ('credits', 'saleable_goods')
                 or definition['id'] in identifiers
                 or not isinstance(definition['name'], str) or not definition['name']
@@ -52,7 +61,17 @@ def starting_funds_rules(pack: dict[str, Any]) -> dict[str, Any] | None:
                                   or type(definition['sides']) is not int or definition['sides'] < 1))
                 or not isinstance(definition['source'], dict)):
             raise ValueError('Invalid pinned starting funds definition')
-        formula = _formula(definition)
+        if 'choice' in definition:
+            choice = definition['choice']
+            if (not isinstance(choice, dict) or set(choice) != {'name', 'minimum', 'maximum'}
+                    or not isinstance(choice['name'], str) or not choice['name'].strip()
+                    or not _safe_integer(choice['minimum']) or not _safe_integer(choice['maximum'])
+                    or not 0 <= choice['minimum'] <= choice['maximum']
+                    or type(definition['count']) is not int or definition['count'] != 0
+                    or type(definition['sides']) is not int or definition['sides'] != 0
+                    or 'constant' in definition):
+                raise ValueError('Starting funds choices need bounded amounts without dice or another constant')
+        formula = _formula(definition, definition.get('choice', {}).get('maximum'))
         validate_formula(formula)
         if (formula.get('constant', 0) < 0 or
                 (formula['count'] * formula['sides'] + formula.get('constant', 0)) * formula['multiplier'] > MAX_SAFE_INTEGER):
@@ -83,19 +102,21 @@ def validate_starting_funds(character: dict[str, Any], pack: dict[str, Any]) -> 
         raise ValueError('Starting funds do not match pinned definitions')
     for identifier, definition in definitions.items():
         record = records[identifier]
-        if (not isinstance(record, dict) or set(record) != {'rolls', 'value', 'source'}
+        if 'choice' in definition:
+            _validate_choice(definition, record.get('choice') if isinstance(record, dict) else None)
+        if (not isinstance(record, dict) or set(record) != {'rolls', 'value', 'source'} | ({'choice'} if 'choice' in definition else set())
                 or not isinstance(record['rolls'], list)
                 or len(record['rolls']) != definition['count']
                 or any(type(face) is not int or not 1 <= face <= definition['sides']
                        for face in record['rolls'])
                 or not _safe_integer(record['value'])
-                or record['value'] != formula_value(_formula(definition), record['rolls'])
+                or record['value'] != formula_value(_formula(definition, record.get('choice')), record['rolls'])
                 or _canonical(record['source']) != _canonical(definition['source'])):
             raise ValueError('Invalid starting funds record')
 
 
 def acquire_starting_funds(
-        character: dict[str, Any], pack: dict[str, Any], die: Callable[[int], int]
+        character: dict[str, Any], pack: dict[str, Any], die: Callable[[int], int], *, choices=None
 ) -> dict[str, Any]:
     """Draw declared money amounts once and add only credits to inventory."""
     if 'starting_funds' in character:
@@ -106,18 +127,28 @@ def acquire_starting_funds(
     if not callable(die):
         raise ValueError('A dice source is required')
     assert rules is not None
+    choices = {} if choices is None else choices
+    expected_choices = {definition['id'] for definition in rules['definitions'] if 'choice' in definition}
+    if not isinstance(choices, dict) or set(choices) != expected_choices:
+        raise ValueError('Starting funds choices must match the reviewed definitions')
+    for definition in rules['definitions']:
+        if 'choice' in definition:
+            _validate_choice(definition, choices[definition['id']])
     inventory = deepcopy(character.get('equipment', {'credits': 0, 'items': []}))
     if (not isinstance(inventory, dict) or set(inventory) != {'credits', 'items'}
             or not _safe_integer(inventory['credits']) or not isinstance(inventory['items'], list)):
         raise ValueError('Invalid equipment inventory')
     records = {}
     for definition in rules['definitions']:
-        rolls = roll_formula(_formula(definition), die)
+        formula = _formula(definition, choices.get(definition['id']))
+        rolls = roll_formula(formula, die)
         records[definition['id']] = {
             'rolls': rolls,
-            'value': formula_value(_formula(definition), rolls),
+            'value': formula_value(formula, rolls),
             'source': deepcopy(definition['source']),
         }
+        if 'choice' in definition:
+            records[definition['id']]['choice'] = choices[definition['id']]
     credits = inventory['credits'] + records['credits']['value']
     if not _safe_integer(credits):
         raise ValueError('Starting credits exceed the supported range')

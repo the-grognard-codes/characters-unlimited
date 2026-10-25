@@ -260,6 +260,10 @@ def project_combat(character, pack):
             if hand.get('gun_strike'):
                 item[context]['sources'].append(hand['source'])
     if character['character_class'] == pack.get('class_bonuses', {}).get('class_id'):
+        parry_additions = [effect for effect in effects if effect['target'] == 'combat:parry']
+        for item in melee:
+            if parry_additions:
+                item['parry'] = apply_numeric_contributions(item['parry'], parry_additions, 'combat:parry')
         additions = [effect for effect in effects if effect['target'] == 'combat:strike']
         if additions:
             if 'thrown_strike' in totals:

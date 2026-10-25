@@ -22,6 +22,22 @@ def _catalog(pack):
         if not isinstance(item, dict) or not isinstance(item.get('id'), str) or item['id'] in items:
             raise ValueError('Equipment catalog has invalid or duplicate item identities')
         items[item['id']] = item
+        if 'movement_penalty_by_class' in item:
+            penalties = item['movement_penalty_by_class']
+            evidence = item.get('movement_source')
+            if (item.get('category') != 'armor' or not isinstance(penalties, dict)
+                    or not 1 <= len(penalties) <= 1000
+                    or any(not isinstance(key, str) or not key.strip() or len(key) > 80
+                           or type(value) is not int or not -100 <= value <= 0
+                           for key, value in penalties.items())
+                    or type(item.get('movement_penalty')) is not int
+                    or not -100 <= item['movement_penalty'] <= 0
+                    or type(item.get('prowl_penalty')) is not int
+                    or item['prowl_penalty'] != item['movement_penalty']
+                    or not isinstance(evidence, dict)
+                    or any(not isinstance(evidence.get(key), str) or not evidence[key].strip()
+                           for key in ('book', 'section'))):
+                raise ValueError('Wearer armor penalties need bounded class overrides and matching source-bound movement/Prowl defaults')
         if 'burst_only' in item:
             burst_only(item)
             if item.get('category') != 'weapon' or item.get('weapon_kind', 'ranged') != 'ranged':
@@ -247,7 +263,8 @@ def project_equipment(character, pack, combat, skills=None):
                 damage_bonus = deepcopy(damage_total) if damage_total else {
                     'value': None, 'contributions': {}, 'actions': 1, 'sources': [],
                 }
-                damage_bonus['sources'] = [*damage_bonus.get('sources', []), {
+                strength = combat.get('strength') if isinstance(combat, dict) else None
+                damage_bonus['sources'] = [*damage_bonus.get('sources', []), deepcopy(strength['source']) if strength else {
                     'book': 'Rifts - Ultimate Edition', 'pages': [279, 281],
                     'pdf_pages': [282, 284], 'section': 'Normal human strength damage',
                 }]
@@ -335,10 +352,12 @@ def project_equipment(character, pack, combat, skills=None):
                 **({'cost_credits_range': deepcopy(definition['cost_credits_range'])}
                    if 'cost_credits_range' in definition else {}),
                 'locations': deepcopy(definition['locations']),
-                'movement_penalty': definition['movement_penalty'],
+                'movement_penalty': definition.get('movement_penalty_by_class', {}).get(
+                    character['character_class'], definition['movement_penalty']),
                 # Archived catalogs only supported Plastic-Man's reviewed Prowl mapping.
-                'prowl_penalty': definition.get('prowl_penalty',
-                    definition['movement_penalty'] if definition['id'] == 'plastic-man' else None),
+                'prowl_penalty': definition.get('movement_penalty_by_class', {}).get(
+                    character['character_class'], definition.get('prowl_penalty',
+                    definition['movement_penalty'] if definition['id'] == 'plastic-man' else None)),
                 'source': deepcopy(definition['source']),
                 'movement_source': deepcopy(definition['movement_source']),
                 'environmental': definition.get('environmental'),

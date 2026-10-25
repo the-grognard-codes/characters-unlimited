@@ -347,6 +347,18 @@ async function loadSkills(character) {
     }
     return row;
   }));
+  $('skill-requirements').replaceChildren(...(view.pool_requirements || [])
+    .filter(requirement => requirement.paid_hand_to_hand)
+    .map(requirement => {
+      const item = document.createElement('li');
+      item.textContent = `${requirement.name}: ${requirement.credited} qualifying ${requirement.pool} choices (minimum ${requirement.count}); ${requirement.remaining} still needed.`;
+      for (const credit of requirement.training_credits || []) {
+        item.textContent += ` ${credit.name} counts as one choice (learned at level ${credit.learned_level}).`;
+      }
+      if (requirement.before_level) item.textContent += ` Only choices learned before level ${requirement.before_level} count.`;
+      item.textContent += ` ${requirement.source.book}, ${requirement.source.section}.`;
+      return item;
+    }));
   for (const [id, items] of [['skill-warnings', view.warnings], ['skill-gaps', [...view.gaps, ...view.sources]]]) {
     $(id).replaceChildren(...items.map(message => { const item = document.createElement('li'); item.textContent = message; return item; }));
   }

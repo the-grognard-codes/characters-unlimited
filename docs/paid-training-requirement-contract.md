@@ -1,6 +1,6 @@
 # Paid training within an initial skill minimum
 
-05D28 is proposed on `codex/rifts-city-rat-initial-training`; no new definition is active yet. Both independent preliminary reviews approve this source/contract scope. Product, inactive-candidate and final artifact reviews still follow implementation.
+05D28 is implemented with inactive candidates on `codex/rifts-city-rat-initial-training`; the accepted defaults are unchanged. Both independent preliminary reviews approve this source/contract scope. Shared/source implementation and final artifact reviews remain acceptance gates; current results are in evidence/05d28-initial-training-validation.md.
 
 ## Source and expected behavior
 
@@ -16,7 +16,7 @@ Add optional `paid_hand_to_hand` IDs to an existing requirement. Support Related
 
 Use the selected style's own cost, not total combat cost, which also includes weapon proficiencies. Compare retained acquisition level with the existing `before_level` cutoff; elapsed `learning_age` is not acquisition level. Reuse current choices and retained learning keys. Preserve existing replacement/reselection and permitted backdating behavior; introduce no ancestry ledger or persisted counter. These cutoff/replacement policies extend existing requirements rather than claiming the book prescribes a save schema.
 
-An optional view field identifies actual credited training/name/learning level/source. Browser and PDF explain the minimum and the one distinct credit separately from paid slots. Existing honor-system choices remain retained with applicable guidance. Projection/reopen/import/undo draw no new dice.
+The optional `training_credits` view list identifies the actual credited training/name/learning level/source; it contains at most one entry. Browser and PDF explain the minimum and the one distinct credit separately from paid slots. Existing honor-system choices remain retained with applicable guidance. Projection/reopen/import and requirement recalculation during undo draw no new dice; ordinary advancement retains its existing resource-roll behavior.
 
 ## Scope and verification
 

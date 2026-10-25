@@ -6,7 +6,7 @@ Updated2026-10-25 UTC. Continue the amended project unattended. Repository: `C:/
 
 1. Read personal instructions and `C:/Users/jaken/.codex/SUBAGENT_ROUTING.md`; inspect live branch, HEAD and every local change. Preserve the unrelated untracked `characters-unlimited-handoff-20261005-143727/` and its historical zip. Keep its old patch unapplied and outside staged changes.
 2. Current branch is `codex/rifts-city-rat-initial-training`, created from clean synchronized main `955ef5f2dd782de09a18d249b8cb2a043a2e1a5d` after PR140 merged. The scoped historical stash was restored and removed only after successful restoration. Proof: `tmp/05d27-clean-main.json`. Current owned edits close05D27 receipts and prepare05D28; inspect live state before assuming implementation or a later commit exists.
-3. Implement [05D28](.scratch/character-creator/issues/05d28-city-rat-initial-training.md) using the [paid-training requirement contract](docs/paid-training-requirement-contract.md). Both preliminary Spec and Standards reviews approve the source/contract; code and artifacts remain unreviewed. Detailed ignored preparation is `tmp/05d28-initial-training-prep.md`.
+3. Continue [05D28](.scratch/character-creator/issues/05d28-city-rat-initial-training.md) using the [paid-training requirement contract](docs/paid-training-requirement-contract.md). Read its [current validation receipt](docs/evidence/05d28-initial-training-validation.md) before editing or launching checks: shared/source candidates are implemented but inactive, focused/typing/static checks pass, and implementation review/activation/final acceptance remain pending. Detailed ignored preparation is `tmp/05d28-initial-training-prep.md`.
 
 ## Authorization and execution
 

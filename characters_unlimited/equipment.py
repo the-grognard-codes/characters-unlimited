@@ -232,6 +232,10 @@ def project_equipment(character, pack, combat, skills=None):
     for possession in inventory['items']:
         definition = definitions[possession['item_id']]
         projected = {**deepcopy(definition), **deepcopy(possession), 'item_id': possession['item_id']}
+        if 'movement_penalty_by_class' in definition:
+            penalty = definition['movement_penalty_by_class'].get(
+                character['character_class'], definition['movement_penalty'])
+            projected.update(movement_penalty=penalty, prowl_penalty=penalty)
         selected.append(projected)
         if possession['location'] == 'carried':
             if definition['weight_lbs'] is None:
@@ -357,12 +361,10 @@ def project_equipment(character, pack, combat, skills=None):
                 **({'cost_credits_range': deepcopy(definition['cost_credits_range'])}
                    if 'cost_credits_range' in definition else {}),
                 'locations': deepcopy(definition['locations']),
-                'movement_penalty': definition.get('movement_penalty_by_class', {}).get(
-                    character['character_class'], definition['movement_penalty']),
+                'movement_penalty': projected['movement_penalty'],
                 # Archived catalogs only supported Plastic-Man's reviewed Prowl mapping.
-                'prowl_penalty': definition.get('movement_penalty_by_class', {}).get(
-                    character['character_class'], definition.get('prowl_penalty',
-                    definition['movement_penalty'] if definition['id'] == 'plastic-man' else None)),
+                'prowl_penalty': projected.get('prowl_penalty',
+                    definition['movement_penalty'] if definition['id'] == 'plastic-man' else None),
                 'source': deepcopy(definition['source']),
                 'movement_source': deepcopy(definition['movement_source']),
                 'environmental': definition.get('environmental'),

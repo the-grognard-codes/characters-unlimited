@@ -1,10 +1,13 @@
 """Source-owned wearer overrides affect projected armor, never stored possessions."""
 
 from copy import deepcopy
+from io import BytesIO
 import tempfile
 import unittest
 from typing import Any, Callable
 from uuid import uuid4
+
+from pypdf import PdfReader
 
 from characters_unlimited.application import CharacterApplication
 from characters_unlimited.rules import RuleArchive
@@ -47,6 +50,12 @@ class WearerArmorPenaltyTests(unittest.TestCase):
                 self.assertEqual((view['armor'][0]['movement_penalty'], view['armor'][0]['prowl_penalty']),
                                  (penalty, penalty))
                 self.assertEqual(view['armor'][0]['movement_source'], SOURCE)
+                self.assertEqual((view['items'][0]['movement_penalty'], view['items'][0]['prowl_penalty']),
+                                 (penalty, penalty))
+                fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields() or {}
+                text = ' '.join(' '.join(str(row.get('/V', '')) for row in fields.values()).split())
+                self.assertIn('Movement skill penalty ' + str(penalty) + '%', text)
+                self.assertNotIn('Movement skill penalty ' + str(-10 if penalty == -5 else -5) + '%', text)
                 self.assertEqual(hero['equipment'], inventory)
                 reopened = CharacterApplication(directory, die=self.no_roll, rule_archive=archive)
                 imported = reopened.import_character(reopened.export_character(hero['id']))

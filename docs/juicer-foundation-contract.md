@@ -1,6 +1,6 @@
 # Human Classic Juicer foundation
 
-05D29 is in source/shared review on `codex/rifts-juicer-foundation`, created from clean main `c0d6ee299b5dee96d5751c66789ce0a37cd69c7f`. This contract is a bounded creation/advancement path, not full canonical Juicer, variant, detox or augmentation-construction acceptance. No new definition is active yet.
+05D29 is in activated integration validation on `codex/rifts-juicer-foundation`, created from clean main `c0d6ee299b5dee96d5751c66789ce0a37cd69c7f`. This contract is a bounded creation/advancement path, not full canonical Juicer, variant, detox or augmentation-construction acceptance. Both independent implementation reviews approve6e83db2. Core1.20.0, skills2.41.0 and equipment1.27.0 are active:144 definitions; all141 prior entries/files remain unchanged. Final delivery gates below still apply.
 
 ## Authority and scope
 

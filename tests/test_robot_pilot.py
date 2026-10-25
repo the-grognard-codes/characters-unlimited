@@ -131,6 +131,7 @@ class RobotPilotTests(unittest.TestCase):
             rule=selection_policy(catalog[key],'related',profile)
             self.assertEqual((rule['allowed'],rule['bonus']),(allowed,bonus),key)
         old=archive.resolve('rifts-domestic-skills','2.36.0')
+        pilot_pack=archive.resolve('rifts-domestic-skills','2.37.0')
         self.assertEqual(pack['skills'][:-2],old['skills'])
         for identity,before in old['class_profiles'].items():
             expected=deepcopy(before)
@@ -138,7 +139,9 @@ class RobotPilotTests(unittest.TestCase):
                 pilot=rules.get('pilot',{})
                 if pilot.get('allow')=='any':
                     pilot['exclude']=list(dict.fromkeys([*pilot.get('exclude',[]),'power-armor-combat-elite','robot-vehicle-combat-elite']))
-            self.assertEqual(pack['class_profiles'][identity],expected)
+            self.assertEqual(pilot_pack['class_profiles'][identity],expected)
+        for identity in ('robot-pilot-power-armor','robot-pilot-robot'):
+            self.assertEqual(pack['class_profiles'][identity],pilot_pack['class_profiles'][identity])
         self.assertEqual(archive.resolve('rifts-core','1.16.0')['classes'][:-2],archive.resolve('rifts-core','1.15.0')['classes'])
 
     def test_conventional_sidearm_does_not_invent_energy_clips(self):

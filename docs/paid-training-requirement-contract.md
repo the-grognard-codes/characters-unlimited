@@ -1,6 +1,6 @@
 # Paid training within an initial skill minimum
 
-05D28 is implemented on `codex/rifts-city-rat-initial-training`; independently approved core1.19.0/skills2.40.0 are active with141 accepted definitions and all139 prior entries unchanged. Both shared/source implementation review axes approve corrected head6b82fe1. Final regression, artifact reviews and hosted merge acceptance remain gates; current results are in evidence/05d28-initial-training-validation.md.
+05D28 is done. PR [141](https://github.com/the-grognard-codes/characters-unlimited/pull/141) merged as `c0d6ee299b5dee96d5751c66789ce0a37cd69c7f` at 2026-10-25T20:00:59Z. Core 1.19.0/skills 2.40.0 are active with 141 accepted definitions and all 139 prior entries/files unchanged. Both final independent reviews approve `f409318`; full regression, Windows/frozen, browser/portable/PDF and both complete exact-head hosted jobs pass. Detailed results and disclosed diagnostics are in [the validation receipt](evidence/05d28-initial-training-validation.md).
 
 ## Source and expected behavior
 

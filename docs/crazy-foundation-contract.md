@@ -1,6 +1,6 @@
 # Human Crazy with Frenzy foundation
 
-This is the proposed source and selection contract, before ticket assignment or rule changes. It does not certify canonical02b11-rue-crazy or parent12/13 completion. The current branch began at clean synchronized main46f21cea6c540b9fc3d63172c564908a5bc20c0e;16ce87e records the previous Juicer closeout. Preserve the unrelated historical handoff folder/zip and all144 accepted definitions.
+Both independent contract axes approve d1b4aa7;05D30 now implements this source and selection contract. Implementation and final acceptance are pending. It does not certify canonical02b11-rue-crazy or parent12/13 completion. The current branch began at clean synchronized main46f21cea6c540b9fc3d63172c564908a5bc20c0e;16ce87e records the previous Juicer closeout. Preserve the unrelated historical handoff folder/zip and all144 accepted definitions.
 
 ## Authority and offered identity
 

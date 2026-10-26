@@ -222,7 +222,9 @@ class PsiStalkerTests(unittest.TestCase):
         old=archive.resolve('rifts-core','1.16.0')
         psi_core=archive.resolve('rifts-core','1.17.0')
         self.assertEqual(psi_core['classes'][:len(old['classes'])],old['classes'])
-        self.assertEqual(archive.active('rifts-core')['creation_profiles'][0],old['creation_profiles'][0])
+        # Preserve this batch's Human allowlist; later source-owned classes
+        # legitimately expand the current creation pairing.
+        self.assertEqual(psi_core['creation_profiles'][0],old['creation_profiles'][0])
         old_skills=archive.resolve('rifts-domestic-skills','2.37.0')
         psi_skills=archive.resolve('rifts-domestic-skills','2.38.0')
         self.assertEqual(pack['skills'],old_skills['skills'])

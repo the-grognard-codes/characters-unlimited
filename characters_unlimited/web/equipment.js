@@ -138,7 +138,7 @@ async function loadEquipment(character) {
     text.textContent = ['strike','parry'].map(context => {
       const total = attack[context];
       return `${context}: ${total.value == null ? 'pending' : '+' + total.value} (${Object.entries(total.contributions).map(([name,value]) => name.replaceAll('_',' ') + ' ' + value).join(' + ')})`;
-    }).join(' · ') + ` · Damage bonus: ${Object.entries(attack.damage_bonus.contributions).map(([name,value]) => name.replaceAll('_',' ') + ' ' + value).join(', ')}. ${attack.damage_bonus.sources.map(source => source.book + ', pp. ' + source.pages.join(', ')).join('; ')}. ` + attack.guidance;
+    }).join(' · ') + ` · Damage bonus: ${Object.entries(attack.damage_bonus.contributions).map(([name,value]) => name.replaceAll('_',' ') + ' ' + value).join(', ')}. ${attack.damage_bonus.sources.map(sourceCitation).join('; ')}. ` + attack.guidance;
     row.append(heading,text); explanations.push(row);
   }
   for (const armor of view.armor) {
@@ -147,7 +147,9 @@ async function loadEquipment(character) {
     const protection = document.createElement('p'); protection.className = 'help';
     protection.textContent = `${armor.environmental == null ? 'Environmental status unspecified by these pinned rules' : armor.environmental ? 'Environmental armor' : 'Non-environmental armor'}. ${armor.protection_notes.join(' ')}`;
     const citation = document.createElement('p'); citation.className = 'help';
-    citation.textContent = `${armor.source.book}, p. ${armor.source.pages.join(', ')}; movement: p. ${armor.movement_source.pages.join(', ')}.`;
+    citation.textContent = armor.source.pages?.length && armor.movement_source.pages?.length
+      ? `${armor.source.book}, p. ${armor.source.pages.join(', ')}; movement: p. ${armor.movement_source.pages.join(', ')}.`
+      : `${sourceCitation(armor.source)}; movement: ${sourceCitation(armor.movement_source)}.`;
     explanations.push(row,protection,citation);
   }
   $('equipment-effects').replaceChildren(...explanations);

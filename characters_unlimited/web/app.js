@@ -18,6 +18,10 @@ function modifierSourceCitation(source) {
   if (source.printed_page != null) return `${source.book}, printed p. ${source.printed_page}${source.pdf_page == null ? '' : ` (PDF p. ${source.pdf_page})`}`;
   return source.book;
 }
+function sourceCitation(source) {
+  const citation = modifierSourceCitation(source);
+  return source.pages?.length || !source.section ? citation : citation + '; ' + source.section;
+}
 function skillEffectEvidence(skill) {
   return (skill.effect_contributions || []).map(effect => `${effect.name}${effect.check_names ? ` (${effect.check_names.join(', ')})` : ''}: ${modifierSourceCitation(effect.source)} — ${effect.source.section}`).join(' · ');
 }

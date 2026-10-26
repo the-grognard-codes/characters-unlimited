@@ -12,6 +12,27 @@ from .advancement import learning_age
 from .combat_grants import fixed_proficiencies, proficiency_allowances, proficiency_selection_cost
 from .weapon_fire_modes import burst_only
 from .weapon_entitlements import scheduled_training
+from .source_citations import validate_source_citation
+
+
+def descriptive_strength(rules):
+    """Opt in to source-described strength without ordinary damage examples."""
+    kind = rules.get('strength_type', 'normal-human')
+    if not isinstance(kind, str) or not kind.strip() or len(kind) > 80:
+        raise ValueError('Strength types need a bounded nonempty identity')
+    if 'strength_description' not in rules:
+        if kind != 'normal-human':
+            raise ValueError('Nonordinary strength needs source-bound descriptive guidance')
+        return None
+    row = rules['strength_description']
+    if (kind == 'normal-human' or not isinstance(row, dict)
+            or set(row) != {'name', 'text', 'source'}
+            or any(not isinstance(row.get(key), str) or not row[key].strip() or len(row[key]) > maximum
+                   for key, maximum in (('name', 80), ('text', 8000)))
+            or not isinstance(row.get('source'), dict)):
+        raise ValueError('Descriptive strength needs a bounded name/text and book/section evidence')
+    validate_source_citation(row['source'])
+    return {'type': kind, **deepcopy(row)}
 
 
 def untrained_burst_bonus(definition):
@@ -26,6 +47,7 @@ def validate_combat_choices(choices, pack):
     rules = pack.get('combat')
     if not rules:
         raise ValueError('Preview a rule update before selecting combat training')
+    descriptive_strength(rules)
     fixed_proficiencies(rules)
     proficiency_allowances(rules)
     for definition in rules['modern']:
@@ -110,6 +132,7 @@ def project_combat(character, pack):
                 'gaps': ['Preview a rule update to incorporate reviewed combat training.', *gaps], 'sources': [], 'remaining': {}}
     choices = validate_combat_choices(character.get('combat_choices', {}), pack)
     recorded_choices = deepcopy(choices)
+    strength = descriptive_strength(rules)
     grants = fixed_proficiencies(rules)
     scheduled = scheduled_training(character, choices, rules, grants, proficiency_allowances(rules))
     if scheduled is not None:
@@ -174,7 +197,11 @@ def project_combat(character, pack):
             bonus = totals['damage']['value'] or 0
             damage=expression + (' + ' + str(bonus) if bonus else '') + ' S.D.C.'
         unarmed.append({'id':identifier,'name':name,'damage':damage,'actions':actions})
-    if ps < 3:
+    if strength:
+        totals['damage'] = total({}, missing=True)
+        for attack in unarmed:
+            attack['damage'] = strength['name'] + ': damage is descriptive; see source guidance.'
+    if ps < 3 and not strength:
         gaps.append('Low-strength power-punch and power-kick damage remains pending; normal punch/kick exceptions are shown.'
                     if hand.get('power_kick', False) else
                     'Low-strength power-punch damage remains pending; normal punch/kick exceptions are shown.')
@@ -233,6 +260,9 @@ def project_combat(character, pack):
         if count<0: warnings.append(f'{family.title()}: {-count} selection(s) over the allowance; retained.')
     attribute_source = {'book':'Rifts - Ultimate Edition','pages':[281,283,284]}
     for name,result in totals.items():
+        if name == 'damage' and strength:
+            result['sources'] = [deepcopy(strength['source'])]
+            continue
         if name == 'attacks':
             result['sources'] = [hand['source']]
         elif name == 'gun_dodge':
@@ -277,13 +307,17 @@ def project_combat(character, pack):
     notes = ['Shooting contexts are training examples; actual weapon modes, burst lengths, ammunition and capacity remain pending.',
              'Gun shooting excludes P.P., general hand-to-hand strike and strength damage bonuses. Assassin’s explicit gun-strike gains apply separately from W.P.; bursts halve only the W.P. contribution. Untrained shooters cannot make aimed shots.',
              'Gun dodge requires seeing the attacker and knowing the shot is coming; subtract 10 within 10 feet or 5 within 50 feet. Athletics and hand-to-hand dodge bonuses do not apply to gunfire or energy blasts (p. 361).',
+             (strength['name'] + ': ' + strength['text']) if strength else
              'Power punch uses two actions and doubles base dice before adding the normal-human strength bonus.',
              'Paired Weapons is granted by Assassin training; simultaneous action resolution remains pending.' if hand.get('paired_weapons') else 'Other special hand-to-hand moves remain pending.',
              *progression_notes]
     return {'catalog':rules,'choices':recorded_choices, **({'fixed_proficiencies':grants} if 'fixed_proficiencies' in rules or scheduled is not None else {}), **({'weapon_entitlements':scheduled} if scheduled is not None else {}), 'totals':totals,'class_bonuses':class_bonuses,'melee':melee,'shooting':shooting,'unarmed':unarmed,
             'conditions':deepcopy(hand.get('conditions', {})),
             'saving_bonuses':saving_bonuses,'saving_notes':saving_notes,
-            'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,'sources':[rules['source']], 'related_cost':combat_skill_cost(character, pack)}
+            **({'strength': strength} if strength else {}),
+            'remaining':remaining,'warnings':warnings,'gaps':gaps,'notes':notes,
+            'sources':[rules['source'], *([strength['source']] if strength else [])],
+            'related_cost':combat_skill_cost(character, pack)}
 
 
 def compare_combat_views(before, after):

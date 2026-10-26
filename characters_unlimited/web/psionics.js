@@ -89,9 +89,9 @@ function renderClassPsionics(view) {
     Object.values(view.effective.resources).map(row => `${row.name}: ${row.value}`).join(' · ');
   const guidance = document.createElement('p'); guidance.className = 'help';
   guidance.textContent = [...view.effective.guidance, ...entitlement.guidance].join(' ');
-  const searchLabel = document.createElement('label'); searchLabel.textContent = 'Find a class power';
+  const searchLabel = document.createElement('label'); searchLabel.textContent = 'Find a class ability';
   const search = document.createElement('input'); search.type = 'search';
-  search.setAttribute('aria-label', 'Find a class power'); searchLabel.append(search);
+  search.setAttribute('aria-label', 'Find a class ability'); searchLabel.append(search);
   const form = document.createElement('form');
   for (const ability of entitlement.catalog) {
     const details = document.createElement('details');
@@ -103,7 +103,7 @@ function renderClassPsionics(view) {
     if (known) { input.checked = true; input.dataset.retained = 'yes'; }
     const learned = entitlement.state.learning_levels?.[ability.id];
     if (learned > current.level) input.dataset.retained = 'yes';
-    input.setAttribute('aria-label', `Class power: ${ability.name}`);
+    input.setAttribute('aria-label', `Class ability: ${ability.name}`);
     input.onclick = event => event.stopPropagation();
     const cost = entitlement.choice_costs[ability.id] || 1;
     title.append(input, document.createTextNode(` ${ability.name} · ` +
@@ -124,7 +124,7 @@ function renderClassPsionics(view) {
     details.append(title, description, metadata, requirements, proof); form.append(details);
   }
   const submit = document.createElement('button'); submit.type = 'submit';
-  submit.textContent = 'Save class power choices'; form.append(submit);
+  submit.textContent = 'Save class ability choices'; form.append(submit);
   form.onsubmit = event => {
     event.preventDefault();
     savePsionics({selections:[...form.querySelectorAll('input:checked')].map(row => row.value)}, 'class-psionics');

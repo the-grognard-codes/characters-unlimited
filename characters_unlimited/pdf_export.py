@@ -361,6 +361,8 @@ def export_rifts_sheet(character, core, skills, combat):
     resources = skills.get('resources',{}).get('resources',{})
     if resources.get('HP',{}).get('value') is not None:
         values['HIT POINTS'] = str(resources['HP']['value'])
+    if resources.get('PPE',{}).get('value') is not None:
+        values['PPE'] = str(resources['PPE']['value'])
     if resources.get('SDC',{}).get('value') is not None:
         cells = [ref.get_object() for ref in writer.pages[0].get('/Annots',[])
                  if abs(float(ref.get_object()['/Rect'][0])-512.64)<.2

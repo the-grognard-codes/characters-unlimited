@@ -1,6 +1,6 @@
 # 05D30 Crazy validation receipt
 
-In progress on codex/rifts-crazy-foundation from clean synchronized main46f21cea6c540b9fc3d63172c564908a5bc20c0e. No rule candidates are accepted yet. Preserve unrelated historical handoff folder/zip; prior05D29 acceptance is unchanged.
+Current artifact checkpoint on codex/rifts-crazy-foundation, created from clean synchronized main46f21cea6c540b9fc3d63172c564908a5bc20c0e:148 definitions active, independent implementation/correction reviews approved, focused29 and PPE2 regressions/typing226/static/Windows/frozen/actual browser/source-frozen-portable-import/all25 editable-sheet pages pass. Fresh full regression and final exact-head reviews/hosted jobs/normal merge remain pending. Earlier checkpoints below retain their actual diagnostics; superseded results are not acceptance. Preserve unrelated historical handoff folder/zip and prior05D29 acceptance.
 
 ## Contract gate
 
@@ -32,3 +32,12 @@ Host frozen execution passes103.831s. Actual packaged browser completes initial1
 Initial exact source/frozen/reopen/portable/HTTP import and all148 bundled bytes pass (tmp/05d30-crazy-public-proof.json). Two sheets rendered12/13 pages with1694/1759 fields and711/776 populated appearances. The PDF marker ran exactly once before this two-output authoring operation. Root visual inspection caught a real shared export omission: dedicated PPE field was empty although resource guidance correctly retained19. Neither structural pass nor inspected superseded pages constitute final visual acceptance.
 
 The full run on66d9532 was explicitly stopped after1872.436s without a completed result (exit-1); it is superseded by the PPE repair. One red public witness reproduces missing canonical PPE in7.706s. A generic two-line mapping now fills known PPE and preserves blank ordinary-Human PPE, with no archive or saved-data changes. The corrected editable-PDF/ordinary-Human negative and retained-growth tests pass two methods37.857s (tmp/05d30-crazy-ppe-fixed.log). Corrected Windows build passes. Both narrow reviews, corrected frozen/reopened browser/proof and regeneration/inspection of the SAME two PDFs, then a fresh full suite and exact-head hosted acceptance remain required. Do not repeat the PDF marker for this same-output correction.
+
+
+Both axes approve the shared PPE repair453285a1d9a2466fe8f1ded5f84f91afb27577f7. Typing226/compilation/whitespace and corrected Windows build pass. Corrected standalone frozen execution passes105.140s (tmp/05d30-crazy-frozen-ppe-fixed.log). Fresh full regression runs in tmp/05d30-crazy-full-corrected.log with owned PID recorded separately; it has no completed result yet. No product/test input changes after453285a are planned.
+
+The corrected package reopens the saved original retained witness with all allowances/resources intact and no browser console errors. A fresh tab was used after the first reloaded tab remained at an empty welcome state; the fresh view lists all source/recovery/HTTP-import witnesses and reopens the original. Actual fixed-executable resource capture is included; other unchanged UI captures carry forward. Exact source/frozen/reopen/portable/HTTP import, HP3/6 and ISP6/4 equality with the actual recovery save, and all148 packaged bytes pass again (tmp/05d30-crazy-public-proof-corrected.log/json proof). Marker was not repeated; the same two deliverables replace their preserved ignored preimages.
+
+Final initial sheet12 pages/1694 canonical fields/712 populated widgets; retained-later13/1759/777. Every widget agrees with the canonical field, every populated appearance is nonempty and reopened saved files retain exact values. Dedicated PPE19 and both-5 armor fields/continuations are correct. Root visually inspected every corrected page and all four captures with zero clipping/formatting findings (tmp/05d30-crazy-root-visual-review.json). Later sheet deliberately leaves2 Related/1 Secondary awards unspent. Both exact-head final code/artifact reviews and final full/hosted/actual merge evidence remain gates.
+
+Corrected executable SHA256: `6f834fa0f979721adae3e599ed36165c33465348a1c81cc99a8a4f636dae0d6c`.

@@ -1,6 +1,6 @@
 # Human Crazy with Frenzy foundation
 
-Both independent contract axes approve d1b4aa7;05D30 now implements this source and selection contract. Both implementation axes approve corrected dd77553 and the four new definitions are activated; final acceptance is pending. It does not certify canonical02b11-rue-crazy or parent12/13 completion. The current branch began at clean synchronized main46f21cea6c540b9fc3d63172c564908a5bc20c0e;16ce87e records the previous Juicer closeout. Preserve the unrelated historical handoff folder/zip and all144 accepted definitions.
+05D30 Human Crazy with Frenzy is accepted through PR [143](https://github.com/the-grognard-codes/characters-unlimited/pull/143), merge `a5d19fc1b201f50043e19700d7793d5fa9b837c1`. The bounded creation/advancement contract below is implemented and verified. Canonical 02b11-rue-crazy and parents 12/13 remain open for Power by Association, Multiple Personalities, other races/variants, saved identity/trait revision, broader catalogs and meaningful augmentation construction. All 144 prior definitions and unrelated historical handoff evidence are preserved.
 
 ## Authority and offered identity
 

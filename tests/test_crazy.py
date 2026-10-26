@@ -292,6 +292,7 @@ class CrazyTests(unittest.TestCase):
             hero = self.complete(app, app.create(character_class=IDENTITY))
             hero = app.generate_resources(hero['id'], revision=hero['revision'])
             fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields() or {}
+            self.assertEqual(fields['PPE'].get('/V'), '24')
             text = ' '.join(str(row.get('/V', '')) for row in fields.values())
             self.assertIn('recognize a face up to two miles', ' '.join(text.split()))
             for phrase in ('Frenzy: Intense Frustration', 'not a psychic power', '+30SDC', 'twice normal',
@@ -299,6 +300,10 @@ class CrazyTests(unittest.TestCase):
                 self.assertIn(phrase, text)
             self.assertEqual(app.resource_view(hero['id'])['resources']['SDC']['value'], 148)
             self.assertEqual(app.combat_view(hero['id'])['totals']['attacks']['value'], 5)
+            ordinary = app.create(character_class='vagabond')
+            ordinary = app.generate_resources(ordinary['id'], revision=ordinary['revision'])
+            ordinary_fields = PdfReader(BytesIO(app.export_pdf(ordinary['id']))).get_fields() or {}
+            self.assertFalse(ordinary_fields['PPE'].get('/V'))
 
     def test_whole_parents_preserved_except_new_owner_and_explicit_armor_wearer(self):
         archive = candidate_archive()

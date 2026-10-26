@@ -1,6 +1,6 @@
 # Human Classic Juicer foundation
 
-05D29 is in activated integration validation on `codex/rifts-juicer-foundation`, created from clean main `c0d6ee299b5dee96d5751c66789ce0a37cd69c7f`. This contract is a bounded creation/advancement path, not full canonical Juicer, variant, detox or augmentation-construction acceptance. Both independent implementation reviews approve6e83db2. Core1.20.0, skills2.41.0 and equipment1.27.0 are active:144 definitions; all141 prior entries/files remain unchanged. Final delivery gates below still apply.
+05D29 Human Classic Juicer is accepted through PR [142](https://github.com/the-grognard-codes/characters-unlimited/pull/142), merge `46f21cea6c540b9fc3d63172c564908a5bc20c0e`. The bounded creation/advancement contract below is implemented and verified. Other races/variants, generic Human PPE, detox/class revision and meaningful augmentation construction retain their own ownership; this does not close canonical Juicer or the full product.
 
 ## Authority and scope
 

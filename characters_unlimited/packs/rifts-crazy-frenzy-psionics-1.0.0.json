@@ -1854,7 +1854,7 @@
       },
       {
         "category": "Inherent",
-        "description": "Enhanced senses:20/20 long-range vision can identify a sign or rabbit at two miles with concentration/line of sight; hear whispers/wing beats at300ft. Smell identifies odors65%, people25%, tracks30% if under two hours old. Taste detects poisoned/drugged/spoiled food55%,+20 for strong chemical taste. Touch distinguishes tiny texture differences; the owned skill profile applies its precise-manipulation+10. Source perception+3 and automatic dodge are projected/described separately.",
+        "description": "Enhanced senses:20/20 long-range vision can read a small sign or recognize a face up to two miles with concentration/line of sight; hear whispers/wing beats at300ft. Smell identifies odors65%, people25%, tracks30% if under two hours old. Taste detects poisoned/drugged/spoiled food55%,+20 for strong chemical taste. Touch distinguishes tiny texture differences; the owned skill profile applies its precise-manipulation+10. Source perception+3 and automatic dodge are projected/described separately.",
         "id": "crazy-enhanced-senses",
         "name": "Crazy enhanced senses",
         "source": {

@@ -162,7 +162,12 @@ class CrazyTests(unittest.TestCase):
             for style, cost in [('martial-arts', 0), ('assassin', 0), ('commando', 2)]:
                 hero = app.select_combat(hero['id'], revision=hero['revision'], choices={
                     'hand_to_hand': style, 'ancient': ['knife', 'sword'], 'modern': ['energy-pistol', 'rifles']})
-                self.assertEqual(app.combat_view(hero['id'])['related_cost'], cost)
+                combat = app.combat_view(hero['id'])
+                self.assertEqual(combat['related_cost'], cost)
+                entitlement = next(row for row in combat['catalog']['hand_to_hand'] if row['id'] == style)['source']
+                self.assertIn(56, entitlement['pages'])
+                self.assertNotIn(85, entitlement['pages'])
+                self.assertIn('Crazy', entitlement['section'])
                 self.assertEqual(app.skill_view(hero['id'])['remaining']['related'], -cost)
             hero = app.select_combat(hero['id'], revision=hero['revision'], choices={
                 'hand_to_hand': 'martial-arts', 'ancient': ['knife', 'sword', 'blunt'], 'modern': ['energy-pistol', 'rifles']})
@@ -288,6 +293,7 @@ class CrazyTests(unittest.TestCase):
             hero = app.generate_resources(hero['id'], revision=hero['revision'])
             fields = PdfReader(BytesIO(app.export_pdf(hero['id']))).get_fields() or {}
             text = ' '.join(str(row.get('/V', '')) for row in fields.values())
+            self.assertIn('recognize a face up to two miles', ' '.join(text.split()))
             for phrase in ('Frenzy: Intense Frustration', 'not a psychic power', '+30SDC', 'twice normal',
                            'Crazy Bio-Regeneration', 'helpless', 'Augmented Strength'):
                 self.assertIn(phrase, text)

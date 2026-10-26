@@ -38,7 +38,7 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
                           'rifts-cyber-knight-non-psychic-psionics', 'rifts-cyber-knight-minor-psionics',
                           'rifts-cyber-knight-major-psionics', 'rifts-cyber-knight-master-psionics',
                           'rifts-psi-stalker-psionics', 'rifts-dog-boy-psionics',
-                          'rifts-crazy-frenzy-psionics'})
+                          'rifts-crazy-frenzy-psionics', 'rifts-crazy-association-psionics'})
 
     def test_prior_core_keeps_its_eleven_pack_offline_closure(self):
         from characters_unlimited.rules import RuleArchive
@@ -100,7 +100,7 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
             for field in ['name', 'notes', 'attributes', 'roll_history', 'rules', 'additional_rule_packs', 'skill_selections']:
                 self.assertEqual(imported[field], character[field])
             self.assertEqual(imported['revision'], 0)
-            self.assertEqual(len(bundle['rule_packs']), 12)
+            self.assertEqual(len(bundle['rule_packs']), 13)
 
     def test_duplicate_is_independent_and_does_not_modify_original(self):
         with tempfile.TemporaryDirectory() as directory:

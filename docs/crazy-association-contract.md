@@ -1,6 +1,6 @@
 # Human Crazy Power by Association
 
-Both independent contract axes approve `94e0c4134507681b0e936c24b144a143a4fbbae3`;05D31 now implements this source/selection contract on `codex/rifts-crazy-association-source`, created from clean synchronized main `a5d19fc1b201f50043e19700d7793d5fa9b837c1`. The accepted Human Frenzy path remains unchanged. Preserve all148 earlier entries/files, historical exact pins and the unrelated handoff folder/zip. Implementation approval, activation and final delivery remain pending.
+Both independent contract axes approve `94e0c4134507681b0e936c24b144a143a4fbbae3` and both implementation axes approve `832a6629f1d540a5e79792c86477785456a06e15`. Four definitions are activated for05D31 on `codex/rifts-crazy-association-source`, created from clean synchronized main `a5d19fc1b201f50043e19700d7793d5fa9b837c1`. The accepted Human Frenzy path and all148 prior entries/files remain unchanged. Final integration and delivery remain pending; preserve historical exact pins and the unrelated handoff folder/zip.
 
 ## Authority and offered choices
 

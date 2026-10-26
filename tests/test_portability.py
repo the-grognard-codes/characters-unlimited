@@ -57,6 +57,24 @@ class PortableCharacterWorkflowTests(unittest.TestCase):
             self.assertEqual(imported['additional_rule_packs'], character['additional_rule_packs'])
             self.assertEqual(current.export_character(imported['id'])['rule_packs'], bundle['rule_packs'])
 
+    def test_frenzy_core_keeps_its_twelve_pack_offline_closure(self):
+        from characters_unlimited.rules import RuleArchive
+        archive = RuleArchive.load()
+        previous = RuleArchive(archive.definitions(), {**archive.active_versions(),
+            'rifts-core': '1.21.0', 'rifts-domestic-skills': '2.42.0', 'rifts-equipment': '1.28.0'})
+        with tempfile.TemporaryDirectory() as directory, tempfile.TemporaryDirectory() as target:
+            origin = CharacterApplication(directory, die=lambda sides: 4, rule_archive=previous)
+            character = origin.create()
+            bundle = origin.export_character(character['id'])
+            self.assertEqual(len(bundle['rule_packs']), 12)
+            self.assertIn('rifts-crazy-frenzy-psionics', {pack['id'] for pack in bundle['rule_packs']})
+            self.assertNotIn('rifts-crazy-association-psionics', {pack['id'] for pack in bundle['rule_packs']})
+            current = CharacterApplication(target, die=lambda sides: self.fail('Archived Frenzy import must not draw dice'))
+            imported = current.import_character(bundle)
+            self.assertEqual(imported['rules'], character['rules'])
+            self.assertEqual(imported['additional_rule_packs'], character['additional_rule_packs'])
+            self.assertEqual(current.export_character(imported['id'])['rule_packs'], bundle['rule_packs'])
+
     def test_failed_backup_publication_preserves_the_previous_backup_and_save(self):
         with tempfile.TemporaryDirectory() as directory:
             app = CharacterApplication(directory, die=lambda sides: 4)

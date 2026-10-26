@@ -1,0 +1,9 @@
+# 05D31: Human Crazy Power by Association
+
+Status: in-progress. Both independent contract axes approve94e0c41. Source/Spec visually checked original55-58 and independently verified all empowered arithmetic, complete training percentages, Secondary inclusion, ordinary additional checks/caps and later Art growth. Standards approves existing owned profiles/shared catalogs, fixed psychic paths, source additions and persisted Notes. The food-example correction is resolved before implementation.
+
+Implement [the approved contract](../../../docs/crazy-association-contract.md): six Human Association creation identities, shared three-psychic entitlement/inherent abilities, source training/progression/kit/funds, Solar SDC10/Perception1/all-skills5 including Secondary, explicit empowered totals and usable conditional guidance. Player-defined food/object/phrase details use prompted saved Character Notes. Reuse existing profile_catalogs/catalog_ref for common combat and gear payloads with explicit class ownership.
+
+Implementation review precedes activation. Require public all-six/source-worked/custom-note/retention/negative-before-dice/legacy checks, final typing/static/full suite, Windows build/frozen execution, actual packaged browser, exact source/frozen/reopen/portable/HTTP import and all bundled definitions. Two Solar editable sheets need canonical/widget/appearance/reopen and every-page visual acceptance; both final axes inspect every page/capture. Both complete unchanged-head hosted jobs and verified authorized normal merge precede done.
+
+Preserve148 prior accepted definitions/files and unrelated historical handoff folder/zip. Canonical02b11-rue-crazy and parents12/13 remain open for Multiple Personalities, other races/variants, saved identity/trait replacement, broader catalogs and meaningful augmentation construction. General insanity simulation stays excluded.
